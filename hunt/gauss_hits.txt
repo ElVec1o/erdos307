@@ -1,0 +1,100 @@
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (1, 4), (7, 8)] units-code 0 | b=a'=(-202, 9) b-classes [(2, 1), (2, 3), (4, 1), (1, 6)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (4, 5), (8, 5)] units-code 20 | b=a'=(-192, 99) b-classes [(3, 0), (2, 1), (1, 4), (5, 6)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (4, 1), (8, 7)] units-code 0 | b=a'=(-9, 202) b-classes [(1, 2), (3, 2), (1, 4), (6, 1)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (5, 4), (5, 8)] units-code 60 | b=a'=(-99, 192) b-classes [(3, 0), (1, 2), (4, 1), (6, 5)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (3, 0), (25, 28)] units-code 7 | b=a'=(125, 90) b-classes [(2, 1), (1, 2), (2, 3), (3, 8)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (3, 0), (28, 25)] units-code 12 | b=a'=(90, 125) b-classes [(2, 1), (1, 2), (3, 2), (8, 3)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 7), (6, 11)] units-code 0 | b=a'=(-75, 90) b-classes [(3, 0), (2, 1), (1, 2), (6, 5)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (7, 2), (11, 6)] units-code 0 | b=a'=(75, 90) b-classes [(3, 0), (2, 1), (1, 2), (5, 6)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 1), (3, 0), (5, 6)] units-code 28 | b=a'=(1, 129) b-classes [(1, 1), (7, 2), (11, 6)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 1), (3, 0), (6, 5)] units-code 48 | b=a'=(-1, 129) b-classes [(1, 1), (2, 7), (6, 11)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 1), (2, 3), (3, 8)] units-code 4 | b=a'=(-159, -9) b-classes [(1, 1), (3, 0), (25, 28)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 1), (3, 2), (8, 3)] units-code 12 | b=a'=(9, 159) b-classes [(1, 1), (3, 0), (28, 25)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (3, 0), (4, 1), (6, 5)] units-code 48 | b=a'=(39, 187) b-classes [(1, 1), (2, 1), (5, 4), (5, 8)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (3, 2), (1, 4), (6, 1)] units-code 49 | b=a'=(-83, 111) b-classes [(1, 1), (2, 1), (4, 1), (8, 7)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (3, 0), (1, 4), (5, 6)] units-code 19 | b=a'=(-39, 187) b-classes [(1, 1), (1, 2), (4, 5), (8, 5)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (2, 3), (4, 1), (1, 6)] units-code 19 | b=a'=(-111, 83) b-classes [(1, 1), (1, 2), (1, 4), (7, 8)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (3, 0), (3, 2), (15, 38)] units-code 92 | b=a'=(-1761, 572) b-classes [(2, 1), (1, 4), (7, 2), (20, 19)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (3, 0), (4, 1), (37, 32)] units-code 44 | b=a'=(-228, 2441) b-classes [(2, 1), (6, 1), (7, 2), (18, 17)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (2, 3), (10, 1), (4, 11)] units-code 96 | b=a'=(-1826, -253) b-classes [(2, 1), (11, 0), (4, 5), (11, 4)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (1, 4), (7, 8)] units-code 0 | b=a'=(-202, 9) b-classes [(2, 1), (2, 3), (4, 1), (1, 6)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (4, 5), (8, 5)] units-code 20 | b=a'=(-192, 99) b-classes [(3, 0), (2, 1), (1, 4), (5, 6)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (3, 0), (2, 3), (38, 15)] units-code 240 | b=a'=(-572, 1761) b-classes [(1, 2), (4, 1), (2, 7), (19, 20)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (3, 0), (1, 4), (32, 37)] units-code 32 | b=a'=(-2441, 228) b-classes [(1, 2), (1, 6), (2, 7), (17, 18)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (3, 2), (1, 10), (11, 4)] units-code 224 | b=a'=(-1826, 253) b-classes [(1, 2), (11, 0), (5, 4), (4, 11)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (4, 1), (8, 7)] units-code 0 | b=a'=(-9, 202) b-classes [(1, 2), (3, 2), (1, 4), (6, 1)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (5, 4), (5, 8)] units-code 60 | b=a'=(-99, 192) b-classes [(3, 0), (1, 2), (4, 1), (6, 5)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (3, 0), (25, 28)] units-code 7 | b=a'=(125, 90) b-classes [(2, 1), (1, 2), (2, 3), (3, 8)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (3, 0), (28, 25)] units-code 12 | b=a'=(90, 125) b-classes [(2, 1), (1, 2), (3, 2), (8, 3)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 7), (6, 11)] units-code 0 | b=a'=(-75, 90) b-classes [(3, 0), (2, 1), (1, 2), (6, 5)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (7, 2), (11, 6)] units-code 0 | b=a'=(75, 90) b-classes [(3, 0), (2, 1), (1, 2), (5, 6)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 1), (3, 0), (5, 6)] units-code 28 | b=a'=(1, 129) b-classes [(1, 1), (7, 2), (11, 6)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 1), (3, 0), (6, 5)] units-code 48 | b=a'=(-1, 129) b-classes [(1, 1), (2, 7), (6, 11)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 1), (2, 3), (3, 8)] units-code 4 | b=a'=(-159, -9) b-classes [(1, 1), (3, 0), (25, 28)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 1), (3, 2), (8, 3)] units-code 12 | b=a'=(9, 159) b-classes [(1, 1), (3, 0), (28, 25)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (3, 0), (4, 1), (6, 5)] units-code 48 | b=a'=(39, 187) b-classes [(1, 1), (2, 1), (5, 4), (5, 8)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 3), (12, 7), (4, 15)] units-code 28 | b=a'=(-1299, 363) b-classes [(1, 1), (3, 0), (2, 1), (1, 4), (2, 5), (5, 4)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (3, 2), (1, 4), (6, 1)] units-code 49 | b=a'=(-83, 111) b-classes [(1, 1), (2, 1), (4, 1), (8, 7)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (4, 1), (2, 7), (19, 20)] units-code 16 | b=a'=(-1203, 711) b-classes [(1, 1), (3, 0), (2, 1), (2, 3), (38, 15)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (5, 4), (11, 0), (4, 11)] units-code 0 | b=a'=(-661, 1167) b-classes [(1, 1), (2, 1), (3, 2), (1, 10), (11, 4)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (3, 0), (1, 4), (5, 6)] units-code 19 | b=a'=(-39, 187) b-classes [(1, 1), (1, 2), (4, 5), (8, 5)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (2, 3), (4, 1), (1, 6)] units-code 19 | b=a'=(-111, 83) b-classes [(1, 1), (1, 2), (1, 4), (7, 8)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (3, 2), (7, 12), (15, 4)] units-code 52 | b=a'=(-363, 1299) b-classes [(1, 1), (3, 0), (1, 2), (4, 1), (5, 2), (4, 5)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (1, 4), (7, 2), (20, 19)] units-code 48 | b=a'=(-711, 1203) b-classes [(1, 1), (3, 0), (1, 2), (3, 2), (15, 38)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (4, 5), (11, 0), (11, 4)] units-code 12 | b=a'=(661, 1167) b-classes [(1, 1), (1, 2), (2, 3), (10, 1), (4, 11)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (3, 0), (3, 2), (15, 38)] units-code 92 | b=a'=(-1761, 572) b-classes [(2, 1), (1, 4), (7, 2), (20, 19)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (3, 0), (4, 1), (37, 32)] units-code 44 | b=a'=(-228, 2441) b-classes [(2, 1), (6, 1), (7, 2), (18, 17)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (2, 3), (10, 1), (4, 11)] units-code 96 | b=a'=(-1826, -253) b-classes [(2, 1), (11, 0), (4, 5), (11, 4)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (3, 2), (6, 1), (58, 13)] units-code 144 | b=a'=(-2739, 4578) b-classes [(3, 0), (2, 1), (7, 2), (22, 107)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (1, 4), (10, 3), (21, 4)] units-code 1 | b=a'=(-3588, -273) b-classes [(3, 0), (3, 2), (2, 3), (92, 7)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (1, 4), (7, 8)] units-code 0 | b=a'=(-202, 9) b-classes [(2, 1), (2, 3), (4, 1), (1, 6)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (4, 1), (170, 3)] units-code 28 | b=a'=(1304, 2567) b-classes [(2, 1), (2, 3), (5, 8), (37, 8)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (2, 5), (205, 62)] units-code 60 | b=a'=(-2693, 3006) b-classes [(2, 1), (3, 2), (5, 2), (60, 71)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (4, 5), (8, 5)] units-code 20 | b=a'=(-192, 99) b-classes [(3, 0), (2, 1), (1, 4), (5, 6)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (10, 1), (57, 100)] units-code 36 | b=a'=(-2289, 3138) b-classes [(3, 0), (2, 1), (2, 3), (4, 1), (1, 6), (5, 4)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (1, 2), (28, 5), (16, 29)] units-code 60 | b=a'=(-1972, 2839) b-classes [(2, 1), (4, 1), (1, 4), (90, 13)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (3, 0), (2, 3), (38, 15)] units-code 240 | b=a'=(-572, 1761) b-classes [(1, 2), (4, 1), (2, 7), (19, 20)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (3, 0), (1, 4), (32, 37)] units-code 32 | b=a'=(-2441, 228) b-classes [(1, 2), (1, 6), (2, 7), (17, 18)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (2, 3), (1, 6), (13, 58)] units-code 176 | b=a'=(-2739, -4578) b-classes [(3, 0), (1, 2), (2, 7), (107, 22)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (3, 2), (1, 10), (11, 4)] units-code 224 | b=a'=(-1826, 253) b-classes [(1, 2), (11, 0), (5, 4), (4, 11)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (1, 4), (3, 170)] units-code 52 | b=a'=(-2567, -1304) b-classes [(1, 2), (3, 2), (8, 5), (8, 37)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (4, 1), (3, 10), (4, 21)] units-code 3 | b=a'=(-3588, 273) b-classes [(3, 0), (3, 2), (2, 3), (7, 92)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (4, 1), (8, 7)] units-code 0 | b=a'=(-9, 202) b-classes [(1, 2), (3, 2), (1, 4), (6, 1)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (5, 2), (62, 205)] units-code 20 | b=a'=(-3006, 2693) b-classes [(1, 2), (2, 3), (2, 5), (71, 60)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (5, 4), (5, 8)] units-code 60 | b=a'=(-99, 192) b-classes [(3, 0), (1, 2), (4, 1), (6, 5)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (1, 10), (100, 57)] units-code 44 | b=a'=(-3138, 2289) b-classes [(3, 0), (1, 2), (3, 2), (1, 4), (6, 1), (4, 5)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 1), (5, 28), (29, 16)] units-code 20 | b=a'=(-2839, 1972) b-classes [(1, 2), (4, 1), (1, 4), (13, 90)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (3, 0), (1, 4), (6, 1), (17, 10)] units-code 195 | b=a'=(-596, 2737) b-classes [(2, 1), (5, 2), (2, 7), (11, 30)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (3, 0), (4, 1), (1, 6), (10, 17)] units-code 64 | b=a'=(-2737, 596) b-classes [(1, 2), (2, 5), (7, 2), (30, 11)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (3, 0), (4, 5), (62, 55)] units-code 3 | b=a'=(440, 2525) b-classes [(2, 1), (1, 2), (3, 2), (1, 4), (5, 2), (5, 4)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (3, 0), (5, 4), (55, 62)] units-code 0 | b=a'=(-440, 2525) b-classes [(2, 1), (1, 2), (2, 3), (4, 1), (2, 5), (4, 5)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (3, 0), (25, 28)] units-code 7 | b=a'=(125, 90) b-classes [(2, 1), (1, 2), (2, 3), (3, 8)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (3, 0), (28, 25)] units-code 12 | b=a'=(90, 125) b-classes [(2, 1), (1, 2), (3, 2), (8, 3)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (2, 7), (6, 11)] units-code 0 | b=a'=(-75, 90) b-classes [(3, 0), (2, 1), (1, 2), (6, 5)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 1), (7, 2), (11, 6)] units-code 0 | b=a'=(75, 90) b-classes [(3, 0), (2, 1), (1, 2), (5, 6)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 1), (3, 0), (5, 6)] units-code 28 | b=a'=(1, 129) b-classes [(1, 1), (7, 2), (11, 6)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 1), (3, 0), (6, 5)] units-code 48 | b=a'=(-1, 129) b-classes [(1, 1), (2, 7), (6, 11)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 1), (2, 3), (3, 8)] units-code 4 | b=a'=(-159, -9) b-classes [(1, 1), (3, 0), (25, 28)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 1), (3, 2), (8, 3)] units-code 12 | b=a'=(9, 159) b-classes [(1, 1), (3, 0), (28, 25)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (3, 0), (4, 1), (6, 5)] units-code 48 | b=a'=(39, 187) b-classes [(1, 1), (2, 1), (5, 4), (5, 8)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 3), (2, 5), (71, 60)] units-code 16 | b=a'=(-3547, 849) b-classes [(1, 1), (2, 1), (5, 2), (62, 205)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 3), (12, 7), (4, 15)] units-code 28 | b=a'=(-1299, 363) b-classes [(1, 1), (3, 0), (2, 1), (1, 4), (2, 5), (5, 4)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (3, 2), (1, 4), (6, 1)] units-code 49 | b=a'=(-83, 111) b-classes [(1, 1), (2, 1), (4, 1), (8, 7)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (3, 2), (8, 5), (8, 37)] units-code 12 | b=a'=(-1849, 1223) b-classes [(1, 1), (2, 1), (1, 4), (3, 170)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (1, 4), (4, 1), (13, 90)] units-code 0 | b=a'=(-2979, -17) b-classes [(1, 1), (2, 1), (5, 28), (29, 16)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (4, 1), (2, 7), (19, 20)] units-code 16 | b=a'=(-1203, 711) b-classes [(1, 1), (3, 0), (2, 1), (2, 3), (38, 15)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (2, 5), (7, 2), (30, 11)] units-code 48 | b=a'=(-687, 1983) b-classes [(1, 1), (3, 0), (4, 1), (1, 6), (10, 17)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (1, 6), (2, 7), (17, 18)] units-code 0 | b=a'=(-1833, -549) b-classes [(1, 1), (3, 0), (2, 1), (1, 4), (32, 37)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(1, 2), (5, 4), (11, 0), (4, 11)] units-code 0 | b=a'=(-661, 1167) b-classes [(1, 1), (2, 1), (3, 2), (1, 10), (11, 4)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (3, 0), (1, 4), (5, 6)] units-code 19 | b=a'=(-39, 187) b-classes [(1, 1), (1, 2), (4, 5), (8, 5)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (2, 3), (4, 1), (1, 6)] units-code 19 | b=a'=(-111, 83) b-classes [(1, 1), (1, 2), (1, 4), (7, 8)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (2, 3), (5, 8), (37, 8)] units-code 4 | b=a'=(-1223, 1849) b-classes [(1, 1), (1, 2), (4, 1), (170, 3)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (3, 2), (5, 2), (60, 71)] units-code 48 | b=a'=(-849, 3547) b-classes [(1, 1), (1, 2), (2, 5), (205, 62)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (3, 2), (7, 12), (15, 4)] units-code 52 | b=a'=(-363, 1299) b-classes [(1, 1), (3, 0), (1, 2), (4, 1), (5, 2), (4, 5)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (1, 4), (4, 1), (90, 13)] units-code 0 | b=a'=(17, 2979) b-classes [(1, 1), (1, 2), (28, 5), (16, 29)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (1, 4), (7, 2), (20, 19)] units-code 48 | b=a'=(-711, 1203) b-classes [(1, 1), (3, 0), (1, 2), (3, 2), (15, 38)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (5, 2), (2, 7), (11, 30)] units-code 16 | b=a'=(-1983, 687) b-classes [(1, 1), (3, 0), (1, 4), (6, 1), (17, 10)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (6, 1), (7, 2), (18, 17)] units-code 0 | b=a'=(549, 1833) b-classes [(1, 1), (3, 0), (1, 2), (4, 1), (37, 32)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(2, 1), (4, 5), (11, 0), (11, 4)] units-code 12 | b=a'=(661, 1167) b-classes [(1, 1), (1, 2), (2, 3), (10, 1), (4, 11)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(3, 0), (2, 3), (3, 2), (7, 92)] units-code 32 | b=a'=(-2471, 1537) b-classes [(1, 1), (2, 1), (4, 1), (3, 10), (4, 21)] | closing units exist: b'=a exactly ***
+*** TWISTED 2-CYCLE: a-classes [(3, 0), (2, 3), (3, 2), (92, 7)] units-code 53 | b=a'=(-1537, 2471) b-classes [(1, 1), (1, 2), (1, 4), (10, 3), (21, 4)] | closing units exist: b'=a exactly ***

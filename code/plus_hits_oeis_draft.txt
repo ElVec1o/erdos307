@@ -1,0 +1,15 @@
+%I AXXXXXX
+%S AXXXXXX 130, 145, 305, 689, 1745, 1870, 1970, 2353, 2930, 3205, 3538, 3845, 4069, 5105, 5122, 5905, 7093, 7397, 7445, 7570, 9074, 9077, 9701, 11345, 12130, 12270, 13445, 15602, 16642, 17873
+%N AXXXXXX Squarefree numbers N with at least two prime factors such that N' + 2N is a perfect square, where N' is the arithmetic derivative (A003415).
+%C AXXXXXX Motivated by Erdos Problem #307: (sum 1/p over P)(sum 1/q over Q) = 1 for finite prime sets P, Q is equivalent to a 2-cycle of the arithmetic derivative, and the product N = M(P)M(Q) of any solution satisfies that BOTH N'-2N and N'+2N are perfect squares (split-discriminant criterion). This sequence is the plus condition alone; the minus condition has no instances below 10^112 (it forces sum of prime reciprocals of N to be >= 2).
+%C AXXXXXX Semiprime terms N = p*q satisfy (2p+1)(2q+1) = 2s^2+1 and necessarily p == q == 1 (mod 4) [proof: -2 must be a QR modulo every prime factor of 2p+1 and 2q+1].
+%C AXXXXXX General local law: for every odd prime l dividing N, the cofactor N/l is a nonzero quadratic residue mod l (verified for all terms).
+%C AXXXXXX Conjecturally infinite: for p = 5, q = (s^2-5)/11 with s even, s == +-4 (mod 11) automatically satisfies q == 1 (mod 4); Bunyakovsky's conjecture for this quadratic gives infinitely many terms 5q.
+%C AXXXXXX The counting function is approximately 0.25*sqrt(X) (square-density heuristic; ratios 0.250-0.255 observed to 2*10^5).
+%F AXXXXXX For semiprime terms N = p*q with s^2 = N' + 2N: (2p+1)(2q+1) = 2s^2 + 1.
+%e AXXXXXX 145 = 5*29 is a term: 145' = 34, and 34 + 290 = 324 = 18^2.
+%o AXXXXXX (Python) [see b-file generator: squarefree n, omega(n)>=2, isqrt(D+2n)^2 == D+2n with D = arithmetic derivative]
+%Y AXXXXXX Cf. A003415 (arithmetic derivative).
+%K AXXXXXX nonn
+%O AXXXXXX 1,1
+%A AXXXXXX Vico Bonfioli, Jun 10 2026

@@ -1,0 +1,371 @@
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-1, -1), (-2, -1), (-4, -1), (-8, -7)] code 0 | b=a'=(9, -202) b-classes [(-2, 1), (-3, -2), (-4, 1), (-6, -1)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-1, -1), (-2, -1), (-5, -4), (-8, 5)] code 44 | b=a'=(-192, -99) b-classes [(-3, 0), (-2, 1), (-4, -1), (-6, -5)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-1, -1), (-2, 1), (-4, 1), (-8, 7)] code 63 | b=a'=(9, 202) b-classes [(-2, -1), (-3, 2), (-4, -1), (-6, 1)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-1, -1), (-2, 1), (-5, 4), (-8, -5)] code 19 | b=a'=(-192, 99) b-classes [(-3, 0), (-2, -1), (-4, 1), (-6, 5)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-1, -1), (-3, 0), (-28, -25)] code 12 | b=a'=(90, 125) b-classes [(-2, -1), (-2, 1), (-3, -2), (-8, -3)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-1, -1), (-3, 0), (-28, 25)] code 3 | b=a'=(90, -125) b-classes [(-2, -1), (-2, 1), (-3, 2), (-8, 3)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-1, -1), (-7, -2), (-11, -6)] code 0 | b=a'=(75, 90) b-classes [(-3, 0), (-2, -1), (-2, 1), (-6, 5)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-1, -1), (-7, 2), (-11, 6)] code 15 | b=a'=(75, -90) b-classes [(-3, 0), (-2, -1), (-2, 1), (-6, -5)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, 1), (-3, 0), (-6, -5)] code 51 | b=a'=(-129, -1) b-classes [(-1, -1), (-7, 2), (-11, 6)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, 1), (-3, 0), (-6, 5)] code 15 | b=a'=(1, 129) b-classes [(-1, -1), (-7, -2), (-11, -6)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, 1), (-3, -2), (-8, -3)] code 15 | b=a'=(-159, 9) b-classes [(-1, -1), (-3, 0), (-28, -25)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, 1), (-3, 2), (-8, 3)] code 51 | b=a'=(-9, 159) b-classes [(-1, -1), (-3, 0), (-28, 25)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, 0), (-4, 1), (-6, 5)] code 15 | b=a'=(-39, 187) b-classes [(-1, -1), (-2, 1), (-5, 4), (-8, -5)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, 2), (-4, -1), (-6, 1)] code 2 | b=a'=(-111, 83) b-classes [(-1, -1), (-2, 1), (-4, 1), (-8, 7)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-2, 1), (-3, 0), (-4, -1), (-6, -5)] code 5 | b=a'=(-39, -187) b-classes [(-1, -1), (-2, -1), (-5, -4), (-8, 5)] | closes exactly ***
+*** ring 1 TWISTED 2-CYCLE: a-classes [(-2, 1), (-3, -2), (-4, 1), (-6, -1)] code 2 | b=a'=(-111, -83) b-classes [(-1, -1), (-2, -1), (-4, -1), (-8, -7)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(0, -1), (-3, -1), (-3, 16)] code 2 | b=a'=(75, -45) b-classes [(-1, -1), (-1, 1), (-5, 0), (-5, 3)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(0, -1), (-3, 1), (-3, -16)] code 1 | b=a'=(75, 45) b-classes [(-1, -1), (-1, 1), (-5, 0), (-5, -3)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(0, -1), (-3, -4), (-57, -5)] code 2 | b=a'=(129, 297) b-classes [(-1, -1), (-1, 1), (-1, 3), (-29, 12)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(0, -1), (-3, 4), (-57, 5)] code 1 | b=a'=(129, -297) b-classes [(-1, -1), (-1, 1), (-1, -3), (-29, -12)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(-1, -1), (-1, 1), (-1, -3), (-29, -12)] code 1 | b=a'=(-486, -131) b-classes [(0, -1), (-3, 4), (-57, 5)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(-1, -1), (-1, 1), (-1, 3), (-29, 12)] code 7 | b=a'=(486, -131) b-classes [(0, -1), (-3, -4), (-57, -5)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(-1, -1), (-1, 1), (-5, 0), (-5, -3)] code 1 | b=a'=(-90, 41) b-classes [(0, -1), (-3, 1), (-3, -16)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(-1, -1), (-1, 1), (-5, 0), (-5, 3)] code 7 | b=a'=(90, 41) b-classes [(0, -1), (-3, -1), (-3, 16)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -2), (-5, -3), (-11, -3)] code 732 | b=a'=(-393, 191) b-classes [(-3, -1), (-4, -1), (-7, -3), (-10, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -2), (-5, -5), (-7, -6)] code 902 | b=a'=(-481, -333) b-classes [(-3, -1), (-5, -2), (-7, -4), (-7, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -1), (-5, -2), (-11, -8)] code 818 | b=a'=(-191, 393) b-classes [(-3, -2), (-4, -3), (-7, -4), (-10, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -1), (-5, -5), (-7, -1)] code 576 | b=a'=(-148, 333) b-classes [(-3, -2), (-5, -3), (-7, -4), (-7, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -3), (-5, -3), (-11, -8)] code 384 | b=a'=(-502, 297) b-classes [(-3, -1), (-4, -1), (-5, -2), (-19, -13)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -3), (-5, -3), (-11, -3)] code 868 | b=a'=(-106, 653) b-classes [(-3, -1), (-5, -2), (-7, -4), (-11, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -3), (-5, -2)] code 80 | b=a'=(56, -21) b-classes [(-3, -2), (-3, -1), (-11, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -3), (-13, -10)] code 192 | b=a'=(91, -105) b-classes [(-3, -2), (-3, -1), (-5, -3), (-6, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -1), (-5, -3)] code 174 | b=a'=(-56, -77) b-classes [(-3, -2), (-3, -1), (-11, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -1), (-5, -2), (-11, -8)] code 433 | b=a'=(-653, 106) b-classes [(-3, -2), (-5, -3), (-7, -3), (-11, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -1), (-5, -2), (-11, -3)] code 1166 | b=a'=(-297, 502) b-classes [(-3, -2), (-4, -3), (-5, -3), (-19, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -1), (-13, -3)] code 62 | b=a'=(-91, -196) b-classes [(-3, -2), (-3, -1), (-5, -2), (-6, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-5, -5), (-28, -19)] code 108 | b=a'=(250, -339) b-classes [(-3, -1), (-4, -3), (-7, -1), (-9, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-5, -5), (-28, -9)] code 122 | b=a'=(339, -250) b-classes [(-3, -2), (-4, -1), (-7, -6), (-9, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-7, -4)] code 2 | b=a'=(7, 28) b-classes [(-3, -2), (-3, -1), (-4, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-7, -3)] code 0 | b=a'=(21, 28) b-classes [(-3, -2), (-3, -1), (-4, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-3, -1), (-5, -3), (-6, -5)] code 220 | b=a'=(-160, 270) b-classes [(-2, -2), (-5, -5), (-4, -3), (-12, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-3, -1), (-5, -2), (-6, -1)] code 1092 | b=a'=(160, 430) b-classes [(-2, -2), (-5, -5), (-4, -1), (-12, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-4, -3), (-32, -29)] code 152 | b=a'=(450, -32) b-classes [(-2, -2), (-3, -1), (-7, -6), (-15, -11)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-4, -1), (-11, -11)] code 60 | b=a'=(-58, -234) b-classes [(-2, -2), (-3, -1), (-7, -4), (-7, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-5, -2), (-6, -1)] code 106 | b=a'=(-94, -64) b-classes [(-2, -2), (-3, -1), (-4, -3), (-5, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-6, -5), (-17, -12)] code 50 | b=a'=(310, -150) b-classes [(-2, -2), (-5, -5), (-4, -1), (-13, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-4, -3), (-11, -11)] code 156 | b=a'=(58, -176) b-classes [(-2, -2), (-3, -2), (-7, -3), (-7, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-4, -1), (-32, -3)] code 106 | b=a'=(-482, -32) b-classes [(-2, -2), (-3, -2), (-7, -1), (-15, -4)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-5, -3), (-6, -5)] code 152 | b=a'=(30, -64) b-classes [(-2, -2), (-3, -2), (-4, -1), (-5, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-6, -1), (-17, -5)] code 208 | b=a'=(-460, -150) b-classes [(-2, -2), (-5, -5), (-4, -3), (-13, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-5, -5), (-17, -11)] code 2 | b=a'=(30, 118) b-classes [(-2, -2), (-3, -2), (-4, -1), (-6, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-5, -5), (-17, -6)] code 0 | b=a'=(88, 118) b-classes [(-2, -2), (-3, -1), (-4, -3), (-6, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-4, -1), (-5, -2)] code 168 | b=a'=(-88, -125) b-classes [(-2, -1), (-3, -1), (-5, -3), (-6, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-4, -1), (-6, -5)] code 72 | b=a'=(25, -115) b-classes [(-2, -1), (-5, -5), (-17, -11)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-7, -3), (-7, -1)] code 6 | b=a'=(-88, -209) b-classes [(-2, -1), (-3, -1), (-11, -11), (-4, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-7, -1), (-15, -4)] code 168 | b=a'=(-461, -541) b-classes [(-2, -1), (-3, -1), (-4, -1), (-32, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-4, -3), (-5, -3)] code 4 | b=a'=(-37, -125) b-classes [(-2, -1), (-3, -2), (-5, -2), (-6, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-4, -3), (-6, -1)] code 208 | b=a'=(-140, -115) b-classes [(-2, -1), (-5, -5), (-17, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-7, -4), (-7, -6)] code 166 | b=a'=(-121, -209) b-classes [(-2, -1), (-3, -2), (-11, -11), (-4, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-7, -6), (-15, -11)] code 4 | b=a'=(-80, -541) b-classes [(-2, -1), (-3, -2), (-4, -3), (-32, -29)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -3), (-5, -5), (-12, -7)] code 64 | b=a'=(-14, -301) b-classes [(-2, -1), (-3, -2), (-3, -1), (-5, -3), (-6, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -3), (-5, -5), (-13, -7)] code 24 | b=a'=(113, -317) b-classes [(-2, -1), (-3, -1), (-6, -1), (-17, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -1), (-5, -5), (-12, -5)] code 120 | b=a'=(14, -287) b-classes [(-2, -1), (-3, -2), (-3, -1), (-5, -2), (-6, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -1), (-5, -5), (-13, -6)] code 160 | b=a'=(-113, -430) b-classes [(-2, -1), (-3, -2), (-6, -5), (-17, -12)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-4, -3)] code 16 | b=a'=(20, 22) b-classes [(-2, -2), (-2, -1), (-7, -4)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-4, -1)] code 34 | b=a'=(20, -2) b-classes [(-2, -2), (-2, -1), (-7, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-5, -3), (-6, -5)] code 29 | b=a'=(-142, -152) b-classes [(-2, -2), (-2, -1), (-4, -3), (-13, -10)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-5, -2), (-6, -1)] code 209 | b=a'=(-142, 10) b-classes [(-2, -2), (-2, -1), (-4, -1), (-13, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-11, -8)] code 28 | b=a'=(62, 40) b-classes [(-2, -2), (-2, -1), (-4, -3), (-5, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-11, -3)] code 4 | b=a'=(62, 22) b-classes [(-2, -2), (-2, -1), (-4, -1), (-5, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -3), (-5, -2), (-7, -4)] code 24 | b=a'=(-124, -291) b-classes [(-3, -1), (-4, -1), (-5, -3), (-7, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -3), (-7, -4), (-10, -3)] code 208 | b=a'=(-404, -382) b-classes [(-2, -2), (-2, -1), (-3, -1), (-5, -2), (-11, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -1), (-7, -6), (-9, -7)] code 76 | b=a'=(-100, -470) b-classes [(-2, -2), (-2, -1), (-5, -5), (-28, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-5, -3), (-7, -4), (-7, -3)] code 158 | b=a'=(-20, -310) b-classes [(-2, -2), (-2, -1), (-5, -5), (-3, -1), (-7, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -3), (-7, -1), (-9, -2)] code 146 | b=a'=(-370, -470) b-classes [(-2, -2), (-2, -1), (-5, -5), (-28, -19)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -1), (-5, -3), (-7, -3)] code 12 | b=a'=(-167, -291) b-classes [(-3, -2), (-4, -3), (-5, -2), (-7, -4)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -1), (-7, -3), (-10, -7)] code 50 | b=a'=(22, -382) b-classes [(-2, -2), (-2, -1), (-3, -2), (-5, -3), (-11, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-5, -2), (-7, -4), (-7, -3)] code 160 | b=a'=(-290, -310) b-classes [(-2, -2), (-2, -1), (-5, -5), (-3, -2), (-7, -6)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(0, -1), (-3, -1), (-3, 16)] code 2 | b=a'=(75, -45) b-classes [(-1, -1), (-1, 1), (-5, 0), (-5, 3)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(0, -1), (-3, 1), (-3, -16)] code 1 | b=a'=(75, 45) b-classes [(-1, -1), (-1, 1), (-5, 0), (-5, -3)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(0, -1), (-3, -2), (-1, 3), (-83, -3)] code 6 | b=a'=(-2115, 687) b-classes [(-1, -1), (-1, 1), (-9, -2), (-61, 39)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(0, -1), (-3, 2), (-1, -3), (-83, 3)] code 1 | b=a'=(-2115, -687) b-classes [(-1, -1), (-1, 1), (-9, 2), (-61, -39)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(0, -1), (-3, -4), (-57, -5)] code 2 | b=a'=(129, 297) b-classes [(-1, -1), (-1, 1), (-1, 3), (-29, 12)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(0, -1), (-3, 4), (-57, 5)] code 1 | b=a'=(129, -297) b-classes [(-1, -1), (-1, 1), (-1, -3), (-29, -12)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(-1, -1), (-1, 1), (-1, -3), (-29, -12)] code 1 | b=a'=(-486, -131) b-classes [(0, -1), (-3, 4), (-57, 5)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(-1, -1), (-1, 1), (-1, 3), (-29, 12)] code 7 | b=a'=(486, -131) b-classes [(0, -1), (-3, -4), (-57, -5)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(-1, -1), (-1, 1), (-5, 0), (-5, -3)] code 1 | b=a'=(-90, 41) b-classes [(0, -1), (-3, 1), (-3, -16)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(-1, -1), (-1, 1), (-5, 0), (-5, 3)] code 7 | b=a'=(90, 41) b-classes [(0, -1), (-3, -1), (-3, 16)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(-1, -1), (-1, 1), (-9, -2), (-61, 39)] code 3 | b=a'=(1072, 1287) b-classes [(0, -1), (-3, -2), (-1, 3), (-83, -3)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(-1, -1), (-1, 1), (-9, 2), (-61, -39)] code 5 | b=a'=(-1072, 1287) b-classes [(0, -1), (-3, 2), (-1, -3), (-83, 3)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(-1, -1), (-3, -2), (-1, 3), (-3, 5), (-3, -11)] code 14 | b=a'=(3163, -1474) b-classes [(-1, 1), (-3, 2), (-1, -3), (-3, -5), (-3, 11)] | closes exactly ***
+*** ring 2 TWISTED 2-CYCLE: a-classes [(-1, 1), (-3, 2), (-1, -3), (-3, -5), (-3, 11)] code 14 | b=a'=(3163, 1474) b-classes [(-1, -1), (-3, -2), (-1, 3), (-3, 5), (-3, -11)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -2), (-5, -3), (-11, -3)] code 732 | b=a'=(-393, 191) b-classes [(-3, -1), (-4, -1), (-7, -3), (-10, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -2), (-5, -2), (-52, -31)] code 1176 | b=a'=(-993, 1657) b-classes [(-3, -1), (-4, -3), (-7, -3), (-43, -36)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -2), (-5, -5), (-7, -6)] code 902 | b=a'=(-481, -333) b-classes [(-3, -1), (-5, -2), (-7, -4), (-7, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -2), (-6, -5), (-27, -5)] code 868 | b=a'=(-403, 1443) b-classes [(-3, -1), (-4, -1), (-4, -3), (-52, -45)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -2), (-6, -1), (-69, -41)] code 1021 | b=a'=(-3603, -11) b-classes [(-3, -1), (-5, -3), (-6, -5), (-7, -1), (-9, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -2), (-9, -1), (-22, -7)] code 674 | b=a'=(-55, 1790) b-classes [(-5, -5), (-3, -1), (-4, -1), (-44, -21)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -2), (-12, -5), (-21, -13)] code 12 | b=a'=(-2010, 751) b-classes [(-3, -1), (-5, -3), (-7, -1), (-37, -25)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -1), (-5, -3), (-52, -21)] code 374 | b=a'=(-1657, 993) b-classes [(-3, -2), (-4, -1), (-7, -4), (-43, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -1), (-5, -2), (-11, -8)] code 818 | b=a'=(-191, 393) b-classes [(-3, -2), (-4, -3), (-7, -4), (-10, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -1), (-5, -5), (-7, -1)] code 576 | b=a'=(-148, 333) b-classes [(-3, -2), (-5, -3), (-7, -4), (-7, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -1), (-6, -5), (-69, -28)] code 532 | b=a'=(11, 3603) b-classes [(-3, -2), (-5, -2), (-6, -1), (-7, -6), (-9, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -1), (-6, -1), (-27, -22)] code 433 | b=a'=(-1443, 403) b-classes [(-3, -2), (-4, -1), (-4, -3), (-52, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -1), (-9, -8), (-22, -15)] code 660 | b=a'=(-1790, 55) b-classes [(-5, -5), (-3, -2), (-4, -3), (-44, -23)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-3, -1), (-12, -7), (-21, -8)] code 26 | b=a'=(-751, 2010) b-classes [(-3, -2), (-5, -2), (-7, -6), (-37, -12)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -3), (-5, -3), (-11, -8)] code 384 | b=a'=(-502, 297) b-classes [(-3, -1), (-4, -1), (-5, -2), (-19, -13)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -3), (-5, -3), (-11, -3)] code 868 | b=a'=(-106, 653) b-classes [(-3, -1), (-5, -2), (-7, -4), (-11, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -3), (-5, -2)] code 80 | b=a'=(56, -21) b-classes [(-3, -2), (-3, -1), (-11, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -3), (-5, -2), (-45, -41)] code 650 | b=a'=(-3885, -910) b-classes [(-5, -5), (-3, -2), (-3, -1), (-111, -26)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -3), (-9, -4), (-12, -5)] code 1032 | b=a'=(-189, 1316) b-classes [(-3, -2), (-3, -1), (-215, -27)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -3), (-13, -10)] code 192 | b=a'=(91, -105) b-classes [(-3, -2), (-3, -1), (-5, -3), (-6, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -3), (-114, -49)] code 196 | b=a'=(-224, -1127) b-classes [(-3, -2), (-3, -1), (-5, -2), (-6, -5), (-7, -4)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -1), (-5, -3)] code 174 | b=a'=(-56, -77) b-classes [(-3, -2), (-3, -1), (-11, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -1), (-5, -3), (-45, -4)] code 648 | b=a'=(910, 3885) b-classes [(-5, -5), (-3, -2), (-3, -1), (-111, -85)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -1), (-5, -2), (-11, -8)] code 433 | b=a'=(-653, 106) b-classes [(-3, -2), (-5, -3), (-7, -3), (-11, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -1), (-5, -2), (-11, -3)] code 1166 | b=a'=(-297, 502) b-classes [(-3, -2), (-4, -3), (-5, -3), (-19, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -1), (-9, -5), (-12, -7)] code 518 | b=a'=(-1316, 189) b-classes [(-3, -2), (-3, -1), (-215, -188)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -1), (-13, -3)] code 62 | b=a'=(-91, -196) b-classes [(-3, -2), (-3, -1), (-5, -2), (-6, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-4, -1), (-114, -65)] code 61 | b=a'=(224, -903) b-classes [(-3, -2), (-3, -1), (-5, -3), (-6, -1), (-7, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-5, -3), (-5, -5), (-59, -48)] code 494 | b=a'=(-5348, -3423) b-classes [(-3, -2), (-3, -1), (-6, -1), (-7, -6), (-21, -13)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-5, -2), (-5, -5), (-59, -11)] code 1020 | b=a'=(-1925, 3423) b-classes [(-3, -2), (-3, -1), (-6, -5), (-7, -1), (-21, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-5, -5), (-28, -19)] code 108 | b=a'=(250, -339) b-classes [(-3, -1), (-4, -3), (-7, -1), (-9, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-5, -5), (-28, -9)] code 122 | b=a'=(339, -250) b-classes [(-3, -2), (-4, -1), (-7, -6), (-9, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-6, -5), (-6, -1), (-13, -10)] code 80 | b=a'=(-1747, -475) b-classes [(-3, -1), (-4, -3), (-7, -4), (-31, -18)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-6, -5), (-6, -1), (-13, -3)] code 204 | b=a'=(475, 1747) b-classes [(-3, -2), (-4, -1), (-7, -3), (-31, -13)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-6, -5), (-7, -6), (-23, -21)] code 1016 | b=a'=(-3087, -2618) b-classes [(-3, -2), (-3, -1), (-5, -2), (-7, -3), (-16, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-6, -5), (-9, -7), (-17, -17)] code 162 | b=a'=(-2975, -980) b-classes [(-5, -5), (-3, -2), (-3, -1), (-4, -3), (-24, -13)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-6, -5), (-59, -3)] code 206 | b=a'=(-77, -1190) b-classes [(-3, -2), (-3, -1), (-5, -3), (-43, -15)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-6, -1), (-7, -1), (-23, -2)] code 534 | b=a'=(2618, 3087) b-classes [(-3, -2), (-3, -1), (-5, -3), (-7, -4), (-16, -15)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-6, -1), (-9, -2), (-17, -17)] code 524 | b=a'=(-1995, 980) b-classes [(-5, -5), (-3, -2), (-3, -1), (-4, -1), (-24, -11)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-6, -1), (-59, -56)] code 48 | b=a'=(77, -1113) b-classes [(-3, -2), (-3, -1), (-5, -2), (-43, -28)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-7, -4)] code 2 | b=a'=(7, 28) b-classes [(-3, -2), (-3, -1), (-4, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-7, -3)] code 0 | b=a'=(21, 28) b-classes [(-3, -2), (-3, -1), (-4, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-9, -8), (-27, -13)] code 184 | b=a'=(-224, -693) b-classes [(-3, -2), (-3, -1), (-4, -1), (-5, -3), (-6, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-9, -1), (-27, -14)] code 37 | b=a'=(224, -469) b-classes [(-3, -2), (-3, -1), (-4, -3), (-5, -2), (-6, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-11, -8), (-35, -9)] code 180 | b=a'=(-403, -1378) b-classes [(-3, -1), (-4, -1), (-4, -3), (-5, -3), (-9, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-11, -3), (-35, -26)] code 38 | b=a'=(403, -975) b-classes [(-3, -2), (-4, -1), (-4, -3), (-5, -2), (-9, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-13, -7), (-127, -84)] code 102 | b=a'=(-455, -4662) b-classes [(-3, -2), (-3, -1), (-5, -3), (-9, -4), (-20, -17)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-2, -2), (-13, -6), (-127, -43)] code 152 | b=a'=(455, -4207) b-classes [(-3, -2), (-3, -1), (-5, -2), (-9, -5), (-20, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-3, -1), (-5, -3), (-6, -5)] code 220 | b=a'=(-160, 270) b-classes [(-2, -2), (-5, -5), (-4, -3), (-12, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-3, -1), (-5, -3), (-33, -13)] code 878 | b=a'=(-1020, 1318) b-classes [(-2, -2), (-4, -1), (-6, -1), (-52, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-3, -1), (-5, -2), (-6, -1)] code 1092 | b=a'=(160, 430) b-classes [(-2, -2), (-5, -5), (-4, -1), (-12, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-3, -1), (-5, -2), (-33, -20)] code 460 | b=a'=(1020, 2338) b-classes [(-2, -2), (-4, -3), (-6, -5), (-52, -49)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-3, -1), (-5, -5), (-22, -13)] code 516 | b=a'=(-1470, 172) b-classes [(-2, -2), (-4, -1), (-5, -2), (-56, -17)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-3, -1), (-5, -5), (-22, -9)] code 868 | b=a'=(-172, 1470) b-classes [(-2, -2), (-4, -3), (-5, -3), (-56, -39)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-3, -1), (-371, -285)] code 86 | b=a'=(1970, -3378) b-classes [(-2, -2), (-4, -3), (-5, -3), (-11, -3), (-17, -12)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-3, -1), (-371, -86)] code 172 | b=a'=(-5348, -3378) b-classes [(-2, -2), (-4, -1), (-5, -2), (-11, -8), (-17, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-4, -3), (-5, -3), (-35, -6)] code 158 | b=a'=(-1416, 1754) b-classes [(-2, -2), (-3, -1), (-19, -9), (-36, -23)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-4, -3), (-6, -1), (-19, -6)] code 14 | b=a'=(-750, 1640) b-classes [(-2, -2), (-5, -5), (-3, -1), (-5, -3), (-21, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-4, -3), (-7, -3), (-43, -15)] code 74 | b=a'=(-2668, 2778) b-classes [(-2, -2), (-4, -1), (-6, -5), (-7, -4), (-21, -17)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-4, -3), (-7, -6), (-11, -9)] code 24 | b=a'=(-1294, 278) b-classes [(-2, -2), (-3, -1), (-9, -1), (-37, -16)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-4, -3), (-32, -29)] code 152 | b=a'=(450, -32) b-classes [(-2, -2), (-3, -1), (-7, -6), (-15, -11)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-4, -1), (-5, -2), (-9, -7)] code 720 | b=a'=(-256, 554) b-classes [(-2, -2), (-3, -1), (-137, -134)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-4, -1), (-9, -2), (-19, -7)] code 460 | b=a'=(2426, 2666) b-classes [(-2, -2), (-3, -1), (-16, -15), (-34, -27)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-4, -1), (-11, -11)] code 60 | b=a'=(-58, -234) b-classes [(-2, -2), (-3, -1), (-7, -4), (-7, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-4, -1), (-157, -84)] code 134 | b=a'=(-1230, -2650) b-classes [(-2, -2), (-5, -5), (-3, -1), (-96, -23)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-5, -3), (-9, -8), (-21, -8)] code 950 | b=a'=(-3684, 130) b-classes [(-2, -2), (-3, -1), (-5, -2), (-6, -1), (-31, -4)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-5, -3), (-11, -9), (-19, -10)] code 828 | b=a'=(-2070, 1984) b-classes [(-2, -2), (-3, -1), (-5, -2), (-167, -131)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-5, -3), (-13, -1), (-14, -11)] code 1264 | b=a'=(1336, 3670) b-classes [(-2, -2), (-3, -1), (-7, -3), (-11, -8), (-11, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-5, -3), (-43, -9)] code 48 | b=a'=(-398, -968) b-classes [(-2, -2), (-3, -1), (-4, -3), (-51, -26)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-5, -2), (-6, -1)] code 106 | b=a'=(-94, -64) b-classes [(-2, -2), (-3, -1), (-4, -3), (-5, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-5, -2), (-85, -42)] code 2 | b=a'=(-320, -1770) b-classes [(-2, -2), (-5, -5), (-4, -1), (-52, -31)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-5, -5), (-9, -2), (-17, -11)] code 1228 | b=a'=(-6, 3064) b-classes [(-2, -2), (-3, -1), (-6, -5), (-113, -92)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-6, -5), (-17, -12)] code 50 | b=a'=(310, -150) b-classes [(-2, -2), (-5, -5), (-4, -1), (-13, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-6, -5), (-41, -6)] code 108 | b=a'=(-582, -1244) b-classes [(-2, -2), (-3, -1), (-4, -1), (-6, -1), (-11, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-7, -1), (-145, -54)] code 14 | b=a'=(-1630, -4188) b-classes [(-2, -2), (-3, -1), (-6, -1), (-9, -1), (-15, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-13, -10), (-37, -22)] code 120 | b=a'=(130, -1638) b-classes [(-2, -2), (-4, -1), (-4, -3), (-6, -5), (-13, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -2), (-27, -14), (-29, -2)] code 20 | b=a'=(-1224, -2998) b-classes [(-2, -2), (-3, -1), (-4, -3), (-9, -5), (-18, -17)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-4, -3), (-5, -3), (-9, -2)] code 792 | b=a'=(256, 810) b-classes [(-2, -2), (-3, -2), (-137, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-4, -3), (-9, -7), (-19, -12)] code 878 | b=a'=(-2426, 240) b-classes [(-2, -2), (-3, -2), (-16, -1), (-34, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-4, -3), (-11, -11)] code 156 | b=a'=(58, -176) b-classes [(-2, -2), (-3, -2), (-7, -3), (-7, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-4, -3), (-157, -73)] code 124 | b=a'=(-1420, -2650) b-classes [(-2, -2), (-5, -5), (-3, -2), (-96, -73)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-4, -1), (-5, -2), (-35, -29)] code 100 | b=a'=(1416, 3170) b-classes [(-2, -2), (-3, -2), (-19, -10), (-36, -13)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-4, -1), (-6, -5), (-19, -13)] code 28 | b=a'=(750, 2390) b-classes [(-2, -2), (-5, -5), (-3, -2), (-5, -2), (-21, -13)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-4, -1), (-7, -4), (-43, -28)] code 148 | b=a'=(2668, 5446) b-classes [(-2, -2), (-4, -3), (-6, -1), (-7, -3), (-21, -4)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-4, -1), (-7, -1), (-11, -2)] code 12 | b=a'=(1294, 1572) b-classes [(-2, -2), (-3, -2), (-9, -8), (-37, -21)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-4, -1), (-32, -3)] code 106 | b=a'=(-482, -32) b-classes [(-2, -2), (-3, -2), (-7, -1), (-15, -4)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-5, -3), (-6, -5)] code 152 | b=a'=(30, -64) b-classes [(-2, -2), (-3, -2), (-4, -1), (-5, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-5, -3), (-85, -43)] code 4 | b=a'=(-1450, -1770) b-classes [(-2, -2), (-5, -5), (-4, -3), (-52, -21)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-5, -2), (-9, -1), (-21, -13)] code 604 | b=a'=(3684, 3814) b-classes [(-2, -2), (-3, -2), (-5, -3), (-6, -5), (-31, -27)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-5, -2), (-11, -2), (-19, -9)] code 684 | b=a'=(2070, 4054) b-classes [(-2, -2), (-3, -2), (-5, -3), (-167, -36)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-5, -2), (-13, -12), (-14, -3)] code 254 | b=a'=(-1336, 2334) b-classes [(-2, -2), (-3, -2), (-7, -4), (-11, -3), (-11, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-5, -2), (-43, -34)] code 204 | b=a'=(-570, -968) b-classes [(-2, -2), (-3, -2), (-4, -1), (-51, -25)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-5, -5), (-9, -7), (-17, -6)] code 302 | b=a'=(-3064, 6) b-classes [(-2, -2), (-3, -2), (-6, -1), (-113, -21)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-6, -1), (-17, -5)] code 208 | b=a'=(-460, -150) b-classes [(-2, -2), (-5, -5), (-4, -3), (-13, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-6, -1), (-41, -35)] code 108 | b=a'=(-662, -1244) b-classes [(-2, -2), (-3, -2), (-4, -3), (-6, -5), (-11, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-7, -6), (-145, -91)] code 28 | b=a'=(-2558, -4188) b-classes [(-2, -2), (-3, -2), (-6, -5), (-9, -8), (-15, -14)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-13, -3), (-37, -15)] code 132 | b=a'=(-1768, -1638) b-classes [(-2, -2), (-4, -1), (-4, -3), (-6, -1), (-13, -10)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-3, -1), (-27, -13), (-29, -27)] code 22 | b=a'=(-1774, -2998) b-classes [(-2, -2), (-3, -2), (-4, -1), (-9, -4), (-18, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-4, -1), (-5, -3), (-52, -25)] code 1166 | b=a'=(-3642, 2192) b-classes [(-2, -2), (-3, -2), (-7, -3), (-183, -97)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-4, -1), (-5, -2), (-52, -27)] code 388 | b=a'=(3642, 5834) b-classes [(-2, -2), (-3, -1), (-7, -4), (-183, -86)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-4, -1), (-5, -5), (-26, -17)] code 944 | b=a'=(-2474, -464) b-classes [(-2, -2), (-3, -2), (-6, -1), (-7, -1), (-13, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-4, -1), (-5, -5), (-26, -9)] code 461 | b=a'=(464, 2474) b-classes [(-2, -2), (-3, -1), (-6, -5), (-7, -6), (-13, -10)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-4, -1), (-69, -47)] code 96 | b=a'=(-910, -1722) b-classes [(-2, -2), (-3, -2), (-3, -1), (-7, -3), (-18, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-4, -1), (-69, -22)] code 146 | b=a'=(-812, -1722) b-classes [(-2, -2), (-3, -2), (-3, -1), (-7, -4), (-18, -17)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-4, -1), (-119, -96)] code 72 | b=a'=(-562, -2988) b-classes [(-2, -2), (-3, -2), (-7, -6), (-9, -4), (-11, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-4, -1), (-119, -23)] code 144 | b=a'=(-2426, -2988) b-classes [(-2, -2), (-3, -1), (-7, -1), (-9, -5), (-11, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-5, -3), (-5, -5), (-10, -7)] code 326 | b=a'=(-1232, -630) b-classes [(-2, -2), (-3, -2), (-3, -1), (-7, -4), (-13, -12)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-5, -3), (-7, -4), (-7, -3)] code 893 | b=a'=(266, 1022) b-classes [(-2, -2), (-3, -2), (-3, -1), (-4, -1), (-21, -11)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-5, -2), (-39, -11)] code 206 | b=a'=(-581, -987) b-classes [(-3, -2), (-3, -1), (-4, -1), (-5, -3), (-9, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-5, -5), (-6, -5), (-6, -1)] code 208 | b=a'=(-140, 742) b-classes [(-2, -2), (-3, -2), (-3, -1), (-5, -2), (-15, -11)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-5, -5), (-75, -44)] code 204 | b=a'=(98, -1750) b-classes [(-2, -2), (-3, -2), (-3, -1), (-4, -1), (-5, -3), (-9, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-6, -1), (-9, -4), (-11, -8)] code 172 | b=a'=(1268, 3314) b-classes [(-2, -2), (-3, -2), (-7, -1), (-91, -73)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -3), (-21, -17), (-28, -19)] code 2 | b=a'=(1442, -1596) b-classes [(-2, -2), (-3, -2), (-3, -1), (-4, -1), (-58, -15)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -1), (-5, -3), (-39, -28)] code 52 | b=a'=(-406, -987) b-classes [(-3, -2), (-3, -1), (-4, -3), (-5, -2), (-9, -4)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -1), (-5, -2), (-5, -5), (-10, -3)] code 1264 | b=a'=(630, 1232) b-classes [(-2, -2), (-3, -2), (-3, -1), (-7, -3), (-13, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -1), (-5, -2), (-7, -4), (-7, -3)] code 85 | b=a'=(-266, 756) b-classes [(-2, -2), (-3, -2), (-3, -1), (-4, -3), (-21, -10)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -1), (-5, -5), (-6, -5), (-6, -1)] code 224 | b=a'=(-742, 140) b-classes [(-2, -2), (-3, -2), (-3, -1), (-5, -3), (-15, -4)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -1), (-5, -5), (-75, -31)] code 42 | b=a'=(-98, -1848) b-classes [(-2, -2), (-3, -2), (-3, -1), (-4, -3), (-5, -2), (-9, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -1), (-6, -5), (-9, -5), (-11, -3)] code 86 | b=a'=(-1268, 2046) b-classes [(-2, -2), (-3, -1), (-7, -6), (-91, -18)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-4, -1), (-21, -4), (-28, -9)] code 4 | b=a'=(-3038, -1596) b-classes [(-2, -2), (-3, -2), (-3, -1), (-4, -3), (-58, -43)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-5, -3), (-5, -2), (-5, -5), (-9, -5)] code 512 | b=a'=(-1386, -224) b-classes [(-2, -2), (-3, -2), (-3, -1), (-7, -3), (-17, -12)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-5, -3), (-5, -2), (-5, -5), (-9, -4)] code 893 | b=a'=(224, 1386) b-classes [(-2, -2), (-3, -2), (-3, -1), (-7, -4), (-17, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-5, -3), (-5, -5), (-7, -1), (-11, -8)] code 1096 | b=a'=(-932, 1626) b-classes [(-2, -2), (-3, -1), (-4, -1), (-5, -2), (-31, -13)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-5, -2), (-5, -5), (-7, -6), (-11, -3)] code 218 | b=a'=(-1626, 932) b-classes [(-2, -2), (-3, -2), (-4, -3), (-5, -3), (-31, -18)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-5, -5), (-6, -5), (-7, -4), (-14, -9)] code 288 | b=a'=(-3794, -560) b-classes [(-2, -2), (-3, -2), (-3, -1), (-5, -2), (-6, -1), (-12, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-5, -5), (-6, -1), (-7, -3), (-14, -5)] code 1226 | b=a'=(560, 3794) b-classes [(-2, -2), (-3, -2), (-3, -1), (-5, -3), (-6, -5), (-12, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-5, -5), (-7, -6), (-26, -3)] code 13 | b=a'=(468, -806) b-classes [(-2, -2), (-4, -1), (-4, -3), (-5, -3), (-11, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-5, -5), (-7, -1), (-26, -23)] code 28 | b=a'=(-468, -1274) b-classes [(-2, -2), (-4, -1), (-4, -3), (-5, -2), (-11, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-5, -5), (-11, -9), (-17, -12)] code 14 | b=a'=(945, -406) b-classes [(-3, -2), (-3, -1), (-4, -3), (-6, -5), (-9, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-5, -5), (-11, -2), (-17, -5)] code 24 | b=a'=(-945, -1351) b-classes [(-3, -2), (-3, -1), (-4, -1), (-6, -1), (-9, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-5, -5), (-17, -11)] code 2 | b=a'=(30, 118) b-classes [(-2, -2), (-3, -2), (-4, -1), (-6, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-5, -5), (-17, -6)] code 0 | b=a'=(88, 118) b-classes [(-2, -2), (-3, -1), (-4, -3), (-6, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-7, -4), (-9, -7), (-17, -5)] code 156 | b=a'=(-442, -1300) b-classes [(-2, -2), (-3, -1), (-4, -1), (-4, -3), (-19, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-7, -3), (-9, -2), (-17, -12)] code 96 | b=a'=(-858, -1300) b-classes [(-2, -2), (-3, -2), (-4, -1), (-4, -3), (-19, -12)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-7, -6), (-9, -5), (-20, -3)] code 158 | b=a'=(-392, -1526) b-classes [(-2, -2), (-3, -2), (-3, -1), (-109, -81)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-7, -1), (-9, -4), (-20, -17)] code 100 | b=a'=(-1134, -1526) b-classes [(-2, -2), (-3, -2), (-3, -1), (-109, -28)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-27, -19), (-69, -8)] code 0 | b=a'=(1876, 1498) b-classes [(-2, -2), (-3, -2), (-3, -1), (-4, -3), (-5, -3), (-9, -4)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -1), (-27, -8), (-69, -61)] code 0 | b=a'=(1498, 1876) b-classes [(-2, -2), (-3, -2), (-3, -1), (-4, -1), (-5, -2), (-9, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-3, -1), (-4, -3), (-21, -10)] code 470 | b=a'=(-1073, -148) b-classes [(-2, -1), (-4, -1), (-5, -2), (-7, -4), (-7, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-3, -1), (-4, -3), (-58, -43)] code 1164 | b=a'=(-3290, -751) b-classes [(-2, -1), (-4, -1), (-21, -4), (-28, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-3, -1), (-4, -1), (-21, -11)] code 1222 | b=a'=(1073, 925) b-classes [(-2, -1), (-4, -3), (-5, -3), (-7, -4), (-7, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-3, -1), (-4, -1), (-58, -15)] code 641 | b=a'=(3290, 2539) b-classes [(-2, -1), (-4, -3), (-21, -17), (-28, -19)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-3, -1), (-5, -3), (-15, -4)] code 636 | b=a'=(310, 1085) b-classes [(-2, -1), (-5, -5), (-4, -1), (-6, -1), (-6, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-3, -1), (-5, -2), (-15, -11)] code 1176 | b=a'=(-310, 775) b-classes [(-2, -1), (-5, -5), (-4, -3), (-6, -1), (-6, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-3, -1), (-7, -4), (-13, -12)] code 940 | b=a'=(-815, 575) b-classes [(-2, -1), (-5, -5), (-4, -3), (-5, -3), (-10, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-3, -1), (-7, -4), (-17, -5)] code 395 | b=a'=(1330, 1235) b-classes [(-2, -1), (-5, -5), (-5, -2), (-5, -3), (-9, -4)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-3, -1), (-7, -4), (-18, -17)] code 1030 | b=a'=(325, 1508) b-classes [(-2, -1), (-4, -1), (-4, -3), (-69, -22)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-3, -1), (-7, -3), (-13, -1)] code 184 | b=a'=(815, 1390) b-classes [(-2, -1), (-5, -5), (-4, -1), (-5, -2), (-10, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-3, -1), (-7, -3), (-17, -12)] code 662 | b=a'=(-1330, -95) b-classes [(-2, -1), (-5, -5), (-5, -2), (-5, -3), (-9, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-3, -1), (-7, -3), (-18, -1)] code 1 | b=a'=(-325, 1183) b-classes [(-2, -1), (-4, -1), (-4, -3), (-69, -47)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-3, -1), (-109, -81)] code 72 | b=a'=(136, -1585) b-classes [(-2, -1), (-7, -6), (-9, -5), (-20, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-3, -1), (-109, -28)] code 208 | b=a'=(-1721, -1585) b-classes [(-2, -1), (-7, -1), (-9, -4), (-20, -17)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-4, -3), (-4, -1), (-19, -12)] code 158 | b=a'=(-1169, 239) b-classes [(-2, -1), (-7, -3), (-9, -2), (-17, -12)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-4, -3), (-5, -3), (-31, -18)] code 826 | b=a'=(-55, 2410) b-classes [(-2, -1), (-5, -5), (-5, -2), (-7, -6), (-11, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-4, -3), (-6, -5), (-11, -2)] code 182 | b=a'=(-869, 191) b-classes [(-2, -1), (-3, -1), (-6, -1), (-41, -35)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-4, -1), (-5, -2)] code 168 | b=a'=(-88, -125) b-classes [(-2, -1), (-3, -1), (-5, -3), (-6, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-4, -1), (-6, -5)] code 72 | b=a'=(25, -115) b-classes [(-2, -1), (-5, -5), (-17, -11)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-4, -1), (-9, -4), (-18, -1)] code 460 | b=a'=(2483, 3343) b-classes [(-2, -1), (-3, -1), (-27, -13), (-29, -27)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-4, -1), (-51, -25)] code 110 | b=a'=(17, -776) b-classes [(-2, -1), (-3, -1), (-5, -2), (-43, -34)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-5, -3), (-6, -5), (-31, -27)] code 80 | b=a'=(-3247, -3005) b-classes [(-2, -1), (-3, -1), (-5, -2), (-9, -1), (-21, -13)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-5, -3), (-167, -36)] code 192 | b=a'=(-629, -3607) b-classes [(-2, -1), (-3, -1), (-5, -2), (-11, -2), (-19, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-5, -2), (-5, -5), (-21, -13)] code 328 | b=a'=(-1052, 725) b-classes [(-2, -1), (-3, -1), (-4, -1), (-6, -5), (-19, -13)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-5, -5), (-96, -73)] code 100 | b=a'=(131, -2180) b-classes [(-2, -1), (-3, -1), (-4, -3), (-157, -73)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-6, -5), (-7, -1), (-19, -3)] code 642 | b=a'=(1193, 3277) b-classes [(-2, -1), (-3, -1), (-4, -3), (-5, -3), (-7, -4), (-7, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-6, -5), (-9, -8), (-15, -14)] code 508 | b=a'=(-4336, -1499) b-classes [(-2, -1), (-3, -1), (-7, -6), (-145, -91)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-6, -1), (-7, -1), (-13, -3)] code 174 | b=a'=(2275, 2795) b-classes [(-2, -1), (-5, -5), (-4, -1), (-4, -3), (-26, -17)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-6, -1), (-113, -21)] code 66 | b=a'=(-2875, -2720) b-classes [(-2, -1), (-5, -5), (-3, -1), (-9, -7), (-17, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-7, -4), (-11, -3), (-11, -9)] code 816 | b=a'=(-1280, 2357) b-classes [(-2, -1), (-3, -1), (-5, -2), (-13, -12), (-14, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-7, -3), (-7, -1)] code 6 | b=a'=(-88, -209) b-classes [(-2, -1), (-3, -1), (-11, -11), (-4, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-7, -6), (-9, -4), (-11, -9)] code 938 | b=a'=(-2795, -949) b-classes [(-2, -1), (-4, -1), (-4, -3), (-119, -96)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-7, -1), (-15, -4)] code 168 | b=a'=(-461, -541) b-classes [(-2, -1), (-3, -1), (-4, -1), (-32, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-7, -1), (-91, -73)] code 174 | b=a'=(-1252, -3071) b-classes [(-2, -1), (-4, -3), (-6, -1), (-9, -4), (-11, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-9, -8), (-37, -21)] code 90 | b=a'=(443, -809) b-classes [(-2, -1), (-3, -1), (-4, -1), (-7, -1), (-11, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-16, -1), (-34, -7)] code 102 | b=a'=(-2213, -2287) b-classes [(-2, -1), (-3, -1), (-4, -3), (-9, -7), (-19, -12)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-19, -10), (-36, -13)] code 112 | b=a'=(-1832, -2629) b-classes [(-2, -1), (-3, -1), (-4, -1), (-5, -2), (-35, -29)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -2), (-137, -3)] code 22 | b=a'=(677, 277) b-classes [(-2, -1), (-3, -1), (-4, -3), (-5, -3), (-9, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-4, -3), (-4, -1), (-19, -7)] code 1049 | b=a'=(1169, 1408) b-classes [(-2, -1), (-7, -4), (-9, -7), (-17, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-4, -3), (-5, -3)] code 4 | b=a'=(-37, -125) b-classes [(-2, -1), (-3, -2), (-5, -2), (-6, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-4, -3), (-6, -1)] code 208 | b=a'=(-140, -115) b-classes [(-2, -1), (-5, -5), (-17, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-4, -3), (-9, -5), (-18, -17)] code 1224 | b=a'=(-2483, 860) b-classes [(-2, -1), (-3, -2), (-27, -14), (-29, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-4, -3), (-51, -26)] code 65 | b=a'=(-793, -776) b-classes [(-2, -1), (-3, -2), (-5, -3), (-43, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-4, -1), (-5, -2), (-31, -13)] code 228 | b=a'=(55, 2465) b-classes [(-2, -1), (-5, -5), (-5, -3), (-7, -1), (-11, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-4, -1), (-6, -1), (-11, -9)] code 965 | b=a'=(869, 1060) b-classes [(-2, -1), (-3, -2), (-6, -5), (-41, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-5, -3), (-5, -5), (-21, -8)] code 780 | b=a'=(-725, 1052) b-classes [(-2, -1), (-3, -2), (-4, -3), (-6, -1), (-19, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-5, -2), (-6, -1), (-31, -4)] code 1067 | b=a'=(3247, 242) b-classes [(-2, -1), (-3, -2), (-5, -3), (-9, -8), (-21, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-5, -2), (-167, -131)] code 106 | b=a'=(-2978, -3607) b-classes [(-2, -1), (-3, -2), (-5, -3), (-11, -9), (-19, -10)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-5, -5), (-96, -23)] code 192 | b=a'=(-131, -2311) b-classes [(-2, -1), (-3, -2), (-4, -1), (-157, -84)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-6, -5), (-7, -6), (-13, -10)] code 880 | b=a'=(-2275, 520) b-classes [(-2, -1), (-5, -5), (-4, -1), (-4, -3), (-26, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-6, -5), (-113, -92)] code 124 | b=a'=(155, -2720) b-classes [(-2, -1), (-5, -5), (-3, -2), (-9, -2), (-17, -11)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-6, -1), (-7, -6), (-19, -16)] code 1168 | b=a'=(-1193, 2084) b-classes [(-2, -1), (-3, -2), (-4, -1), (-5, -2), (-7, -3), (-7, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-6, -1), (-9, -1), (-15, -1)] code 1284 | b=a'=(4336, 2837) b-classes [(-2, -1), (-3, -2), (-7, -1), (-145, -54)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-7, -4), (-7, -6)] code 166 | b=a'=(-121, -209) b-classes [(-2, -1), (-3, -2), (-11, -11), (-4, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-7, -3), (-11, -8), (-11, -2)] code 220 | b=a'=(1280, 3637) b-classes [(-2, -1), (-3, -2), (-5, -3), (-13, -1), (-14, -11)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-7, -6), (-15, -11)] code 4 | b=a'=(-80, -541) b-classes [(-2, -1), (-3, -2), (-4, -3), (-32, -29)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-7, -6), (-91, -18)] code 16 | b=a'=(-1819, -3071) b-classes [(-2, -1), (-4, -1), (-6, -5), (-9, -5), (-11, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-7, -1), (-9, -5), (-11, -2)] code 209 | b=a'=(2795, 1846) b-classes [(-2, -1), (-4, -1), (-4, -3), (-119, -23)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-9, -1), (-37, -16)] code 190 | b=a'=(-1252, -809) b-classes [(-2, -1), (-3, -2), (-4, -3), (-7, -6), (-11, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-16, -15), (-34, -27)] code 196 | b=a'=(-74, -2287) b-classes [(-2, -1), (-3, -2), (-4, -1), (-9, -2), (-19, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-19, -9), (-36, -23)] code 60 | b=a'=(-797, -2629) b-classes [(-2, -1), (-3, -2), (-4, -3), (-5, -3), (-35, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-3, -1), (-137, -134)] code 6 | b=a'=(277, 677) b-classes [(-2, -1), (-3, -2), (-4, -1), (-5, -2), (-9, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -3), (-4, -1), (-5, -3), (-11, -8)] code 144 | b=a'=(-770, 845) b-classes [(-2, -1), (-5, -5), (-7, -6), (-26, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -3), (-4, -1), (-5, -2), (-11, -3)] code 892 | b=a'=(770, 1615) b-classes [(-2, -1), (-5, -5), (-7, -1), (-26, -23)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -3), (-4, -1), (-6, -5), (-13, -3)] code 682 | b=a'=(869, 2005) b-classes [(-2, -1), (-3, -2), (-13, -10), (-37, -22)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -3), (-4, -1), (-6, -1), (-13, -10)] code 362 | b=a'=(-869, 1136) b-classes [(-2, -1), (-3, -1), (-13, -3), (-37, -15)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -3), (-5, -3), (-56, -39)] code 66 | b=a'=(-140, -1225) b-classes [(-2, -1), (-5, -5), (-3, -2), (-3, -1), (-22, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -3), (-5, -5), (-12, -7)] code 64 | b=a'=(-14, -301) b-classes [(-2, -1), (-3, -2), (-3, -1), (-5, -3), (-6, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -3), (-5, -5), (-13, -7)] code 24 | b=a'=(113, -317) b-classes [(-2, -1), (-3, -1), (-6, -1), (-17, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -3), (-5, -5), (-52, -21)] code 112 | b=a'=(-116, -1525) b-classes [(-2, -1), (-3, -1), (-5, -3), (-85, -43)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -3), (-6, -5), (-52, -49)] code 196 | b=a'=(889, -868) b-classes [(-2, -1), (-3, -2), (-3, -1), (-5, -2), (-33, -20)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -1), (-5, -2), (-56, -17)] code 124 | b=a'=(-1085, -1225) b-classes [(-2, -1), (-5, -5), (-3, -2), (-3, -1), (-22, -13)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -1), (-5, -5), (-12, -5)] code 120 | b=a'=(14, -287) b-classes [(-2, -1), (-3, -2), (-3, -1), (-5, -2), (-6, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -1), (-5, -5), (-13, -6)] code 160 | b=a'=(-113, -430) b-classes [(-2, -1), (-3, -2), (-6, -5), (-17, -12)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -1), (-5, -5), (-52, -31)] code 36 | b=a'=(116, -1409) b-classes [(-2, -1), (-3, -2), (-5, -2), (-85, -42)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-2, -2), (-4, -1), (-6, -1), (-52, -3)] code 102 | b=a'=(-1757, -868) b-classes [(-2, -1), (-3, -2), (-3, -1), (-5, -3), (-33, -13)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-4, -3)] code 16 | b=a'=(20, 22) b-classes [(-2, -2), (-2, -1), (-7, -4)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-4, -3), (-5, -2), (-6, -1)] code 6 | b=a'=(-98, 638) b-classes [(-2, -2), (-2, -1), (-9, -1), (-27, -14)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-4, -3), (-5, -2), (-9, -4)] code 448 | b=a'=(-88, 901) b-classes [(-2, -1), (-4, -1), (-5, -3), (-39, -28)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-4, -3), (-5, -5), (-24, -13)] code 506 | b=a'=(-2890, -476) b-classes [(-2, -2), (-2, -1), (-17, -17), (-6, -5), (-9, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-4, -3), (-6, -5), (-9, -1)] code 16 | b=a'=(-95, 1280) b-classes [(-2, -1), (-5, -5), (-11, -9), (-17, -12)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-4, -1)] code 34 | b=a'=(20, -2) b-classes [(-2, -2), (-2, -1), (-7, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-4, -1), (-5, -3), (-6, -5)] code 30 | b=a'=(98, 736) b-classes [(-2, -2), (-2, -1), (-9, -8), (-27, -13)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-4, -1), (-5, -3), (-9, -5)] code 1258 | b=a'=(989, 901) b-classes [(-2, -1), (-4, -3), (-5, -2), (-39, -11)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-4, -1), (-5, -5), (-24, -11)] code 86 | b=a'=(-2414, 476) b-classes [(-2, -2), (-2, -1), (-17, -17), (-6, -1), (-9, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-4, -1), (-6, -1), (-9, -8)] code 1042 | b=a'=(1375, 1280) b-classes [(-2, -1), (-5, -5), (-11, -2), (-17, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-5, -3), (-6, -5)] code 29 | b=a'=(-142, -152) b-classes [(-2, -2), (-2, -1), (-4, -3), (-13, -10)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-5, -3), (-6, -1), (-7, -3)] code 868 | b=a'=(946, 1400) b-classes [(-2, -2), (-2, -1), (-4, -1), (-114, -65)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-5, -3), (-7, -4), (-16, -15)] code 2 | b=a'=(-2506, 502) b-classes [(-2, -2), (-2, -1), (-6, -1), (-7, -1), (-23, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-5, -3), (-9, -4), (-20, -17)] code 820 | b=a'=(1466, 4912) b-classes [(-2, -2), (-2, -1), (-13, -7), (-127, -84)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-5, -3), (-43, -15)] code 180 | b=a'=(-760, -1274) b-classes [(-2, -2), (-2, -1), (-6, -5), (-59, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-5, -2), (-6, -5), (-7, -4)] code 172 | b=a'=(454, 1400) b-classes [(-2, -2), (-2, -1), (-4, -3), (-114, -49)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-5, -2), (-6, -1)] code 209 | b=a'=(-142, 10) b-classes [(-2, -2), (-2, -1), (-4, -1), (-13, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-5, -2), (-7, -3), (-16, -1)] code 518 | b=a'=(-502, 2506) b-classes [(-2, -2), (-2, -1), (-6, -5), (-7, -6), (-23, -21)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-5, -2), (-9, -5), (-20, -3)] code 220 | b=a'=(3446, 4912) b-classes [(-2, -2), (-2, -1), (-13, -6), (-127, -43)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-5, -2), (-43, -28)] code 36 | b=a'=(-514, -1274) b-classes [(-2, -2), (-2, -1), (-6, -1), (-59, -56)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-5, -5), (-111, -85)] code 113 | b=a'=(-1552, -2702) b-classes [(-2, -2), (-2, -1), (-4, -1), (-5, -3), (-45, -4)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-5, -5), (-111, -26)] code 101 | b=a'=(-2702, -1552) b-classes [(-2, -2), (-2, -1), (-4, -3), (-5, -2), (-45, -41)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-6, -5), (-7, -1), (-12, -5)] code 656 | b=a'=(-1378, 832) b-classes [(-2, -2), (-2, -1), (-4, -1), (-4, -3), (-5, -2), (-11, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-6, -1), (-7, -6), (-12, -7)] code 1178 | b=a'=(-832, 1378) b-classes [(-2, -2), (-2, -1), (-4, -1), (-4, -3), (-5, -3), (-11, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-11, -8)] code 28 | b=a'=(62, 40) b-classes [(-2, -2), (-2, -1), (-4, -3), (-5, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-11, -3)] code 4 | b=a'=(62, 22) b-classes [(-2, -2), (-2, -1), (-4, -1), (-5, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-215, -188)] code 28 | b=a'=(1082, 940) b-classes [(-2, -2), (-2, -1), (-4, -1), (-9, -5), (-12, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-3, -1), (-215, -27)] code 4 | b=a'=(1082, 142) b-classes [(-2, -2), (-2, -1), (-4, -3), (-9, -4), (-12, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -3), (-4, -1), (-5, -2), (-9, -2)] code 445 | b=a'=(-638, 602) b-classes [(-2, -2), (-2, -1), (-11, -3), (-35, -26)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -3), (-4, -1), (-7, -6), (-18, -17)] code 944 | b=a'=(-2750, -1612) b-classes [(-2, -2), (-2, -1), (-3, -1), (-5, -3), (-7, -3), (-11, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -3), (-4, -1), (-52, -7)] code 158 | b=a'=(-304, -1394) b-classes [(-2, -2), (-2, -1), (-3, -1), (-6, -1), (-27, -22)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -3), (-5, -3), (-6, -5), (-19, -16)] code 14 | b=a'=(-4510, -2222) b-classes [(-2, -2), (-2, -1), (-3, -1), (-11, -11), (-5, -2), (-10, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -3), (-5, -3), (-19, -6)] code 132 | b=a'=(-376, -614) b-classes [(-2, -2), (-2, -1), (-4, -1), (-5, -2), (-11, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -3), (-5, -2), (-7, -4)] code 24 | b=a'=(-124, -291) b-classes [(-3, -1), (-4, -1), (-5, -3), (-7, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -3), (-5, -5), (-44, -23)] code 12 | b=a'=(748, -1006) b-classes [(-2, -2), (-2, -1), (-3, -1), (-9, -8), (-22, -15)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -3), (-7, -4), (-10, -3)] code 208 | b=a'=(-404, -382) b-classes [(-2, -2), (-2, -1), (-3, -1), (-5, -2), (-11, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -3), (-7, -3), (-42, -1)] code 184 | b=a'=(-1780, -1550) b-classes [(-2, -2), (-2, -1), (-5, -5), (-3, -1), (-4, -1), (-11, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -1), (-5, -3), (-5, -2), (-13, -6)] code 1037 | b=a'=(2078, 1990) b-classes [(-2, -2), (-2, -1), (-3, -1), (-6, -5), (-7, -3), (-7, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -1), (-7, -4), (-43, -7)] code 76 | b=a'=(-1972, -1586) b-classes [(-2, -2), (-2, -1), (-3, -1), (-5, -3), (-52, -21)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -1), (-7, -3), (-31, -13)] code 172 | b=a'=(-1426, -992) b-classes [(-2, -2), (-2, -1), (-6, -1), (-6, -5), (-13, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -1), (-7, -6), (-9, -7)] code 76 | b=a'=(-100, -470) b-classes [(-2, -2), (-2, -1), (-5, -5), (-28, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-4, -1), (-12, -5), (-46, -43)] code 112 | b=a'=(-2020, -3530) b-classes [(-2, -2), (-2, -1), (-5, -5), (-4, -3), (-5, -3), (-13, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-5, -3), (-7, -4), (-7, -3)] code 158 | b=a'=(-20, -310) b-classes [(-2, -2), (-2, -1), (-5, -5), (-3, -1), (-7, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-5, -3), (-7, -3), (-11, -2)] code 28 | b=a'=(-574, -488) b-classes [(-2, -2), (-2, -1), (-4, -1), (-5, -2), (-11, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-5, -2), (-6, -1), (-7, -6), (-9, -8)] code 518 | b=a'=(-3182, -244) b-classes [(-2, -2), (-2, -1), (-3, -1), (-6, -5), (-69, -28)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -2), (-5, -2), (-7, -6), (-37, -12)] code 192 | b=a'=(-464, -1942) b-classes [(-2, -2), (-2, -1), (-3, -1), (-12, -7), (-21, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -3), (-4, -1), (-5, -3), (-9, -7)] code 898 | b=a'=(638, 1240) b-classes [(-2, -2), (-2, -1), (-11, -8), (-35, -9)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -3), (-4, -1), (-7, -1), (-18, -1)] code 605 | b=a'=(2750, 1138) b-classes [(-2, -2), (-2, -1), (-3, -2), (-5, -2), (-7, -4), (-11, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -3), (-4, -1), (-52, -45)] code 100 | b=a'=(-1090, -1394) b-classes [(-2, -2), (-2, -1), (-3, -2), (-6, -5), (-27, -5)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -3), (-5, -3), (-5, -2), (-13, -7)] code 517 | b=a'=(-2078, -88) b-classes [(-2, -2), (-2, -1), (-3, -2), (-6, -1), (-7, -4), (-7, -1)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -3), (-7, -4), (-31, -18)] code 86 | b=a'=(434, -992) b-classes [(-2, -2), (-2, -1), (-6, -1), (-6, -5), (-13, -10)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -3), (-7, -3), (-43, -36)] code 146 | b=a'=(386, -1586) b-classes [(-2, -2), (-2, -1), (-3, -2), (-5, -2), (-52, -31)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -3), (-7, -1), (-9, -2)] code 146 | b=a'=(-370, -470) b-classes [(-2, -2), (-2, -1), (-5, -5), (-28, -19)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -3), (-12, -7), (-46, -3)] code 110 | b=a'=(-1510, -3530) b-classes [(-2, -2), (-2, -1), (-5, -5), (-4, -1), (-5, -2), (-13, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -1), (-5, -3), (-7, -3)] code 12 | b=a'=(-167, -291) b-classes [(-3, -2), (-4, -3), (-5, -2), (-7, -4)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -1), (-5, -2), (-6, -1), (-19, -3)] code 28 | b=a'=(4510, 2288) b-classes [(-2, -2), (-2, -1), (-3, -2), (-11, -11), (-5, -3), (-10, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -1), (-5, -2), (-19, -13)] code 120 | b=a'=(-238, -614) b-classes [(-2, -2), (-2, -1), (-4, -3), (-5, -3), (-11, -8)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -1), (-5, -5), (-44, -21)] code 0 | b=a'=(-748, -1754) b-classes [(-2, -2), (-2, -1), (-3, -2), (-9, -1), (-22, -7)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -1), (-7, -4), (-42, -41)] code 38 | b=a'=(230, -1550) b-classes [(-2, -2), (-2, -1), (-5, -5), (-3, -2), (-4, -3), (-11, -2)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-4, -1), (-7, -3), (-10, -7)] code 50 | b=a'=(22, -382) b-classes [(-2, -2), (-2, -1), (-3, -2), (-5, -3), (-11, -3)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-5, -3), (-6, -5), (-7, -1), (-9, -1)] code 1036 | b=a'=(3182, 2938) b-classes [(-2, -2), (-2, -1), (-3, -2), (-6, -1), (-69, -41)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-5, -3), (-7, -1), (-37, -25)] code 60 | b=a'=(-1478, -1942) b-classes [(-2, -2), (-2, -1), (-3, -2), (-12, -5), (-21, -13)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-5, -2), (-7, -4), (-7, -3)] code 160 | b=a'=(-290, -310) b-classes [(-2, -2), (-2, -1), (-5, -5), (-3, -2), (-7, -6)] | closes exactly ***
+*** ring 3 TWISTED 2-CYCLE: a-classes [(-3, -1), (-5, -2), (-7, -4), (-11, -9)] code 14 | b=a'=(86, -488) b-classes [(-2, -2), (-2, -1), (-4, -3), (-5, -3), (-11, -3)] | closes exactly ***
+*** ring 2 UNIT-DERIVATIVE a'~1: classes [(0, -1), (-1, 1)], a'=(-1, 0) ***
