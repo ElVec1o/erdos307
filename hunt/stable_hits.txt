@@ -1,0 +1,2 @@
+# stable_hunt certificate: 0 hits. No conjugation-stable Gaussian cycles (descended Z-operator D(m))
+# to m <= 10^9 (Gaussian norm 10^18); the descent target stays open. See README.md.

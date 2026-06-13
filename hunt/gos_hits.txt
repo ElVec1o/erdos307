@@ -1,0 +1,2 @@
+# gos_hunt certificate: 0 hits. No members of the mu-Sondow lines mu=-145, +673 with prime-factor
+# cofactor <= 10^11; both instances of the Grau-Oller-Marcen-Sadornil conjecture remain open. See README.md.
