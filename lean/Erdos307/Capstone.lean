@@ -15,8 +15,8 @@ The only classical ingredient still imported as an explicit hypothesis is the
 smallest-primes extremality `hRatio` (target **T4′**); everything else — including the
 disjointness of `P` and `Q` and the rigidity identity `R = s·D_P²` — is discharged here.
 
-Status: `sorry`-free *by design*, but written without a live checker — run
-`lake env lean Erdos307/Capstone.lean` and iterate on any API-name mismatches.
+Status: **machine-checked**.  Compiles under `lake build` (Lean / mathlib v4.30.0); `#print axioms
+erdos307_barrier` shows only `propext, Classical.choice, Quot.sound` — no `sorryAx`.  Confirmed green Jun 14 2026.
 -/
 
 namespace Erdos307
