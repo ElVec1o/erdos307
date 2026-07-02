@@ -46,8 +46,9 @@ def pool99 : List ℕ :=
    659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761,
    769, 773, 787]
 
-/-- Reciprocal sum of a list. -/
-def rsum (l : List ℕ) : ℚ := (l.map fun p => (p : ℚ)⁻¹).sum
+/-- Reciprocal sum of a list.  (The `p : ℕ` ascription matters: without it Lean coerces
+the *list* to `List ℚ`, which breaks every syntactic rewrite downstream.) -/
+def rsum (l : List ℕ) : ℚ := (l.map fun p : ℕ => (p : ℚ)⁻¹).sum
 
 /-- Threshold: the 20 pool primes must contribute mass `≥ thr` for `T(U) ≥ 2`. -/
 def thr : ℚ := 2 - rsum forced39
@@ -75,7 +76,7 @@ lemma rsum_append (l₁ l₂ : List ℕ) : rsum (l₁ ++ l₂) = rsum l₁ + rsu
 
 lemma rsum_perm {l l' : List ℕ} (h : l.Perm l') : rsum l = rsum l' := by
   unfold rsum
-  exact (h.map _).sum_eq
+  exact (h.map fun p : ℕ => (p : ℚ)⁻¹).sum_eq
 
 lemma plusVal_perm {l l' : List ℕ} (h : l.Perm l') : plusVal l = plusVal l' := by
   unfold plusVal
@@ -404,11 +405,8 @@ theorem erdos307_sixty {P Q : Finset ℕ}
       exact hrF (List.mem_toFinset.mpr (hsmall r (by omega) hrp))
     exact hmem r (by omega) hrp hgt
   -- sorted list of the free slots is a sublist of the pool
-  have hLVsorted : (((P ∪ Q) \ forced39.toFinset).sort (· ≤ ·)).Pairwise (· < ·) := by
-    first
-    | exact Finset.sortedLT_sort _
-    | exact Finset.sort_sorted_lt _
-    | simpa using Finset.sortedLT_sort ((P ∪ Q) \ forced39.toFinset)
+  have hLVsorted : (((P ∪ Q) \ forced39.toFinset).sort (· ≤ ·)).Pairwise (· < ·) :=
+    (Finset.sortedLT_sort _).pairwise
   have hpoolsorted : pool99.Pairwise (· < ·) := by native_decide
   have hLVsub : (((P ∪ Q) \ forced39.toFinset).sort (· ≤ ·)).Sublist pool99 := by
     refine sublist_of_pairwise_lt hLVsorted hpoolsorted ?_
@@ -421,10 +419,7 @@ theorem erdos307_sixty {P Q : Finset ℕ}
     Finset.union_sdiff_of_subset hFsub
   have hFdisj : Disjoint forced39.toFinset ((P ∪ Q) \ forced39.toFinset) :=
     Finset.disjoint_sdiff
-  have hnd : forced39.Nodup := by native_decide
-  have hFsum : ∑ r ∈ forced39.toFinset, (r : ℚ)⁻¹ = rsum forced39 := by
-    rw [List.sum_toFinset _ hnd]
-    rfl
+  have hFsum : ∑ r ∈ forced39.toFinset, (r : ℚ)⁻¹ = rsum forced39 := by native_decide
   have hVsum : rsum (((P ∪ Q) \ forced39.toFinset).sort (· ≤ ·))
       = ∑ r ∈ (P ∪ Q) \ forced39.toFinset, (r : ℚ)⁻¹ := rsum_sort _
   have hthrV : thr ≤ 0 + rsum (((P ∪ Q) \ forced39.toFinset).sort (· ≤ ·)) := by
@@ -445,9 +440,7 @@ theorem erdos307_sixty {P Q : Finset ℕ}
       ((P ∪ Q).sort (· ≤ ·)) := by
     rw [List.append_nil]
     rw [← Multiset.coe_eq_coe]
-    have h2 : (↑forced39 : Multiset ℕ) = forced39.toFinset.val := by
-      rw [List.toFinset_val]
-      exact_mod_cast (hnd.dedup).symm
+    have h2 : (↑forced39 : Multiset ℕ) = forced39.toFinset.val := by native_decide
     have h3 : (↑(((P ∪ Q) \ forced39.toFinset).sort (· ≤ ·)) : Multiset ℕ)
         = ((P ∪ Q) \ forced39.toFinset).val :=
       Multiset.coe_eq_coe.mpr (Finset.sort_perm_toList _ _) |>.trans
