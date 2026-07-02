@@ -73,38 +73,46 @@ lemma rsum_cons (x : ℕ) (l : List ℕ) : rsum (x :: l) = (x : ℚ)⁻¹ + rsum
 lemma rsum_append (l₁ l₂ : List ℕ) : rsum (l₁ ++ l₂) = rsum l₁ + rsum l₂ := by
   simp [rsum]
 
-lemma rsum_perm {l l' : List ℕ} (h : l.Perm l') : rsum l = rsum l' :=
-  (h.map _).sum_eq
+lemma rsum_perm {l l' : List ℕ} (h : l.Perm l') : rsum l = rsum l' := by
+  unfold rsum
+  exact (h.map _).sum_eq
 
 lemma plusVal_perm {l l' : List ℕ} (h : l.Perm l') : plusVal l = plusVal l' := by
   unfold plusVal
   rw [h.prod_eq, (h.map fun p => l'.prod / p).sum_eq]
 
-/-- Domination: over a `<`-sorted list of positives, any `k`-sublist's reciprocal sum
-is at most that of the first `k` elements. -/
-lemma rsum_take_shift {x : ℕ} {xs : List ℕ} (hs : (x :: xs).Sorted (· < ·))
+/-- Reciprocal-of-cast monotonicity, packaged once. -/
+lemma inv_cast_le {x y : ℕ} (hx : 0 < x) (hxy : x ≤ y) : (y : ℚ)⁻¹ ≤ (x : ℚ)⁻¹ := by
+  gcongr <;> first
+    | exact hxy
+    | exact_mod_cast hx
+    | positivity
+    | exact_mod_cast hxy
+
+/-- Shifting `take` across a strictly smaller head can only increase the mass. -/
+lemma rsum_take_shift {x : ℕ} {xs : List ℕ} (hlt : ∀ y ∈ xs, x < y)
     (hx : 0 < x) (k : ℕ) : rsum (xs.take k) ≤ rsum ((x :: xs).take k) := by
   cases k with
   | zero => simp [rsum]
   | succ j =>
-    -- (x :: xs).take (j+1) = x :: xs.take j
-    show rsum (xs.take (j + 1)) ≤ rsum (x :: xs.take j)
-    rw [List.take_succ, rsum_append, rsum_cons]
-    have hopt : rsum (xs[j]?.toList) ≤ (x : ℚ)⁻¹ := by
+    have h1 : (x :: xs).take (j + 1) = x :: xs.take j := rfl
+    rw [h1, rsum_cons, List.take_add_one, rsum_append]
+    have h2 : rsum (xs[j]?.toList) ≤ (x : ℚ)⁻¹ := by
       cases hg : xs[j]? with
-      | none => simp [rsum]; positivity
+      | none =>
+        have : rsum ((none : Option ℕ).toList) = 0 := rfl
+        rw [this]
+        positivity
       | some y =>
         have hy : y ∈ xs := List.mem_of_getElem? hg
-        have hxy : x < y := (List.sorted_cons.mp hs).1 y hy
-        have hy0 : (0 : ℚ) < x := by exact_mod_cast hx
-        simp only [Option.toList, rsum, List.map_cons, List.map_nil, List.sum_cons,
-          List.sum_nil, add_zero]
-        gcongr
-        · exact_mod_cast hx
-        · exact_mod_cast hxy.le
-    linarith [hopt]
+        have h3 : rsum ((some y).toList) = (y : ℚ)⁻¹ := by simp [rsum]
+        rw [h3]
+        exact inv_cast_le hx (hlt y hy).le
+    linarith
 
-lemma rsum_sublist_le : ∀ {l V : List ℕ}, l.Sorted (· < ·) → (∀ x ∈ l, 0 < x) →
+/-- Domination: over a `<`-pairwise list of positives, any sublist's reciprocal sum
+is at most that of the first `length` elements. -/
+lemma rsum_sublist_le : ∀ {l V : List ℕ}, l.Pairwise (· < ·) → (∀ x ∈ l, 0 < x) →
     V.Sublist l → rsum V ≤ rsum (l.take V.length) := by
   intro l
   induction l with
@@ -114,60 +122,63 @@ lemma rsum_sublist_le : ∀ {l V : List ℕ}, l.Sorted (· < ·) → (∀ x ∈ 
     simp [rsum]
   | cons x xs ih =>
     intro V hs hpos hV
-    have hx : 0 < x := hpos x (List.mem_cons_self ..)
+    have hx : 0 < x := hpos x (by simp)
+    obtain ⟨hxlt, hstail⟩ := List.pairwise_cons.mp hs
+    have hptail : ∀ y ∈ xs, 0 < y := fun y hy => hpos y (List.mem_cons_of_mem _ hy)
     cases hV with
     | cons _ hV' =>
-      calc rsum V ≤ rsum (xs.take V.length) :=
-              ih (List.sorted_cons.mp hs).2 (fun y hy => hpos y (List.mem_cons_of_mem _ hy)) hV'
-        _ ≤ rsum ((x :: xs).take V.length) := rsum_take_shift hs hx _
-    | cons₂ _ hV' =>
+      calc rsum V ≤ rsum (xs.take V.length) := ih hstail hptail hV'
+        _ ≤ rsum ((x :: xs).take V.length) := rsum_take_shift hxlt hx _
+    | cons_cons _ hV' =>
       rename_i V'
-      show rsum (x :: V') ≤ rsum ((x :: xs).take (V'.length + 1))
-      rw [rsum_cons, List.take_succ_cons, rsum_cons]
-      have := ih (List.sorted_cons.mp hs).2
-        (fun y hy => hpos y (List.mem_cons_of_mem _ hy)) hV'
+      have h1 : rsum (x :: V') = (x : ℚ)⁻¹ + rsum V' := rsum_cons x V'
+      have h2 : (x :: xs).take ((x :: V').length) = x :: xs.take V'.length := rfl
+      rw [h1, h2, rsum_cons]
+      have := ih hstail hptail hV'
       linarith
 
-/-- Strictly sorted + subset ⇒ sublist. -/
-lemma sublist_of_sorted_lt : ∀ {l₂ l₁ : List ℕ}, l₁.Sorted (· < ·) → l₂.Sorted (· < ·) →
-    (∀ x ∈ l₁, x ∈ l₂) → l₁.Sublist l₂ := by
+/-- Strictly increasing + subset ⇒ sublist. -/
+lemma sublist_of_pairwise_lt : ∀ {l₂ l₁ : List ℕ}, l₁.Pairwise (· < ·) →
+    l₂.Pairwise (· < ·) → (∀ x ∈ l₁, x ∈ l₂) → l₁.Sublist l₂ := by
   intro l₂
   induction l₂ with
   | nil =>
     intro l₁ _ _ hsub
     cases l₁ with
     | nil => exact List.Sublist.refl _
-    | cons a t => exact absurd (hsub a (List.mem_cons_self ..)) (List.not_mem_nil)
+    | cons a t =>
+      exfalso
+      simpa using hsub a (by simp)
   | cons y t ih =>
     intro l₁ h₁ h₂ hsub
+    obtain ⟨hyt, ht⟩ := List.pairwise_cons.mp h₂
     cases l₁ with
     | nil => exact List.nil_sublist _
     | cons a s =>
-      by_cases hay : a = y
-      · subst hay
-        refine List.Sublist.cons₂ _ (ih (List.sorted_cons.mp h₁).2 (List.sorted_cons.mp h₂).2 ?_)
+      obtain ⟨has, hs⟩ := List.pairwise_cons.mp h₁
+      rcases List.mem_cons.mp (hsub a (by simp)) with hay | hat
+      · -- head match: a = y
+        subst hay
+        refine List.Sublist.cons_cons _ (ih hs ht ?_)
         intro z hz
-        have hz2 : z ∈ a :: t := hsub z (List.mem_cons_of_mem _ hz)
-        rcases List.mem_cons.mp hz2 with hz3 | hz3
-        · exact absurd (hz3 ▸ (List.sorted_cons.mp h₁).1 z hz) (lt_irrefl _)
-        · exact hz3
-      · -- a ≠ y, so a ∈ t and in fact all of a :: s embeds in t
-        refine List.Sublist.cons _ (ih h₁ (List.sorted_cons.mp h₂).2 ?_)
-        intro z hz
-        have hz2 : z ∈ y :: t := hsub z hz
-        rcases List.mem_cons.mp hz2 with hz3 | hz3
-        · -- z = y is impossible: y would sit inside the strictly larger tail
+        rcases List.mem_cons.mp (hsub z (List.mem_cons_of_mem _ hz)) with hzy | hzt
+        · -- z = a yet a < z
           exfalso
-          have ha : a ∈ y :: t := hsub a (List.mem_cons_self ..)
-          rcases List.mem_cons.mp ha with ha2 | ha2
-          · exact hay ha2
-          · -- a ∈ t so y < a; but z = y ∈ a :: s means y = a or a < y
-            have hya : y < a := (List.sorted_cons.mp h₂).1 a ha2
-            rcases List.mem_cons.mp hz with hz4 | hz4
-            · exact hay (hz4 ▸ hz3).symm ▸ (lt_irrefl y (hz3 ▸ hz4 ▸ hya)) |>.elim
-            · have : a < z := (List.sorted_cons.mp h₁).1 z hz4
-              exact absurd (hz3 ▸ this) (lt_asymm hya)
-        · exact hz3
+          have h4 : a < z := has z hz
+          omega
+        · exact hzt
+      · -- a strictly inside t: everything embeds in t
+        refine List.Sublist.cons _ (ih h₁ ht ?_)
+        intro z hz
+        rcases List.mem_cons.mp (hsub z hz) with hzy | hzt
+        · -- z = y is impossible: y < a ≤ z
+          exfalso
+          have hya : y < a := hyt a hat
+          rcases List.mem_cons.mp hz with hza | hzs
+          · omega
+          · have haz : a < z := has z hzs
+            omega
+        · exact hzt
 
 /-! ## The verified search -/
 
@@ -180,7 +191,7 @@ def dfs : List ℕ → ℕ → ℚ → List ℕ → Bool
     if cur + rsum ((x :: xs).take (need + 1)) < thr then true
     else dfs xs need (cur + (x : ℚ)⁻¹) (x :: chosen) && dfs xs (need + 1) cur chosen
 
-theorem dfs_sound : ∀ (l : List ℕ), l.Sorted (· < ·) → (∀ x ∈ l, 0 < x) →
+theorem dfs_sound : ∀ (l : List ℕ), l.Pairwise (· < ·) → (∀ x ∈ l, 0 < x) →
     ∀ (need : ℕ) (cur : ℚ) (chosen : List ℕ), dfs l need cur chosen = true →
     ∀ V : List ℕ, V.Sublist l → V.length = need → thr ≤ cur + rsum V →
     nsqB (plusVal (forced39 ++ (V ++ chosen))) = true := by
@@ -198,7 +209,7 @@ theorem dfs_sound : ∀ (l : List ℕ), l.Sorted (· < ·) → (∀ x ∈ l, 0 <
     simpa using hdfs
   | cons x xs ih =>
     intro hs hpos need cur chosen hdfs V hV hlen hthr
-    have hstail := (List.sorted_cons.mp hs).2
+    obtain ⟨hxlt, hstail⟩ := List.pairwise_cons.mp hs
     have hptail : ∀ y ∈ xs, 0 < y := fun y hy => hpos y (List.mem_cons_of_mem _ hy)
     cases need with
     | zero =>
@@ -211,8 +222,7 @@ theorem dfs_sound : ∀ (l : List ℕ), l.Sorted (· < ·) → (∀ x ∈ l, 0 <
     | succ n =>
       rw [dfs] at hdfs
       by_cases hprune : cur + rsum ((x :: xs).take (n + 1)) < thr
-      · -- pruned: no qualifying V can exist
-        exfalso
+      · exfalso
         have hdom : rsum V ≤ rsum ((x :: xs).take (n + 1)) := by
           have := rsum_sublist_le hs hpos hV
           rwa [hlen] at this
@@ -222,13 +232,12 @@ theorem dfs_sound : ∀ (l : List ℕ), l.Sorted (· < ·) → (∀ x ∈ l, 0 <
         cases hV with
         | cons _ hV' =>
           exact ih hstail hptail (n + 1) cur chosen h2 V hV' hlen hthr
-        | cons₂ _ hV' =>
+        | cons_cons _ hV' =>
           rename_i V'
           have hlen' : V'.length = n := by simpa using hlen
           have hthr' : thr ≤ (cur + (x : ℚ)⁻¹) + rsum V' := by
             rw [rsum_cons] at hthr; linarith
           have hres := ih hstail hptail n (cur + (x : ℚ)⁻¹) (x :: chosen) h1 V' hV' hlen' hthr'
-          -- reorder: V' ++ (x :: chosen) ~ (x :: V') ++ chosen
           have hperm : (forced39 ++ (V' ++ (x :: chosen))).Perm
               (forced39 ++ ((x :: V') ++ chosen)) := by
             refine List.Perm.append_left _ ?_
@@ -240,32 +249,35 @@ theorem dfs_sound : ∀ (l : List ℕ), l.Sorted (· < ·) → (∀ x ∈ l, 0 <
 lemma list_prod_toList (U : Finset ℕ) : U.toList.prod = ∏ p ∈ U, p := by
   rw [Finset.prod_eq_multiset_prod]
   conv_rhs => rw [← Multiset.coe_toList U.val]
-  simp [Multiset.map_coe, Finset.toList]
+  simp [Finset.toList]
 
 lemma list_sum_toList {M : Type*} [AddCommMonoid M] (U : Finset ℕ) (f : ℕ → M) :
     (U.toList.map f).sum = ∑ p ∈ U, f p := by
   rw [Finset.sum_eq_multiset_sum]
   conv_rhs => rw [← Multiset.coe_toList U.val]
-  simp [Multiset.map_coe, Finset.toList]
+  simp [Finset.toList]
 
 lemma prod_sort (U : Finset ℕ) : (U.sort (· ≤ ·)).prod = dprod U := by
   rw [(Finset.sort_perm_toList U (· ≤ ·)).prod_eq, list_prod_toList]; rfl
 
 lemma rsum_sort (U : Finset ℕ) : rsum (U.sort (· ≤ ·)) = ∑ r ∈ U, (r : ℚ)⁻¹ := by
   unfold rsum
-  rw [((Finset.sort_perm_toList U (· ≤ ·)).map _).sum_eq, list_sum_toList]
+  have h := (Finset.sort_perm_toList U (· ≤ ·)).map (fun p : ℕ => (p : ℚ)⁻¹)
+  rw [h.sum_eq]
+  exact list_sum_toList U _
 
 lemma plusVal_sort (U : Finset ℕ) : plusVal (U.sort (· ≤ ·)) = csum U + 2 * dprod U := by
   unfold plusVal
   rw [prod_sort]
   congr 1
-  rw [((Finset.sort_perm_toList U (· ≤ ·)).map _).sum_eq, list_sum_toList]
+  have h := (Finset.sort_perm_toList U (· ≤ ·)).map (fun p : ℕ => dprod U / p)
+  rw [h.sum_eq]
+  rw [list_sum_toList U (fun p => dprod U / p)]
   rfl
 
 /-! ## The Pythagorean plus-square -/
 
-lemma csum_union_eq {P Q : Finset ℕ} (hP : ∀ p ∈ P, 0 < p) (hQ : ∀ q ∈ Q, 0 < q)
-    (hdisj : Disjoint P Q) :
+lemma csum_union_eq {P Q : Finset ℕ} (hdisj : Disjoint P Q) :
     csum (P ∪ Q) = dprod Q * csum P + dprod P * csum Q := by
   unfold csum dprod
   rw [Finset.prod_union hdisj, Finset.sum_union hdisj, Finset.mul_sum, Finset.mul_sum]
@@ -277,14 +289,12 @@ lemma csum_union_eq {P Q : Finset ℕ} (hP : ∀ p ∈ P, 0 < p) (hQ : ∀ q ∈
     have hdvd : q ∣ ∏ x ∈ Q, x := Finset.dvd_prod_of_mem _ hq
     rw [Nat.mul_div_assoc _ hdvd]
 
-lemma plus_square {P Q : Finset ℕ} (hP : ∀ p ∈ P, p.Prime) (hQ : ∀ q ∈ Q, q.Prime)
-    (hdisj : Disjoint P Q) (h1 : csum P = dprod Q) (h2 : csum Q = dprod P) :
+lemma plus_square {P Q : Finset ℕ} (hdisj : Disjoint P Q)
+    (h1 : csum P = dprod Q) (h2 : csum Q = dprod P) :
     csum (P ∪ Q) + 2 * dprod (P ∪ Q) = (dprod P + dprod Q) ^ 2 := by
-  have hPpos : ∀ p ∈ P, 0 < p := fun p hp => (hP p hp).pos
-  have hQpos : ∀ q ∈ Q, 0 < q := fun q hq => (hQ q hq).pos
   have hdu : dprod (P ∪ Q) = dprod P * dprod Q := by
     unfold dprod; exact Finset.prod_union hdisj
-  rw [csum_union_eq hPpos hQpos hdisj, h1, h2, hdu]
+  rw [csum_union_eq hdisj, h1, h2, hdu]
   ring
 
 /-! ## Numeric facts -/
@@ -300,7 +310,7 @@ lemma forced_mem {U : Finset ℕ} (hU : ∀ r ∈ U, r.Prime) (hc : U.card = 59)
     · exact h ▸ hp
     · exact hU r h
   have hWcard : (insert p U).card = 60 := by
-    rw [Finset.card_insert_of_not_mem hpn, hc]
+    rw [Finset.card_insert_of_notMem hpn, hc]
   have hbound := recipSum_le_first_primes hWprime
   rw [hWcard] at hbound
   have hsum60 : ∑ i ∈ Finset.range 60, ((Nat.nth Nat.Prime i : ℕ) : ℚ)⁻¹
@@ -309,11 +319,7 @@ lemma forced_mem {U : Finset ℕ} (hU : ∀ r ∈ U, r.Prime) (hc : U.card = 59)
     norm_num
   have hWsum : ∑ r ∈ insert p U, (r : ℚ)⁻¹ = (p : ℚ)⁻¹ + ∑ r ∈ U, (r : ℚ)⁻¹ :=
     Finset.sum_insert hpn
-  have hp0 : (0 : ℚ) < p := by exact_mod_cast hp.pos
-  have hpinv : (167 : ℚ)⁻¹ ≤ (p : ℚ)⁻¹ := by
-    gcongr
-    · norm_num
-    · exact_mod_cast hple
+  have hpinv : (167 : ℚ)⁻¹ ≤ (p : ℚ)⁻¹ := inv_cast_le hp.pos hple
   have hnum : (N59 : ℚ) / (P59 : ℚ) + (281 : ℚ)⁻¹ < (167 : ℚ)⁻¹ + 2 := by
     unfold N59 P59; norm_num
   rw [hWsum, hsum60] at hbound
@@ -323,7 +329,7 @@ lemma forced_mem {U : Finset ℕ} (hU : ∀ r ∈ U, r.Prime) (hc : U.card = 59)
 lemma elt_le_795 {U : Finset ℕ} (hU : ∀ r ∈ U, r.Prime) (hc : U.card = 59)
     (hT : (2 : ℚ) ≤ ∑ r ∈ U, (r : ℚ)⁻¹) {r : ℕ} (hr : r ∈ U) : r ≤ 795 := by
   by_contra hgt
-  push_neg at hgt
+  have hgt' : 796 ≤ r := by omega
   have herase : ∀ x ∈ U.erase r, x.Prime := fun x hx => hU x (Finset.mem_of_mem_erase hx)
   have hecard : (U.erase r).card = 58 := by
     rw [Finset.card_erase_of_mem hr, hc]
@@ -331,12 +337,7 @@ lemma elt_le_795 {U : Finset ℕ} (hU : ∀ r ∈ U, r.Prime) (hc : U.card = 59)
   rw [hecard] at hbound
   have hsplit : ∑ x ∈ U.erase r, (x : ℚ)⁻¹ + (r : ℚ)⁻¹ = ∑ x ∈ U, (x : ℚ)⁻¹ :=
     Finset.sum_erase_add U _ hr
-  have hr0 : (0 : ℚ) < r := by exact_mod_cast (hU r hr).pos
-  have hrinv : (r : ℚ)⁻¹ ≤ (796 : ℚ)⁻¹ := by
-    gcongr
-    · norm_num
-    · exact_mod_cast hgt
-  have h58 := sum_first58
+  have hrinv : (r : ℚ)⁻¹ ≤ (796 : ℚ)⁻¹ := inv_cast_le (by norm_num) hgt'
   have hnum : (N58 : ℚ) / (P58 : ℚ) + (796 : ℚ)⁻¹ < 2 := by
     unfold N58 P58; norm_num
   rw [sum_first58] at hbound
@@ -344,6 +345,7 @@ lemma elt_le_795 {U : Finset ℕ} (hU : ∀ r ∈ U, r.Prime) (hc : U.card = 59)
 
 /-! ## The main theorem -/
 
+set_option maxHeartbeats 1000000 in
 /-- **Closing the 59-prime level.**  Any solution of #307 has `|P ∪ Q| ≥ 60`. -/
 theorem erdos307_sixty {P Q : Finset ℕ}
     (hP : ∀ p ∈ P, p.Prime) (hQ : ∀ q ∈ Q, q.Prime)
@@ -372,59 +374,62 @@ theorem erdos307_sixty {P Q : Finset ℕ}
     lt_of_le_of_ne (Finset.sum_nonneg fun p hp => by positivity) (Ne.symm hs0)
   have hT : (2 : ℚ) ≤ ∑ r ∈ P ∪ Q, (r : ℚ)⁻¹ := by
     rw [Finset.sum_union hdisj]; exact recip_sum_ge_two hs_pos heq
-  set U := P ∪ Q with hU
   -- the plus value is a perfect square
-  have hsq : IsSquare (csum U + 2 * dprod U) := by
-    rw [plus_square hP hQ hdisj hNPDQ hNQDP]
-    exact ⟨dprod P + dprod Q, (sq (dprod P + dprod Q)).symm ▸ by ring⟩
-  -- decompose U into forced ∪ V
-  have hforced : ∀ p ∈ forced39, p ∈ U := by
+  have hsq : IsSquare (csum (P ∪ Q) + 2 * dprod (P ∪ Q)) := by
+    rw [plus_square hdisj hNPDQ hNQDP]
+    exact ⟨dprod P + dprod Q, by ring⟩
+  -- forced primes
+  have hforced : ∀ p ∈ forced39, p ∈ P ∪ Q := by
     have hall : ∀ p ∈ forced39, p.Prime ∧ p ≤ 167 := by native_decide
     intro p hp
     exact forced_mem hUprime hcard hT (hall p hp).1 (hall p hp).2
-  set forcedF : Finset ℕ := forced39.toFinset with hFdef
-  have hFsub : forcedF ⊆ U := by
+  have hFsub : forced39.toFinset ⊆ P ∪ Q := by
     intro p hp
     exact hforced p (List.mem_toFinset.mp hp)
-  have hFcard : forcedF.card = 39 := by native_decide
-  set V : Finset ℕ := U \ forcedF with hVdef
-  have hVcard : V.card = 20 := by
-    rw [hVdef, Finset.card_sdiff hFsub, hcard, hFcard]
-  have hVpool : ∀ r ∈ V, r ∈ pool99 := by
+  have hFcard : forced39.toFinset.card = 39 := by native_decide
+  -- the 20 free slots land in the pool
+  have hVcard : ((P ∪ Q) \ forced39.toFinset).card = 20 := by
+    rw [Finset.card_sdiff, Finset.inter_eq_left.mpr hFsub, hcard, hFcard]
+  have hVpool : ∀ r ∈ (P ∪ Q) \ forced39.toFinset, r ∈ pool99 := by
     have hmem : ∀ r < 796, r.Prime → 167 < r → r ∈ pool99 := by native_decide
     have hsmall : ∀ r < 168, r.Prime → r ∈ forced39 := by native_decide
     intro r hrV
-    have hrU : r ∈ U := Finset.mem_sdiff.mp hrV |>.1
-    have hrF : r ∉ forcedF := Finset.mem_sdiff.mp hrV |>.2
+    have hrU : r ∈ P ∪ Q := (Finset.mem_sdiff.mp hrV).1
+    have hrF : r ∉ forced39.toFinset := (Finset.mem_sdiff.mp hrV).2
     have hrp : r.Prime := hUprime r hrU
     have hle : r ≤ 795 := elt_le_795 hUprime hcard hT hrU
     have hgt : 167 < r := by
       by_contra hle167
-      push_neg at hle167
+      have h167 : r ≤ 167 := by omega
       exact hrF (List.mem_toFinset.mpr (hsmall r (by omega) hrp))
     exact hmem r (by omega) hrp hgt
-  -- sorted list of V is a sublist of the pool
-  set LV : List ℕ := V.sort (· ≤ ·) with hLV
-  have hLVsorted : LV.Sorted (· < ·) := Finset.sort_sorted_lt V
-  have hpoolsorted : pool99.Sorted (· < ·) := by native_decide
-  have hLVsub : LV.Sublist pool99 := by
-    refine sublist_of_sorted_lt hLVsorted hpoolsorted ?_
+  -- sorted list of the free slots is a sublist of the pool
+  have hLVsorted : (((P ∪ Q) \ forced39.toFinset).sort (· ≤ ·)).Pairwise (· < ·) := by
+    first
+    | exact Finset.sortedLT_sort _
+    | exact Finset.sort_sorted_lt _
+    | simpa using Finset.sortedLT_sort ((P ∪ Q) \ forced39.toFinset)
+  have hpoolsorted : pool99.Pairwise (· < ·) := by native_decide
+  have hLVsub : (((P ∪ Q) \ forced39.toFinset).sort (· ≤ ·)).Sublist pool99 := by
+    refine sublist_of_pairwise_lt hLVsorted hpoolsorted ?_
     intro x hx
     exact hVpool x ((Finset.mem_sort (· ≤ ·)).mp hx)
-  have hLVlen : LV.length = 20 := by
-    rw [hLV, Finset.length_sort, hVcard]
-  -- mass of V exceeds the threshold
-  have hUsplit : forcedF ∪ V = U := by
-    rw [hVdef]; exact Finset.union_sdiff_of_subset hFsub
-  have hFdisj : Disjoint forcedF V := Finset.disjoint_sdiff
-  have hFsum : ∑ r ∈ forcedF, (r : ℚ)⁻¹ = rsum forced39 := by
-    rw [hFdef]
-    have hnd : forced39.Nodup := by native_decide
+  have hLVlen : (((P ∪ Q) \ forced39.toFinset).sort (· ≤ ·)).length = 20 := by
+    rw [Finset.length_sort, hVcard]
+  -- the free-slot mass exceeds the threshold
+  have hUsplit : forced39.toFinset ∪ ((P ∪ Q) \ forced39.toFinset) = P ∪ Q :=
+    Finset.union_sdiff_of_subset hFsub
+  have hFdisj : Disjoint forced39.toFinset ((P ∪ Q) \ forced39.toFinset) :=
+    Finset.disjoint_sdiff
+  have hnd : forced39.Nodup := by native_decide
+  have hFsum : ∑ r ∈ forced39.toFinset, (r : ℚ)⁻¹ = rsum forced39 := by
     rw [List.sum_toFinset _ hnd]
     rfl
-  have hVsum : rsum LV = ∑ r ∈ V, (r : ℚ)⁻¹ := rsum_sort V
-  have hthrV : thr ≤ 0 + rsum LV := by
-    have : ∑ r ∈ forcedF, (r : ℚ)⁻¹ + ∑ r ∈ V, (r : ℚ)⁻¹ = ∑ r ∈ U, (r : ℚ)⁻¹ := by
+  have hVsum : rsum (((P ∪ Q) \ forced39.toFinset).sort (· ≤ ·))
+      = ∑ r ∈ (P ∪ Q) \ forced39.toFinset, (r : ℚ)⁻¹ := rsum_sort _
+  have hthrV : thr ≤ 0 + rsum (((P ∪ Q) \ forced39.toFinset).sort (· ≤ ·)) := by
+    have hsplitsum : ∑ r ∈ forced39.toFinset, (r : ℚ)⁻¹
+        + ∑ r ∈ (P ∪ Q) \ forced39.toFinset, (r : ℚ)⁻¹ = ∑ r ∈ P ∪ Q, (r : ℚ)⁻¹ := by
       rw [← Finset.sum_union hFdisj, hUsplit]
     rw [hVsum]
     unfold thr
@@ -433,29 +438,32 @@ theorem erdos307_sixty {P Q : Finset ℕ}
   -- run the verified search
   have hrun : dfs pool99 20 0 [] = true := by native_decide
   have hpoolpos : ∀ x ∈ pool99, 0 < x := by native_decide
-  have hout := dfs_sound pool99 hpoolsorted hpoolpos 20 0 [] hrun LV hLVsub hLVlen hthrV
-  -- bridge to the Finset value
-  have hperm : (forced39 ++ (LV ++ [])).Perm (U.sort (· ≤ ·)) := by
+  have hout := dfs_sound pool99 hpoolsorted hpoolpos 20 0 [] hrun
+    (((P ∪ Q) \ forced39.toFinset).sort (· ≤ ·)) hLVsub hLVlen hthrV
+  -- bridge back to the Finset value
+  have hperm : (forced39 ++ ((((P ∪ Q) \ forced39.toFinset).sort (· ≤ ·)) ++ [])).Perm
+      ((P ∪ Q).sort (· ≤ ·)) := by
     rw [List.append_nil]
     rw [← Multiset.coe_eq_coe]
-    have h1 : (↑(forced39 ++ LV) : Multiset ℕ) = ↑forced39 + ↑LV := by
-      simp [Multiset.coe_add]
-    have h2 : (↑forced39 : Multiset ℕ) = forcedF.val := by
-      rw [hFdef]
-      have hnd : forced39.Nodup := by native_decide
-      simp [List.toFinset, Multiset.toFinset, hnd.dedup]
-    have h3 : (↑LV : Multiset ℕ) = V.val := by
-      rw [hLV, ← Multiset.coe_eq_coe.mpr (Finset.sort_perm_toList V (· ≤ ·))]
-      simp [Multiset.coe_toList]
-    have h4 : (↑(U.sort (· ≤ ·)) : Multiset ℕ) = U.val := by
-      rw [← Multiset.coe_eq_coe.mpr (Finset.sort_perm_toList U (· ≤ ·))]
-      simp [Multiset.coe_toList]
-    rw [h1, h2, h3, h4, ← hUsplit]
-    rw [← Finset.disjUnion_eq_union _ _ hFdisj]
-    simp [Finset.disjUnion]
-  have hfinal : nsqB (csum U + 2 * dprod U) = true := by
-    have := hout
-    rwa [plusVal_perm hperm, plusVal_sort] at this
+    have h2 : (↑forced39 : Multiset ℕ) = forced39.toFinset.val := by
+      rw [List.toFinset_val]
+      exact_mod_cast (hnd.dedup).symm
+    have h3 : (↑(((P ∪ Q) \ forced39.toFinset).sort (· ≤ ·)) : Multiset ℕ)
+        = ((P ∪ Q) \ forced39.toFinset).val :=
+      Multiset.coe_eq_coe.mpr (Finset.sort_perm_toList _ _) |>.trans
+        (Multiset.coe_toList _)
+    have h4 : (↑((P ∪ Q).sort (· ≤ ·)) : Multiset ℕ) = (P ∪ Q).val :=
+      Multiset.coe_eq_coe.mpr (Finset.sort_perm_toList _ _) |>.trans
+        (Multiset.coe_toList _)
+    push_cast
+    rw [h4, ← hUsplit, ← Finset.disjUnion_eq_union _ _ hFdisj, Finset.disjUnion_val]
+    congr 1
+    · exact h2
+    · exact h3
+  have hfinal : nsqB (csum (P ∪ Q) + 2 * dprod (P ∪ Q)) = true := by
+    have h5 := hout
+    rw [plusVal_perm hperm, plusVal_sort] at h5
+    exact h5
   rw [nsqB_false_of_isSquare hsq] at hfinal
   exact absurd hfinal (by simp)
 
