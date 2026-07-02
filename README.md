@@ -35,8 +35,10 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
   non-logical input is a verified evaluation of the first 59 primes. A finite verification over the
   complete list of 49,961 admissible 59-prime supports then **closes the 59-prime level** (v1.1,
   Prop. close59): any solution in fact has `|P ∪ Q| ≥ 60` and `min(∏P, ∏Q) > 3.50 × 10⁵⁷`
-  (computer-verified by two independent exact-integer programs, `code/close59.py` and
-  `hunt/close59.rs`; the Lean formalization covers the `≥ 59` statement).
+  — verified by two independent exact-integer programs (`code/close59.py`, `hunt/close59.rs`) **and
+  machine-checked in Lean 4** (`erdos307_sixty`: the search's completeness is proved, not assumed;
+  the enumeration runs under `native_decide`). The coprime variant with `1 ∉ P∪Q` inherits the
+  full `≥ 60` bound (Cor. coprime60).
 - **The wall, named.** The obstruction is the *orderability of ℚ* (Artin–Schreier formal reality):
   twisted derivative 2-cycles **do** exist over `ℤ[i], ℤ[√−2], ℤ[ω], ℤ[√2]` (all verified exactly), and
   a one-line classification shows ℚ is the only number field where the barrier operates. Over `𝔽_q[t]`

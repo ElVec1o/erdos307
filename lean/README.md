@@ -41,10 +41,13 @@ For a finite set `S` of distinct primes: `dprod S = ∏_{p∈S} p` and
 | `np0 … np59`, `prod_first59_nat`, `sum_first59/58` | the first 60 primes & their `∏`/`∑ 1/p` | +native |
 | `base_case`, `hmono_all`, `card_ge_59` | base/induction/`\|P∪Q\|≥59` | +native |
 | **`erdos307_barrier_closed`** | **no hypotheses**: prime sets `P,Q`, `Q≠∅`, `(∑1/p)(∑1/q)=1` ⇒ `(∏P)² ≥ 4×10¹¹²` | +native |
+| `dfs_sound` | completeness of the pruned close59 search (pruning proven sound) | 3 |
+| **`erdos307_sixty`** | **no hypotheses**: any solution has `\|P∪Q\| ≥ 60` — Prop. close59 fully formalised | +native |
 
-This formally verifies the **barrier** (a lower bound on any solution); Erdős #307 itself — whether a
-solution *exists* — remains open. The constant is the round `2×10⁵⁶`; the note's sharper
-`2.09×10⁵⁶` (from `Π₅₉` exactly) is a constant tightening.
+This formally verifies the **barrier** (a lower bound on any solution) and the **closing of the
+59-prime level**; Erdős #307 itself — whether a solution *exists* — remains open. The constant is
+the round `2×10⁵⁶`; the note's sharper `2.09×10⁵⁶` (from `Π₅₉` exactly) is a constant tightening,
+and `erdos307_sixty` pushes the level to `≥ 60` (whence `min > 3.50×10⁵⁷` on paper).
 
 ## Files
 - `Erdos307/Rigidity.lean` — `rigidity_coprime`, `solution_structure` (T1, T2).
@@ -54,4 +57,6 @@ solution *exists* — remains open. The constant is the round `2×10⁵⁶`; the
   and the reduction `hRatio_of_extremal`.
 - `Erdos307/Numeral.lean` — the first-60-primes numeral bridge (the only `native_decide` use).
 - `Erdos307/Closed.lean` — the `k`-induction, the `|P∪Q|≥59` bound, and `erdos307_barrier_closed`.
+- `Erdos307/Sixty.lean` — Prop. close59: the verified pruned search (`dfs` + `dfs_sound`), the
+  Pythagorean plus-square, the forced-primes/element bounds, and `erdos307_sixty`.
 - `Check.lean` — `#print axioms` for every theorem.

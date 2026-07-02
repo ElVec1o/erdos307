@@ -4,6 +4,7 @@ import Erdos307.Capstone
 import Erdos307.Extremal
 import Erdos307.Numeral
 import Erdos307.Closed
+import Erdos307.Sixty
 open Erdos307
 #print axioms rigidity_coprime
 #print axioms solution_structure
@@ -28,3 +29,5 @@ open Erdos307
 #print axioms hmono_all
 #print axioms card_ge_59
 #print axioms erdos307_barrier_closed
+#print axioms dfs_sound
+#print axioms erdos307_sixty

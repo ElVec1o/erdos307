@@ -386,9 +386,12 @@ $T(U)\le\sum_e1/\ell(e)$, so the extremal ratio bound at the first $60$ primes s
 \end{proof}
 
 \begin{remark}[Verification tier, and why the ladder stops here]\label{rem:tier60}
-Theorem~\ref{thm:barrier} is machine--checked in Lean~4; Proposition~\ref{prop:close59} is a
-computer--assisted finite verification (two independent exact--integer programs), not yet
-formalised. The level cannot be climbed further by finite means: already at $|U|=60$ the family
+Theorem~\ref{thm:barrier} is machine--checked in Lean~4, and so is
+Proposition~\ref{prop:close59}: the theorem \texttt{erdos307\_sixty} formalises the entire
+argument --- the forced--primes and element bounds, the Pythagorean plus--square, and a pruned
+depth--first search over the pool whose \emph{completeness is proved, not assumed}
+(\texttt{dfs\_sound}), the search itself running under \texttt{native\_decide} --- on top of the
+two independent unverified programs. The level cannot be climbed further by finite means: already at $|U|=60$ the family
 $U=\{p_1,\dots,p_{59}\}\cup\{q\}$ qualifies for \emph{every} prime $q>277$, and on it the two square
 conditions read $x^2=Aq+\Pi_{59}$, $y^2=Bq+\Pi_{59}$ with $A,B=N_{59}\pm2\Pi_{59}$, i.e.\ the
 Pell--type system $Bx^2-Ay^2=-4\Pi_{59}^2$ with $113$--digit coefficients. We verified that no
@@ -1257,9 +1260,9 @@ finite verification of Proposition~\ref{prop:close59} sharpens the barrier to $|
 $\min(\prod P,\prod Q)>3.50\times10^{57}$. The heuristics weakly favour \textsc{yes} (existence), hence weakly against
 the period--one Ufnarovski--\AA hlander conjecture, but we claim no proof in either direction.
 
-Open problems: (i) formalise the finite verification of Proposition~\ref{prop:close59} (and decide
-whether any level beyond $60$ can be closed, e.g.\ by resolving the Pell--type tail family of
-Remark~\ref{rem:tier60}); (ii) decide
+Open problems: (i) decide whether any level beyond $60$ can be closed, e.g.\ by resolving the
+Pell--type tail family of Remark~\ref{rem:tier60} (the finite verification of
+Proposition~\ref{prop:close59} itself is now Lean--checked, \texttt{erdos307\_sixty}); (ii) decide
 the parity dichotomy's all--odd case (we expect it empty); (iii) certify more digits of $\delta$ with
 an effective error term; (iv) settle the density hypothesis $(\mathrm{H})$ of
 Section~\ref{sec:breeder}, or exhibit a non--circular frame family escaping the $\tau(K)/G$ ceiling;
