@@ -367,6 +367,24 @@ $D_P^2\ge\Pi_{60}/T_{60}=\Pi_{60}^2/N_{60}$, where $N_{60}$ is the cofactor sum 
 primes.
 \end{proof}
 
+\begin{corollary}[The coprime variant inherits the closed level]\label{cor:coprime60}
+Consider the weakened variant in which the elements of $P$ and $Q$ are merely pairwise coprime
+integers $\ge2$ \textup{(}the open form of the variant, $1\notin P\cup Q$\textup{)}. Any solution
+has $|P\cup Q|\ge 60$ elements, and $\min(\prod P,\prod Q)>3.50\times10^{57}$.
+\end{corollary}
+\begin{proof}
+Rigidity holds verbatim for pairwise--coprime families (the cofactor--sum argument uses only
+coprimality), so again $T(U)=s+t>2$. The least prime factors $\ell(e)$ of the elements are distinct,
+and $\sum_e 1/e\le\sum_e1/\ell(e)$. Suppose $|U|=59$ and some element $e$ is not prime, so
+$e\ge\ell(e)^2$. If $\ell(e)\le277$, the loss is
+$1/\ell-1/e\ge(\ell-1)/\ell^2\ge276/277^2=0.00359\ldots$, exceeding the maximal available slack
+$T_{59}-2=0.00235\ldots$; if $\ell(e)\ge281$, then $e\ge281^2$ while the other $58$ reciprocals sum
+to at most $T_{58}$, giving $T(U)\le T_{58}+281^{-2}=1.99875\ldots<2$. Either way $T(U)<2$, a
+contradiction: at $59$ elements every element is prime, and Proposition~\ref{prop:close59} applies
+verbatim. The product bound transfers because $\prod_e e\ge\prod_e\ell(e)$ and
+$T(U)\le\sum_e1/\ell(e)$, so the extremal ratio bound at the first $60$ primes still applies.
+\end{proof}
+
 \begin{remark}[Verification tier, and why the ladder stops here]\label{rem:tier60}
 Theorem~\ref{thm:barrier} is machine--checked in Lean~4; Proposition~\ref{prop:close59} is a
 computer--assisted finite verification (two independent exact--integer programs), not yet
