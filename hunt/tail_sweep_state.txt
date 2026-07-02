@@ -1,6 +1,0 @@
-next_q=568000000005
-tested=70999999965
-stage2=3177622378
-exact_plus=0
-both=0
-bound_seen=1000000000000

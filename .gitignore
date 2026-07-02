@@ -21,3 +21,5 @@ hunt/ladder_hunt
 hunt/real_hunt
 hunt/stable_hunt
 *.o
+hunt/tail_sweep_state.txt
+hunt/tail_sweep

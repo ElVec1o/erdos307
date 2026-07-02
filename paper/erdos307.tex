@@ -400,7 +400,10 @@ $q\equiv5\pmod 8$ and thin each $\ell\mid\Pi_{59}$ to about half of its residue 
 $\ell\nmid\Pi_{59}$ to about a quarter, but never to zero) --- consistent with the local--solubility
 theme of Section~\ref{sec:anatomy}: the residue of the problem is again global, not local. A
 genuine obstruction would have to come from the primes dividing $A$ or $B$, which is
-factoring--hard at this size. The tail family also exposes the self--similarity of the ladder:
+factoring--hard at this size. An exact sweep of this family confirms no solution with
+$q\le10^{12}$ (\texttt{hunt/tail\_sweep.rs}; the $\approx1.25\times10^{11}$ candidates
+$q\equiv5\pmod 8$ pass layered square--sieves, leaving none whose $Aq+\Pi_{59}$ is even a perfect
+square) --- a lower bound on the family, not a closure of it. The tail family also exposes the self--similarity of the ladder:
 writing $a=qm$, so that $m\,b=\Pi_{59}$ partitions the first $59$ primes, its two closing
 conditions collapse to the exact equation
 \[ D(m)\,D(b)+m^2\;=\;\Pi_{59} \]

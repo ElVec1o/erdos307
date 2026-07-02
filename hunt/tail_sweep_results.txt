@@ -1,0 +1,2 @@
+SWEEP COMPLETE to q <= 1000000000000: candidates(q≡5 mod 8)=124999999965, stage2 survivors=5594405594, exact plus-squares=0, BOTH-square hits=0
+PROVEN: no level-60 tail-shape solution (U = first 59 primes + q) has q <= 1000000000000.
