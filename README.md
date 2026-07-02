@@ -32,7 +32,11 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
 - **Barrier.** Any solution has `|P ∪ Q| ≥ 59` and `min(∏P, ∏Q) ≥ 2.09 × 10⁵⁶`, improving the best
   published `n″ = n` bound by ~47 orders of magnitude — so all direct search is void. **This barrier is
   fully machine-checked in Lean 4** (`erdos307_barrier_closed`, no extremality hypothesis); the only
-  non-logical input is a verified evaluation of the first 59 primes.
+  non-logical input is a verified evaluation of the first 59 primes. A finite verification over the
+  complete list of 49,961 admissible 59-prime supports then **closes the 59-prime level** (v1.1,
+  Prop. close59): any solution in fact has `|P ∪ Q| ≥ 60` and `min(∏P, ∏Q) > 3.50 × 10⁵⁷`
+  (computer-verified by two independent exact-integer programs, `code/close59.py` and
+  `hunt/close59.rs`; the Lean formalization covers the `≥ 59` statement).
 - **The wall, named.** The obstruction is the *orderability of ℚ* (Artin–Schreier formal reality):
   twisted derivative 2-cycles **do** exist over `ℤ[i], ℤ[√−2], ℤ[ω], ℤ[√2]` (all verified exactly), and
   a one-line classification shows ℚ is the only number field where the barrier operates. Over `𝔽_q[t]`
