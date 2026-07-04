@@ -25,3 +25,8 @@ hunt/tail_sweep_state.txt
 hunt/tail_sweep
 hunt/survivor_state.txt
 hunt/survivor_kill
+code/classify_state.txt
+code/classify_kills.txt
+code/classify_immune.txt
+code/classify_pending.txt
+hunt/open_cofactors.txt

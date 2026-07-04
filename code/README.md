@@ -8,6 +8,7 @@ approximate (a laptop).
 |---|---|---|---|
 | `barrier.py` | The quantitative barrier (exact rationals). | `m0 = 59`; `min(∏P,∏Q) = D_P ≥ ~2.093×10⁵⁶`. | ~5 s |
 | `tailkill.py` | Prop. tailkill: Jacobi-symbol kill of level-60 tail families (no factoring). | canonical family EMPTY; `31219`/`49961` bases killed, identity `(D|A)=(D|B)` universal. | ~10 s |
+| `full_classify.py` | Definitive kill/immune/pending classification: fully factors the cofactors `survivor_kill.rs` leaves open (splitting the +1 (−1,−1) semiprimes the Jacobi symbol hides) and applies the per-prime Legendre kill. | reads `open_cofactors.txt`; validated: real kills recovered (e.g. base#11 prime 9376059154260675757). | fast |
 | `close59.py` | Prop. close59: the complete list of 59-prime supports with `Σ1/p > 2`, each hit with the both-squares test (exact integers). | `49961` supports, `0` pass ⇒ `\|P∪Q\| ≥ 60`. | ~5 s |
 | `exhaustive_search.py` | All prime sets `P` with `Σ1/p>1`, `∏P ≤ 10⁸`; forces `Q` and tests. | `1,075,419` sets, **0** solutions. | ~40 s |
 | `bridge_equivalence.py` | Verifies `a′ = Σ a/p` for squarefree `a`, `gcd(a,a′)=1`, and #307 ⇔ 2-cycle. | three `True`s. | ~1 s |
