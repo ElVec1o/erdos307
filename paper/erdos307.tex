@@ -398,12 +398,11 @@ Pell--type system $Bx^2-Ay^2=-4\Pi_{59}^2$ with $113$--digit coefficients. We ve
 accessible modulus obstructs it (mod $32$, and all odd $\ell<4000$: the conditions pin
 $q\equiv5\pmod 8$ and thin each $\ell\mid\Pi_{59}$ to about half of its residue classes and each
 $\ell\nmid\Pi_{59}$ to about a quarter, but never to zero) --- consistent with the local--solubility
-theme of Section~\ref{sec:anatomy}: the residue of the problem is again global, not local. A
-genuine obstruction would have to come from the primes dividing $A$ or $B$, which is
-factoring--hard at this size. An exact sweep of this family confirms no solution with
-$q\le10^{12}$ (\texttt{hunt/tail\_sweep.rs}; the $\approx1.25\times10^{11}$ candidates
-$q\equiv5\pmod 8$ pass layered square--sieves, leaving none whose $Aq+\Pi_{59}$ is even a perfect
-square) --- a lower bound on the family, not a closure of it. The tail family also exposes the self--similarity of the ladder:
+theme of Section~\ref{sec:anatomy}. The obstruction, however, lives at the primes \emph{of} $A$
+and $B$ --- and it is detectable \emph{without factoring}: Proposition~\ref{prop:tailkill} below
+closes this family for \emph{every} $q$ by a single Jacobi--symbol computation. (An exact sweep to
+$q\le10^{12}$, \texttt{hunt/tail\_sweep.rs} --- $1.25\times10^{11}$ candidates, none with
+$Aq+\Pi_{59}$ even a single square --- corroborates it independently.) The tail family also exposes the self--similarity of the ladder:
 writing $a=qm$, so that $m\,b=\Pi_{59}$ partitions the first $59$ primes, its two closing
 conditions collapse to the exact equation
 \[ D(m)\,D(b)+m^2\;=\;\Pi_{59} \]
@@ -415,6 +414,34 @@ $m^2$. Closing even this one family is thus a $2^{58}$--fold exact--coincidence 
 type as \#307 itself (expected count ${\sim}2^{58}/\Pi_{59}\approx10^{-95}$): each rung of the
 ladder past $60$ contains the whole problem.
 \end{remark}
+
+\begin{proposition}[The canonical tail family is empty: a reciprocity kill]\label{prop:tailkill}
+No solution of \#307 has support $U=\{p_1,\dots,p_{59}\}\cup\{q\}$, for any prime $q$.
+\end{proposition}
+\begin{proof}
+A solution supported on $U$ forces $x^2=Aq+\Pi_{59}$ with $x=a+b$ and $A=N_{59}+2\Pi_{59}$
+(Remark~\ref{rem:tier60}). Every prime $\ell\mid A$ exceeds $277$: for $\ell\le277$ one has
+$\ell\mid\Pi_{59}$, so $\ell\mid A$ would force $\ell\mid N_{59}$, contradicting
+$\gcd(N_{59},\Pi_{59})=1$ (rigidity). Hence $\ell\nmid\Pi_{59}$, and reduction mod $\ell$ gives
+$x^2\equiv\Pi_{59}\pmod\ell$, requiring the Legendre symbol $(\Pi_{59}\mid\ell)\neq-1$. But the
+Jacobi symbol satisfies
+\[ \left(\tfrac{\Pi_{59}}{A}\right)\;=\;-1 \]
+(a finite gcd--speed computation, script \texttt{code/tailkill.py} --- no factorisation of the
+$114$--digit $A$ is needed), so some $\ell\mid A$ of odd multiplicity has $(\Pi_{59}\mid\ell)=-1$.
+The family is empty, for every $q$.
+
+The companion symbol at $B=N_{59}-2\Pi_{59}$ equals $-1$ as well --- necessarily: for any
+admissible base $S$ (writing $D=D_S$, $N=N_S$, $A_S,B_S=N\pm2D$) one has $A_S\equiv B_S\pmod 8$
+(as $4D\equiv8\bmod{16}$) and $A_S\equiv B_S\equiv N\pmod p$ for every odd $p\mid D$, while the
+quadratic--reciprocity sign difference carries the exponent $\tfrac{p-1}{2}\cdot\tfrac{A_S-B_S}{2}$
+with $\tfrac{A_S-B_S}{2}=2D$ even; hence $(D\mid A_S)=(D\mid B_S)$ always --- one binary
+certificate per tail family. Running it over all $49{,}961$ admissible bases of
+Proposition~\ref{prop:close59} proves $31{,}219$ of the one--new--prime families at level $60$
+empty ($62.5\%$, curiously near $5/8$); the remaining $18{,}742$ are Jacobi--inconclusive: their
+$-1$--Legendre primes, if any, occur to an even count, visible only through a factorisation of
+$A_S$. (Both $A$ and $B$ of the canonical family are Baillie--PSW probable primes; the proof does
+not use this.)
+\end{proof}
 
 \begin{theorem}[Parity dichotomy]\label{thm:parity}
 Let $a'=b,b'=a$ be a derivative two--cycle (so $a,b$ squarefree, $\gcd(a,b)=1$). Then exactly one of
