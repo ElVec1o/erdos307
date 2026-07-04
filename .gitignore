@@ -23,3 +23,5 @@ hunt/stable_hunt
 *.o
 hunt/tail_sweep_state.txt
 hunt/tail_sweep
+hunt/survivor_state.txt
+hunt/survivor_kill

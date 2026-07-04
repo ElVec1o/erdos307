@@ -439,8 +439,13 @@ certificate per tail family. Running it over all $49{,}961$ admissible bases of
 Proposition~\ref{prop:close59} proves $31{,}219$ of the one--new--prime families at level $60$
 empty ($62.5\%$, curiously near $5/8$); the remaining $18{,}742$ are Jacobi--inconclusive: their
 $-1$--Legendre primes, if any, occur to an even count, visible only through a factorisation of
-$A_S$. (Both $A$ and $B$ of the canonical family are Baillie--PSW probable primes; the proof does
-not use this.)
+$A_S$. A factoring attack on those (trial division and Brent--Pollard $\rho$ over a Montgomery
+core, \texttt{hunt/survivor\_kill.rs}; the found factors are kept as a pairwise--coprime basis, so
+a kill certificate --- an odd--multiplicity basis piece $P$ with $(D_S\mid P)=-1$ --- needs no
+primality testing at all) closes a further $14{,}830$: in total $46{,}049$ of the $49{,}961$
+one--new--prime families at level $60$ are proven empty ($92.2\%$), the $3{,}912$ still open
+having $A_S,B_S$ that resist factorisation with every found piece of symbol $+1$. (Both $A$ and
+$B$ of the canonical family are Baillie--PSW probable primes; the proof does not use this.)
 \end{proof}
 
 \begin{theorem}[Parity dichotomy]\label{thm:parity}

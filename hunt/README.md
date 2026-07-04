@@ -12,8 +12,8 @@ re-verified independently in Python before entering the paper.
 | `stable_hunt.rs` | Conjugation-stable Gaussian cycles, via the descended `ℤ`-operator `D(m)`. | none to m ≤ 10⁹ (Gaussian norm 10¹⁸); the descent target stays open. |
 | `ladder_hunt.rs <1\|2\|3>` | Cycles over `ℤ[i]` / `ℤ[√−2]` / `ℤ[ω]` — the unit-group ladder. | populations 56 / 14 / 278 ≤ norm 2×10⁷; the phase law, plus the anti-holomorphic cycle. |
 | `real_hunt.rs` | Cycles over `ℤ[√2]` — the real-quadratic (infinite-unit) rung. | 30,204 cycles ≤ 2×10⁷ (vs 14/56/278 imaginary); minimal cycle at norms (46,49); the fully rational pair D(3707)=1547, D(1547)=3707; canonical empty to 2×10⁹. |
-| `tail_sweep.rs` | Level-60 tail family `U = first-59 ∪ {q}`: sweeps `q ≡ 5 (mod 8)` (other classes proven impossible mod 8 at startup) for the both-squares condition; resumable with autosave. | run by the author; result recorded when complete. |
-| `survivor_kill.rs` | Factoring attack (trial + Brent rho on a Montgomery bignum core) on the 18,742 Jacobi-inconclusive tail families; coprime-basis kill certificates, no primality testing needed. | smoke: 20/25 survivors killed; full run recorded when complete. |
+| `tail_sweep.rs` | Level-60 tail family `U = first-59 ∪ {q}`: sweeps `q ≡ 5 (mod 8)` (other classes proven impossible mod 8 at startup) for the both-squares condition; resumable with autosave. | no tail solution with q ≤ 10¹² (now subsumed by Prop. tailkill: the family is empty for every q). |
+| `survivor_kill.rs` | Factoring attack (trial + Brent rho on a Montgomery bignum core) on the 18,742 Jacobi-inconclusive tail families; coprime-basis kill certificates, no primality testing needed. | 14,830 of 18,742 killed (rho budget 3e5/side) ⇒ **46,049/49,961 (92.2%)** of level-60 one-new-prime families proven empty; 3,912 open. |
 | `close59.rs` | Independent verification of Prop. close59 (own bignum, enumeration order opposite to `code/close59.py`). | all 49,961 admissible 59-prime supports fail the both-squares test ⇒ any solution has \|P∪Q\| ≥ 60. ~2 s. |
 
 `*_hits.txt` hold the certificates; `*.log` are sample run logs. Compiled binaries are committed for
