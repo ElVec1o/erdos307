@@ -278,6 +278,45 @@ fn add_mod(a: &Big, b: &Big, m: &Big) -> Big {
     if cmp_big(&s, m) != std::cmp::Ordering::Less { sub_big(&s, m) } else { s }
 }
 
+fn to_dec(a: &Big) -> String {
+    let mut x = a.clone();
+    let mut s = String::new();
+    while !is_zero(&x) { let (q, r) = div_small(&x, 10); s.push((b'0' + r as u8) as char); x = q; }
+    if s.is_empty() { s.push('0'); }
+    s.chars().rev().collect()
+}
+
+fn mont_pow(mont: &Mont, base: &Big, e: u64, one_m: &Big) -> Big {
+    let mut r = one_m.clone();
+    let mut b = base.clone();
+    let mut e = e;
+    while e > 0 {
+        if e & 1 == 1 { r = mont.mul(&r, &b); }
+        b = mont.mul(&b, &b);
+        e >>= 1;
+    }
+    r
+}
+
+/// Pollard p-1, stage 1 with bound b1. Finds primes l | m with l-1 b1-smooth.
+fn pminus1(m: &Big, b1: u64, tprimes: &[u64]) -> Option<Big> {
+    let mont = Mont::new(m);
+    let one_m = mont.to_mont(&from_u64(1));
+    let mut x = mont.to_mont(&from_u64(2));
+    for &r in tprimes {
+        if r > b1 { break; }
+        let mut e = r;
+        while e <= b1 / r { e *= r; }
+        x = mont_pow(&mont, &x, e, &one_m);
+    }
+    let d = if cmp_big(&x, &one_m) == std::cmp::Ordering::Less {
+        gcd_big(&add_big(&sub_big(m, &one_m), &x), m) // (x - one) mod m via x + (m - one)
+    } else {
+        gcd_big(&sub_big(&x, &one_m), m)
+    };
+    if is_one(&d) || cmp_big(&d, m) == std::cmp::Ordering::Equal { None } else { Some(d) }
+}
+
 // ---------------- coprime-basis factor bookkeeping ----------------
 /// Insert f into a pairwise-coprime basis (pieces with multiplicities), refining as needed.
 fn basis_insert(basis: &mut Vec<(Big, u32)>, f: Big, mult: u32) {
@@ -417,6 +456,22 @@ fn main() {
     assert_eq!(count, 49961); assert_eq!(prekilled, 31219); assert_eq!(survivors.len(), 18742);
     survivors.sort();
 
+    // ---- deep pass: skip families already killed in a previous run ----
+    let mut already_killed: std::collections::HashSet<usize> = std::collections::HashSet::new();
+    if let Ok(s) = fs::read_to_string(RESULT_FILE) {
+        for line in s.lines() {
+            if let Some(rest) = line.strip_prefix("KILL base#") {
+                if let Some(num) = rest.split_whitespace().next() {
+                    if let Ok(i) = num.parse::<usize>() { already_killed.insert(i); }
+                }
+            }
+        }
+        if !already_killed.is_empty() {
+            eprintln!("deep pass: {} families already killed, attacking the remaining {}",
+                      already_killed.len(), survivors.len() - already_killed.len());
+        }
+    }
+
     // ---- resume ----
     let mut start_idx = 0usize;
     let mut killed = 0u64;
@@ -439,7 +494,9 @@ fn main() {
     let start = Instant::now();
     let end_idx = survivors.len().min(max_surv);
     let mut res = fs::OpenOptions::new().create(true).append(true).open(RESULT_FILE).unwrap();
+    let mut cofdump = fs::OpenOptions::new().create(true).append(true).open("open_cofactors.txt").unwrap();
     for idx in start_idx..end_idx {
+        if already_killed.contains(&idx) { continue; }
         let sel = &survivors[idx];
         let mut d = dforced.clone();
         for &p in sel { d = mul_small(&d, p); }
@@ -451,6 +508,7 @@ fn main() {
         let b_side = sub_big(&ns, &d2);
 
         let mut dead = false;
+        let mut open_pieces = String::new();
         'sides: for (tag, x0) in [("A", &a_side), ("B", &b_side)] {
             // coprime basis of found pieces + cofactor
             let mut basis: Vec<(Big, u32)> = Vec::new();
@@ -486,6 +544,20 @@ fn main() {
                 } else { si += 1; }
                 seeds[si.min(2)] = seeds[si.min(2)].wrapping_add(4);
             }
+            if !is_one(&cof) {
+                if let Some(f) = pminus1(&cof, 300_000, &tprimes) {
+                    let (q, r) = divide_out(&cof, &f);
+                    if is_zero(&r) {
+                        let mut v = 1u32; cof = q;
+                        loop {
+                            let (q2, r2) = divide_out(&cof, &f);
+                            if !is_zero(&r2) { break; }
+                            cof = q2; v += 1;
+                        }
+                        basis_insert(&mut basis, f, v);
+                    }
+                }
+            }
             if !is_one(&cof) { basis_insert(&mut basis, cof.clone(), 1); }
             // kill rule: any odd-multiplicity piece with Jacobi (D|piece) = −1
             for (piece, mult) in &basis {
@@ -496,8 +568,18 @@ fn main() {
                     break 'sides;
                 }
             }
+            // no kill on this side: record its unresolved (multi-limb) pieces
+            for (piece, mult) in &basis {
+                if piece.len() > 1 {
+                    open_pieces.push_str(&format!(" {}^{}@{}", to_dec(piece), mult, tag));
+                }
+            }
         }
-        if dead { killed += 1; } else { open += 1; }
+        if dead { killed += 1; } else {
+            open += 1;
+            // dump the unresolved big pieces for later primality classification
+            writeln!(cofdump, "OPEN base#{} sel={:?} pieces:{}", idx, sel, open_pieces).unwrap();
+        }
 
         if (idx + 1) % 25 == 0 || idx + 1 == end_idx {
             let st = format!("next={}\nkilled={}\nopen={}\n", idx + 1, killed, open);
@@ -511,7 +593,7 @@ fn main() {
         }
     }
     eprintln!();
-    let total_killed = 31219 + killed;
+    let total_killed = 31219 + already_killed.len() as u64 + killed;
     let summary = format!(
         "FACTORING ATTACK to survivor #{} (rho budget {}/side): {} more families PROVEN EMPTY, {} still open.\nTOTAL level-60 one-new-prime families closed: {} / 49961 ({:.2}%).\n",
         end_idx, budget, killed, open, total_killed, 100.0 * total_killed as f64 / 49961.0);

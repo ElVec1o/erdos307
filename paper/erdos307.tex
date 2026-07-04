@@ -49,7 +49,9 @@ quantitative \emph{barrier}: building on Rosen's bound $|P\cup Q|\ge 59$, any so
 $\min(\prod P,\prod Q)\ge 2.09\times10^{56}$, improving the best published lower bound for $n''=n$
 solutions by about $47$ orders of magnitude. A finite verification over the complete list of
 $49{,}961$ admissible $59$--prime supports then closes the $59$--prime level: any solution in fact
-has $|P\cup Q|\ge 60$ and $\min(\prod P,\prod Q)>3.50\times10^{57}$. We add a parity dichotomy (a hypothetical all--odd
+has $|P\cup Q|\ge 60$ and $\min(\prod P,\prod Q)>3.50\times10^{57}$; a quadratic--reciprocity
+certificate, requiring no factorisation, then proves $46{,}049$ of the $49{,}961$ one--new--prime
+families at level $60$ empty, the canonical one (the first $59$ primes plus any $q$) among them. We add a parity dichotomy (a hypothetical all--odd
 cycle would need $\ge 1412$ primes and have $\min(\prod P,\prod Q)>10^{2519}$), a proof that longer
 cycles are strictly harder ($k=3$ already forces $361{,}139$ primes), and a function--field theorem:
 over $\mathbb{F}_q[t]$ the derivative has \emph{no} cycles, so the obstruction over $\mathbb{Z}$ is
@@ -447,6 +449,62 @@ one--new--prime families at level $60$ are proven empty ($92.2\%$), the $3{,}912
 having $A_S,B_S$ that resist factorisation with every found piece of symbol $+1$. (Both $A$ and
 $B$ of the canonical family are Baillie--PSW probable primes; the proof does not use this.)
 \end{proof}
+
+\begin{proposition}[Sector decomposition of level $60$]\label{prop:sectors}
+Let $U$ be a $60$--element prime support with $T(U)>2$. Then exactly one of the following holds:
+\textup{(i)} $T(U)-2\ge 1/\max U$, and $U=S\cup\{q\}$ for an admissible base $S$
+\textup{(}one of the $49{,}961$ of Proposition~\ref{prop:close59}\textup{)} --- the
+\emph{single--tail sector}; or \textup{(ii)} $T(U)-2<1/\max U$, and, writing $p>q$ for the two
+largest elements and $W$ for the rest, $T(W\cup\{p\})<2$ and $T(W\cup\{q\})<2$ --- the
+\emph{pair sector}, whose members escape every single--tail family.
+\end{proposition}
+\begin{proof}
+$U$ lies in the tail family of $U\setminus\{r\}$ iff $T(U)-1/r\ge2$, which is easiest for
+$r=\max U$; (i) is that case ($T=2$ being impossible by rigidity, the base is admissible). In
+case (ii) no removal reaches $2$, and a fortiori the two stated $59$--subsets stay below $2$.
+\end{proof}
+
+\begin{remark}[The campaign; completeness of the certificate; the arity barrier]\label{rem:campaign}
+The reciprocity certificate captures \emph{every} $q$--independent congruence obstruction of a
+tail family: at a prime $\ell\mid A_SB_S$ the system degenerates to the rank--one congruences
+$x^2\equiv D_S$ or $y^2\equiv D_S\pmod\ell$, while at $\ell\nmid 2A_SB_S$ the conditions define
+conics in $(x,q)$ or $(y,q)$ with $\sim\ell$ points, deleting at most half of the residue classes
+of $q$ and never all (the $2$--adic layer pins $q\equiv5\bmod8$ without emptiness); by CRT and
+Dirichlet, admissible $q$ survive any finite set of such conditions. Hence a tail family admits a
+congruence kill iff $(D_S\mid\ell)=-1$ for some $\ell\mid A_SB_S$ --- which the Jacobi symbol
+detects for $31{,}219$ bases, and partial factorisation (\texttt{hunt/survivor\_kill.rs}) for a
+further $14{,}830$: in total $46{,}049$ of the $49{,}961$ single--tail families at level $60$ are
+proven empty ($92.2\%$), $3{,}912$ remaining open. The weapon is intrinsically \emph{arity--one}:
+on the pair sector, with $s=p+q$, $t=pq$, the plus square reads $x^2=A_Wt+D_Ws$, so at
+$\ell\mid A_W$ the condition $x^2\equiv D_Ws\pmod\ell$ depends on $s$ and only thins its classes;
+a pair--sector member instead requires the \emph{three} simultaneous squares $x^2=A_Wt+D_Ws$,
+$y^2=B_Wt+D_Ws$, $s^2-4t=\square$ --- a two--parameter surface per base $W$, beyond reciprocity
+and, at present, beyond us.
+\end{remark}
+
+\begin{remark}[Anatomy of the certificate; the empirical $5/8$ law]\label{rem:fiveeighths}
+Writing $D=2D_1$, the reciprocity signs in the certificate cancel
+\textup{(}$\tfrac{A-1}2+\tfrac{N-1}2=N-1+2D_1$ is even\textup{)}, leaving the clean product
+\[ \left(\tfrac{D}{A}\right)\;=\;\left(\tfrac{2}{A}\right)\left(\tfrac{D_1}{N}\right),\qquad
+\left(\tfrac{2}{A}\right)=+1\iff N\equiv3,5\ (\mathrm{mod}\ 8), \]
+and one layer down $(N\mid D_1)=\prod_{p\mid D_1}\bigl(\tfrac{D/p}{p}\bigr)$, since
+$N\equiv D/p\pmod p$: the cofactor structure of rigidity recurs inside its own certificate.
+Empirically, over the $49{,}961$ bases, each factor is a fair coin ($49.9\%$, $50.0\%$), yet the
+kill rate is $31{,}219/49{,}961=0.62487$ --- within $0.06\sigma$ of exactly $5/8$. The mechanism
+sits in the conditional law: $(D_1\mid N)$ is fair for $N\equiv1,5\pmod 8$ but lands $-1$ for
+$\approx3/4$ of bases with $N\equiv3$ and $+1$ for $\approx3/4$ with $N\equiv7$, whence
+$\bigl(\tfrac34+\tfrac12+\tfrac12+\tfrac34\bigr)/4=5/8$. We have no explanation for the
+conditional $3/4$; the bias is aggregate and yields no second certificate.
+\end{remark}
+
+\begin{remark}[The kill--program is one--sided]\label{rem:oneside}
+Every kill is a proof that no solution hides in that family; but if \#307 has a solution, the
+solution's own family is unkillable, so no accumulation of kills can overshoot the truth: the
+program's asymptote \emph{is} the existence question. Together with the self--similarity of
+Remark~\ref{rem:tier60} (each rung past $60$ contains the whole problem), this locates the
+campaign precisely: it corners where a solution could live, one certified region at a time, and
+can terminate only if \#307 has answer \textsc{no} --- which the heuristics disfavour.
+\end{remark}
 
 \begin{theorem}[Parity dichotomy]\label{thm:parity}
 Let $a'=b,b'=a$ be a derivative two--cycle (so $a,b$ squarefree, $\gcd(a,b)=1$). Then exactly one of
@@ -1295,9 +1353,11 @@ finite verification of Proposition~\ref{prop:close59} sharpens the barrier to $|
 $\min(\prod P,\prod Q)>3.50\times10^{57}$. The heuristics weakly favour \textsc{yes} (existence), hence weakly against
 the period--one Ufnarovski--\AA hlander conjecture, but we claim no proof in either direction.
 
-Open problems: (i) decide whether any level beyond $60$ can be closed, e.g.\ by resolving the
-Pell--type tail family of Remark~\ref{rem:tier60} (the finite verification of
-Proposition~\ref{prop:close59} itself is now Lean--checked, \texttt{erdos307\_sixty}); (ii) decide
+Open problems: (i) close the residual $3{,}912$ single--tail families at level $60$ and find an
+arity--two kill for the pair sector of Proposition~\ref{prop:sectors} (the canonical tail family
+is closed, Proposition~\ref{prop:tailkill}; the finite verification of
+Proposition~\ref{prop:close59} is Lean--checked, \texttt{erdos307\_sixty}; the conditional $3/4$
+law of Remark~\ref{rem:fiveeighths} awaits explanation); (ii) decide
 the parity dichotomy's all--odd case (we expect it empty); (iii) certify more digits of $\delta$ with
 an effective error term; (iv) settle the density hypothesis $(\mathrm{H})$ of
 Section~\ref{sec:breeder}, or exhibit a non--circular frame family escaping the $\tau(K)/G$ ceiling;
