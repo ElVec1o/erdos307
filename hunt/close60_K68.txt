@@ -1,0 +1,7 @@
+
+=== close60 (pool ≤ first 68 primes) ===
+60-sets with T>2 examined: 1258448
+passed plus-square: 0
+BOTH-squares hits (candidate solutions): 0
+=> no level-60 solution with all primes among the first 68 (337).
+time 41s
