@@ -483,12 +483,17 @@ Dirichlet, admissible $q$ survive any finite set of such conditions. Hence a tai
 congruence kill iff $(D_S\mid\ell)=-1$ for some $\ell\mid A_SB_S$ --- which the Jacobi symbol
 detects for $31{,}219$ bases, and partial factorisation (\texttt{hunt/survivor\_kill.rs}) for a
 further $15{,}264$: in total $46{,}483$ of the $49{,}961$ single--tail families at level $60$ are
-proven empty ($93.0\%$), $3{,}478$ remaining open (each a balanced ${\sim}57$--digit semiprime, factoring--hard). The weapon is intrinsically \emph{arity--one}:
-on the pair sector, with $s=p+q$, $t=pq$, the plus square reads $x^2=A_Wt+D_Ws$, so at
-$\ell\mid A_W$ the condition $x^2\equiv D_Ws\pmod\ell$ depends on $s$ and only thins its classes;
-a pair--sector member instead requires the \emph{three} simultaneous squares $x^2=A_Wt+D_Ws$,
-$y^2=B_Wt+D_Ws$, $s^2-4t=\square$ --- a two--parameter surface per base $W$, beyond reciprocity
-and, at present, beyond us.
+proven empty ($93.0\%$), $3{,}478$ remaining open (each a balanced ${\sim}57$--digit semiprime, factoring--hard). The weapon is intrinsically \emph{arity--one}, and provably fails on the pair sector. With
+$s=p+q$, $t=pq$, a pair--sector member requires the two simultaneous squares $x^2=A_Wt+D_Ws$ and
+$y^2=B_Wt+D_Ws$ (the would--be third condition $s^2-4t=\square$ is automatic, being $(p-q)^2$),
+together with the reciprocity--linked constraints $(D_Wp\mid q)=(D_Wq\mid p)=1$ (mod $q$, a
+solution with $q\mid a$ has $N_U\equiv D_Wp$, forcing $D_Wp$ to be a square). At a prime
+$\ell\mid A_W$ the condition $x^2\equiv D_Ws\pmod\ell$ constrains only $s$, which the free second
+prime absorbs; a direct scan over all primes $\ell\le600$ (for several bases $W$) finds the pair
+system \emph{locally soluble everywhere} --- so, unlike the single--tail family, the pair sector
+admits \emph{no} congruence obstruction at all. It is a genuine two--parameter surface per base,
+$\#307$ in miniature (Remark~\ref{rem:oneside}); reciprocity cannot touch it, and only a direct
+both--squares search or a descent argument can.
 \end{remark}
 
 \begin{remark}[Anatomy of the certificate; the empirical $5/8$ law]\label{rem:fiveeighths}
