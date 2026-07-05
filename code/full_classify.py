@@ -77,6 +77,10 @@ def main():
     lines = [l for l in open(SRC) if l.startswith("OPEN base#")]
     print(f"{len(lines)} open families with dumped cofactors in {SRC}", flush=True)
     print(f"(per-family progress below; each hard cofactor may take up to {TIMEOUT}s)", flush=True)
+    if not lines:
+        sys.exit(f"\nNO 'OPEN base#…' lines in {SRC} — the Rust didn't dump cofactors.\n"
+                 f"Check with:  grep -c '^OPEN base#' {SRC}\n"
+                 f"If that's 0, the survivor_kill run that produced it predates the dump patch — rerun the current binary.")
 
     start = killed = immune = pending = 0
     if os.path.exists(STATE):
@@ -97,6 +101,9 @@ def main():
         pieces = PIECE.findall(m.group(3))
         verdict = ("IMMUNE", None, None)
         for dec, mult, side in pieces:
+            sys.stderr.write(f"\r  #{i+1}/{len(lines)}  side {side}: factoring {len(dec)}-digit cofactor…   "
+                             f"[killed={killed} immune={immune} pending={pending}]        ")
+            sys.stderr.flush()
             fd = factor_budget(int(dec), TIMEOUT)
             if fd is None:
                 verdict = ("PENDING", None, None)
