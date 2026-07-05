@@ -525,6 +525,25 @@ campaign precisely: it corners where a solution could live, one certified region
 can terminate only if \#307 has answer \textsc{no} --- which the heuristics disfavour.
 \end{remark}
 
+\begin{remark}[The reciprocity kills are the local factors of the expected count]\label{rem:killcount}
+The divergent naive count of Section~\ref{sec:anatomy} and the reciprocity sieve of
+Proposition~\ref{prop:tailkill} are the \emph{same} computation. Decompose the expected number of
+solutions over tail families $S\cup\{q\}$: the summand for a base $S$ is
+$\kappa_S\,\bigl(D_S\sqrt{\mathrm{mass}^2-4}\bigr)^{-1}\sum_q q^{-1}$, where
+$\kappa_S=\prod_\ell(\text{local solubility density at }\ell)$ is exactly the reciprocity data.
+A reciprocity--killed base carries an inert $\ell\mid A_S$ with $(D_S\mid\ell)=-1$, so
+$N_S+2D_S\equiv D_S\pmod\ell$ is a non--residue for \emph{every} $q$, forcing $\kappa_S=0$ --- the
+family drops from the count entirely. An immune base ($A_S,B_S$ both prime, both residues) has no
+inert prime, so $\kappa_S>0$ and its summand is a divergent $\sum_q q^{-1}$ (verified on an explicit
+$114$--digit immune base: local density $1$ at every tested prime, partial sums growing without
+bound). Hence the campaign of Remark~\ref{rem:campaign} is a Selberg--sieve evaluation of the
+singular series: the kills remove ${\sim}93\%$ of the count's mass, and the residual
+$\log$--divergence --- the entire ``weakly favours \textsc{yes}'' signal --- is carried by the $34$
+provably immune families together with the pair sector. This does not touch the reliability of the
+count (which ignores the $N(r)\le1$ rigidity), but it pins down \emph{where} the heuristic's
+\textsc{yes} lives.
+\end{remark}
+
 \begin{theorem}[Parity dichotomy]\label{thm:parity}
 Let $a'=b,b'=a$ be a derivative two--cycle (so $a,b$ squarefree, $\gcd(a,b)=1$). Then exactly one of
 the following holds.
