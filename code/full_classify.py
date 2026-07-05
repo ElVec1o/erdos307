@@ -75,7 +75,8 @@ def main():
     if not os.path.exists(SRC):
         sys.exit(f"missing {SRC}: run the updated hunt/survivor_kill.rs first (it dumps the residual cofactors).")
     lines = [l for l in open(SRC) if l.startswith("OPEN base#")]
-    print(f"{len(lines)} open families with dumped cofactors in {SRC}")
+    print(f"{len(lines)} open families with dumped cofactors in {SRC}", flush=True)
+    print(f"(per-family progress below; each hard cofactor may take up to {TIMEOUT}s)", flush=True)
 
     start = killed = immune = pending = 0
     if os.path.exists(STATE):
@@ -116,14 +117,14 @@ def main():
             immune += 1
             open(IMMUNE, "a").write(f"IMMUNE base#{base_id}\n")
 
-        if (i + 1) % 20 == 0 or i + 1 == len(lines):
+        el = time.time() - t0
+        eta = (len(lines) - i - 1) / max((i + 1 - start) / max(el, 1e-9), 1e-9)
+        sys.stderr.write(f"\r  {i+1}/{len(lines)}  killed={killed} immune={immune} pending={pending}  "
+                         f"{el/max(i+1-start,1):.1f}s/family  ETA {eta/60:.0f} min      ")
+        sys.stderr.flush()
+        if (i + 1) % 10 == 0 or i + 1 == len(lines):
             open(STATE + ".tmp", "w").write(f"next={i+1} killed={killed} immune={immune} pending={pending}")
             os.replace(STATE + ".tmp", STATE)
-            el = time.time() - t0
-            eta = (len(lines) - i - 1) / max((i + 1 - start) / max(el, 1e-9), 1e-9)
-            sys.stderr.write(f"\r  {i+1}/{len(lines)}  killed={killed} immune={immune} pending={pending}  "
-                             f"ETA {eta/60:.0f} min   ")
-            sys.stderr.flush()
     sys.stderr.write("\n")
 
     print("\n=== residual open families, fully classified ===")
