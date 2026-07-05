@@ -1,0 +1,1 @@
+next=80 killed=8 immune=5 pending=67

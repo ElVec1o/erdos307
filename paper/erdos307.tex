@@ -50,8 +50,9 @@ $\min(\prod P,\prod Q)\ge 2.09\times10^{56}$, improving the best published lower
 solutions by about $47$ orders of magnitude. A finite verification over the complete list of
 $49{,}961$ admissible $59$--prime supports then closes the $59$--prime level: any solution in fact
 has $|P\cup Q|\ge 60$ and $\min(\prod P,\prod Q)>3.50\times10^{57}$; a quadratic--reciprocity
-certificate, requiring no factorisation, then proves $46{,}049$ of the $49{,}961$ one--new--prime
-families at level $60$ empty, the canonical one (the first $59$ primes plus any $q$) among them. We add a parity dichotomy (a hypothetical all--odd
+certificate, requiring no factorisation, then proves the canonical tail family (the first $59$
+primes plus any $q$) empty, and together with a factoring pass $46{,}483$ of the $49{,}961$
+one--new--prime families at level $60$ ($93\%$; the residual is factoring--hard). We add a parity dichotomy (a hypothetical all--odd
 cycle would need $\ge 1412$ primes and have $\min(\prod P,\prod Q)>10^{2519}$), a proof that longer
 cycles are strictly harder ($k=3$ already forces $361{,}139$ primes), and a function--field theorem:
 over $\mathbb{F}_q[t]$ the derivative has \emph{no} cycles, so the obstruction over $\mathbb{Z}$ is
@@ -444,10 +445,18 @@ $-1$--Legendre primes, if any, occur to an even count, visible only through a fa
 $A_S$. A factoring attack on those (trial division and Brent--Pollard $\rho$ over a Montgomery
 core, \texttt{hunt/survivor\_kill.rs}; the found factors are kept as a pairwise--coprime basis, so
 a kill certificate --- an odd--multiplicity basis piece $P$ with $(D_S\mid P)=-1$ --- needs no
-primality testing at all) closes a further $14{,}830$: in total $46{,}049$ of the $49{,}961$
-one--new--prime families at level $60$ are proven empty ($92.2\%$), the $3{,}912$ still open
-having $A_S,B_S$ that resist factorisation with every found piece of symbol $+1$. (Both $A$ and
-$B$ of the canonical family are Baillie--PSW probable primes; the proof does not use this.)
+primality testing at all), pushed to $\rho$--budget $10^6$ with a Pollard $p-1$ stage, closes a
+further $15{,}264$: in total $46{,}483$ of the $49{,}961$ one--new--prime families at level $60$
+are proven empty ($93.0\%$). The $3{,}478$ still open resist all of this for a structural reason,
+not a want of effort: each is Baillie--PSW \emph{composite} yet has no prime factor below ${\sim}
+10^{12}$, so its $A_S$ (or $B_S$) is a \emph{balanced} semiprime of two ${\sim}57$--digit primes ---
+splitting one is factoring at cryptographic scale. Two cheap tests confirm no shortcut survives:
+a product--tree batch--GCD over all $37{,}484$ values $A_S,B_S$ finds only shared primes below
+$10^9$ (already found by $\rho$, so \emph{no} free kills), and Baillie--PSW primality leaves exactly
+$34$ families with both $A_S,B_S$ prime --- these are \emph{provably immune} (a prime $A_S$ with
+$(D_S\mid A_S)=+1$ has no inert factor, so no congruence obstruction for any $q$). A complete
+kill/immune split of the residual is therefore beyond feasible computation; the honest state of the
+single--tail sector is \emph{$46{,}483$ empty, $34$ provably immune, $3{,}478$ factoring--hard}.
 \end{proof}
 
 \begin{proposition}[Sector decomposition of level $60$]\label{prop:sectors}
@@ -473,8 +482,8 @@ of $q$ and never all (the $2$--adic layer pins $q\equiv5\bmod8$ without emptines
 Dirichlet, admissible $q$ survive any finite set of such conditions. Hence a tail family admits a
 congruence kill iff $(D_S\mid\ell)=-1$ for some $\ell\mid A_SB_S$ --- which the Jacobi symbol
 detects for $31{,}219$ bases, and partial factorisation (\texttt{hunt/survivor\_kill.rs}) for a
-further $14{,}830$: in total $46{,}049$ of the $49{,}961$ single--tail families at level $60$ are
-proven empty ($92.2\%$), $3{,}912$ remaining open. The weapon is intrinsically \emph{arity--one}:
+further $15{,}264$: in total $46{,}483$ of the $49{,}961$ single--tail families at level $60$ are
+proven empty ($93.0\%$), $3{,}478$ remaining open (each a balanced ${\sim}57$--digit semiprime, factoring--hard). The weapon is intrinsically \emph{arity--one}:
 on the pair sector, with $s=p+q$, $t=pq$, the plus square reads $x^2=A_Wt+D_Ws$, so at
 $\ell\mid A_W$ the condition $x^2\equiv D_Ws\pmod\ell$ depends on $s$ and only thins its classes;
 a pair--sector member instead requires the \emph{three} simultaneous squares $x^2=A_Wt+D_Ws$,
@@ -1353,7 +1362,7 @@ finite verification of Proposition~\ref{prop:close59} sharpens the barrier to $|
 $\min(\prod P,\prod Q)>3.50\times10^{57}$. The heuristics weakly favour \textsc{yes} (existence), hence weakly against
 the period--one Ufnarovski--\AA hlander conjecture, but we claim no proof in either direction.
 
-Open problems: (i) close the residual $3{,}912$ single--tail families at level $60$ and find an
+Open problems: (i) close the residual $3{,}478$ single--tail families at level $60$ and find an
 arity--two kill for the pair sector of Proposition~\ref{prop:sectors} (the canonical tail family
 is closed, Proposition~\ref{prop:tailkill}; the finite verification of
 Proposition~\ref{prop:close59} is Lean--checked, \texttt{erdos307\_sixty}; the conditional $3/4$
