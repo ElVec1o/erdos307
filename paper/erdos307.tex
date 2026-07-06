@@ -507,13 +507,20 @@ Writing $D=2D_1$, the reciprocity signs in the certificate cancel
 \[ \left(\tfrac{D}{A}\right)\;=\;\left(\tfrac{2}{A}\right)\left(\tfrac{D_1}{N}\right),\qquad
 \left(\tfrac{2}{A}\right)=+1\iff N\equiv3,5\ (\mathrm{mod}\ 8), \]
 and one layer down $(N\mid D_1)=\prod_{p\mid D_1}\bigl(\tfrac{D/p}{p}\bigr)$, since
-$N\equiv D/p\pmod p$: the cofactor structure of rigidity recurs inside its own certificate.
-Empirically, over the $49{,}961$ bases, each factor is a fair coin ($49.9\%$, $50.0\%$), yet the
-kill rate is $31{,}219/49{,}961=0.62487$ --- within $0.06\sigma$ of exactly $5/8$. The mechanism
-sits in the conditional law: $(D_1\mid N)$ is fair for $N\equiv1,5\pmod 8$ but lands $-1$ for
-$\approx3/4$ of bases with $N\equiv3$ and $+1$ for $\approx3/4$ with $N\equiv7$, whence
-$\bigl(\tfrac34+\tfrac12+\tfrac12+\tfrac34\bigr)/4=5/8$. We have no explanation for the
-conditional $3/4$; the bias is aggregate and yields no second certificate.
+$N\equiv D/p\pmod p$: the cofactor structure of rigidity recurs inside its own certificate. This product evaluates in closed form: with $D/p=2D_1/p$ and quadratic
+reciprocity,
+\[ (N\mid D_1)=(2\mid D_1)\!\!\prod_{\{p,q\}\subset D_1}\!\!(-1)^{\frac{p-1}2\frac{q-1}2}
+=(-1)^{\,s+\binom{t}{2}},\quad s=\#\{p\mid D_1:p\equiv3,5\ (8)\},\ \ t=\#\{p\mid D_1:p\equiv3\ (4)\}, \]
+a R\'edei genus character of $D_1$, \emph{independent of $N$} (an identity; checked on $4{,}000$
+bases). The inner symbol is thus not a coin but a genus invariant --- its empirical fairness
+($49.9\%$, $50.0\%$ over the $49{,}961$ bases) is that character's equidistribution --- and
+$(D_1\mid N)$ follows by the reciprocity sign $(-1)^{\frac{D_1-1}2\frac{N-1}2}$, hence depends on $N$
+only through $N\bmod4$. The kill rate $31{,}219/49{,}961=0.62487$ then sits within $0.06\sigma$ of
+$\bigl(\tfrac34+\tfrac12+\tfrac12+\tfrac34\bigr)/4=5/8$, the conditional $3/4$ being exactly the
+correlation between the genus parity $s+\binom{t}{2}$ and $N\bmod8$ (recall $N=D_1+2D_1'$). That
+correlation is real on the level--59 set but \emph{not} universal --- a random--subset proxy gives
+${\approx}0.45/0.55$ --- so the $5/8$ is this genus character's shadow on the particular ensemble, and
+yields no second certificate.
 \end{remark}
 
 \begin{remark}[The kill--program is one--sided]\label{rem:oneside}
@@ -542,6 +549,33 @@ $\log$--divergence --- the entire ``weakly favours \textsc{yes}'' signal --- is 
 provably immune families together with the pair sector. This does not touch the reliability of the
 count (which ignores the $N(r)\le1$ rigidity), but it pins down \emph{where} the heuristic's
 \textsc{yes} lives.
+\end{remark}
+
+\begin{remark}[The immune signal is Lehmer--type]\label{rem:lehmer}
+The immune families of Remark~\ref{rem:killcount} do not merely survive the sieve; they carry a
+definite arithmetic shape. For a reciprocity--immune base the Pell system of Remark~\ref{rem:tier60},
+$B_Sx^2-A_Sy^2=-4D_S^2$, is locally soluble everywhere ($\kappa_S>0$), and a Pythagorean pair in the
+tail family $S\cup\{q\}$ is \emph{exactly} a solution with $q=(x^2-D_S)/A_S=(y^2-D_S)/B_S$ a positive
+prime. Its solutions grow like $\varepsilon^n$ in the fundamental unit of the order of discriminant
+$4A_SB_S$ ($224$ digits, $A_SB_S$ a nonsquare, on an explicit immune base), so $q_n$ grows
+exponentially: the surviving question is the primality of a term of an exponential sequence --- the
+Lehmer/Mersenne phenomenon, not a Bunyakovsky one. This is the same residue already isolated over
+$\mathbb{Z}[\sqrt2]$ in Remark~\ref{rem:folding} (primality of $|N(\rho)|$ along Pell--growing
+sequences), now on rational soil, and it sharpens the ``weakly favours \textsc{yes}'' of
+Remark~\ref{rem:killcount}: the immune contribution to the count is not a generic thin--set
+$\sum q^{-1}$ but a Lehmer--type expectation --- heuristically infinitely many prime $q_n$, yet
+exhibiting even one (let alone one meeting the $k=0$ cycle condition $D(a)=b$ that a genuine two--cycle
+demands on top of the Pythagorean pair) is open in the way the infinitude of Mersenne primes is open. A
+reciprocity--killed base is the complementary degeneration: there the same Pell system is locally
+\emph{insoluble} ($\kappa_S=0$), so no candidate $q_n$ exists at all. The dichotomy of
+Proposition~\ref{prop:tailkill} is thus Pell--solubility versus Pell--insolubility, and the residual
+existence signal is precisely a Lehmer primality question the present methods do not reach. This
+complements Proposition~\ref{prop:nopoly}, which proves \#307 admits \emph{no} polynomial
+parametrisation: the present Pell orbit exhibits the family that \emph{does} parametrise it, an
+exponential one. That the parametrisation is forced to be exponential is exactly why the residual
+question is Lehmer--class (primes in an exponential sequence) and not Schinzel--class (primes in a
+polynomial), which places it beyond every standard prime--density conjecture --- the sandwich that
+locates the whole difficulty.
 \end{remark}
 
 \begin{theorem}[Parity dichotomy]\label{thm:parity}
@@ -646,7 +680,12 @@ and $b=a'$, being coprime to $a$, is both too small and too coprime to assemble 
 $1/s$. The extremal case is stark: for the primorial $a=\prod_{i\le k}p_i$, though $\sum_{p\mid a}1/p$
 rises through $2$ at $k=59$, the cofactor sum $a'$ is essentially prime, with $\sum_{q\mid a'}1/q<0.2$
 for every $k<100$ (and only $0.0014$ at $k=59$): the family that \emph{maximises} the forward mass is
-the most starved on the return. The first scale at which $b$ could plausibly carry the required mass is of the order of the
+the most starved on the return. Equivalently, for squarefree $n$ with $n'$ squarefree,
+$n''=n\,\sigma(n)\,\sigma(n')$, so the two--step return ratio $n''/n=\sigma(n)\sigma(n')$ is the \#307
+product itself; over \emph{all} such $n<10^6$ it stays strictly below $1$, never exceeding $0.54$
+(maximal at $n=969969=3\cdot7\cdot11\cdot13\cdot17\cdot19$), so $D$ is two--step contracting throughout
+the tested range and must reverse to unit ratio for a solution to exist. The first scale at which $b$
+could plausibly carry the required mass is of the order of the
 barrier ($\sim10^{56}$); this dynamical mass--gap is \emph{consistent with} the proved barrier rather
 than an independent derivation of it (the empirical tail probability $0$ at small scale is equally
 consistent with \textsc{no} and with \textsc{yes}--beyond--the--barrier). A naive ``expected number
@@ -976,6 +1015,53 @@ with infinite unit group it is now reduced to the abundance of lattice points on
 unit systems --- measured plentiful already at $k=3$ --- a geometry--of--numbers question rather than a
 primality one.
 \end{remark}
+
+\begin{remark}[{The forced third prime: a Schinzel--type reduction over $\mathbb{Z}[\sqrt2]$, unblocked}]
+\label{rem:forced}
+Within that abundance the arithmetic is sharper than free lattice--counting. Fixing $\pi_1,\pi_2$ and the
+units $u_1,u_2,u_3$, the folded equation rearranges to
+$\pi_3\,(u_1\pi_2+u_2\pi_1)-(\pi_1\pi_2)^\sigma\pi_3^\sigma=-u_3\pi_1\pi_2$, a $2\times2$ integer linear
+system for $\pi_3=(x,y)$ whose determinant is $N(u_1\pi_2+u_2\pi_1)-N(\pi_1\pi_2)$ (an identity, verified
+on all $168$ solutions of the box). So $\pi_3$ is \emph{forced} by $(\pi_1,\pi_2,u_1,u_2,u_3)$, and
+infinitude of twisted cycles is exactly the primality of this forced $\pi_3$ for infinitely many such data
+--- a Schinzel/Bunyakovsky--type condition over $\mathbb{Z}[\sqrt2]$. Crucially it is \emph{not} the regime
+of Proposition~\ref{prop:nopoly}: the exponential unit freedom $u_i=\pm\varepsilon^{k_i}$ keeps the family
+non--polynomial yet populated, so the polynomial--rigidity that forbids reducing the \emph{rational} \#307
+to such a hypothesis does not apply here. A Schinzel--type theorem over $\mathbb{Z}[\sqrt2]$ would render
+twisted infinitude unconditional, whereas none touches \#307 itself --- the twisted problem sits strictly
+closer to the reach of current sieve theory than its rational shadow. Concretely the twisted solution set
+is \emph{abundant} at accessible scale --- thousands of cycles at modest norm (Proposition~\ref{prop:geometry}),
+and the count of distinct prime--norm signatures grows roughly in proportion to the norm bound in our census
+(e.g.\ $6,12,20$ at bounds $40,80,160$, unit heights saturating) --- whereas the rational Pythagorean layer
+is \emph{empty} below $10^{112}$ (Corollary~\ref{cor:emptytest}). The twisted and rational problems thus differ
+not in the difficulty of the search but in whether solutions exist to be found at all: for the twist they are
+plentiful and the only question is their primality, exactly the Schinzel--shaped residue above.
+\end{remark}
+
+The natural attempt to \emph{prove} that infinitude --- forcing one prime to be the conjugate of another
+so that a single free prime remains, whence Dirichlet would suffice --- is blocked, and the block is a
+clean structural law.
+
+\begin{proposition}[No conjugate prime pair in a twisted cycle]\label{prop:noconj}
+Let $D$ be a Leibniz derivative with unit prime--values over a quadratic ring with automorphism $\sigma$,
+and $a$ a squarefree twisted cycle $D(a)=a^\sigma$. Then no two prime factors of $a$ are
+$\sigma$--conjugate. Equivalently a twisted cycle's support is disjoint from its conjugate --- it is never
+conjugation--stable, which is exactly why the exhibited $\mathbb{Z}[i]$ cycles are asymmetric, coming in
+conjugate pairs of \emph{distinct} supports rather than on one symmetric support. This \emph{separates}
+two problems easily conflated: the twisted equality $D(a)=a^\sigma$ treated here, and the symmetric
+target of Remark~\ref{rem:descent}, which is a genuine two--cycle $D(m)=m'$ ($m\ne m'$, both
+conjugation--fixed) of the \emph{descended} rational operator --- not a twisted equality. The present
+proposition bars the first from the symmetric locus; it does not bear on the second, which remains
+genuinely open (the exhaustive emptiness there, Remark~\ref{rem:descent}, is unexplained by it).
+\end{proposition}
+\begin{proof}
+Suppose a split prime $\pi$ and its distinct conjugate $\pi^\sigma$ both divide $a$. Reducing
+$D(a)=\sum_i u_i\,(a/\pi_i)$ modulo $\pi$ kills every term but the one at $\pi_i=\pi$, so
+$D(a)\equiv u_\pi\,(a/\pi)\not\equiv0\pmod\pi$ ($u_\pi$ a unit and $\pi\nmid a/\pi$ by squarefreeness).
+Yet $a^\sigma=\prod_i\pi_i^\sigma$ carries the factor $(\pi^\sigma)^\sigma=\pi$, so
+$a^\sigma\equiv0\pmod\pi$; hence $D(a)\ne a^\sigma$. An exhaustive $\mathbb{Z}[\sqrt2]$ search confirms
+no cycle carries a conjugate pair.
+\end{proof}
 
 We codify what is theorem and what remains open in this circle.
 
@@ -1524,10 +1610,17 @@ $\equiv1\pmod4$ --- a cheap union--side pre--filter complementing Bado's congrue
 exactly one of $a,b$ is even this is the hypotenuse of the primitive triple $(|a^2-b^2|,2ab,a^2+b^2)$.)
 (b) Since Seva's $s$ agrees with $n'$ on squarefree integers, and his valuation property forces
 two--cycle members squarefree, his question is \emph{exactly} \#307, not merely an analogue.
-(c) Speculatively, and recorded only for completeness (no mechanism is known): primitive Pythagorean
-triples form the Barning--Hall ternary tree, the orbit structure of a reflection group in
-$O(2,1;\mathbb{Z})$; a solution of \#307 would occupy a single node whose generator pair
-$(M(P),M(Q))$ carries the full prime--set rigidity.
+(c) Primitive Pythagorean triples form the Barning--Hall ternary tree (the orbit structure of a
+reflection group in $O(2,1;\mathbb{Z})$), and a \#307 solution's triple $(|a^2-b^2|,2ab,a^2+b^2)$
+occupies one node with generator $(a,b)=(\prod P,\prod Q)$. The tree nonetheless yields no descent on
+the problem: its moves $(a,b)\mapsto(2a\mp b,\,a),\,(a+2b,\,b)$ are linear, preserving coprimality but
+not squarefreeness --- over random squarefree coprime generators only $37\%$ of children keep both
+members squarefree --- so the locus of \#307--eligible nodes (squarefree generators of disjoint prime
+support meeting $a^2+b^2=(ab)'$) is not tree--invariant. The additive tree is transverse to the
+multiplicative constraint; the arithmetically natural recursion is instead the prime--append
+$\delta$--tree of Proposition~\ref{prop:delta}, $\delta(Mp)=p\,\delta(M)+M$, which preserves
+squarefreeness and tracks the line parameter --- which is why the classical members organise on
+\emph{that} tree, not Barning--Hall.
 \end{remark}
 
 The deviation parameter of Proposition~\ref{prop:pairform} organises the one--equation problem into a
@@ -1602,7 +1695,7 @@ Corollary~\ref{cor:emptytest} are the absence and presence of one and the same a
 
 \begin{proposition}[Structure of the plus--layer]\label{prop:plus}
 Call squarefree $N$ with $\omega(N)\ge2$ a \emph{plus--hit} if $N'+2N$ is a perfect square; the first
-are $130,145,305,689,1745,1870,1970,2353,\dots$ \textup{(}$114$ below $2\times10^5$\textup{)}.
+are $130,145,305,689,1745,1870,1970,2353,\dots$ \textup{(}$114$ below $2\times10^5$; OEIS~\cite{OEIS_A396915}\textup{)}.
 \textup{(i)} For a semiprime $N=pq$, $2(N'+2N)+1=(2p+1)(2q+1)$, so a plus--hit forces
 $(2s)^2\equiv-2\pmod\ell$ for every prime $\ell\mid(2p+1)(2q+1)$, whence $\ell\equiv1,3\pmod8$ and
 $p\equiv q\equiv1\pmod4$ (verified on all $59$ semiprime instances; this explains the dominance of $5$
@@ -2000,6 +2093,8 @@ Multiplication}, 2nd ed., Wiley, 2013.
 \url{https://oeis.org/A054377}.
 \bibitem{OEIS_A007850} OEIS Foundation, \emph{Sequence A007850 (Giuga numbers)},
 \url{https://oeis.org/A007850}.
+\bibitem{OEIS_A396915} OEIS Foundation, \emph{Sequence A396915 (composite squarefree $k$ with
+$k'+2k$ a perfect square)}, \url{https://oeis.org/A396915}.
 \bibitem{Evertse1984} J.-H.~Evertse, \emph{On sums of $S$-units and linear recurrences}, Compositio
 Math.\ \textbf{53} (1984), 225--244.
 \bibitem{ESS2002} J.-H.~Evertse, H.~P.~Schlickewei, and W.~M.~Schmidt, \emph{Linear equations in
