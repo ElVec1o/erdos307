@@ -551,6 +551,28 @@ count (which ignores the $N(r)\le1$ rigidity), but it pins down \emph{where} the
 \textsc{yes} lives.
 \end{remark}
 
+\begin{proposition}[Local completeness of the reciprocity sieve]\label{prop:localcomplete}
+For an admissible base $S$ and an odd prime $\ell$, the admissible tail residues
+$Q_\ell=\{q\bmod\ell:(A_Sq+D_S\mid\ell)\ne-1\text{ and }(B_Sq+D_S\mid\ell)\ne-1\}$ fall into exactly three
+regimes. \textup{(i)} $\ell\mid D_S$ --- which covers every $\ell\le167$ uniformly over the $49{,}961$
+admissible bases, since $1/p\ge(T_{59}-2)+\tfrac1{281}$ forces every prime $p\le167$ into every base:
+then $A_S\equiv B_S\equiv N_S\not\equiv0\pmod\ell$, the two conditions collapse to the single condition
+$(N_Sq\mid\ell)\ne-1$, and $|Q_\ell|=(\ell+1)/2\ni0$. \textup{(ii)} $\ell\mid A_SB_S$: one condition is
+the constant $(D_S\mid\ell)$, so $Q_\ell=\emptyset$ iff $(D_S\mid\ell)=-1$ --- exactly the certificate of
+Proposition~\ref{prop:tailkill} --- and otherwise $|Q_\ell|\ge(\ell-1)/2$. \textup{(iii)}
+$\ell\nmid A_SB_SD_S$ (hence $\ell\ge173$): the complete character sums give
+$|Q_\ell|\ge(\ell-3)/4-2\ge40$ (the linear sums vanish, the quadratic sum is $-\chi(A_SB_S)$, boundary
+terms $\le2$). Consequently $Q_\ell\ne\emptyset$ forces $|Q_\ell|\ge2$ at every modulus, the surviving
+local density is positive (e.g.\ $\prod_{\ell\le300}|Q_\ell|/\ell\approx2.2\times10^{-19}>0$ on the
+canonical base), and by CRT \emph{no finite system of congruences --- no covering --- can annihilate an
+unkilled family}: the binary certificate of Proposition~\ref{prop:tailkill} is the complete local theory
+of the tail sector, there is no ``second kill layer,'' and the one--sidedness of
+Remark~\ref{rem:oneside} is structural rather than an artefact of method. (All three regimes verified
+exhaustively on the canonical base: collapse and $|Q_\ell|=(\ell+1)/2$ at
+$\ell\in\{3,5,7,101,277\}$; the Weil floor at every prime $281\le\ell\le600$; $A_S,B_S$ carry no factor
+below $10^6$, consistent with the balanced--semiprime wall of Remark~\ref{rem:campaign}.)
+\end{proposition}
+
 \begin{remark}[The immune signal is Lehmer--type]\label{rem:lehmer}
 The immune families of Remark~\ref{rem:killcount} do not merely survive the sieve; they carry a
 definite arithmetic shape. For a reciprocity--immune base the Pell system of Remark~\ref{rem:tier60},
@@ -565,7 +587,13 @@ sequences), now on rational soil, and it sharpens the ``weakly favours \textsc{y
 Remark~\ref{rem:killcount}: the immune contribution to the count is not a generic thin--set
 $\sum q^{-1}$ but a Lehmer--type expectation --- heuristically infinitely many prime $q_n$, yet
 exhibiting even one (let alone one meeting the $k=0$ cycle condition $D(a)=b$ that a genuine two--cycle
-demands on top of the Pythagorean pair) is open in the way the infinitude of Mersenne primes is open. A
+demands on top of the Pythagorean pair) is open in the way the infinitude of Mersenne primes is open.
+The return itself, however, is milder than ``$k=0$'' suggests: on the Pythagorean locus the deviation
+$k=(a'-b)/a$ is an \emph{integer} (the identity $v(D(u)-v)=u(u-D(v))$ with $\gcd(u,v)=1$), forced into
+$\{0,-1\}$ by the near--balanced immune ratio, so $k=0$ is a sign choice rather than a measure--zero
+coincidence; and the naive Wieferich shortcut that would pin $q$ is vacuous, since $x^2\equiv D_S\pmod q$
+holds identically from $x^2=A_Sq+D_S$. Whether $k=0$ is met with positive conditional density is itself
+unresolved --- but the wall is the primality of $q_n$, not the return. A
 reciprocity--killed base is the complementary degeneration: there the same Pell system is locally
 \emph{insoluble} ($\kappa_S=0$), so no candidate $q_n$ exists at all. The dichotomy of
 Proposition~\ref{prop:tailkill} is thus Pell--solubility versus Pell--insolubility, and the residual
@@ -575,7 +603,20 @@ parametrisation: the present Pell orbit exhibits the family that \emph{does} par
 exponential one. That the parametrisation is forced to be exponential is exactly why the residual
 question is Lehmer--class (primes in an exponential sequence) and not Schinzel--class (primes in a
 polynomial), which places it beyond every standard prime--density conjecture --- the sandwich that
-locates the whole difficulty.
+locates the whole difficulty. Quantitatively the wall is \emph{double}--exponential in expectation:
+immunity makes $A_SB_S$ a product of two distinct primes, hence squarefree, so the conic lives in the
+near--maximal order of $\mathbb{Q}(\sqrt{A_SB_S})$ of discriminant ${\sim}A_SB_S\approx10^{224}$
+($\sqrt\Delta\approx10^{112}$, computed exactly at base scale), and the class--number formula puts the
+expected regulator at $R=\sqrt\Delta\,L(1,\chi)/(2h)\approx10^{112}$; barring an anomalously large class
+number, the \emph{least} point of a nonempty fiber sits at height $\exp\bigl(10^{112}\bigr)$ --- and
+nonemptiness itself is a class--group condition, since Hasse supplies only rational points. Three nested
+gates therefore separate an immune family from a solution: fiber nonemptiness (class group), a prime
+$q_n$ along the orbit (Lehmer), and the $k=0$ return; a direct sweep to $q\le10^{12}$ was structurally
+incapable of reaching even the first gate. By contrast the twisted fibers of Remark~\ref{rem:forced}
+have measured least points at two--digit norms and unbounded fiber multiplicity (their linear count is a
+sum over ${\sim}X$ Pell fibers, each individually orbit--sparse --- the unimodular fibers
+$\det=\pm1$ are empty in a $6\times10^7$ box): the tier gap between the twisted and rational problems is
+precisely a \emph{fiber--height} gap in one and the same landscape, primality on Pell fibers.
 \end{remark}
 
 \begin{theorem}[Parity dichotomy]\label{thm:parity}
@@ -1035,7 +1076,27 @@ and the count of distinct prime--norm signatures grows roughly in proportion to 
 (e.g.\ $6,12,20$ at bounds $40,80,160$, unit heights saturating) --- whereas the rational Pythagorean layer
 is \emph{empty} below $10^{112}$ (Corollary~\ref{cor:emptytest}). The twisted and rational problems thus differ
 not in the difficulty of the search but in whether solutions exist to be found at all: for the twist they are
-plentiful and the only question is their primality, exactly the Schinzel--shaped residue above.
+plentiful and the only question is their primality, exactly the Schinzel--shaped residue above. That residue is a
+\emph{pair}, not a triple or a Lehmer sequence: fixing $\pi_1$ and bounding the units, the cycle count still
+grows with $N(\pi_2)$ (verified: $33,48,60$ for $\pi_1=3+\sqrt2$ at $N(\pi_2)\le60,120,240$), so $\pi_1$'s
+primality is free and only the \emph{simultaneous} primality of $\pi_2$ and the forced $\pi_3$ remains. Setting up
+the sieve pins the difficulty precisely. Writing $C=u_1\pi_2+u_2\pi_1$, $E'=(\pi_1\pi_2)^\sigma$,
+$F=-u_3\pi_1\pi_2$, the forced third prime is $\pi_3=(\bar CF+E'\bar F)/\det$ with $\det=N(C)-N(E')$ a binary
+quadratic form in $(c,d)=\pi_2$. The first condition is the clean form $N(\pi_2)=c^2-2d^2$; the second, however,
+is \emph{not} a second form but the rational condition $N(\pi_3)=N(G)/\det^2$ ($G=\bar CF+E'\bar F$ quadratic,
+$N(G)$ quartic, $\gcd(N(G),\det)=1$), evaluated on the integral locus $\det\mid G$ --- and $N(\pi_3)$ is unbounded,
+spiking as $\det\to0$ (values to ${\sim}10^{11}$ already at $N(\pi_2)\le2\times10^4$). On this \emph{frozen}
+$(\pi_1,\text{units})$ slice the question is primality along the folded conic bundle, and the slice is thin: its
+unimodular fibres $\det=\pm1$ are \emph{empty} by a genus obstruction (there $\det=\pm1$ would need
+$x^2-2y^2\in\{-55,-43\}$, both non--residues). But the thinness is an artefact of freezing exactly the parameters
+that carry the abundance. The \emph{full} twisted variety $D(a)=a^\sigma$ --- $\pi_1,\pi_2,\pi_3$ and their units all
+free --- is a cubic threefold whose solution count grows with positive exponent; a positive--density attack must run
+there, not on a fixed fibre, so the fixed--fibre conic sieve is a closed dead end. The honest placement is then: the
+reachable object is the full threefold at the Heath--Brown $x^3+2y^3$ frontier, compounded by a \emph{coupled} second
+primality ($N(\pi_2)$ and $N(\pi_3)$ simultaneously prime) --- the two--sparse--conditions/parity barrier where the
+circle method loses minor--arc cancellation. This is strictly below the exponential/Lehmer tier of the immune
+families (Remark~\ref{rem:lehmer}, where no sieve reaches at all), but a generation beyond present technology; it is
+where genuinely new analytic input for the twist would first have to bite.
 \end{remark}
 
 The natural attempt to \emph{prove} that infinitude --- forcing one prime to be the conjugate of another
