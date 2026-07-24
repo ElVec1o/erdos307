@@ -511,8 +511,15 @@ $N\equiv D/p\pmod p$: the cofactor structure of rigidity recurs inside its own c
 reciprocity,
 \[ (N\mid D_1)=(2\mid D_1)\!\!\prod_{\{p,q\}\subset D_1}\!\!(-1)^{\frac{p-1}2\frac{q-1}2}
 =(-1)^{\,s+\binom{t}{2}},\quad s=\#\{p\mid D_1:p\equiv3,5\ (8)\},\ \ t=\#\{p\mid D_1:p\equiv3\ (4)\}, \]
-a R\'edei genus character of $D_1$, \emph{independent of $N$} (an identity; checked on $4{,}000$
-bases). The inner symbol is thus not a coin but a genus invariant --- its empirical fairness
+a R\'edei genus character of $D_1$, \emph{independent of $N$}. This is forced, not merely observed:
+$(N\mid D_1)=\prod_{p\mid D_1}(N\mid p)$, and cofactor survival gives $N\equiv D/p=2D_1/p\pmod p$, so
+$(N\mid p)=(2\mid p)\,(D_1/p\mid p)$. The first factors multiply to $(-1)^{s}$ since $(2\mid p)=-1$
+exactly for $p\equiv3,5\pmod 8$; and, each unordered pair $\{p,q\}$ occurring once in each of the two
+cofactors,
+\[ \prod_{p\mid D_1}\Bigl(\tfrac{D_1/p}{p}\Bigr)=\prod_{\{p,q\}\subset D_1}\Bigl(\tfrac qp\Bigr)
+\Bigl(\tfrac pq\Bigr)=\prod_{\{p,q\}\subset D_1}(-1)^{\frac{p-1}2\frac{q-1}2}=(-1)^{\binom t2}, \]
+by quadratic reciprocity, since $\tfrac{p-1}2$ is odd exactly for $p\equiv3\pmod4$. (Checked
+independently, prime by prime, on $20{,}000$ bases: $0$ violations.) The inner symbol is thus not a coin but a genus invariant --- its empirical fairness
 ($49.9\%$, $50.0\%$ over the $49{,}961$ bases) is that character's equidistribution --- and
 $(D_1\mid N)$ follows by the reciprocity sign $(-1)^{\frac{D_1-1}2\frac{N-1}2}$, hence depends on $N$
 only through $N\bmod4$. The kill rate $31{,}219/49{,}961=0.62487$ then sits within $0.06\sigma$ of
