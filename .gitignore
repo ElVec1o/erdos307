@@ -18,3 +18,6 @@ lean/.lake/build/
 **/.DS_Store
 lean/.lake/
 hunt/antiholo_hunt
+hunt/descended_hunt.box
+hunt/descended_deep.log
+hunt/antiholo_hunt.progress

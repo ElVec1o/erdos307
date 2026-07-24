@@ -13,11 +13,21 @@
 // this program pushes ω = 4..6 with a configurable prime pool BEYOND that box.
 //
 // Build:  rustc -O -o descended_hunt descended_hunt.rs
-// Run:    ./descended_hunt [OMEGA_MIN OMEGA_MAX P_MIN P_MAX LO_LOG10 HI_LOG10]
-//   defaults: 4 6 3 600 9 12   (ω 4..6, odd primes in [3,600], product in [1e9, 1e12])
+// Run:    ./descended_hunt [OMEGA_MIN OMEGA_MAX P_MIN P_MAX LO_LOG10 HI_LOG10 RESUME_FROM]
+//   defaults: 4 6 3 600 9 12 0  (ω 4..6, odd primes in [3,600], product in [1e9, 1e12])
 //
-// Prints ETA / progress every few seconds and writes any hit + a resume marker to
-// descended_hunt.out.  A HIT is a genuine descended 2-cycle — the first known, if it exists.
+// PERSISTENCE (all three, verified):
+//   * PROGRESS + ETA — every ~4s to stderr and to descended_hunt.progress. The outer loop is over
+//     the SMALLEST prime of the support, so completion fraction is outer/pool. That ordering is
+//     front-loaded (small first primes carry the biggest subtrees), so the ETA is an OVER-estimate
+//     early on and falls as it runs. Treat it as an upper bound, not a schedule.
+//   * INTERIM SAVE — descended_hunt.progress is rewritten every ~4s with a unix timestamp, the
+//     running counts, and `resume_from <i>`. Safe to read at any moment; safe to lose.
+//   * RESUME — pass the `resume_from` value back as the 7th argument to restart mid-sweep;
+//     it re-runs the outer index that was in flight, so no support is skipped.
+// Hits are appended to descended_hunt.out as they are found (never truncated), so a crash or a
+// kill loses only the sweep position, never a result.
+// A HIT is a genuine descended 2-cycle — the first known, if it exists.
 
 use std::env;
 use std::fs::OpenOptions;
@@ -82,6 +92,14 @@ fn factor_squarefree(mut n: u64) -> Option<Vec<u64>> {
 }
 
 // the allowed descended values for a prime p (as i128, includes signs)
+fn hms(secs: f64) -> String {
+    if !secs.is_finite() || secs < 0.0 { return "?".to_string(); }
+    let s = secs as u64;
+    if s < 3600 { format!("{}m{:02}s", s / 60, s % 60) }
+    else if s < 86400 { format!("{}h{:02}m", s / 3600, (s % 3600) / 60) }
+    else { format!("{}d{:02}h", s / 86400, (s % 86400) / 3600) }
+}
+
 fn values(p: u64) -> Vec<i128> {
     if p % 4 == 3 { return vec![1, -1]; }
     // split: p = x^2 + y^2, x odd, y even
@@ -140,7 +158,7 @@ fn main() {
         lo: u128, hi: u128, omega_min: usize, omega_max: usize,
         start_idx: usize, chosen: &mut Vec<usize>, prod: u128, ninert: usize,
         tested: &mut u64, cand_valid: &mut u64, hits: &mut u64,
-        start: &Instant, last: &mut Instant,
+        start: &Instant, last: &mut Instant, i0: usize, npool: usize,
     ) {
         let k = chosen.len();
         if k >= omega_min && prod >= lo && prod <= hi && ninert % 2 == 1 {
@@ -185,12 +203,18 @@ fn main() {
             // progress
             if last.elapsed().as_secs_f64() > 4.0 {
                 let el = start.elapsed().as_secs_f64();
-                eprint!("\r  tested {}  valid-m' {}  hits {}  {:.0}s  ({:.0}/s)   ",
-                        tested, cand_valid, hits, el, *tested as f64 / el.max(1e-9));
+                let frac = (i0 as f64 + 1.0) / (npool as f64).max(1.0);
+                let eta = if frac > 1e-9 { (el / frac - el).max(0.0) } else { 0.0 };
+                eprint!("\r  outer {}/{}  tested {}  valid-m' {}  hits {}  {:.0}s  ETA<~{}  ({:.0}/s)   ",
+                        i0 + 1, npool, tested, cand_valid, hits, el, hms(eta), *tested as f64 / el.max(1e-9));
+                let _ = std::io::stderr().flush();
                 *last = Instant::now();
-                // interim save
+                // interim save: timestamped, resumable, safe to read mid-run
+                let ts = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)
+                    .map(|d| d.as_secs()).unwrap_or(0);
                 if let Ok(mut f) = OpenOptions::new().create(true).write(true).truncate(true).open("descended_hunt.progress") {
-                    let _ = writeln!(f, "tested {} valid-m' {} hits {} elapsed {:.0}s", tested, cand_valid, hits, el);
+                    let _ = writeln!(f, "unix {} outer {}/{} tested {} valid-m' {} hits {} elapsed {:.0}s eta_upper {} resume_from {}",
+                                     ts, i0 + 1, npool, tested, cand_valid, hits, el, hms(eta), i0);
                 }
             }
         }
@@ -200,14 +224,35 @@ fn main() {
             if np > hi { break; } // pool sorted asc; product only grows
             chosen.push(i);
             dfs(pool, valcache, is3, lo, hi, omega_min, omega_max, i + 1, chosen,
-                np, ninert + if is3[i] {1} else {0}, tested, cand_valid, hits, start, last);
+                np, ninert + if is3[i] {1} else {0}, tested, cand_valid, hits, start, last, i0, npool);
             chosen.pop();
         }
     }
 
-    let mut chosen = Vec::new();
-    dfs(&pool, &valcache, &is3, lo, hi, omega_min, omega_max, 0, &mut chosen, 1, 0,
-        &mut tested, &mut cand_valid, &mut hits, &start, &mut last);
+    // Outer loop over the SMALLEST prime of the support: gives a completion fraction, an ETA,
+    // and a resume point. (Front-loaded: small first primes carry the biggest subtrees.)
+    let npool = pool.len();
+    let resume_from = g(7, 0) as usize;
+    if resume_from > 0 {
+        eprintln!("resuming from outer index {} of {}", resume_from, npool);
+    }
+    for i0 in resume_from..npool {
+        if (pool[i0] as u128) > hi { break; }
+        let mut chosen = vec![i0];
+        dfs(&pool, &valcache, &is3, lo, hi, omega_min, omega_max, i0 + 1, &mut chosen,
+            pool[i0] as u128, if is3[i0] { 1 } else { 0 },
+            &mut tested, &mut cand_valid, &mut hits, &start, &mut last, i0, npool);
+    }
+    // final flush of the status file so a completed run is distinguishable from a killed one
+    {
+        let el = start.elapsed().as_secs_f64();
+        let ts = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_secs()).unwrap_or(0);
+        if let Ok(mut f) = OpenOptions::new().create(true).write(true).truncate(true).open("descended_hunt.progress") {
+            let _ = writeln!(f, "unix {} outer {}/{} tested {} valid-m' {} hits {} elapsed {:.0}s eta_upper 0s resume_from {} STATUS COMPLETE",
+                             ts, npool, npool, tested, cand_valid, hits, el, npool);
+        }
+    }
 
     eprintln!();
     println!("=== descended_hunt done ===");
