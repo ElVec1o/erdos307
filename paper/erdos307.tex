@@ -988,9 +988,22 @@ factorisation). Two further objects appeared over $\mathbb{Z}[\sqrt{-2}]$: a com
 derivative ($a'\sim1$ --- impossible over $\mathbb{Z}$, where $n'=1$ characterises the primes), and an
 \emph{anti--holomorphic} cycle: $a=-3163-1474\sqrt{-2}$ satisfies $a'=-\bar a$ exactly, under a single
 conjugation--equivariant sign assignment closing both directions ($N(a)=N(b)=14{,}349{,}921$, five prime
-classes each side). The equation $a'=u\bar a$ is vacuous over $\mathbb{Z}$, where it reads $n'=\pm n$;
-it acquires solutions the moment conjugation is nontrivial. All cycles were verified exactly by
-independent recomputation. Finally, the second pillar was tested in isolation: over
+classes each side). The equation $a'=u\bar a$ is vacuous over $\mathbb{Z}$ only in its
+\emph{one--dimensional} reading, where it says $n'=\pm n$. In the reading that matches the problem it is
+not vacuous but central: by Proposition~\ref{prop:multiplier} the Pythagorean layer over $\mathbb{Z}$
+\emph{is} the anti--holomorphic equation $\mathcal{D}z=\mu\bar z$ for the coordinatewise derivative on
+$z=a+bi$, and \#307 is exactly its unit--multiplier case. The ring ladder and the main problem are
+therefore instances of one equation rather than analogues; what singles out $\mathbb{Z}$ is the extra
+constraint $\operatorname{Im}\mu=1$, which confines the multiplier to a line meeting
+$\mathbb{Z}[i]^{\times}$ in the single point $\mu=i$. That the anti--holomorphic sector is thin is
+uniform across the ladder: over $\mathbb{Z}[\sqrt{-2}]$ the cycle above is still the \emph{only} one
+after widening the census simultaneously in all three directions --- prime--norm $\le2\times10^4$,
+$\omega\le8$, product--norm $\le10^{10}$ (a factor $700$ past the cycle itself), $8.09\times10^8$
+supports, \texttt{hunt/antiholo\_hunt.rs} --- and over
+$\mathbb{Z}$ the sector is empty below $10^{112}$ by Corollary~\ref{cor:emptytest}. We record the
+plateau as consistent with genuine finiteness, not as evidence for it: a random model for
+$a'=-\bar a$ predicts a count growing like $\log X$, which the tested range cannot separate from a
+constant. All cycles were verified exactly by independent recomputation. Finally, the second pillar was tested in isolation: over
 $\mathbb{Z}[\sqrt2]$ --- \emph{totally real}, so squares are sign--definite in both embeddings, but with
 infinite unit group $\pm(1+\sqrt2)^{\mathbb{Z}}$ --- twisted cycles appear already at norm $882$: with
 unit twists of height $\le2$, $a=21\sqrt2$ (classes $\sqrt2$, $-1+2\sqrt2$, $1+2\sqrt2$, $3$) cycles
@@ -1712,6 +1725,37 @@ $k(N)\in\mathbb{Z}_{\le0}$; \#307 holds iff $k(N)=0$ for some $N$, and by~(3) th
 domain that is empty below $10^{112}$.
 \end{enumerate}
 \end{proposition}
+
+The whole ladder is one equation in $\mathbb{Z}[i]$, and the rung index is a Gaussian multiplier.
+
+\begin{proposition}[Gaussian multiplier form of the ladder]\label{prop:multiplier}
+For coprime squarefree $a,b$ put $z=a+bi\in\mathbb{Z}[i]$ and let $\mathcal{D}z:=a'+b'i$ be the
+coordinatewise arithmetic derivative. Then, unconditionally,
+\[ z\cdot\mathcal{D}z\;=\;(aa'-bb')\;+\;i\,(ab)'. \]
+Consequently $(a,b)$ is a Pythagorean pair if and only if $\mathcal{D}z=\mu\bar z$ for a Gaussian
+integer $\mu$ with $\operatorname{Im}\mu=1$; that multiplier is $\mu=k+i$ with $k$ the deviation of
+Proposition~\ref{prop:ladder}, and
+\[ k=\frac{aa'-bb'}{a^2+b^2},\qquad
+   a'^2+b'^2=(k^2+1)(a^2+b^2)=N(\mu)\,(a^2+b^2),\qquad \gcd(a',b')\mid k^2+1 . \]
+Hence \#307 asks for a Pythagorean pair whose multiplier is a \emph{unit}. Since
+$\{k+i:k\in\mathbb{Z}\}\cap\mathbb{Z}[i]^{\times}=\{i\}$, the two--cycle rung $k=0$ is the unique rung
+on which $\mathcal{D}$ acts as an isometry ($a'^2+b'^2=a^2+b^2$); every other rung is an expanding
+anti--similarity of ratio $\sqrt{k^2+1}>1$, and so cannot be periodic. The condition
+$\operatorname{Im}\mu=1$ is the Pythagorean equation and $\operatorname{Re}\mu=0$ is \#307: one
+coordinate of a single Gaussian integer each.
+\end{proposition}
+\begin{proof}
+Leibniz gives $\operatorname{Im}(z\,\mathcal{D}z)=a'b+ab'=(ab)'$ and
+$\operatorname{Re}(z\,\mathcal{D}z)=aa'-bb'$, which is the identity (verified symbolically and on
+$7{,}501$ coprime squarefree pairs). If $(a,b)$ is Pythagorean then $(ab)'=a^2+b^2=N(z)$, so
+$z\,\mathcal{D}z=(aa'-bb')+i\,N(z)$; dividing by $N(z)=z\bar z$ gives
+$\mathcal{D}z/\bar z=(aa'-bb')/N(z)+i$, which lies in $\mathbb{Z}[i]$ with real part the integer $k$ of
+Proposition~\ref{prop:pairform}. Conversely $\mathcal{D}z=\mu\bar z$ with $\operatorname{Im}\mu=1$
+forces $(ab)'=\operatorname{Im}(z\,\mathcal{D}z)=\operatorname{Im}(\mu)N(z)=a^2+b^2$. Substituting
+$a'=b+ak$, $b'=a-bk$ gives $\mathcal{D}z=(k+i)\bar z$ identically, whence the norm identity
+$|\mathcal{D}z|^2=|\mu|^2|z|^2$. Finally $g=\gcd(a',b')$ divides both
+$k(b+ak)+(a-bk)=a(k^2+1)$ and $(b+ak)-k(a-bk)=b(k^2+1)$, and $\gcd(a,b)=1$.
+\end{proof}
 
 The Pythagorean layer behaves very differently over function fields, and refines into two arithmetic
 sub--layers over $\mathbb{Z}$.

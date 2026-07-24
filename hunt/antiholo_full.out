@@ -1,0 +1,7 @@
+
+=== Z[sqrt-2] anti-holomorphic cycle census ===
+supports tested: 809092949
+distinct cycles: 1
+   omega=5: 1
+smallest 8 by product-norm: [(14349921, 5)]
+(run at increasing LOG10_NORMMAX: growth => infinite; plateau => finite. time 64s)
