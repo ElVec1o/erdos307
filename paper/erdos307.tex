@@ -1895,6 +1895,40 @@ $\sum_{s\le Y}\tau(2s^2+1)/(Y\log Y)$ stable near $1.05$--$1.09$ for $Y=500$--$2
 \texttt{code/mod8\_plusthin.py}). The $\omega\ge3$ stratum remains empirical.
 \end{proof}
 
+The semiprime argument generalises: the slot calculus of Proposition~\ref{prop:slot} counts.
+
+\begin{proposition}[Slot counting: every fixed--$\omega$ stratum of the plus--layer is sparse]\label{prop:strata}
+Fix $r\ge2$. The number of plus--hits $N\le X$ with $\omega(N)=r$ is $O\bigl(X^{1-1/r+o(1)}\bigr)$.
+\end{proposition}
+\begin{proof}
+Write $p=P^+(N)$ for the largest prime of $N$ and $M=N/p$, so $\omega(M)=r-1$ and, since $N<p^r$,
+$M\le N^{1-1/r}\le X^{1-1/r}$. The slot identity of Proposition~\ref{prop:slot} (base $M$, slot $p$)
+gives $N'+2N=p\,E_0(M)+M$ with $E_0(M)=M'+2M$, so a plus--hit $s^2=N'+2N$ forces
+\[ s^2\equiv M\ (\mathrm{mod}\ E_0(M)),\qquad p=\frac{s^2-M}{E_0(M)}, \]
+and the map $N\mapsto(M,s)$ is injective. For squarefree $M$ one has $\gcd(M,M')=1$ (modulo
+$q\mid M$ only the cofactor $M/q$ survives in $M'$), hence $\gcd(M,E_0(M))=1$: at every odd prime
+$\ell\mid E_0(M)$ a root of $s^2\equiv M$ has $\ell\nmid s$, is nonsingular, and lifts uniquely
+(Hensel), so the congruence has at most $4\cdot2^{\omega(E_0)}=X^{o(1)}$ roots modulo $E_0(M)$.
+Since $s^2=N\bigl(\sigma(N)+2\bigr)$ and $\sigma(N)\ll\log\log X$, each base carries at most
+$X^{o(1)}\bigl(X^{1/2}/E_0(M)+1\bigr)$ admissible $s$, and with $E_0(M)\ge2M$,
+\[ \#\{N\}\;\le\!\!\sum_{\substack{M\le X^{1-1/r}\\ \omega(M)=r-1}}\!\!X^{o(1)}\Bigl(\frac{X^{1/2}}{M}+1\Bigr)
+\;\ll\;X^{1/2+o(1)}+X^{1-1/r+o(1)}\;=\;X^{1-1/r+o(1)}. \]
+(For $r=2$ this recovers the order of Proposition~\ref{prop:plusthin}, which is sharper by
+logarithms.) The injection, the identity, $\gcd(M,M')=1$ and $P^+(N)\ge N^{1/r}$ were verified on
+all $251$ plus--hits below $10^6$: zero exceptions (\texttt{code/strata\_count.py}).
+\end{proof}
+
+\begin{remark}[What separates the strata from the full layer]\label{rem:strata}
+The bound is honest but far from the truth: at $X=10^6$ the strata $\omega=2,\dots,5$ hold
+$124$, $69$, $50$, $8$ hits --- every one below $\sqrt X$ --- because the congruence
+$s^2\equiv M\pmod{E_0(M)}$ is usually \emph{insoluble}: over random odd semiprime bases the average
+number of roots is $0.34$, the no--residue branch of the trichotomy of Proposition~\ref{prop:slot}
+dominating. Summing the proposition over $r$ does \emph{not} give the full layer density zero,
+because the $X^{o(1)}$ root--count factors are not uniform in $r$; an average bound for
+$\tau(M'+2M)$ --- a Titchmarsh--divisor--type sub--problem --- would close exactly this gap. We
+record it as the analytic question this layer actually poses.
+\end{remark}
+
 \begin{corollary}[Quadratic--residue filter for \#307 solutions]\label{cor:qr}
 Let $(P,Q)$ solve Erd\H{o}s~\#307 and set $a=D_P$, $b=D_Q$, $N=ab$. Since $N'=a^2+b^2$ and
 hence $N'+2N=(a+b)^2$ automatically, every prime $\ell\in P\cup Q$ satisfies $(N/\ell\mid\ell)=+1$:
