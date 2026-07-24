@@ -1805,6 +1805,36 @@ degenerates to $(a+b)^2=N'$: the permissiveness of Proposition~\ref{prop:ff-pyth
 Corollary~\ref{cor:emptytest} are the absence and presence of one and the same algebraic factor.
 \end{proposition}
 
+Both squares of the split criterion are pinned modulo $8$ by an elementary law that seems worth
+recording on its own.
+
+\begin{proposition}[The mod--$8$ law of the derivative]\label{prop:mod8}
+For odd squarefree $m$ write $S(m)=\sum_{p\mid m}p$. Then
+\[ m\,m'\;\equiv\;S(m)\pmod 8 . \]
+Consequently: \textup{(a)} modulo $2$ this is the parity law $m'\equiv\omega(m)$ used in
+Theorem~\ref{thm:parity}; \textup{(b)} an all--odd two--cycle $a'=b$, $b'=a$ forces
+\[ S(a)\;\equiv\;S(b)\;\equiv\;ab\pmod 8 \]
+--- the two prime sums are congruent to each other and to the product --- refining
+Theorem~\ref{thm:parity}(ii); \textup{(c)} in the mixed case $a=2k$ ($k$ odd), the odd member obeys
+$b\equiv k\bigl(1+2S(k)\bigr)\pmod{16}$ and $S(b)\equiv2kb\pmod8$, and the even member the companion
+law $(2k)\,(2k)'\equiv2+4S(k)\pmod{16}$; \textup{(d)} for odd squarefree $N$ the plus quantity
+satisfies $N'+2N\equiv N\bigl(S(N)+2\bigr)\pmod8$, so an odd plus--hit must have
+$N(S(N)+2)\equiv1\pmod8$ when $\omega(N)$ is odd and $\equiv0,4\pmod8$ when $\omega(N)$ is even.
+None of these congruences is an obstruction --- consistently with Proposition~\ref{prop:nolocal} ---
+but they thin every hunt over the odd sector by a fixed factor.
+\end{proposition}
+\begin{proof}
+$q^2\equiv1\pmod8$ for odd $q$, so $m/q\equiv mq\pmod8$; summing over $q\mid m$ gives
+$m'\equiv m\,S(m)\pmod8$, and multiplying by $m$ (with $m^2\equiv1$) gives the law. (a) is the law
+modulo $2$, since $S(m)\equiv\omega(m)$ for odd primes. (b) is the law at $a$ and at $b$ with $a'=b$,
+$b'=a$. In (c), Leibniz gives $b=(2k)'=k+2k'$, and the law at $k$ gives $k'\equiv kS(k)\pmod8$,
+whence $b\equiv k+2kS(k)\pmod{16}$; the second congruence is the law at $b$ with $b'=2k$, and the
+companion follows from $2k(k+2k')\equiv2k^2+4kk'\pmod{16}$ with $k^2\equiv1\pmod8$ and
+$kk'\equiv S(k)\pmod8$. In (d), $s^2\bmod8\in\{0,1,4\}$ and $s\equiv N'\equiv\omega(N)\pmod2$.
+All parts were verified exhaustively over the $405{,}285$ odd squarefree $m\le10^6$ and all odd
+plus--hits below $10^6$: zero exceptions (\texttt{code/mod8\_plusthin.py}).
+\end{proof}
+
 \begin{proposition}[Structure of the plus--layer]\label{prop:plus}
 Call squarefree $N$ with $\omega(N)\ge2$ a \emph{plus--hit} if $N'+2N$ is a perfect square; the first
 are $130,145,305,689,1745,1870,1970,2353,\dots$ \textup{(}$114$ below $2\times10^5$; OEIS~\cite{OEIS_A396915}\textup{)}.
@@ -1832,6 +1862,38 @@ with zero violations on all $114$ plus--hits below $2\times10^5$ and all $251$ t
 the semiprime $p\equiv q\equiv1\pmod4$ theorem of~\textup{(i)} is its $\omega=2$ shadow via quadratic
 reciprocity.
 \end{proposition}
+
+The empirical $\tfrac14\sqrt X$ law of part (ii) can be proved, up to logarithms, on the stratum that
+dominates the small--scale census.
+
+\begin{proposition}[The semiprime plus--layer is provably thin]\label{prop:plusthin}
+The number of semiprime plus--hits $N=pq\le X$ is $O\bigl(\sqrt X\,(\log X)^2\bigr)$, by a fully
+elementary argument; Erd\H{o}s's bound $\sum_{s\le Y}\tau(2s^2+1)\ll Y\log Y$ \cite{Erdos1952}
+sharpens this to $O(\sqrt X\log X)$. Under Bunyakovsky's conjecture the $p=5$ family of
+Proposition~\ref{prop:plus}(iii) alone contributes $\gg\sqrt X/\log X$, so conditionally
+\[ \frac{\sqrt X}{\log X}\;\ll\;\#\{\text{semiprime plus--hits}\le X\}\;\ll\;\sqrt X\,\log X: \]
+the $\sqrt X$ order of the empirical law is genuine on the semiprime stratum, not an artefact of the
+tested range.
+\end{proposition}
+\begin{proof}
+For a semiprime plus--hit $N=pq\le X$ one has $s^2=N'+2N=p+q+2pq\le3X+1$ (as $p+q\le pq+1$), and
+Proposition~\ref{prop:plus}(i) gives $2s^2+1=(2p+1)(2q+1)$: the map
+$N\mapsto\bigl(s,\{2p+1,2q+1\}\bigr)$ into pairs (root, unordered nontrivial factorisation) is
+injective, so the count is at most $\sum_{s\le Y}\tau(2s^2+1)$ with $Y=\sqrt{3X+1}$. The polynomial
+$2s^2+1$ has discriminant $-8$, prime to every odd modulus, so its roots modulo an odd prime are
+simple and lift uniquely by Hensel: $2s^2+1\equiv0\pmod u$ has at most $2^{\omega(u)}\le\tau(u)$
+solutions modulo $u$ (none for even $u$). Pairing each divisor of $2s^2+1$ with its cofactor and
+keeping the smaller member $u\le\sqrt{2s^2+1}\le\sqrt2\,Y$,
+\[ \sum_{s\le Y}\tau(2s^2+1)\;\le\;2\!\!\sum_{u\le\sqrt2Y}\!\!\#\{s\le Y:u\mid2s^2+1\}+Y
+\;\le\;2\!\!\sum_{u\le\sqrt2Y}\!\!\tau(u)\Bigl(\frac Yu+1\Bigr)+Y\;\ll\;Y(\log Y)^2, \]
+by Dirichlet's $\sum_{u\le Z}\tau(u)\sim Z\log Z$ and $\sum_{u\le Z}\tau(u)/u\sim\tfrac12(\log Z)^2$.
+For the conditional lower bound, the family of Proposition~\ref{prop:plus}(iii) has $\asymp\sqrt X$
+eligible $s\le\sqrt{2.2X+5}$ (two residue classes modulo $22$), of which Bunyakovsky for
+$(s^2-5)/11$ makes $\gg\sqrt X/\log X$ prime. The injection, the Hensel root count, and the censuses
+were verified numerically ($59$ semiprime hits below $2\times10^5$, all reproduced;
+$\sum_{s\le Y}\tau(2s^2+1)/(Y\log Y)$ stable near $1.05$--$1.09$ for $Y=500$--$2000$;
+\texttt{code/mod8\_plusthin.py}). The $\omega\ge3$ stratum remains empirical.
+\end{proof}
 
 \begin{corollary}[Quadratic--residue filter for \#307 solutions]\label{cor:qr}
 Let $(P,Q)$ solve Erd\H{o}s~\#307 and set $a=D_P$, $b=D_Q$, $N=ab$. Since $N'=a^2+b^2$ and
@@ -2211,6 +2273,8 @@ $k'+2k$ a perfect square)}, \url{https://oeis.org/A396915}.
 Math.\ \textbf{53} (1984), 225--244.
 \bibitem{ESS2002} J.-H.~Evertse, H.~P.~Schlickewei, and W.~M.~Schmidt, \emph{Linear equations in
 variables which lie in a multiplicative group}, Ann.\ of Math.\ (2) \textbf{155} (2002), 807--836.
+\bibitem{Erdos1952} P.~Erd\H{o}s, \emph{On the sum $\sum_{k=1}^x d(f(k))$}, J.\ London Math.\ Soc.\
+\textbf{27} (1952), 7--15.
 \end{thebibliography}
 
 \end{document}
