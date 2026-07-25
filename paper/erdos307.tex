@@ -2043,6 +2043,37 @@ the formula reproduces $P^+(N)$ on all listed members and identically on the $51
 $N\le10^5$ with $\omega\ge2$ (\texttt{code/lines\_slot.py}).
 \end{proof}
 
+The members of a line carry far more structure than thinness: every prime factor is pinned modulo
+its cofactor, and the top of the factorisation is capped by the bottom.
+
+\begin{proposition}[Line anatomy: pinning, coupling, caps]\label{prop:lineanatomy}
+Let $M$ be squarefree on the line $M'=eM+c$, let $p>q$ be its two largest primes and $R=M/(pq)$.
+\begin{enumerate}[label=\textup{(\alph*)},leftmargin=2.2em]
+\item \emph{(Pinning.)} $M/t\equiv c\pmod t$ for \emph{every} prime $t\mid M$ --- the Giuga
+congruence of the line, independent of $e$. Equivalently, each prime factor lies in one determined
+residue class modulo its cofactor: $t\equiv c\,(M/(tr))^{-1}\pmod r$ for all primes $r\mid M/t$.
+\item \emph{(Top cap.)} If $M/p\neq c$ then $p\le\sqrt M+|c|$: line members are
+$(\sqrt M+|c|)$--smooth.
+\item \emph{(Coupling.)} $pq\mid R(p+q)-c$. Here $\gcd(pq,c)=1$ is automatic: $p\mid c$ together
+with $p\mid qR-c$ would give $p\mid qR$, impossible as $p$ exceeds every prime of $qR$.
+\item \emph{(Second cap.)} If $R(p+q)\neq c$ then $q<R+\sqrt{R^2+|c|}$; the degenerate stratum
+$R(p+q)=c$ forces $c\ge2\sqrt{RM}$, so it is empty on every line with $c<2\sqrt M$ --- in
+particular on all the near--critical minus lines.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(a) Cofactor survival gives $M'\equiv M/t\pmod t$ while $eM\equiv0$; the second form is CRT.
+(b) $M/p-c$ is a multiple of $p$; if nonzero, $M/p\ge p-|c|$. (c) $p\mid qR-c$ and $q\mid pR-c$
+give $pq\mid(qR-c)(pR-c)=pqR^2-cR(p+q)+c^2$, so $pq\mid c\,(R(p+q)-c)$, and the displayed
+coprimality removes $c$. (d) If $R(p+q)\neq c$ then $pq\le|R(p+q)-c|\le R(p+q)+|c|<2Rp+|c|$,
+whence $q^2<2Rq+|c|$; if $R(p+q)=c$ then $c\ge2R\sqrt{pq}=2\sqrt{RM}$ by AM--GM. All parts were
+verified on the $7{,}184{,}234$ squarefree $n\le2\times10^7$ with $\omega\ge3$, for both $e=1,2$
+with $c:=n'-en$ --- zero exceptions, the second cap attained with slack $1$ at $n=70$ --- and on
+the classical members, where the coupling quotient $\bigl(R(p+q)-c\bigr)/pq$ equals $1$ on the
+oblong--chain members and $5$ on both off--stratum members $47058$ and $66198$
+(\texttt{code/line\_anatomy.py}).
+\end{proof}
+
 \begin{remark}[The minus side: coercive versus degenerate moduli]\label{rem:minusslot}
 Proposition~\ref{prop:pluszero} rests on the plus modulus being \emph{coercive}:
 $E_0^+(M)=M'+2M\ge2M$. The minus--square obeys the same slot identity with
@@ -2060,8 +2091,16 @@ $\sigma(M)\in[2-1/y,2+1/y)$ --- exactly the low slope--two lines $M'-2M=\pm k$, 
 thin by Proposition~\ref{prop:lines}, but at a degenerate modulus the $d$--freedom is
 $\sqrt X$--sized, and summing the uniform bound does not close the layer. What would:
 \emph{square--root bounds on slope--two lines}, $\#\{M\le Z:M'-2M=\pm k\}\ll Z^{1/2+o(1)}$
-uniformly in $k$ --- the minus--side analogue of the plus side's Titchmarsh question. The ledger:
-plus layer closed by coercivity; minus layer reduced to the near--critical spectrum. (A small
+uniformly in $k$ --- the minus--side analogue of the plus side's Titchmarsh question. By
+Proposition~\ref{prop:lineanatomy}(a) that missing bound is a \emph{one--class--per--cofactor}
+prime count: a line member is $M=pm$ with $p$ prime in a single determined class modulo its own
+cofactor $m$, so the count is $\sum_m\#\{p\le Z/m:p\equiv\alpha_c(m)\ (\mathrm{mod}\ m)\}$, and the
+trivial estimate $Z/m^2+1$ per cofactor fails exactly on its $+1$: one candidate integer per $m$,
+thinned only by the primality of that single determined value. Bounding worst--case single--class
+counts summed over all moduli lies beyond Bombieri--Vinogradov and beyond Linnik uniformly; the
+same species of count guards the true $\sqrt X$ order of the plus layer. The two layers' remaining
+questions are one wall. The ledger: plus layer closed by coercivity; minus layer reduced to the
+near--critical spectrum. (A small
 unconditional companion, from Proposition~\ref{prop:mod8}: an odd member of $N'=2N+c$ has
 $S(N)\equiv cN+2\pmod8$.)
 \end{remark}
