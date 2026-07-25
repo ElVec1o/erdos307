@@ -494,12 +494,54 @@ $y^2=B_Wt+D_Ws$ (the would--be third condition $s^2-4t=\square$ is automatic, be
 together with the reciprocity--linked constraints $(D_Wp\mid q)=(D_Wq\mid p)=1$ (mod $q$, a
 solution with $q\mid a$ has $N_U\equiv D_Wp$, forcing $D_Wp$ to be a square). At a prime
 $\ell\mid A_W$ the condition $x^2\equiv D_Ws\pmod\ell$ constrains only $s$, which the free second
-prime absorbs; a direct scan over all primes $\ell\le600$ (for several bases $W$) finds the pair
-system \emph{locally soluble everywhere} --- so, unlike the single--tail family, the pair sector
-admits \emph{no} congruence obstruction at all. It is a genuine two--parameter surface per base,
-$\#307$ in miniature (Remark~\ref{rem:oneside}); reciprocity cannot touch it, and only a direct
-both--squares search or a descent argument can.
+prime absorbs; the pair system is in fact locally soluble at \emph{every} modulus --- a theorem,
+Proposition~\ref{prop:pairlocal} below, corroborated by a direct scan over all $\ell\le600$ --- so,
+unlike the single--tail family, the pair sector admits \emph{no} congruence obstruction at all. It
+is a genuine two--parameter surface per base, $\#307$ in miniature (Remark~\ref{rem:oneside});
+reciprocity cannot touch it, and only a direct both--squares search or a descent argument can.
 \end{remark}
+
+\begin{proposition}[The pair sector admits no congruence kill]\label{prop:pairlocal}
+Let $W$ be any pair--sector base and $A=A_W$, $B=B_W$, $D=D_W$, so that a pair--sector solution
+requires $x^2=A\,\alpha\beta+D(\alpha+\beta)$ and $y^2=B\,\alpha\beta+D(\alpha+\beta)$ with
+$\alpha,\beta$ the two new primes. For every prime power $\ell^j$ this system has a solution in
+units $\alpha,\beta$ and integers $x,y$ at a nonsingular point. Consequently, by CRT and Dirichlet,
+no finite system of congruence conditions empties any pair--sector family: the arity barrier of
+Remark~\ref{rem:campaign} is a theorem, and the certificate programme provably ends at arity one.
+\end{proposition}
+\begin{proof}
+First, no $\ell$ pins either target to a constant: that needs $\ell\mid A$ (or $B$) \emph{and}
+$\ell\mid D$, whence $\ell\mid N$, contradicting $\gcd(N,D)=1$ (rigidity) --- so the tail--kill
+mechanism is unavailable, and solubility is decided in three regimes.
+
+\emph{(1) $\ell$ odd, $\ell\mid D$.} This covers every odd $\ell\le103$: at level $60$, omitting a
+prime $p$ caps $T(U)$ at $T_{61}-1/p$, and $1/p>T_{61}-2=0.00944\ldots$ exactly for $p\le103$, so
+all such primes lie in $U$, hence in $W$ (the two adjoined primes are the largest). Take $\beta=1$,
+$x=1$, $\alpha=(1-D)/(A+D)\bmod\ell^j$, a unit since $A+D\equiv N\not\equiv0\pmod\ell$: the first
+equation holds by construction, and the second target $(B+D)\alpha+D\equiv N\cdot N^{-1}=1\pmod\ell$
+is a unit congruent to a square, so $y$ exists modulo $\ell^j$.
+
+\emph{(2) $\ell$ odd, $\ell\nmid2D$} (in particular every $\ell\ge107$ outside $W$). The two
+conditions are secretly \emph{one}: setting $m=(x^2-y^2)/4D$ and $u=(x^2-Am)/D$, the relation
+$A-B=4D$ gives the polynomial identity $Bm+Du=y^2$. So any $(x,y)$ with $xy\ne0$, $x^2\ne y^2$ and
+$\delta:=u^2-4m$ a square delivers $\alpha,\beta$ as the roots of $z^2-uz+m$ (nonzero, as
+$\alpha\beta=m\ne0$). For each admissible $x$, $\delta$ is a quartic in $y$ and not a square in
+$\overline{\mathbb F}_\ell[y]$ (a factorisation $(Q-R)(Q+R)=16D^3(x^2-y^2)$ would force
+$\ell\mid4D$), so Weil's bound gives $\tfrac12\ell^2+O(\ell^{3/2})$ admissible pairs --- positive
+well below $\ell=107$. The point is nonsingular ($xy\ne0$; the Jacobian contains
+$\operatorname{diag}(2x,2y)$), so it lifts to every $\ell^j$.
+
+\emph{(3) $\ell=2$.} Both targets are odd and agree modulo $8$ (as $\alpha\beta$ is odd,
+$D(\alpha+\beta)\equiv0\bmod4$, and $(A-B)\alpha\beta=4D\alpha\beta\equiv0\bmod8$), and a finite
+table over $(A\bmod8,\,D\bmod8)$ shows that for every base some achievable pair
+$(\alpha\beta,\alpha+\beta)\bmod8$ makes the common target $\equiv1\pmod8$ --- a $2$--adic square,
+soluble modulo $2^j$ for every $j$.
+
+All three regimes, the collapse identity, the threshold $1/103>T_{61}-2>1/107$, and the mod--$32$
+layer were verified computationally on three bases and every $\ell\le600$
+(\texttt{code/pairlocal.py}; the measured density of admissible $(x,y)$ in regime~(2) is
+$0.497$--$0.503$ against the predicted $\tfrac12$).
+\end{proof}
 
 \begin{remark}[Anatomy of the certificate; the empirical $5/8$ law]\label{rem:fiveeighths}
 Writing $D=2D_1$, the reciprocity signs in the certificate cancel
@@ -1558,8 +1600,10 @@ finite verification of Proposition~\ref{prop:close59} sharpens the barrier to $|
 $\min(\prod P,\prod Q)>3.50\times10^{57}$. The heuristics weakly favour \textsc{yes} (existence), hence weakly against
 the period--one Ufnarovski--\AA hlander conjecture, but we claim no proof in either direction.
 
-Open problems: (i) close the residual $3{,}478$ single--tail families at level $60$ and find an
-arity--two kill for the pair sector of Proposition~\ref{prop:sectors} (the canonical tail family
+Open problems: (i) close the residual $3{,}478$ single--tail families at level $60$, and close the
+pair sector of Proposition~\ref{prop:sectors} --- for which Proposition~\ref{prop:pairlocal} rules
+out every congruence kill, so only global, per--family input (factorisation or direct search) can
+serve (the canonical tail family
 is closed, Proposition~\ref{prop:tailkill}; the finite verification of
 Proposition~\ref{prop:close59} is Lean--checked, \texttt{erdos307\_sixty}; the conditional $3/4$
 law of Remark~\ref{rem:fiveeighths} awaits explanation); (ii) decide
