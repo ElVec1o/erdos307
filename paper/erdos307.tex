@@ -1884,6 +1884,33 @@ prefilter --- the barrier's prediction), and a first small--box probe over $\mat
 layer's status is genuinely open (\texttt{code/riccati\_coladder.py}).
 \end{proof}
 
+The two ladders embed in a plane, and the barrier becomes a half--plane law.
+
+\begin{proposition}[The deviation half--plane]\label{prop:halfplane}
+For coprime squarefree $a\neq b$ call the pair \emph{integral} if both deviations
+$s=(a'-b)/a$ and $t=(b'-a)/b$ are integers, and place it at $(s,t)\in\mathbb{Z}^2$; the
+antisymmetric ladder is the line $t=-s$, the co--ladder is $t=s$, and a two--cycle is the origin.
+Then
+\[ \sigma(ab)\;=\;\frac ab+\frac ba+s+t\;>\;2+(s+t), \]
+so \emph{every} stratum in the closed half--plane $s+t\ge0$ carries the full barrier:
+$\omega(ab)\ge59$ and $ab>7.9\times10^{112}$. Both ladder barriers are the two central lines of
+this one inequality, and \#307 sits at the origin --- on the boundary of the protected region, at
+the crossing of its two distinguished lines. The open half--plane $s+t\le-1$ is unprotected, and is
+populated from $ab=30$ on: over $ab\le10^7$ exactly $21$ strata occur, all obeying the law, the
+nearest being $(0,-1)$ and $(-1,0)$ at $(a,b)=(6,5)$ and $(5,6)$; off--axis strata occur
+($(1,-13)$ at $(690,53)$), so integrality does not force one exact side. The $(0,-1)$ stratum with
+$b=a'$ is the chain equation $a''+a'=a$, whose solutions up to $10^7$ are
+$\{6,\,42,\,15590,\,47058\}$: every primary pseudoperfect number whose predecessor is prime solves
+it ($1806$ fails, $1805$ not being squarefree), while $15590=2\cdot5\cdot1559$ is sporadic. All
+census claims verified exhaustively (\texttt{code/deviation\_halfplane.py}).
+\end{proposition}
+\begin{proof}
+$\sigma(a)=a'/a=b/a+s$ and $\sigma(b)=a/b+t$ sum to the display, with strict inequality by AM--GM
+($a\neq b$); mass $>2$ forces $\ge59$ primes as in Theorem~\ref{thm:barrier}. The ladder
+identifications are Propositions~\ref{prop:pairform} and~\ref{prop:coladder}; the census is a
+finite computation.
+\end{proof}
+
 The Pythagorean layer behaves very differently over function fields, and refines into two arithmetic
 sub--layers over $\mathbb{Z}$.
 
