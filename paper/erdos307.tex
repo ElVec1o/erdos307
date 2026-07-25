@@ -1911,6 +1911,23 @@ identifications are Propositions~\ref{prop:pairform} and~\ref{prop:coladder}; th
 finite computation.
 \end{proof}
 
+\begin{remark}[The populated strata calibrate the heuristic model]\label{rem:calibration}
+The unprotected strata are the first family of \#307--type exact coincidences where the
+average--case model can be tested against exhaustive truth. Pricing the second exactness condition
+of a candidate pair at $1/b$ and re--running the census enumeration with identical filters gives
+expected counts $11.4,\,18.3,\,26.1,\,34.2$ at $ab\le10^4,\dots,10^7$ against observed
+$6,12,18,23$: the ratio is stable near $2/3$ over four decades --- the model has the right order of
+growth and a constant local correction, i.e.\ it is \emph{calibrated} at the one--condition level.
+Composing two levels, however, already breaks the naive pricing: for the chain equation $a''+a'=a$
+the crude spread price predicts $E=48.8$ against the observed $4$ --- a twelvefold bias at
+reachable height, because the composition requires mass--window conditioning between the levels
+(the stratified--versus--naive lesson of Section~\ref{sec:anatomy}, here measured rather than
+inferred). The reliability of averaging thus degrades measurably with each composed exact
+condition --- and the two--cycle at the origin composes many. This is the quantitative face of the
+average--to--instance gap: the model earns trust stratum by stratum, and loses it condition by
+condition (\texttt{code/strata\_calibration.py}).
+\end{remark}
+
 The Pythagorean layer behaves very differently over function fields, and refines into two arithmetic
 sub--layers over $\mathbb{Z}$.
 
