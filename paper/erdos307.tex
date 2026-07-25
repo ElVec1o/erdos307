@@ -811,9 +811,22 @@ The additive function $f(n)=\sum_{p\mid n}1/p$ satisfies the Erd\H{o}s--Wintner 
 criterion \cite{Tenenbaum} (here $\sum 1/p^2$ and $\sum 1/p^3$ converge), so $f$ has a limiting
 distribution and the
 density $\delta=\lim_{x\to\infty}\tfrac1x\#\{n\le x:f(n)>1\}$ exists, equal to $\Pr\bigl[\sum_p
-X_p/p>1\bigr]$ for independent $X_p\sim\mathrm{Bernoulli}(1/p)$. Exact convolution over primes
-$\le10^5$ (with a Markov tail bound) gives $\delta=0.0420\pm0.001$, agreeing to four places with the
-sieve to $2\times10^7$. As for the density of abundant integers, no closed form is expected.
+X_p/p>1\bigr]$ for independent $X_p\sim\mathrm{Bernoulli}(1/p)$. Moreover the constant carries a
+\emph{certified} enclosure:
+\[ 0.04202\;\le\;\delta\;\le\;0.04223 . \]
+Writing $S_1=\sum_{p\le P_1}X_p/p$, $P_1=3\times10^4$, and $T\ge0$ for the tail, monotone upper and
+lower cdf envelopes of $S_1$ are propagated through the Bernoulli convolution on a grid of step
+$10^{-7}$ with the shift $1/p$ rounded down for the upper and up for the lower envelope --- which
+preserves them, cdfs being nondecreasing --- so $\delta\ge1-U(1)$ costs nothing (the tail is
+nonnegative), while $\delta\le1-L(1-a)+\Pr[T\ge a]$ with the explicit Chernoff bound
+$\Pr[T\ge a]\le\exp(1.36-P_1a)$, $a=10^{-3}$ (from
+$\log\mathbb{E}\,e^{\lambda T}\le\lambda s_2+0.72\lambda^2s_3$ at $\lambda=P_1$, using
+$s_2<1/P_1$, $s_3<1/(2P_1^2)$ and $e^x-1\le x+0.72x^2$ on $[0,1]$); float slack $10^{-9}$ exceeds
+the accumulated rounding by nine orders, and the machinery reproduces an exact four--prime
+reference to $2\times10^{-16}$ (\texttt{code/delta\_cert.py}). The point value $0.0420$, at the
+bottom of the enclosure, agrees to four places with the sieve to $2\times10^7$; the upper edge is
+conservative, carried almost entirely by the $a$--window. As for the density of abundant integers,
+no closed form is expected.
 \end{proposition}
 
 \begin{remark}[Two dynamical probes: no second obstruction]\label{rem:dynamical}
@@ -1607,8 +1620,10 @@ serve (the canonical tail family
 is closed, Proposition~\ref{prop:tailkill}; the finite verification of
 Proposition~\ref{prop:close59} is Lean--checked, \texttt{erdos307\_sixty}; the conditional $3/4$
 law of Remark~\ref{rem:fiveeighths} awaits explanation); (ii) decide
-the parity dichotomy's all--odd case (we expect it empty); (iii) certify more digits of $\delta$ with
-an effective error term; (iv) settle the density hypothesis $(\mathrm{H})$ of
+the parity dichotomy's all--odd case (we expect it empty); (iii) sharpen the certified enclosure
+$0.04202\le\delta\le0.04223$ of Proposition~\ref{prop:density}, whose width is carried almost
+entirely by the tail window $a$ --- three digits are certified, and a longer envelope convolution
+with a smaller window certifies more; (iv) settle the density hypothesis $(\mathrm{H})$ of
 Section~\ref{sec:breeder}, or exhibit a non--circular frame family escaping the $\tau(K)/G$ ceiling;
 (v) find a $\mathbb{Z}$--side structure detecting the archimedean obstruction of
 Section~\ref{sec:ff} --- one that must be non--local, since by Proposition~\ref{prop:nolocal} no single
