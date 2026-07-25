@@ -1844,6 +1844,46 @@ $|\mathcal{D}z|^2=|\mu|^2|z|^2$. Finally $g=\gcd(a',b')$ divides both
 $k(b+ak)+(a-bk)=a(k^2+1)$ and $(b+ak)-k(a-bk)=b(k^2+1)$, and $\gcd(a,b)=1$.
 \end{proof}
 
+The ladder of Proposition~\ref{prop:ladder} has a twin, visible only after extending the derivative
+to $\mathbb{Q}$ by the quotient rule $(a/b)'=(a'b-ab')/b^2$ \cite{UfnarovskiAhlander2003}.
+
+\begin{proposition}[The co--ladder and the arithmetic Riccati equation]\label{prop:coladder}
+For coprime squarefree $a\neq b$ the following are equivalent:
+\textup{(R)} $u=a/b$ satisfies the arithmetic Riccati equation
+\[ u'\;=\;1-u^2; \]
+\textup{(W)} $a'b-ab'=b^2-a^2$; \textup{(L)} there is $k\in\mathbb{Z}$ with $a'=b+ak$ \emph{and}
+$b'=a+bk$ --- the ladder of Proposition~\ref{prop:pairform} with the sign of one equation flipped.
+The deviation cancels in the quotient: on \textup{(L)}, $a'b-ab'=(b+ak)b-a(a+bk)=b^2-a^2$
+identically, so the Riccati equation is the $k$--free form of this \emph{second} ladder. On it:
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+\item \emph{(Positivity barrier.)} $k\ge0$ always: with $a<b$, $k\le-1$ would give
+$b'=a+bk\le a-b<0$. Hence $\sigma(a)+\sigma(b)=a/b+b/a+2k>2$, so every co--ladder pair has
+$\omega(ab)\ge59$ and $ab>7.9\times10^{112}$: the co--ladder is empty at every reachable scale
+\emph{by positivity alone} --- a second transversal relaxation of the two--cycle carrying the full
+barrier through a mechanism independent of the minus square.
+\item \emph{(The cycle is the intersection.)} A two--cycle is exactly a common point of the two
+ladders at $k_{\mathrm{sym}}=k_{\mathrm{anti}}=0$: \#307 asks for $u\in\mathbb{Q}_{>0}\setminus\{1\}$
+satisfying the Riccati equation together with the Pythagorean equation of
+Proposition~\ref{prop:pairform}. In multiplier form the two ladders read
+$\mathcal{D}z=kz+i\bar z$ (symmetric; norm $(k^2+1)N(z)+4kab$) and $\mathcal{D}z=(k+i)\bar z$
+(antisymmetric; norm $(k^2+1)N(z)$), meeting at $\mathcal{D}z=i\bar z$.
+\item \emph{(Inversion symmetry.)} $(1/u)'=1-(1/u)^2$ is automatic from \textup{(R)} --- the
+Riccati layer is symmetric in $a\leftrightarrow b$, as \textup{(L)} is.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\textup{(W)}$\Leftrightarrow$\textup{(L)}: the equation rearranges to $b(a'-b)=a(b'-a)$, and
+$\gcd(a,b)=1$ forces $a\mid a'-b$, $b\mid b'-a$ with equal quotients; the converse is the displayed
+cancellation. \textup{(R)}$\Leftrightarrow$\textup{(W)} is the quotient rule. In (i), summing
+$\sigma(a)=b/a+k$ and $\sigma(b)=a/b+k$ gives the mass bound (strict, as $a\neq b$), and mass
+$>2$ forces $\ge59$ primes as in Theorem~\ref{thm:barrier}. In (iii),
+$(1/u)'=-u'/u^2=(u^2-1)/u^2$. All identities were verified symbolically; exhaustively, no
+co--ladder pair with $ab\le10^7$ exists ($3{,}918{,}188$ candidate pairs through the $a\mid a'-b$
+prefilter --- the barrier's prediction), and a first small--box probe over $\mathbb{Z}[i]$
+(canonical $\pi'=1$) also finds none, though there the positivity mechanism is unavailable and the
+layer's status is genuinely open (\texttt{code/riccati\_coladder.py}).
+\end{proof}
+
 The Pythagorean layer behaves very differently over function fields, and refines into two arithmetic
 sub--layers over $\mathbb{Z}$.
 
