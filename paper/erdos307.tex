@@ -564,12 +564,27 @@ by quadratic reciprocity, since $\tfrac{p-1}2$ is odd exactly for $p\equiv3\pmod
 independently, prime by prime, on $20{,}000$ bases: $0$ violations.) The inner symbol is thus not a coin but a genus invariant --- its empirical fairness
 ($49.9\%$, $50.0\%$ over the $49{,}961$ bases) is that character's equidistribution --- and
 $(D_1\mid N)$ follows by the reciprocity sign $(-1)^{\frac{D_1-1}2\frac{N-1}2}$, hence depends on $N$
-only through $N\bmod4$. The kill rate $31{,}219/49{,}961=0.62487$ then sits within $0.06\sigma$ of
-$\bigl(\tfrac34+\tfrac12+\tfrac12+\tfrac34\bigr)/4=5/8$, the conditional $3/4$ being exactly the
-correlation between the genus parity $s+\binom{t}{2}$ and $N\bmod8$ (recall $N=D_1+2D_1'$). That
-correlation is real on the level--59 set but \emph{not} universal --- a random--subset proxy gives
-${\approx}0.45/0.55$ --- so the $5/8$ is this genus character's shadow on the particular ensemble, and
-yields no second certificate.
+only through $N\bmod4$. In fact the entire certificate closes into a finite functional. Let
+$v(S)=(n_1,n_3,n_5,n_7)\bmod4$ count the odd primes of $S$ in the residue classes $1,3,5,7$ modulo
+$8$. Every factor above is a function of $v$ alone: $s\equiv n_3+n_5$, $t=n_3+n_7$ (with
+$\binom t2$ needing only $t\bmod4$), $D_1\equiv3^{n_3}5^{n_5}7^{n_7}\pmod8$,
+$S(D_1)\equiv(n_1+n_5)-(n_3+n_7)\pmod4$, and --- by the mod--$8$ law of
+Proposition~\ref{prop:mod8}, $D_1'\equiv D_1S(D_1)\pmod8$ --- also
+$N=D_1+2D_1'\equiv D_1+2\bigl(D_1S(D_1)\bmod4\bigr)\pmod8$. Hence
+\[ (D\mid A)\;=\;K\bigl(v(S)\bigr): \]
+\emph{the kill is decided by sixteen residue counts modulo $4$.} The realized vectors are exactly
+the coset $n_1+n_3+n_5+n_7\equiv58\equiv2\pmod4$ (all $64$ of its classes occur), $K$ is constant
+on each, and the functional reproduces the direct $113$--digit Jacobi computation on every one of
+the $49{,}961$ bases (\texttt{code/kill\_classvector.py}). The five--eighths law is then an exact
+finite statement, and its mechanism is the \emph{reciprocity switch}: for $N\equiv1\pmod4$ the
+reciprocity sign is inert and the kill reduces to the genus coin --- exact conditional rate
+$12{,}699/24{,}975=0.5085$ --- while for $N\equiv3\pmod4$ the sign couples the parity of $t$ into
+the product and the rate jumps to $18{,}520/24{,}986=0.7412$ (by class modulo $8$:
+$0.509,\,0.741,\,0.508,\,0.741$ at $N\equiv1,3,5,7$ --- the $3/4$ classes are $N\equiv3\pmod4$, not
+the $(2\mid A)$ classes). The blend $\tfrac12\cdot\tfrac{24975}{49961}+\tfrac34\cdot\tfrac{24986}{49961}
+=0.62503$ against the exact $31{,}219/49{,}961=0.62487$ is the whole of the ``coincidence''. The
+correlation is an ensemble property --- a random--subset proxy gives ${\approx}0.45/0.55$ --- and
+the functional yields no second certificate: it recomputes the same symbol.
 \end{remark}
 
 \begin{remark}[The kill--program is one--sided]\label{rem:oneside}
@@ -1619,7 +1634,8 @@ out every congruence kill, so only global, per--family input (factorisation or d
 serve (the canonical tail family
 is closed, Proposition~\ref{prop:tailkill}; the finite verification of
 Proposition~\ref{prop:close59} is Lean--checked, \texttt{erdos307\_sixty}; the conditional $3/4$
-law of Remark~\ref{rem:fiveeighths} awaits explanation); (ii) decide
+law is explained --- it is the reciprocity switch of Remark~\ref{rem:fiveeighths}, made exact by
+the class--vector functional there); (ii) decide
 the parity dichotomy's all--odd case (we expect it empty); (iii) sharpen the certified enclosure
 $0.04202\le\delta\le0.04223$ of Proposition~\ref{prop:density}, whose width is carried almost
 entirely by the tail window $a$ --- three digits are certified, and a longer envelope convolution
