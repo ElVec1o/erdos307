@@ -1969,9 +1969,34 @@ $s^2\equiv M\pmod{E_0(M)}$ is usually \emph{insoluble}: over random odd semiprim
 number of roots is $0.34$, the no--residue branch of the trichotomy of Proposition~\ref{prop:slot}
 dominating. Summing the proposition over $r$ does \emph{not} give the full layer density zero,
 because the $X^{o(1)}$ root--count factors are not uniform in $r$; an average bound for
-$\tau(M'+2M)$ --- a Titchmarsh--divisor--type sub--problem --- would close exactly this gap. We
-record it as the analytic question this layer actually poses.
+$\tau(M'+2M)$ --- a Titchmarsh--divisor--type sub--problem --- remains the route to the true
+($\sqrt X$--order) count. Density zero itself, however, needs less: a smooth/rough dichotomy
+bypasses the average entirely, because roughness buys a factor $X^{-1/\log\log X}$ against which
+the divisor bound costs only $X^{\log2/\log\log X}$ --- and $\log2<1$.
 \end{remark}
+
+\begin{proposition}[The plus--layer has density zero]\label{prop:pluszero}
+Unconditionally, with $\log_3=\log\log\log$,
+\[ \#\{\text{plus--hits }N\le X\}\;\ll\;\frac{X}{(\log X)^{(1+o(1))\log_3X}} . \]
+In particular the plus--layer has density zero. The proof applies verbatim to
+$\{N\ \text{squarefree}:\ N'+cN=\square\}$ for any fixed $c\ge1$.
+\end{proposition}
+\begin{proof}
+Split at $y=X^{1/u}$ with $u=\log\log X$. \emph{Smooth part.} The number of $N\le X$ with
+$P^+(N)\le y$ is $\Psi(X,y)=X\,u^{-u(1+o(1))}=X(\log X)^{-(1+o(1))\log_3X}$ (Rankin's bound;
+\cite{Tenenbaum}, III.5). \emph{Rough part.} If $P^+(N)=p>y$, the injection of
+Proposition~\ref{prop:strata} applies with $M=N/p\le X/y=X^{1-1/u}$: the hit determines $(M,s)$
+with $s^2\equiv M\pmod{E_0(M)}$, a congruence with at most
+$\rho(E_0)\le4\cdot2^{\omega(E_0)}\le\exp\bigl((\log2+o(1))\log X/\log\log X\bigr)$ roots by the
+maximal order of the divisor function \cite{HardyWright}; each base therefore carries at most
+$\rho(E_0)\bigl(X^{1/2+o(1)}/E_0(M)+1\bigr)$ values of $s$. Summing, with $E_0(M)\ge2M$:
+\[ \#\{\text{rough hits}\}\;\ll\;X^{1/2+o(1)}\;+\;X^{1-1/u}
+\exp\Bigl((\log2+o(1))\frac{\log X}{\log\log X}\Bigr)
+\;=\;X^{1/2+o(1)}+X\exp\Bigl(-(1-\log2-o(1))\frac{\log X}{\log\log X}\Bigr), \]
+and $1-\log2=0.3068\ldots>0$: the rough part is smaller than every $X/(\log X)^A$. The smooth part
+dominates and gives the stated rate. (At $X=10^6$ the split reads $251=225$ rough $+\,26$ smooth,
+the injection collision--free; \texttt{code/pluszero.py}.)
+\end{proof}
 
 \begin{corollary}[Quadratic--residue filter for \#307 solutions]\label{cor:qr}
 Let $(P,Q)$ solve Erd\H{o}s~\#307 and set $a=D_P$, $b=D_Q$, $N=ab$. Since $N'=a^2+b^2$ and
