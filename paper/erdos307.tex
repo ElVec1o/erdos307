@@ -1998,6 +1998,59 @@ dominates and gives the stated rate. (At $X=10^6$ the split reads $251=225$ roug
 the injection collision--free; \texttt{code/pluszero.py}.)
 \end{proof}
 
+On a derivative \emph{line} the slot is not merely constrained --- it is pinned, and the counting
+sharpens to every line at once.
+
+\begin{proposition}[The determined slot: all derivative lines are thin, uniformly]\label{prop:lines}
+For integers $e\ge1$ and $c$,
+\[ \#\{N\le X\ \textnormal{squarefree}:\ N'=eN+c\}\;\ll\;\frac{X}{(\log X)^{(1+o(1))\log_3X}}, \]
+uniformly in $e$ and $c$. In particular the primary pseudoperfect line $n'=n-1$, the Giuga
+quotient--one line $n'=n+1$, every line $n'=n\pm d$ of
+\cite{GrauOllerMarcenSadornil2021}, and every slope--two line $n'=2n+c$ obey this bound.
+(Continuity of the limit law of Proposition~\ref{prop:density} already forces each line to have
+density zero; the content is the rate, far beyond what concentration inequalities give, and the
+uniformity. Classical lines with extra divisibility structure may well admit sharper bounds; we
+claim none.)
+\end{proposition}
+\begin{proof}
+Split at $y=X^{1/u}$, $u=\log\log X$; smooth members number
+$\Psi(X,y)=X(\log X)^{-(1+o(1))\log_3X}$ (Rankin). For a rough member $N=Mp$, $p=P^+(N)>y$,
+Leibniz gives $N'-eN=p\,(M'-eM)+M$, and $M'-eM\ne0$: $\sigma(M)=e$ would make the auto--reduced
+fraction of Theorem~\ref{thm:rigidity} an integer, forcing $D_M=1$, $M=1$. Hence
+\[ p\;=\;\frac{c-M}{M'-eM} \]
+is \emph{determined} by $M$ --- the line has no free root at all --- so $N\mapsto N/P^+(N)$ is
+injective on rough members, whose number is at most $X^{1-1/u}$. The smooth part dominates.
+Two classical objects fall out of the formula: on the stratum $M'-M=-1$ of the two slope--one
+lines it reads $p=M+1$ ($c=-1$) and $p=M-1$ ($c=+1$) --- the oblong chains
+$6\mapsto42\mapsto1806$ and $30=6\cdot5$, $1722=42\cdot41$ --- while off--stratum members stay
+slot--determined ($858=66\cdot13$ with $M'-M=-5$; $47058=1518\cdot31$ with $M'-M=-49$). Verified:
+the formula reproduces $P^+(N)$ on all listed members and identically on the $51{,}201$ squarefree
+$N\le10^5$ with $\omega\ge2$ (\texttt{code/lines\_slot.py}).
+\end{proof}
+
+\begin{remark}[The minus side: coercive versus degenerate moduli]\label{rem:minusslot}
+Proposition~\ref{prop:pluszero} rests on the plus modulus being \emph{coercive}:
+$E_0^+(M)=M'+2M\ge2M$. The minus--square obeys the same slot identity with
+$E_0^-(M)=M'-2M=M(\sigma(M)-2)$, a modulus that \emph{vanishes exactly on the mass--$2$ wall}: the
+degeneration locus of the counting method is the barrier stratum itself --- the counting
+incarnation of the form degeneration $N_0(2-\sigma)\to0$ of Proposition~\ref{prop:form}. The
+minus--layer is the union of the slope--two lines $N'=2N+d^2$ over square heights, and three facts
+are unconditional. \textup{(i)} A rough minus--hit ($P^+(N)=p>y$) forces its base upward: if
+$\sigma(M)<2-1/y$ then $d^2=p\,E_0^-(M)+M<M(1-p/y)\le0$, impossible; so $\sigma(M)\ge2-1/y$, and
+once $y>(2-T_{58})^{-1}=793.7\ldots$ this yields $\omega(M)\ge59$ and $M\ge\Pi_{59}$: \emph{the
+$59$--prime wall propagates from the hit to its base}, and $N\ge\Pi_{59}\,y$. \textup{(ii)} Bases
+with $\sigma(M)\ge2+1/y$ have moduli $E_0^-\ge M/y$, and contribute as in
+Proposition~\ref{prop:pluszero}. \textup{(iii)} The remaining bases are near--critical,
+$\sigma(M)\in[2-1/y,2+1/y)$ --- exactly the low slope--two lines $M'-2M=\pm k$, $k\le M/y$. Each is
+thin by Proposition~\ref{prop:lines}, but at a degenerate modulus the $d$--freedom is
+$\sqrt X$--sized, and summing the uniform bound does not close the layer. What would:
+\emph{square--root bounds on slope--two lines}, $\#\{M\le Z:M'-2M=\pm k\}\ll Z^{1/2+o(1)}$
+uniformly in $k$ --- the minus--side analogue of the plus side's Titchmarsh question. The ledger:
+plus layer closed by coercivity; minus layer reduced to the near--critical spectrum. (A small
+unconditional companion, from Proposition~\ref{prop:mod8}: an odd member of $N'=2N+c$ has
+$S(N)\equiv cN+2\pmod8$.)
+\end{remark}
+
 \begin{corollary}[Quadratic--residue filter for \#307 solutions]\label{cor:qr}
 Let $(P,Q)$ solve Erd\H{o}s~\#307 and set $a=D_P$, $b=D_Q$, $N=ab$. Since $N'=a^2+b^2$ and
 hence $N'+2N=(a+b)^2$ automatically, every prime $\ell\in P\cup Q$ satisfies $(N/\ell\mid\ell)=+1$:
