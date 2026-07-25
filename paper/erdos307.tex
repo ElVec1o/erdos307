@@ -1010,7 +1010,12 @@ where $p=x_p^2+y_p^2$ --- a Leibniz derivative on odd squarefree integers whose 
 $2\sqrt p$ rather than $1$, and whose masses ${\sim}2/\sqrt p$ reach $2$ with four primes, so no
 $59$--prime barrier exists for it. A two--cycle of $D$ is exactly a conjugation--stable Gaussian cycle
 and would plant the phenomenon on rational soil. Parity constrains the hunt: $D(m)$ is odd iff $m$
-carries an odd number of primes $\equiv3\pmod4$, so every member must contain such a prime. An
+carries an odd number of primes $\equiv3\pmod4$, so every member must contain such a prime.
+One level deeper, since $q^{-1}\equiv q\pmod 8$ for odd $q$, the descended operator obeys
+$D(m)\equiv m\,W(m)\pmod 8$ with $W(m)=\sum_{p\mid m}t_p\,p$, so a two--cycle forces
+$W(m)\equiv W(m')\equiv mm'\pmod 8$ --- a mod--$8$ constraint on the sign assignment that prunes
+the $4^{\#\mathrm{split}}2^{\#\mathrm{inert}}$ phase enumeration severalfold in future searches
+(verified on $2\times10^5$ random assignments; \texttt{code/peeling\_groupoid.py}). An
 exhaustive search over members $m\le10^9$ (Gaussian norm $10^{18}$, $\omega\le8$, $1.4\times10^9$
 closure tests) found no cycle, no fixed point $|D(m)|=m$, and no vanishing $D(m)=0$. We claim no
 obstruction from this: equivariance prunes the available phases fourfold per split prime, and a phase
@@ -2088,6 +2093,40 @@ with $c:=n'-en$ --- zero exceptions, the second cap attained with slack $1$ at $
 the classical members, where the coupling quotient $\bigl(R(p+q)-c\bigr)/pq$ equals $1$ on the
 oblong--chain members and $5$ on both off--stratum members $47058$ and $66198$
 (\texttt{code/line\_anatomy.py}).
+\end{proof}
+
+The lines themselves close into a family under peeling, and the closure explains why no
+reorganization of the counting has broken through.
+
+\begin{proposition}[The peeling groupoid]\label{prop:groupoid}
+For integers $a\ge1$, $b$, $c$ let $L(a,b,c)=\{n\ \textnormal{squarefree}:\ an'=bn+c\}$.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+\item \emph{(Closure; the slope is a mass.)} If $n=qm\in L(a,b,c)$ with $q=P^+(n)$, then
+$m\in L(aq,\,bq-a,\,c)$, and the slope moves by $b/a\mapsto b/a-1/q$: the full peel chain of $n$
+descends the partial sums of $\sigma(n)$ --- the classical lines, their $\mu$--Sondow shifts, and
+the slope--two lines of the minus square are one orbit family.
+\item \emph{(Rigidity at every level.)} Along the chain of $n$ on an integer line $(a,b)=(1,e)$,
+the level--$j$ denominator vanishes iff $\sigma(m_j)=b_j/a_j$, which telescopes to the single
+$j$--independent condition $\sigma(n)=e$ --- impossible, since an integer mass forces $n=1$ by
+Theorem~\ref{thm:rigidity}. So every denominator on every genuine chain is nonzero.
+\item \emph{(Determined slot at every level.)} Consequently $q=(c-am)/(am'-bm)$ at each step:
+a line member is a tower of single determined candidates over its own core.
+\end{enumerate}
+Every partial--peel reorganization of the line counts --- peeling one prime, several, in any
+order, from either layer of the split criterion --- stays inside this groupoid, where part
+\textup{(iii)} reproduces the one--candidate--per--cofactor obstruction verbatim. The obstruction
+is therefore \emph{invariant} under the natural changes of viewpoint: a proof must inject input
+from outside the groupoid --- primality along determined thin sequences, or a decomposition of
+integers not indexed by their primes.
+\end{proposition}
+\begin{proof}
+(i) is Leibniz: $a(qm'+m)=bqm+c$ gives $aq\,m'=(bq-a)m+c$, and $(bq-a)/(aq)=b/a-1/q$. In (ii),
+$\sigma(m_j)=b_j/a_j=e-\sum_{i<j}1/q_i$ says $\sigma\bigl(m_j\prod_{i<j}q_i\bigr)=\sigma(n)=e$;
+by the auto--reduced fraction of Theorem~\ref{thm:rigidity} an integer mass forces $D=1$. (iii) is
+the display above (i). Verified: closure and slot on $10^5$ random $(n,a,b)$ (the only slot
+exceptions being exactly the $\sigma(m)=b/a$ locus, excluded on genuine chains --- $73$ of $10^5$
+random triples, $0$ of $310{,}788$ genuine chain steps at $e=1,2,3$), and the slope telescope
+exact on every chain (\texttt{code/peeling\_groupoid.py}).
 \end{proof}
 
 \begin{remark}[The minus side: coercive versus degenerate moduli]\label{rem:minusslot}
