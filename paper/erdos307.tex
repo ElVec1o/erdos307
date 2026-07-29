@@ -2757,30 +2757,37 @@ convex profile over splits}, and Theorem~\ref{thm:barrier}'s constant is the val
 (Rows with $|P|+|Q|<60$ are further excluded by Proposition~\ref{prop:close59}, which sharpens the
 $|P|=3$ entry without moving the minimum's location.)
 \end{remark}
+\begin{proposition}[The cycle condition does not improve the barrier]\label{prop:nogain}
+A two--cycle satisfies more than the mass inequality: it forces $b=a'$, that is $b=a\,\sigma(a)$
+exactly. Since $\sigma(b)=1/\sigma(a)$ and $P\cap Q=\varnothing$, writing $S$ for the small primes of
+$a$ and $\Pi_{\min}(S)$ for the least product of primes outside $S$ with reciprocal sum
+$\ge1/\sigma(S)$, one gets
+\[ a\;\ge\;\max\Bigl(\textstyle\prod S,\ \Pi_{\min}(S)/\sigma(S)\Bigr),\qquad
+   N\;=\;a^2\sigma(a)\;\ge\;\max\Bigl(\textstyle\prod S,\ \Pi_{\min}(S)/\sigma(S)\Bigr)^2\sigma(S). \]
+Minimised over $S$, this yields $\log_{10}N\ge113.2$, attained at
+$S=\{\text{odd }p\le151\}\setminus\{3,97\}$ with $\sigma(S)=1.0495$ and $|Q|\ge26$. The barrier of
+Theorem~\ref{thm:barrier} is $\log_{10}N\ge112.9$: \emph{the cycle condition buys essentially nothing
+beyond the mass condition}, and Theorem~\ref{thm:barrier} is already close to optimal for arguments
+of this class.
+\end{proposition}
 
-\begin{remark}[Imposing $b=a'$ squares the sector cost]\label{rem:sectorsquared}
-Proposition~\ref{prop:sectorbarrier} bounds $N$ from the masses alone. A cycle satisfies more: it
-forces $b=a'$, that is $b=a\,\sigma(a)$ exactly. That single extra equation changes the bounds
-quadratically. Since $\sigma(b)=1/\sigma(a)$, the factor $b$ needs at least $k$ primes disjoint from
-$P$, $k$ minimal with reciprocal sum $\ge1/\sigma(a)$, so $b\ge\Pi_k$ (their product); but
-$a=b/\sigma(a)$, whence
-\[ N\;=\;ab\;=\;a^2\sigma(a)\;\ge\;\frac{\Pi_k^2}{\sigma(a)} . \]
-The square is the point: a large $b$ now \emph{drags $a$ up with it}, which the mass split alone did
-not see. Over the natural parametrisation --- $a=2\cdot(\text{small odd primes})\cdot(\text{one free
-prime})$, so that $\sigma(a)$ is fixed by the small part while $a$ may grow --- the profile reads
-$10^{10080}$, $10^{274}$, $10^{223}$, $10^{261}$, $10^{315}$ at $|P|=2,\dots,6$, minimised at
-$|P|=4$ (\texttt{code/sector\_exact.rs}).
+\begin{remark}[Why restricted families overstated the gain]\label{rem:sectorsquared}
+The conclusion of Proposition~\ref{prop:nogain} is worth contrasting with what restricted families
+suggest, because the discrepancy is large and instructive. Confining $S$ to an initial segment
+$\{2,3,5,\dots\}$ gives a minimum of $10^{222.9}$; enumerating all subsets of the first $14$, $16$,
+$18$ primes gives $10^{195.9}$, $10^{188.9}$, $10^{181.7}$ --- still falling, hence not converged.
+Each of these looks like a large improvement of the barrier and none of them is one. The optimum sits
+outside all of them: it hands $2$ to $Q$ (half of $Q$'s mass budget in a single prime), keeps the odd
+primes to $151$ in $S$, and drops two of them, a configuration no initial segment and no small subset
+can express. Only after searching that structure does the bound settle at $113.2$.
 
-Two cautions, both material. First, this is a computation over one parametrised family, not a
-minimisation over all admissible $P$; we therefore record it as evidence about sector costs and
-\emph{not} as an improvement of Theorem~\ref{thm:barrier}, which stands at $10^{112.9}$ until such a
-minimisation is carried out. Second, the reason the two bounds can differ so widely is worth stating,
-since it also explains why the barrier's extremal configuration is not a cycle: $b=a'$ with
-$\sigma(a)\approx1$ forces $a\approx b\approx\sqrt N$, so \emph{both} factors must simultaneously
-carry mass $\approx1$ and product $\approx\sqrt N$. The first--$60$--primes configuration fails this
-badly --- the side holding $2,3,5,7$ has mass $1.18$ but product only $210=10^{2.3}$, against the
-$10^{57.7}$ its size would have to be. The mass barrier and the cycle condition are pulling in
-different directions, and only the first has been quantified until now.
+The lesson is about the shape of the search rather than the arithmetic. A bound minimised over a
+family that cannot express the optimum reports the family's best, not the problem's, and here that
+error was worth eighty orders of magnitude. We record the negative result as the substantive one:
+imposing $b=a'$, the strongest structural constraint available beyond the masses, does not move the
+barrier --- which is evidence that $10^{112.9}$ is not an artefact of the AM--GM route but the true
+cost of the mass condition (\texttt{code/full\_minimisation.rs},
+\texttt{code/minimise\_structured.rs}).
 \end{remark}
 
 \begin{remark}[Decoupling the two squares: what it buys, and what it costs]\label{rem:decouple}
