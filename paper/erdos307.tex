@@ -667,7 +667,21 @@ parametrisation: the present Pell orbit exhibits the family that \emph{does} par
 exponential one. That the parametrisation is forced to be exponential is exactly why the residual
 question is Lehmer--class (primes in an exponential sequence) and not Schinzel--class (primes in a
 polynomial), which places it beyond every standard prime--density conjecture --- the sandwich that
-locates the whole difficulty. Quantitatively the wall is \emph{double}--exponential in expectation:
+locates the whole difficulty. The class can be named exactly. Since $x_{n+1}=tx_n-x_{n-1}$ has
+$x_n=(\alpha^n+\beta^n)/2$ with $\alpha\beta=1$, the squares $x_n^2$ have characteristic roots
+$\alpha^2,\beta^2,1$, and the constant shift is absorbed by the root $1$: the candidate sequence
+\[ q_n=\frac{x_n^2-D_S}{A_S}\qquad\text{satisfies}\qquad q_{n+3}=(t^2-1)q_{n+2}-(t^2-1)q_{n+1}+q_n, \]
+a non--degenerate \emph{ternary linear recurrence} (verified on four Pell parameters). So the
+existence route asks for a prime term of a ternary linear recurrence --- and no unconditional
+infinitude of prime terms is known for \emph{any} non--degenerate linear recurrence of order $\ge2$.
+The one unconditional tool that does reach exponentially growing sequences, the primitive divisor
+theorem of Bilu--Hanrot--Voutier \cite{BHV2001} (every term beyond the $30$th of a Lucas or Lehmer
+sequence has a primitive prime divisor), yields \emph{divisors}, not primality, and so does not
+transfer: $q_n$ must itself be the new prime of the support. The complementary negative route is
+already closed from the other side --- an algebraic factorisation is unavailable ($D_S$ squarefree,
+so $x^2-D_S$ is irreducible) and no covering congruence can kill the family by
+Proposition~\ref{prop:localcomplete}. Both directions therefore fail on the same object, for
+opposite reasons. Quantitatively the wall is \emph{double}--exponential in expectation:
 immunity makes $A_SB_S$ a product of two distinct primes, hence squarefree, so the conic lives in the
 near--maximal order of $\mathbb{Q}(\sqrt{A_SB_S})$ of discriminant ${\sim}A_SB_S\approx10^{224}$
 ($\sqrt\Delta\approx10^{112}$, computed exactly at base scale), and the class--number formula puts the
@@ -2671,6 +2685,9 @@ Math.\ \textbf{53} (1984), 225--244.
 variables which lie in a multiplicative group}, Ann.\ of Math.\ (2) \textbf{155} (2002), 807--836.
 \bibitem{Erdos1952} P.~Erd\H{o}s, \emph{On the sum $\sum_{k=1}^x d(f(k))$}, J.\ London Math.\ Soc.\
 \textbf{27} (1952), 7--15.
+\bibitem{BHV2001} Y.~Bilu, G.~Hanrot, and P.~M.~Voutier, \emph{Existence of primitive divisors of
+Lucas and Lehmer numbers} (with an appendix by M.~Mignotte), J.\ Reine Angew.\ Math.\ \textbf{539}
+(2001), 75--122.
 \end{thebibliography}
 
 \end{document}
