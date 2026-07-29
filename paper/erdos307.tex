@@ -2394,6 +2394,31 @@ Proposition~\ref{prop:close59} independently, from a different traversal;
 \texttt{code/masswindow.rs}.)
 \end{remark}
 
+\begin{remark}[The minus layer is the anatomy of a quadratic polynomial]\label{rem:quadratic}
+The identity $d^2=m-pk$ of Remark~\ref{rem:masswindow} can be read as a parametrisation rather than a
+constraint. On the minus layer $d^2=N'-2N\ge0$ is a square, so
+\[ m\;=\;pk+d^2, \]
+and for \emph{fixed} $(p,k)$ the cofactor $m$ runs over the values of the quadratic polynomial
+$f_{p,k}(d)=d^2+pk$. The minus layer is therefore not an arbitrary exact coincidence but a question
+about the \emph{anatomy of quadratic--polynomial values}: for which $d$ does $f_{p,k}(d)$ carry
+mass $\sigma=2-k/f_{p,k}(d)$, i.e.\ $\omega\approx58$ prime factors concentrated on the small
+primes, with $P^+(f_{p,k}(d))<p$?
+
+This is the first place in this circle where a \emph{named} toolkit applies. The anatomy of
+polynomial values is a developed subject --- Erd\H{o}s--Kac for $\omega(f(n))$, Halberstam--Richert
+sieve bounds for almost--primes in polynomial sequences, and the divisor sums of \cite{Erdos1952}
+already used in Proposition~\ref{prop:plusthin} --- whereas ``primality of a determined value''
+(Remark~\ref{rem:onequestion}) had none. What the toolkit must supply is unusual: not the typical
+behaviour of $\omega(f(d))$, which is $\log\log$ by Erd\H{o}s--Kac, but a \emph{large deviation} to
+$\omega\approx58$ with the prime factors forced onto the bottom of the spectrum, since only the
+small primes carry mass. Existing polynomial--anatomy results control typical and almost--prime
+behaviour, not deviations of this shape; so the reformulation names the tool without yet applying
+it. We record it as the most promising translation of the residual question, and note that the
+$p=5$ family of Proposition~\ref{prop:plus}(iii) is the plus--layer shadow of the same quadratic
+mechanism. (Identity verified on all $1{,}606{,}956$ squarefree $M\le3\times10^6$ with $\omega\ge2$:
+$0$ violations.)
+\end{remark}
+
 The bound has enough force to regenerate the barrier on its own.
 
 \begin{corollary}[A second, independent derivation of the barrier]\label{cor:secondbarrier}
