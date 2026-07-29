@@ -2280,6 +2280,31 @@ random triples, $0$ of $310{,}788$ genuine chain steps at $e=1,2,3$), and the sl
 exact on every chain (\texttt{code/peeling\_groupoid.py}).
 \end{proof}
 
+The determined slot bounds more than itself: unwound one level further it constrains the
+\emph{second} prime by a mass.
+
+\begin{proposition}[Mass--defect bound on the second prime]\label{prop:massbound}
+Let $M$ be squarefree with $\omega(M)\ge3$ on the line $M'=eM+c$, and write $p=P^+(M)$, $m=M/p$,
+$P=P^+(m)$, $n=m/P$. If $\sigma(m)<e$ then
+\[ P\bigl(e-\sigma(n)\bigr)\;<\;2-\frac cm,\qquad\text{equivalently}\qquad
+   P^2\,(en-n')\;<\;2Pn-c . \]
+For $e=2$ the hypothesis is automatic below $\Pi_{59}$ --- that is, throughout the range in which the
+minus layer is counted. On the near--critical slope--two lines ($|c|$ small) the bound reads
+$P<2/(2-\sigma(n))+O(|c|/n)$: \emph{the second--largest prime of $M$ is bounded by twice the
+reciprocal of the mass defect of the remaining cofactor.}
+\end{proposition}
+\begin{proof}
+$M$ squarefree gives $p>P$. The determined slot of Proposition~\ref{prop:groupoid} is
+$p=(c-m)/(m'-em)$, and $\sigma(m)<e$ makes the denominator negative, so
+$p=(m-c)/\bigl(m(e-\sigma(m))\bigr)$ and $p>P$ reads $P\,m(e-\sigma(m))<m-c$, i.e.\
+$P(e-\sigma(m))<1-c/m$. Since $m=Pn$ and $\sigma(m)=\sigma(n)+1/P$, the left side is
+$P(e-\sigma(n))-1$, which gives the first display; multiplying by $Pn$ clears denominators.
+Verified with $0$ violations on every squarefree $M\le2\times10^6$ with $\omega\ge3$, for
+$e=1,2,3$; at $e=1$ the $21{,}146$ exceptions are exactly the $\sigma(m)\ge1$ cases excluded by the
+hypothesis, and the bound is within a factor $2$ of equality for $11\%$ of members and within $100$
+for $59\%$ (\texttt{code/slot\_massbound.rs}).
+\end{proof}
+
 \begin{remark}[The minus side: coercive versus degenerate moduli]\label{rem:minusslot}
 Proposition~\ref{prop:pluszero} rests on the plus modulus being \emph{coercive}:
 $E_0^+(M)=M'+2M\ge2M$. The minus--square obeys the same slot identity with
