@@ -1899,10 +1899,17 @@ the crossing of its two distinguished lines. The open half--plane $s+t\le-1$ is 
 populated from $ab=30$ on: over $ab\le10^7$ exactly $21$ strata occur, all obeying the law, the
 nearest being $(0,-1)$ and $(-1,0)$ at $(a,b)=(6,5)$ and $(5,6)$; off--axis strata occur
 ($(1,-13)$ at $(690,53)$), so integrality does not force one exact side. The $(0,-1)$ stratum with
-$b=a'$ is the chain equation $a''+a'=a$, whose solutions up to $10^7$ are
-$\{6,\,42,\,15590,\,47058\}$: every primary pseudoperfect number whose predecessor is prime solves
-it ($1806$ fails, $1805$ not being squarefree), while $15590=2\cdot5\cdot1559$ is sporadic. All
-census claims verified exhaustively (\texttt{code/deviation\_halfplane.py}).
+$b=a'$ is the chain equation
+\[ a''+a'=a,\qquad\text{equivalently}\qquad \sigma(a)\bigl(1+\sigma(a')\bigr)=1, \]
+a companion of the cross--match $\sigma(a)\sigma(b)=1$ with the same shape and one shifted factor.
+Its solutions up to $10^7$ are $\{6,\,42,\,15590,\,47058\}$ and they split in two. Every primary
+pseudoperfect number whose predecessor is \emph{prime} solves it, trivially: then $a'=a-1$ and
+$a''=1$ ($6,42,47058$; $1806$ fails, its predecessor $1805=5\cdot19^2$ being composite, and $2$
+fails as $a''=0$). The remaining solution $15590=2\cdot5\cdot1559$ is not on the pseudoperfect line
+at all: $15590'=10923=3\cdot11\cdot331$ and $10923'=4667$, a genuine two--step closure. It is the
+first solution of the chain equation whose derivative is composite; the sequence
+$6,42,15590,47058$ does not appear in the OEIS. All census claims verified exhaustively
+(\texttt{code/deviation\_halfplane.py}).
 \end{proposition}
 \begin{proof}
 $\sigma(a)=a'/a=b/a+s$ and $\sigma(b)=a/b+t$ sum to the display, with strict inequality by AM--GM
