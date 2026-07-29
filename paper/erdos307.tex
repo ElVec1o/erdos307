@@ -2572,6 +2572,55 @@ substitution because it changes which literature the problem faces: divisibility
 $m'-em$ rather than primes in determined classes.
 \end{remark}
 
+\begin{proposition}[Slot stratification of the divisibility set]\label{prop:slotstrat}
+Fix $c$ and let $D(c)=\{m \text{ squarefree}: (2m-m')\mid(m-c),\ m\neq c\}$. For $m\in D(c)$ put
+$p=(m-c)/(2m-m')$, the \emph{slot}. Then
+\[ p\,m' \;=\; (2p-1)\,m + c, \qquad\text{equivalently}\qquad \sigma(m)=2-\frac{m-c}{p\,m}, \]
+so $D(c)=\bigsqcup_{p\neq0} L(p,2p-1,c)$ is a disjoint union of generalized lines in the sense of
+Proposition~\textup{\ref{prop:groupoid}}, the stratum $p=1$ being the slope-\emph{one} line
+$m'=m+c$. The identity was verified with $0$ violations on all $2{,}294$ members with
+$m\le2\times10^7$, $|c|\le400$ \textup{(\texttt{code/slot\_stratify.rs})}.
+\end{proposition}
+\begin{proof}
+$m-c=p(2m-m')$ rearranges to $pm'=(2p-1)m+c$; dividing by $pm$ gives the mass form. Distinct $p$
+give disjoint strata since $p$ is a function of $m$.
+\end{proof}
+
+\begin{theorem}[The residual difficulty sits entirely at the mass-two wall]\label{thm:masstwo}
+For every $\varepsilon>0$ and every $c$,
+\[ \#\bigl(D(c)\cap[1,Z]\bigr)\;\le\;\bigl(\delta(2-\varepsilon)+o_\varepsilon(1)\bigr)\,Z+O(|c|), \]
+where $\delta(x)$ is the density of $\{m:\sigma(m)\ge x\}$. Moreover
+\[ \delta(x)\;\le\;\inf_{t>0}\;e^{-tx}\prod_{p}\Bigl(1+\frac{e^{t/p}-1}{p}\Bigr), \]
+which evaluates to $\delta(1)\le10^{-0.8}$, $\delta(1.5)\le10^{-7.2}$ and
+$\delta(2)\le10^{-105.6}$ \textup{(\texttt{code/chernoff\_mass.rs})}.
+\end{theorem}
+\begin{proof}
+Split $D(c)$ at $|p|\le P$ and $|p|>P$. The first part is a union of at most $2P$ generalized lines,
+each of size $\ll Z/(\log Z)^{(1+o(1))\log_3 Z}$ by Proposition~\ref{prop:lines}; taking
+$P=P(Z)\to\infty$ slowly makes the total $o(Z)$. For the second, $|p|>P$ forces
+$|2-\sigma(m)|<(1+|c|/m)/P$ by the mass form, so for $m>|c|$ we get $\sigma(m)>2-2/P$, and the count
+is at most $\delta(2-2/P)Z(1+o(1))$. For the Chernoff bound, $f(m)=\prod_{p\mid m}e^{t/p}$ is
+multiplicative with $f(p)\ge1$, so
+$\sum_{m\le Z}f(m)=\sum_{d\le Z}\mu^2(d)\prod_{p\mid d}(f(p)-1)\lfloor Z/d\rfloor
+\le Z\prod_p(1+(f(p)-1)/p)$, and $\#\{\sigma\ge x\}\le e^{-tx}\sum_{m\le Z}f(m)$.
+The product converges because $(e^{t/p}-1)/p\sim t/p^2$.
+\end{proof}
+
+\begin{remark}[What this settles and what it does not]\label{rem:masstwo}
+Theorem~\ref{thm:masstwo} replaces the constant $\delta=0.0420$ of
+Proposition~\ref{prop:divset}\,(ii) by one below $10^{-105}$, an unconditional gain of more than a
+hundred orders of magnitude, and it does so by \emph{using} the divisibility rather than merely the
+mass condition it forces. It also localises the residue exactly: away from the mass-two wall the set
+is a bounded union of thin lines, and \emph{all} the remaining difficulty lies in
+$\{\sigma(m)\ge2-\varepsilon\}$. It does not prove $\mathrm{A}9$. The set $\{\sigma\ge2\}$ has
+\emph{positive} density, at least $1/\Pi_{59}=10^{-112.9}$ since every multiple of $\Pi_{59}$ lies
+in it, so the method cannot reach $o(Z)$: the limiting constant is positive, not zero. The bound
+$10^{-105.6}$ sits within seven orders of that truth, so little is lost in the Chernoff step, and the
+obstruction is genuine rather than an artefact of the estimate. The residual question is therefore
+sharp: is $D(c)$ thin \emph{within} the mass-two wall, the one place where the barrier
+\textup{(Theorem~\ref{thm:barrier})} also lives?
+\end{remark}
+
 \begin{proposition}[The divisibility set: slope one is dense, slope two is not]\label{prop:divset}
 Let $e\ge1$ and $c$ be integers and let $m$ be squarefree with
 $(em-m')\mid(m-c)$ and $m\neq c$. Then
