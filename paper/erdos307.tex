@@ -2758,6 +2758,31 @@ convex profile over splits}, and Theorem~\ref{thm:barrier}'s constant is the val
 $|P|=3$ entry without moving the minimum's location.)
 \end{remark}
 
+\begin{remark}[Imposing $b=a'$ squares the sector cost]\label{rem:sectorsquared}
+Proposition~\ref{prop:sectorbarrier} bounds $N$ from the masses alone. A cycle satisfies more: it
+forces $b=a'$, that is $b=a\,\sigma(a)$ exactly. That single extra equation changes the bounds
+quadratically. Since $\sigma(b)=1/\sigma(a)$, the factor $b$ needs at least $k$ primes disjoint from
+$P$, $k$ minimal with reciprocal sum $\ge1/\sigma(a)$, so $b\ge\Pi_k$ (their product); but
+$a=b/\sigma(a)$, whence
+\[ N\;=\;ab\;=\;a^2\sigma(a)\;\ge\;\frac{\Pi_k^2}{\sigma(a)} . \]
+The square is the point: a large $b$ now \emph{drags $a$ up with it}, which the mass split alone did
+not see. Over the natural parametrisation --- $a=2\cdot(\text{small odd primes})\cdot(\text{one free
+prime})$, so that $\sigma(a)$ is fixed by the small part while $a$ may grow --- the profile reads
+$10^{10080}$, $10^{274}$, $10^{223}$, $10^{261}$, $10^{315}$ at $|P|=2,\dots,6$, minimised at
+$|P|=4$ (\texttt{code/sector\_exact.rs}).
+
+Two cautions, both material. First, this is a computation over one parametrised family, not a
+minimisation over all admissible $P$; we therefore record it as evidence about sector costs and
+\emph{not} as an improvement of Theorem~\ref{thm:barrier}, which stands at $10^{112.9}$ until such a
+minimisation is carried out. Second, the reason the two bounds can differ so widely is worth stating,
+since it also explains why the barrier's extremal configuration is not a cycle: $b=a'$ with
+$\sigma(a)\approx1$ forces $a\approx b\approx\sqrt N$, so \emph{both} factors must simultaneously
+carry mass $\approx1$ and product $\approx\sqrt N$. The first--$60$--primes configuration fails this
+badly --- the side holding $2,3,5,7$ has mass $1.18$ but product only $210=10^{2.3}$, against the
+$10^{57.7}$ its size would have to be. The mass barrier and the cycle condition are pulling in
+different directions, and only the first has been quantified until now.
+\end{remark}
+
 \begin{remark}[Decoupling the two squares: what it buys, and what it costs]\label{rem:decouple}
 Remark~\ref{rem:lehmer} locates the exponential difficulty in the \emph{conjunction} of the two
 squares, so it is worth asking for a family on which one of them is free. The slot calculus supplies
