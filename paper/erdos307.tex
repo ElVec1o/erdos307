@@ -468,8 +468,13 @@ hence no congruence obstruction for any $q$). The conditionality is not pedantry
 removable by more of the same computation: Baillie--PSW is rigorous only in its \emph{composite}
 verdicts, so the $46{,}483$ kills are unconditional while the $34$ immunities are not. Upgrading them
 would require primality \emph{certificates} for thirty-four $114$--digit integers (ECPP or a
-Pocklington factorisation of $A_S-1$) which is feasible but has not been done here; we therefore
-grade them \textup{[C]}. A complete kill/immune split of the residual is in any case beyond feasible
+Pocklington factorisation of $A_S-1$). The elementary route does not reach: immunity needs
+\emph{both} $A_S$ and $B_S$ prime, and partial factorisation of $n-1$ (trial division to
+$3\times10^6$ together with the fully split part) leaves $\log F/\log n$ below $1/3$ on at least one
+side of every one of the $34$, so neither Pocklington ($F>\sqrt n$) nor
+Brillhart--Lehmer--Selfridge ($F>n^{1/3}$) applies to any family: $0$ of $34$ are certifiable this
+way (\texttt{code/immune\_certify.py}). An ECPP certificate would settle them; absent one we grade
+them \textup{[C]}. A complete kill/immune split of the residual is in any case beyond feasible
 computation, and the honest state of the single--tail sector is \emph{$46{,}483$ empty
 \textup{[P]}, $34$ conditionally immune \textup{[C]}, $3{,}478$ factoring--hard}.
 \end{proof}
