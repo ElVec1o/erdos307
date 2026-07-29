@@ -21,3 +21,6 @@ hunt/antiholo_hunt
 hunt/descended_hunt.box
 hunt/descended_deep.log
 hunt/antiholo_hunt.progress
+
+# scratch, logs, strategy, dead ends (never ships)
+private/
