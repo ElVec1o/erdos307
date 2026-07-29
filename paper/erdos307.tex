@@ -2572,6 +2572,73 @@ substitution because it changes which literature the problem faces: divisibility
 $m'-em$ rather than primes in determined classes.
 \end{remark}
 
+\section{Two closures on the existence route}\label{sec:exclosure}
+
+Atom $\mathrm{A}10$ asks for a prime term of the ternary recurrence of
+Remark~\textup{\ref{rem:lehmer}}. Before attacking it, two families of approach can be removed:
+the relaxations that would give the construction more freedom, and the algebraic methods that
+would avoid the archimedean place. Both are closed outright.
+
+\begin{proposition}[No free slot]\label{prop:nofreeslot}
+Let $P,Q$ be finite sets of primes with $\sigma(P)\sigma(Q)=1$, and put $a=\prod P$, $b=\prod Q$.
+Then $b=a'$ and $a=b'$ exactly. In particular $Q$ is \emph{determined} by $P$: it is the set of
+prime factors of $a'$, and the existence route carries exactly one parameter, the set $P$.
+\end{proposition}
+\begin{proof}
+$\sigma(a)=a'/a$ and $\sigma(b)=b'/b$, both in lowest terms since $\gcd(m,m')=1$ for squarefree
+$m$. Then $\sigma(a)\sigma(b)=1$ reads $a'b'=ab$. From $\gcd(a',a)=1$ and $a'\mid ab$ we get
+$a'\mid b$, say $b=a'k$; symmetrically $b'\mid a$, say $a=b'j$. Substituting,
+$a'b'=ab=b'j\cdot a'k$, so $jk=1$ and $j=k=1$.
+\end{proof}
+
+\begin{corollary}[The multi-slot relaxations are vacuous]\label{cor:noslack}
+There is no version of the construction in which two or more primes of $Q$ may be chosen freely.
+In particular one cannot fix a base $B\subset Q$ and solve $1/q_1+1/q_2=r/s$ for the remaining two
+primes by ranging over the $\tau(s^2)$ factorisations $(rq_1-s)(rq_2-s)=s^2$: by
+Proposition~\ref{prop:nofreeslot} the pair $(q_1,q_2)$ is already forced to be the corresponding
+part of the factorisation of $a'$. The exponential parametrisation of
+Remark~\textup{\ref{rem:lehmer}} is therefore intrinsic, not an artefact of the one-free-prime
+ansatz, and no amount of extra slots converts the Lehmer question into a Bunyakovsky one.
+\end{corollary}
+
+The second closure identifies which place of $\mathbb{Q}$ the problem lives at, by exhibiting a
+setting in which the analogue is not merely unproved but \emph{false}.
+
+\begin{theorem}[The ultrametric obstruction]\label{thm:ffnocycle}
+Let $K$ be any field and define the arithmetic derivative on squarefree monic $f=\prod_i\pi_i\in K[t]$
+by $f'=\sum_i f/\pi_i$. Then $\deg f'\le\deg f-1$. Consequently the arithmetic derivative on $K[t]$
+has \emph{no cycle of any length} among non-constant squarefree polynomials, and the analogue of
+\textup{\#307} is false over every $K[t]$.
+\end{theorem}
+\begin{proof}
+Each summand $f/\pi_i$ has degree $\deg f-\deg\pi_i\le\deg f-1$, and the degree of a sum is at most
+the maximum of the degrees. A cycle $f_0\mapsto f_1\mapsto\cdots\mapsto f_r=f_0$ of length $r\ge1$
+would give $\deg f_0\le\deg f_0-r$, which is absurd.
+\end{proof}
+Verified by brute force independently of the proof: all $8192$ squarefree monics over
+$\mathbb{F}_2$ of degree $\le13$ and all $6561$ over $\mathbb{F}_3$ of degree $\le8$ satisfy
+$\deg f'\le\deg f-1$, with $0$ violations and $0$ two-cycles
+\textup{(\texttt{code/ff\_nocycle.rs})}.
+
+\begin{remark}[Why the existence route cannot be algebraic]\label{rem:archimedean}
+The mechanism of Theorem~\ref{thm:ffnocycle} is the ultrametric inequality. The cycle equation is
+$\sigma(a)\sigma(b)=1$, so one of the two masses must reach $1$; over $K[t]$ the mass satisfies
+$|\sigma(f)|=\max_i|1/\pi_i|<1$ by ultrametricity and can never do so, whereas over $\mathbb{Z}$ the
+archimedean absolute value permits $\sum_{p\mid n}1/p>1$. So \#307 is possible at all only because
+$|\cdot|_\infty$ is not ultrametric.
+
+This has a consequence for method. Any argument for \emph{existence} that is purely algebraic, in
+the sense that it applies verbatim with $\mathbb{Z}$ replaced by $K[t]$, would prove a statement
+that Theorem~\ref{thm:ffnocycle} refutes; hence no such argument exists. Together with
+Proposition~\ref{prop:nopoly} (no polynomial parametrisation) and Proposition~\ref{prop:noplace}
+(no place of $\mathbb{Q}$ carries the descent) this closes the algebraic and geometric toolkit on
+\emph{both} routes: the negative route has no place to descend at, and the positive route has no
+place to construct at. What remains for $\mathrm{A}10$ is archimedean and analytic, which is
+precisely the regime in which lower bounds for primes in sparse sequences are unavailable. That is
+a sharper statement of the obstruction than Remark~\ref{rem:lehmer} gives, and it is the reason the
+present work does not resolve the existence direction.
+\end{remark}
+
 \section{The square sieve at the mass-two wall}\label{sec:sqsieve}
 
 Remark~\ref{rem:masstwo} left the residue inside $\{\sigma(m)\ge2-\varepsilon\}$. We now attack that
