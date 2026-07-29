@@ -2305,6 +2305,39 @@ hypothesis, and the bound is within a factor $2$ of equality for $11\%$ of membe
 for $59\%$ (\texttt{code/slot\_massbound.rs}).
 \end{proof}
 
+The bound has enough force to regenerate the barrier on its own.
+
+\begin{corollary}[A second, independent derivation of the barrier]\label{cor:secondbarrier}
+Let $N$ be a minus--layer hit with $\omega(N)\ge3$ --- more generally a member of any line
+$N'=2N+c$ with $c\ge0$. Write $p=P^+(N)$, $m=N/p$, $P=P^+(m)$, $n=m/P$. Then
+$N>10^{112.94}$, without using the arithmetic--geometric mean inequality.
+\end{corollary}
+\begin{proof}
+If $\sigma(m)\ge2$ then $m$ carries at least $59$ primes and $N>m\ge\Pi_{59}$ already. Otherwise
+Proposition~\ref{prop:massbound} applies, and $c\ge0$ makes its right side at most $2$:
+$P\bigl(2-\sigma(n)\bigr)<2$. Since $P>P^+(n)$ this gives
+\[ 2-\sigma(n)\;<\;\frac2{P^+(n)},\qquad\text{i.e.}\qquad \sigma(n)>2-\frac2{P^+(n)}. \]
+But $\sigma(n)\le\sum_{q\le P^+(n)}1/q$, so $P^+(n)$ must satisfy
+$\sum_{q\le p}1/q>2-2/p$. The least such prime is $p=269$, the $57$th: at $p=269$ the sum is
+$1.99505>1.99257$, while at $p=263$ it is $1.99133<1.99240$. Hence $\omega(n)\ge57$,
+$P^+(n)\ge269$, and $n\ge\Pi_{57}>10^{108.07}$; with $p>P>P^+(n)$ the two further primes give
+$N>\Pi_{57}\cdot271\cdot277>10^{112.94}$.
+\end{proof}
+
+\begin{remark}[Two mechanisms, one constant]\label{rem:twomechanisms}
+Corollary~\ref{cor:secondbarrier} reaches $10^{112.94}$, and $\Pi_{59}>8.77\times10^{112}$ is
+$10^{112.94}$: the two derivations agree to two decimal places. They share no step.
+Theorem~\ref{thm:barrier} divides the defining equation by $ab$ and applies AM--GM to
+$a/b+b/a$; the present route never forms that quotient, using instead the determined slot of
+Proposition~\ref{prop:groupoid}, the trivial inequality $p>P^+(N/p)$, and the additivity
+$\sigma(m)=\sigma(n)+1/P$. What they share is the arithmetic input underneath --- how many primes
+Mertens needs to reach mass~$2$ --- which is why the constants coincide rather than merely being
+comparable. The barrier is thus not an artefact of the mass inequality one happens to use: it is
+the same Mertens threshold seen through two independent structures, and the critical set
+$S_2=\{n:2-\sigma(n)<2/P^+(n)\}$ of the second structure is empty below $10^{108}$ (verified empty
+for $n\le5\times10^6$, \texttt{code/critical\_set.rs}).
+\end{remark}
+
 \begin{remark}[The minus side: coercive versus degenerate moduli]\label{rem:minusslot}
 Proposition~\ref{prop:pluszero} rests on the plus modulus being \emph{coercive}:
 $E_0^+(M)=M'+2M\ge2M$. The minus--square obeys the same slot identity with
