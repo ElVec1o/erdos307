@@ -2572,6 +2572,40 @@ substitution because it changes which literature the problem faces: divisibility
 $m'-em$ rather than primes in determined classes.
 \end{remark}
 
+\begin{proposition}[The divisibility set: slope one is dense, slope two is not]\label{prop:divset}
+Let $e\ge1$ and $c$ be integers and let $m$ be squarefree with
+$(em-m')\mid(m-c)$ and $m\neq c$. Then
+\[ \sigma(m)\;\ge\;e-1-\frac{|c|}{m}. \]
+Consequently the two slopes behave oppositely.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+\item For $e=1$ the condition is vacuous and the set has positive density: every prime $m$ satisfies
+it when $c=1$, since then $m'=1$ and $em-m'=m-1=m-c$. Over $m\le2\times10^7$ this accounts for
+$1{,}270{,}651$ of the members, exactly $\pi(2\times10^7)$.
+\item For $e=2$ the condition reads $\sigma(m)\ge1-|c|/m$, so by Proposition~\ref{prop:density}
+\[ \#\{m\le Z:\ (2m-m')\mid(m-c),\ m\neq c\}\;\le\;(\delta+o(1))\,Z+O(|c|), \]
+with $\delta=0.0420\ldots$ the abundance density, certified in Proposition~\ref{prop:density} to lie
+in $[0.04202,0.04223]$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+If $|em-m'|>|m-c|$ the divisibility forces $m=c$. So $|em-m'|\le|m-c|\le m+|c|$; below the barrier
+$\sigma(m)<e$ for $e\ge2$, so $em-m'=m(e-\sigma(m))>0$ and $m(e-\sigma(m))\le m+|c|$, which is the
+display. Part (i) is the computation just given, and (ii) is Proposition~\ref{prop:density} applied
+to $\{\sigma\ge1-\varepsilon\}$. The mass condition was checked with $0$ violations over all
+squarefree $m\le2\times10^7$ and all $|c|\le400$ at $e=1,2,3$, where the nontrivial member counts are
+$2{,}197{,}230$, $28$ and $8$ respectively (\texttt{code/a9prime\_falsify.rs}).
+\end{proof}
+
+\begin{remark}[Consequence for the residual question]\label{rem:a9repair}
+Proposition~\ref{prop:divset} settles the shape of the residual bound. A uniform statement over all
+slopes is false, and false for a trivial reason: at $e=1$ the primes sit on the set by an identity.
+The correct target is confined to $e\ge2$, where a genuine mass condition appears, and there
+Proposition~\ref{prop:divset}(ii) gives the first unconditional bound, $\delta Z$ with
+$\delta<0.043$. The gap to the $Z^{1/2}$ needed for Remark~\ref{rem:minusslot} is therefore now a
+gap between two \emph{proved} quantities rather than between a proof and a wish, and the observed
+counts at $e=2$ ($28$ over the whole range $|c|\le400$, against $Z^{1/2}=4472$) sit far below both.
+\end{remark}
+
 \begin{remark}[The two open routes are one question, asked in opposite directions]\label{rem:onequestion}
 The existence route of Remark~\ref{rem:lehmer} and the counting route of
 Remark~\ref{rem:minusslot} look unrelated (one is a search for a single solution, the other a
