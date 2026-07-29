@@ -2057,6 +2057,28 @@ $\mathbb{Z}$: one archimedean place, one mass function the derivative must respe
 that survives every twist available in the ring.
 \end{remark}
 
+\begin{proposition}[No place of $\mathbb{Q}$ carries the function--field descent]\label{prop:noplace}
+The mechanism isolated in Remark~\ref{rem:ffplaces} --- a place whose valuation the derivative
+strictly lowers --- is unavailable over $\mathbb{Q}$, and this is a classification statement rather
+than a failure of ingenuity.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+\item \emph{Archimedean place.} $|D(n)|=n\,\sigma(n)$, which exceeds $n$ for every $n$ of mass
+$>1$ --- the derivative \emph{expands}, first at $n=30$, and on $1.79\%$ of squarefree $n\le10^6$.
+The absolute value is in any case not ultrametric, so the second half of the degree argument
+($\deg(x+y)\le\max$) is unavailable too.
+\item \emph{$p$--adic places.} For squarefree $n$ with $p\mid n$, cofactor survival gives
+$v_p(D(n))=0<1=v_p(n)$: the derivative lowers $v_p$ there. But it \emph{raises} it elsewhere ---
+there are squarefree $n$ with $p\nmid n$ and $p\mid D(n)$ (e.g.\ $p=2$, $n=15$; $p=3$, $n=14$;
+$p=5$, $n=6$), in comparable abundance to the lowering cases at every $p$ tested. So no $p$--adic
+place contracts uniformly.
+\item By Ostrowski's theorem \textup{(i)} and \textup{(ii)} exhaust the places of $\mathbb{Q}$.
+\end{enumerate}
+Hence no valuation--theoretic descent of the type that proves Proposition~\ref{prop:ff-pyth} can
+exist over $\mathbb{Q}$: the function--field argument fails to transfer for a structural reason
+internal to the classification of absolute values, not for want of a cleverer place.
+(Counts and witnesses: \texttt{code/no\_place.rs}.)
+\end{proposition}
+
 \begin{proposition}[Deviation calculus for $k$--cycles]\label{prop:kdev}
 For pairwise coprime squarefree $a_1,\dots,a_k$ with product $N$ and deviations
 $\kappa_i=(a_i'-a_{i+1})/a_i$ (indices mod $k$): the ratios $a_{i+1}/a_i$ have product $1$
