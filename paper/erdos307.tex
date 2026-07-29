@@ -480,7 +480,18 @@ wall clock, so the $34$ immunities upgrade from \textup{[C]} to \textup{[P]} and
 proof and not a probable--prime test). The run reproduces the whole chain independently: $49{,}961$
 admissible bases, $31{,}219$ Jacobi kills, and, among the $81$ bases whose $A_S$ and $B_S$ are both
 prime, exactly the $34$ with $(D_S\mid A_S)=+1$; the other $47$ carry $(D_S\mid A_S)=-1$ and were
-already killed. Note the two counts answer different questions and both are correct: $81$ is the
+already killed. The primality is moreover backed by
+\emph{independently checkable} evidence rather than a verdict: \texttt{code/immune\_certify.gp}
+emits Atkin--Morain \textup{ECPP} certificates for all $68$ integers, all $68$ verified by
+\texttt{primecertisvalid}, archived at \texttt{certs/immune\_ecpp.txt} ($512$\,KB) so a third
+party can check them without trusting the prover. The structural half of the campaign is now
+formal: the identity $(D_S\mid A_S)=(D_S\mid B_S)$, which is what makes one binary test decide a
+family rather than two, is proved in Lean~4 as \texttt{Erdos307.jacobiSym\_A\_eq\_B}
+\textup{(\texttt{lean/Erdos307/Campaign.lean})}, on the three standard axioms and with no
+\texttt{native\_decide}; it follows from periodicity, $A_S-B_S=4D_S$ being exactly the period of
+$J(a\mid\cdot)$. The primality itself is not formalised and cannot presently be: mathlib's only
+route to a large prime is \texttt{lucas\_primality}, which needs a complete factorisation of
+$n-1$, and that is precisely what the $0$ of $34$ above rules out. Note the two counts answer different questions and both are correct: $81$ is the
 number of prime pairs, $34$ the number of \emph{immune} families among them. A complete kill/immune split of the residual is in any case beyond feasible
 computation, and the honest state of the single--tail sector is \emph{$46{,}483$ empty
 \textup{[P]}, $34$ conditionally immune \textup{[C]}, $3{,}478$ factoring--hard}.

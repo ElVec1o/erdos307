@@ -5,3 +5,4 @@ import Erdos307.Extremal
 import Erdos307.Numeral
 import Erdos307.Closed
 import Erdos307.Sixty
+import Erdos307.Campaign

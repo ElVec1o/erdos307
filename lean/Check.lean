@@ -1,3 +1,4 @@
+import Erdos307.Campaign
 import Erdos307.Rigidity
 import Erdos307.Barrier
 import Erdos307.Capstone
@@ -31,3 +32,7 @@ open Erdos307
 #print axioms erdos307_barrier_closed
 #print axioms dfs_sound
 #print axioms erdos307_sixty
+
+-- the campaign lemma (rem:campaign): one binary certificate per tail family
+#print axioms Erdos307.jacobiSym_add_four_mul
+#print axioms Erdos307.jacobiSym_A_eq_B
