@@ -2643,6 +2643,41 @@ integral, \emph{prime} slot and deviation $k=0$.
 and the question is single--value representation, not a class count; only the degeneration $A\to0$ is
 used.)
 
+\begin{proposition}[An explicit Pythagorean family, and why it stops at rung $-1$]\label{prop:family}
+Let $N_0$ be squarefree with $N_0'=2N_0-1$ \textup{(}the slope--two line $c=-1$, i.e.\ $k_0=1$\textup{)}
+and suppose $N_0-1$ is prime. Then $(a,b)=(N_0-1,\,N_0)$ is a Pythagorean pair:
+\[ a^2+b^2\;=\;2N_0^2-2N_0+1\;=\;(ab)' . \]
+It arises from the form equation of Proposition~\ref{prop:form} at its degenerate end: with $k_0=1$,
+$E_0=4N_0-1$, the pair $(s,d)=(2N_0-1,\,1)$ represents $4N_0^2$ exactly, and the slot it yields is
+$r=(s^2-N_0)/E_0=N_0-1$. Every member of the family sits on rung $k=-1$, and no member can sit on
+rung $0$: $a$ is prime, so $a'=1$, and $a'=b$ would force $N_0=1$.
+\end{proposition}
+\begin{proof}
+$(ab)'=N_0'(N_0-1)+N_0(N_0-1)'=(2N_0-1)(N_0-1)+N_0=2N_0^2-2N_0+1=(N_0-1)^2+N_0^2$, using
+$(N_0-1)'=1$ for $N_0-1$ prime. The form identity is
+$(2N_0-1)^2+(4N_0-1)=4N_0^2$, and $(s^2-N_0)/E_0=(4N_0^2-5N_0+1)/(4N_0-1)=N_0-1$. The rung is
+$k=(a'-b)/a=(1-N_0)/(N_0-1)=-1$.
+\end{proof}
+
+\begin{remark}[What the family shows]\label{rem:familyshows}
+This is the first explicit construction of Pythagorean pairs in this note: everything earlier
+established that they are rare \textup{(}Corollary~\ref{cor:emptytest}: none below $10^{112}$\textup{)}
+without exhibiting a mechanism. The mechanism is a clean reduction --- the pair exists as soon as the
+line $n'=2n-1$ carries a member whose predecessor is prime --- and it is Bunyakovsky--shaped, matching
+the observation in Remark~\ref{rem:lehmer} that a single square condition is of that class. It is also
+conditional in a way the barrier controls: $\sigma(N_0)=2-1/N_0$ forces $\omega(N_0)\ge58$, so the
+family is empty below the scale where the critical set of Remark~\ref{rem:minusslot} switches on.
+
+Two further consequences. First, combining with Corollary~\ref{cor:kdetermined}: for odd $N_0$ the
+pair has mixed parity with odd member $N_0$, so $k\equiv\omega(N_0)\pmod2$; since $k=-1$ here,
+\emph{any odd member of the line $n'=2n-1$ whose predecessor is prime has $\omega(N_0)$ odd} --- a
+necessary condition on that line, derived rather than observed. Second, and this is the honest
+limitation, the construction is \emph{permanently} off the cycle rung: primality of $a$ is exactly
+what makes it work and exactly what forces $a'=1\ne b$. A $k=0$ analogue would need $a$ composite with
+$a'=b$, which is the original problem. So the family exhibits the Pythagorean locus without
+approaching \#307 --- useful as the first worked mechanism, not as a route.
+\end{remark}
+
 \begin{remark}[Decoupling the two squares: what it buys, and what it costs]\label{rem:decouple}
 Remark~\ref{rem:lehmer} locates the exponential difficulty in the \emph{conjunction} of the two
 squares, so it is worth asking for a family on which one of them is free. The slot calculus supplies
