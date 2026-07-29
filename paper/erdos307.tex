@@ -2678,6 +2678,41 @@ $a'=b$, which is the original problem. So the family exhibits the Pythagorean lo
 approaching \#307 --- useful as the first worked mechanism, not as a route.
 \end{remark}
 
+\begin{proposition}[The composite mechanism: $|P|=2$ is one line and one primality]\label{prop:compositea}
+Write $a=2m$ with $m$ odd squarefree, so that $b=a'=m+2m'$ \textup{(}Theorem~\ref{thm:parity}\textup{)}.
+The two--cycle condition is then the single equation
+\[ b'\;=\;2m,\qquad b=m+2m' , \]
+in the one unknown $m$. For $m=q$ prime it reads $b=q+2$ and
+\[ \boxed{\ b'=2b-4\ }\qquad\text{with } b-2 \text{ prime}, \]
+and any such $b$ \emph{is} a solution: $a=2q$, $b=q+2$ satisfy $a'=b$, $b'=a$ and
+$\sigma(a)\sigma(b)=\bigl(\tfrac12+\tfrac1q\bigr)\bigl(2-\tfrac4{q+2}\bigr)=1$ identically. Hence
+\[ \#307\ \text{with}\ |P|=2 \iff \exists\,b \text{ squarefree}:\ b'=2b-4 \text{ and } b-2 \text{ prime}. \]
+\end{proposition}
+\begin{proof}
+$(2m)'=m+2m'$ by Leibniz, so $a'=b$ by definition of $b$, and the cycle needs only $b'=a=2m$. For
+$m=q$ prime, $b=q+2$ and $b'=2q=2(b-2)=2b-4$; the mass identity is the displayed product.
+\end{proof}
+
+\begin{remark}[Two lines, two rungs]\label{rem:twolines}
+Comparing with Proposition~\ref{prop:family} isolates exactly what separates the cycle from its
+neighbour. Both are ``a member of a slope--two line whose shifted predecessor is prime'':
+\[
+\begin{array}{lll}
+\text{line } n'=2n-1, & N_0-1 \text{ prime} & \Longrightarrow\ \text{Pythagorean pair, rung } k=-1;\\
+\text{line } n'=2n-4, & b-2 \text{ prime}   & \Longrightarrow\ \text{genuine two--cycle, rung } k=0 .
+\end{array}
+\]
+The difference between the open problem and its solved neighbour is the constant in the line. And the
+obstruction changes character with it: Proposition~\ref{prop:family} is barred from rung $0$
+\emph{structurally} --- its $a$ is prime, so $a'=1\ne b$ --- whereas Proposition~\ref{prop:compositea}
+is barred only by \emph{scale}, since $\sigma(b)=2-4/b$ forces $\omega(b)\ge58$ and $b\ge\Pi_{58}$,
+putting the whole family above $10^{108}$ and the resulting $N=2qb$ at the barrier. A direct search of
+the reduction over odd squarefree $m\le2\times10^6$ ($810{,}590$ admissible $m$, of which $111{,}464$
+prime) finds none, with nearest miss $|b'-2m|=5$ at $m=3$ (\texttt{code/composite\_a.rs}) --- exactly
+as Corollary~\ref{cor:emptytest} demands. This is the composite mechanism the rung--$0$ case requires;
+what it does not do is evade the barrier, which reappears as the mass of the line.
+\end{remark}
+
 \begin{remark}[Decoupling the two squares: what it buys, and what it costs]\label{rem:decouple}
 Remark~\ref{rem:lehmer} locates the exponential difficulty in the \emph{conjunction} of the two
 squares, so it is worth asking for a family on which one of them is free. The slot calculus supplies
