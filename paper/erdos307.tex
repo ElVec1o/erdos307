@@ -2643,6 +2643,33 @@ integral, \emph{prime} slot and deviation $k=0$.
 and the question is single--value representation, not a class count; only the degeneration $A\to0$ is
 used.)
 
+\begin{remark}[Decoupling the two squares: what it buys, and what it costs]\label{rem:decouple}
+Remark~\ref{rem:lehmer} locates the exponential difficulty in the \emph{conjunction} of the two
+squares, so it is worth asking for a family on which one of them is free. The slot calculus supplies
+one: on
+\[ \mathcal F(N_0)\;=\;\bigl\{\,N_0r\ :\ r=(s^2-N_0)/E_0\,\bigr\} \]
+the plus--square $N'+2N=s^2$ holds \emph{identically}, by construction. The minus--square then costs
+exactly the form equation of Proposition~\ref{prop:form}, $k_0s^2+E_0d^2=4N_0^2$ --- and the class of
+the residual question genuinely changes. On a coupled tail family the solutions run along a Pell
+orbit and the candidate slots grow like $\varepsilon^n$; here, for $\sigma(N_0)<2$ the form is
+positive definite, so $4N_0^2$ has only \emph{finitely} many representations and each base carries
+finitely many candidate slots. Decoupling therefore trades a Lehmer sequence for a finite
+per--base check.
+
+What it does not do is help. Over the $30{,}397$ squarefree bases $N_0\le5\times10^4$ with
+$\sigma(N_0)<2$ the form represents $4N_0^2$ exactly \emph{twice} --- at most once per base, largest
+$s=83$ --- and both representations are the ghost slot $r=1$; there is no live prime slot at all
+(\texttt{code/plus\_automatic.rs}, reproducing the sub--barrier census of
+Proposition~\ref{prop:form} from an independent enumeration). The reason is the degeneration already
+noted: the barrier forces $\sigma(N_0)\uparrow2$, so $k_0=N_0(2-\sigma)$ collapses and the form
+becomes ever more lopsided, while the target stays at $4N_0^2$. So freeing one square does not free
+the problem; it relocates the difficulty from the primality of an exponential sequence to the
+solubility of a degenerating quadratic form. The pattern is the circularity of
+Section~\ref{sec:frame} once more --- but the relocation is informative, since a finite, degenerating
+representation problem is a different kind of object from a Lehmer sequence, and no no--go here
+forbids attacking it.
+\end{remark}
+
 \begin{proposition}[A principal--genus necessary condition, and a cascade on solutions]\label{prop:genus}
 As $\gcd(N_0,N_0')=1$, the value $4N_0^2$ is a square coprime to the odd part of $\operatorname{disc}
 Q_{N_0}$, so every genus character is $+1$ on it and a primitive form represents it only from the
