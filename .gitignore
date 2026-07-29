@@ -25,3 +25,4 @@ hunt/antiholo_hunt.progress
 # scratch, logs, strategy, dead ends (never ships)
 private/
 hunt/survivor_state.txt
+code/a9prime_falsify
