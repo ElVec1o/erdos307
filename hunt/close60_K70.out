@@ -1,0 +1,9 @@
+forced 27 (2..103); pool 43 (107..349); choose 33; K=70
+  sets 2000000  plus-squares 0  hits 0  58s     sets 2000000  plus-squares 0  hits 0  58s     sets 2000000  plus-squares 0  hits 0  58s     sets 4000000  plus-squares 0  hits 0  583s     sets 4000000  plus-squares 0  hits 0  583s   
+
+=== close60 (pool ≤ first 70 primes) ===
+60-sets with T>2 examined: 4011289
+passed plus-square: 0
+BOTH-squares hits (candidate solutions): 0
+=> no level-60 solution with all primes among the first 70 (349).
+time 837s

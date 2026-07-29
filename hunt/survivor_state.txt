@@ -1,0 +1,3 @@
+next=18650
+killed=434
+open=3463
