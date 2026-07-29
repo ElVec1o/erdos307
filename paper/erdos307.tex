@@ -418,9 +418,13 @@ type as \#307 itself (expected count ${\sim}2^{58}/\Pi_{59}\approx10^{-95}$): ea
 ladder past $60$ contains the whole problem. The one case with \emph{no} free large prime --- a
 $60$--set drawn entirely from small primes --- is instead a finite search, and empty in the
 minimal range: a direct both--squares enumeration of all $60$--prime sets with $T>2$ supported in
-the first $68$ primes ($1{,}258{,}448$ sets; \texttt{hunt/close60.rs}) finds none passing even the
-plus--square, so no level--$60$ solution has all its primes $\le337$; the enumeration extends with
-compute.
+the first $70$ primes ($4{,}011{,}289$ sets; \texttt{hunt/close60.rs}) finds none passing even the
+plus--square, so no level--$60$ solution has all its primes $\le349$. (The first $68$ primes give
+$1{,}258{,}448$ sets, also empty, and reproduce independently.) By
+Corollary~\ref{cor:kdetermined} this verdict is decisive rather than provisional: at these masses a
+support passing the plus-- and minus--squares, with the parity of Proposition~\ref{prop:ladder}(2),
+\emph{is} a two--cycle, so a survivor would have been a solution and not a candidate. The
+enumeration extends with compute.
 \end{remark}
 
 \begin{proposition}[The canonical tail family is empty: a reciprocity kill]\label{prop:tailkill}
