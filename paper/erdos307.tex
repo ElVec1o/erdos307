@@ -1918,6 +1918,27 @@ identifications are Propositions~\ref{prop:pairform} and~\ref{prop:coladder}; th
 finite computation.
 \end{proof}
 
+\begin{corollary}[Diagonal stratification: the cost of the last lattice step]\label{cor:diagonals}
+Let $m(x)$ be least with $\sum_{i\le m(x)}1/p_i>x$. The diagonal $s+t=-j$ carries the barrier
+$\sigma(ab)>2-j$, hence $\omega(ab)\ge m(2-j)$ and $ab\ge\Pi_{m(2-j)}$:
+\[
+\begin{array}{llll}
+j\ge2: & \text{mass}>0, & \text{no barrier}, & ab\ge2;\\
+j=1:   & \text{mass}>1, & \omega\ge3,        & ab\ge2\cdot3\cdot5=30;\\
+j=0:   & \text{mass}>2, & \omega\ge59,       & ab\ge\Pi_{59}>8.77\times10^{112}.
+\end{array}
+\]
+The deviation plane is thus stratified by mass, one diagonal at a time, and \#307 sits on the first
+diagonal carrying a nontrivial barrier. The $j=1$ floor is \emph{attained}: the census minimum on
+that diagonal is exactly $30$, at $(a,b)=(5,6)$ and $(6,5)$ --- so the barrier is sharp one step off
+the origin. The final lattice step therefore costs
+\[ \Pi_{59}/30\;\approx\;2.9\times10^{111}, \]
+one hundred and eleven orders of magnitude for a single unit of $s+t$. This is the barrier of
+Theorem~\ref{thm:barrier} in its most compressed form: not a bound on solutions, but the price of
+the last step of an integer lattice walk, paid because the diagonal index is a mass threshold and
+the mass thresholds $1$ and $2$ sit at $3$ and $59$ primes.
+\end{corollary}
+
 \begin{remark}[The populated strata calibrate the heuristic model]\label{rem:calibration}
 The unprotected strata are the first family of \#307--type exact coincidences where the
 average--case model can be tested against exhaustive truth. Pricing the second exactness condition
