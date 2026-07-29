@@ -2313,6 +2313,23 @@ hypothesis, and the bound is within a factor $2$ of equality for $11\%$ of membe
 for $59\%$ (\texttt{code/slot\_massbound.rs}).
 \end{proof}
 
+\begin{remark}[The exact form, and a window that is real but inert]\label{rem:masswindow}
+Proposition~\ref{prop:massbound} has an exact ancestor. With $N=pm$, $p=P^+(N)$, $k=2m-m'$, Leibniz
+gives $N'=pm'+m$, so on the minus layer
+\[ d^2\;=\;N'-2N\;=\;m-pk,\qquad\text{whence}\qquad
+   \sigma(N)\;=\;2+\frac1{P^+(N)}-\frac km,\qquad k\ge1 . \]
+Since $k\ge1$ this is a \emph{two--sided} window --- the barrier supplies only the lower half:
+\[ 2\;<\;\sigma(U)\;<\;2+\frac1{\max U},\qquad\text{equivalently}\qquad \sigma\bigl(U\setminus\{\max U\}\bigr)<2, \]
+so a minus--layer support is \emph{mass--minimal}: deleting any one of its primes drops the mass below
+$2$ (the largest is the binding case). The upper half is nonetheless \emph{inert} where it can be
+tested: all $49{,}961$ admissible level--$59$ supports already satisfy it, the tightest margin being
+$1.26\times10^{-3}$, so it prunes nothing there. We record it because it is exact, because it is the
+identity behind Proposition~\ref{prop:massbound}, and because it may bind at higher levels, where the
+largest admissible prime grows. (The enumeration also reproduces the count $49{,}961$ of
+Proposition~\ref{prop:close59} independently, from a different traversal;
+\texttt{code/masswindow.rs}.)
+\end{remark}
+
 The bound has enough force to regenerate the barrier on its own.
 
 \begin{corollary}[A second, independent derivation of the barrier]\label{cor:secondbarrier}
