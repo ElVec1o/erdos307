@@ -2419,6 +2419,38 @@ mechanism. (Identity verified on all $1{,}606{,}956$ squarefree $M\le3\times10^6
 $0$ violations.)
 \end{remark}
 
+\begin{remark}[The residue condition is a mass \emph{amplifier}, not only a filter]\label{rem:amplifier}
+Sieving $f(d)=d^2+c$ by its roots makes visible a structural point that the union--side reading of
+Corollary~\ref{cor:qr} misses. A prime $\ell$ divides some value iff $-c$ is a quadratic residue
+modulo $\ell$; that removes half the primes, which is the $2^{-\omega}$ penalty the corollary
+records. But an \emph{admissible} $\ell$ has \emph{two} roots, so it divides values with density
+$2/\ell$ rather than $1/\ell$: on the primes that survive, the weight is \emph{doubled}. The two
+effects pull in opposite directions, and only the penalty has ever been counted.
+
+Measured over $d\le2\times10^6$ with $\ell\le2\times10^4$ (\texttt{code/quad\_anatomy.rs}), writing
+$\sigma_B$ for the mass carried by primes $\le B$:
+\[
+\begin{array}{lccc}
+\text{sequence} & \text{mean }\sigma_B & \Pr[\sigma_B>1] & \Pr[\sigma_B>1.5]\\[2pt]
+\text{generic }c=1009 & 0.368 & 0 & 0\\
+\text{random integers} & 0.452 & 4.2\times10^{-2} & 0\\
+\text{friendly }c=4966 & 0.656 & 4.5\times10^{-1} & 2.7\times10^{-3}
+\end{array}
+\]
+A generic $c$ is \emph{worse} than a random integer, as losing half the primes suggests. But a $c$
+whose small primes are admissible --- and $c=pk$ is at a solution's disposal, which is precisely
+what makes Corollary~\ref{cor:qr} automatic on genuine cycles --- is \emph{better}: the mean mass
+rises by a factor $1.45$, the threshold $\sigma_B>1$ becomes $10.7$ times more likely, and
+$\sigma_B>1.5$ occurs where random integers of the same size never reach it. The amplification is
+the two--root count, $\sum_{\ell\ \text{adm}}2/\ell^2$ against $\sum_\ell1/\ell^2$.
+
+This does not bear on existence: the thresholds measured are far below $2$, and by
+Remark~\ref{rem:calibration} extrapolation across that gap is exactly what this problem punishes.
+What it does is locate a structural bias in the heuristic. The residue condition that the counting
+model charges as a $2^{-59}$ penalty simultaneously doubles the weight of every surviving prime, and
+the \textsc{yes} lean of Remark~\ref{rem:killcount} has never been credited with the second half.
+\end{remark}
+
 The bound has enough force to regenerate the barrier on its own.
 
 \begin{corollary}[A second, independent derivation of the barrier]\label{cor:secondbarrier}
