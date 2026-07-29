@@ -678,7 +678,19 @@ complements Proposition~\ref{prop:nopoly}, which proves \#307 admits \emph{no} p
 parametrisation: the present Pell orbit exhibits the family that \emph{does} parametrise it, an
 exponential one. That the parametrisation is forced to be exponential is exactly why the residual
 question is Lehmer--class (primes in an exponential sequence) and not Schinzel--class (primes in a
-polynomial), which places it beyond every standard prime--density conjecture --- the sandwich that
+polynomial), which places it beyond every standard prime--density conjecture. It is worth locating
+\emph{where} that hardness enters, because neither square condition carries it alone. Imposing only
+the minus--square on the tail family, $d^2=B_Sq+D_S$, gives $q=(d^2-D_S)/B_S$; the admissible $d$
+are those with $d^2\equiv D_S\pmod{B_S}$, and along such a class $d=d_0+tB_S$ one has the identity
+\[ q(t)\;=\;\frac{d_0^2-D_S}{B_S}\;+\;2d_0\,t\;+\;B_S\,t^2, \]
+a \emph{quadratic} in $t$ with integer coefficients (verified on toy bases:
+$3+54t+173t^2$, $7+238t+1693t^2$, $2+446t+17357t^2$). So the minus--square alone asks only for
+prime values of a quadratic --- a Bunyakovsky question, of the same class as the $p=5$ family of
+Proposition~\ref{prop:plus}\textup{(iii)}, conjecturally routine. The plus--square is likewise a
+single square condition. It is their \emph{conjunction} --- the Pythagorean condition, equivalently
+the Pell system $B_Sx^2-A_Sy^2=-4D_S^2$ --- that replaces the quadratic parameter by a fundamental
+unit and turns the question exponential. The Lehmer--hardness is therefore a property of the
+\emph{pair} of conditions, not of either one: this is the sandwich that
 locates the whole difficulty. The class can be named exactly. Since $x_{n+1}=tx_n-x_{n-1}$ has
 $x_n=(\alpha^n+\beta^n)/2$ with $\alpha\beta=1$, the squares $x_n^2$ have characteristic roots
 $\alpha^2,\beta^2,1$, and the constant shift is absorbed by the root $1$: the candidate sequence
