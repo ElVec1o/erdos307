@@ -1932,6 +1932,31 @@ identifications are Propositions~\ref{prop:pairform} and~\ref{prop:coladder}; th
 finite computation.
 \end{proof}
 
+\begin{corollary}[Below mass $5/2$ the rung is not a choice but a parity]\label{cor:kdetermined}
+Let $(a,b)$, $a<b$, be a Pythagorean pair with $\sigma(ab)<5/2$. Then $k\in\{0,-1\}$, and $k$ is
+\emph{determined} by the parity of $\omega$:
+\[
+\begin{array}{ll}
+\text{exactly one member even:} & k=0\iff\omega(\text{odd member})\ \text{even};\\
+\text{both members odd:}        & k=0\iff\omega(a)\ \text{odd}.
+\end{array}
+\]
+Hence, at these masses, the single--integer test of Proposition~\ref{prop:pyth} together with one
+parity check is \emph{equivalent} to \#307, not merely necessary for it: a squarefree $N$ with
+$N'^2-4N^2=\square$ whose splitting has the stated $\omega$--parity \emph{is} a two--cycle. In
+particular the finite verifications of Proposition~\ref{prop:close59} and Remark~\ref{rem:tier60} are
+decisive in both directions --- a surviving candidate would have been a solution, not a candidate ---
+and the whole level--$59$/$60$ regime lies in this range, its masses being confined to
+$(2,\,2.00235]$, where $r=b/a\le1.0497$.
+\end{corollary}
+\begin{proof}
+$\sigma(ab)=r+1/r$ with $r=b/a>1$, and $r+1/r<5/2\iff r<2$. By
+Proposition~\ref{prop:ladder}(1), $k\le0$ and $|k|<b/a=r<2$, so $k\in\{0,-1\}$; a set of two
+consecutive integers is separated by parity, and Proposition~\ref{prop:ladder}(2) supplies that
+parity from $\omega$. The stated equivalences are the two cases of that law at $k\equiv0$. The
+mass range for $|U|\in\{59,60\}$ is Theorem~\ref{thm:barrier} and Proposition~\ref{prop:close59}.
+\end{proof}
+
 \begin{corollary}[Diagonal stratification: the cost of the last lattice step]\label{cor:diagonals}
 Let $m(x)$ be least with $\sum_{i\le m(x)}1/p_i>x$. The diagonal $s+t=-j$ carries the barrier
 $\sigma(ab)>2-j$, hence $\omega(ab)\ge m(2-j)$ and $ab\ge\Pi_{m(2-j)}$:
