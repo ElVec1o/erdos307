@@ -2549,6 +2549,29 @@ unconditional companion, from Proposition~\ref{prop:mod8}: an odd member of $N'=
 $S(N)\equiv cN+2\pmod8$.)
 \end{remark}
 
+\begin{remark}[The primality can be dropped: the missing bound is a divisibility count]\label{rem:integrality}
+The formulation above asks for a bound on how often a determined value is \emph{prime}, which is
+what places it beyond Bombieri--Vinogradov. That requirement can be removed. The slot
+$(c-m)/(m'-em)$ is an integer at all only when
+\[ (m'-em)\ \big|\ (c-m), \]
+and line members inject into the set of $m$ satisfying that divisibility, so
+\[ \#\{m\le Z:\ (m'-em)\mid(c-m)\}\ \ll\ Z^{1/2+o(1)}\quad\text{uniformly in }(e,c) \]
+already implies the square--root bound, with no prime--distribution input whatever.
+
+The substitution costs almost nothing, because integrality is where the thinness lives.
+Counting both conditions separately on the two lines whose members are known, over $m\le2\times10^7$
+(so $\log Z=16.8$): the line $n'=n-1$ has $21$ integral slots of which $16$ are prime, and
+$n'=n+1$ has $29$ of which $19$ are prime. Integrality alone is already $O(\log Z)$; primality
+removes a further factor of about $1.3$ and no more. The prime--counting requirement was carrying
+a constant, while the divisibility was carrying the whole saving.
+
+What remains is therefore a purely multiplicative question about the derivative, of the same shape
+as Proposition~\ref{prop:groupoid} but with the primality stripped out, and with roughly four orders
+of slack against the target at the ranges where the count can be observed. We record the
+substitution because it changes which literature the problem faces: divisibility counts for
+$m'-em$ rather than primes in determined classes.
+\end{remark}
+
 \begin{remark}[The two open routes are one question, asked in opposite directions]\label{rem:onequestion}
 The existence route of Remark~\ref{rem:lehmer} and the counting route of
 Remark~\ref{rem:minusslot} look unrelated (one is a search for a single solution, the other a
