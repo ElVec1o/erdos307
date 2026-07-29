@@ -2019,6 +2019,44 @@ $\mathbb{F}_q[t]$ (Theorem~\ref{thm:ff}): the function--field world separates th
 from the cycle layer, sharpening the integer obstruction to ``the archimedean order forces $k\le0$.''
 \end{proposition}
 
+The function--field immunity is more fragile than the characteristic: it is destroyed by inverting
+a single place.
+
+\begin{proposition}[Inverting one place destroys the function--field obstruction]\label{prop:ffsunit}
+Over the $S$--integers $\mathbb{F}_q[t,t^{-1}]$, whose unit group $\mathbb{F}_q^\times\cdot t^{\mathbb{Z}}$
+is infinite, unit--valued derivative two--cycles exist. Over $\mathbb{F}_3$ the smallest has degree
+$3$ and only \emph{two} prime classes:
+\[ a=t^3+t^2+1=(t-1)(t^2-t-1),\qquad b=t^3-t^2-1=(t+1)(t^2+t-1), \]
+with $D(a)=b$ and $D(b)=a$ under the assignment $(u_1,u_2)=(t,1)$ on each side --- $a,b$ coprime
+squarefree and both coprime to $t$.
+\end{proposition}
+\begin{proof}
+$D(a)=t\,(t^2-t-1)+1\cdot(t-1)=t^3-t^2-1=b$ and $D(b)=t\,(t^2+t-1)+1\cdot(t+1)=t^3+t^2+1=a$, both
+exact in $\mathbb{F}_3[t]$; the factorisations are as displayed and share no factor. The values
+$t$ and $1$ are units of $\mathbb{F}_q[t,t^{-1}]$, so this is a unit--valued Leibniz derivative in
+the sense used throughout Section~\ref{sec:ff}. Verified independently by exhaustive search and by
+direct recomputation (\texttt{hunt/ff\_twist.rs}).
+\end{proof}
+
+\begin{remark}[What the function--field theorem is really about]\label{rem:ffplaces}
+Proposition~\ref{prop:ff-pyth} is a \emph{degree} argument: with $\pi'=1$ one has
+$\deg D(a)\le\deg a-1$, so $D(a)=b$, $D(b)=a$ forces $\deg b\le\deg b-2$. Sign twists cannot
+disturb it, because $\mathbb{F}_q^\times$ consists of constants and degree is blind to them ---
+exactly as, over $\mathbb{Z}$, twisting by $\pm1$ retains the full barrier
+(Remark~\ref{rem:ordered}). But allowing the values $t^{k}$, units once $t$ is inverted, makes
+$\deg D(a)\le\deg a-1+K$, and the two--cycle inequalities collapse to $0\le2K-2$: the obstruction
+is vacuous from $K=1$, and cycles duly appear at once. A census over $\mathbb{F}_3$ confirms both
+halves: at $K=0$ the count is $0$ at every degree tested, and at $K=1,2$ it is
+$4,16$ / $4,48$ / $12,122$ for degrees $\le4,5,6$.
+The moral sharpens Section~\ref{sec:ff}'s thesis rather than softening it. What immunises
+$\mathbb{F}_q[t]$ is not the characteristic, nor the finiteness of its unit group --- cycles exist
+over $\mathbb{Z}[\sqrt{-2}]$, whose unit group has order $2$ --- but the presence of a
+\emph{single} distinguished place carrying a degree function that the derivative strictly lowers.
+Adjoining a second place destroys it. This is the exact structural analogue of the claim made for
+$\mathbb{Z}$: one archimedean place, one mass function the derivative must respect, and a barrier
+that survives every twist available in the ring.
+\end{remark}
+
 \begin{proposition}[Deviation calculus for $k$--cycles]\label{prop:kdev}
 For pairwise coprime squarefree $a_1,\dots,a_k$ with product $N$ and deviations
 $\kappa_i=(a_i'-a_{i+1})/a_i$ (indices mod $k$): the ratios $a_{i+1}/a_i$ have product $1$
