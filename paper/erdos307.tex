@@ -2330,6 +2330,23 @@ unconditional companion, from Proposition~\ref{prop:mod8}: an odd member of $N'=
 $S(N)\equiv cN+2\pmod8$.)
 \end{remark}
 
+\begin{remark}[The two open routes are one question, asked in opposite directions]\label{rem:onequestion}
+The existence route of Remark~\ref{rem:lehmer} and the counting route of
+Remark~\ref{rem:minusslot} look unrelated --- one is a search for a single solution, the other a
+density estimate --- but they are the same question about the same kind of object. In each case an
+index determines a single integer, and everything turns on whether that integer is prime: in
+Remark~\ref{rem:lehmer} the Pell index $n$ determines $q_n=(x_n^2-D_S)/A_S$, a term of a ternary
+linear recurrence, and \#307 needs it prime \emph{once}; in Remark~\ref{rem:minusslot} the cofactor
+$m$ determines the slot $(c-am)/(m'-em)$ of Proposition~\ref{prop:groupoid}, and the density needs
+it prime \emph{rarely}. Existence asks for a lower bound on the number of prime values, density for
+an upper bound, on determined values along a thin deterministic sequence --- and neither estimate is
+available: no unconditional infinitude of prime terms is known for any non--degenerate linear
+recurrence of order $\ge2$, and no worst--case upper bound is known for single--class prime counts
+summed over all moduli. \#307 sits exactly between two missing estimates on one object, which is why
+the heuristics can be read either way and why progress on either side would be informative about the
+other. The remaining walls are, in this sense, one wall seen from two directions.
+\end{remark}
+
 \begin{corollary}[Quadratic--residue filter for \#307 solutions]\label{cor:qr}
 Let $(P,Q)$ solve Erd\H{o}s~\#307 and set $a=D_P$, $b=D_Q$, $N=ab$. Since $N'=a^2+b^2$ and
 hence $N'+2N=(a+b)^2$ automatically, every prime $\ell\in P\cup Q$ satisfies $(N/\ell\mid\ell)=+1$:
