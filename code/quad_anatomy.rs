@@ -61,8 +61,9 @@ fn main() {
             let target = ((p - (c % p)) % p) as u64;
             let r = match sqrt_mod(target, p) { Some(r) => r, None => continue };
             admissible += 1;
+            // roots of x^2 = t (mod p): t=0 -> {0}; p=2 -> one root; else {r, p-r}
             let mut roots: Vec<u64> = vec![r];
-            if p - r != r { roots.push(p - r); }          // dedupe r == p-r (p=2, and r=0)
+            if r != 0 && p != 2 && p - r != r { roots.push(p - r); }
             for r0 in roots {
                 let mut d = r0 as usize;
                 if d == 0 { d = p as usize; }
