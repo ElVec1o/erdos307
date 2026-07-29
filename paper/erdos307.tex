@@ -2713,6 +2713,51 @@ as Corollary~\ref{cor:emptytest} demands. This is the composite mechanism the ru
 what it does not do is evade the barrier, which reappears as the mass of the line.
 \end{remark}
 
+\begin{proposition}[The barrier is a function of the split]\label{prop:sectorbarrier}
+For a solution with $|P|=j$ write $a=\prod P$, $b=\prod Q$. Since $\sigma(a)\sigma(b)=1$ and
+$P\cap Q=\varnothing$, fixing $j$ forces $\sigma(b)=1/\sigma(a)$ and leaves $Q$ only the odd primes
+outside $P$, which bounds $N$ from below split by split. Taking $a=2\cdot(\text{the }j-1\text{
+smallest odd primes})$, the most favourable configuration at that size:
+\[
+\begin{array}{r|cccc}
+|P| & \sigma(a) & \sigma(b) & |Q|\ge & \log_{10}N\ge\\\hline
+2 & 0.8333 & 1.2000 & 67 & 137.9\\
+3 & 1.0333 & 0.9677 & 56 & 112.9\\
+4 & 1.1762 & 0.8502 & 63 & 132.8\\
+5 & 1.2671 & 0.7892 & 73 & 161.0\\
+6 & 1.3440 & 0.7440 & 85 & 195.3\\
+12 & 1.5927 & 0.6279 & 181 & 491.1
+\end{array}
+\]
+The minimum over splits is $10^{112.9}$ at $|P|=3$, recovering the constant of
+Theorem~\ref{thm:barrier} by an independent route --- and every other split is strictly dearer.
+\end{proposition}
+\begin{proof}
+$\sigma(b)=1/\sigma(a)$ is the cross--match. $Q$ is disjoint from $P$, so its mass must be assembled
+from odd primes outside $P$; the least number of them reaching $\sigma(b)$, and the product of that
+many, are finite computations (\texttt{code/sector\_barrier.rs}). Enlarging any prime of $a$ lowers
+$\sigma(a)$, raises $\sigma(b)$ and hence $|Q|$, so the displayed configuration is extremal for each
+$j$.
+\end{proof}
+
+\begin{remark}[Why the composite mechanism is out of reach]\label{rem:sectorcost}
+Proposition~\ref{prop:sectorbarrier} settles the standing of the clean reduction of
+Proposition~\ref{prop:compositea}. There $|P|=2$, and the mechanism is forced through the dearest
+small sector: $b$ is odd, so $Q$ must assemble mass $\sigma(b)=2q/(q+2)$ from odd primes alone, and
+the sector cannot begin below $10^{137.9}$ --- some twenty--five orders of magnitude \emph{above} the
+general barrier $10^{112.9}$. The line $n'=2n-4$ is therefore a correct and complete description of
+the $|P|=2$ case and simultaneously the most expensive place to look.
+
+This also explains the balance the barrier strikes. The cheapest configuration is the near--balanced
+one, $\sigma(a)\approx\sigma(b)\approx1$ at $|P|=3$; pushing the split either way --- towards a small
+$P$ with $\sigma(b)\to2$, or towards a large $P$ with $\sigma(b)\to0$ --- costs orders rapidly, because
+mass near $2$ needs the odd primes to $\approx10^4$ and mass near $0$ needs many large ones. The
+$59$--prime barrier is thus not merely a statement about $|P\cup Q|$ but the \emph{minimum of a
+convex profile over splits}, and Theorem~\ref{thm:barrier}'s constant is the value at that minimum.
+(Rows with $|P|+|Q|<60$ are further excluded by Proposition~\ref{prop:close59}, which sharpens the
+$|P|=3$ entry without moving the minimum's location.)
+\end{remark}
+
 \begin{remark}[Decoupling the two squares: what it buys, and what it costs]\label{rem:decouple}
 Remark~\ref{rem:lehmer} locates the exponential difficulty in the \emph{conjunction} of the two
 squares, so it is worth asking for a family on which one of them is free. The slot calculus supplies
