@@ -2237,7 +2237,26 @@ $\sigma(M)\in[2-1/y,2+1/y)$ --- exactly the low slope--two lines $M'-2M=\pm k$, 
 thin by Proposition~\ref{prop:lines}, but at a degenerate modulus the $d$--freedom is
 $\sqrt X$--sized, and summing the uniform bound does not close the layer. What would:
 \emph{square--root bounds on slope--two lines}, $\#\{M\le Z:M'-2M=\pm k\}\ll Z^{1/2+o(1)}$
-uniformly in $k$ --- the minus--side analogue of the plus side's Titchmarsh question. By
+uniformly in $k$. There is a second, sharper route to that bound, obtained by abandoning the
+prime--indexed decomposition altogether. Split $M=uv$ by \emph{size} rather than by largest prime,
+$u$ the coprime divisor nearest $\sqrt M$; Leibniz gives the exact bilinearisation
+\[ M'-2M\;=\;v\,\delta(u)+u\,\delta(v),\qquad \delta(n)=n'-n, \]
+so a slope--two line becomes a bilinear equation in $(u,v)$ with both variables of comparable size
+--- and, for fixed $u$, the exact line $u\,v'-(2u-u')\,v=c$, i.e.\ $v\in L\bigl(u,\,2u-u',\,c\bigr)$
+in the notation of Proposition~\ref{prop:groupoid}. Writing $N(u)$ for the number of $v$ on that
+line in the balanced window $v\asymp M/u$,
+\[ \#\{M\le Z\ \text{on the line}\}\;\le\;\sum_{u\le Z^{1/2}}N(u), \]
+so the missing square--root bound follows from $N(u)\ll Z^{o(1)}$ on average --- a
+\emph{short--window line--multiplicity} hypothesis. This is a strictly sharper target than the
+one--class--per--cofactor count: the summation length drops from $Z$ cofactors to $Z^{1/2}$ balanced
+divisors (empirically $Z^{0.43}$, the median of $\log u/\log M$ over nearest--to--$\sqrt M$ coprime
+splits being $0.432$), and the surviving object is bilinear in a short window --- the shape on which
+dispersion and Fouvry--Iwaniec methods operate, rather than a worst--case single--class count. The
+measured multiplicity is exactly $1$ (mean $1.00$, no sampled line carrying two solutions), so the
+hypothesis is not merely plausible but numerically flat; proving it, however, runs back into the
+determined slot, since $L(u,2u-u',c)$ is itself a groupoid object. All identities verified
+exhaustively on the $591{,}423$ squarefree $M\le10^6$, in exact rationals for the line form
+(\texttt{code/bilinear\_balanced.py}). By
 Proposition~\ref{prop:lineanatomy}(a) that missing bound is a \emph{one--class--per--cofactor}
 prime count: a line member is $M=pm$ with $p$ prime in a single determined class modulo its own
 cofactor $m$, so the count is $\sum_m\#\{p\le Z/m:p\equiv\alpha_c(m)\ (\mathrm{mod}\ m)\}$, and the
