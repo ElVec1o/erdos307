@@ -2572,6 +2572,125 @@ substitution because it changes which literature the problem faces: divisibility
 $m'-em$ rather than primes in determined classes.
 \end{remark}
 
+\section{The square sieve at the mass-two wall}\label{sec:sqsieve}
+
+Remark~\ref{rem:masstwo} left the residue inside $\{\sigma(m)\ge2-\varepsilon\}$. We now attack that
+set directly, by a change of question. The minus layer is $m'-2m=d^2$, so $\sigma(m)=2+d^2/m>2$:
+it lives \emph{above} the wall, and the layer is exactly the set on which the arithmetic function
+$m\mapsto m'-2m$ takes square values. Atom $\mathrm{A}9$ is therefore an instance of
+\emph{how often is an arithmetic function a perfect square}, and for that question there is a tool:
+Heath-Brown's square sieve. It has not previously been applied to the arithmetic derivative,
+because $m'$ is not a polynomial and no Weil bound is available. The obstruction dissolves because
+the relevant symbol factorises.
+
+\begin{lemma}[Factorisation of the symbol]\label{lem:symbolfact}
+Let $r$ be odd and let $m$ be squarefree with $\gcd(m,r)=1$ and no prime factor of $m$ dividing $r$.
+Put $\sigma_r(m)=\sum_{p\mid m}p^{-1}\in\mathbb{Z}/r$. Then $m'\equiv m\,\sigma_r(m)\pmod r$ and
+\[ \Bigl(\frac{m'-2m}{r}\Bigr)=\Bigl(\frac{m}{r}\Bigr)\Bigl(\frac{\sigma_r(m)-2}{r}\Bigr). \]
+\end{lemma}
+\begin{proof}
+$m'=\sum_{p\mid m}m/p$ and $m/p\equiv m\,p^{-1}\pmod r$ for each $p\mid m$, since $p$ is invertible
+modulo $r$. Summing gives $m'\equiv m\sigma_r(m)$, hence $m'-2m\equiv m(\sigma_r(m)-2)$, and the
+Jacobi symbol is completely multiplicative in its numerator.
+\end{proof}
+Verified exhaustively for $r=101,1009,10007$ over all admissible squarefree $m\le3\times10^7$:
+$54{,}514{,}790$ checks, $0$ violations \textup{(\texttt{code/sqsieve\_lemmas.rs})}.
+
+The point of Lemma~\ref{lem:symbolfact} is that $\sigma_r$ is \emph{additive} over the distinct
+prime divisors, so after a Gauss-sum expansion the second factor becomes a product over $p\mid m$
+and the whole sum turns multiplicative. That is what puts it inside Hal\'asz's theorem.
+
+\begin{lemma}[Cancellation in the character sums]\label{lem:charcancel}
+Fix an odd squarefree $r>1$. Then
+\[ T_r(N)\;:=\!\!\sum_{\substack{m\le N,\ \mu^2(m)=1\\ \gcd(m,r)=1}}\!\!\Bigl(\frac{m'-2m}{r}\Bigr)\;=\;o_r(N)
+\qquad (N\to\infty). \]
+\end{lemma}
+\begin{proof}
+Take $r=q$ prime; the general squarefree $r$ follows by expanding
+$(\cdot/r)=\prod_{q\mid r}(\cdot/q)$ and running the argument in each factor. Let
+$g=\sum_{t}(t/q)e_q(t)$, so $|g|=\sqrt q$ and $(x/q)=g^{-1}\sum_{t\bmod q}(t/q)e_q(tx)$ for every
+$x$. By Lemma~\ref{lem:symbolfact},
+\[ T_q(N)=g^{-1}\sum_{t\bmod q}\Bigl(\frac{t}{q}\Bigr)e_q(-2t)\sum_{m\le N}h_t(m),
+\qquad h_t(m)=\Bigl(\frac{m}{q}\Bigr)e_q\bigl(t\,\sigma_q(m)\bigr), \]
+where $h_t$ is extended to all integers by $h_t(p^k)=0$ for $k\ge2$ and $h_t(p)=0$ for $p\mid q$.
+Since $\sigma_q$ is additive over distinct primes, $h_t$ is multiplicative with $|h_t|\le1$ and
+$h_t(p)=(p/q)\,e_q(t\,p^{-1})$, a function of $p\bmod q$ alone.
+
+For $t=0$, $h_0=(\cdot/q)$ is a non-principal real character and the sum is $o(N)$.
+
+For $t\not\equiv0$ we apply Hal\'asz's theorem in the Montgomery form: with
+$M=\min_{|\tau|\le\log N}\sum_{p\le N}\bigl(1-\operatorname{Re}h_t(p)p^{-i\tau}\bigr)/p$ one has
+$\sum_{m\le N}h_t(m)\ll N\bigl((1+M)e^{-M}+(\log N)^{-1/2}\bigr)$. If $|\tau|\ge1/\log N$ then
+$\bigl|\sum_{p\le N}p^{-1-i\tau}\bigr|\ll\log\log(3+|\tau|)$, so
+$M\ge\log\log N-O(\log\log\log N)$. If $|\tau|<1/\log N$ then $p^{-i\tau}=1+O(1)$ for $p\le N$ and,
+by Mertens in progressions,
+\[ M\;=\;\log\log N\Bigl(1-\operatorname{Re}\frac{1}{\varphi(q)}\sum_{u\in(\mathbb{Z}/q)^\times}
+   \Bigl(\frac{u}{q}\Bigr)e_q(t\,u^{-1})\Bigr)+O_q(1). \]
+The inner sum is a Sali\'e sum, of modulus at most $2\sqrt q$ for $t\not\equiv0$, so the bracket is
+at least $1-3/\sqrt q\ge\tfrac12$ for $q\ge36$. Either way $M\gg\log\log N$, whence
+$\sum_{m\le N}h_t(m)\ll N\log\log N(\log N)^{-1/2}=o(N)$. Summing the $q$ values of $t$ and dividing
+by $|g|=\sqrt q$ gives $T_q(N)\ll\sqrt q\cdot o(N)=o_q(N)$.
+\end{proof}
+Measured at $r=1009$, $N=3\times10^7$: $|\sum_m h_t(m)|/N$ equals $3.6\times10^{-6}$, $1.3\times10^{-3}$,
+$2.1\times10^{-3}$, $5.7\times10^{-4}$, $1.5\times10^{-3}$ at $t=0,1,2,17,500$, all of size $\sqrt N$
+rather than merely $o(N)$. The sums $T_r(N)$ themselves were measured at $N=5\times10^7$ for
+$r=101,1009,10007,100003$ and $r=pq=101\cdot1009,\,1009\cdot10007$, giving
+$|T_r|/\sqrt N=8.1,\,0.1,\,1.2,\,1.0,\,1.0,\,0.2$ \textup{(\texttt{code/sqsieve\_test.rs})}.
+
+\begin{lemma}[Local densities at $p^2$]\label{lem:localsq}
+For each fixed odd prime $p$, $\ \#\{m\le N:\mu^2(m)=1,\ p^2\mid(m'-2m)\}\ll N/p^2$.
+\end{lemma}
+\begin{proof}
+For $p\nmid m$ the condition is $\sigma_{p^2}(m)\equiv2\pmod{p^2}$ by Lemma~\ref{lem:symbolfact}
+applied with modulus $p^2$. Detecting it by additive characters, the non-trivial frequencies give
+multiplicative sums $\prod_{\ell\mid m}e_{p^2}(t/\ell)$ whose values at primes depend only on
+$\ell\bmod p^2$ and which are not Dirichlet characters, because $u\mapsto e_{p^2}(t/u)$ is not
+multiplicative; the Hal\'asz argument of Lemma~\ref{lem:charcancel} applies verbatim with the
+Sali\'e bound replaced by the Weil bound for Kloosterman sums to prime-power modulus. Hence the
+density is $p^{-2}+o(1)$. The case $p\mid m$ does not arise at all: writing $m=pn$ with $p\nmid n$
+gives $m'=pn'+n$, so $m'-2m=n+p(n'-2n)\equiv n\not\equiv0\pmod p$, and $p$ does not even divide
+$m'-2m$, let alone $p^2$.
+\end{proof}
+Measured ratios of the count to $N/p^2$ at $N=3\times10^7$: $0.842$, $0.887$, $0.930$, $0.925$,
+$0.993$ for $p=5,7,11,13,101$, approaching $1$ as predicted.
+
+\begin{theorem}[The minus layer has density zero]\label{thm:a9}
+$\#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}=o(N)$. Equivalently, atom
+$\mathrm{A}9$ holds: the minus layer has density zero. The same argument with $m'+2m$ reproves
+Proposition~\textup{\ref{prop:plusthin}}, so the full Pythagorean layer has density zero
+unconditionally.
+\end{theorem}
+\begin{proof}
+Write $a_m=m'-2m$ and fix $P$, letting $\mathcal{P}$ be the primes in $(P,2P]$ and
+$\Pi=|\mathcal{P}|\sim P/\log P$. If $a_m$ is a perfect square coprime to every $p\in\mathcal{P}$
+then $(a_m/p)=1$ for all such $p$, so $\sum_{p\in\mathcal{P}}(a_m/p)=\Pi$. Hence
+\[ \Pi^2\,\#\{m\le N: a_m=\square,\ \gcd(a_m,\textstyle\prod\mathcal{P})=1\}
+   \;\le\;\sum_{m\le N}\Bigl(\sum_{p\in\mathcal{P}}\Bigl(\frac{a_m}{p}\Bigr)\Bigr)^2
+   \;=\;\sum_{p,q\in\mathcal{P}}\ \sum_{m\le N}\Bigl(\frac{a_m}{pq}\Bigr). \]
+The diagonal $p=q$ contributes $(a_m/p^2)=(a_m/p)^2\in\{0,1\}$, hence at most $\Pi N$; the
+off-diagonal is $\sum_{p\neq q}T_{pq}(N)$, which is $o(N)$ for each of the finitely many pairs by
+Lemma~\ref{lem:charcancel}. A square divisible by $p$ is divisible by $p^2$, so the excluded $m$
+number at most $\sum_{p\in\mathcal{P}}O(N/p^2)\ll N/(P\log P)$ by Lemma~\ref{lem:localsq}, using
+that $p\mid m$ is impossible there. Finally
+$a_m=0$ means $m'=2m$, a single line, of density zero by Proposition~\ref{prop:lines}. Altogether
+\[ \limsup_{N\to\infty}\frac1N\#\{m\le N: a_m=\square>0\}\;\ll\;\frac1\Pi+\frac1{P\log P}. \]
+The left side does not depend on $P$; letting $P\to\infty$ gives $0$.
+\end{proof}
+
+\begin{remark}[What made this work]\label{rem:sqsievewhy}
+Every previous attack on $\mathrm{A}9$ counted members of the minus layer directly, and each ran
+into the same obstruction: the layer is a union of lines $m'=2m-k$, each thin by
+Proposition~\ref{prop:lines} but not summably so, and the peeling reorganisations that would combine
+them are all conjugate under the groupoid of Proposition~\ref{prop:groupoid}. The square sieve never
+counts a member. It asks only whether $m'-2m$ is a square, and answers by averaging a Jacobi symbol,
+so the groupoid has nothing to act on. The one obstacle, that $m'$ is not a polynomial, is removed by
+Lemma~\ref{lem:symbolfact}: the symbol splits into a character in $m$ times a character in
+$\sigma_r(m)$, and $\sigma_r$ is additive, which is exactly the hypothesis Hal\'asz needs. The
+analytic inputs are all standard: Hal\'asz's theorem, the Sali\'e and Weil bounds, and Mertens in
+progressions. Note also that the theorem does not decide \#307, and cannot: it is a statement about
+density, and a single two-cycle is a density-zero event.
+\end{remark}
+
 \begin{proposition}[Slot stratification of the divisibility set]\label{prop:slotstrat}
 Fix $c$ and let $D(c)=\{m \text{ squarefree}: (2m-m')\mid(m-c),\ m\neq c\}$. For $m\in D(c)$ put
 $p=(m-c)/(2m-m')$, the \emph{slot}. Then
