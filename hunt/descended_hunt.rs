@@ -17,14 +17,17 @@
 //   defaults: 4 6 3 600 9 12 0  (ω 4..6, odd primes in [3,600], product in [1e9, 1e12])
 //
 // PERSISTENCE (all three, verified):
-//   * PROGRESS + ETA — every ~4s to stderr and to descended_hunt.progress. The outer loop is over
-//     the SMALLEST prime of the support, so completion fraction is outer/pool. That ordering is
-//     front-loaded (small first primes carry the biggest subtrees), so the ETA is an OVER-estimate
-//     early on and falls as it runs. Treat it as an upper bound, not a schedule.
+//   * PROGRESS + ETA — every ~4s to stderr and to descended_hunt.progress. The outer unit is the
+//     PAIR (i0,i1) of the two smallest primes of the support, so completion fraction is
+//     pair/npairs. Pair ordering is front-loaded (small primes carry the biggest subtrees), so
+//     the ETA is an OVER-estimate early on and falls as it runs: an upper bound, not a schedule.
+//     NOTE the outer unit was originally i0 alone; with a 108-prime pool that made the first unit
+//     a >12h block, so a crash inside it lost the whole run. Pairs give ~n^2/2 units (minutes
+//     each), which is what makes the resume below actually useful.
 //   * INTERIM SAVE — descended_hunt.progress is rewritten every ~4s with a unix timestamp, the
-//     running counts, and `resume_from <i>`. Safe to read at any moment; safe to lose.
+//     running counts, and `resume_from <pair>`. Safe to read at any moment; safe to lose.
 //   * RESUME — pass the `resume_from` value back as the 7th argument to restart mid-sweep;
-//     it re-runs the outer index that was in flight, so no support is skipped.
+//     it re-runs the pair that was in flight, so no support is skipped.
 // Hits are appended to descended_hunt.out as they are found (never truncated), so a crash or a
 // kill loses only the sweep position, never a result.
 // A HIT is a genuine descended 2-cycle — the first known, if it exists.
@@ -205,7 +208,7 @@ fn main() {
                 let el = start.elapsed().as_secs_f64();
                 let frac = (i0 as f64 + 1.0) / (npool as f64).max(1.0);
                 let eta = if frac > 1e-9 { (el / frac - el).max(0.0) } else { 0.0 };
-                eprint!("\r  outer {}/{}  tested {}  valid-m' {}  hits {}  {:.0}s  ETA<~{}  ({:.0}/s)   ",
+                eprint!("\r  pair {}/{}  tested {}  valid-m' {}  hits {}  {:.0}s  ETA<~{}  ({:.0}/s)   ",
                         i0 + 1, npool, tested, cand_valid, hits, el, hms(eta), *tested as f64 / el.max(1e-9));
                 let _ = std::io::stderr().flush();
                 *last = Instant::now();
@@ -213,7 +216,7 @@ fn main() {
                 let ts = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)
                     .map(|d| d.as_secs()).unwrap_or(0);
                 if let Ok(mut f) = OpenOptions::new().create(true).write(true).truncate(true).open("descended_hunt.progress") {
-                    let _ = writeln!(f, "unix {} outer {}/{} tested {} valid-m' {} hits {} elapsed {:.0}s eta_upper {} resume_from {}",
+                    let _ = writeln!(f, "unix {} pair {}/{} tested {} valid-m' {} hits {} elapsed {:.0}s eta_upper {} resume_from {}",
                                      ts, i0 + 1, npool, tested, cand_valid, hits, el, hms(eta), i0);
                 }
             }
@@ -234,14 +237,33 @@ fn main() {
     let npool = pool.len();
     let resume_from = g(7, 0) as usize;
     if resume_from > 0 {
-        eprintln!("resuming from outer index {} of {}", resume_from, npool);
+        eprintln!("resuming from pair index {}", resume_from);
     }
-    for i0 in resume_from..npool {
+    // Outer unit is the PAIR (i0,i1) of the two smallest primes, not i0 alone: with 108 primes
+    // the first index alone is a >12h unit, so a crash inside it loses everything. Pairs give
+    // ~n^2/2 checkpoints, i.e. minutes per unit. `resume_from` is the linear pair index.
+    let mut npairs = 0usize;
+    for i0 in 0..npool {
         if (pool[i0] as u128) > hi { break; }
-        let mut chosen = vec![i0];
-        dfs(&pool, &valcache, &is3, lo, hi, omega_min, omega_max, i0 + 1, &mut chosen,
-            pool[i0] as u128, if is3[i0] { 1 } else { 0 },
-            &mut tested, &mut cand_valid, &mut hits, &start, &mut last, i0, npool);
+        for i1 in (i0 + 1)..npool {
+            if (pool[i0] as u128).saturating_mul(pool[i1] as u128) > hi { break; }
+            npairs += 1;
+        }
+    }
+    let mut pair = 0usize;
+    'outer: for i0 in 0..npool {
+        if (pool[i0] as u128) > hi { break; }
+        for i1 in (i0 + 1)..npool {
+            let prod2 = (pool[i0] as u128).saturating_mul(pool[i1] as u128);
+            if prod2 > hi { break; }
+            if pair < resume_from { pair += 1; continue; }
+            let mut chosen = vec![i0, i1];
+            dfs(&pool, &valcache, &is3, lo, hi, omega_min, omega_max, i1 + 1, &mut chosen,
+                prod2, (if is3[i0] { 1 } else { 0 }) + (if is3[i1] { 1 } else { 0 }),
+                &mut tested, &mut cand_valid, &mut hits, &start, &mut last, pair, npairs);
+            pair += 1;
+            if pair >= npairs { break 'outer; }
+        }
     }
     // final flush of the status file so a completed run is distinguishable from a killed one
     {
@@ -249,8 +271,8 @@ fn main() {
         let ts = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)
             .map(|d| d.as_secs()).unwrap_or(0);
         if let Ok(mut f) = OpenOptions::new().create(true).write(true).truncate(true).open("descended_hunt.progress") {
-            let _ = writeln!(f, "unix {} outer {}/{} tested {} valid-m' {} hits {} elapsed {:.0}s eta_upper 0s resume_from {} STATUS COMPLETE",
-                             ts, npool, npool, tested, cand_valid, hits, el, npool);
+            let _ = writeln!(f, "unix {} pair {}/{} tested {} valid-m' {} hits {} elapsed {:.0}s eta_upper 0s resume_from {} STATUS COMPLETE",
+                             ts, npairs, npairs, tested, cand_valid, hits, el, npairs);
         }
     }
 
