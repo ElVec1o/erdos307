@@ -457,11 +457,17 @@ not a want of effort: each is Baillie--PSW \emph{composite} yet has no prime fac
 10^{12}$, so its $A_S$ (or $B_S$) is a \emph{balanced} semiprime of two ${\sim}57$--digit primes ---
 splitting one is factoring at cryptographic scale. Two cheap tests confirm no shortcut survives:
 a product--tree batch--GCD over all $37{,}484$ values $A_S,B_S$ finds only shared primes below
-$10^9$ (already found by $\rho$, so \emph{no} free kills), and Baillie--PSW primality leaves exactly
-$34$ families with both $A_S,B_S$ prime --- these are \emph{provably immune} (a prime $A_S$ with
-$(D_S\mid A_S)=+1$ has no inert factor, so no congruence obstruction for any $q$). A complete
-kill/immune split of the residual is therefore beyond feasible computation; the honest state of the
-single--tail sector is \emph{$46{,}483$ empty, $34$ provably immune, $3{,}478$ factoring--hard}.
+$10^9$ (already found by $\rho$, so \emph{no} free kills), and Baillie--PSW leaves exactly
+$34$ families in which $A_S$ and $B_S$ are both \emph{probable} primes --- these are immune
+\emph{conditionally on that primality} (a prime $A_S$ with $(D_S\mid A_S)=+1$ has no inert factor,
+hence no congruence obstruction for any $q$). The conditionality is not pedantry and not
+removable by more of the same computation: Baillie--PSW is rigorous only in its \emph{composite}
+verdicts, so the $46{,}483$ kills are unconditional while the $34$ immunities are not. Upgrading them
+would require primality \emph{certificates} for thirty-four $114$--digit integers --- ECPP or a
+Pocklington factorisation of $A_S-1$ --- which is feasible but has not been done here; we therefore
+grade them \textup{[C]}. A complete kill/immune split of the residual is in any case beyond feasible
+computation, and the honest state of the single--tail sector is \emph{$46{,}483$ empty
+\textup{[P]}, $34$ conditionally immune \textup{[C]}, $3{,}478$ factoring--hard}.
 \end{proof}
 
 \begin{proposition}[Sector decomposition of level $60$]\label{prop:sectors}
@@ -610,7 +616,9 @@ $114$--digit immune base: local density $1$ at every tested prime, partial sums 
 bound). Hence the campaign of Remark~\ref{rem:campaign} is a Selberg--sieve evaluation of the
 singular series: the kills remove ${\sim}93\%$ of the count's mass, and the residual
 $\log$--divergence --- the entire ``weakly favours \textsc{yes}'' signal --- is carried by the $34$
-provably immune families together with the pair sector. This does not touch the reliability of the
+conditionally immune families together with the pair sector. (Conditionally, because their immunity
+rests on the Baillie--PSW primality of $A_S,B_S$; the pair sector's contribution, by contrast, is
+unconditional, being a theorem, Proposition~\ref{prop:pairlocal}.) This does not touch the reliability of the
 count (which ignores the $N(r)\le1$ rigidity), but it pins down \emph{where} the heuristic's
 \textsc{yes} lives.
 \end{remark}
