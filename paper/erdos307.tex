@@ -2797,9 +2797,52 @@ The frontier reported above is therefore superseded as a record and unchanged as
 
 The situation is not the usual one. Heuristics of Bateman--Horn or Hardy--Littlewood
 type are normally checked against data, and the agreement is what justifies confidence in them. Here
-the prediction that solutions exist rests on a constant that no computation can estimate, even in
-principle, because the barrier and the sampleable range are disjoint. The expected-count heuristic
-for \#307 is therefore not merely unproved but uncalibrated.
+the prediction that solutions exist rests on a constant that cannot be estimated by sampling,
+because the barrier and the sampleable range are disjoint. The expected-count heuristic for \#307 is
+therefore unverifiable in the usual way.
+
+It is not, however, beyond computation, and the reason is that the constant is the barrier.
+
+\begin{proposition}[The heuristic constant is the barrier's own probability]\label{prop:f1}
+Model a random squarefree $a$ by $\mathbb{P}(p\mid a)=1/(p+1)$, and $a'$ by the coprimality model
+that Proposition~\textup{\ref{prop:anticorr}} validates, so that $\mathbb{P}(q\mid a')=1/q$ for
+$q\nmid a$. Then each prime independently lies in $a$, in $a'$, or in neither, with probabilities
+$\tfrac1{p+1},\tfrac1{p+1},1-\tfrac2{p+1}$, and
+\[ \sigma(a)+\sigma(a')=\sum_{p\,\mid\,aa'}\frac1p,\qquad \mathbb{P}(p\mid aa')=\frac2{p+1}. \]
+Since a two-cycle forces $\sigma(a)\sigma(a')=1$ and hence $\sigma(a)+\sigma(a')\ge2$ by
+\textup{AM--GM}, the density $f$ of $r=\sigma(a)\sigma(a')$ is supported in the event
+$B:\sigma(a)+\sigma(a')\ge2$, so $f(1)\le C\,\mathbb{P}(B)$ with $C$ the conditional density of $r$
+at $1$ given $B$. Numerically
+\[ \mathbb{P}(B)=2.74\times10^{-90}. \]
+\end{proposition}
+
+The point is the order and not the digits. $\mathbb{P}(B)$ is a \emph{tail} probability of a
+one-dimensional sum, not a density, which is what makes it stable: it moves from $4.09$ to $3.01$ to
+$2.74\times10^{-90}$ as the grid is refined from $2\times10^4$ to $8\times10^4$ bins and the prime
+range from $10^4$ to $10^6$, while a direct attempt at $f(1)$ on a two-dimensional grid moves by four
+orders of magnitude per refinement and converges to nothing. Two checks support it. The same
+computation with $\mathbb{P}(p\mid n)=1/p$ returns $\mathbb{P}(\sigma(n)\ge1)=0.0420$, reproducing
+the measured density of prime-abundant integers to four places; and the single configuration in which
+$aa'$ absorbs exactly the first $59$ primes has probability $\prod_{p\le277}2/(p+1)=10^{-96.0}$,
+below $\mathbb{P}(B)$ by the factor one expects from the many other prime sets of mass $2$
+\textup{(\texttt{code/barrier\_probability.rs})}.
+
+\begin{remark}[What the calibrated heuristic says, and it is not encouraging]\label{rem:calibrated}
+With $\mathbb{E}(X)\sim f(1)\,\delta\log X$ and $\delta=0.3721$, Proposition~\ref{prop:f1} gives an
+expected number of two-cycles below the proved barrier of about $10^{-88}$, and $\mathbb{E}(X)$ does
+not reach $1$ until $X$ is of order $10^{4\times10^{89}}$. So the heuristic favours \textsc{yes} only
+in the limiting sense that $\log X$ diverges; at every scale that any search or any barrier argument
+will reach, it predicts nothing. Two consequences, both negative and both worth stating. A proof of
+the negative direction would have to contradict a divergence, and a search for a solution is
+hopeless not merely at present but at any scale expressible in the notation of this paper. The
+constant is small for a reason that is not incidental: it \emph{is} the barrier, seen as a
+probability rather than as a counting bound, which is the third independent appearance of the same
+Mertens threshold in this work.
+
+The label is \textup{HEURISTIC} and the model is doing the work. What is claimed is only that the
+constant, said above to be unavailable to sampling, is available to computation once the coprimality
+model of Proposition~\ref{prop:anticorr} is granted.
+\end{remark}
 
 The measurement does expose a sharp structural fact, which turns out to be exactly the barrier seen
 statistically.
