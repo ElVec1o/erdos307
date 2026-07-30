@@ -1683,7 +1683,12 @@ standard axioms \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}
 $\sum_{\text{first }58}1/p<2<\sum_{\text{first }59}1/p$ grounding $|U|\ge59$
 (\texttt{recipSum58\_lt\_two}, \texttt{recipSum59\_gt\_two}); the numeric core
 $\Pi_{59}^2\ge(4\times10^{112})N_{59}$ (\texttt{barrier\_numeric}), and the algebraic core of the
-barrier (\texttt{barrier}), giving $D_P^2\ge4\times10^{112}$.
+barrier (\texttt{barrier}), giving $D_P^2\ge4\times10^{112}$;
+\item Theorem~\ref{thm:halflyap} (\texttt{log\_lt\_half\_sub}, \texttt{delta\_decreasing},
+\texttt{two\_le\_add\_of\_mul\_eq\_one}) and Theorem~\ref{thm:lyapfalse}
+(\texttt{criterion\_fails\_of\_pos}, \texttt{criterion\_fails\_of\_nonpos},
+\texttt{no\_lambda\_works}, \texttt{lyapunov\_criterion\_false}), neither of which uses
+\texttt{native\_decide}.
 \end{itemize}
 The single non--elementary ingredient, that the $k$ smallest primes minimise $\prod$ and maximise
 $\sum1/p$ among $k$--element prime sets, is isolated as an explicit hypothesis of \texttt{barrier}
@@ -2940,6 +2945,19 @@ $\sigma(n_0')>\sigma(n_0)$ are exact, and $\sigma(n_0')=\sigma(n_0)$ is impossib
 Lemma~\ref{lem:sigmainj}. The case $n=30$ is arithmetic
 \textup{(\texttt{code/lyap\_refute\_verify.gp})}.
 \end{proof}
+
+The argument is formalised. \texttt{Erdos307.criterion\_fails\_of\_pos} and
+\texttt{criterion\_fails\_of\_nonpos} give the two sign clashes,
+\texttt{no\_lambda\_works} combines them, and \texttt{lyapunov\_criterion\_false} instantiates the
+combination at $\sigma(n_0)$, carried as the exact quotient $n_0'/n_0$, and at the pair
+$(\tfrac{31}{30},\tfrac1{31})$ of $n=30$; the two numeric comparisons $1<\sigma(n_0)$ and
+$\sigma(n_0)<\tfrac{31}{30}$ are checked on the $142$-digit numerals themselves. All six
+declarations carry $0$ \texttt{sorry} and only \texttt{propext}, \texttt{Classical.choice},
+\texttt{Quot.sound}, with no \texttt{native\_decide}
+\textup{(\texttt{lean/Erdos307/LyapFalse.lean})}. What Lean does not see is the factorisation
+$n_0'=2\cdot3\cdot5\cdot C$ and the primality of $C$, which is the Atkin--Morain certificate; the
+status is therefore \textup{VERIFIED} modulo that certificate, in the same sense that
+Theorem~\ref{thm:halflyap} is \textup{VERIFIED} modulo Theorem~\ref{thm:structure}.
 
 The witness is built, not found. For squarefree $n$ and a prime $w\nmid n$ one has
 $n'\equiv n\sum_{p\mid n}p^{-1}\pmod w$, hence

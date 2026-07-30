@@ -4,6 +4,7 @@ import Erdos307.PairAvg
 import Erdos307.SquareSieve
 import Erdos307.RhoBarrier
 import Erdos307.HalfLyap
+import Erdos307.LyapFalse
 import Erdos307.Rigidity
 import Erdos307.Barrier
 import Erdos307.Capstone
@@ -66,3 +67,9 @@ open Erdos307
 #print axioms Erdos307.log_lt_half_sub
 #print axioms Erdos307.delta_decreasing
 #print axioms Erdos307.two_le_add_of_mul_eq_one
+#print axioms criterion_fails_of_pos
+#print axioms criterion_fails_of_nonpos
+#print axioms no_lambda_works
+#print axioms one_lt_sigmaN0
+#print axioms sigmaN0_lt
+#print axioms lyapunov_criterion_false
