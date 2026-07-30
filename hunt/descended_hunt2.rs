@@ -155,7 +155,7 @@ type VS = ([i128; 4], usize);
 // OOM that killed an earlier 12.8h run. The cache earns its keep only through temporal locality
 // (the same m' primes recur within a pair), so dropping it wholesale when it grows past a cap
 // costs essentially nothing and bounds memory at a few hundred MB.
-const MEMO_CAP: usize = 2_000_000;
+const MEMO_CAP: usize = 400_000;   // per worker; K workers stay under ~300 MB total
 
 fn values_memo(p: u64, memo: &mut std::collections::HashMap<u64, VS>) -> VS {
     if let Some(&v) = memo.get(&p) { return v; }
@@ -210,7 +210,7 @@ fn main() {
         lo: u128, hi: u128, omega_min: usize, omega_max: usize,
         start_idx: usize, chosen: &mut Vec<usize>, prod: u128, ninert: usize,
         tested: &mut u64, cand_valid: &mut u64, hits: &mut u64, pruned: &mut u64,
-        memo: &mut std::collections::HashMap<u64, VS>, cumw: &[f64],
+        memo: &mut std::collections::HashMap<u64, VS>, cumw: &[f64], offset: usize,
         start: &Instant, last: &mut Instant, i0: usize, npool: usize,
     ) {
         let k = chosen.len();
@@ -246,7 +246,7 @@ fn main() {
                         "\n*** DESCENDED 2-CYCLE FOUND ***\n  m  = {}  (primes {:?})\n  m' = {}  (primes {:?})\n  D(m)=m', D(m')=m verified.\n",
                         m, pset, mpu, q);
                     println!("{}", msg);
-                    if let Ok(mut f) = OpenOptions::new().create(true).append(true).open("descended_hunt2.out") {
+                    if let Ok(mut f) = OpenOptions::new().create(true).append(true).open(format!("descended_hunt2.out.{}", offset)) {
                         let _ = f.write_all(msg.as_bytes());
                     }
                 }
@@ -267,7 +267,7 @@ fn main() {
                 // interim save: timestamped, resumable, safe to read mid-run
                 let ts = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)
                     .map(|d| d.as_secs()).unwrap_or(0);
-                if let Ok(mut f) = OpenOptions::new().create(true).write(true).truncate(true).open("descended_hunt2.progress") {
+                if let Ok(mut f) = OpenOptions::new().create(true).write(true).truncate(true).open(format!("descended_hunt2.progress.{}", offset)) {
                     let _ = writeln!(f, "unix {} pair {}/{} tested {} valid-m' {} pruned {} hits {} elapsed {:.0}s eta_upper {} resume_from {}",
                                      ts, i0 + 1, npool, tested, cand_valid, pruned, hits, el, hms(eta), i0);
                 }
@@ -279,7 +279,7 @@ fn main() {
             if np > hi { break; } // pool sorted asc; product only grows
             chosen.push(i);
             dfs(pool, valcache, is3, lo, hi, omega_min, omega_max, i + 1, chosen,
-                np, ninert + if is3[i] {1} else {0}, tested, cand_valid, hits, pruned, memo, cumw, start, last, i0, npool);
+                np, ninert + if is3[i] {1} else {0}, tested, cand_valid, hits, pruned, memo, cumw, offset, start, last, i0, npool);
             chosen.pop();
         }
     }
@@ -288,6 +288,11 @@ fn main() {
     // and a resume point. (Front-loaded: small first primes carry the biggest subtrees.)
     let npool = pool.len();
     let resume_from = g(7, 0) as usize;
+    // Pairs are INDEPENDENT, so the sweep parallelises perfectly by striding the pair index.
+    // Worker j of K takes every pair with (pair % K) == j and keeps its own checkpoint and hit
+    // file, so a worker dying loses only its own position.
+    let stride = g(8, 1).max(1) as usize;
+    let offset = g(9, 0) as usize % stride;
     if resume_from > 0 {
         eprintln!("resuming from pair index {}", resume_from);
     }
@@ -335,10 +340,11 @@ fn main() {
             let prod2 = (pool[i0] as u128).saturating_mul(pool[i1] as u128);
             if prod2 > hi { break; }
             if pair < resume_from { pair += 1; continue; }
+            if pair % stride != offset { pair += 1; continue; }
             let mut chosen = vec![i0, i1];
             dfs(&pool, &valcache, &is3, lo, hi, omega_min, omega_max, i1 + 1, &mut chosen,
                 prod2, (if is3[i0] { 1 } else { 0 }) + (if is3[i1] { 1 } else { 0 }),
-                &mut tested, &mut cand_valid, &mut hits, &mut pruned, &mut memo, &cumw, &start, &mut last, pair, npairs);
+                &mut tested, &mut cand_valid, &mut hits, &mut pruned, &mut memo, &cumw, offset, &start, &mut last, pair, npairs);
             pair += 1;
             if pair >= npairs { break 'outer; }
         }
@@ -348,7 +354,7 @@ fn main() {
         let el = start.elapsed().as_secs_f64();
         let ts = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)
             .map(|d| d.as_secs()).unwrap_or(0);
-        if let Ok(mut f) = OpenOptions::new().create(true).write(true).truncate(true).open("descended_hunt2.progress") {
+        if let Ok(mut f) = OpenOptions::new().create(true).write(true).truncate(true).open(format!("descended_hunt2.progress.{}", offset)) {
             let _ = writeln!(f, "unix {} pair {}/{} tested {} valid-m' {} hits {} elapsed {:.0}s eta_upper 0s resume_from {} STATUS COMPLETE",
                              ts, npairs, npairs, tested, cand_valid, hits, el, npairs);
         }
