@@ -2844,7 +2844,14 @@ still strict, since $\sigma(n)+\sigma(n')<2$ forces $\sigma(n')<1$. Now $n'=n\si
 $\delta(n')-\delta(n)=\log\sigma(n)-\tfrac12(\sigma(n)-\sigma(n'))<0$.
 \end{proof}
 Verified over all $7{,}480{,}605$ squarefree $n\le2\times10^7$ with $n'$ squarefree lying in the
-region: $0$ violations, least slack $0.242$ \textup{(\texttt{code/invent\_lyapunov.rs})}.
+region: $0$ violations, least slack $0.242$ \textup{(\texttt{code/invent\_lyapunov.rs})}. The analytic content is formalised:
+\texttt{Erdos307.log\_lt\_half\_sub} proves $\log s<(s-t)/2$ for $s>0$ and $s+t<2$,
+\texttt{delta\_decreasing} gives the increment form, and
+\texttt{two\_le\_add\_of\_mul\_eq\_one} is the \textup{AM--GM} step of
+Corollary~\ref{cor:lyapbarrier}; all three carry $0$ \texttt{sorry} and only the three standard
+axioms \textup{(\texttt{lean/Erdos307/HalfLyap.lean})}. The arithmetic inputs, that $n$ and $n'$ are
+coprime and that $n'=n\sigma(n)$, are Theorem~\ref{thm:structure} and the definition, so the
+statement is \textup{VERIFIED} modulo those.
 
 \begin{corollary}[A Lyapunov proof of the barrier]\label{cor:lyapbarrier}
 The arithmetic derivative has no cycle, of any length, all of whose consecutive pairs satisfy

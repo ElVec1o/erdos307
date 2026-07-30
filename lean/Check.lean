@@ -3,6 +3,7 @@ import Erdos307.Injective
 import Erdos307.PairAvg
 import Erdos307.SquareSieve
 import Erdos307.RhoBarrier
+import Erdos307.HalfLyap
 import Erdos307.Rigidity
 import Erdos307.Barrier
 import Erdos307.Capstone
@@ -60,3 +61,8 @@ open Erdos307
 -- thm:rhobarrier
 #print axioms Erdos307.card_ge_59_of_recipSum_ge_two
 #print axioms Erdos307.card_union_ge_59_of_masses
+
+-- thm:halflyap (elementary Lyapunov proof of the barrier)
+#print axioms Erdos307.log_lt_half_sub
+#print axioms Erdos307.delta_decreasing
+#print axioms Erdos307.two_le_add_of_mul_eq_one
