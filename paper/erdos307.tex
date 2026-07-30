@@ -2779,8 +2779,16 @@ The region is not unreachable, only unsweepable. The witness $n_0$ of
 Theorem~\ref{thm:lyapfalse} has $n_0$ and $n_0'$ both squarefree and
 $r(n_0)=\sigma(n_0)\sigma(n_0')=1.03944\ldots$, so $n_0''>n_0$: the value $1$ that a solution must
 hit is interior to the range of $r$, not extremal, and no inequality on $r$ alone can settle \#307.
-What remains unmeasurable is the density of $r$ at $1$, since constructed points do not estimate a
-density, and that is what the heuristic constant needs.
+The same construction approaches $1$ from below. Tuning $\sigma(a)$ against the forced
+$\sigma(a')=\tfrac{31}{30}+\varepsilon$ gives
+\[ a=3359\!\!\prod_{\substack{7\le p\le269\\p\notin\{229,271\}}}\!\!p,\qquad
+   a'=2\cdot3\cdot5\cdot383\cdot113717\cdot P_{99}, \]
+with $P_{99}$ prime, both $a$ and $a'$ squarefree, $108$ digits, and
+\[ r(a)=0.99207796\ldots,\qquad |r(a)-1|=7.9220\times10^{-3}, \]
+against the smallest relative defect $0.4465$ over the swept range
+\textup{(\texttt{code/nearmiss\_tune.gp})}. What remains unmeasurable is the density of $r$ at $1$,
+since constructed points do not estimate a density, and that is what the heuristic constant needs.
+The frontier reported above is therefore superseded as a record and unchanged as an argument.
 
 The situation is not the usual one. Heuristics of Bateman--Horn or Hardy--Littlewood
 type are normally checked against data, and the agreement is what justifies confidence in them. Here
@@ -2801,11 +2809,17 @@ at $\sigma(a)\ge0,\,0.5,\,0.9,\,1.0,\,1.2,\,1.3$: it converges to $1$ precisely 
 solution would inhabit \textup{(\texttt{code/a10\_anticorr.rs})}.
 \end{proposition}
 
-So $a'$ is mass-poor for one reason only, that it is coprime to $a$ and $a$ has absorbed the small
-primes, and there is no further effect to exploit. This is an independent confirmation of
-Proposition~\ref{prop:nogain}: the barrier is not merely near-optimal as a bound, it already
-contains the entire statistical structure of the obstruction, and no refinement by correlation is
-available.
+So on the sampled range $a'$ is mass-poor for one reason only, that it is coprime to $a$ and $a$ has
+absorbed the small primes, and there is no further effect to exploit. This is an independent
+confirmation of Proposition~\ref{prop:nogain}: the barrier is not merely near-optimal as a bound, it
+already contains the entire statistical structure of the obstruction, and no refinement by
+correlation is available.
+
+The range matters, and the statement is about averages. Every $a\le4\times10^8$ with $\sigma(a)>1$
+is even, so the measurement never sees an $a$ that omits the small primes. Such $a$ exist, since the
+prime reciprocals diverge, and for them $a'$ is free to absorb $2$, $3$ and $5$ and is not mass-poor
+at all: Theorem~\ref{thm:lyapfalse} exhibits one with $\sigma(a')=\tfrac{31}{30}$. Proposition~\ref{prop:anticorr}
+bounds an expectation on a range, and nothing here bounds a supremum off it.
 
 \subsection*{A Lyapunov candidate for the negative direction}
 
