@@ -35,3 +35,6 @@ hunt/descended_hunt2.out
 code/sqsieve_test
 code/sqsieve_lemmas
 code/ff_nocycle
+code/a10_nearmiss
+code/a10_density1
+code/a10_anticorr

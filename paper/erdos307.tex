@@ -2754,6 +2754,47 @@ which Proposition~\ref{prop:localcomplete} proves does not exist. A failure woul
 structureless, and structureless failures cannot be played against one another.
 \end{remark}
 
+All of the above bounds the negative direction. The positive direction admits a quantitative
+shadow that had not been measured: a solution is exactly $r(a):=\sigma(a)\sigma(a')=1$, so one may
+ask how close $r$ actually comes to $1$. The answer is instructive, and it disposes of the usual
+way such heuristics are calibrated.
+
+\begin{proposition}[The near-miss spectrum, and why the heuristic cannot be calibrated]\label{prop:nearmiss}
+Over all $4{,}385{,}727$ integers $a\le10^7$ with $a$ and $a'$ both squarefree, the maximum of
+$r(a)$ is $0.5535$, attained at $a=3{,}972{,}254$; the frontier advances by decade as
+$0.333,\,0.345,\,0.502,\,0.502,\,0.536,\,0.554$. In particular $r\ge1$ never occurs, the defect
+$|a''-a|$ is of size $a^{0.9}$ or larger in all but three cases, and the smallest relative defect is
+$0.4465$. Consequently the constant in the heuristic count of two-cycles, $f(1)\log X$ with $f$ the
+density of $r$ at $1$, is \emph{not measurable}: by Theorem~\textup{\ref{thm:barrier}} the entire
+region $r\ge1$ lies above $10^{112.9}$, so no computation can sample it
+\textup{(\texttt{code/a10\_nearmiss.rs}, \texttt{code/a10\_density1.rs})}.
+\end{proposition}
+
+This is worth stating plainly because it is unusual. Heuristics of Bateman--Horn or Hardy--Littlewood
+type are normally checked against data, and the agreement is what justifies confidence in them. Here
+the prediction that solutions exist rests on a constant that no computation can estimate, even in
+principle, because the barrier and the sampleable range are disjoint. The expected-count heuristic
+for \#307 is therefore not merely unproved but uncalibrated.
+
+The measurement does expose a sharp structural fact, which turns out to be exactly the barrier seen
+statistically.
+
+\begin{proposition}[The barrier is statistically complete]\label{prop:anticorr}
+$\mathbb{E}[\sigma(a')]$ falls by an order of magnitude as $\sigma(a)$ grows, from $0.2035$
+unconditionally to $0.0207$ on $\sigma(a)\ge1.3$. The whole of this suppression is coprimality.
+Writing the prediction for an integer chosen at random subject to $\gcd(n,a)=1$, namely
+$\sum_{p\nmid a}p^{-2}$, the ratio of measured to predicted is
+\[ 0.65,\quad 0.82,\quad 0.91,\quad 0.92,\quad 0.95,\quad 1.01 \]
+at $\sigma(a)\ge0,\,0.5,\,0.9,\,1.0,\,1.2,\,1.3$: it converges to $1$ precisely in the regime a
+solution would inhabit \textup{(\texttt{code/a10\_anticorr.rs})}.
+\end{proposition}
+
+So $a'$ is mass-poor for one reason only, that it is coprime to $a$ and $a$ has absorbed the small
+primes, and there is no further effect to exploit. This is an independent confirmation of
+Proposition~\ref{prop:nogain}: the barrier is not merely near-optimal as a bound, it already
+contains the entire statistical structure of the obstruction, and no refinement by correlation is
+available.
+
 \begin{remark}[Four independent blocks on $\mathrm{A}10$]\label{rem:threeblocks}
 The existence route is therefore obstructed at four separate levels, and no two of them are the
 same obstruction. Proposition~\ref{prop:nofreeslot} removes the freedom: the construction carries
