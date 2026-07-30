@@ -2873,6 +2873,39 @@ $a_m=0$ means $m'=2m$, a single line, of density zero by Proposition~\ref{prop:l
 The left side does not depend on $P$; letting $P\to\infty$ gives $0$.
 \end{proof}
 
+The proof of Theorem~\ref{thm:a9} sends $P\to\infty$ only after $N$, which costs all quantitative
+information. Keeping $P$ a function of $N$ turns it into an explicit rate, and what makes that
+legitimate is the uniformity already established in Lemma~\ref{lem:charcancel}: the pretentious
+distance there satisfies $M\ge(1-3/\sqrt r\,)\log\log N\ge\tfrac12\log\log N$ for $r\ge36$, with no
+dependence on $r$ beyond that.
+
+\begin{corollary}[An explicit rate for $\mathrm{A}9$]\label{cor:a9rate}
+\[ \#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}\;\ll\;\frac{N\log\log N}{(\log N)^{1/4}}. \]
+\end{corollary}
+\begin{proof}
+Take $\mathcal{P}$ to be the primes in $(P,2P]$ with $P=P(N)$ to be chosen, so
+$\Pi\sim P/\log P$. The three terms of Theorem~\ref{thm:a9} are then
+\[ \frac{N}{\Pi}\ \ll\ \frac{N\log P}{P},\qquad
+   \frac1{\Pi^2}\sum_{p\neq q}|T_{pq}(N)|\ \le\ \max_{p\neq q}|T_{pq}(N)|,\qquad
+   \sum_{p\in\mathcal{P}}O\!\left(\frac{N}{p^2}\right)\ \ll\ \frac{N}{P\log P}. \]
+By Lemma~\ref{lem:charcancel} with its uniform $M$, Hal\'asz gives
+$T_r(N)\ll\sqrt r\,N(\log N)^{-1/2}$, and $r=pq\le4P^2$ gives $\sqrt r\le2P$, so the middle term is
+$\ll PN(\log N)^{-1/2}$. Balancing it against the first,
+$N\log P/P=PN(\log N)^{-1/2}$, gives $P\asymp(\log N)^{1/4}$, at which both equal
+$N\log\log N(\log N)^{-1/4}$ up to constants; the third term is then $O\bigl(N(\log N)^{-1/4}/\log\log N\bigr)$
+and is absorbed.
+\end{proof}
+
+\begin{remark}[Where the exponent comes from]\label{rem:rateexponent}
+The exponent $\tfrac14$ is not intrinsic to the arithmetic. It is what remains after balancing
+against the floor $N(\log N)^{-1/2}$ in the Montgomery form of Hal\'asz's theorem, which holds
+however large the pretentious distance $M$ becomes. Any improvement of that floor transfers here
+without change: a floor of $N(\log N)^{-\alpha}$ yields the exponent $\alpha/2$. The measured
+character sums are of size $\sqrt N$ rather than $N(\log N)^{-1/2}$
+(Section~\ref{sec:sqsieve}), so the truth is far stronger than what the general theorem can deliver,
+and the gap is entirely in the analytic input rather than in the sieve.
+\end{remark}
+
 \begin{remark}[What made this work]\label{rem:sqsievewhy}
 Every previous attack on $\mathrm{A}9$ counted members of the minus layer directly, and each ran
 into the same obstruction: the layer is a union of lines $m'=2m-k$, each thin by
