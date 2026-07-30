@@ -1688,7 +1688,12 @@ barrier (\texttt{barrier}), giving $D_P^2\ge4\times10^{112}$;
 \texttt{two\_le\_add\_of\_mul\_eq\_one}) and Theorem~\ref{thm:lyapfalse}
 (\texttt{criterion\_fails\_of\_pos}, \texttt{criterion\_fails\_of\_nonpos},
 \texttt{no\_lambda\_works}, \texttt{lyapunov\_criterion\_false}), neither of which uses
-\texttt{native\_decide}.
+\texttt{native\_decide};
+\item Proposition~\ref{prop:masssumthreshold} (\texttt{half\_works}, \texttt{no\_f\_above\_two},
+\texttt{mass\_sum\_threshold}) and Proposition~\ref{prop:lyapuniversal}
+(\texttt{exists\_f\_of\_injective}, \texttt{increment\_iff},
+\texttt{no\_two\_cycle\_of\_decreasing}), which together machine-check the closure of the sign
+branch in Theorem~\ref{thm:noinvariant}.
 \end{itemize}
 The single non--elementary ingredient, that the $k$ smallest primes minimise $\prod$ and maximise
 $\sum1/p$ among $k$--element prime sets, is isolated as an explicit hypothesis of \texttt{barrier}
@@ -3233,6 +3238,11 @@ $y\uparrow2-x$ gives $2\lambda(x-1)\ge\log x$ for all $x\in(0,2)$, and dividing 
 $x\to1$ from each side gives $2\lambda\ge1$ and $2\lambda\le1$.
 \end{proof}
 
+Both halves are formalised: \texttt{Erdos307.half\_works} for $c\le2$ and
+\texttt{no\_f\_above\_two} for $c>2$, the latter by the diagonal point $x=y$ with $1<x<c/2$, where
+the right side vanishes and the left is positive; \texttt{mass\_sum\_threshold} states the two
+together \textup{(\texttt{lean/Erdos307/NoInvariant.lean})}.
+
 Any strengthening must therefore use an input about $n$ beyond the pair
 $(\sigma(n),\sigma(n'))$, and by the next proposition there is no room in the choice of function
 either.
@@ -3254,6 +3264,13 @@ is injective on squarefree integers by Lemma~\ref{lem:sigmainj}, so every $\delt
 $\log n+f(\sigma(n))$ for exactly one $f$, namely $f(\sigma(n))=\delta(n)-\log n$; and $n'=n\sigma(n)$
 turns $\delta(n')<\delta(n)$ into the inequality of (3).
 \end{proof}
+
+The collapse of the ansatz is formalised. \texttt{Erdos307.exists\_f\_of\_injective} proves that
+injectivity of $\sigma$ forces \emph{every} $\delta$ into the shape $\log n+f(\sigma(n))$,
+\texttt{increment\_iff} converts $\delta(n')<\delta(n)$ into $(\ast)$ verbatim, and
+\texttt{no\_two\_cycle\_of\_decreasing} is the implication of
+Proposition~\ref{prop:lyapworks}; all with $0$ \texttt{sorry} and the three standard axioms
+\textup{(\texttt{lean/Erdos307/NoInvariant.lean})}.
 
 So Definition~\ref{def:lyap} restricts nothing. The tournament that produced $\delta_\lambda$ was
 searching the space of all functions on $S$, and by Proposition~\ref{prop:lyapuniversal} the

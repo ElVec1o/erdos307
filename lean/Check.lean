@@ -5,6 +5,7 @@ import Erdos307.SquareSieve
 import Erdos307.RhoBarrier
 import Erdos307.HalfLyap
 import Erdos307.LyapFalse
+import Erdos307.NoInvariant
 import Erdos307.Rigidity
 import Erdos307.Barrier
 import Erdos307.Capstone
@@ -73,3 +74,9 @@ open Erdos307
 #print axioms one_lt_sigmaN0
 #print axioms sigmaN0_lt
 #print axioms lyapunov_criterion_false
+#print axioms half_works
+#print axioms no_f_above_two
+#print axioms mass_sum_threshold
+#print axioms exists_f_of_injective
+#print axioms increment_iff
+#print axioms no_two_cycle_of_decreasing
