@@ -57,6 +57,17 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
   abc-comfortable, non-genus, non-polynomial, and not reducible to a standard prime-density conjecture;
   an Erdős–Wintner density theorem; S-unit finiteness per support.
 
+- **A Lyapunov criterion for the negative direction, and its refutation.** `δ(n) = log n + σ(n)/2`
+  strictly decreases whenever `σ(n·n') < 2`, giving an elementary Lyapunov re-proof of the barrier
+  that kills cycles of *every* length (`thm:halflyap`, Lean-verified, no `native_decide`). Above mass
+  2 the criterion is **false**: no real `λ` makes `log σ(n) < λ(σ(n) − σ(n'))` hold throughout. The
+  witness is `n₀` = the product of the 68 primes in `[7,373]` other than `307, 317, 359`, for which
+  `n₀' = 2·3·5·C` with `C` a 141-digit prime (ECPP certificate), so `σ(n₀') = 31/30 > σ(n₀) > 1` and
+  both sides of the inequality have the wrong sign (`thm:lyapfalse`, Lean-verified). The hypothesis
+  `σ(n·n') < 2` is therefore not an artefact of the method but exactly sharp. Consequently
+  `n₀'' > n₀`: the ratio `r = σ(n)σ(n')`, whose value `1` *is* a solution, takes values on both sides
+  of `1`, so no inequality on `r` can settle #307.
+
 - **Both Pythagorean layers have density zero, unconditionally.** The minus layer `m′ − 2m = d²` is
   exactly the set where the arithmetic derivative takes square values, so Heath-Brown's *square sieve*
   applies once the symbol is factorised as `((m′−2m)/r) = (m/r)·((σ_r(m)−2)/r)` — verified
@@ -83,10 +94,11 @@ heuristic has no empirical support and cannot acquire any. **No proof either way
 ## Layout
 
 ```
-paper/   erdos307.tex, erdos307.pdf   — the note (63 pp; self-contained bibliography)
+paper/   erdos307.tex, erdos307.pdf   — the note (72 pp; self-contained bibliography)
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md
-certs/   independently checkable ECPP primality certificates for the immune families
+certs/   independently checkable ECPP primality certificates: the immune families, and the
+         141-digit cofactor behind the refutation of the Lyapunov criterion
 hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, with the verified
          certificates cited in the note — see hunt/README.md
 ```
@@ -100,7 +112,8 @@ hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, w
   additionally uses `native_decide`.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)
   for primality and class-group work, and a few legacy Python 3 scripts (`sympy`, `numpy`).
-- **Certificates:** `certs/immune_ecpp.txt` verifies under PARI with `primecertisvalid(cert)`.
+- **Certificates:** `certs/immune_ecpp.txt` and `certs/lyap_refute_cofactor_ecpp.txt` verify under
+  PARI with `primecertisvalid(cert)`.
 - **Hunt:** `rustc -O -o NAME NAME.rs` then run; each program self-tests and prints progress.
 
 ## Status and citation
