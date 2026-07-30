@@ -1,6 +1,7 @@
 import Erdos307.Campaign
 import Erdos307.Injective
 import Erdos307.PairAvg
+import Erdos307.SquareSieve
 import Erdos307.Rigidity
 import Erdos307.Barrier
 import Erdos307.Capstone
@@ -49,3 +50,8 @@ open Erdos307
 #print axioms Erdos307.sum_filter_comm
 #print axioms Erdos307.pairavg_bound
 #print axioms Erdos307.eq_of_cross
+
+-- the square sieve (thm:a9, cor:a9rate)
+#print axioms Erdos307.sieve_core
+#print axioms Erdos307.sum_sq_expand
+#print axioms Erdos307.square_sieve
