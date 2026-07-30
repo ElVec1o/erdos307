@@ -3070,6 +3070,65 @@ the display. In Theorem~\ref{thm:condpower} with $A=\tfrac12$ one has $\delta=\t
 $P=N^{1/4}$ the moduli $r=pq\asymp N^{1/2}$ make both $\sqrt{rN}$ and $N/\sqrt r$ equal to $N^{3/4}$.
 \end{proof}
 
+Hypothesis~\ref{hyp:pair} can in fact be removed. Theorem~\ref{thm:condpower} never needs
+uniformity in $r$, because the sieve averages over the moduli $r=pq$ with $p,q\in\mathcal{P}$; and on
+average a mechanism is available that requires no equidistribution at all.
+
+\begin{lemma}[$\sigma$ is injective on squarefree integers]\label{lem:sigmainj}
+For squarefree $d,d'$, $\sigma(d)=\sigma(d')$ forces $d=d'$. Consequently
+$F(d,d'):=D(d)\,d'-D(d')\,d=dd'\bigl(\sigma(d)-\sigma(d')\bigr)$ vanishes only on the diagonal.
+\end{lemma}
+\begin{proof}
+By Theorem~\ref{thm:structure}, $\sigma(d)=D(d)/d$ is already in lowest terms, since
+$\gcd(D(d),d)=1$ for squarefree $d$. So $d$ is recoverable from $\sigma(d)$ as its denominator.
+\end{proof}
+Verified over all $182{,}377$ squarefree $d\le3\times10^5$: $0$ collisions
+\textup{(\texttt{code/sqsieve\_pairavg.rs})}.
+
+\begin{theorem}[The average pair bound, unconditionally]\label{thm:pairavg}
+Let $\mathcal{R}=\{pq: p\neq q\in\mathcal{P}\}$. Then
+\[ \sum_{r\in\mathcal{R}}P(D,r)\ \ll\ |\mathcal{R}|\,D+D^{2+o(1)} , \]
+so $P(D,r)\ll D^{2+o(1)}/r+D$ on average over $\mathcal{R}$, which is what
+Theorem~\ref{thm:condpower} requires.
+\end{theorem}
+\begin{proof}
+Since $\gcd(d,r)=\gcd(d',r)=1$, the condition $\sigma_r(d)\equiv\sigma_r(d')$ is exactly
+$r\mid F(d,d')$. Exchanging the order of summation,
+$\sum_{r\in\mathcal{R}}P(D,r)=\sum_{(d,d')}\#\{r\in\mathcal{R}:r\mid F(d,d')\}$. On the diagonal
+$F=0$ is divisible by every $r$, contributing $|\mathcal{R}|\cdot\#\{d\le D:\mu^2(d)=1\}$. Off the
+diagonal $F\neq0$ by Lemma~\ref{lem:sigmainj}, and $|F|\le2D^2\sigma_{\max}$, so
+$\#\{r\in\mathcal{R}:r\mid F\}\le\tau(F)\ll D^{o(1)}$, contributing $D^{2+o(1)}$.
+\end{proof}
+
+\begin{theorem}[Unconditional power saving]\label{thm:power34}
+\[ \#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}\ \ll\ N^{3/4+o(1)} . \]
+\end{theorem}
+\begin{proof}
+Take $D=E=\sqrt N$ in Proposition~\ref{prop:bilinear}, so
+$|T_r|\ll N^{o(1)}\sqrt r\,\|A_r\|_2\|B_r\|_2$ with $\|A_r\|_2^2\le P(D,r)$. Averaging over
+$\mathcal{R}$ and applying Cauchy--Schwarz in $r$,
+\[ \frac1{|\mathcal{R}|}\sum_{r\in\mathcal{R}}|T_r|
+   \ \ll\ N^{o(1)}\,P\,\frac1{|\mathcal{R}|}\Bigl(\sum_{r}P(\sqrt N,r)\Bigr)
+   \ \ll\ N^{o(1)}\,P\Bigl(\sqrt N+\frac{N}{|\mathcal{R}|}\Bigr) \]
+by Theorem~\ref{thm:pairavg}, and $|\mathcal{R}|\asymp\Pi^2\asymp P^2/(\log P)^2$ gives
+$\ll N^{o(1)}(P\sqrt N+N/P)$. Feeding this into the sieve of Theorem~\ref{thm:condpower},
+\[ \#\{\,\cdot\,\}\ \ll\ \frac{N\log P}{P}+N^{o(1)}\Bigl(P\sqrt N+\frac NP\Bigr), \]
+and $P=N^{1/4}$ balances every term at $N^{3/4+o(1)}$. The side condition
+$\Pi\ge2\log(2N)/\log P$ holds since $\Pi\asymp N^{1/4}/\log N$.
+\end{proof}
+
+\begin{remark}[What carried it]\label{rem:whatcarried}
+No equidistribution of $\sigma_r$ is used, and no uniformity in $r$: the two inputs are the divisor
+bound $\tau(F)\ll D^{o(1)}$ and Lemma~\ref{lem:sigmainj}. The second is the same rigidity that makes
+\#307 a two-cycle problem at all, namely that $\sum1/p$ is automatically in lowest terms
+(Theorem~\ref{thm:structure}); it is what keeps $F$ off zero and confines the divisor-heavy case to
+the diagonal. Measured against $D^2/r+D$ the average has ratio $1.011$ at $|\mathcal{R}|=78$
+\textup{(\texttt{code/sqsieve\_pairavg.rs})}. This supersedes Corollary~\ref{cor:a9rate}: the rate
+improves from $N\log\log N(\log N)^{-1/4}$ to a power saving. Hypothesis~\ref{hyp:pair} in its
+uniform form, and Hypothesis~\ref{hyp:sq}, remain open and would give $N^{1/2+o(1)}$; the measured
+character sums suggest that is the truth.
+\end{remark}
+
 \begin{remark}[The hypothesis measures, and its constant identifies itself]\label{rem:pairmeasured}
 $P(D,r)$ against $D^2/r+D$ has ratio $0.3688$, $0.3688$, $0.3689$ at $r=1009$;
 $0.3705$, $0.3696$, $0.3695$ at $r=10007$; and $0.3867$, $0.3727$, $0.3702$ at $r=100003$, for
