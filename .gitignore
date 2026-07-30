@@ -50,3 +50,6 @@ code/sqsieve_pairavg
 code/sqsieve_kernel
 code/sqsieve_holes
 code/invent_lyapunov
+code/lyap_battery
+code/lyap_battery.log
+code/lyap_battery.progress
