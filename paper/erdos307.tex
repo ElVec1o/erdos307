@@ -2989,6 +2989,48 @@ deficit, and Lemma~\ref{lem:symbolfact} has already reduced it to a sum over a m
 function of $\sigma_r$.
 \end{remark}
 
+The obvious route to Hypothesis~\ref{hyp:sq} is the one already used in
+Lemma~\ref{lem:charcancel}: expand by Gauss sums and bound each multiplicative sum
+$\sum_{m\le N}h_t(m)$ separately, where square-root cancellation would follow from a Weil-type
+input or, in the analytic form, from \textup{GRH} applied to
+$\prod_\chi L(s,\chi)^{\widehat\alpha(\chi)}$. That route is closed, and it is worth recording why,
+since the reason is not the one a first look suggests.
+
+\begin{proposition}[The decomposition destroys the cancellation]\label{prop:routeclosed}
+Write $\alpha(u)=(u/r)e_r(t u^{-1})$, so that $h_t(p)=\alpha(p\bmod r)$. The principal Fourier
+coefficient $\widehat\alpha(\chi_0)=\varphi(r)^{-1}\sum_u\alpha(u)$ is a Sali\'e sum; measured, it has
+modulus exactly $\sqrt r$ before normalisation, at $r=1009$ and $r=10007$ giving $31.8$ and $100.0$
+against $\sqrt r=31.76$ and $100.03$. It is therefore nonzero, and $\prod_\chi
+L(s,\chi)^{\widehat\alpha(\chi)}$ retains a $\zeta$-type branch point at $s=1$. This does \emph{not}
+by itself decide the matter, since the measured sums fall $50$ to $350$ times below what that branch
+point predicts. What decides it is the growth in $N$: at $r=10007$, $t=1$,
+\[
+\begin{array}{lrrrrr}
+N: & 10^6 & 3\times10^6 & 10^7 & 3\times10^7 & 6\times10^7\\
+|\sum h_t|/\sqrt N: & 0.67 & 0.48 & 0.69 & 2.08 & 2.29
+\end{array}
+\]
+a fitted exponent of $0.800$ over that range, with $|\sum h_t|/(N/\log N)$ flat near $0.005$. The
+individual multiplicative sums thus grow strictly faster than $\sqrt N$
+\textup{(\texttt{code/sqsieve\_route.rs})}.
+\end{proposition}
+
+\begin{remark}[Where the cancellation actually lives]\label{rem:whereitlives}
+Since $T_r(N)$ itself measures at $\sqrt N$ across ten orders of magnitude in $r$
+(Remark~\ref{rem:Ameasured}) while each $\sum_m h_t(m)$ measured here grows like $N^{0.8}$, the
+cancellation in $T_r$ is not present frequency by frequency: it lies in the sum over $t$. The
+magnitude is not marginal. At $r=1009$, $N=4\times10^7$, bounding each frequency separately and
+summing trivially gives $\sqrt r\,N/\log N\approx7\times10^{7}$, against a measured
+$|T_r|=1050$: a factor of about $7\times10^{4}$ is lost the moment the Gauss expansion is taken.
+
+The deficit behind Hypothesis~\ref{hyp:sq} is therefore not a missing Weil bound for a single
+character sum, which is how Remark~\ref{rem:Ameasured} first framed it. It is that the only
+available decomposition of $T_r$ scatters the cancellation across frequencies, and no current
+technique grips cancellation in that position. Stating it this way is more useful than the
+Weil framing, because it says what would have to be new: an estimate for $T_r$ that never passes
+through the multiplicative decomposition at all.
+\end{remark}
+
 \begin{remark}[What made this work]\label{rem:sqsievewhy}
 Every previous attack on $\mathrm{A}9$ counted members of the minus layer directly, and each ran
 into the same obstruction: the layer is a union of lines $m'=2m-k$, each thin by
