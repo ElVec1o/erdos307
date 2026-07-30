@@ -2877,6 +2877,16 @@ underlying Theorem~\ref{thm:barrier}. Finally $\sigma(n)>1$ gives $n'=n\sigma(n)
 $n^2<n\,n'$.
 \end{proof}
 
+The counting step is formalised. \texttt{Erdos307.card\_ge\_59\_of\_recipSum\_ge\_two} isolates the
+mass estimate, that a set of primes of reciprocal sum at least $2$ has at least $59$ elements, and
+\texttt{Erdos307.card\_union\_ge\_59\_of\_masses} applies it to two disjoint sets each of mass
+exceeding $1$; both carry $0$ \texttt{sorry}
+\textup{(\texttt{lean/Erdos307/RhoBarrier.lean})}. Their axiom lists are those of
+Theorem~\ref{thm:barrier} itself, the three standard axioms together with the
+\texttt{native\_decide} evaluation of the first $58$ primes. The same core proves
+\texttt{card\_ge\_59} of the barrier, which assumes $\sigma(P)\sigma(Q)=1$ instead; the two
+hypotheses differ and the shared step has been extracted rather than duplicated.
+
 The measured $\rho=0.519746$ therefore understates the situation: the quantity is not merely small
 on the swept range but provably below $1$ for all $n$ up to $10^{56.5}$, against a sweep reaching
 $4\times10^{8}$. The regime in which $\rho\ge1$ is possible is exactly the regime in which a

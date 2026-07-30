@@ -2,6 +2,7 @@ import Erdos307.Campaign
 import Erdos307.Injective
 import Erdos307.PairAvg
 import Erdos307.SquareSieve
+import Erdos307.RhoBarrier
 import Erdos307.Rigidity
 import Erdos307.Barrier
 import Erdos307.Capstone
@@ -55,3 +56,7 @@ open Erdos307
 #print axioms Erdos307.sieve_core
 #print axioms Erdos307.sum_sq_expand
 #print axioms Erdos307.square_sieve
+
+-- thm:rhobarrier
+#print axioms Erdos307.card_ge_59_of_recipSum_ge_two
+#print axioms Erdos307.card_union_ge_59_of_masses

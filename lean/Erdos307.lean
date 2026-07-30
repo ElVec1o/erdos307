@@ -9,3 +9,4 @@ import Erdos307.Campaign
 import Erdos307.Injective
 import Erdos307.PairAvg
 import Erdos307.SquareSieve
+import Erdos307.RhoBarrier
