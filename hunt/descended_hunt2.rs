@@ -150,8 +150,16 @@ fn enum_D(coeffs: &[i128], valsets: &[Vec<i128>], acc: i128, i: usize, out: &mut
 //     out of reach. Measured 47.9s against a 44.5s baseline: strictly worse.
 type VS = ([i128; 4], usize);
 
+// The memo MUST be bounded. Keys are the primes of m', which run to ~1e11 in this box, so an
+// unbounded cache grows without limit: it reached 10.8 GB RSS in 4h and was heading for the same
+// OOM that killed an earlier 12.8h run. The cache earns its keep only through temporal locality
+// (the same m' primes recur within a pair), so dropping it wholesale when it grows past a cap
+// costs essentially nothing and bounds memory at a few hundred MB.
+const MEMO_CAP: usize = 2_000_000;
+
 fn values_memo(p: u64, memo: &mut std::collections::HashMap<u64, VS>) -> VS {
     if let Some(&v) = memo.get(&p) { return v; }
+    if memo.len() >= MEMO_CAP { memo.clear(); }
     let v = values(p);
     let mut a = [0i128; 4];
     for (i, &x) in v.iter().enumerate().take(4) { a[i] = x; }
