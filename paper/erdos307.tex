@@ -3089,7 +3089,11 @@ By Theorem~\ref{thm:structure}, $\sigma(d)=D(d)/d$ is already in lowest terms, s
 $\gcd(D(d),d)=1$ for squarefree $d$; so $d$ is recoverable from $\sigma(d)$ as its denominator.
 \end{proof}
 Verified over all $182{,}377$ squarefree $d\le3\times10^5$: $0$ collisions
-\textup{(\texttt{code/sqsieve\_pairavg.rs})}.
+\textup{(\texttt{code/sqsieve\_pairavg.rs})}. The lemma is formalised: in the notation of
+Section~\ref{sec:lean}, \texttt{Erdos307.dprod\_eq\_of\_mass\_eq} and
+\texttt{Erdos307.csum\_eq\_of\_mass\_eq} derive it from \texttt{rigidity\_coprime}, with $0$
+\texttt{sorry} and axioms \texttt{propext, Classical.choice, Quot.sound}
+\textup{(\texttt{lean/Erdos307/Injective.lean})}. Its label is therefore \textup{VERIFIED}.
 
 \begin{theorem}[The average pair bound]\label{thm:pairavg}
 Let $\mathcal{R}=\{pq:p\neq q\in\mathcal{P}\}$ and

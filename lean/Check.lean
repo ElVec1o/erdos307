@@ -1,4 +1,5 @@
 import Erdos307.Campaign
+import Erdos307.Injective
 import Erdos307.Rigidity
 import Erdos307.Barrier
 import Erdos307.Capstone
@@ -36,3 +37,8 @@ open Erdos307
 -- the campaign lemma (rem:campaign): one binary certificate per tail family
 #print axioms Erdos307.jacobiSym_add_four_mul
 #print axioms Erdos307.jacobiSym_A_eq_B
+
+-- lem:sigmainj (the injectivity behind thm:pairavg)
+#print axioms Erdos307.den_eq_of_coprime_cross
+#print axioms Erdos307.dprod_eq_of_mass_eq
+#print axioms Erdos307.csum_eq_of_mass_eq
