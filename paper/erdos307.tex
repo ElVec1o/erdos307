@@ -2859,10 +2859,31 @@ $5$, which has $27$ prime factors and $44$ digits. The regime that looked danger
 favourable, because reaching $\sigma(n)>1$ without small primes requires many of them, and $n'$ is
 then a large generic integer of small mass.
 
-We nonetheless do not have a proof of $\rho<1$, and record the shape of a possible failure: it would
-need $n$ even with $\sigma(n)$ close to $1$ and $n'$ carrying many small odd primes, so that
-$\sigma(n')$ approaches $\sigma(n)$. Ruling that out is again a statement about the factorisation of
-a determined value, which is the obstruction met throughout this paper.
+In fact $\rho<1$ is provable in a range vastly exceeding any computation, by the barrier's own
+mechanism.
+
+\begin{theorem}[$\rho<1$ below the barrier]\label{thm:rhobarrier}
+Let $n$ be squarefree with $n'$ squarefree and $\sigma(n)>1$. If $\sigma(n')\ge\sigma(n)$ then
+$n\,n'\ge\Pi_{59}>8.77\times10^{112}$. Consequently $\rho<1$ for every $n$ with
+$n\,n'<\Pi_{59}$, and since $\sigma(n)>1$ gives $n'>n$, for every $n<\sqrt{\Pi_{59}}$, that is for
+every $n<10^{56.5}$.
+\end{theorem}
+\begin{proof}
+$\sigma(n')\ge\sigma(n)>1$ gives $\sigma(n)+\sigma(n')>2$. By Theorem~\ref{thm:structure} $n$ and
+$n'$ are coprime, and both are squarefree, so $\sigma(n\,n')=\sigma(n)+\sigma(n')>2$. A squarefree
+integer of mass at least $2$ has at least $59$ prime factors and is therefore at least $\Pi_{59}$,
+since $\sigma(\Pi_{58})=1.998740<2\le2.002350=\sigma(\Pi_{59})$; this is the mass estimate
+underlying Theorem~\ref{thm:barrier}. Finally $\sigma(n)>1$ gives $n'=n\sigma(n)>n$, so
+$n^2<n\,n'$.
+\end{proof}
+
+The measured $\rho=0.519746$ therefore understates the situation: the quantity is not merely small
+on the swept range but provably below $1$ for all $n$ up to $10^{56.5}$, against a sweep reaching
+$4\times10^{8}$. The regime in which $\rho\ge1$ is possible is exactly the regime in which a
+two-cycle is possible, since both require two coprime squarefree integers of total mass at least
+$2$. That is the honest limit of the criterion: Conjecture~\ref{conj:lyap} cannot fail below the
+barrier, and above it the criterion meets the same wall as everything else. It also means the
+computational battery is superseded, since no feasible sweep approaches $10^{56.5}$.
 
 \begin{remark}[What protects it, and what would kill it]\label{rem:lyapstatus}
 The natural way to close the interval is to drive the upper demand to zero by taking
