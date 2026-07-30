@@ -48,4 +48,34 @@ theorem csum_eq_of_mass_eq (S T : Finset ℕ)
   rw [hd] at h
   exact Nat.eq_of_mul_eq_mul_right hTpos h
 
+/-! ## Transfer to integers
+
+The paper states `lem:sigmainj` for squarefree integers rather than for prime sets. For squarefree
+`n` the two agree: `n.primeFactors` consists of primes and its product is `n`.
+-/
+
+open scoped Nat
+
+/-- The arithmetic derivative of a squarefree integer, as `csum` of its prime factors. -/
+noncomputable def ad (n : ℕ) : ℕ := csum n.primeFactors
+
+/-- For squarefree `n`, the product of `n.primeFactors` is `n` itself. -/
+theorem dprod_primeFactors {n : ℕ} (hn : Squarefree n) : dprod n.primeFactors = n :=
+  Nat.prod_primeFactors_of_squarefree hn
+
+/-- **Injectivity on squarefree integers.** If `ad d * d' = ad d' * d` for squarefree `d, d'`,
+then `d = d'`. This is the hypothesis `hdiag` consumed by `Erdos307.pairavg_bound`, and it is what
+keeps `F(d,d') = ad d * d' - ad d' * d` off zero away from the diagonal. -/
+theorem eq_of_cross {d d' : ℕ} (hd : Squarefree d) (hd' : Squarefree d')
+    (h : ad d * d' = ad d' * d) : d = d' := by
+  have hpd : ∀ p ∈ d.primeFactors, p.Prime := fun p hp => Nat.prime_of_mem_primeFactors hp
+  have hpd' : ∀ p ∈ d'.primeFactors, p.Prime := fun p hp => Nat.prime_of_mem_primeFactors hp
+  have e : dprod d.primeFactors = d := dprod_primeFactors hd
+  have e' : dprod d'.primeFactors = d' := dprod_primeFactors hd'
+  have h' : csum d.primeFactors * dprod d'.primeFactors
+      = csum d'.primeFactors * dprod d.primeFactors := by
+    rw [e, e']; exact h
+  have := dprod_eq_of_mass_eq d.primeFactors d'.primeFactors hpd hpd' h'
+  rwa [e, e'] at this
+
 end Erdos307

@@ -48,3 +48,4 @@ open Erdos307
 #print axioms Erdos307.card_filter_dvd_le
 #print axioms Erdos307.sum_filter_comm
 #print axioms Erdos307.pairavg_bound
+#print axioms Erdos307.eq_of_cross

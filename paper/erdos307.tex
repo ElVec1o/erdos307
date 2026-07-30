@@ -3114,8 +3114,10 @@ same rigidity that makes \#307 a two-cycle problem at all. The counting skeleton
 \texttt{Erdos307.pairavg\_bound}, with the divisor step \texttt{card\_filter\_dvd\_le} and the
 double count \texttt{sum\_filter\_comm}; $0$ \texttt{sorry}, standard axioms
 \textup{(\texttt{lean/Erdos307/PairAvg.lean})}. The arithmetic input enters only through the
-hypothesis that $F$ vanishes exactly on the diagonal, which is
-Lemma~\ref{lem:sigmainj}, itself \textup{VERIFIED}.
+hypothesis that $F$ vanishes exactly on the diagonal, which is Lemma~\ref{lem:sigmainj}, itself
+\textup{VERIFIED} and transferred from prime sets to squarefree integers by
+\texttt{Erdos307.eq\_of\_cross}, so that the hypothesis consumed by the skeleton is exactly the
+statement the paper uses.
 
 The decomposition demanded by Remark~\ref{rem:missingdecomp} can be bypassed entirely. Rather than
 splitting $\sum_{m\le N}$ into bilinear pieces, one may reverse the roles of the two arguments of the
@@ -3146,36 +3148,27 @@ $\sum_k\bigl(|b^{+}_k|^2+|b^{-}_k|^2\bigr)\ll N^{1+o(1)}$, equivalently
 $\#\{(m,m')\ \text{squarefree},\ \le N:\ a_ma_{m'}\ \text{is a perfect square}\}\ll N^{1+o(1)}$.
 \end{hypothesis}
 
-\begin{theorem}[The crux target, on one unsigned hypothesis]\label{thm:half}
-Assume Hypothesis~\textup{\ref{hyp:kernel}} and the quadratic large sieve of Heath-Brown in the form
-\[ \sum_{r\le R}\nolimits^{\flat}\Bigl|\sum_{k\le K}\nolimits^{\flat}b_k\Bigl(\frac kr\Bigr)\Bigr|^2
-   \ \ll_\varepsilon\ (RK)^{\varepsilon}(R+K)\sum_k|b_k|^2 , \]
-the flats denoting odd squarefree summation. Then
-\[ \#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}\ \ll\ N^{1/2+o(1)} , \]
-which is exactly the bound $\mathrm{CRUX}\text{-}\mathrm{A}9$ asks for.
-\end{theorem}
-\begin{proof}
-By Lemma~\ref{lem:reversal} and $K\ll N^{1+o(1)}$, the large sieve with $R\asymp P^2$ gives
-$\sum_{r\le R}|T_r(N)|^2\ll N^{o(1)}(R+N)\,N$. Cauchy--Schwarz over the $\Pi^2$ pairs then yields
-$\Pi^{-2}\sum_{p\neq q}|T_{pq}|\le\Pi^{-1}\bigl(\sum_r|T_r|^2\bigr)^{1/2}
-\ll\Pi^{-1}N^{o(1)}\bigl((R+N)N\bigr)^{1/2}$. Taking $P=N^{1/2}$, so $R\asymp N$ and
-$\Pi\asymp N^{1/2}/\log N$, both this and the term $N/\Pi$ of Theorem~\ref{thm:condpower} are
-$N^{1/2+o(1)}$. The side condition $\Pi\ge2\log(2N)/\log P$ holds with room.
-\end{proof}
+\begin{proposition}[The route is circular]\label{prop:circular}
+Hypothesis~\textup{\ref{hyp:kernel}} implies the bound it would be used to prove, so it cannot serve
+as a reduction. Indeed $b^{+}_1=\#\{m\le N:\ a_m\ \text{is a positive perfect square}\}$ is precisely
+the minus layer, and $(b^{+}_1)^2\le\sum_k|b^{+}_k|^2$, so
+Hypothesis~\textup{\ref{hyp:kernel}} forces $b^{+}_1\ll N^{1/2+o(1)}$, which is the conclusion.
+\end{proposition}
 
-\begin{remark}[Status]\label{rem:halfstatus}
-Two things are assumed and neither is proved here. The large sieve is quoted from the literature and
-its precise form should be checked against the source before the theorem is used. Hypothesis
-\ref{hyp:kernel} is measured, not proved: at $N=6.08\times10^6$ over $6{,}079{,}290$ squarefree $m$
-the sum $\sum_k|b_k|^2$ is $24{,}069{,}288$, a ratio of $3.959$ to $N$, with largest multiplicity
-$1707$ \textup{(\texttt{code/sqsieve\_kernel.rs})}. The ratio being an absolute constant rather
-than a growing quantity is what $N^{1+o(1)}$ requires.
+\begin{remark}[Why computation cannot detect this]\label{rem:invisiblecirc}
+The circularity is invisible to measurement. Below the barrier $\sigma(m)>2$ is impossible, so
+$a_m>0$ never occurs and $b^{+}_1=0$ identically: at $N=5\times10^6$ one finds $b^{+}_1=0$ while
+$b^{-}_1=1213$, the latter contributing $12.5\%$ of $\sum_k|b_k|^2$
+\textup{(\texttt{code/sqsieve\_kernel.rs})}. Every computed check of
+Hypothesis~\ref{hyp:kernel} therefore tests a statement from which the load-bearing term has been
+deleted. This is the same blindness recorded in Proposition~\ref{prop:nearmiss}, appearing here in a
+form that would otherwise have passed as supporting evidence.
 
-This route is preferable to the bilinear one of Remark~\ref{rem:missingdecomp} on three counts: it
-needs no decomposition of $\sum_{m\le N}$, its analytic input is a published theorem rather than a
-missing one, and it reaches $N^{1/2+o(1)}$ rather than $N^{3/4+o(1)}$. What it needs is a single
-unsigned pair count. The unconditional record proved here remains
-Corollary~\ref{cor:a9rate}.
+Accordingly, the large sieve does apply and Lemma~\ref{lem:reversal} is correct, but the resulting
+statement is a \emph{reformulation}: $\mathrm{CRUX}\text{-}\mathrm{A}9$ is equivalent to a kernel-collision
+bound, with the equivalence carried by the $k=1$ term. The new attack surface is genuine, since the
+reformulated statement is unsigned and about products, but it is not a reduction and is not counted
+as progress on the crux. The unconditional record remains Corollary~\ref{cor:a9rate}.
 \end{remark}
 
 \begin{remark}[The hypothesis measures, and its constant identifies itself]\label{rem:pairmeasured}
