@@ -2683,13 +2683,37 @@ $10^{-112}$ per trial. Checked at $t=0,1,2,3$: not a square
 \end{enumerate}
 \end{proposition}
 
-\begin{remark}[Three independent blocks on $\mathrm{A}10$]\label{rem:threeblocks}
-The existence route is therefore obstructed at three separate levels, and no two of them are the
+One hope survives all of this on its face: a lower bound for \emph{some term of some sequence in a
+family} is formally weaker than one for a single sequence, and Proposition~\ref{prop:close59}
+supplies $49{,}961$ of them. It fails, and it fails for a reason no enlargement of the family can
+repair.
+
+\begin{proposition}[Multiplicity cannot help]\label{prop:multiplicityfail}
+Every known lower-bound method for primes in a set requires that set to have counting function at
+least $X^{\theta}$ for some fixed $\theta>0$. The union over all $49{,}961$ bases of the terms of
+their sequences below $X$ has counting function $C\log X$ with $C=49{,}961/\log\varepsilon$, since
+each sequence grows like $\varepsilon^n$ and so contributes only $O(\log X)$ terms. Hence
+\[ \frac{\log(\text{union below }X)}{\log X}=\frac{\log\bigl(C\log X\bigr)}{\log X}\;\longrightarrow\;0 , \]
+and the family size $C$ is powerless because it sits inside a logarithm.
+\end{proposition}
+\begin{proof}[Measurement]
+On an immune base $\varepsilon$ has $224$ digits, so at $X=10^{500}$ each sequence contributes
+$2.2$ terms and the whole family contributes $10^{5.05}$, a density exponent of $0.0101$. Reaching
+$\theta=\tfrac12$ at that $X$ would need $10^{249.7}$ bases against the $10^{4.7}$ available, a
+shortfall of $10^{245}$. Even the absolute ceiling on the family at \emph{every} level combined,
+all $2^{139}=10^{41.8}$ subsets of the primes below $800$, falls short by $10^{207.8}$
+\textup{(\texttt{code/a10\_multiplicity.gp})}.
+\end{proof}
+
+\begin{remark}[Four independent blocks on $\mathrm{A}10$]\label{rem:threeblocks}
+The existence route is therefore obstructed at four separate levels, and no two of them are the
 same obstruction. Proposition~\ref{prop:nofreeslot} removes the freedom: the construction carries
 one parameter and cannot be relaxed into a denser family. Theorem~\ref{thm:ffnocycle} removes the
 method: no argument that survives the passage to $K[t]$ can prove existence, because there the
 statement is false. Proposition~\ref{prop:untestable} removes the computation: even the $34$ most
 reduced objects in the whole problem, the ones every sieve has failed to kill, cannot be examined.
+Proposition~\ref{prop:multiplicityfail} removes the last refuge, the hope that a large family of
+sequences is easier than one: the union stays logarithmically thin however many sequences it has.
 What is left is a lower bound for primes in a sparse exponential sequence, which exists for no
 non-degenerate linear recurrence at all. We state plainly that the present work does not decide the
 existence direction and does not contain a route to deciding it.
