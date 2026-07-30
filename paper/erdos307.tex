@@ -3110,7 +3110,12 @@ $\#\{r\in\mathcal{R}:r\mid F\}\le\tau(F)\ll D^{o(1)}$, contributing $D^{2+o(1)}$
 Measured against $D^2/r+D$ the average has ratio $1.011$ at $|\mathcal{R}|=78$
 \textup{(\texttt{code/sqsieve\_pairavg.rs})}. Note the proof uses no equidistribution of $\sigma_r$
 and no uniformity in $r$: only the divisor bound and Lemma~\ref{lem:sigmainj}, the latter being the
-same rigidity that makes \#307 a two-cycle problem at all.
+same rigidity that makes \#307 a two-cycle problem at all. The counting skeleton is formalised as
+\texttt{Erdos307.pairavg\_bound}, with the divisor step \texttt{card\_filter\_dvd\_le} and the
+double count \texttt{sum\_filter\_comm}; $0$ \texttt{sorry}, standard axioms
+\textup{(\texttt{lean/Erdos307/PairAvg.lean})}. The arithmetic input enters only through the
+hypothesis that $F$ vanishes exactly on the diagonal, which is
+Lemma~\ref{lem:sigmainj}, itself \textup{VERIFIED}.
 
 The decomposition demanded by Remark~\ref{rem:missingdecomp} can be bypassed entirely. Rather than
 splitting $\sum_{m\le N}$ into bilinear pieces, one may reverse the roles of the two arguments of the

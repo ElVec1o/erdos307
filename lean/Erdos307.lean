@@ -7,3 +7,4 @@ import Erdos307.Closed
 import Erdos307.Sixty
 import Erdos307.Campaign
 import Erdos307.Injective
+import Erdos307.PairAvg

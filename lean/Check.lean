@@ -1,5 +1,6 @@
 import Erdos307.Campaign
 import Erdos307.Injective
+import Erdos307.PairAvg
 import Erdos307.Rigidity
 import Erdos307.Barrier
 import Erdos307.Capstone
@@ -42,3 +43,8 @@ open Erdos307
 #print axioms Erdos307.den_eq_of_coprime_cross
 #print axioms Erdos307.dprod_eq_of_mass_eq
 #print axioms Erdos307.csum_eq_of_mass_eq
+
+-- thm:pairavg (counting skeleton)
+#print axioms Erdos307.card_filter_dvd_le
+#print axioms Erdos307.sum_filter_comm
+#print axioms Erdos307.pairavg_bound
