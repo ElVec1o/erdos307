@@ -7,6 +7,7 @@ import Erdos307.HalfLyap
 import Erdos307.LyapFalse
 import Erdos307.NoInvariant
 import Erdos307.InfZero
+import Erdos307.Congruential
 import Erdos307.Rigidity
 import Erdos307.Barrier
 import Erdos307.Capstone
@@ -83,3 +84,7 @@ open Erdos307
 #print axioms no_two_cycle_of_decreasing
 #print axioms exists_block_sum_near
 #print axioms infimum_zero
+#print axioms const_increment_iterate
+#print axioms two_nsmul_eq_zero_of_period_two
+#print axioms no_period_two_of_two_nsmul_ne_zero
+#print axioms zmod_two_mul_eq_zero_of_period_two

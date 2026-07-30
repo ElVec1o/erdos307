@@ -3125,6 +3125,18 @@ that condition implies a negative answer to \#307 and is not implied by it.
 length other than two are not excluded by a negative answer to \#307.
 \end{proof}
 
+The mechanism of branch (1) is formalised. \texttt{Erdos307.two\_nsmul\_eq\_zero\_of\_period\_two}
+proves that a constant increment $c$ in any abelian group forces $2c=0$ at a point of period two,
+\texttt{const\_increment\_iterate} gives the general $\varphi(D^{[k]}n)=\varphi(n)+kc$,
+\texttt{no\_period\_two\_of\_two\_nsmul\_ne\_zero} is the certificate such a $\varphi$ would supply,
+and \texttt{zmod\_two\_mul\_eq\_zero\_of\_period\_two} states it over $\mathbb{Z}/m$; all with $0$
+\texttt{sorry} and on \texttt{propext} alone
+\textup{(\texttt{lean/Erdos307/Congruential.lean})}. What is cited rather than formalised is the
+\emph{emptiness} of the class, that no such $\varphi$ with $2c\neq0$ exists for the arithmetic
+derivative, which is Proposition~\ref{prop:localcomplete} and is arithmetic. Branch (1) is therefore
+\textup{VERIFIED} in its mechanism and \textup{PROVED} in its emptiness, and the two should not be
+conflated.
+
 The taxonomy that makes this a closure rather than two isolated facts is the displayed thesis above,
 that an invariant whose increments cancel around a cycle can be exploited only through their sign or
 their value in a finite group. That thesis is not a theorem, and an argument outside it is not

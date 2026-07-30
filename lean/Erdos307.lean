@@ -14,3 +14,4 @@ import Erdos307.HalfLyap
 import Erdos307.LyapFalse
 import Erdos307.NoInvariant
 import Erdos307.InfZero
+import Erdos307.Congruential
