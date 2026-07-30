@@ -2903,6 +2903,58 @@ class modulo $2$, $3$ and $4$ \textup{(\texttt{code/invent\_lyapunov.rs})}. The 
 therefore the only one of the two available, which is another form of the thesis that the
 obstruction is ordered--archimedean rather than congruential (Remark~\ref{rem:ordered}).
 
+The sign route is available but, as it turns out, not weaker than the problem. Both branches of the
+dichotomy can now be closed at once.
+
+\begin{theorem}[Both branches are closed]\label{thm:noinvariant}
+Let $S$ be the set of squarefree $n\ge2$ with $n'$ squarefree.
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
+\item \textup{(Finite-group branch, empty.)} There is no $\varphi$ on $S$ and modulus $m$ with
+$\varphi(n')-\varphi(n)\equiv c\pmod m$ for all $n$ and $2c\not\equiv0\pmod m$.
+\item \textup{(Sign branch, not weaker than the target.)} A $\delta$ on $S$ with
+$\delta(n')<\delta(n)$ throughout exists if and only if $n\mapsto n'$ has no periodic orbit in $S$;
+that condition implies a negative answer to \#307 and is not implied by it.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(1) is Proposition~\ref{prop:localcomplete}, which makes the cycle system soluble modulo every $m$.
+(2) is Proposition~\ref{prop:lyapuniversal}; a two-cycle is a periodic orbit, and periodic orbits of
+length other than two are not excluded by a negative answer to \#307.
+\end{proof}
+
+The taxonomy that makes this a closure rather than two isolated facts is the displayed thesis above,
+that an invariant whose increments cancel around a cycle can be exploited only through their sign or
+their value in a finite group. That thesis is not a theorem, and an argument outside it is not
+excluded by anything here.
+
+This is a statement about methods, not about \#307, and it is the natural endpoint of the structural
+programme: Proposition~\ref{prop:noplace} removes the absolute values, Theorem~\ref{thm:ff} removes
+the arguments that survive to $K[t]$, Proposition~\ref{prop:localcomplete} removes the congruences,
+and Theorem~\ref{thm:noinvariant} removes what is left of the pointwise route. A proof of the
+negative direction, if there is one, must be global: it must count, and not certify.
+
+\begin{remark}[What a counting proof would have to defeat]\label{rem:whatcounting}
+The count it would have to defeat diverges. A two-cycle is exactly $r(a)=1$ for
+$r(a)=\sigma(a)\sigma(a')=a''/a$, so if $r$ has a limiting density $f$ on the class of squarefree $a$
+with $a'$ squarefree, then $\mathbb{P}(a''=a)=\mathbb{P}\bigl(r\in[1,1+\tfrac1a)\bigr)\sim f(1)/a$ and
+\[ \mathbb{E}\bigl(\#\{a\le X:a''=a\}\bigr)\ \sim\ f(1)\,\delta\log X,\qquad \delta=0.3721\ldots, \]
+$\delta$ being the measured density of the admissible class \textup{(\texttt{code/region\_shape.rs},
+$3{,}721{,}148$ admissible $a\le10^7$)}. This diverges, so the heuristic predicts infinitely many
+two-cycles, and any proof of the negative direction must account for a divergent expected count
+producing no solutions at all.
+
+The same formula locates them, and shows why the location is not knowable. Setting the expectation to
+$1$ gives a first solution near $\exp\bigl(1/(\delta f(1))\bigr)$, which is exponential in $1/f(1)$:
+at $f(1)=10^{-2}$ it is $10^{116.7}$, at $f(1)=5\times10^{-3}$ it is $10^{233.4}$, at $f(1)=10^{-3}$
+it is $10^{1167}$. Halving the constant squares the answer. Consistency with
+Theorem~\ref{thm:barrier} needs $f(1)<0.01034$, which is evidence of the softest kind, since an
+expectation near $1$ with no solution observed is an ordinary event and not a contradiction. What
+Proposition~\ref{prop:nearmiss} shows is that $f(1)$ is the one quantity here that cannot be sampled
+\textup{(\texttt{code/heuristic\_location.gp})}. That $f(1)>0$ is not established either; the
+constructed witnesses of Theorem~\ref{thm:lyapfalse} and of the near-miss frontier show only that $r$
+takes values on both sides of $1$ and within $8\times10^{-3}$ of it.
+\end{remark}
+
 Corollary~\ref{cor:lyapbarrier} recovers the barrier by a route independent of the minimisation
 used in Theorem~\ref{thm:barrier}: no extremality argument, no enumeration, only $\log x\le x-1$ and
 the coprimality of Theorem~\ref{thm:structure}. It is also stronger in one direction, since it
