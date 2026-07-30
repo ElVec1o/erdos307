@@ -27,3 +27,21 @@ approximate (a laptop).
 - `residue_census.py` anneals partitions of the first 72 primes; exact values vary slightly run to
   run, but the residue census (median ≈ −0.31, matching the uniform heuristic) is stable.
 - `sympy.isprime` is proven-deterministic well above the scales used here.
+
+## PARI/GP scripts (the Lyapunov refutation)
+
+Run with `gp -q -f <name>.gp` (PARI/GP 2.17). All verdicts are exact rational or exact integer
+arithmetic; floating point appears only in printed summaries.
+
+| Script | What it computes | Expected output | Time |
+|---|---|---|---|
+| `lyap_refute.gp` | Searches for a counterexample to the Lyapunov criterion: forces `{2,3,5}` into `n'` via `w \| n' ⟺ Σ_{p\|n} p⁻¹ ≡ 0 (mod w)`, keeps `1 < σ(n) < 31/30`, and requires `n'` to factor completely. | witness `n` = primes in `[7,373]` less `{307,317,359}`. | ~2 min |
+| `lyap_refute_verify.gp` | Independent exact verification of that witness: squarefreeness of `n` and `n'`, `gcd(n,n')=1`, `σ(n)=n'/n`, `σ(n)>1`, `σ(n')>σ(n)`, and `n''>n`. | all `YES`; `σ(n')=31/30`, `r=n''/n=1.03944`. | ~10 s |
+| `ecpp_cofactor.gp` | Atkin–Morain certificate for the 141-digit cofactor `C = n'/30`, with `C` derived from the witness rather than transcribed. | `primecertisvalid: 1`, cert `N` equals `C`. | ~1 s |
+| `rho_witness.gp` | Smallest fully factored witness with `σ(n)>1` and `σ(n')/σ(n)` above the threshold `1−1/(eU)`. | `n` = primes in `[5,163]`, ratio `0.787115`. | ~1 min |
+| `rho_verify.gp` | Exact verification of that witness and of the resulting bound `1/(e(1−ρ)) ≥ 1.7281` against `U ≤ 1.250828`. | route refuted. | ~5 s |
+| `nearmiss_construct.gp` | Drives the near-miss quantity `r(a)=σ(a)σ(a')` by construction rather than sweeping; every `r` printed is a rigorous lower bound. | `r ≥ 1.30` at 1694 digits. | ~3 min |
+
+`region_shape.rs` (Rust, `rustc -O -o region_shape region_shape.rs`) measures the achievable region
+`{(σ(n),σ(n'))}` over squarefree `n ≤ N` with `n'` squarefree: reproduces `max r = 0.5535` and the
+danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.

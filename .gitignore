@@ -54,3 +54,8 @@ code/lyap_battery
 code/lyap_battery.log
 code/lyap_battery.progress
 code/forcing_criterion
+
+# compiled scratch binaries and run logs (regenerate from source)
+code/region_shape
+code/*.log
+code/lyap_refute_cofactor_ecpp.txt
