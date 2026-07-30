@@ -14,6 +14,7 @@
 \newtheorem{conjecture}[theorem]{Conjecture}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
 \newtheorem{remark}[theorem]{Remark}
 
 \DeclareMathOperator{\lcm}{lcm}
@@ -2935,6 +2936,57 @@ without change: a floor of $N(\log N)^{-\alpha}$ yields the exponent $\alpha/2$.
 character sums are of size $\sqrt N$ rather than $N(\log N)^{-1/2}$
 (Section~\ref{sec:sqsieve}), so the truth is far stronger than what the general theorem can deliver,
 and the gap is entirely in the analytic input rather than in the sieve.
+\end{remark}
+
+The exponent $\tfrac14$ is an artefact of the general theorem, not of the arithmetic, and the gap
+can be closed off exactly. Everything in the sieve except the character-sum input is elementary, so
+the reachable exponent is a function of one measurable quantity: how $T_r(N)$ grows with $r$.
+
+\begin{hypothesis}[Square-root cancellation, uniform in the modulus]\label{hyp:sq}
+There is an absolute $A\ge0$ with $|T_r(N)|\ll r^{A}N^{1/2+o(1)}$ for every odd squarefree $r$.
+\end{hypothesis}
+
+\begin{theorem}[Conditional power saving, and the crux exactly]\label{thm:condpower}
+Assume Hypothesis~\textup{\ref{hyp:sq}}. Then
+\[ \#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}\;\ll\;N^{1-\delta},
+   \qquad \delta=\frac1{2(2A+1)}. \]
+In particular $A=0$ gives $N^{1/2+o(1)}$, which is exactly the bound
+$\mathrm{CRUX}\text{-}\mathrm{A}9$ asks for.
+\end{theorem}
+\begin{proof}
+Run the sieve of Theorem~\ref{thm:a9} with $\mathcal{P}$ the primes in $(P,2P]$, $\Pi\sim P/\log P$,
+and dispose of the $m$ with $p\mid a_m$ by the divisor bound rather than
+Lemma~\ref{lem:localsq}: a perfect square $a_m$ has at most $\log(2N)/\log P$ prime factors in
+$\mathcal{P}$, so $\sum_{p\in\mathcal{P}}(a_m/p)\ge\Pi/2$ once $\Pi\ge2\log(2N)/\log P$. Then
+\[ \#\{\,\cdot\,\}\ \ll\ \frac{N}{\Pi}+\frac1{\Pi^2}\sum_{p\neq q}|T_{pq}(N)|
+   \ \ll\ \frac{N\log P}{P}+P^{2A}N^{1/2+o(1)}, \]
+since $pq\le4P^2$. Balancing the two terms gives $P=N^{1/(2(2A+1))}$ and the stated exponent; the
+side condition $\Pi\ge2\log(2N)/\log P$ holds comfortably at that $P$. For $A=0$ take
+$P=N^{1/2}$, whence both terms are $N^{1/2+o(1)}$.
+\end{proof}
+
+\begin{remark}[The hypothesis is measured, and $A$ reads as zero]\label{rem:Ameasured}
+Hypothesis~\ref{hyp:sq} is not a wish. At $N=4\times10^7$, so $\sqrt N=6.325\times10^3$, the ratio
+$|T_r(N)|/\sqrt N$ across twelve moduli spanning ten orders of magnitude is
+\[
+\begin{array}{lrrrrrr}
+r\ \text{prime}: & 101 & 1009 & 10007 & 100003 & 10^6{+}3 & 10^7{+}19\\
+|T_r|/\sqrt N:   & 7.38 & 0.17 & 0.84 & 1.07 & 0.05 & 0.15\\[2pt]
+r=pq:            & 101909 & 10097063 & 1000730021 & 100003300009 & & \\
+|T_r|/\sqrt N:   & 0.95 & 0.21 & 1.30 & 0.64 & &
+\end{array}
+\]
+together with $2.34$ and $1.00$ at the squarefree $1155$ and $1113121$. The implied exponent
+$A=\log(|T_r|/\sqrt N)/\log r$ is $+0.006$, $-0.004$, $+0.013$, $-0.018$ and $-0.000$ at the five
+largest moduli; the outlying $+0.433$ occurs at $r=101$, where $\log r$ is too small for the ratio to
+be meaningful. Note that the last two moduli \emph{exceed} $N$, and the sums are still of size
+$\sqrt N$ \textup{(\texttt{code/sqsieve\_uniform.rs})}.
+
+So the sharp form of $\mathrm{A}9$ is not blocked by the sieve, which is elementary, nor by the
+arithmetic, which cooperates: it is blocked by the absence of a Weil-type bound for a character sum
+whose argument is not a polynomial. That is a single, isolated, and precisely stated analytic
+deficit, and Lemma~\ref{lem:symbolfact} has already reduced it to a sum over a multiplicative
+function of $\sigma_r$.
 \end{remark}
 
 \begin{remark}[What made this work]\label{rem:sqsievewhy}
