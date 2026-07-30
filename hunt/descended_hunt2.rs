@@ -202,7 +202,7 @@ fn main() {
         lo: u128, hi: u128, omega_min: usize, omega_max: usize,
         start_idx: usize, chosen: &mut Vec<usize>, prod: u128, ninert: usize,
         tested: &mut u64, cand_valid: &mut u64, hits: &mut u64, pruned: &mut u64,
-        memo: &mut std::collections::HashMap<u64, VS>,
+        memo: &mut std::collections::HashMap<u64, VS>, cumw: &[f64],
         start: &Instant, last: &mut Instant, i0: usize, npool: usize,
     ) {
         let k = chosen.len();
@@ -246,7 +246,11 @@ fn main() {
             // progress
             if last.elapsed().as_secs_f64() > 4.0 {
                 let el = start.elapsed().as_secs_f64();
-                let frac = (i0 as f64 + 1.0) / (npool as f64).max(1.0);
+                // Completion fraction by WORK, not by pair count. Pair ordering is extremely
+                // front-loaded: in tier 1 the first 4% of pairs consumed 73% of the run, so a
+                // linear fraction over-estimated the ETA by about 25x. cumw[j] is the estimated
+                // number of supports under the first j pairs, so this ratio tracks real progress.
+                let frac = (cumw[(i0 + 1).min(cumw.len() - 1)] / cumw[cumw.len() - 1]).min(1.0);
                 let eta = if frac > 1e-9 { (el / frac - el).max(0.0) } else { 0.0 };
                 eprint!("\r  pair {}/{}  tested {}  valid-m' {}  pruned {} ({:.1}%)  hits {}  {:.0}s  ETA<~{}  ({:.0}/s)   ",
                         i0 + 1, npool, tested, cand_valid, pruned, 100.0 * *pruned as f64 / (*cand_valid as f64).max(1.0), hits, el, hms(eta), *tested as f64 / el.max(1e-9));
@@ -267,7 +271,7 @@ fn main() {
             if np > hi { break; } // pool sorted asc; product only grows
             chosen.push(i);
             dfs(pool, valcache, is3, lo, hi, omega_min, omega_max, i + 1, chosen,
-                np, ninert + if is3[i] {1} else {0}, tested, cand_valid, hits, pruned, memo, start, last, i0, npool);
+                np, ninert + if is3[i] {1} else {0}, tested, cand_valid, hits, pruned, memo, cumw, start, last, i0, npool);
             chosen.pop();
         }
     }
@@ -290,6 +294,32 @@ fn main() {
             npairs += 1;
         }
     }
+    // subtree-size estimate per pair: how many supports can still be completed under it
+    let mut cumw = vec![0f64; npairs + 1];
+    {
+        let mut idx = 0usize;
+        for i0 in 0..npool {
+            if (pool[i0] as u128) > hi { break; }
+            for i1 in (i0 + 1)..npool {
+                let prod2 = (pool[i0] as u128).saturating_mul(pool[i1] as u128);
+                if prod2 > hi { break; }
+                let navail = ((i1 + 1)..npool)
+                    .filter(|&j| prod2.saturating_mul(pool[j] as u128) <= hi).count();
+                // sum of C(navail, k) for k = 0 ..= omega_max - 2
+                let mut w = 0f64;
+                let mut c = 1f64;
+                for k in 0..=(omega_max.saturating_sub(2)) {
+                    if k > 0 { c *= (navail as f64 - k as f64 + 1.0) / k as f64; }
+                    if c < 0.0 { break; }
+                    w += c;
+                }
+                idx += 1;
+                cumw[idx] = cumw[idx - 1] + w.max(1.0);
+            }
+        }
+        for j in (idx + 1)..=npairs { cumw[j] = cumw[idx]; }
+    }
+
     let mut pair = 0usize;
     'outer: for i0 in 0..npool {
         if (pool[i0] as u128) > hi { break; }
@@ -300,7 +330,7 @@ fn main() {
             let mut chosen = vec![i0, i1];
             dfs(&pool, &valcache, &is3, lo, hi, omega_min, omega_max, i1 + 1, &mut chosen,
                 prod2, (if is3[i0] { 1 } else { 0 }) + (if is3[i1] { 1 } else { 0 }),
-                &mut tested, &mut cand_valid, &mut hits, &mut pruned, &mut memo, &start, &mut last, pair, npairs);
+                &mut tested, &mut cand_valid, &mut hits, &mut pruned, &mut memo, &cumw, &start, &mut last, pair, npairs);
             pair += 1;
             if pair >= npairs { break 'outer; }
         }

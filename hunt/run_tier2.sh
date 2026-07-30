@@ -49,6 +49,8 @@ fi
 echo "$BOX" > "$BOXF"
 
 nohup bash -c '
+  cd "'"$D"'" || exit 1   # progress/out files are written RELATIVE to cwd
+
   if [ "'"${1:-chain}"'" = "chain" ]; then
     while pgrep -f "[d]escended_hunt " >/dev/null 2>&1 || pgrep -x "[d]escended_hunt" >/dev/null 2>&1; do sleep 60; done
     echo "tier 1 finished; starting tier 2 at $(date)"
