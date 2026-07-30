@@ -6,6 +6,7 @@ import Erdos307.RhoBarrier
 import Erdos307.HalfLyap
 import Erdos307.LyapFalse
 import Erdos307.NoInvariant
+import Erdos307.InfZero
 import Erdos307.Rigidity
 import Erdos307.Barrier
 import Erdos307.Capstone
@@ -80,3 +81,5 @@ open Erdos307
 #print axioms exists_f_of_injective
 #print axioms increment_iff
 #print axioms no_two_cycle_of_decreasing
+#print axioms exists_block_sum_near
+#print axioms infimum_zero

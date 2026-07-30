@@ -1693,7 +1693,8 @@ barrier (\texttt{barrier}), giving $D_P^2\ge4\times10^{112}$;
 \texttt{mass\_sum\_threshold}) and Proposition~\ref{prop:lyapuniversal}
 (\texttt{exists\_f\_of\_injective}, \texttt{increment\_iff},
 \texttt{no\_two\_cycle\_of\_decreasing}), which together machine-check the closure of the sign
-branch in Theorem~\ref{thm:noinvariant}.
+branch in Theorem~\ref{thm:noinvariant};
+\item Proposition~\ref{prop:infzero} (\texttt{exists\_block\_sum\_near}, \texttt{infimum\_zero}).
 \end{itemize}
 The single non--elementary ingredient, that the $k$ smallest primes minimise $\prod$ and maximise
 $\sum1/p$ among $k$--element prime sets, is isolated as an explicit hypothesis of \texttt{barrier}
@@ -2845,6 +2846,16 @@ summing to exactly $1$. This produces disjoint \emph{infinite} $P_\infty,Q_\inft
 $\sigma(P_\infty)=\sigma(Q_\infty)=1$. Truncating both at height $y$ gives finite disjoint sets with
 $\sigma(P_y)\sigma(Q_y)\to1$.
 \end{proof}
+
+The analytic content is formalised, and in a slightly stronger form than the proof above uses. For
+the infimum one does not need the subseries theorem, only that each mass can be placed in
+$(1-\delta,1)$: \texttt{Erdos307.exists\_block\_sum\_near} takes the first consecutive block whose
+sum exceeds $T-\varepsilon$ and observes that it overshoots by less than one term, and
+\texttt{infimum\_zero} assembles two such blocks into a product within $\varepsilon$ of $1$. Both
+carry $0$ \texttt{sorry} and the three standard axioms
+\textup{(\texttt{lean/Erdos307/InfZero.lean})}. The arithmetic input, that the primes split into
+two infinite classes each with reciprocal terms tending to $0$ and unbounded partial sums, is cited
+rather than reproved, as in Theorem~\ref{thm:halflyap}.
 
 The greedy form of that argument reaches $|\sigma(P)\sigma(Q)-1|=6.50\times10^{-9}$ with $144$
 primes, against $0.4465$ for the swept frontier of Proposition~\ref{prop:nearmiss}
