@@ -39,3 +39,7 @@ code/a10_nearmiss
 code/a10_density1
 code/a10_anticorr
 code/a10_weighted
+hunt/descended_hunt2.log.*
+hunt/descended_hunt2.progress.*
+hunt/descended_hunt2.out.*
+hunt/tier2_par.k

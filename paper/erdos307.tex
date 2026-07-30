@@ -2619,27 +2619,17 @@ Remark~\textup{\ref{rem:lehmer}} is therefore intrinsic, not an artefact of the 
 ansatz, and no amount of extra slots converts the Lehmer question into a Bunyakovsky one.
 \end{corollary}
 
-The second closure identifies which place of $\mathbb{Q}$ the problem lives at, by exhibiting a
-setting in which the analogue is not merely unproved but \emph{false}.
-
-\begin{theorem}[The ultrametric obstruction]\label{thm:ffnocycle}
-Let $K$ be any field and define the arithmetic derivative on squarefree monic $f=\prod_i\pi_i\in K[t]$
-by $f'=\sum_i f/\pi_i$. Then $\deg f'\le\deg f-1$. Consequently the arithmetic derivative on $K[t]$
-has \emph{no cycle of any length} among non-constant squarefree polynomials, and the analogue of
-\textup{\#307} is false over every $K[t]$.
-\end{theorem}
-\begin{proof}
-Each summand $f/\pi_i$ has degree $\deg f-\deg\pi_i\le\deg f-1$, and the degree of a sum is at most
-the maximum of the degrees. A cycle $f_0\mapsto f_1\mapsto\cdots\mapsto f_r=f_0$ of length $r\ge1$
-would give $\deg f_0\le\deg f_0-r$, which is absurd.
-\end{proof}
-Verified by brute force independently of the proof: all $8192$ squarefree monics over
-$\mathbb{F}_2$ of degree $\le13$ and all $6561$ over $\mathbb{F}_3$ of degree $\le8$ satisfy
-$\deg f'\le\deg f-1$, with $0$ violations and $0$ two-cycles
-\textup{(\texttt{code/ff\_nocycle.rs})}.
+The second closure is not new here, but it belongs in this list because it is what forces the whole
+existence route to be analytic. Theorem~\ref{thm:ff} of Section~\ref{sec:ff} shows that over
+$\mathbb{F}_q[t]$ the arithmetic derivative satisfies $\deg f'\le\deg f-1$, hence has no two--cycles
+and no nonzero fixed points, and Corollary~\ref{cor:ff307} concludes that the function--field
+Erd\H{o}s--Barbeau equation is insoluble outright. \textup{(An independent brute-force recheck,
+$8192$ squarefree monics over $\mathbb{F}_2$ to degree $13$ and $6561$ over $\mathbb{F}_3$ to
+degree $8$, $0$ violations and $0$ two--cycles: \texttt{code/ff\_nocycle.rs}.)} What is added here
+is not that statement but its consequence for \emph{method}, recorded next.
 
 \begin{remark}[Why the existence route cannot be algebraic]\label{rem:archimedean}
-The mechanism of Theorem~\ref{thm:ffnocycle} is the ultrametric inequality. The cycle equation is
+The mechanism of Theorem~\ref{thm:ff} is the ultrametric inequality. The cycle equation is
 $\sigma(a)\sigma(b)=1$, so one of the two masses must reach $1$; over $K[t]$ the mass satisfies
 $|\sigma(f)|=\max_i|1/\pi_i|<1$ by ultrametricity and can never do so, whereas over $\mathbb{Z}$ the
 archimedean absolute value permits $\sum_{p\mid n}1/p>1$. So \#307 is possible at all only because
@@ -2647,7 +2637,7 @@ $|\cdot|_\infty$ is not ultrametric.
 
 This has a consequence for method. Any argument for \emph{existence} that is purely algebraic, in
 the sense that it applies verbatim with $\mathbb{Z}$ replaced by $K[t]$, would prove a statement
-that Theorem~\ref{thm:ffnocycle} refutes; hence no such argument exists. Together with
+that Theorem~\ref{thm:ff} refutes; hence no such argument exists. Together with
 Proposition~\ref{prop:nopoly} (no polynomial parametrisation) and Proposition~\ref{prop:noplace}
 (no place of $\mathbb{Q}$ carries the descent) this closes the algebraic and geometric toolkit on
 \emph{both} routes: the negative route has no place to descend at, and the positive route has no
@@ -2709,7 +2699,7 @@ Each of the four blocks was then attacked on its own terms. None fell; each is n
 precisely, and two further routes are closed.
 
 \begin{proposition}[$\mathbb{Q}$ is optimal for the barrier]\label{prop:fieldoptimal}
-Theorem~\ref{thm:ffnocycle} kills the algebraic route by ultrametricity, which suggests replacing
+Theorem~\ref{thm:ff} kills the algebraic route by ultrametricity, which suggests replacing
 $K[t]$ by a number ring $\mathcal{O}_K$, where the absolute value is archimedean and the obstruction
 disappears. It does disappear, but nothing is gained: for every number field $K$ the least
 $\prod N(\pi)$ over prime ideals with $\sum1/N(\pi)\ge2$ is at least that of $\mathbb{Q}$.
@@ -2798,7 +2788,7 @@ available.
 \begin{remark}[Four independent blocks on $\mathrm{A}10$]\label{rem:threeblocks}
 The existence route is therefore obstructed at four separate levels, and no two of them are the
 same obstruction. Proposition~\ref{prop:nofreeslot} removes the freedom: the construction carries
-one parameter and cannot be relaxed into a denser family. Theorem~\ref{thm:ffnocycle} removes the
+one parameter and cannot be relaxed into a denser family. Theorem~\ref{thm:ff} removes the
 method: no argument that survives the passage to $K[t]$ can prove existence, because there the
 statement is false. Proposition~\ref{prop:untestable} removes the computation: even the $34$ most
 reduced objects in the whole problem, the ones every sieve has failed to kill, cannot be examined.
