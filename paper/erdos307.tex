@@ -3031,6 +3031,61 @@ Weil framing, because it says what would have to be new: an estimate for $T_r$ t
 through the multiplicative decomposition at all.
 \end{remark}
 
+Remark~\ref{rem:whereitlives} asked for an estimate for $T_r$ that never passes through the
+multiplicative decomposition. Here is one. It rests on the observation that $\sigma_r$ is
+\emph{additive}, which makes the summand bilinear rather than multiplicative.
+
+\begin{proposition}[The bilinear form and its kernel norm]\label{prop:bilinear}
+Write $m=de$ with $(d,e)=1$. By Lemma~\ref{lem:symbolfact} and the additivity of $\sigma_r$,
+\[ \Bigl(\frac{m'-2m}{r}\Bigr)=\Bigl(\frac{d}{r}\Bigr)\Bigl(\frac{e}{r}\Bigr)\,
+   K\bigl(\sigma_r(d),\sigma_r(e)\bigr),\qquad K(u,v)=\Bigl(\frac{u+v-2}{r}\Bigr). \]
+The matrix $K$ is Toeplitz in $u+v$, so writing $K(u,v)=\sum_\xi\widehat f(\xi)e_r(\xi u)e_r(\xi v)$
+diagonalises it against the orthogonal system $\bigl(e_r(\xi u)\bigr)_u$ of norm $\sqrt r$. Since
+$\widehat f(\xi)$ is a normalised Gauss sum, $|\widehat f(\xi)|=r^{-1/2}$ for $\xi\neq0$ and
+$\widehat f(0)=0$, every singular value of $K$ equals $\sqrt r$ and
+\[ \|K\|_{\mathrm{op}}=\sqrt r . \]
+Consequently, for $A(u)=\sum_{d\sim D,\ \sigma_r(d)\equiv u}(d/r)$ and $B$ defined likewise,
+\[ |T_r(N)|\ \ll\ N^{o(1)}\,\sqrt r\;\|A\|_2\,\|B\|_2 . \]
+No multiplicative decomposition is used at any point; the only input is that a Gauss sum has
+modulus $\sqrt r$.
+\end{proposition}
+
+The estimate has therefore been moved off signed cancellation entirely. Since $|A(u)|$ is at most
+the number of $d$ in its class, $\|A\|_2^2\le P(D,r):=\#\{(d,d')\sim D:\sigma_r(d)\equiv\sigma_r(d')\}$,
+an \emph{unsigned} count, and unsigned counts are a far friendlier class of object.
+
+\begin{hypothesis}[Second-moment equidistribution of $\sigma_r$]\label{hyp:pair}
+$P(D,r)\ll D^2/r+D^{1+o(1)}$, uniformly in $r$.
+\end{hypothesis}
+
+\begin{theorem}[Unconditional-in-shape power saving]\label{thm:bilinpower}
+Assume Hypothesis~\textup{\ref{hyp:pair}}. Then $|T_r(N)|\ll N^{o(1)}\bigl(\sqrt{rN}+N/\sqrt r\bigr)$,
+so Hypothesis~\textup{\ref{hyp:sq}} holds with $A=\tfrac12$, and Theorem~\ref{thm:condpower} gives
+\[ \#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}\ \ll\ N^{3/4+o(1)} . \]
+\end{theorem}
+\begin{proof}
+$\|A\|_2\ll(D^2/r+D)^{1/2}N^{o(1)}$ and likewise for $B$, so
+$|T_r|\ll\sqrt r\,(D^2/r+D)^{1/2}(E^2/r+E)^{1/2}N^{o(1)}$ with $DE=N$; taking $D=E=\sqrt N$ gives
+the display. In Theorem~\ref{thm:condpower} with $A=\tfrac12$ one has $\delta=\tfrac14$, and at
+$P=N^{1/4}$ the moduli $r=pq\asymp N^{1/2}$ make both $\sqrt{rN}$ and $N/\sqrt r$ equal to $N^{3/4}$.
+\end{proof}
+
+\begin{remark}[The hypothesis measures, and its constant identifies itself]\label{rem:pairmeasured}
+$P(D,r)$ against $D^2/r+D$ has ratio $0.3688$, $0.3688$, $0.3689$ at $r=1009$;
+$0.3705$, $0.3696$, $0.3695$ at $r=10007$; and $0.3867$, $0.3727$, $0.3702$ at $r=100003$, for
+$D=10^6,5\times10^6,2\times10^7$ \textup{(\texttt{code/sqsieve\_bilinear.rs})}. The ratio is not
+merely bounded but constant, and the constant is $(6/\pi^2)^2=0.3696$, the square of the squarefree
+density, which is exactly what equidistribution of $\sigma_r$ predicts once both $d$ and $d'$ are
+restricted to squarefree integers.
+
+This is worth contrasting with Hypothesis~\ref{hyp:sq}. That one asks for signed square-root
+cancellation, and Proposition~\ref{prop:routeclosed} showed the only available route to it fails.
+Hypothesis~\ref{hyp:pair} asks instead for an unsigned second moment, where positivity is available
+and the large sieve applies; and it would already deliver a power saving, from
+$N/(\log N)^{1/4}$ to $N^{3/4}$. We do not prove it here: Hal\'asz bounds each frequency by
+$D/(\log D)^{c}$, which suffices only for $r\ll(\log D)^{2c}$, so the large-$r$ range remains open.
+\end{remark}
+
 \begin{remark}[What made this work]\label{rem:sqsievewhy}
 Every previous attack on $\mathrm{A}9$ counted members of the minus layer directly, and each ran
 into the same obstruction: the layer is a union of lines $m'=2m-k$, each thin by
