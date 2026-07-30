@@ -2864,6 +2864,19 @@ A cycle would give $\delta(n)<\delta(n)$ by Theorem~\ref{thm:halflyap}. The seco
 AM--GM together with the mass estimate of Theorem~\ref{thm:barrier}.
 \end{proof}
 
+There are exactly two ways to exploit the fact that increments cancel around a cycle, and the
+second is foreclosed. Around a two-cycle the two increments of any function sum to zero, so an
+obstruction must pin down either their \emph{sign}, which is the Lyapunov route above, or their
+\emph{value in a finite group}: if some $\varphi$ satisfied
+$\varphi(n')-\varphi(n)\equiv c\pmod m$ for all $n$ with $2c\not\equiv0$, a two-cycle would give
+$0\equiv2c$. No such $\varphi$ exists, and not for want of searching:
+Proposition~\ref{prop:localcomplete} proves the cycle system soluble modulo every $m$, so any
+obstruction expressible as a congruence is empty a priori. Measured, the increments of
+$\omega(n)$, of $\#\{p\mid n:p\equiv3\ (4)\}$, of $n$, and of $n+\omega(n)$ each hit every residue
+class modulo $2$, $3$ and $4$ \textup{(\texttt{code/invent\_lyapunov.rs})}. The sign route is
+therefore the only one of the two available, which is another form of the thesis that the
+obstruction is ordered--archimedean rather than congruential (Remark~\ref{rem:ordered}).
+
 Corollary~\ref{cor:lyapbarrier} recovers the barrier by a route independent of the minimisation
 used in Theorem~\ref{thm:barrier}: no extremality argument, no enumeration, only $\log x\le x-1$ and
 the coprimality of Theorem~\ref{thm:structure}. It is also stronger in one direction, since it
