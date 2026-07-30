@@ -2881,6 +2881,44 @@ constant, said above to be unavailable to sampling, is available to computation 
 model of Proposition~\ref{prop:anticorr} is granted.
 \end{remark}
 
+\begin{remark}[What is left, on both sides]\label{rem:whatisleft}
+The two directions can now be specified rather than merely called open.
+
+\emph{Negative.} Theorem~\ref{thm:noinvariant} closes the certificate route on both branches, so a
+proof must count rather than certify; and by Remark~\ref{rem:whatcounting} the count it must defeat
+diverges. A proof of the negative direction would therefore have to contradict a divergent expected
+count, which is to say that the direction is not merely unproved but probably false.
+
+\emph{Positive.} Three routes are available in principle, and two are closed quantitatively.
+\begin{enumerate}[label=\textup{(\alph*)},leftmargin=2.2em]
+\item \emph{Exhibit a witness.} Excluded by Remark~\ref{rem:calibrated}: the first is expected near
+$10^{4\times10^{89}}$.
+\item \emph{Bound the count below by analytic means.} Excluded by size. At the proved barrier the
+main term $f(1)\delta\log X$ lies $10^{200.6}$ below the trivial count $X$, and the saving a method
+would need in order to keep the main term above its own error grows like $X$ itself. Sieve and
+circle-method errors save a power of $X$ or a power of $\log X$. So an analytic proof here would
+have to be \emph{exact}, with error identically zero, rather than sharp.
+\item \emph{Construct exactly.} This is the only branch alive, and it exists: the Pell orbit of
+Remark~\ref{rem:lehmer}.
+\end{enumerate}
+
+The two exclusions interlock, and the interlock is the real statement. Exactness is what algebra
+supplies, and Theorem~\ref{thm:ff} excludes every argument that survives the passage to $K[t]$,
+where the conclusion is false. The Pell construction escapes that exclusion for one reason only:
+its final input is the primality of a determined term, and primality does not survive to $K[t]$. So a
+successful method must be \emph{archimedean and exact at the same time}, a combination which is
+unusual but not unprecedented, continued fractions solving Pell being the standard instance, and
+Remark~\ref{rem:lehmer} is exactly the analogue here.
+
+What remains of \#307 is therefore one question and not a programme: whether a determined term
+$q_n$ of the exponential Pell sequence attached to an immune base is prime, together with the sign
+selection $k=0$, which Remark~\ref{rem:lehmer} shows is a choice between $\{0,-1\}$ rather than a
+coincidence of measure zero. By Proposition~\ref{prop:nopoly} the parametrisation is forced to be
+exponential rather than polynomial, which places the question in the Lehmer class rather than the
+Schinzel class, and it is open there for every non-degenerate sequence, Mersenne and Lucas included.
+That is the whole of the residue, and it is why nothing in this paper decides the problem.
+\end{remark}
+
 The measurement does expose a sharp structural fact, which turns out to be exactly the barrier seen
 statistically.
 
