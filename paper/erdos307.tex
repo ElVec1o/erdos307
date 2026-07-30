@@ -2827,6 +2827,43 @@ $aa'$ absorbs exactly the first $59$ primes has probability $\prod_{p\le277}2/(p
 below $\mathbb{P}(B)$ by the factor one expects from the many other prime sets of mass $2$
 \textup{(\texttt{code/barrier\_probability.rs})}.
 
+One more thing follows, and it disarms the near-miss spectrum entirely.
+
+\begin{proposition}[The near-miss infimum is zero, so closeness is not evidence]\label{prop:infzero}
+\[ \inf\Bigl\{\,\bigl|\sigma(P)\sigma(Q)-1\bigr|\ :\ P,Q\ \text{finite disjoint prime sets}\,\Bigr\}=0, \]
+and \#307 asks exactly whether the infimum is attained.
+\end{proposition}
+\begin{proof}
+Split the primes into two infinite classes, say by parity of index. Each class has terms tending to
+$0$ and divergent reciprocal sum, so by the classical subseries theorem each carries a subseries
+summing to exactly $1$. This produces disjoint \emph{infinite} $P_\infty,Q_\infty$ with
+$\sigma(P_\infty)=\sigma(Q_\infty)=1$. Truncating both at height $y$ gives finite disjoint sets with
+$\sigma(P_y)\sigma(Q_y)\to1$.
+\end{proof}
+
+The greedy form of that argument reaches $|\sigma(P)\sigma(Q)-1|=6.50\times10^{-9}$ with $144$
+primes, against $0.4465$ for the swept frontier of Proposition~\ref{prop:nearmiss}
+\textup{(\texttt{code/infimum\_zero.gp})}. So the analytic half of \#307 is empty: the mass equation
+can be approximated as closely as one likes, and no near-miss, however good, is evidence that a
+solution exists.
+
+What the near-misses do measure is a trade-off, and it is the honest picture of the obstruction. A
+solution must kill two defects at once, the mass defect $|\sigma(P)\sigma(Q)-1|$ and the size defect
+$\log_{10}\bigl(\prod Q\big/\sigma(P)\prod P\bigr)$, the latter vanishing exactly when
+$\prod Q=N_P$, which is Theorem~\ref{thm:structure}. Each is reachable alone and neither
+construction moves the other:
+\[
+\begin{array}{lcc}
+\text{construction} & \text{mass defect} & \text{size defect}\\[2pt]
+\text{greedy, } Q \text{ free} & 6.50\times10^{-9} & 10^{341.3}\\
+Q=\text{primes}(a'),\ \text{\texttt{nearmiss\_tune.gp}} & 7.92\times10^{-3} & 0
+\end{array}
+\]
+Fixing $Q$ as the prime set of $a'$ makes the size defect vanish identically and leaves the mass
+defect at $10^{-3}$; choosing $Q$ freely drives the mass defect to $10^{-9}$ and costs $341$ orders
+of magnitude in size. \#307 is the demand that both columns read zero simultaneously, and nothing in
+this paper moves them together.
+
 \begin{remark}[What the calibrated heuristic says, and it is not encouraging]\label{rem:calibrated}
 With $\mathbb{E}(X)\sim f(1)\,\delta\log X$ and $\delta=0.3721$, Proposition~\ref{prop:f1} gives an
 expected number of two-cycles below the proved barrier of about $10^{-88}$, and $\mathbb{E}(X)$ does
