@@ -2761,7 +2761,7 @@ region $r\ge1$ lies above $10^{112.9}$, so no computation can sample it
 \textup{(\texttt{code/a10\_nearmiss.rs}, \texttt{code/a10\_density1.rs})}.
 \end{proposition}
 
-This is worth stating plainly because it is unusual. Heuristics of Bateman--Horn or Hardy--Littlewood
+The situation is not the usual one. Heuristics of Bateman--Horn or Hardy--Littlewood
 type are normally checked against data, and the agreement is what justifies confidence in them. Here
 the prediction that solutions exist rests on a constant that no computation can estimate, even in
 principle, because the barrier and the sampleable range are disjoint. The expected-count heuristic
@@ -2993,8 +2993,7 @@ The obvious route to Hypothesis~\ref{hyp:sq} is the one already used in
 Lemma~\ref{lem:charcancel}: expand by Gauss sums and bound each multiplicative sum
 $\sum_{m\le N}h_t(m)$ separately, where square-root cancellation would follow from a Weil-type
 input or, in the analytic form, from \textup{GRH} applied to
-$\prod_\chi L(s,\chi)^{\widehat\alpha(\chi)}$. That route is closed, and it is worth recording why,
-since the reason is not the one a first look suggests.
+$\prod_\chi L(s,\chi)^{\widehat\alpha(\chi)}$. That route is closed. The reason is not the one a first look suggests.
 
 \begin{proposition}[The decomposition destroys the cancellation]\label{prop:routeclosed}
 Write $\alpha(u)=(u/r)e_r(t u^{-1})$, so that $h_t(p)=\alpha(p\bmod r)$. The principal Fourier
@@ -3032,102 +3031,82 @@ through the multiplicative decomposition at all.
 \end{remark}
 
 Remark~\ref{rem:whereitlives} asked for an estimate for $T_r$ that never passes through the
-multiplicative decomposition. Here is one. It rests on the observation that $\sigma_r$ is
-\emph{additive}, which makes the summand bilinear rather than multiplicative.
+multiplicative decomposition. The following is the mechanism such an estimate would use, isolated
+and proved; the reduction of $T_r$ to it is \emph{not} established here, and we say precisely what
+is missing.
 
-\begin{proposition}[The bilinear form and its kernel norm]\label{prop:bilinear}
-Write $m=de$ with $(d,e)=1$. By Lemma~\ref{lem:symbolfact} and the additivity of $\sigma_r$,
-\[ \Bigl(\frac{m'-2m}{r}\Bigr)=\Bigl(\frac{d}{r}\Bigr)\Bigl(\frac{e}{r}\Bigr)\,
+\begin{proposition}[Kernel norm]\label{prop:bilinear}
+Since $\sigma_r$ is additive, for coprime $d,e$ Lemma~\ref{lem:symbolfact} gives
+\[ \Bigl(\frac{(de)'-2de}{r}\Bigr)=\Bigl(\frac{d}{r}\Bigr)\Bigl(\frac{e}{r}\Bigr)\,
    K\bigl(\sigma_r(d),\sigma_r(e)\bigr),\qquad K(u,v)=\Bigl(\frac{u+v-2}{r}\Bigr). \]
-The matrix $K$ is Toeplitz in $u+v$, so writing $K(u,v)=\sum_\xi\widehat f(\xi)e_r(\xi u)e_r(\xi v)$
-diagonalises it against the orthogonal system $\bigl(e_r(\xi u)\bigr)_u$ of norm $\sqrt r$. Since
-$\widehat f(\xi)$ is a normalised Gauss sum, $|\widehat f(\xi)|=r^{-1/2}$ for $\xi\neq0$ and
-$\widehat f(0)=0$, every singular value of $K$ equals $\sqrt r$ and
+The matrix $K$ is Toeplitz in $u+v$, so $K(u,v)=\sum_\xi\widehat f(\xi)e_r(\xi u)e_r(\xi v)$
+diagonalises it against the orthogonal system $(e_r(\xi u))_u$ of norm $\sqrt r$. As $\widehat f(\xi)$
+is a normalised Gauss sum, $|\widehat f(\xi)|=r^{-1/2}$ for $\xi\neq0$ and $\widehat f(0)=0$, so every
+singular value of $K$ equals $\sqrt r$ and
 \[ \|K\|_{\mathrm{op}}=\sqrt r . \]
-Consequently, for $A(u)=\sum_{d\sim D,\ \sigma_r(d)\equiv u}(d/r)$ and $B$ defined likewise,
-\[ |T_r(N)|\ \ll\ N^{o(1)}\,\sqrt r\;\|A\|_2\,\|B\|_2 . \]
-No multiplicative decomposition is used at any point; the only input is that a Gauss sum has
-modulus $\sqrt r$.
+Consequently \emph{any} bilinear form $\sum_{d\sim D}\sum_{e\sim E}\alpha_d\beta_e\,
+K(\sigma_r(d),\sigma_r(e))$ is at most $\sqrt r\,\|A\|_2\|B\|_2$, where
+$A(u)=\sum_{d\sim D,\ \sigma_r(d)\equiv u}\alpha_d$ and $B$ is defined likewise. No multiplicative
+decomposition is used; the only input is the modulus of a Gauss sum.
 \end{proposition}
 
-The estimate has therefore been moved off signed cancellation entirely. Since $|A(u)|$ is at most
-the number of $d$ in its class, $\|A\|_2^2\le P(D,r):=\#\{(d,d')\sim D:\sigma_r(d)\equiv\sigma_r(d')\}$,
-an \emph{unsigned} count, and unsigned counts are a far friendlier class of object.
+\begin{remark}[What is missing, stated exactly]\label{rem:missingdecomp}
+Proposition~\ref{prop:bilinear} bounds bilinear forms, not $T_r$. Passing from one to the other
+requires a decomposition of $\sum_{m\le N}$ into bilinear pieces, and two obstacles are real rather
+than cosmetic.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+\item Summing over coprime pairs $(d,e)$ with $de=m$ weights each $m$ by $2^{\omega(m)}$: at
+$N=2\times10^6$ the coprime-pair count is $10{,}014{,}190$ against $1{,}215{,}876$ squarefree $m$, a
+factor $8.24$. Since the summand is \emph{signed}, no inequality relates $\sum_m F(m)$ to
+$\sum_m 2^{\omega(m)}F(m)$ in either direction.
+\item A single dyadic block $d\sim D$ sees only a minority of $m$: for $D=\sqrt N$ at
+$N=2\times10^6$, $24.7\%$ \textup{(\texttt{code/sqsieve\_bilinear.rs})}.
+\end{enumerate}
+The natural repair is the largest-prime-factor split $m=pn$ with $p=P^{+}(m)$, which is unique and so
+avoids \textup{(i)}; the $A$-side is then supported on primes, where $\|A\|_2^2\ll\pi(D)^2/\varphi(r)+\pi(D)$
+follows from Brun--Titchmarsh uniformly in $r$, and the $B$-side is governed by
+Theorem~\ref{thm:pairavg}. What remains is the coupling $P^{+}(n)<p$ and the dyadic bookkeeping, a
+Type I/II analysis that we have not carried out. Until it is, the power saving below is
+\textbf{CONJECTURAL}, and Corollary~\ref{cor:a9rate} remains the best unconditional rate proved here.
+\end{remark}
 
-\begin{hypothesis}[Second-moment equidistribution of $\sigma_r$]\label{hyp:pair}
-$P(D,r)\ll D^2/r+D^{1+o(1)}$, uniformly in $r$.
-\end{hypothesis}
-
-\begin{theorem}[Unconditional-in-shape power saving]\label{thm:bilinpower}
-Assume Hypothesis~\textup{\ref{hyp:pair}}. Then $|T_r(N)|\ll N^{o(1)}\bigl(\sqrt{rN}+N/\sqrt r\bigr)$,
-so Hypothesis~\textup{\ref{hyp:sq}} holds with $A=\tfrac12$, and Theorem~\ref{thm:condpower} gives
+\begin{conjecture}[Power saving, pending the decomposition]\label{conj:power34}
+If the decomposition of Remark~\textup{\ref{rem:missingdecomp}} is carried out with the stated
+bounds, then combining Proposition~\ref{prop:bilinear} with Theorem~\ref{thm:pairavg} and
+Theorem~\ref{thm:condpower} at $P=N^{1/4}$ gives
 \[ \#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}\ \ll\ N^{3/4+o(1)} . \]
-\end{theorem}
-\begin{proof}
-$\|A\|_2\ll(D^2/r+D)^{1/2}N^{o(1)}$ and likewise for $B$, so
-$|T_r|\ll\sqrt r\,(D^2/r+D)^{1/2}(E^2/r+E)^{1/2}N^{o(1)}$ with $DE=N$; taking $D=E=\sqrt N$ gives
-the display. In Theorem~\ref{thm:condpower} with $A=\tfrac12$ one has $\delta=\tfrac14$, and at
-$P=N^{1/4}$ the moduli $r=pq\asymp N^{1/2}$ make both $\sqrt{rN}$ and $N/\sqrt r$ equal to $N^{3/4}$.
-\end{proof}
+\end{conjecture}
 
-Hypothesis~\ref{hyp:pair} can in fact be removed. Theorem~\ref{thm:condpower} never needs
-uniformity in $r$, because the sieve averages over the moduli $r=pq$ with $p,q\in\mathcal{P}$; and on
-average a mechanism is available that requires no equidistribution at all.
+The two ingredients that would feed it are themselves unconditional, and are recorded separately
+because they do not depend on the missing step.
 
 \begin{lemma}[$\sigma$ is injective on squarefree integers]\label{lem:sigmainj}
 For squarefree $d,d'$, $\sigma(d)=\sigma(d')$ forces $d=d'$. Consequently
-$F(d,d'):=D(d)\,d'-D(d')\,d=dd'\bigl(\sigma(d)-\sigma(d')\bigr)$ vanishes only on the diagonal.
+$F(d,d'):=D(d)\,d'-D(d')\,d=dd'(\sigma(d)-\sigma(d'))$ vanishes only on the diagonal.
 \end{lemma}
 \begin{proof}
 By Theorem~\ref{thm:structure}, $\sigma(d)=D(d)/d$ is already in lowest terms, since
-$\gcd(D(d),d)=1$ for squarefree $d$. So $d$ is recoverable from $\sigma(d)$ as its denominator.
+$\gcd(D(d),d)=1$ for squarefree $d$; so $d$ is recoverable from $\sigma(d)$ as its denominator.
 \end{proof}
 Verified over all $182{,}377$ squarefree $d\le3\times10^5$: $0$ collisions
 \textup{(\texttt{code/sqsieve\_pairavg.rs})}.
 
-\begin{theorem}[The average pair bound, unconditionally]\label{thm:pairavg}
-Let $\mathcal{R}=\{pq: p\neq q\in\mathcal{P}\}$. Then
-\[ \sum_{r\in\mathcal{R}}P(D,r)\ \ll\ |\mathcal{R}|\,D+D^{2+o(1)} , \]
-so $P(D,r)\ll D^{2+o(1)}/r+D$ on average over $\mathcal{R}$, which is what
-Theorem~\ref{thm:condpower} requires.
+\begin{theorem}[The average pair bound]\label{thm:pairavg}
+Let $\mathcal{R}=\{pq:p\neq q\in\mathcal{P}\}$ and
+$P(D,r)=\#\{(d,d')\sim D:\sigma_r(d)\equiv\sigma_r(d')\}$. Then
+\[ \sum_{r\in\mathcal{R}}P(D,r)\ \ll\ |\mathcal{R}|\,D+D^{2+o(1)} . \]
 \end{theorem}
 \begin{proof}
-Since $\gcd(d,r)=\gcd(d',r)=1$, the condition $\sigma_r(d)\equiv\sigma_r(d')$ is exactly
-$r\mid F(d,d')$. Exchanging the order of summation,
-$\sum_{r\in\mathcal{R}}P(D,r)=\sum_{(d,d')}\#\{r\in\mathcal{R}:r\mid F(d,d')\}$. On the diagonal
-$F=0$ is divisible by every $r$, contributing $|\mathcal{R}|\cdot\#\{d\le D:\mu^2(d)=1\}$. Off the
-diagonal $F\neq0$ by Lemma~\ref{lem:sigmainj}, and $|F|\le2D^2\sigma_{\max}$, so
+As $\gcd(d,r)=\gcd(d',r)=1$, the condition $\sigma_r(d)\equiv\sigma_r(d')$ is exactly $r\mid F(d,d')$,
+so $\sum_{r\in\mathcal{R}}P(D,r)=\sum_{(d,d')}\#\{r\in\mathcal{R}:r\mid F(d,d')\}$. On the diagonal
+$F=0$ is divisible by every $r$, contributing $|\mathcal{R}|\cdot\#\{d\le D:\mu^2(d)=1\}$. Off it
+$F\neq0$ by Lemma~\ref{lem:sigmainj}, and $|F|\le2D^2\sigma_{\max}$, so
 $\#\{r\in\mathcal{R}:r\mid F\}\le\tau(F)\ll D^{o(1)}$, contributing $D^{2+o(1)}$.
 \end{proof}
-
-\begin{theorem}[Unconditional power saving]\label{thm:power34}
-\[ \#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}\ \ll\ N^{3/4+o(1)} . \]
-\end{theorem}
-\begin{proof}
-Take $D=E=\sqrt N$ in Proposition~\ref{prop:bilinear}, so
-$|T_r|\ll N^{o(1)}\sqrt r\,\|A_r\|_2\|B_r\|_2$ with $\|A_r\|_2^2\le P(D,r)$. Averaging over
-$\mathcal{R}$ and applying Cauchy--Schwarz in $r$,
-\[ \frac1{|\mathcal{R}|}\sum_{r\in\mathcal{R}}|T_r|
-   \ \ll\ N^{o(1)}\,P\,\frac1{|\mathcal{R}|}\Bigl(\sum_{r}P(\sqrt N,r)\Bigr)
-   \ \ll\ N^{o(1)}\,P\Bigl(\sqrt N+\frac{N}{|\mathcal{R}|}\Bigr) \]
-by Theorem~\ref{thm:pairavg}, and $|\mathcal{R}|\asymp\Pi^2\asymp P^2/(\log P)^2$ gives
-$\ll N^{o(1)}(P\sqrt N+N/P)$. Feeding this into the sieve of Theorem~\ref{thm:condpower},
-\[ \#\{\,\cdot\,\}\ \ll\ \frac{N\log P}{P}+N^{o(1)}\Bigl(P\sqrt N+\frac NP\Bigr), \]
-and $P=N^{1/4}$ balances every term at $N^{3/4+o(1)}$. The side condition
-$\Pi\ge2\log(2N)/\log P$ holds since $\Pi\asymp N^{1/4}/\log N$.
-\end{proof}
-
-\begin{remark}[What carried it]\label{rem:whatcarried}
-No equidistribution of $\sigma_r$ is used, and no uniformity in $r$: the two inputs are the divisor
-bound $\tau(F)\ll D^{o(1)}$ and Lemma~\ref{lem:sigmainj}. The second is the same rigidity that makes
-\#307 a two-cycle problem at all, namely that $\sum1/p$ is automatically in lowest terms
-(Theorem~\ref{thm:structure}); it is what keeps $F$ off zero and confines the divisor-heavy case to
-the diagonal. Measured against $D^2/r+D$ the average has ratio $1.011$ at $|\mathcal{R}|=78$
-\textup{(\texttt{code/sqsieve\_pairavg.rs})}. This supersedes Corollary~\ref{cor:a9rate}: the rate
-improves from $N\log\log N(\log N)^{-1/4}$ to a power saving. Hypothesis~\ref{hyp:pair} in its
-uniform form, and Hypothesis~\ref{hyp:sq}, remain open and would give $N^{1/2+o(1)}$; the measured
-character sums suggest that is the truth.
-\end{remark}
+Measured against $D^2/r+D$ the average has ratio $1.011$ at $|\mathcal{R}|=78$
+\textup{(\texttt{code/sqsieve\_pairavg.rs})}. Note the proof uses no equidistribution of $\sigma_r$
+and no uniformity in $r$: only the divisor bound and Lemma~\ref{lem:sigmainj}, the latter being the
+same rigidity that makes \#307 a two-cycle problem at all.
 
 \begin{remark}[The hypothesis measures, and its constant identifies itself]\label{rem:pairmeasured}
 $P(D,r)$ against $D^2/r+D$ has ratio $0.3688$, $0.3688$, $0.3689$ at $r=1009$;
@@ -3137,12 +3116,11 @@ merely bounded but constant, and the constant is $(6/\pi^2)^2=0.3696$, the squar
 density, which is exactly what equidistribution of $\sigma_r$ predicts once both $d$ and $d'$ are
 restricted to squarefree integers.
 
-This is worth contrasting with Hypothesis~\ref{hyp:sq}. That one asks for signed square-root
+Compare Hypothesis~\ref{hyp:sq}. That one asks for signed square-root
 cancellation, and Proposition~\ref{prop:routeclosed} showed the only available route to it fails.
-Hypothesis~\ref{hyp:pair} asks instead for an unsigned second moment, where positivity is available
-and the large sieve applies; and it would already deliver a power saving, from
-$N/(\log N)^{1/4}$ to $N^{3/4}$. We do not prove it here: Hal\'asz bounds each frequency by
-$D/(\log D)^{c}$, which suffices only for $r\ll(\log D)^{2c}$, so the large-$r$ range remains open.
+Theorem~\ref{thm:pairavg} instead bounds an \emph{unsigned} second moment, and does so
+unconditionally; what it does not do is bound $T_r$, since the passage from bilinear forms to $T_r$
+is exactly the gap recorded in Remark~\ref{rem:missingdecomp}.
 \end{remark}
 
 \begin{remark}[What made this work]\label{rem:sqsievewhy}
@@ -3470,7 +3448,7 @@ of this class.
 \end{proposition}
 
 \begin{remark}[Why restricted families overstated the gain]\label{rem:sectorsquared}
-The conclusion of Proposition~\ref{prop:nogain} is worth contrasting with what restricted families
+Compare the conclusion of Proposition~\ref{prop:nogain} with what restricted families
 suggest, because the discrepancy is large and instructive. Confining $S$ to an initial segment
 $\{2,3,5,\dots\}$ gives a minimum of $10^{222.9}$; enumerating all subsets of the first $14$, $16$,
 $18$ primes gives $10^{195.9}$, $10^{188.9}$, $10^{181.7}$; still falling, hence not converged.
