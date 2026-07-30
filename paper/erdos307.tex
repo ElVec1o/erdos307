@@ -3112,6 +3112,67 @@ Measured against $D^2/r+D$ the average has ratio $1.011$ at $|\mathcal{R}|=78$
 and no uniformity in $r$: only the divisor bound and Lemma~\ref{lem:sigmainj}, the latter being the
 same rigidity that makes \#307 a two-cycle problem at all.
 
+The decomposition demanded by Remark~\ref{rem:missingdecomp} can be bypassed entirely. Rather than
+splitting $\sum_{m\le N}$ into bilinear pieces, one may reverse the roles of the two arguments of the
+symbol and appeal to the quadratic large sieve, which averages over the modulus. This is the more
+promising route and we record it, together with the one hypothesis it still needs.
+
+\begin{lemma}[Reversal]\label{lem:reversal}
+Write $a_m=m'-2m$ and $a_m=\pm s_m^2k_m$ with $k_m$ squarefree. For odd squarefree $r$,
+\[ T_r(N)=\sum_{k}b_k^{+}\Bigl(\frac kr\Bigr)+\Bigl(\frac{-1}r\Bigr)\sum_{k}b_k^{-}\Bigl(\frac kr\Bigr)
+   \;+\;O\bigl(\#\{m\le N:\ p^2\mid a_m\ \text{for some }p\mid r\}\bigr), \]
+where $b^{\pm}_k=\#\{m\le N:\mu^2(m)=1,\ k_m=k,\ \pm a_m>0\}$ depend on $N$ only. For
+$r=pq$ with $p,q\asymp N^{1/2}$ the error term is $O(1)$ by Lemma~\textup{\ref{lem:localsq}}, which
+gives $\#\{m\le N:p^2\mid a_m\}\ll N/p^2$.
+\end{lemma}
+\begin{proof}
+If $\gcd(a_m,r)=1$ then $(a_m/r)=(\pm1/r)(k_m/r)(s_m/r)^2=(\pm1/r)(k_m/r)$. The two sides can differ
+only when some $p\mid r$ divides $s_m$ but not $k_m$, that is when $p^2\mid a_m$, which is the error
+term. The coefficients $b^{\pm}_k$ carry no dependence on $r$.
+\end{proof}
+Measured at $N=5\times10^6$: $30.0\%$ of the $a_m$ are non-squarefree, but only $0.035\%$ have
+$s_m>10^3$, so for $p\asymp N^{1/2}$ the error term is empty in practice
+\textup{(\texttt{code/sqsieve\_holes.rs})}. The kernels $k_m$ are even $22.2\%$ of the time, so
+the moduli are split into the four classes mod $8$ before the sieve is applied, at a cost of a
+factor $4$.
+
+\begin{hypothesis}[Kernel collisions]\label{hyp:kernel}
+$\sum_k\bigl(|b^{+}_k|^2+|b^{-}_k|^2\bigr)\ll N^{1+o(1)}$, equivalently
+$\#\{(m,m')\ \text{squarefree},\ \le N:\ a_ma_{m'}\ \text{is a perfect square}\}\ll N^{1+o(1)}$.
+\end{hypothesis}
+
+\begin{theorem}[The crux target, on one unsigned hypothesis]\label{thm:half}
+Assume Hypothesis~\textup{\ref{hyp:kernel}} and the quadratic large sieve of Heath-Brown in the form
+\[ \sum_{r\le R}\nolimits^{\flat}\Bigl|\sum_{k\le K}\nolimits^{\flat}b_k\Bigl(\frac kr\Bigr)\Bigr|^2
+   \ \ll_\varepsilon\ (RK)^{\varepsilon}(R+K)\sum_k|b_k|^2 , \]
+the flats denoting odd squarefree summation. Then
+\[ \#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}\ \ll\ N^{1/2+o(1)} , \]
+which is exactly the bound $\mathrm{CRUX}\text{-}\mathrm{A}9$ asks for.
+\end{theorem}
+\begin{proof}
+By Lemma~\ref{lem:reversal} and $K\ll N^{1+o(1)}$, the large sieve with $R\asymp P^2$ gives
+$\sum_{r\le R}|T_r(N)|^2\ll N^{o(1)}(R+N)\,N$. Cauchy--Schwarz over the $\Pi^2$ pairs then yields
+$\Pi^{-2}\sum_{p\neq q}|T_{pq}|\le\Pi^{-1}\bigl(\sum_r|T_r|^2\bigr)^{1/2}
+\ll\Pi^{-1}N^{o(1)}\bigl((R+N)N\bigr)^{1/2}$. Taking $P=N^{1/2}$, so $R\asymp N$ and
+$\Pi\asymp N^{1/2}/\log N$, both this and the term $N/\Pi$ of Theorem~\ref{thm:condpower} are
+$N^{1/2+o(1)}$. The side condition $\Pi\ge2\log(2N)/\log P$ holds with room.
+\end{proof}
+
+\begin{remark}[Status]\label{rem:halfstatus}
+Two things are assumed and neither is proved here. The large sieve is quoted from the literature and
+its precise form should be checked against the source before the theorem is used. Hypothesis
+\ref{hyp:kernel} is measured, not proved: at $N=6.08\times10^6$ over $6{,}079{,}290$ squarefree $m$
+the sum $\sum_k|b_k|^2$ is $24{,}069{,}288$, a ratio of $3.959$ to $N$, with largest multiplicity
+$1707$ \textup{(\texttt{code/sqsieve\_kernel.rs})}. The ratio being an absolute constant rather
+than a growing quantity is what $N^{1+o(1)}$ requires.
+
+This route is preferable to the bilinear one of Remark~\ref{rem:missingdecomp} on three counts: it
+needs no decomposition of $\sum_{m\le N}$, its analytic input is a published theorem rather than a
+missing one, and it reaches $N^{1/2+o(1)}$ rather than $N^{3/4+o(1)}$. What it needs is a single
+unsigned pair count. The unconditional record proved here remains
+Corollary~\ref{cor:a9rate}.
+\end{remark}
+
 \begin{remark}[The hypothesis measures, and its constant identifies itself]\label{rem:pairmeasured}
 $P(D,r)$ against $D^2/r+D$ has ratio $0.3688$, $0.3688$, $0.3689$ at $r=1009$;
 $0.3705$, $0.3696$, $0.3695$ at $r=10007$; and $0.3867$, $0.3727$, $0.3702$ at $r=100003$, for
