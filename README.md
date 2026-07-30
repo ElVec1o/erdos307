@@ -57,15 +57,36 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
   abc-comfortable, non-genus, non-polynomial, and not reducible to a standard prime-density conjecture;
   an Erdős–Wintner density theorem; S-unit finiteness per support.
 
-The heuristics weakly favour existence at astronomically inaccessible height; **no proof either way is
-claimed.**
+- **Both Pythagorean layers have density zero, unconditionally.** The minus layer `m′ − 2m = d²` is
+  exactly the set where the arithmetic derivative takes square values, so Heath-Brown's *square sieve*
+  applies once the symbol is factorised as `((m′−2m)/r) = (m/r)·((σ_r(m)−2)/r)` — verified
+  exhaustively, 54,514,790 checks, 0 violations. Halász then supplies the cancellation, because
+  `u ↦ e_r(t/u)` is not multiplicative and the pretentious distance is governed by a Salié sum. This
+  gives `thm:a9`, and keeping the sieve parameter a function of `N` upgrades it to an explicit rate,
+  `≪ N log log N / (log N)^{1/4}` (`cor:a9rate`).
+- **The 34 immune families are now unconditional.** Their primality was graded `[C]` because
+  Baillie-PSW is rigorous only in its *composite* verdicts. APR-CL proves all 68 integers prime, and
+  `certs/immune_ecpp.txt` archives **independently checkable ECPP certificates** for every one
+  (68 verified, 0 invalid). The structural half is formal: `Erdos307.jacobiSym_A_eq_B` proves
+  `(D_S|A_S) = (D_S|B_S)` in Lean 4 on the three standard axioms, with no `native_decide`.
+- **Four independent blocks on the existence route**, no two the same obstruction: the construction
+  has zero free slots (`∏Q = a′` exactly); no purely algebraic argument can work (it would refute
+  `thm:ff`); the immune families cannot be tested (225-digit class group, or a 10⁻¹¹² hit rate); and
+  a large family of sequences does not help, since the union stays logarithmically thin.
+
+**On the heuristics.** The usual statement that heuristics weakly favour existence is weaker than it
+looks. The expected count is `f(1)·log X` with `f` the density of `σ(a)σ(a′)` at 1, and that constant
+**cannot be measured**: the barrier places the entire region `σ(a)σ(a′) ≥ 1` above `10^112.9`, while
+the largest value observed below `10⁷` is `0.5535`. Unlike Bateman–Horn or Hardy–Littlewood, this
+heuristic has no empirical support and cannot acquire any. **No proof either way is claimed.**
 
 ## Layout
 
 ```
-paper/   erdos307.tex, erdos307.pdf   — the note (32 pp; self-contained bibliography)
+paper/   erdos307.tex, erdos307.pdf   — the note (63 pp; self-contained bibliography)
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
-code/    Python (sympy/numpy) scripts behind every numerical claim — see code/README.md
+code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md
+certs/   independently checkable ECPP primality certificates for the immune families
 hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, with the verified
          certificates cited in the note — see hunt/README.md
 ```
@@ -77,7 +98,9 @@ hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, w
   `lake env lean Check.lean` prints the axiom dependencies of every theorem — the mathematical results
   depend only on `propext, Classical.choice, Quot.sound` (no `sorryAx`); the first-59-primes evaluation
   additionally uses `native_decide`.
-- **Code:** Python 3 with `sympy` and `numpy`; each script is standalone (`python3 <name>.py`).
+- **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)
+  for primality and class-group work, and a few legacy Python 3 scripts (`sympy`, `numpy`).
+- **Certificates:** `certs/immune_ecpp.txt` verifies under PARI with `primecertisvalid(cert)`.
 - **Hunt:** `rustc -O -o NAME NAME.rs` then run; each program self-tests and prints progress.
 
 ## Status and citation
