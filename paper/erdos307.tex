@@ -2832,10 +2832,11 @@ exactly at a cycle. The content is therefore whether that range is non-empty.
 $(\ast)$ holds for some $\lambda>0$, uniformly over all squarefree $n$ with $n'$ squarefree.
 \end{conjecture}
 
-Over all $76{,}342{,}726$ such $n\le2\times10^8$, $(\ast)$ holds for every
-$\lambda\in(0.269470,\,1.273733)$ and fails for no step
+Over all $153{,}397{,}754$ such $n\le4\times10^8$, $(\ast)$ holds for every
+$\lambda\in(0.275438,\,1.250828)$ and fails for no step
 \textup{(\texttt{code/lyap\_battery.rs})}. The interval narrows with the range, of width
-$1.654,\,1.267,\,1.237,\,1.116,\,1.092,\,1.004$ at cutoffs $10^4$ through $2\times10^8$. Six
+$1.654,\,1.267,\,1.237,\,1.116,\,1.092,\,1.004,\,0.975$ at cutoffs $10^4$ through $4\times10^8$;
+the binding lower constraint is at $n=\Pi_9=223{,}092{,}870$. Six
 candidate functions were tested and five died, among them the control $\delta=\log n$, which fails
 first at $n=30$ where $\sigma=1.0333$; a battery that did not kill it would not be testing anything
 \textup{(\texttt{code/invent\_lyapunov.rs})}.
@@ -2849,6 +2850,19 @@ give $L\le0.766$ against a measured upper demand of $1.274$. So a proof of $\rho
 lower bound $U$ on the upper demand would establish Conjecture~\ref{conj:lyap}. That $\rho$ is
 bounded away from $1$ is the coprimality mechanism of Proposition~\ref{prop:anticorr}: $\sigma(n)>1$
 forces $n$ to absorb small primes, and $n'$ is coprime to $n$.
+
+That mechanism is weakest when $n$ omits the small primes, and this was tested rather than assumed.
+Every $n\le4\times10^8$ with $\sigma(n)>1$ is even, so the entire sweep measures $\rho$ on $n$
+containing $2$; the odd case begins only at $3\cdot5\cdots29=3{,}234{,}846{,}615$. Constructing it
+directly gives $\rho=0.0312$ there, and $\rho=0.0007$ for the least such $n$ with smallest prime
+$5$, which has $27$ prime factors and $44$ digits. The regime that looked dangerous is in fact more
+favourable, because reaching $\sigma(n)>1$ without small primes requires many of them, and $n'$ is
+then a large generic integer of small mass.
+
+We nonetheless do not have a proof of $\rho<1$, and record the shape of a possible failure: it would
+need $n$ even with $\sigma(n)$ close to $1$ and $n'$ carrying many small odd primes, so that
+$\sigma(n')$ approaches $\sigma(n)$. Ruling that out is again a statement about the factorisation of
+a determined value, which is the obstruction met throughout this paper.
 
 \begin{remark}[What protects it, and what would kill it]\label{rem:lyapstatus}
 The natural way to close the interval is to drive the upper demand to zero by taking
