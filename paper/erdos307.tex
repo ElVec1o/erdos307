@@ -787,6 +787,33 @@ property: what is wanted is a substitute for expansion at rank one, and that is 
 itself, not a lemma about \#307.
 \end{remark}
 
+\begin{remark}[The gap to the record, measured]\label{rem:sparserecord}
+It is worth stating how far the required statement is from the best that is known, because the
+distance is not one of degree.
+
+Write a sequence's \emph{density exponent} $\theta$ for $\#\{n\le X\}\asymp X^{\theta+o(1)}$. The
+sparsest sets currently proved to contain infinitely many primes are the values of binary forms:
+$a^2+b^4$ at $\theta=3/4$, by Friedlander and Iwaniec \cite{FI1998}, and $a^3+2b^3$ at $\theta=2/3$,
+by Heath-Brown \cite{HB2001}, the latter being the sparsest polynomial form known to capture its
+primes. Our $q_n$ grow like $\varepsilon^{2n}$, so $\#\{n:q_n\le X\}\asymp\log X$ and
+\[ \theta=0. \]
+
+The distance from $2/3$ to $0$ is categorical rather than quantitative. Both records are bilinear
+arguments: they run a sieve of dimension one and close it with a Type~II estimate obtained by
+averaging over a set of size a positive power of $X$. Every gain in such an argument is a gain of a
+power of $X$, and against $\log X$ terms a power of $X$ gains nothing; below $\theta=1/2$ the
+standard sieve axioms already fail, and at $\theta=0$ there is no set left to average over. This is
+the same wall as Remark~\ref{rem:affinesieve} approached from the analytic rather than the spectral
+side, and it is why every sequence of exponent zero, Mersenne, Fibonacci, Lucas and ours alike, is
+open together.
+
+The structure our sequence does carry is the standard one and confers nothing. From
+$A_Sq_n=x_n^2-D_S$ one gets $x_n^2\equiv D_S$ for every prime $p\mid q_n$ not dividing $D_S$, so all
+prime factors of $q_n$ lie in the density--$\tfrac12$ set where $D_S$ is a quadratic residue. That
+constrains the factorisations without excluding any, which is exactly the position the primitive
+divisor theorems already left us in: divisors, never primality.
+\end{remark}
+
 \begin{theorem}[Parity dichotomy]\label{thm:parity}
 Let $a'=b,b'=a$ be a derivative two--cycle (so $a,b$ squarefree, $\gcd(a,b)=1$). Then exactly one of
 the following holds.
@@ -4384,6 +4411,10 @@ Multiplication}, 2nd ed., Wiley, 2013.
 $k'+2k$ a perfect square)}, \url{https://oeis.org/A396915}.
 \bibitem{Evertse1984} J.-H.~Evertse, \emph{On sums of $S$-units and linear recurrences}, Compositio
 Math.\ \textbf{53} (1984), 225--244.
+\bibitem{FI1998} J.~Friedlander and H.~Iwaniec, \emph{The polynomial $X^2+Y^4$ captures its
+primes}, Ann. of Math. \textbf{148} (1998), 945--1040.
+\bibitem{HB2001} D.~R.~Heath-Brown, \emph{Primes represented by $x^3+2y^3$}, Acta Math.
+\textbf{186} (2001), 1--84.
 \bibitem{BGS2010} J.~Bourgain, A.~Gamburd, and P.~Sarnak, \emph{Affine linear sieve, expanders,
 and sundry applications}, Invent. Math. \textbf{179} (2010), 559--644.
 \bibitem{ESS2002} J.-H.~Evertse, H.~P.~Schlickewei, and W.~M.~Schmidt, \emph{Linear equations in
