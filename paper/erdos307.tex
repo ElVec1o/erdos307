@@ -4146,6 +4146,43 @@ representation problem is a different kind of object from a Lehmer sequence, and
 forbids attacking it.
 \end{remark}
 
+The emptiness of that census is structural, and the reason fixes the range in which the question
+lives.
+
+\begin{proposition}[The live--slot threshold]\label{prop:liveslot}
+Let $N_0$ be squarefree and suppose $Q_{N_0}(s,d)=A\,s^2+B\,d^2$ represents $4N_0^2$ with a slot
+$r=(s^2-N_0)/B$ satisfying $r\ge2$. Then
+\[ \sigma(N_0)\;\ge\;\tfrac32, \]
+hence $\omega(N_0)\ge10$ and $N_0\ge\Pi_{10}=6{,}469{,}693{,}230$.
+\end{proposition}
+\begin{proof}
+Assume first $\sigma=\sigma(N_0)<2$, so $A=N_0(2-\sigma)>0$ and the form is positive definite. From
+$r\ge2$ and $B=N_0(2+\sigma)$,
+\[ s^2\;\ge\;N_0+2B\;=\;N_0(5+2\sigma), \]
+while $A\,s^2\le A\,s^2+B\,d^2=4N_0^2$ gives $s^2\le 4N_0^2/A=4N_0/(2-\sigma)$. The two are
+compatible only if $(5+2\sigma)(2-\sigma)\le4$, that is $2\sigma^2+\sigma-6\ge0$, whose positive root
+is exactly $\tfrac32$. Since among $k$--element prime sets the reciprocal sum is maximised by the
+first $k$ primes (Lemma~\ref{lem:59}) and
+$\sigma(\Pi_9)=1.498956\ldots<\tfrac32\le1.533439\ldots=\sigma(\Pi_{10})$, the mass bound forces
+$\omega(N_0)\ge10$ and $N_0\ge\Pi_{10}$. If instead $\sigma(N_0)\ge2$ then $N_0\ge\Pi_{59}>\Pi_{10}$
+by Theorem~\ref{thm:barrier}, so the conclusion holds a fortiori.
+\end{proof}
+
+The census reported above ran to $N_0\le5\times10^4$, which is below $\Pi_{10}$ by a factor
+$1.3\times10^5$: it could not have met a live slot, and its emptiness is therefore not evidence
+about the family. The two representations it did find, at $N_0=30$ and $N_0=1722$, have
+$\sigma=1.0333$ and $\sigma=1.0006$, both far below $\tfrac32$, which is why both are ghosts.
+
+Three mass thresholds now organise the problem, and each is a Mertens count: $\sigma=1$ at three
+primes, $\sigma=\tfrac32$ at ten, and $\sigma=2$ at fifty--nine. The first bounds the trivial regime,
+the third is Theorem~\ref{thm:barrier}, and the second is the entry point of the decoupled family. The
+entry region has now been swept: over the $1{,}842$ squarefree $N_0\le2\times10^{12}$ with
+$\sigma(N_0)\ge\tfrac32$, the form $Q_{N_0}$ represents $4N_0^2$ not once, so there is no live slot
+and no ghost either \textup{(\texttt{code/live\_slot\_census.rs})}. The same program run without the
+mass gate returns the two representations of Proposition~\ref{prop:form} exactly, at $N_0=30$ with
+$(s,d)=(11,1)$ and $N_0=1722$ with $(83,1)$, both with $r=1$, which is the control that the search
+sees what it should.
+
 \begin{proposition}[A principal--genus necessary condition, and a cascade on solutions]\label{prop:genus}
 As $\gcd(N_0,N_0')=1$, the value $4N_0^2$ is a square coprime to the odd part of $\operatorname{disc}
 Q_{N_0}$, so every genus character is $+1$ on it and a primitive form represents it only from the
