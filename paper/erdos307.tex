@@ -3336,7 +3336,7 @@ $x\to1$ from each side gives $2\lambda\ge1$ and $2\lambda\le1$.
 Both halves are formalised: \texttt{Erdos307.half\_works} for $c\le2$ and
 \texttt{no\_f\_above\_two} for $c>2$, the latter by the diagonal point $x=y$ with $1<x<c/2$, where
 the right side vanishes and the left is positive; \texttt{mass\_sum\_threshold} states the two
-together \textup{(\texttt{lean/Erdos307/NoInvariant.lean})}.
+together. The uniqueness of the constant is formalised as well: \texttt{lambda\_eq\_half} shows that a linear solution at $c=2$ forces $\lambda=\tfrac12$, by the local-minimum route rather than a two-sided limit, since $g(x)=2\lambda(x-1)-\log x$ is nonnegative on $(0,2)$ and vanishes at $1$, so its derivative $2\lambda-1$ vanishes there \textup{(\texttt{lean/Erdos307/NoInvariant.lean})}.
 
 Any strengthening must therefore use an input about $n$ beyond the pair
 $(\sigma(n),\sigma(n'))$, and by the next proposition there is no room in the choice of function

@@ -88,3 +88,4 @@ open Erdos307
 #print axioms two_nsmul_eq_zero_of_period_two
 #print axioms no_period_two_of_two_nsmul_ne_zero
 #print axioms zmod_two_mul_eq_zero_of_period_two
+#print axioms lambda_eq_half

@@ -1,4 +1,6 @@
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
+import Mathlib.Analysis.SpecialFunctions.Log.Deriv
+import Mathlib.Analysis.Calculus.LocalExtr.Basic
 
 /-!
 # The certificate route, closed
@@ -65,6 +67,51 @@ theorem mass_sum_threshold :
     ∀ c : ℝ, 2 < c → ¬ ∃ f : ℝ → ℝ, ∀ x y : ℝ, 0 < x → 0 < y → x + y < c →
       Real.log x < f x - f y :=
   ⟨fun _ _ hx hy h => half_works le_rfl hx hy h, fun _ hc => no_f_above_two hc⟩
+
+/-- **`prop:masssumthreshold`, uniqueness of the constant.** If the linear function `f = l * id`
+solves the mass-sum demand at `c = 2`, then `l = 1/2`. The proof is a local-minimum argument rather
+than a two-sided limit: letting `y` rise to `2 - x` gives `log x ≤ 2l(x-1)` throughout `(0,2)`, so
+`g(x) = 2l(x-1) - log x` is nonnegative there and vanishes at `1`, making `1` a local minimum; its
+derivative `2l - 1` must therefore vanish. -/
+theorem lambda_eq_half {l : ℝ}
+    (h : ∀ x y : ℝ, 0 < x → 0 < y → x + y < 2 → Real.log x < l * (x - y)) :
+    l = 1 / 2 := by
+  -- the constant is positive, from a single point with `x > 1 > y`
+  have hlpos : 0 < l := by
+    have h1 : Real.log (3 / 2) < l * (3 / 2 - 1 / 10) :=
+      h (3 / 2) (1 / 10) (by norm_num) (by norm_num) (by norm_num)
+    have h2 : 0 < Real.log (3 / 2) := Real.log_pos (by norm_num)
+    nlinarith
+  -- letting `y` rise to `2 - x` gives the limiting inequality on all of `(0,2)`
+  have key : ∀ x : ℝ, 0 < x → x < 2 → Real.log x ≤ 2 * l * (x - 1) := by
+    intro x hx hx2
+    refine le_of_forall_pos_lt_add ?_
+    intro e he
+    set d : ℝ := min (e / l) ((2 - x) / 2) with hd
+    have hdpos : 0 < d := lt_min (div_pos he hlpos) (by linarith)
+    have hdle : d ≤ e / l := min_le_left _ _
+    have hdle2 : d ≤ (2 - x) / 2 := min_le_right _ _
+    have hy : 0 < 2 - x - d := by linarith
+    have hlt := h x (2 - x - d) hx hy (by linarith)
+    have hld : l * d ≤ e := by
+      have : l * d ≤ l * (e / l) := by nlinarith
+      rwa [mul_div_cancel₀ _ (ne_of_gt hlpos)] at this
+    nlinarith
+  -- `1` is a local minimum of `g`, so `g' 1 = 0`
+  have hmin : IsLocalMin (fun x : ℝ => 2 * l * (x - 1) - Real.log x) 1 := by
+    have hmem : Set.Ioo (0 : ℝ) 2 ∈ nhds (1 : ℝ) := Ioo_mem_nhds (by norm_num) (by norm_num)
+    filter_upwards [hmem] with x hx
+    have hk := key x hx.1 hx.2
+    simp only [Real.log_one]
+    linarith
+  have hderiv : HasDerivAt (fun x : ℝ => 2 * l * (x - 1) - Real.log x) (2 * l - 1) 1 := by
+    have h1 : HasDerivAt (fun x : ℝ => 2 * l * (x - 1)) (2 * l) 1 := by
+      simpa using ((hasDerivAt_id (1 : ℝ)).sub_const 1).const_mul (2 * l)
+    have h2 : HasDerivAt Real.log 1 1 := by
+      simpa using Real.hasDerivAt_log (by norm_num : (1 : ℝ) ≠ 0)
+    simpa using h1.sub h2
+  have := hmin.hasDerivAt_eq_zero hderiv
+  linarith
 
 /-! ### Universality of the ansatz -/
 
