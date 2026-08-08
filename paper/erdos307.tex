@@ -1148,7 +1148,17 @@ $W(m)\equiv W(m')\equiv mm'\pmod 8$; a mod--$8$ constraint on the sign assignmen
 the $4^{\#\mathrm{split}}2^{\#\mathrm{inert}}$ phase enumeration severalfold in future searches
 (verified on $2\times10^5$ random assignments; \texttt{code/peeling\_groupoid.py}). An
 exhaustive search over members $m\le10^9$ (Gaussian norm $10^{18}$, $\omega\le8$, $1.4\times10^9$
-closure tests) found no cycle, no fixed point $|D(m)|=m$, and no vanishing $D(m)=0$. We claim no
+closure tests) found no cycle, no fixed point $|D(m)|=m$, and no vanishing $D(m)=0$. The search
+has since been extended two decades further in $m$, on a box narrower in the other parameters:
+$\omega\in[4,6]$ and odd primes below $600$, with $m$ running over $[10^9,10^{10}]$ and then
+$[10^{10},10^{11}]$. Both tiers are exhaustive over their $5{,}778$ prime pairs and return nothing:
+$10{,}004{,}024$ members and $6.94\times10^8$ closure tests on the first, $22{,}218{,}430$ members
+and $1.82\times10^9$ closure tests on the second, so $3.22\times10^7$ members and
+$2.52\times10^9$ closure tests in all, with no two--cycle at any point
+\textup{(\texttt{hunt/descended\_hunt2.rs}, \texttt{hunt/run\_tier2\_par.sh})}. The tier boxes are
+not nested in the one above, being narrower in $\omega$ and in the prime range while wider in $m$,
+so the two counts complement rather than supersede one another; and the tiers test closure only, not
+the fixed--point and vanishing conditions recorded above. We claim no
 obstruction from this: equivariance prunes the available phases fourfold per split prime, and a phase
 count makes emptiness at this depth the expected order. The descent target remains open over
 $\mathbb{Z}[i]$, but not in the real--quadratic world, where the corresponding sector contains a fully
