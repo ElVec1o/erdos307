@@ -8,6 +8,7 @@ import Erdos307.LyapFalse
 import Erdos307.NoInvariant
 import Erdos307.InfZero
 import Erdos307.Congruential
+import Erdos307.LiveSlot
 import Erdos307.Rigidity
 import Erdos307.Barrier
 import Erdos307.Capstone
@@ -89,3 +90,5 @@ open Erdos307
 #print axioms no_period_two_of_two_nsmul_ne_zero
 #print axioms zmod_two_mul_eq_zero_of_period_two
 #print axioms lambda_eq_half
+#print axioms live_slot_threshold
+#print axioms threshold_bracket
