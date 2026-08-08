@@ -814,6 +814,39 @@ constrains the factorisations without excluding any, which is exactly the positi
 divisor theorems already left us in: divisors, never primality.
 \end{remark}
 
+\begin{remark}[The residue, atomised, and where its difficulty comes from]\label{rem:atomised}
+Decomposing the question into independently known statements locates the obstruction on a single
+atom and identifies its source.
+
+Two atoms carry theorems. Every $q_n$ beyond the thirtieth has a primitive prime divisor
+\cite{BHV2001}; and the greatest prime factor satisfies
+$P^+(q_n)>n\exp\bigl(\log n/(104\log\log n)\bigr)$, by Stewart \cite{Stewart2013}, which settled
+questions of Schinzel and Erd\H{o}s and was the first general advance on Bang and Carmichael. Every
+other atom, that $q_n$ be squarefree infinitely often, that $\omega(q_n)$ be bounded infinitely
+often, that $q_n$ be a $P_k$, and primality itself, is open.
+
+The chain that would close the crux is $P^+$ large, hence $\omega$ small, hence prime. It breaks at
+the first link, and by a measurable amount. Stewart's bound certifies
+$\log P^+\ge(1+o(1))\log n$ against $\log q_n\approx2n\log\varepsilon$, so the fraction of the
+term's size that is certified is of order $\log n/n$: $10.6\%$ at $n=10$, $0.32\%$ at $n=10^3$,
+$4\times10^{-4}\%$ at $n=10^6$. Primality is the fraction $1$. No sharpening of the constant $104$
+changes this, since $n^{1+o(1)}$ is the shape linear forms in logarithms produce. The Subspace
+Theorem is the other available instrument and does not help: it is stronger under weaker hypotheses
+but ineffective \cite{BCZ2003}, and an ineffective statement cannot exhibit the single prime term a
+construction needs.
+
+The source is visible in the comparison with the polynomial case. For $n^2+1$ the greatest prime
+factor exceeds $n^{1.3}$ infinitely often \cite{Merikoski2019}, that is $q^{0.65}$, a \emph{positive
+proportion} of the term's size, and on such sequences almost-primality is available too. For an
+exponentially parametrised sequence only $(\log q)^{1+o(1)}$ is available, a vanishing proportion.
+The gap between the two regimes is exactly the gap between polynomial and exponential
+parametrisation, and Proposition~\ref{prop:nopoly} proves \#307 admits no polynomial one. So the
+obstruction recorded in Remark~\ref{rem:affinesieve} as a question of rank, in
+Remark~\ref{rem:sparserecord} as one of density exponent, and here as one of $P^+$, is a single
+obstruction with three faces, and its source is Proposition~\ref{prop:nopoly}: forced exponentiality
+is what places the residue in the class where nothing of the required strength is known.
+\end{remark}
+
 \begin{theorem}[Parity dichotomy]\label{thm:parity}
 Let $a'=b,b'=a$ be a derivative two--cycle (so $a,b$ squarefree, $\gcd(a,b)=1$). Then exactly one of
 the following holds.
@@ -4498,6 +4531,12 @@ Math.\ \textbf{53} (1984), 225--244.
 primes}, Ann. of Math. \textbf{148} (1998), 945--1040.
 \bibitem{HB2001} D.~R.~Heath-Brown, \emph{Primes represented by $x^3+2y^3$}, Acta Math.
 \textbf{186} (2001), 1--84.
+\bibitem{Stewart2013} C.~L.~Stewart, \emph{On divisors of Lucas and Lehmer numbers}, Acta Math.
+\textbf{211} (2013), 291--314.
+\bibitem{BCZ2003} Y.~Bugeaud, P.~Corvaja, and U.~Zannier, \emph{An upper bound for the G.C.D. of
+$a^n-1$ and $b^n-1$}, Math. Z. \textbf{243} (2003), 79--84.
+\bibitem{Merikoski2019} J.~Merikoski, \emph{On the largest prime factor of $n^2+1$}, J. Eur. Math.
+Soc. \textbf{25} (2023), 1253--1284.
 \bibitem{BGS2010} J.~Bourgain, A.~Gamburd, and P.~Sarnak, \emph{Affine linear sieve, expanders,
 and sundry applications}, Invent. Math. \textbf{179} (2010), 559--644.
 \bibitem{ESS2002} J.-H.~Evertse, H.~P.~Schlickewei, and W.~M.~Schmidt, \emph{Linear equations in
