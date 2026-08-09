@@ -845,6 +845,23 @@ obstruction recorded in Remark~\ref{rem:affinesieve} as a question of rank, in
 Remark~\ref{rem:sparserecord} as one of density exponent, and here as one of $P^+$, is a single
 obstruction with three faces, and its source is Proposition~\ref{prop:nopoly}: forced exponentiality
 is what places the residue in the class where nothing of the required strength is known.
+
+Two things sharpen that attribution, and both make the obstruction less incidental rather than more.
+First, the boundary is exactly where Proposition~\ref{prop:nopoly} sits. The fraction of a term's
+size that Stewart's bound certifies is $\log P^+/\log q_n\approx\log n/\log q_n$, so it stays bounded
+below precisely when $\log q_n\ll\log n$, that is when $q_n$ grows polynomially: degree $d$ gives the
+constant $1/d$. Every super-polynomial rate sends it to $0$, and not only the exponential one:
+$\exp(\sqrt n)$ and $n^{\log n}$ do as well. So polynomial growth is not one convenient case among
+several, it is the whole of the favourable region, and it is exactly what
+Proposition~\ref{prop:nopoly} excludes.
+
+Second, the hypotheses of Proposition~\ref{prop:nopoly} are worth testing, since a gap there would
+dissolve everything above. It assumes a \emph{fixed} number of polynomials, and its proof uses that
+finiteness when it splits $\sum_i1/p_i$ into constants plus a remainder tending to $0$. A family
+whose support grows with the parameter is therefore not covered. That gap is real and useless: a
+growing support means a growing number of simultaneous primality conditions, which is a harder
+demand than one, not an easier one, and it does not return the family to the polynomial regime. The
+proposition forbids the case that would help and leaves uncovered only cases that would not.
 \end{remark}
 
 \begin{remark}[The squarefree atom, and what it reduces to]\label{rem:squarefree}
