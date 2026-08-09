@@ -2863,6 +2863,22 @@ square, and that quantity has $223$ digits already at $t=0$, so the heuristic hi
 $10^{-112}$ per trial. Checked at $t=0,1,2,3$: not a square
 \textup{(\texttt{code/a10\_pell\_feasibility.gp})}.
 \end{enumerate}
+There is a third route, which is to decline the computation rather than perform it, and it is worth
+costing because it is the natural thing to try next and because nothing structural forbids it. The
+size of the first candidate is governed by the regulator: $q_1\approx\varepsilon^2/A_S$ with
+$R=\log\varepsilon$, so a base whose regulator happens to be near its minimum
+$R_{\min}\approx\tfrac12\log\Delta$ would give $q_1$ of about $10^{113}$, which an Atkin--Morain
+test settles in minutes. The obstruction is not that such bases are useless but that they are rare.
+Near-minimal regulator means the fundamental solution has $v=1$, that is $\Delta=u^2-4$, and the
+$\Delta\le X$ of that shape number about $\sqrt X$; so the fraction of discriminants with a testable
+regulator is about $\Delta^{-1/2}=10^{-112.5}$, against a typical $R\approx\sqrt\Delta\approx
+10^{113}$ which puts $q_1$ at $\exp(10^{112})$ and out of reach of notation, let alone computation.
+Since $\Delta=4A_SB_S$ is determined by the base and not chosen, one may only sample: the $34$
+immune bases give an expected $10^{-111}$ hits and all $49{,}961$ give $10^{-108}$, against the
+$10^{112.5}$ bases one expected hit would need. The shortfall against the immune family is
+$10^{111}$. So base selection does not circumvent the two routes above; the construction is one
+fortunate discriminant away from being decidable, and the fortune required is $10^{112.5}$. The
+estimate is \textup{HEURISTIC}, being a density count for the regulator.
 \end{proposition}
 
 One hope survives all of this on its face: a lower bound for \emph{some term of some sequence in a
