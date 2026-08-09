@@ -847,6 +847,36 @@ obstruction with three faces, and its source is Proposition~\ref{prop:nopoly}: f
 is what places the residue in the class where nothing of the required strength is known.
 \end{remark}
 
+\begin{remark}[The squarefree atom, and what it reduces to]\label{rem:squarefree}
+Among the four open atoms one is structurally easier, and it is worth saying why and how far it
+gets. Squarefreeness of $q_n$ asks only for an \emph{upper} bound on a count of bad events, never
+for the production of a prime, so it is the one atom not subject to the parity obstruction that
+blocks bounded $\omega$, $P_k$, and primality.
+
+The argument it wants is a union bound. For a prime $p\nmid2A_SD_S$, $p^2\mid q_n$ forces
+$x_n^2\equiv D_S\pmod{p^2}$; the Pell orbit is purely periodic modulo $p^2$ with period
+$\pi(p^2)$, there are at most two square roots of $D_S$, and each is met a bounded number of times
+per period, so the density of bad $n$ attached to $p$ is at most $C/\pi(p^2)$. Where
+$\pi(p^2)=p\,\pi(p)$, which is the generic behaviour, and $\pi(p)\asymp p$, this is $\asymp C/p^2$,
+and the union bound closes as soon as $C\sum_pp^{-2}<1$. The constant is comfortable:
+$\sum_pp^{-2}=0.4522474\ldots$, so any $C<2.21$ suffices, and a positive proportion of the $q_n$
+would be squarefree, hence infinitely many.
+
+What is missing is the hypothesis $\pi(p^2)=p\,\pi(p)$. Its failure is precisely a
+Wall--Sun--Sun prime for the sequence, and there the density is $\asymp1/p$ rather than
+$\asymp1/p^2$, whose sum diverges and destroys the bound. No such prime is known for any classical
+sequence and their finiteness is unproved, so the atom does not close: it \emph{reduces} to a
+Wall--Sun--Sun statement. That is a sharper position than ``open'', since it names the obstruction
+and shows it is a single hypothesis rather than a programme, but it is a reduction and not a proof.
+
+The unconditional pieces are formalised. \texttt{Erdos307.primeSquareSum\_certificate} gives
+$\sum_pp^{-2}<\tfrac12$ in the finite form used above, the first six primes together with the bound
+$\tfrac12\sum_{m\ge16}m^{-2}<\tfrac1{30}$ for the odd primes beyond; \texttt{good\_density\_pos} and
+\texttt{squarefree\_positive\_density\_of\_bound} are the union bound and the conditional
+implication. All carry $0$ \texttt{sorry} and the three standard axioms
+\textup{(\texttt{lean/Erdos307/Squarefree.lean})}.
+\end{remark}
+
 \begin{theorem}[Parity dichotomy]\label{thm:parity}
 Let $a'=b,b'=a$ be a derivative two--cycle (so $a,b$ squarefree, $\gcd(a,b)=1$). Then exactly one of
 the following holds.

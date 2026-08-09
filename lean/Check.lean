@@ -9,6 +9,7 @@ import Erdos307.NoInvariant
 import Erdos307.InfZero
 import Erdos307.Congruential
 import Erdos307.LiveSlot
+import Erdos307.Squarefree
 import Erdos307.Rigidity
 import Erdos307.Barrier
 import Erdos307.Capstone
@@ -92,3 +93,6 @@ open Erdos307
 #print axioms lambda_eq_half
 #print axioms live_slot_threshold
 #print axioms threshold_bracket
+#print axioms primeSquareSum_certificate
+#print axioms good_density_pos
+#print axioms squarefree_positive_density_of_bound

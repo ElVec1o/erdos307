@@ -16,3 +16,4 @@ import Erdos307.NoInvariant
 import Erdos307.InfZero
 import Erdos307.Congruential
 import Erdos307.LiveSlot
+import Erdos307.Squarefree
