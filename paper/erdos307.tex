@@ -875,6 +875,18 @@ $\tfrac12\sum_{m\ge16}m^{-2}<\tfrac1{30}$ for the odd primes beyond; \texttt{goo
 \texttt{squarefree\_positive\_density\_of\_bound} are the union bound and the conditional
 implication. All carry $0$ \texttt{sorry} and the three standard axioms
 \textup{(\texttt{lean/Erdos307/Squarefree.lean})}.
+
+Two further points fix the standing of this atom, and both are negative. First, on the immune bases
+the argument is blocked at its \emph{lowest} rung as well as its highest. The density attached to a
+single small $p$ is $\#\{n\bmod\pi(p^2):p^2\mid q_n\}/\pi(p^2)$, read off the Pell orbit modulo
+$p^2$, and that needs the fundamental solution, the object Proposition~\ref{prop:untestable} places
+at $10^{24.7}$ operations. For a Lucas sequence with a known fundamental unit the small-prime rung is
+a finite computation; here it is not. The ladder is therefore blocked at both ends, by
+non-computability below and by Wall--Sun--Sun above. Second, and more to the point, squarefreeness is
+not what the construction needs: Remark~\ref{rem:lehmer} requires $q$ to be \emph{prime}, and a
+squarefree $q$ with several prime factors is useless there, so even the dream lemma of this atom
+would leave \#307 exactly where it stands. Of the four atoms this is the easiest, and it is also the
+only one whose resolution would not advance the problem.
 \end{remark}
 
 \begin{theorem}[Parity dichotomy]\label{thm:parity}
