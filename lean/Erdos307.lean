@@ -17,3 +17,8 @@ import Erdos307.InfZero
 import Erdos307.Congruential
 import Erdos307.LiveSlot
 import Erdos307.Squarefree
+import Erdos307.NoPoly
+import Erdos307.NoPlace
+import Erdos307.NoGain
+import Erdos307.Bridge
+import Erdos307.PairLocal

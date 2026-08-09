@@ -279,6 +279,15 @@ non--squarefree $n$ has $p\mid\gcd(n,n')$ for some $p$, and along $n\mapsto n'$ 
 propagate, precluding return); disjointness then follows from $\gcd(a,a')=1$. We use it as a cited
 theorem. Even \emph{without} it, the implication $(1)\Rightarrow(2)$ and the entire barrier below are
 unconditional, because Rigidity already delivers squarefree, disjoint $P,Q$ from a \#307 solution.
+
+\textup{Formalised.} \texttt{Erdos307.bridge\_forward} is $(1)\Rightarrow(2)$ and cites nothing;
+the distinctness $a\ne b$ is \emph{derived} there, not assumed
+\textup{(}\texttt{dprod\_ne\_dprod}\textup{)}, and support--disjointness likewise
+\textup{(}\texttt{disjoint\_primeFactors\_of\_cycle}\textup{)}, both from Rigidity.
+\texttt{bridge\_backward} is $(2)\Rightarrow(1)$ with the Ufnarovski--\AA hlander squarefreeness
+appearing as an explicit hypothesis, and \texttt{two\_cycle\_iff\_double\_fixed} is
+$(2)\Leftrightarrow(3)$ for an arbitrary self--map, on \emph{no} axioms at all. $0$ \texttt{sorry}
+\textup{(\texttt{lean/Erdos307/Bridge.lean})}.
 \end{remark}
 
 \begin{corollary}\label{cor:ua}
@@ -556,6 +565,14 @@ $\alpha,\beta$ the two new primes. For every prime power $\ell^j$ this system ha
 units $\alpha,\beta$ and integers $x,y$ at a nonsingular point. Consequently, by CRT and Dirichlet,
 no finite system of congruence conditions empties any pair--sector family: the arity barrier of
 Remark~\ref{rem:campaign} is a theorem, and the certificate programme provably ends at arity one.
+
+\textup{Formalised, in part.} \texttt{Erdos307.no\_pinning\_isUnit} is the step that makes the
+tail--kill mechanism unavailable, \texttt{collapse\_identity} is regime~\textup{(2)}'s
+observation that the two square conditions are one, \texttt{regime\_one\_first} and
+\texttt{regime\_one\_second} are the explicit unit of regime~\textup{(1)}, and
+\texttt{targets\_agree\_mod\_eight} is the mod--$8$ collapse of regime~\textup{(3)}. Weil's bound
+and the lifting of a nonsingular point are cited, not reproved. $0$ \texttt{sorry}
+\textup{(\texttt{lean/Erdos307/PairLocal.lean})}.
 \end{proposition}
 \begin{proof}
 First, no $\ell$ pins either target to a constant: that needs $\ell\mid A$ (or $B$) \emph{and}
@@ -1742,6 +1759,14 @@ infinitely many integers $t$ (a fixed--shape Schinzel--type family), such that
 $\bigl(\sum_i1/p_i(t)\bigr)\bigl(\sum_j1/q_j(t)\bigr)=1$ for infinitely many $t$. Then every $p_i$ and
 $q_j$ is constant: the family is a single fixed solution. Consequently no polynomial parametrisation can
 reduce \#307 to Bunyakovsky, Schinzel's Hypothesis~H, or Bateman--Horn.
+
+\textup{Formalised.} \texttt{Erdos307.const\_prod\_eq\_one\_of\_tendsto} is the limit step,
+\texttt{eps\_eq\_zero\_of\_identity} the vanishing step, and \texttt{nonconstant\_empty} the
+conclusion that both index sets of nonconstant members are empty; \texttt{nopoly} chains them. The
+polynomial input enters only as the two hypotheses it supplies, that each nonconstant member
+contributes a strictly positive reciprocal and that the remainders tend to $0$, so what is imported
+is visible. $0$ \texttt{sorry}, three standard axioms
+\textup{(\texttt{lean/Erdos307/NoPoly.lean})}.
 \end{proposition}
 \begin{proof}
 Holding at infinitely many $t$, the relation holds identically as rational functions. A nonconstant
@@ -2308,6 +2333,15 @@ Hence no valuation--theoretic descent of the type that proves Proposition~\ref{p
 exist over $\mathbb{Q}$: the function--field argument fails to transfer for a structural reason
 internal to the classification of absolute values, not for want of a cleverer place.
 (Counts and witnesses: \texttt{code/no\_place.rs}.)
+
+\textup{Formalised.} \texttt{Erdos307.not\_descent\_of\_strictMono} gives \textup{(i)} in a form
+stronger than stated, killing \emph{every} strictly monotone valuation at once and not only the
+absolute value, on the witness $30\mapsto31$ \textup{(}\texttt{der\_thirty}\textup{)};
+\texttt{padic\_lowers\_on\_support} is the lowering half of \textup{(ii)} and is Rigidity, while
+\texttt{raises\_two}, \texttt{raises\_three}, \texttt{raises\_five} check the three raising
+witnesses outright. Ostrowski enters \texttt{no\_place\_descent} as an explicit disjunction
+hypothesis rather than silently. $0$ \texttt{sorry}
+\textup{(\texttt{lean/Erdos307/NoPlace.lean})}.
 \end{proposition}
 
 \begin{proposition}[Deviation calculus for $k$--cycles]\label{prop:kdev}
@@ -4208,6 +4242,13 @@ $S=\{\text{odd }p\le151\}\setminus\{3,97\}$ with $\sigma(S)=1.0495$ and $|Q|\ge2
 Theorem~\ref{thm:barrier} is $\log_{10}N\ge112.9$: \emph{the cycle condition buys essentially nothing
 beyond the mass condition}, and Theorem~\ref{thm:barrier} is already close to optimal for arguments
 of this class.
+
+\textup{Formalised, in part.} The deductive content is \texttt{Erdos307.cycle\_bound\_max}: two
+independent lower bounds on $a$ combine through the maximum, and $N=a^2\sigma(a)$ is monotone in
+both arguments, so the constraints give a bound on $N$. The \emph{value} $113.2$ is the output of a
+finite minimisation over $S$ and is not a theorem in Lean; \texttt{nogain} records only that
+$10^{113.2}\ge10^{112.9}$, and \texttt{gain\_lt\_one\_order} that the gain is under one order of
+magnitude. $0$ \texttt{sorry} \textup{(\texttt{lean/Erdos307/NoGain.lean})}.
 \end{proposition}
 
 \begin{remark}[Why restricted families overstated the gain]\label{rem:sectorsquared}
