@@ -2459,6 +2459,26 @@ $\sum_{s\le Y}\tau(2s^2+1)/(Y\log Y)$ stable near $1.05$--$1.09$ for $Y=500$--$2
 \texttt{code/mod8\_plusthin.py}). The $\omega\ge3$ stratum remains empirical.
 \end{proof}
 
+\begin{remark}[What of the last argument is formal]\label{rem:plusthinformal}
+The proof splits into an elementary skeleton and an analytic tail, and the split is worth making
+explicit because the two have different status. The skeleton is formalised:
+\texttt{Erdos307.plus\_semiprime\_identity} is the factorisation $2s^2+1=(2p+1)(2q+1)$,
+\texttt{plus\_range} the bound $s^2\le3N+1$ that confines $s$ to $Y$, \texttt{plus\_recover} the
+injectivity, and \texttt{count\_le\_divisor\_sum} the reduction of the count to
+$\sum_{s\le Y}\tau(2s^2+1)$, proved in full by injecting into the disjoint union of the divisor
+sets. \texttt{card\_large\_le\_card\_small} and \texttt{tau\_le\_two\_small} are the
+divisor--pairing step that reorganises that sum over the small member alone, and
+\texttt{two\_roots\_quadratic} is the Hensel root count at the prime level, in a form needing only
+$2\ne0$ rather than the discriminant. $0$ \texttt{sorry}
+\textup{(\texttt{lean/Erdos307/PlusThin.lean})}.
+
+The tail is not, and cannot presently be: Dirichlet's $\sum_{u\le Z}\tau(u)\sim Z\log Z$ and
+$\sum_{u\le Z}\tau(u)/u\sim\tfrac12(\log Z)^2$ have no counterpart in Mathlib, so the passage from
+the divisor sum to $O\bigl(\sqrt X(\log X)^2\bigr)$ is asserted in prose only, as are Erd\H{o}s's
+sharpening and Bunyakovsky's lower bound. This is the one place in the paper where the gap between
+the prose and the formal record is an absence in the library rather than a choice.
+\end{remark}
+
 The semiprime argument generalises: the slot calculus of Proposition~\ref{prop:slot} counts.
 
 \begin{proposition}[Slot counting: every fixed--$\omega$ stratum of the plus--layer is sparse]\label{prop:strata}

@@ -22,3 +22,4 @@ import Erdos307.NoPlace
 import Erdos307.NoGain
 import Erdos307.Bridge
 import Erdos307.PairLocal
+import Erdos307.PlusThin
