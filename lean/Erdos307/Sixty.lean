@@ -21,11 +21,16 @@ Formalization of Proposition `close59` of the note.  Structure:
   20-subset) checks by `native_decide` that `csum U + 2·dprod U` is a non-square
   for each of the 49,961 admissible supports.  Contradiction.
 
-The only non-logical input is `native_decide` (the DFS run + small decidable facts),
-consistent with the numeral tier of `Erdos307.Numeral`.
+The only non-logical input is `native_decide` on the **single** fact `dfs_run`, the DFS execution
+itself. Every other decidable fact here, and the whole numeral bridge of `Erdos307.Numeral`, is
+checked by the kernel via `decide`, so `Erdos307.card_ge_59` and `erdos307_barrier_closed` carry
+only the three standard axioms. `erdos307_sixty` depends on exactly one `ofReduceBool` axiom, and
+`#print axioms` names it.
 
 Paper: Proposition `prop:close59`, Theorem `thm:barrier` at level 60.
 -/
+
+set_option maxRecDepth 100000
 
 namespace Erdos307
 
@@ -344,21 +349,26 @@ lemma elt_le_795 {U : Finset ℕ} (hU : ∀ r ∈ U, r.Prime) (hc : U.card = 59)
 
 /-! ## Decidable facts, hoisted so each gets its own heartbeat/codegen budget -/
 
-lemma forced39_facts : ∀ p ∈ forced39, p.Prime ∧ p ≤ 167 := by native_decide
+lemma forced39_facts : ∀ p ∈ forced39, p.Prime ∧ p ≤ 167 := by decide
 
-lemma pool99_complete : ∀ r < 796, r.Prime → 167 < r → r ∈ pool99 := by native_decide
+set_option maxHeartbeats 2000000 in
+lemma pool99_complete : ∀ r < 796, r.Prime → 167 < r → r ∈ pool99 := by decide
 
-lemma forced39_complete : ∀ r < 168, r.Prime → r ∈ forced39 := by native_decide
+lemma forced39_complete : ∀ r < 168, r.Prime → r ∈ forced39 := by decide
 
-lemma forced39_card : forced39.toFinset.card = 39 := by native_decide
+lemma forced39_card : forced39.toFinset.card = 39 := by decide
 
-lemma forced39_sum : ∑ r ∈ forced39.toFinset, (r : ℚ)⁻¹ = rsum forced39 := by native_decide
+lemma forced39_nodup : forced39.Nodup := by decide
 
-lemma forced39_coe : (↑forced39 : Multiset ℕ) = forced39.toFinset.val := by native_decide
+lemma forced39_sum : ∑ r ∈ forced39.toFinset, (r : ℚ)⁻¹ = rsum forced39 := by
+  rw [rsum]
+  exact List.sum_toFinset _ forced39_nodup
 
-lemma pool99_pairwise : pool99.Pairwise (· < ·) := by native_decide
+lemma forced39_coe : (↑forced39 : Multiset ℕ) = forced39.toFinset.val := by decide
 
-lemma pool99_pos : ∀ x ∈ pool99, 0 < x := by native_decide
+lemma pool99_pairwise : pool99.Pairwise (· < ·) := by decide
+
+lemma pool99_pos : ∀ x ∈ pool99, 0 < x := by decide
 
 lemma dfs_run : dfs pool99 20 0 [] = true := by native_decide
 

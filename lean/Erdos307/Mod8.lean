@@ -27,6 +27,11 @@ Two consequences are recorded.
   `S(a) ≡ S(b) ≡ ab (mod 8)`: the two prime sums are congruent to each other and to the product.
   That is `prime_sums_congruent`, and it refines `thm:parity`(ii).
 
+* **Parts (c) and (d)** are here too. (d) is `plus_quantity_mod8`, `N' + 2N ≡ N(S(N)+2)`, with the
+  square-residue filter `plus_hit_residue`; (c) is `mixed_member_mod16`, `even_member_mod16` and
+  `mixed_prime_sum_mod8`, the mod-16 statements chaining onto the law through its integer form
+  `mod8_law_int`.
+
 None of these congruences is an obstruction, consistently with `prop:localcomplete`. They thin every
 hunt over the odd sector by a fixed factor, which is what they are used for.
 
@@ -129,5 +134,93 @@ theorem not_both_even {P : Finset ℕ} (hP : ∀ p ∈ P, p.Prime) (h2 : 2 ∈ P
   have hpd : (2 : ℕ) ∣ dprod P := Finset.dvd_prod_of_mem _ h2
   have h1 : (2 : ℕ) ∣ 1 := by rw [← hg]; exact Nat.dvd_gcd hdvd hpd
   omega
+
+
+/-! ### `prop:mod8`(d): the plus quantity on the odd sector -/
+
+/-- A product of odd primes is odd. -/
+theorem dprod_odd {S : Finset ℕ} (hodd : ∀ p ∈ S, Odd p) : Odd (dprod S) :=
+  Finset.prod_induction _ Odd (fun _ _ ha hb => ha.mul hb) odd_one hodd
+
+/-- The derivative itself modulo `8`: multiplying the law by `m` and using `m² ≡ 1` gives
+`m' ≡ m·S(m)`. -/
+theorem derivative_mod8 {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) (hodd : ∀ p ∈ S, Odd p) :
+    ((csum S : ℕ) : ZMod 8)
+      = ((dprod S : ℕ) : ZMod 8) * ∑ p ∈ S, ((p : ℕ) : ZMod 8) := by
+  have hsq : ((dprod S : ℕ) : ZMod 8) ^ 2 = 1 := odd_sq_mod8 (dprod_odd hodd)
+  have hlaw := mod8_law hS hodd
+  linear_combination ((dprod S : ℕ) : ZMod 8) * hlaw - ((csum S : ℕ) : ZMod 8) * hsq
+
+/-- **`prop:mod8`(d).** For odd squarefree `N` the plus quantity satisfies
+`N' + 2N ≡ N(S(N) + 2) (mod 8)`. -/
+theorem plus_quantity_mod8 {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) (hodd : ∀ p ∈ S, Odd p) :
+    ((csum S : ℕ) : ZMod 8) + 2 * ((dprod S : ℕ) : ZMod 8)
+      = ((dprod S : ℕ) : ZMod 8) * ((∑ p ∈ S, ((p : ℕ) : ZMod 8)) + 2) := by
+  linear_combination derivative_mod8 hS hodd
+
+/-- Squares modulo `8` are `0`, `1` or `4`. -/
+theorem sq_values_mod8 (y : ZMod 8) : y ^ 2 = 0 ∨ y ^ 2 = 1 ∨ y ^ 2 = 4 := by
+  revert y; decide
+
+/-- **`prop:mod8`(d), the filter.** An odd plus-hit has `N(S(N)+2)` congruent to a square modulo
+`8`, hence to `0`, `1` or `4`. Combined with `parity_law`, which fixes the parity of `N' + 2N` as
+that of `ω(N)`, this is the stated dichotomy: `≡ 1` when `ω(N)` is odd, `≡ 0` or `4` when it is
+even. -/
+theorem plus_hit_residue {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) (hodd : ∀ p ∈ S, Odd p)
+    {y : ZMod 8} (hy : ((csum S : ℕ) : ZMod 8) + 2 * ((dprod S : ℕ) : ZMod 8) = y ^ 2) :
+    ((dprod S : ℕ) : ZMod 8) * ((∑ p ∈ S, ((p : ℕ) : ZMod 8)) + 2) = 0 ∨
+    ((dprod S : ℕ) : ZMod 8) * ((∑ p ∈ S, ((p : ℕ) : ZMod 8)) + 2) = 1 ∨
+    ((dprod S : ℕ) : ZMod 8) * ((∑ p ∈ S, ((p : ℕ) : ZMod 8)) + 2) = 4 := by
+  rw [← plus_quantity_mod8 hS hodd, hy]
+  exact sq_values_mod8 y
+
+/-! ### `prop:mod8`(c): the mixed case -/
+
+/-- `8 ∣ n² - 1` for odd `n`, the integer form of `odd_sq_mod8`. -/
+theorem odd_sq_sub_one_dvd {n : ℕ} (h : Odd n) : (8 : ℤ) ∣ ((n : ℤ) ^ 2 - 1) := by
+  obtain ⟨k, rfl⟩ := h
+  obtain ⟨m, hm⟩ := Nat.even_mul_succ_self k
+  refine ⟨(m : ℤ), ?_⟩
+  have hm' : (k : ℤ) * (k + 1) = (m : ℤ) + m := by exact_mod_cast congrArg (Nat.cast : ℕ → ℤ) hm
+  push_cast
+  linear_combination 4 * hm'
+
+/-- The mod-8 law in integer divisibility form, which is what the mod-16 statements chain onto. -/
+theorem mod8_law_int {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) (hodd : ∀ p ∈ S, Odd p) :
+    (8 : ℤ) ∣ ((dprod S : ℤ) * (csum S : ℤ) - ∑ p ∈ S, (p : ℤ)) := by
+  have h : ((8 : ℕ) : ℤ) ∣ ((dprod S : ℤ) * (csum S : ℤ) - ∑ p ∈ S, (p : ℤ)) := by
+    rw [← ZMod.intCast_zmod_eq_zero_iff_dvd]
+    push_cast
+    rw [sub_eq_zero]
+    exact_mod_cast mod8_law hS hodd
+  simpa using h
+
+/-- **`prop:mod8`(c), the odd member.** With `a = 2k` and `b = a'`, the odd member satisfies
+`b ≡ k(1 + 2S(k)) (mod 16)`. The mod-8 statement `k' ≡ k·S(k)` doubles to a mod-16 statement
+because `b = k + 2k'`. -/
+theorem mixed_member_mod16 {k kd Sk b : ℤ} (hb : b = k + 2 * kd)
+    (h8 : (8 : ℤ) ∣ (kd - k * Sk)) :
+    (16 : ℤ) ∣ (b - k * (1 + 2 * Sk)) := by
+  obtain ⟨t, ht⟩ := h8
+  exact ⟨t, by rw [hb]; linear_combination 2 * ht⟩
+
+/-- **`prop:mod8`(c), the even member.** The companion law
+`(2k)(2k)' ≡ 2 + 4S(k) (mod 16)`, from `8 ∣ k² - 1` and `8 ∣ kk' - S(k)`. -/
+theorem even_member_mod16 {k kd Sk : ℤ} (h1 : (8 : ℤ) ∣ (k ^ 2 - 1))
+    (h2 : (8 : ℤ) ∣ (k * kd - Sk)) :
+    (16 : ℤ) ∣ ((2 * k) * (k + 2 * kd) - (2 + 4 * Sk)) := by
+  obtain ⟨s, hs⟩ := h1
+  obtain ⟨t, ht⟩ := h2
+  exact ⟨s + 2 * t, by linear_combination 2 * hs + 4 * ht⟩
+
+/-- **`prop:mod8`(c), the prime sum of the odd member.** `S(b) ≡ 2kb (mod 8)`: this is the law
+applied to `b`, using `b' = a = 2k`. -/
+theorem mixed_prime_sum_mod8 {Q : Finset ℕ} (hQ : ∀ q ∈ Q, q.Prime) (hodd : ∀ q ∈ Q, Odd q)
+    {k : ℕ} (hcyc : csum Q = 2 * k) :
+    (∑ q ∈ Q, ((q : ℕ) : ZMod 8)) = 2 * (k : ZMod 8) * ((dprod Q : ℕ) : ZMod 8) := by
+  have h := mod8_law hQ hodd
+  rw [hcyc] at h
+  push_cast at h
+  linear_combination -h
 
 end Erdos307

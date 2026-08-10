@@ -1,8 +1,10 @@
 # Formal coverage of `paper/erdos307.tex`
 
 **48 of 104** labelled results in the paper are named by a Lean file in `Erdos307/`
-(30 files, **0 `sorry`**, standard axioms throughout; `native_decide` confined to `Numeral.lean`
-and `Sixty.lean`).
+(30 files, **0 `sorry`**). Every theorem is on the three standard axioms with a single stated
+exception: `erdos307_sixty` depends on one `ofReduceBool` axiom, from `dfs_run`, the DFS execution
+that closes level 60. The numeral bridge is kernel-checked, so the barrier itself
+(`card_ge_59`, `erdos307_barrier_closed`) carries no `native_decide`.
 
 This file exists so that an audit finds a *stated boundary* rather than a gap. Every result the
 paper claims is in exactly one of two states: formalised, or listed below with the reason it is not.

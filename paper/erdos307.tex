@@ -2418,8 +2418,11 @@ but they thin every hunt over the odd sector by a fixed factor.
 \texttt{odd\_sq\_mod8}; \texttt{prime\_sums\_congruent} is \textup{(b)}; \texttt{parity\_law} is
 \textup{(a)} and is stated over $\NN$ with $\bmod$, so it needs no \texttt{ZMod} API, and
 \texttt{omega\_even\_of\_even\_derivative} is the step Theorem~\ref{thm:parity}\textup{(i)} uses.
-Parts \textup{(c)} and \textup{(d)} are not formalised
-\textup{(\texttt{lean/Erdos307/Mod8.lean})}.
+Part~\textup{(d)} is \texttt{plus\_quantity\_mod8}, with the
+square--residue filter \texttt{plus\_hit\_residue}; part~\textup{(c)} is
+\texttt{mixed\_member\_mod16}, \texttt{even\_member\_mod16} and \texttt{mixed\_prime\_sum\_mod8},
+the mod--$16$ statements chaining onto the law through its integer form \texttt{mod8\_law\_int}. All
+four parts are therefore formal \textup{(\texttt{lean/Erdos307/Mod8.lean})}.
 \end{proposition}
 \begin{proof}
 $q^2\equiv1\pmod8$ for odd $q$, so $m/q\equiv mq\pmod8$; summing over $q\mid m$ gives
