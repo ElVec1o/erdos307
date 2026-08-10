@@ -26,3 +26,5 @@ import Erdos307.PlusThin
 import Erdos307.Pythagorean
 import Erdos307.Mod8
 import Erdos307.Frame
+import Erdos307.NormalForm
+import Erdos307.Ladder

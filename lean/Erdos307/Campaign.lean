@@ -21,6 +21,8 @@ complete factorisation of `n - 1`, and `code/immune_certify.py` establishes that
 reach for these 114-digit numbers: 0 of 34 reach even the Brillhart-Lehmer-Selfridge threshold
 `n^(1/3)`. Those primality facts rest on the external ECPP certificates in
 `certs/immune_ecpp.txt`, which any third party can verify but which no Lean tactic can consume.
+
+Paper: Remark `rem:campaign` (the campaign lemma; the ECPP certificates are external).
 -/
 
 namespace Erdos307

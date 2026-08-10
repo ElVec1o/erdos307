@@ -2101,6 +2101,14 @@ $N'^2-4N^2=\square$ carries, under the convention $a<b$, a well--defined invaria
 $k(N)\in\mathbb{Z}_{\le0}$; \#307 holds iff $k(N)=0$ for some $N$, and by~(3) the invariant lives on a
 domain that is empty below $10^{112}$.
 \end{enumerate}
+
+\textup{Formalised.} \texttt{Erdos307.k\_nonpos} is \textup{(1)}, \texttt{rung\_parity\_mixed} and
+\texttt{rung\_parity\_odd} are \textup{(2)}, \texttt{rung\_cross} and \texttt{rung\_mass\_indep} are
+\textup{(3)} \textup{(}the second being the invariance that carries
+Corollary~\ref{cor:emptytest} onto every rung\textup{)}, and \texttt{rung\_minus\_one} is
+\textup{(4)}. Corollary~\ref{cor:kdetermined} is \texttt{k\_determined}, with the confinement to
+$k\in\{0,-1\}$ entering as a hypothesis rather than proved, and Bado's uniqueness of the splitting
+in~\textup{(5)} cited \textup{(\texttt{lean/Erdos307/Ladder.lean})}.
 \end{proposition}
 
 The whole ladder is one equation in $\mathbb{Z}[i]$, and the rung index is a Gaussian multiplier.
@@ -2873,6 +2881,16 @@ would avoid the archimedean place. Both are closed outright.
 Let $P,Q$ be finite sets of primes with $\sigma(P)\sigma(Q)=1$, and put $a=\prod P$, $b=\prod Q$.
 Then $b=a'$ and $a=b'$ exactly. In particular $Q$ is \emph{determined} by $P$: it is the set of
 prime factors of $a'$, and the existence route carries exactly one parameter, the set $P$.
+
+\textup{Formalised.} \texttt{Erdos307.Q\_determined}: given $a'=b$, the set $Q$ is exactly the set of
+prime factors of $a'$. The one--prime normal form of Proposition~\ref{prop:oneprime} is
+\texttt{oneprime\_forced}, \texttt{oneprime\_cycle}, \texttt{oneprime\_mass\_identity} and
+\texttt{oneprime\_mass\_bound}, the last two giving part~\textup{(b)}: the mass identity holds for
+\emph{every} witness, prime or composite, so the exactness layer alone carries the barrier. The slot
+calculus of Proposition~\ref{prop:slot} is \texttt{slot\_layers} and \texttt{slot\_recovery}, the
+filter of Corollary~\ref{cor:qr} is \texttt{qr\_filter}, and the reduction mechanism behind
+Proposition~\ref{prop:noconj}, Rigidity and Lemma~\ref{lem:anatomy} alike is isolated once as
+\texttt{dvd\_sum\_erase\_iff} \textup{(\texttt{lean/Erdos307/NormalForm.lean})}.
 \end{proposition}
 \begin{proof}
 $\sigma(a)=a'/a$ and $\sigma(b)=b'/b$, both in lowest terms since $\gcd(m,m')=1$ for squarefree
