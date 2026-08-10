@@ -12,6 +12,8 @@ in lowest terms.
 
 **T2 (Solution structure).** If `(N_P/D_P)·(N_Q/D_Q) = 1` in `ℚ` with both fractions reduced,
 then `N_P = D_Q` and `N_Q = D_P`.
+
+Paper: Theorem `thm:rigidity` (T1), Theorem `thm:structure` (T2).
 -/
 
 namespace Erdos307

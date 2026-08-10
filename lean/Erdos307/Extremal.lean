@@ -14,6 +14,8 @@ least `i` primes lie below `e i`; since `e i` is itself the `(count primes < e i
 and `count ≥ i`, monotonicity of `Nat.nth` gives `Nat.nth Prime i ≤ e i`.
 
 Status: written without a live checker — `Nat.nth`/`Nat.count` API names may need adjusting.
+
+Paper: Lemma `lem:59`, Theorem `thm:barrier` (the extremality T4' rests on).
 -/
 
 namespace Erdos307

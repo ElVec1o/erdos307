@@ -6,6 +6,8 @@ import Erdos307.Extremal
 
 `Nat.count … = …` uses `native_decide`; these lemmas (only) carry `Lean.ofReduceBool`.
 All *mathematical* theorems stay 3-axiom.
+
+Paper: Lemma `lem:59` (the prime numerals its mass estimate needs).
 -/
 
 namespace Erdos307

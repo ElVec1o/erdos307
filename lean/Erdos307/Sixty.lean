@@ -23,6 +23,8 @@ Formalization of Proposition `close59` of the note.  Structure:
 
 The only non-logical input is `native_decide` (the DFS run + small decidable facts),
 consistent with the numeral tier of `Erdos307.Numeral`.
+
+Paper: Proposition `prop:close59`, Theorem `thm:barrier` at level 60.
 -/
 
 namespace Erdos307

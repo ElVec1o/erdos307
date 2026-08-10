@@ -17,6 +17,8 @@ disjointness of `P` and `Q` and the rigidity identity `R = s·D_P²` — is disc
 
 Status: **machine-checked**.  Compiles under `lake build` (Lean / mathlib v4.30.0); `#print axioms
 erdos307_barrier` shows only `propext, Classical.choice, Quot.sound` — no `sorryAx`.  Confirmed green Jun 14 2026.
+
+Paper: Theorem `thm:barrier` over genuine prime sets.
 -/
 
 namespace Erdos307

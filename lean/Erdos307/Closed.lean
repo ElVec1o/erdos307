@@ -11,6 +11,8 @@ hypothesis-free `erdos307_barrier_closed`: any two finite sets of primes `P, Q` 
 
 These results inherit `Lean.ofReduceBool` (via `base_case`/`np59`); the purely mathematical
 theorems remain 3-axiom.
+
+Paper: Lemma `lem:59`, Theorem `thm:barrier` in closed form.
 -/
 
 namespace Erdos307

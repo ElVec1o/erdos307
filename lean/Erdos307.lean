@@ -23,3 +23,6 @@ import Erdos307.NoGain
 import Erdos307.Bridge
 import Erdos307.PairLocal
 import Erdos307.PlusThin
+import Erdos307.Pythagorean
+import Erdos307.Mod8
+import Erdos307.Frame

@@ -24,6 +24,8 @@ the dependency is visible.  That extremality is *now proven* (`Erdos307.Extremal
 `prod_first_primes_le`/`recipSum_le_first_primes`) and the hypothesis is discharged in
 `Erdos307.Closed` (`erdos307_barrier_closed`), which states the barrier over genuine prime sets with
 no extremality hypothesis.
+
+Paper: Lemma `lem:amgm` (T3), Theorem `thm:barrier` (T4), Lemma `lem:59`.
 -/
 
 namespace Erdos307

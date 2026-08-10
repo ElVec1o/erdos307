@@ -964,6 +964,11 @@ bound then holds for the multiset reciprocal sum.)
 Let $a$ be squarefree and $q$ a prime with $q\nmid a$. Then $q\mid a'$ if and only if
 $\sum_{p\mid a}p^{-1}\equiv 0\pmod q$, where $p^{-1}$ is the inverse of $p$ modulo $q$. If $q\mid a$,
 then $q\nmid a'$.
+
+\textup{Formalised.} \texttt{Erdos307.anatomy\_iff}, with the factorisation
+$a'\equiv a\sum_{p\mid a}p^{-1}$ proved as \texttt{csum\_eq\_mul\_recipSum} rather than assumed; the
+second half is \texttt{anatomy\_on\_support} and is Rigidity
+\textup{(\texttt{lean/Erdos307/Frame.lean})}.
 \end{lemma}
 \begin{proof}
 $a'=a\sum_{p\mid a}1/p$. If $q\nmid a$ then $q\mid a'$ iff $q\mid a\sum_{p\mid a}p^{-1}$ iff
@@ -1584,6 +1589,12 @@ p=\frac{MN'+N^2}{\Delta},\qquad q=\frac{M'N+M^2}{\Delta}
 are integers, both prime, each coprime to $MN$, with $p\ne q$. Then $a\coloneqq Mp$, $b\coloneqq Nq$
 form a derivative two--cycle $a'=b$, $b'=a$; equivalently $(P,Q)$ with $P$ the prime set of $Mp$ and
 $Q$ that of $Nq$ solves Erd\H{o}s \#307.
+
+\textup{Formalised.} \texttt{Erdos307.frame\_cycle} verifies both cycle equations from the two
+divisibility hypotheses, and \texttt{frame\_solve} runs the derivation backwards, so the two
+quotients are \emph{forced} rather than guessed and the rule is an equivalence. The Leibniz step
+$a'=M'p+M$ is \texttt{csum\_insert\_prime}. What no algebra reaches is the primality of the two
+quotients \textup{(\texttt{lean/Erdos307/Frame.lean})}.
 \end{theorem}
 
 \begin{proof}
@@ -2034,6 +2045,14 @@ $N=ab\ge\prod(\text{first }59\text{ primes})>7.9\times10^{112}$. Hence no square
 $\omega(N)\ge2$ satisfies $N'^2-4N^2=\square$: the empirical ``$0$ of $103{,}596$'' of
 Proposition~\ref{prop:pyth} is a theorem, and the barrier of Theorem~\ref{thm:barrier} extends from
 two--cycles to the strictly weaker one--equation (Pythagorean) problem.
+
+\textup{Formalised.} \texttt{Erdos307.pyth\_sum\_of\_squares} is $N'=a^2+b^2$ from Leibniz and the
+cycle, \texttt{pyth\_discriminant} the resulting square, \texttt{split\_identity} and
+\texttt{split\_product} the two--layer form of Proposition~\ref{prop:split}, and
+\texttt{mass\_ge\_two\_of\_pythagorean} with \texttt{card\_ge\_59\_of\_pythagorean} this corollary.
+The AM--GM step of Proposition~\ref{prop:kcycles} is \texttt{sum\_ge\_card\_of\_prod\_eq\_one}, valid
+for every $k$ at once and proved from $\log x\le x-1$ rather than a $k$--term AM--GM. Bado's converse
+is cited, not reproved \textup{(\texttt{lean/Erdos307/Pythagorean.lean})}.
 \end{corollary}
 
 \begin{remark}
@@ -2386,6 +2405,13 @@ satisfies $N'+2N\equiv N\bigl(S(N)+2\bigr)\pmod8$, so an odd plus--hit must have
 $N(S(N)+2)\equiv1\pmod8$ when $\omega(N)$ is odd and $\equiv0,4\pmod8$ when $\omega(N)$ is even.
 None of these congruences is an obstruction, consistently with Proposition~\ref{prop:nolocal},
 but they thin every hunt over the odd sector by a fixed factor.
+
+\textup{Formalised.} \texttt{Erdos307.mod8\_law} is the law itself, resting only on
+\texttt{odd\_sq\_mod8}; \texttt{prime\_sums\_congruent} is \textup{(b)}; \texttt{parity\_law} is
+\textup{(a)} and is stated over $\NN$ with $\bmod$, so it needs no \texttt{ZMod} API, and
+\texttt{omega\_even\_of\_even\_derivative} is the step Theorem~\ref{thm:parity}\textup{(i)} uses.
+Parts \textup{(c)} and \textup{(d)} are not formalised
+\textup{(\texttt{lean/Erdos307/Mod8.lean})}.
 \end{proposition}
 \begin{proof}
 $q^2\equiv1\pmod8$ for odd $q$, so $m/q\equiv mq\pmod8$; summing over $q\mid m$ gives
