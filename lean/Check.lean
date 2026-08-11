@@ -17,6 +17,18 @@ import Erdos307.Extremal
 import Erdos307.Numeral
 import Erdos307.Closed
 import Erdos307.Sixty
+import Erdos307.Bridge
+import Erdos307.Frame
+import Erdos307.Ladder
+import Erdos307.Mod8
+import Erdos307.NoGain
+import Erdos307.NoPlace
+import Erdos307.NoPoly
+import Erdos307.NormalForm
+import Erdos307.PairLocal
+import Erdos307.PlusThin
+import Erdos307.Pythagorean
+import Erdos307.FunctionField
 open Erdos307
 #print axioms rigidity_coprime
 #print axioms solution_structure
@@ -96,3 +108,124 @@ open Erdos307
 #print axioms primeSquareSum_certificate
 #print axioms good_density_pos
 #print axioms squarefree_positive_density_of_bound
+
+/-! ### Bridge -/
+#print axioms Erdos307.two_cycle_iff_double_fixed
+#print axioms Erdos307.ad_dprod
+#print axioms Erdos307.dprod_ne_dprod
+#print axioms Erdos307.bridge_forward
+#print axioms Erdos307.disjoint_primeFactors_of_cycle
+#print axioms Erdos307.bridge_backward
+#print axioms Erdos307.mass_eq
+#print axioms Erdos307.bridge
+
+/-! ### Frame -/
+#print axioms Erdos307.csum_insert_prime
+#print axioms Erdos307.dprod_insert_prime
+#print axioms Erdos307.frame_cycle
+#print axioms Erdos307.frame_solve
+#print axioms Erdos307.anatomy_on_support
+#print axioms Erdos307.csum_eq_mul_recipSum
+#print axioms Erdos307.anatomy_iff
+
+/-! ### Ladder -/
+#print axioms Erdos307.k_nonpos
+#print axioms Erdos307.rung_cross
+#print axioms Erdos307.rung_mass_indep
+#print axioms Erdos307.rung_minus_one
+#print axioms Erdos307.rung_parity_mixed
+#print axioms Erdos307.rung_parity_odd
+#print axioms Erdos307.k_determined
+
+/-! ### Mod8 -/
+#print axioms Erdos307.odd_sq_mod8
+#print axioms Erdos307.cofactor_odd
+#print axioms Erdos307.mod8_law
+#print axioms Erdos307.prime_sums_congruent
+#print axioms Erdos307.parity_law
+#print axioms Erdos307.omega_even_of_even_derivative
+#print axioms Erdos307.not_both_even
+#print axioms Erdos307.dprod_odd
+#print axioms Erdos307.derivative_mod8
+#print axioms Erdos307.plus_quantity_mod8
+#print axioms Erdos307.sq_values_mod8
+#print axioms Erdos307.plus_hit_residue
+#print axioms Erdos307.odd_sq_sub_one_dvd
+#print axioms Erdos307.mod8_law_int
+#print axioms Erdos307.mixed_member_mod16
+#print axioms Erdos307.even_member_mod16
+#print axioms Erdos307.mixed_prime_sum_mod8
+
+/-! ### NoGain -/
+#print axioms Erdos307.cycle_product
+#print axioms Erdos307.le_max_of_both
+#print axioms Erdos307.cycle_bound
+#print axioms Erdos307.cycle_bound_max
+#print axioms Erdos307.gain_lt_one_order
+#print axioms Erdos307.nogain
+
+/-! ### NoPlace -/
+#print axioms Erdos307.not_descends_of_le
+#print axioms Erdos307.der_thirty
+#print axioms Erdos307.not_descent_of_strictMono
+#print axioms Erdos307.padic_lowers_on_support
+#print axioms Erdos307.raises_two
+#print axioms Erdos307.raises_three
+#print axioms Erdos307.raises_five
+#print axioms Erdos307.not_descent_padic
+#print axioms Erdos307.no_place_descent
+
+/-! ### NoPoly -/
+#print axioms Erdos307.const_prod_eq_one_of_tendsto
+#print axioms Erdos307.eps_eq_zero_of_identity
+#print axioms Erdos307.nonconstant_empty
+#print axioms Erdos307.nopoly
+
+/-! ### NormalForm -/
+#print axioms Erdos307.dvd_sum_erase_iff
+#print axioms Erdos307.Q_determined
+#print axioms Erdos307.oneprime_forced
+#print axioms Erdos307.oneprime_cycle
+#print axioms Erdos307.oneprime_mass_identity
+#print axioms Erdos307.oneprime_mass_bound
+#print axioms Erdos307.slot_layers
+#print axioms Erdos307.slot_recovery
+#print axioms Erdos307.qr_filter
+
+/-! ### PairLocal -/
+#print axioms Erdos307.no_pinning
+#print axioms Erdos307.no_pinning_isUnit
+#print axioms Erdos307.A_sub_B
+#print axioms Erdos307.collapse_identity
+#print axioms Erdos307.regime_one_first
+#print axioms Erdos307.regime_one_second
+#print axioms Erdos307.regime_one_first_mod
+#print axioms Erdos307.four_two_eq_zero
+#print axioms Erdos307.targets_agree_mod_eight
+
+/-! ### PlusThin -/
+#print axioms Erdos307.plus_semiprime_identity
+#print axioms Erdos307.plus_range
+#print axioms Erdos307.plus_injective_aux
+#print axioms Erdos307.plus_recover
+#print axioms Erdos307.count_le_divisor_sum
+#print axioms Erdos307.two_roots
+#print axioms Erdos307.two_roots_quadratic
+#print axioms Erdos307.card_large_le_card_small
+#print axioms Erdos307.tau_le_two_small
+
+/-! ### Pythagorean -/
+#print axioms Erdos307.pyth_sum_of_squares
+#print axioms Erdos307.pyth_discriminant
+#print axioms Erdos307.split_identity
+#print axioms Erdos307.split_product
+#print axioms Erdos307.mass_ge_two_of_pythagorean
+#print axioms Erdos307.card_ge_59_of_pythagorean
+#print axioms Erdos307.sum_ge_card_of_prod_eq_one
+#print axioms Erdos307.two_le_sum_of_mul_eq_one
+
+/-! ### FunctionField -/
+#print axioms Erdos307.deg_drop_of_terms
+#print axioms Erdos307.no_two_cycle_of_drop
+#print axioms Erdos307.no_fixed_point_of_drop
+#print axioms Erdos307.ff_no_cycle

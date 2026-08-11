@@ -9,8 +9,9 @@ Assembles the proven extremality (`Extremal`) and the numeral bridge (`Numeral`)
 hypothesis-free `erdos307_barrier_closed`: any two finite sets of primes `P, Q` with
 `(∑ 1/p)(∑ 1/q) = 1` satisfy `(∏ p∈P) ≥ 2·10⁵⁶`.
 
-These results inherit `Lean.ofReduceBool` (via `base_case`/`np59`); the purely mathematical
-theorems remain 3-axiom.
+Since v1.4.6 the numeral bridge is kernel-checked by `decide`, so these results do **not** inherit
+`Lean.ofReduceBool`: `card_ge_59` and `erdos307_barrier_closed` are on the three standard axioms.
+The project's only `native_decide` site is `dfs_run` in `Sixty.lean`.
 
 Paper: Lemma `lem:59`, Theorem `thm:barrier` in closed form.
 -/

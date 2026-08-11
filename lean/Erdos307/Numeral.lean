@@ -6,7 +6,8 @@ import Erdos307.Extremal
 
 The `Nat.count … = …` bridge is checked by the **kernel**, not by `native_decide`: every lemma here
 is on the three standard axioms, so nothing in the `lem:59` chain carries `Lean.ofReduceBool`. The
-counts run to `Nat.count Nat.Prime 283 = 60`, which `decide` settles directly.
+counts run to `Nat.count Nat.Prime 281 = 59`, the numeral for the 59th prime, which
+`decide` settles directly.
 
 Paper: Lemma `lem:59` (the prime numerals its mass estimate needs).
 -/

@@ -37,11 +37,15 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
   Prop. close59): any solution in fact has `|P ∪ Q| ≥ 60` and `min(∏P, ∏Q) > 3.50 × 10⁵⁷`
   — verified by two independent exact-integer programs (`code/close59.py`, `hunt/close59.rs`) **and
   machine-checked in Lean 4** (`erdos307_sixty`: the search's completeness is proved, not assumed;
-  the enumeration runs under `native_decide`). The coprime variant with `1 ∉ P∪Q` inherits the
+  the enumeration's single `dfs_run` step is the project's one `native_decide` use). The product
+  bounds `Π₆₀ > 2.46 × 10¹¹⁵` and `min(∏P,∏Q) > 3.5053 × 10⁵⁷` are proved in the paper, not in Lean:
+  `erdos307_sixty` proves `|P ∪ Q| ≥ 60` only. The coprime variant with `1 ∉ P∪Q` inherits the
   full `≥ 60` bound (Cor. coprime60).
 - **The wall, named.** The obstruction is the *orderability of ℚ* (Artin–Schreier formal reality):
-  twisted derivative 2-cycles **do** exist over `ℤ[i], ℤ[√−2], ℤ[ω], ℤ[√2]` (all verified exactly), and
-  a one-line classification shows ℚ is the only number field where the barrier operates. Over `𝔽_q[t]`
+  twisted derivative 2-cycles **do** exist over `ℤ[i], ℤ[√−2], ℤ[ω], ℤ[√2]` (all verified exactly).
+  An earlier claim that ℚ is the only number field where the barrier operates is **false** and has
+  been withdrawn: in `ℚ(√17, √33)` the prime 2 splits completely, giving four ideals of norm 2, mass
+  exactly 2 and product 16 against ℚ's `10^112.9` (see `prop:fieldoptimal`). Over `𝔽_q[t]`
   the derivative has **no** cycles at all (degree theorem), so the obstruction over `ℤ` is purely
   archimedean.
 - **Position in the Egyptian-fraction landscape.** Expanding the product, #307 is the *rank-one*
@@ -107,9 +111,9 @@ hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, w
 
 - **Paper:** `cd paper && pdflatex erdos307.tex` twice (for cross-references). No BibTeX run needed.
 - **Lean:** `cd lean && lake exe cache get && lake build` (Lean / mathlib `v4.30.0`). Then
-  `lake env lean Check.lean` prints the axiom dependencies of every theorem — the mathematical results
-  depend only on `propext, Classical.choice, Quot.sound` (no `sorryAx`); the first-59-primes evaluation
-  additionally uses `native_decide`.
+  `lake env lean Check.lean` prints the axiom dependencies of 159 declarations across all 30 modules
+  — everything depends only on `propext, Classical.choice, Quot.sound` (no `sorryAx`), with exactly
+  one exception: `erdos307_sixty`, which additionally carries the `native_decide` axiom of `dfs_run`.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)
   for primality and class-group work, and a few legacy Python 3 scripts (`sympy`, `numpy`).
 - **Certificates:** `certs/immune_ecpp.txt` and `certs/lyap_refute_cofactor_ecpp.txt` verify under

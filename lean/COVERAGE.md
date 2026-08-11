@@ -1,13 +1,25 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**48 of 104** labelled results in the paper are named by a Lean file in `Erdos307/`
-(30 files, **0 `sorry`**). Every theorem is on the three standard axioms with a single stated
-exception: `erdos307_sixty` depends on one `ofReduceBool` axiom, from `dfs_run`, the DFS execution
-that closes level 60. The numeral bridge is kernel-checked, so the barrier itself
-(`card_ge_59`, `erdos307_barrier_closed`) carries no `native_decide`.
+**52 of 106** labelled results are named by a Lean file in `Erdos307/` (31 files, **0 `sorry`**).
 
-This file exists so that an audit finds a *stated boundary* rather than a gap. Every result the
-paper claims is in exactly one of two states: formalised, or listed below with the reason it is not.
+Every theorem is on the three standard axioms with a single stated exception: `erdos307_sixty`
+carries one `ofReduceBool` axiom, from `dfs_run`, the pruned-search execution that closes level 60.
+The numeral bridge is kernel-checked, so the barrier itself (`card_ge_59`, `erdos307_barrier_closed`)
+carries no `native_decide`. `lake env lean Check.lean` probes 163 declarations across **all 30
+modules** and prints this.
+
+This file exists so an audit finds a *stated boundary* rather than a gap. Every result the paper
+claims is in exactly one of two states: formalised, or listed below with the reason it is not.
+
+## Correction, v1.4.7
+
+The v1.4.6 edition of this file reported 48 of 104 and claimed `ALGEBRAIC` was empty. Both were
+wrong. The label extractor required a `[title]` bracket, so results written `\begin{theorem}\label{...}`
+were invisible to it: the true total is 106, and four labels (`thm:ff`, `prop:form`, `prop:strata`,
+`prop:untestable`) were neither anchored nor classified, which broke the "exactly one of two states"
+guarantee. `thm:ff` was in fact a two-line degree argument, so `ALGEBRAIC` was not empty either. The
+extractor is fixed, `thm:ff` is now formalised (`FunctionField.lean`), and the counts below are
+regenerated.
 
 ## There are no unformalised purely-algebraic results
 
@@ -15,33 +27,38 @@ Every remaining item needs something Lean cannot supply here: a computation at a
 will not take, an analytic estimate absent from Mathlib, a conjectural hypothesis, or someone else's
 theorem. **The algebraic gap is zero.**
 
-Where a result has an algebraic core and an analytic tail, the core is formalised and the split is
-named in the paper. `prop:plusthin` is the model: `count_le_divisor_sum` reduces the count to
-`∑ τ(2s²+1)` in full, and `rem:plusthinformal` records that the asymptotic has no Mathlib counterpart.
-
 ## How to re-run this audit
 
 ```bash
-grep -o '\\\\label{[a-z:0-9]*}' paper/erdos307.tex | sort -u   # paper labels
-grep -ho '`[a-z]*:[a-z0-9]*`' lean/Erdos307/*.lean | sort -u   # labels named in Lean
+python3 - <<'EOF'
+import re, glob
+tex = open('paper/erdos307.tex').read()
+pat = re.compile(r'\\begin\{(theorem|proposition|lemma|corollary)\}(?:\[((?:[^\[\]]|\[[^\]]*\])*)\])?\s*\\label\{([a-z:0-9]+)\}')
+labels = {m[2] for m in pat.findall(tex)}
+lean = set()
+for f in glob.glob('lean/Erdos307/*.lean'):
+    lean |= set(re.findall(r'`([a-z]+:[a-z0-9]+)`', open(f).read()))
+print(len(labels & lean), 'of', len(labels), 'covered')
+print('uncovered:', sorted(labels - lean))
+EOF
 ```
 
-Every Lean file carries a `Paper:` line in its module docstring naming the results it covers. A file
-without one is a bug in this scheme, not an uncovered result.
+The optional-bracket group matters: without it, untitled results are silently dropped.
 
-## COMPUTATIONAL (30)
+Every Lean file carries a `Paper:` line naming the results it covers. A file without one is a bug in
+this scheme, not an uncovered result.
 
-The result *is* a number produced by a program: a census, a sweep, an enumeration, a
-measured density. Formalising the statement would mean formalising the computation, which for these
-ranges means `native_decide` at a scale the kernel will not take. Each cites the script that
-produces it, and those scripts are tracked in `code/` (Rule 9). Formal status: **out of scope by
-construction**, not pending.
+## COMPUTATIONAL (29)
+
+The result *is* a number a program produces: a census, a sweep, an enumeration, a measured
+density. Formalising the statement would mean formalising the computation, which at these ranges means
+`native_decide` at a scale the kernel will not take. Each cites the script that produces it, and those
+scripts are tracked in `code/` (Rule 9). Out of scope by construction, not pending.
 
 | label | statement |
 |---|---|
 | `cor:coprime60` | The coprime variant inherits the closed level |
 | `cor:diagonals` | Diagonal stratification: the cost of the last lattice step |
-| `cor:ff307` | The function--field ErdHos--Barbeau equation is insoluble |
 | `cor:gos` | Nonemptiness families for the mu--Sondow conjecture |
 | `lem:symbolfact` | Factorisation of the symbol |
 | `prop:anticorr` | The barrier is statistically complete |
@@ -70,18 +87,18 @@ construction**, not pending.
 | `prop:transport` | Divisor transport |
 | `thm:existence` | Existence of twisted derivative two--cycles |
 
-## ANALYTIC (20)
+## ANALYTIC (19)
 
-Needs analytic machinery Mathlib does not carry: divisor-sum asymptotics
-(`∑ τ(u) ~ Z log Z`), density of `{σ(m) ≥ x}`, Chernoff bounds over primes, Weil's point count,
-large-sieve and character-sum estimates, Mertens. These are genuine library gaps, not choices. The
-elementary skeleton underneath several of them *is* formalised: see `PlusThin.lean` for the sharpest
-example, where the reduction to a divisor sum is complete in Lean and only the asymptotic is prose.
+Needs analytic machinery Mathlib does not carry: divisor-sum asymptotics, density of
+`{σ(m) ≥ x}`, Chernoff bounds over primes, Weil's point count, large-sieve and character-sum
+estimates, Mertens. Genuine library gaps, not choices. The elementary skeleton underneath several of
+them *is* formalised; `PlusThin.lean` is the model, where the reduction to a divisor sum is complete in
+Lean and only the asymptotic is prose.
 
 | label | statement |
 |---|---|
 | `cor:secondbarrier` | A second, independent derivation of the barrier |
-| `lem:charcancel` | Cancellation in the character sums |
+| `lem:charcancel` | Cancellation in the character sums; fixed r only |
 | `lem:localsq` | Local densities at p^2 |
 | `lem:reversal` | Reversal |
 | `prop:bilinear` | Kernel norm |
@@ -89,7 +106,6 @@ example, where the reduction to a divisor sum is complete in Lean and only the a
 | `prop:density` | The abundance density is a theorem |
 | `prop:divset` | The divisibility set: slope one is dense, slope two is not |
 | `prop:f1` | The heuristic constant is the barrier's own probability |
-| `prop:fieldoptimal` | mathbbQ is optimal for the barrier |
 | `prop:lines` | The determined slot: all derivative lines are thin, uniformly |
 | `prop:multiplicityfail` | Multiplicity cannot help |
 | `prop:nearmiss` | The near-miss spectrum, and why the heuristic cannot be calibrated |
@@ -103,10 +119,8 @@ example, where the reduction to a divisor sum is complete in Lean and only the a
 
 ## CONDITIONAL (3)
 
-Stated conditionally in the paper (on Bunyakovsky, Schinzel, GRH, or a named
-conjecture). Formalising the implication is possible but would mean encoding the hypothesis as an
-axiom-shaped assumption; the paper already marks these clearly and nothing downstream treats them as
-proved.
+Stated conditionally in the paper (on Bunyakovsky, Schinzel, GRH, or a named conjecture).
+Nothing downstream treats them as proved.
 
 | label | statement |
 |---|---|

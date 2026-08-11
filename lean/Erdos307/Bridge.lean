@@ -1,5 +1,6 @@
 import Erdos307.Rigidity
 import Erdos307.Injective
+import Erdos307.Capstone
 
 /-!
 # The Bridge: #307 is a two-cycle of the arithmetic derivative
@@ -28,7 +29,9 @@ The three implications are separated here by exactly the input each needs.
 * **(2) ⟹ (1)** is `bridge_backward` and is the only implication with an outside input. It needs
   that a derivative two-cycle has squarefree members, which is the Ufnarovski-Åhlander analysis of
   cycles, cited and not reproved; here it appears as the explicit hypotheses `Squarefree a` and
-  `Squarefree b`. Given those, the argument is one line: `σ(a)σ(b) = (b/a)(a/b) = 1`. Disjointness
+  `Squarefree b`. Those hypotheses are what make `∑_{p ∣ a} 1/p` equal `a'/a`, so the conclusion is
+  statement (1) over genuine prime sets rather than the field identity `(a'/a)(b'/b) = 1`, which is a
+  tautology given the cycle and says nothing about \#307. Disjointness
   of the two prime supports is *not* an extra assumption either, it follows from
   `gcd(a, a') = 1`, which is Rigidity again (`disjoint_primeFactors_of_cycle`).
 
@@ -111,17 +114,30 @@ theorem disjoint_primeFactors_of_cycle {a b : ℕ} (ha : Squarefree a) (hab : ad
   have : Nat.Coprime a b := by rw [← hab]; exact hcop.symm
   exact Nat.Coprime.disjoint_primeFactors this
 
-/-- **`thm:bridge`, (2) ⟹ (1).** A two-cycle of squarefree members gives a \#307 solution: the two
-masses multiply to `1`.
+/-- **`thm:bridge`, (2) ⟹ (1).** A two-cycle of squarefree members gives a \#307 solution: the
+reciprocal sums of the two prime supports multiply to `1`.
 
-The squarefreeness hypotheses are the Ufnarovski-Åhlander input, supplied here rather than
-reproved, exactly as `rem:cited` records. -/
-theorem bridge_backward {a b : ℕ} (ha0 : a ≠ 0) (hb0 : b ≠ 0)
+This is statement (1) as the paper states it, over genuine prime sets, not the field identity
+`(a'/a)(b'/b) = 1`. That identity is a tautology once `a' = b` and `b' = a`, and holds for any
+nonzero `a, b`; it is *not* \#307. The squarefreeness hypotheses are what make `∑_{p ∣ a} 1/p` equal
+`a'/a` at all, and they are the Ufnarovski-Åhlander input, supplied here rather than reproved,
+exactly as `rem:cited` records.
+
+An earlier version of this file stated the tautology while its docstring claimed the squarefreeness
+hypotheses. That was a defect: the hypotheses were absent and the conclusion was weaker than
+advertised. -/
+theorem bridge_backward {a b : ℕ} (ha : Squarefree a) (hb : Squarefree b)
     (hab : ad a = b) (hba : ad b = a) :
-    ((ad a : ℚ) / a) * ((ad b : ℚ) / b) = 1 := by
+    (∑ p ∈ a.primeFactors, (p : ℚ)⁻¹) * (∑ q ∈ b.primeFactors, (q : ℚ)⁻¹) = 1 := by
+  have hpa : ∀ p ∈ a.primeFactors, p.Prime := fun p hp => Nat.prime_of_mem_primeFactors hp
+  have hpb : ∀ q ∈ b.primeFactors, q.Prime := fun q hq => Nat.prime_of_mem_primeFactors hq
+  have ha0 : a ≠ 0 := by rintro rfl; exact not_squarefree_zero ha
+  have hb0 : b ≠ 0 := by rintro rfl; exact not_squarefree_zero hb
   have ha' : (a : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr ha0
   have hb' : (b : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hb0
-  rw [hab, hba]
+  rw [recipSum_eq _ hpa, recipSum_eq _ hpb, dprod_primeFactors ha, dprod_primeFactors hb,
+      show csum a.primeFactors = ad a from rfl, show csum b.primeFactors = ad b from rfl,
+      hab, hba]
   field_simp
 
 /-- The mass of a squarefree integer is the reciprocal sum of its prime support, in the `csum/dprod`

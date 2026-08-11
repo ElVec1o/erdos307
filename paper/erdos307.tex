@@ -1145,6 +1145,12 @@ $\mathbb{F}_3$ to degree $5$, and $\mathbb{F}_5$ to degree $4$; twisted variants
 $\mathbb{F}_5$ on small supports through $2.3\times10^{6}$ twist configurations, none closing.)
 \end{proof}
 
+\noindent\textup{Formalised.} \texttt{Erdos307.ff\_no\_cycle} is the theorem, on the single
+hypothesis $\deg f'+1\le\deg f$; \texttt{deg\_drop\_of\_terms} is that hypothesis from the term
+bound, and \texttt{no\_fixed\_point\_of\_drop} excludes fixed points. The argument is stated on the
+degrees alone, so it holds verbatim for every twisted variant, the twist multiplying each term by a
+unit \textup{(\texttt{lean/Erdos307/FunctionField.lean})}.
+
 \begin{corollary}[The function--field Erd\H{o}s--Barbeau equation is insoluble]\label{cor:ff307}
 For every finite field $\mathbb{F}_q$, all nonempty finite sets $P,Q$ of monic irreducibles, and all
 unit weights $u_\pi,v_\rho\in\mathbb{F}_q^\times$,
@@ -1765,8 +1771,9 @@ Hardy--Littlewood/Bateman--Horn--type assertion for an explicit, computable, \em
 family; we know of no named conjecture implying it. That is not an accident of our construction:
 
 \begin{proposition}[No polynomial families]\label{prop:nopoly}
-Let $p_1(t),\dots,p_k(t)$, $q_1(t),\dots,q_l(t)$ be integer polynomials, each taking prime values for
-infinitely many integers $t$ (a fixed--shape Schinzel--type family), such that
+Let $p_1(t),\dots,p_k(t)$, $q_1(t),\dots,q_l(t)$ be integer polynomials, each taking \emph{positive}
+prime values on a common infinite branch $t\to+\infty$ (a fixed--shape Schinzel--type family), such
+that
 $\bigl(\sum_i1/p_i(t)\bigr)\bigl(\sum_j1/q_j(t)\bigr)=1$ for infinitely many $t$. Then every $p_i$ and
 $q_j$ is constant: the family is a single fixed solution. Consequently no polynomial parametrisation can
 reduce \#307 to Bunyakovsky, Schinzel's Hypothesis~H, or Bateman--Horn.
@@ -1789,6 +1796,22 @@ $A_P\varepsilon_Q(t)+A_Q\varepsilon_P(t)+\varepsilon_P(t)\varepsilon_Q(t)=0$ for
 term on the left is nonnegative, and strictly positive as soon as one nonconstant member exists; hence
 there are none.
 \end{proof}
+
+\begin{remark}[Erratum: positivity is a hypothesis, not a consequence]\label{rem:nopolyerratum}
+Earlier versions asked only that each polynomial take prime values for infinitely many integers $t$,
+without requiring the values to be positive on a common branch. As printed that statement is
+\emph{false}: take $P=(2,2,t,-t)$ and $Q=(2,2)$. Each member takes prime values for infinitely many
+integers, and
+\[ \Bigl(\tfrac12+\tfrac12+\tfrac1t-\tfrac1t\Bigr)\Bigl(\tfrac12+\tfrac12\Bigr)=1 \]
+identically, with two nonconstant members present. The proof's step ``every term on the left is
+nonnegative'' silently assumes positivity, which is exactly the missing hypothesis; with it, as now
+stated, the proof is correct and the counterexample is excluded.
+
+The formalisation carries the repaired statement, not the printed one:
+\texttt{Erdos307.nonconstant\_empty} takes $0<f_P(i)$ for every nonconstant member as an explicit
+hypothesis, so the Lean development was already stating the corrected proposition. This is the one
+place in the paper where formalisation caught a missing hypothesis before review did.
+\end{remark}
 
 \noindent This upgrades the earlier computational observation (that the breeder family is not
 polynomially parametrised) to a theorem for \emph{all} fixed--shape families: the prime--density
@@ -1893,8 +1916,20 @@ Proposition~\ref{prop:liveslot} (\texttt{live\_slot\_threshold}, \texttt{thresho
 \end{itemize}
 The single non--elementary ingredient, that the $k$ smallest primes minimise $\prod$ and maximise
 $\sum1/p$ among $k$--element prime sets, is isolated as an explicit hypothesis of \texttt{barrier}
-(the ratio bound $R/T(U)\ge\Pi_{59}/T_{59}$), so the dependency is transparent rather than hidden;
-its standalone proof via \texttt{Nat.nth\,Nat.Prime} is routine and left as future work.
+(the ratio bound $R/T(U)\ge\Pi_{59}/T_{59}$), so the dependency is transparent rather than hidden.
+It is no longer an open dependency: \texttt{Erdos307.Extremal} proves it
+(\texttt{prod\_first\_primes\_le}, \texttt{recipSum\_le\_first\_primes},
+\texttt{hRatio\_of\_extremal}), which is why Theorem~\ref{thm:barrier} appears above in the
+hypothesis-free form \texttt{erdos307\_barrier\_closed}.
+
+Two remarks on the trust boundary, since it moved at v1.4.6. The numeral bridge
+$\texttt{np0}\dots\texttt{np59}$ is checked by the Lean kernel through \texttt{decide}, not by
+\texttt{native\_decide}, so \texttt{card\_ge\_59} and \texttt{erdos307\_barrier\_closed} carry only
+the three standard axioms. The whole development contains exactly one \texttt{native\_decide} site,
+\texttt{dfs\_run}, the pruned-search execution behind Proposition~\ref{prop:close59}; it is the only
+non-logical input anywhere, and \texttt{erdos307\_sixty} is the only theorem that carries it.
+Proposition~\ref{prop:close59}'s product bounds are proved in this paper and not in Lean:
+\texttt{erdos307\_sixty} establishes $|P\cup Q|\ge60$ alone.
 
 \section{Status and questions}\label{sec:status}
 
@@ -3007,25 +3042,37 @@ all $2^{139}=10^{41.8}$ subsets of the primes below $800$, falls short by $10^{2
 Each of the four blocks was then attacked on its own terms. None fell; each is now located more
 precisely, and two further routes are closed.
 
-\begin{proposition}[$\mathbb{Q}$ is optimal for the barrier]\label{prop:fieldoptimal}
-Theorem~\ref{thm:ff} kills the algebraic route by ultrametricity, which suggests replacing
-$K[t]$ by a number ring $\mathcal{O}_K$, where the absolute value is archimedean and the obstruction
-disappears. It does disappear, but nothing is gained: for every number field $K$ the least
-$\prod N(\pi)$ over prime ideals with $\sum1/N(\pi)\ge2$ is at least that of $\mathbb{Q}$.
+\begin{proposition}[The number--field barrier transfer is \textsc{false}]\label{prop:fieldoptimal}
+Theorem~\ref{thm:ff} kills the algebraic route by ultrametricity, which suggests replacing $K[t]$ by
+a number ring $\mathcal{O}_K$, where the absolute value is archimedean and the obstruction
+disappears. It does disappear. Earlier versions of this paper asserted that nothing is gained, namely
+that for every number field $K$ the least $\prod N(\pi)$ over prime ideals with $\sum1/N(\pi)\ge2$ is
+at least that of $\mathbb{Q}$. \emph{That assertion is false.} It is withdrawn, and what replaces it
+is the following.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+\item \emph{The true infimum is $16$.} In the biquadratic field
+$K=\mathbb{Q}(\sqrt{17},\sqrt{33})$, of discriminant $314{,}721$, the prime $2$ splits completely:
+there are four prime ideals of norm $2$. They carry mass $4\cdot\tfrac12=2$ exactly, and their
+product of norms is $2^4=16$. Conversely $2$ is the least possible ideal norm, so mass $2$ needs at
+least four ideals of norm $2$ and any admissible family has product at least $16$; a field can carry
+at most $[K:\mathbb{Q}]$ ideals of norm $2$, so degree $4$ is also minimal. Hence $16$ is the exact
+infimum over all number fields, against the claimed $\prod_{i\le59}p_i>8.77\times10^{112}$: the
+withdrawn statement was wrong by a factor $10^{112}$.
+\item \emph{Where the argument broke.} The Chebotarev computation is correct as a statement about
+\emph{density}: in a degree-$d$ Galois field the completely split primes have density $1/d$, so they
+carry mass $d\cdot(1/d)\log\log Y=\log\log Y$, exactly as over $\mathbb{Q}$, while each costs
+$d\log p$, and inert primes contribute $1/p^{d}$, that is, nothing. The error was to read a
+statement about the tail as a statement about the minimum. The barrier consumes only \emph{finitely
+many} primes, and for any finite set of small primes one may choose $K$ in which all of them split;
+Chebotarev constrains how often splitting happens, not which particular primes split.
+\item \emph{What survives.} For a \emph{fixed} field the measurement stands: $\mathbb{Q}$ needs $59$
+primes and $10^{112.9}$, whereas $\mathbb{Q}(i)$ needs $226$ prime ideals and $10^{735.1}$
+\textup{(\texttt{code/a10\_fieldbarrier.gp})}. What does not survive is the use of this proposition
+as a \emph{block}: the number--field route is not foreclosed by a barrier transfer. Whether an
+ideal-theoretic solution in some $\mathcal{O}_K$ bears on \#307, which asks about rational primes,
+is a separate question this paper does not settle. Status: \textsc{open}.
+\end{enumerate}
 \end{proposition}
-\begin{proof}[Proof and measurement]
-Mass per unit log-norm is $1/(p\log p)$ in every field, but that is not what the barrier measures:
-doubling the mass carried by each rational prime would let one \emph{stop} at a far smaller prime,
-and since $\sum1/p$ diverges only like $\log\log$, halving the required sum from $2$ to $1$ would
-cut the primorial from $e^{p_{59}}$ to $e^{p_3}$. The gain would therefore be enormous if it were
-attainable. It is not: by Chebotarev, primes split completely with density only $1/d$ in a degree-$d$
-Galois field, so the split primes carry mass $d\cdot(1/d)\log\log Y=\log\log Y$, exactly as over
-$\mathbb{Q}$, while each costs $d\log p$ rather than $\log p$; inert primes contribute $1/p^d$, that
-is, nothing. Measured: $\mathbb{Q}$ needs $59$ primes and $10^{112.9}$, whereas $\mathbb{Q}(i)$ needs
-$226$ prime ideals and $10^{735.1}$ \textup{(\texttt{code/a10\_fieldbarrier.gp})}. The hypothetical
-field in which every rational prime splits completely would need only $6$ primes and $10^{3.0}$,
-which is precisely why Chebotarev's density $1/d$ is the operative fact.
-\end{proof}
 
 \begin{remark}[The three other blocks, attacked]\label{rem:blockattacks}
 \textup{(i) Against Proposition~\ref{prop:nofreeslot}.} The rigidity $\prod Q=a'$ would dissolve if
@@ -3333,15 +3380,23 @@ dichotomy can now be closed at once.
 \begin{theorem}[Both branches are closed]\label{thm:noinvariant}
 Let $S$ be the set of squarefree $n\ge2$ with $n'$ squarefree.
 \begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
-\item \textup{(Finite-group branch, empty.)} There is no $\varphi$ on $S$ and modulus $m$ with
-$\varphi(n')-\varphi(n)\equiv c\pmod m$ for all $n$ and $2c\not\equiv0\pmod m$.
+\item \textup{(Finite-group branch.)} \textsc{Conjecture}, downgraded. The claim that there is no
+$\varphi$ on $S$ and modulus $m$ with $\varphi(n')-\varphi(n)\equiv c\pmod m$ for all $n$ and
+$2c\not\equiv0\pmod m$ is \emph{not} established. Proposition~\ref{prop:localcomplete} settles only
+the moduli it covers, $m\le210$, and the general statement is equivalent to the target rather than
+independent of it: on a functional graph with no periodic orbit one may build a constant-increment
+$\varphi$ for any $(m,c)$ by assigning $\varphi$ along depth, so nonexistence for all $m$ is
+equivalent to the existence of a periodic orbit. Branch (1) therefore has exactly the status of
+branch (2), which Proposition~\ref{prop:lyapuniversal} already proves for the sign side. What is
+proved is the mechanism recorded after the proof.
 \item \textup{(Sign branch, not weaker than the target.)} A $\delta$ on $S$ with
 $\delta(n')<\delta(n)$ throughout exists if and only if $n\mapsto n'$ has no periodic orbit in $S$;
 that condition implies a negative answer to \#307 and is not implied by it.
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-(1) is Proposition~\ref{prop:localcomplete}, which makes the cycle system soluble modulo every $m$.
+(1) is not proved; see the statement. Proposition~\ref{prop:localcomplete} makes the cycle system
+soluble modulo every $m\le210$, which does not reach the quantifier the branch needs.
 (2) is Proposition~\ref{prop:lyapuniversal}; a two-cycle is a periodic orbit, and periodic orbits of
 length other than two are not excluded by a negative answer to \#307.
 \end{proof}
@@ -3629,8 +3684,9 @@ The point of Lemma~\ref{lem:symbolfact} is that $\sigma_r$ is \emph{additive} ov
 prime divisors, so after a Gauss-sum expansion the second factor becomes a product over $p\mid m$
 and the whole sum turns multiplicative. That is what puts it inside Hal\'asz's theorem.
 
-\begin{lemma}[Cancellation in the character sums]\label{lem:charcancel}
-Fix an odd squarefree $r>1$. Then
+\begin{lemma}[Cancellation in the character sums; fixed $r$ only]\label{lem:charcancel}
+Fix an odd squarefree $r>1$. \emph{The statement is qualitative and per fixed $r$; no uniformity in
+$r$ is claimed, and the uniform form is false.} See the erratum following the proof. Then
 \[ T_r(N)\;:=\!\!\sum_{\substack{m\le N,\ \mu^2(m)=1\\ \gcd(m,r)=1}}\!\!\Bigl(\frac{m'-2m}{r}\Bigr)\;=\;o_r(N)
 \qquad (N\to\infty). \]
 \end{lemma}
@@ -3660,6 +3716,24 @@ at least $1-3/\sqrt q\ge\tfrac12$ for $q\ge36$. Either way $M\gg\log\log N$, whe
 $\sum_{m\le N}h_t(m)\ll N\log\log N(\log N)^{-1/2}=o(N)$. Summing the $q$ values of $t$ and dividing
 by $|g|=\sqrt q$ gives $T_q(N)\ll\sqrt q\cdot o(N)=o_q(N)$.
 \end{proof}
+
+\begin{remark}[Erratum: the $\tau$ bound above is false near the threshold]\label{rem:charcancelerratum}
+The step ``if $|\tau|\ge1/\log N$ then
+$\bigl|\sum_{p\le N}p^{-1-i\tau}\bigr|\ll\log\log(3+|\tau|)$'' is \emph{false} in the range that
+matters. Near the threshold the sum has size about $\log(1/|\tau|)$, which is of order $\log\log N$,
+not $\log\log(3+|\tau|)$, which is of order $1$. Measured at $N=2\times10^{7}$ with
+$\tau=2/\log N=0.11897$: the left side is $2.6797$ against a claimed bound of $0.12883$, a violation
+by a factor $20.8$; at $\tau=1/\log N=0.05948$ the left side is $2.9773$ against $0.11176$, a factor
+$26.6$ \textup{(\texttt{code/charcancel\_check.gp})}. A second defect is that the inequality bounds the
+untwisted sum $\sum p^{-1-i\tau}$, whereas the Hal\'asz distance $M$ requires the $h_t$--twisted sum.
+
+Consequences, stated exactly. The lemma as displayed, qualitative and for \emph{fixed} $r$, is what
+Theorem~\ref{thm:a9} consumes: there $P$ is fixed first, finitely many pairs $pq$ are involved, and
+$N\to\infty$ makes each $T_{pq}(N)=o(N)$; letting $P\to\infty$ afterwards gives density zero with no
+uniformity used. Theorem~\ref{thm:a9} is therefore unaffected. What does \emph{not} survive is the
+uniform-in-$r$ form, and with it the rate of Corollary~\ref{cor:a9rate}, which is why that corollary
+now carries the label \textsc{conjecture}.
+\end{remark}
 Measured at $r=1009$, $N=3\times10^7$: $|\sum_m h_t(m)|/N$ equals $3.6\times10^{-6}$, $1.3\times10^{-3}$,
 $2.1\times10^{-3}$, $5.7\times10^{-4}$, $1.5\times10^{-3}$ at $t=0,1,2,17,500$, all of size $\sqrt N$
 rather than merely $o(N)$. The sums $T_r(N)$ themselves were measured at $N=5\times10^7$ for
@@ -3683,11 +3757,17 @@ $m'-2m$, let alone $p^2$.
 Measured ratios of the count to $N/p^2$ at $N=3\times10^7$: $0.842$, $0.887$, $0.930$, $0.925$,
 $0.993$ for $p=5,7,11,13,101$, approaching $1$ as predicted.
 
-\begin{theorem}[The minus layer has density zero]\label{thm:a9}
-$\#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}=o(N)$. Equivalently, atom
-$\mathrm{A}9$ holds: the minus layer has density zero. The same argument with $m'+2m$ reproves
-Proposition~\textup{\ref{prop:plusthin}}, so the full Pythagorean layer has density zero
-unconditionally.
+\begin{theorem}[The minus layer has density zero, on the squarefree stratum]\label{thm:a9}
+$\#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}=o(N)$. Equivalently, atom
+$\mathrm{A}9$ holds on the squarefree stratum: the squarefree minus layer has density zero. The same
+argument with $m'+2m$ reproves Proposition~\textup{\ref{prop:plusthin}} there, so the squarefree
+Pythagorean layer has density zero unconditionally.
+
+The squarefree restriction is not cosmetic and earlier versions of this paper omitted it. Every tool
+in the proof, Rigidity, the cofactor identity, and Lemma~\ref{lem:charcancel}, is stated for
+squarefree $m$; the non-squarefree stratum, of density $1-6/\pi^2\approx0.392$, is untreated. Since
+a \#307 solution is squarefree by Rigidity, the restriction costs nothing for the application, but
+the unrestricted statement is not proved here.
 \end{theorem}
 \begin{proof}
 Write $a_m=m'-2m$ and fix $P$, letting $\mathcal{P}$ be the primes in $(P,2P]$ and
@@ -3712,7 +3792,10 @@ legitimate is the uniformity already established in Lemma~\ref{lem:charcancel}: 
 distance there satisfies $M\ge(1-3/\sqrt r\,)\log\log N\ge\tfrac12\log\log N$ for $r\ge36$, with no
 dependence on $r$ beyond that.
 
-\begin{corollary}[An explicit rate for $\mathrm{A}9$]\label{cor:a9rate}
+\begin{corollary}[A rate for $\mathrm{A}9$: \textsc{conjecture}]\label{cor:a9rate}
+The following rate does \emph{not} follow from Lemma~\ref{lem:charcancel} as stated there, because
+the uniform-in-$\tau$ bound its proof consumes is false near the threshold; see the erratum after
+that lemma. The statement is retained as a conjecture, and nothing in this paper depends on it.
 \[ \#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}\;\ll\;\frac{N\log\log N}{(\log N)^{1/4}}. \]
 \end{corollary}
 \begin{proof}
