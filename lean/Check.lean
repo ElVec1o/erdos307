@@ -12,6 +12,7 @@ import Erdos307.InfZero
 import Erdos307.Injective
 import Erdos307.Ladder
 import Erdos307.LiveSlot
+import Erdos307.LocalComplete
 import Erdos307.LyapFalse
 import Erdos307.Mod8
 import Erdos307.NoGain
@@ -138,6 +139,14 @@ open Erdos307
 #print axioms recipSum9_lt_three_halves
 #print axioms three_halves_le_recipSum10
 #print axioms threshold_bracket
+
+/-! ### LocalComplete -/
+#print axioms regime_one_collapse
+#print axioms regime_one_same_argument
+#print axioms regime_two_constant
+#print axioms regime_two_constant'
+#print axioms regime_three_count
+#print axioms no_single_class
 
 /-! ### LyapFalse -/
 #print axioms criterion_fails_of_pos

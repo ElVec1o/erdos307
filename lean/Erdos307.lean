@@ -29,3 +29,4 @@ import Erdos307.Frame
 import Erdos307.NormalForm
 import Erdos307.Ladder
 import Erdos307.FunctionField
+import Erdos307.LocalComplete

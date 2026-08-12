@@ -16,6 +16,22 @@ proof. It also reported 48 of 104 while the true total is 106: the extractor req
 bracket, so untitled results such as `thm:ff` were invisible. Both are fixed, and both were found by
 external audit rather than by this file, which is the honest record.
 
+## Formalisation debt (Rule 5): four atoms, four stated blockers
+
+Rule 5 requires every atom sitting at PROVED to carry either an active formalisation or a recorded
+blocker, and forbids "not yet attempted". These four are blocked, and each blocker is a specific
+missing Mathlib result or a deliberate refusal, not an absence of effort.
+
+| atom | formalised | blocked on | what unblocks it |
+|---|---|---|---|
+| **A3** `prop:localcomplete` | regimes (i) and (ii) in `LocalComplete.lean` | regime (iii)'s complete character sums | Mathlib lemmas for `sum_q chi(aq+b) = 0` (`a != 0`) and `sum_q chi((aq+b)(cq+d)) = -chi(ac)` (`ad != bc`). Both standard, neither present. |
+| **A6** `prop:plusthin` | the whole elementary skeleton through `count_le_divisor_sum` | Dirichlet's divisor asymptotics | `sum_{u<=Z} tau(u) ~ Z log Z` and `sum_{u<=Z} tau(u)/u ~ (log Z)^2/2`. Absent from Mathlib. |
+| **A7** `prop:pairlocal` | no-pinning, the regime-(2) collapse identity, regime (1)'s explicit unit, regime (3)'s mod-8 collapse | Weil's point count and Hensel lifting | A Mathlib bound on points of a quartic over `F_l`, plus lifting a nonsingular point to `l^j`. Weil is absent. |
+| **A8** `prop:nogain` | the full inequality chain, `cycle_bound_max` | the value `113.2` | A finite minimisation over subsets `S`, done in `code/minimise_structured.rs`. Formalising it means `native_decide` at a scale that would add an axiom to a result that currently needs none. **Deliberately not done**; the paper labels the value a computation. |
+
+A3 moved this release: regimes (i) and (ii) were prose and are now Lean. The other three are
+unchanged and are expected to stay starred until Mathlib grows the named results.
+
 ## There are no unformalised purely-algebraic results
 
 Every remaining item needs a computation the kernel will not take, an analytic estimate absent from

@@ -710,7 +710,13 @@ the constant $(D_S\mid\ell)$, so $Q_\ell=\emptyset$ iff $(D_S\mid\ell)=-1$ (exac
 Proposition~\ref{prop:tailkill}) and otherwise $|Q_\ell|\ge(\ell-1)/2$. \textup{(iii)}
 $\ell\nmid A_SB_SD_S$ (hence $\ell\ge173$): the complete character sums give
 $|Q_\ell|\ge(\ell-3)/4-2\ge40$ (the linear sums vanish, the quadratic sum is $-\chi(A_SB_S)$, boundary
-terms $\le2$). Consequently $Q_\ell\ne\emptyset$ forces $|Q_\ell|\ge2$ at every modulus, the surviving
+terms $\le2$). \textup{(}Regimes~\textup{(i)} and~\textup{(ii)} are formalised:
+\texttt{Erdos307.regime\_one\_collapse}, \texttt{regime\_one\_same\_argument} and
+\texttt{regime\_two\_constant} \textup{(}\texttt{lean/Erdos307/LocalComplete.lean}\textup{)}.
+Regime~\textup{(iii)}'s counting step is \texttt{regime\_three\_count}, which takes the two complete
+character--sum evaluations as hypotheses; those evaluations are not in Mathlib, so this proposition
+keeps its formalisation star.\textup{)}
+Consequently $Q_\ell\ne\emptyset$ forces $|Q_\ell|\ge2$ at every modulus, the surviving
 local density is positive (e.g.\ $\prod_{\ell\le300}|Q_\ell|/\ell\approx2.2\times10^{-19}>0$ on the
 canonical base), and by CRT \emph{no finite system of congruences (no covering) can annihilate an
 unkilled family}: the binary certificate of Proposition~\ref{prop:tailkill} is the complete local theory
