@@ -3746,9 +3746,16 @@ Then
 \end{lemma}
 \begin{proof}
 The argument runs at the modulus $r$ itself; no reduction to prime $r$ is needed, and the printed
-proof's appeal to one is withdrawn. Three standard inputs are cited: Hal\'asz's theorem, the Gauss
-sum evaluation $|\tau(\chi)|=\sqrt r$ for a primitive character, and
-$|\log L(1+i\tau,\psi)|\ll\log\log\bigl(r(2+|\tau|)\bigr)$ for $\psi$ non--principal.
+proof's appeal to one is withdrawn. Four standard inputs are cited, all for \emph{fixed} $r$: Hal\'asz's theorem; the Gauss sum
+evaluation $|\tau(\chi)|=\sqrt r$ for a primitive character; the bound
+$|\log L(1+i\tau,\psi)|\ll_r\log\log(2+|\tau|)$ for $\psi$ non--principal; and Siegel--Walfisz, to
+pass from $\log L$ to the partial sum $\sum_{p\le N}\psi(p)p^{-1-i\tau}$ over the tail. The third is
+written with $r$ \emph{outside} the double logarithm deliberately. In $r$--uniform dress it is false:
+the lower half needs $L(1,\psi)$ bounded away from $0$, and unconditionally one has only
+$L(1,\psi)\gg r^{-1/2}$ effectively, or $\gg_\varepsilon r^{-\varepsilon}$ by Siegel and
+ineffectively, so $|\log L(1,\psi)|$ can be of order $\log r$. At fixed $r$ these are fixed nonzero
+constants and the argument is unaffected; the $r$--uniform form is exactly what
+Corollary~\ref{cor:a9rate} would need and does not have.
 
 Write $\chi=(\cdot\mid r)$. For $r$ odd squarefree the Jacobi symbol is a \emph{primitive} real
 character modulo $r$, so $\chi(x)=\tau(\chi)^{-1}\sum_{t\bmod r}\chi(t)e_r(tx)$ for every $x$, with
@@ -3762,28 +3769,42 @@ Hal\'asz's theorem.
 
 It remains to show the Hal\'asz distance
 $M=\min_{|\tau|\le\log N}\sum_{p\le N}\bigl(1-\operatorname{Re}h_t(p)p^{-i\tau}\bigr)/p$ tends to
-infinity, and here the key point is that the estimate is \emph{uniform in $\tau$}. Expand
-$h_t$ on $(\mathbb{Z}/r)^\times$ in Dirichlet characters, $h_t=\sum_\psi c_\psi\psi$. The principal
+infinity, and here the key point is that the estimate is \emph{uniform in $\tau$}. Note first that $h_t$ is \emph{not} a function of $m\bmod r$, since it is built from the
+factorisation of $m$: at $r=7$, for instance, $h_1(2)\ne h_1(9)$ though $2\equiv9$. What is a
+function of the residue is its restriction to primes, and that is all the expansion needs. Put
+$g_t:(\mathbb{Z}/r)^\times\to\mathbb{C}$, $g_t(a)=\chi(a)e_r(ta^{-1})$, so that $h_t(p)=g_t(p\bmod r)$
+for $p\nmid r$, with the convention $h_t=0$ at $p\mid r$. Expand $g_t$ in Dirichlet characters,
+$g_t=\sum_\psi c_\psi\psi$. The principal
 coefficient is
 \[ c_{\psi_0}=\frac1{\varphi(r)}\sum_{a\in(\mathbb{Z}/r)^\times}\chi(a)e_r(ta^{-1})
    =\frac{\chi(t)\,\tau(\chi)}{\varphi(r)},\qquad |c_{\psi_0}|=\frac{\sqrt r}{\varphi(r)}, \]
-using $\chi(a^{-1})=\chi(a)$ and the primitivity above; the sum vanishes when $\gcd(t,r)>1$.
+using $\chi(a^{-1})=\chi(a)$ and reindexing by the involution $a\mapsto ta^{-1}$; the sum vanishes
+when $\gcd(t,r)>1$, which is redundant here since the factor $\chi(t)$ in the expansion above
+already annihilates those $t$. \emph{No primitivity is used for this identity}: it holds for any
+quadratic character on any finite abelian group, as the formalisation below makes explicit.
+Primitivity is used twice, but elsewhere: for $|\tau(\chi)|=\sqrt r$, and for the Fourier inversion
+at arguments $x$ with $\gcd(x,r)>1$.
 
 \textup{Formalised.} This identity is the one new algebraic step of the repair, and it is the step
 the previous proof got wrong, so it is in Lean: \texttt{Erdos307.sum\_char\_twist\_inv} proves
 $\sum_a\chi(a)\psi(t a^{-1})=\chi(t)\sum_a\chi(a)\psi(a)$ for a quadratic character on a finite
 abelian group and \emph{any} $\psi$, resting on \texttt{quadratic\_inv}
 \textup{(}$\chi(g^{-1})=\chi(g)$, pure monoid algebra\textup{)} and
-\texttt{twist\_inv\_involutive}; \texttt{sum\_char\_twist\_inv\_eq\_zero} is the vanishing case.
-With $\psi=e_r$ this says the left side is a \emph{Gauss} sum, not a Sali\'e sum, which is precisely
+\texttt{twist\_inv\_involutive}. The vanishing at $\gcd(t,r)>1$ is \emph{not} formalised: a
+previous revision claimed it was, citing a lemma whose hypotheses turned out to be contradictory and
+which therefore proved nothing; it has been deleted rather than repaired, and the vanishing is
+redundant in the main line anyway. With $\psi=e_r$ this says the left side is a \emph{Gauss} sum, not a Sali\'e sum, which is precisely
 why no reduction to prime modulus is needed
 \textup{(\texttt{lean/Erdos307/CharSum.lean})}. The three analytic inputs, Hal\'asz,
 $|\tau(\chi)|=\sqrt r$, and the bound on $\log L(1+i\tau,\psi)$, are cited and not formalised. Then
 \[ \sum_{p\le N}h_t(p)p^{-1-i\tau}
    =c_{\psi_0}\!\!\sum_{p\le N,\,p\nmid r}\!\!p^{-1-i\tau}+\sum_{\psi\ne\psi_0}c_\psi\sum_{p\le N}\psi(p)p^{-1-i\tau}. \]
 The first sum is at most $\sum_{p\le N}1/p=\log\log N+O(1)$ in modulus, trivially and uniformly in
-$\tau$; the non--principal terms are $O_r\bigl(\log\log(r(2+|\tau|))\bigr)=O_r(\log\log\log N)$ for
-$|\tau|\le\log N$. Hence
+$\tau$; the non--principal terms are $O_r(\log\log\log N)$ for $|\tau|\le\log N$. Their smallness comes
+entirely from the $L$--functions having no pole, \emph{not} from their coefficients: at $r=15$ four
+of the eight $c_\psi$ tie the principal one at $\sqrt r/\varphi(r)=0.4841$, and at $r=21$ five of
+twelve tie at $0.3819$, the minimum $1/\varphi(r)$ being attained only at $\psi=\chi$, where
+$\chi\psi$ is principal and the sum degenerates to a Ramanujan sum. Hence
 \[ M\;\ge\;\Bigl(1-\frac{\sqrt r}{\varphi(r)}\Bigr)\log\log N-O_r(\log\log\log N), \]
 and $\sqrt r/\varphi(r)\le\sqrt3/2=0.8660\ldots$ for every odd squarefree $r>1$, the maximum being
 at $r=3$ \textup{(\texttt{code/charcancel\_check.gp})}. So $M\gg\log\log N$ uniformly in $\tau$, and

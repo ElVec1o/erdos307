@@ -4,9 +4,17 @@
 // alpha = sum_chi ahat(chi) chi. Then the Dirichlet series of the multiplicative h_t factors as
 // prod_chi L(s,chi)^{ahat(chi)}, and GRH would give analyticity in Re s > 1/2, hence sqrt(N).
 //
-// The obstruction is the PRINCIPAL coefficient. ahat(chi_0) = (1/phi(r)) sum_u (u/r) e_r(t/u) is a
-// SALIE sum, of modulus exactly 2 sqrt(r) for r prime and t nonzero, so |ahat(chi_0)| ~ 2/sqrt(r)
-// -- small, but NOT ZERO. A nonzero principal coefficient leaves a zeta-type branch point at s = 1
+// The obstruction is the PRINCIPAL coefficient. ahat(chi_0) = (1/phi(r)) sum_u (u/r) e_r(t/u).
+//
+// CORRECTED after adversarial review (and superseded by lem:charcancel, whose repaired proof turns
+// on exactly this sum). It is NOT a Salie sum and its modulus is NOT 2 sqrt(r): a Salie sum needs
+// both e_q(ma) and e_q(na^-1), and here m = 0. Substituting v = u^-1 and using (u^-1|r) = (u|r)
+// turns it into the GAUSS sum, so |S(t)| = sqrt(r) EXACTLY when gcd(t,r) = 1 and 0 otherwise, and
+// |ahat(chi_0)| = sqrt(r)/(r-1) ~ 1/sqrt(r), half the value claimed here previously. Measured:
+// r = 1009 gives |S| = 31.76476 = sqrt(1009), not 63.52952; r = 10007 gives 100.03499, not 200.07.
+// The factor-2 discrepancy was visible in this program's own printed output and went unnoticed.
+//
+// The CONCLUSION is unaffected: the coefficient is small but NOT ZERO either way. A nonzero principal coefficient leaves a zeta-type branch point at s = 1
 // contributing about N (log N)^{|ahat(chi_0)| - 1}, which is vastly larger than sqrt(N).
 //
 // So the route can only work if the individual multiplicative sums really are of that size, with
@@ -32,13 +40,13 @@ fn main() {
         der[n]= if q>1 {der[q]*p as i64+q as i64} else {1}; }
     let nf = lim as f64; let sq = nf.sqrt(); let lg = nf.ln();
     for &r in &[1009i64, 10007] {
-        // Salie sum S(t) = sum_u (u/r) e_r(t/u), and ahat(chi_0) = S(t)/(r-1)
+        // Gauss sum S(t) = sum_u (u/r) e_r(t/u) = (t|r) tau(chi), and ahat(chi_0) = S(t)/(r-1)
         let mut sig = vec![0i64; lim+1];
         for p in 2..=lim { if spf[p] as usize == p && (p as i64)%r != 0 {
             let iv = pw((p as i64)%r, r-2, r); let mut j=p; while j<=lim { sig[j]=(sig[j]+iv)%r; j+=p; } } }
         println!("r = {}   sqrt(N) = {:.0}", r, sq);
         for &t in &[1i64, 2, 7] {
-            // Salie sum
+            // Gauss sum (mislabelled "Salie" in earlier versions; see the header)
             let (mut sre, mut sim) = (0f64, 0f64);
             for u in 1..r { let inv = pw(u, r-2, r);
                 let ang = 2.0*std::f64::consts::PI*((t*inv)%r) as f64 / r as f64;
@@ -53,8 +61,8 @@ fn main() {
                 re += c*ang.cos(); im += c*ang.sin(); }
             let s = (re*re+im*im).sqrt();
             let pred = nf * lg.powf(ahat0 - 1.0);          // zeta-pole prediction
-            println!("  t={:<3} |Salie|={:.1} (2 sqrt r = {:.1})  ahat0={:.4}   |sum h_t| = {:.3e}",
-                     t, salie, 2.0*(r as f64).sqrt(), ahat0, s);
+            println!("  t={:<3} |Gauss|={:.1} (sqrt r = {:.1})  ahat0={:.4}   |sum h_t| = {:.3e}",
+                     t, salie, (r as f64).sqrt(), ahat0, s);
             println!("        zeta-pole prediction N (log N)^(ahat0 - 1) = {:.3e}   ratio measured/pred = {:.4}",
                      pred, s/pred);
             println!("        |sum h_t| / sqrt(N) = {:.2}", s/sq);

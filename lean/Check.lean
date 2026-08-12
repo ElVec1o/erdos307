@@ -42,6 +42,9 @@ Regenerated mechanically from `Erdos307/*.lean`, so it cannot drift behind the s
 
 Expected: everything on `{propext, Classical.choice, Quot.sound}` or fewer, with exactly one
 exception, `dfs_run` and the `erdos307_sixty` that consumes it.
+
+`#print axioms` reports nothing about whether a theorem's hypotheses are satisfiable. A vacuous
+theorem passes this file cleanly; one did, and was caught by adversarial review instead.
 -/
 
 open Erdos307
@@ -78,7 +81,6 @@ open Erdos307
 #print axioms quadratic_inv
 #print axioms twist_inv_involutive
 #print axioms sum_char_twist_inv
-#print axioms sum_char_twist_inv_eq_zero
 
 /-! ### Closed -/
 #print axioms hmono_all

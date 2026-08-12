@@ -24,6 +24,19 @@ Two steps, both elementary:
 * `sum_char_twist_inv` : the reindexing `a ↦ t·a⁻¹`, which is an involution on an abelian group,
   carries the twisted sum to the untwisted one.
 
+**Withdrawn.** An earlier revision also carried `sum_char_twist_inv_eq_zero`, asserting the sum
+vanishes when `χ t = 0`, and the paper cited it as the formalised vanishing case. It was **vacuous**:
+the hypotheses `∀ g, χ g * χ g = 1` and `χ t = 0` together give `1 = χ t * χ t = 0`, so the target
+ring is trivial and the same statement proves the sum equals anything at all. It is deleted rather
+than repaired, because the group formulation cannot express the intended case: here `t : G` ranges
+over units, so `χ t` is never `0`, and the real statement, `∑_{v mod r} χ(v) e_r(tv) = 0` for
+`gcd(t,r) > 1`, needs `ZMod r` and primitivity, neither of which appears in this file. The vanishing
+is in any case redundant in the main line: the factor `χ(t)` in the expansion already annihilates
+every such `t`. Found by adversarial review, not here.
+
+Note also that this identity uses **no primitivity**: it holds for any quadratic character on any
+finite abelian group. The paper previously attributed it partly to primitivity, which was wrong.
+
 What is **not** formalised, and is cited in the paper: Halász's theorem, `|τ(χ)| = √r` for a
 primitive character, and the bound on `log L(1+iτ, ψ)` for non-principal `ψ`. Those are the three
 analytic inputs; the identity below is the one new algebraic step, and it is the step the previous
@@ -67,13 +80,5 @@ theorem sum_char_twist_inv {G M : Type*} [CommGroup G] [Fintype G] [CommRing M]
   rw [map_mul, quadratic_inv χ hq a]
   calc χ a * ψ (t * a⁻¹) = (χ t * χ t) * (χ a * ψ (t * a⁻¹)) := by rw [hq t, one_mul]
     _ = χ t * (χ t * χ a * ψ (t * a⁻¹)) := by ring
-
-/-- The consequence used in the paper: the twisted sum has the same modulus as the Gauss sum
-whenever `χ(t)` is a unit, and vanishes when `χ(t) = 0`. Stated as the factorisation, since
-"modulus" is not available at this generality. -/
-theorem sum_char_twist_inv_eq_zero {G M : Type*} [CommGroup G] [Fintype G] [CommRing M]
-    (χ : G →* M) (hq : ∀ g, χ g * χ g = 1) (ψ : G → M) (t : G) (ht : χ t = 0) :
-    ∑ a : G, χ a * ψ (t * a⁻¹) = 0 := by
-  rw [sum_char_twist_inv χ hq ψ t, ht, zero_mul]
 
 end Erdos307
