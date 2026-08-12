@@ -136,7 +136,11 @@ is already met going forward. Recording the discrepancy is the honest resolution
 - **Consistency:** `bash code/check_consistency.sh` recomputes every cross-file number (page count,
   coverage totals, `native_decide` site count, `sorry` count, orphan census, Lean anchor coverage)
   from the artifact and exits nonzero on any mismatch. Three external audits found drift of exactly
-  this kind; the script exists so a fourth does not have to.
+  this kind; the script exists so a fourth does not have to. It also compiles
+  `lean/Vacuity.lean`, which discharges every hypothesis of the most exposed theorems at concrete
+  models: `#print axioms` cannot see unsatisfiable hypotheses, and a theorem with contradictory
+  ones passes the axiom check cleanly while proving nothing. One did, and was caught by adversarial
+  review rather than by any check here.
 - **Certificates:** `certs/lyap_refute_cofactor_ecpp.txt` is machine-readable and verifies under
   PARI with `primecertisvalid(read("certs/lyap_refute_cofactor_ecpp.txt"))`.
   `certs/immune_ecpp.txt` is a human-readable `primecertexport` dump and **cannot** be consumed that

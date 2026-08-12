@@ -48,6 +48,16 @@ chk "unanchored Lean files" "0" "$unanch"
 leaked=$(git ls-files | grep -c '^private/')
 chk "private/ files tracked" "0" "$leaked"
 
+# Non-vacuity. `#print axioms` cannot see unsatisfiable hypotheses: a theorem with contradictory
+# hypotheses proves everything and reports the three standard axioms. One did (see Vacuity.lean).
+# lean/Vacuity.lean instantiates the exposed theorems at concrete models and discharges every
+# hypothesis; if it compiles, those hypotheses are satisfiable.
+if (cd lean && lake env lean Vacuity.lean) >/dev/null 2>&1; then
+  printf "  ok    %-28s %s\n" "non-vacuity witnesses" "compile"
+else
+  printf "  FAIL  %-28s %s\n" "non-vacuity witnesses" "lean/Vacuity.lean does not compile"; fail=1
+fi
+
 echo
 [ "$fail" -eq 0 ] && echo "CONSISTENT" || echo "DRIFT DETECTED -- fix before releasing"
 exit $fail
