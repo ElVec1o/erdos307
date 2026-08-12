@@ -3750,7 +3750,7 @@ records what the constant is and is not.
 \end{lemma}
 \begin{proof}
 Five standard facts are used, all at fixed $r$: Hal\'asz's theorem; $|\tau(\chi)|=\sqrt r$ for a
-primitive character; the classical zero--free region; $|\log L(s,\psi)|\ll_r\log\log(2+|\tau|)$ for
+primitive character; the classical zero--free region; $|\log L(s,\psi)|\ll_r\log\log(3+|\tau|)$ for
 $\psi$ non--principal at $s=1+1/\log N+i\tau$; and Siegel--Walfisz. None is formalised.
 
 \emph{The expansion.} Write $\chi=(\cdot\mid r)$. For $r$ odd squarefree the Jacobi symbol is a
@@ -3786,16 +3786,27 @@ Splitting the prime sum by $\psi$,
 The first sum is at most $\sum_{p\le N}1/p=\log\log N+O(1)$ in modulus, trivially and uniformly in
 $\tau$. For the coefficients, $|g_t|=1$ gives $\sum_\psi|c_\psi|^2=1$ by Parseval, hence
 $\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt{\varphi(r)}$ by Cauchy--Schwarz; they are \emph{not} small
-individually, three of the eight tying the principal one at $r=15$. Their contribution is small
+individually. Indeed $c_\psi=\varphi(r)^{-1}\sum_b(\chi\psi)(b)e_r(tb)$, so
+$|c_\psi|=\sqrt{\operatorname{cond}(\chi\psi)}/\varphi(r)$, and the maximum $\sqrt r/\varphi(r)$ is
+attained exactly on the $\prod_{p\mid r}(p-2)$ characters with $\chi\psi$ primitive: three of the
+eight at $r=15$, five of the twelve at $r=21$. Their contribution is small
 because the $L$--functions have no pole, and reaching that needs care: the cited bound governs
-$\log L$, an Euler product over all $p$, while what is required is the truncation. Partial summation
-against Siegel--Walfisz applied directly sheds a factor $1+|\tau|$, which is fatal in the range
-$|\tau|\le\log N$. Instead move to $s=1+1/\log N+i\tau$. The shift costs $O(1)$ by Mertens, since
-$\sum_{p\le N}\log p/(p\log N)\ll1$; and the tail $\sum_{p>N}\psi(p)p^{-s}$ is $o(1)$ because
-Siegel--Walfisz contributes $e^{-c\sqrt v}$, which defeats the factor $1+|\tau|$ that partial
-summation costs, the total being $\ll(\log N)^2e^{-c\sqrt{\log N}}$. The zero--free region then
-gives $|\log L(s,\psi)|\ll_r\log\log(2+|\tau|)$, so the non--principal terms are $O_r(1)$ uniformly
-for $|\tau|\le\log N$. Hence
+$\log L$, an Euler product over all $p$, while what is required is the truncation. Both routes go by partial summation against Siegel--Walfisz and both shed the same factor
+$1+|\tau|$; what differs is the \emph{range}, and it is the range and not any shift that does the
+work. On $[2,N]$ one is left with $\int_{\log2}^{\log N}u^{-A}du=O_A(1)$, so $(1+|\tau|)\cdot O(1)$
+is $\ll\log N$, worse than trivial. On $[N,\infty)$, writing $A(v)=\sum_{p\le v}\psi(p)\ll_{A,r}
+v(\log v)^{-A}$,
+\[ \sum_{p>N}\psi(p)p^{-s}\;=\;-A(N)N^{-s}+s\!\int_N^\infty\!A(v)v^{-s-1}\,dv
+   \;\ll\;(\log N)^{-A}+(1+|\tau|)\frac{(\log N)^{1-A}}{A-1}\;\ll\;(\log N)^{2-A}, \]
+which is $o(1)$ for $A>2$ and $|\tau|\le\log N$. Note what is \emph{not} used: the damping
+$p^{-1/\log N}$ attached to the shifted point $s=1+1/\log N+i\tau$ is bounded by $1$ and is simply
+discarded above. It contributes nothing to the tail, and indeed the shift alone leaves the tail of
+size $\int_1^\infty e^{-w}w^{-1}dw=E_1(1)=0.2194$. The shift costs $O(1)$ by Mertens, since
+$\sum_{p\le N}\log p/(p\log N)\ll1$, and it is convenient for keeping the Euler logarithm absolutely
+convergent, but it is not what makes the tail small. The zero--free region then gives
+$|\log L(s,\psi)|\ll_r\log\log(3+|\tau|)$, the argument of the double logarithm being taken above
+$e$ so that the bound is positive at $\tau=0$; the non--principal terms are $O_r(1)$ uniformly for
+$|\tau|\le\log N$. Hence
 \[ M\;\ge\;c_r\log\log N-O_r(1),\qquad c_r:=1-\frac{\sqrt r}{\varphi(r)}\;\ge\;1-\frac{\sqrt3}2
    \;=\;0.1339\ldots, \]
 the extremum being at $r=3$: each local factor of $\sqrt r/\varphi(r)$ is $\sqrt p/(p-1)$, and
@@ -3803,7 +3814,7 @@ $(p-1)/\sqrt p\ge2/\sqrt3$ for every odd prime, so the supremum is the single fa
 \textup{(\texttt{code/charcancel\_check.gp})}.
 
 \emph{Conclusion.} With $T=\log N$, Hal\'asz gives
-$S_t(N)\ll N\bigl((1+M)e^{-M}+(\log N)^{-1/2}\bigr)$. Note $M\to\infty$ alone would not suffice:
+$S_t(N)=\sum_{m\le N}h_t(m)\ll N\bigl((1+M)e^{-M}+(\log N)^{-1/2}\bigr)$. Note $M\to\infty$ alone would not suffice:
 at fixed $T$ the bound is only $\ll NT^{-1/2}$. Both limits are in play, and
 $S_t(N)\ll_rN(\log N)^{-c_r+o(1)}=o(N)$. Only the $\varphi(r)$ values of $t$ coprime to $r$
 contribute, since $\chi(t)=0$ otherwise, so
@@ -3820,8 +3831,12 @@ overstated all three.
 \emph{Sharpness is conditional.} The bound $M\ge c_r\log\log N-O_r(1)$ is attained only when the
 main term $\chi(t)\tau(\chi)$ is real and positive. Since $\overline{\tau(\chi)}=\chi(-1)\tau(\chi)$
 with $\chi(-1)=(-1)^{(r-1)/2}$, the Gauss sum is purely imaginary for $r\equiv3\pmod4$, and there
-the true $M$ has constant $1$ rather than $c_r$. Measured at $r=5$, $X=10^7$: $M=1.201$ for the two
-residues with $\chi(t)=+1$, against $M=2.191$ for the other two. So the constant is attained for
+the true $M$ has constant $1$ rather than $c_r$. For $\chi(t)=-1$ the main term has the wrong sign, and no
+admissible $\tau$ rotates it back, since $|\sum_{p\le X}p^{-1-i\tau}|$ collapses to
+$O(\log\log(3+|\tau|))$ away from $\tau=0$; there the constant is $1+\sqrt r/\varphi(r)$. Measured
+at $r=5$: the growth rate $\Delta M/\Delta\sum_p1/p$ tends to $0.440885\to1-\sqrt5/4=0.440983$ for
+$t\equiv\pm1$, and to $1.558919\to1+\sqrt5/4=1.559017$ for the other two residues, whose $M(10^7)$
+is $4.378$ against the leading term $1.341$. So the constant is attained for
 $r\equiv1\pmod4$ and $\chi(t)=+1$, and is not sharp otherwise.
 
 \emph{The error term is $O_r(1)$, not $O_r(\log\log\log N)$.} At $r=5$, $t=1$ the deficit between
