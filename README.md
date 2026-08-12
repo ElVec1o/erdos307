@@ -31,10 +31,15 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
   `P ∩ Q = ∅` (Lean-formalized).
 - **Barrier.** Any solution has `|P ∪ Q| ≥ 59` and `min(∏P, ∏Q) ≥ 2.09 × 10⁵⁶`, improving the best
   published `n″ = n` bound by ~47 orders of magnitude — so all direct search is void. **This barrier is
-  fully machine-checked in Lean 4** (`erdos307_barrier_closed`, no extremality hypothesis); the only
-  non-logical input is a verified evaluation of the first 59 primes. A finite verification over the
-  complete list of 49,961 admissible 59-prime supports then **closes the 59-prime level** (v1.1,
-  Prop. close59): any solution in fact has `|P ∪ Q| ≥ 60` and `min(∏P, ∏Q) > 3.50 × 10⁵⁷`
+  fully machine-checked in Lean 4** (`erdos307_barrier_closed`, no extremality hypothesis, and no
+  `native_decide`: the numeral bridge is kernel-checked). A finite verification over the complete
+  list of 49,961 admissible 59-prime supports then **proves** `|P ∪ Q| ≥ 60`
+  (Prop. close59). The *statement* `|P ∪ Q| ≥ 60` is not ours: it appears on the problem page
+  ([erdosproblems.com/307](https://www.erdosproblems.com/307)), which asserts it from "P, Q disjoint
+  and ∑1/p ≥ 2". That implication does not hold as displayed, since the first 59 prime reciprocals
+  already sum to 2.00235, so those hypotheses give Rosen's `≥ 59`; reaching 60 needs the 49,961
+  supports excluded one at a time. We claim the proof, not the statement. Any solution also has
+  `min(∏P, ∏Q) > 3.50 × 10⁵⁷` and `min(∏P, ∏Q) > 3.50 × 10⁵⁷`
   — verified by two independent exact-integer programs (`code/close59.py`, `hunt/close59.rs`) **and
   machine-checked in Lean 4** (`erdos307_sixty`: the search's completeness is proved, not assumed;
   the enumeration's single `dfs_run` step is the project's one `native_decide` use). The product
@@ -116,8 +121,12 @@ hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, w
   one exception: `erdos307_sixty`, which additionally carries the `native_decide` axiom of `dfs_run`.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)
   for primality and class-group work, and a few legacy Python 3 scripts (`sympy`, `numpy`).
-- **Certificates:** `certs/immune_ecpp.txt` and `certs/lyap_refute_cofactor_ecpp.txt` verify under
-  PARI with `primecertisvalid(cert)`.
+- **Certificates:** `certs/lyap_refute_cofactor_ecpp.txt` is machine-readable and verifies under
+  PARI with `primecertisvalid(read("certs/lyap_refute_cofactor_ecpp.txt"))`.
+  `certs/immune_ecpp.txt` is a human-readable `primecertexport` dump and **cannot** be consumed that
+  way; earlier versions of this README and of the file's own header said otherwise, which was wrong.
+  Verify it with `gp -q -f code/immune_cert_verify.gp`, which re-proves all 68 subjects by ECPP in
+  about 1.3 s. Last run: 68/68 prime, 0 failures.
 - **Hunt:** `rustc -O -o NAME NAME.rs` then run; each program self-tests and prints progress.
 
 ## Status and citation

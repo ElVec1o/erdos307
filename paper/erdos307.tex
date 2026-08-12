@@ -94,9 +94,20 @@ Let $P,Q$ be finite, nonempty sets of (distinct) primes. Erd\H{o}s Problem~\#307
 do there exist finite sets of primes $P,Q$ with
 $\displaystyle\Bigl(\sum_{p\in P}\frac1p\Bigr)\Bigl(\sum_{q\in Q}\frac1q\Bigr)=1$\,?
 \end{quote}
-The problem is verifiable in the sense that a single example would settle it. No example is known;
-the only published partial fact (a remark of J.~Rosen on MathOverflow \cite{MO320838}, paraphrased
-on the problem page) is that any solution needs at least $59$ primes in $P\cup Q$. The known
+The problem is verifiable in the sense that a single example would settle it. No example is known.
+The published partial facts are a remark of J.~Rosen on MathOverflow \cite{MO320838}, that any
+solution needs at least $59$ primes in $P\cup Q$, and the problem page \cite{ErdosProblems307},
+which asserts $|P\cup Q|\ge60$.
+
+The relation between the two is worth stating precisely, since this paper proves the second. The
+page's justification reads, in full, that $P$ and $Q$ are disjoint and
+$\sum_{p\in P\cup Q}1/p\ge2$, ``whence $|P\cup Q|\ge60$''. That implication does not hold as
+displayed: the reciprocals of the first $59$ primes already sum to $2.00235>2$, so a mass of $2$ is
+attainable on $59$ primes and the stated hypotheses yield $|P\cup Q|\ge59$, which is Rosen's bound.
+Reaching $60$ requires excluding the $49{,}961$ admissible $59$--element supports one at a time,
+which is what Proposition~\ref{prop:close59} does and what \texttt{erdos307\_sixty} machine-checks.
+We therefore claim no priority for the \emph{statement} $|P\cup Q|\ge60$, which predates this work on
+the problem page, and we do claim the proof. The known
 ``solutions'' of Cambie and others solve only the \emph{weakened} version in which $1$ is permitted
 as an element, e.g.\ $(1+\tfrac15)(\tfrac12+\tfrac13)=1$; these do not bear on the prime version.
 
