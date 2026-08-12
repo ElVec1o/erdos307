@@ -31,3 +31,4 @@ import Erdos307.Ladder
 import Erdos307.FunctionField
 import Erdos307.LocalComplete
 import Erdos307.Coprime60
+import Erdos307.CharSum

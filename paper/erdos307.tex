@@ -3766,7 +3766,18 @@ $h_t$ on $(\mathbb{Z}/r)^\times$ in Dirichlet characters, $h_t=\sum_\psi c_\psi\
 coefficient is
 \[ c_{\psi_0}=\frac1{\varphi(r)}\sum_{a\in(\mathbb{Z}/r)^\times}\chi(a)e_r(ta^{-1})
    =\frac{\chi(t)\,\tau(\chi)}{\varphi(r)},\qquad |c_{\psi_0}|=\frac{\sqrt r}{\varphi(r)}, \]
-using $\chi(a^{-1})=\chi(a)$ and the primitivity above; the sum vanishes when $\gcd(t,r)>1$. Then
+using $\chi(a^{-1})=\chi(a)$ and the primitivity above; the sum vanishes when $\gcd(t,r)>1$.
+
+\textup{Formalised.} This identity is the one new algebraic step of the repair, and it is the step
+the previous proof got wrong, so it is in Lean: \texttt{Erdos307.sum\_char\_twist\_inv} proves
+$\sum_a\chi(a)\psi(t a^{-1})=\chi(t)\sum_a\chi(a)\psi(a)$ for a quadratic character on a finite
+abelian group and \emph{any} $\psi$, resting on \texttt{quadratic\_inv}
+\textup{(}$\chi(g^{-1})=\chi(g)$, pure monoid algebra\textup{)} and
+\texttt{twist\_inv\_involutive}; \texttt{sum\_char\_twist\_inv\_eq\_zero} is the vanishing case.
+With $\psi=e_r$ this says the left side is a \emph{Gauss} sum, not a Sali\'e sum, which is precisely
+why no reduction to prime modulus is needed
+\textup{(\texttt{lean/Erdos307/CharSum.lean})}. The three analytic inputs, Hal\'asz,
+$|\tau(\chi)|=\sqrt r$, and the bound on $\log L(1+i\tau,\psi)$, are cited and not formalised. Then
 \[ \sum_{p\le N}h_t(p)p^{-1-i\tau}
    =c_{\psi_0}\!\!\sum_{p\le N,\,p\nmid r}\!\!p^{-1-i\tau}+\sum_{\psi\ne\psi_0}c_\psi\sum_{p\le N}\psi(p)p^{-1-i\tau}. \]
 The first sum is at most $\sum_{p\le N}1/p=\log\log N+O(1)$ in modulus, trivially and uniformly in

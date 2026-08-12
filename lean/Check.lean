@@ -2,6 +2,7 @@ import Erdos307.Barrier
 import Erdos307.Bridge
 import Erdos307.Campaign
 import Erdos307.Capstone
+import Erdos307.CharSum
 import Erdos307.Closed
 import Erdos307.Congruential
 import Erdos307.Coprime60
@@ -72,6 +73,12 @@ open Erdos307
 #print axioms recipSum_eq
 #print axioms solution_disjoint
 #print axioms erdos307_barrier
+
+/-! ### CharSum -/
+#print axioms quadratic_inv
+#print axioms twist_inv_involutive
+#print axioms sum_char_twist_inv
+#print axioms sum_char_twist_inv_eq_zero
 
 /-! ### Closed -/
 #print axioms hmono_all
