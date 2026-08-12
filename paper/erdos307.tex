@@ -3764,12 +3764,15 @@ Lemma~\ref{lem:symbolfact}, $(m'-2m\mid r)=\chi(m)\,\chi(\sigma_r(m)-2)$ for squ
 to $r$, and expanding the second factor,
 \[ T_r(N)=\tau(\chi)^{-1}\sum_{t\bmod r}\chi(t)\,e_r(-2t)\sum_{\substack{m\le N,\ \mu^2(m)=1\\ \gcd(m,r)=1}}h_t(m),
    \qquad h_t(m)=\chi(m)\!\!\prod_{p\mid m}\!e_r\bigl(t\,p^{-1}\bigr), \]
-and $h_t$ is multiplicative on squarefree $m$ with $|h_t|=1$, which is what puts it inside
-Hal\'asz's theorem.
+Extend $h_t$ to all of $\mathbb{N}$ by $h_t(p^k)=0$ for $k\ge2$ and $h_t(p)=0$ for $p\mid r$, the
+only extension preserving the sum. It is then multiplicative with $|h_t|\le1$, which is Hal\'asz's
+hypothesis; note $|h_t|=1$ holds on the support only, and the completely multiplicative extension
+would \emph{not} preserve the identity.
 
 It remains to show the Hal\'asz distance
 $M=\min_{|\tau|\le\log N}\sum_{p\le N}\bigl(1-\operatorname{Re}h_t(p)p^{-i\tau}\bigr)/p$ tends to
-infinity, and here the key point is that the estimate is \emph{uniform in $\tau$}. Note first that $h_t$ is \emph{not} a function of $m\bmod r$, since it is built from the
+infinity. Since $M$ is already a minimum, no free $\tau$ survives; what must be uniform over
+$|\tau|\le\log N$ are the two inner bounds below. Note first that $h_t$ is \emph{not} a function of $m\bmod r$, since it is built from the
 factorisation of $m$: at $r=7$, for instance, $h_1(2)\ne h_1(9)$ though $2\equiv9$. What is a
 function of the residue is its restriction to primes, and that is all the expansion needs. Put
 $g_t:(\mathbb{Z}/r)^\times\to\mathbb{C}$, $g_t(a)=\chi(a)e_r(ta^{-1})$, so that $h_t(p)=g_t(p\bmod r)$
@@ -3800,14 +3803,39 @@ $|\tau(\chi)|=\sqrt r$, and the bound on $\log L(1+i\tau,\psi)$, are cited and n
 \[ \sum_{p\le N}h_t(p)p^{-1-i\tau}
    =c_{\psi_0}\!\!\sum_{p\le N,\,p\nmid r}\!\!p^{-1-i\tau}+\sum_{\psi\ne\psi_0}c_\psi\sum_{p\le N}\psi(p)p^{-1-i\tau}. \]
 The first sum is at most $\sum_{p\le N}1/p=\log\log N+O(1)$ in modulus, trivially and uniformly in
-$\tau$; the non--principal terms are $O_r(\log\log\log N)$ for $|\tau|\le\log N$. Their smallness comes
+$\tau$; the non--principal terms are $O_r(\log\log\log N)$ for $|\tau|\le\log N$. That passage deserves its
+own sentence, because the obvious route to it fails. The cited bound governs the \emph{complete}
+Euler logarithm $\log L$, while what is needed is the truncation $\sum_{p\le N}\psi(p)p^{-1-i\tau}$,
+and partial summation against Siegel--Walfisz sheds a factor $1+|\tau|$ from differentiating
+$u^{-1-i\tau}$, giving $O_r(\log N)$ in the stated range, which is worse than trivial. The step that
+works is to move to the shifted point $s=1+1/\log N+i\tau$: the shift costs $O(1)$ since
+$\sum_{p\le N}\log p/(p\log N)\ll1$, the tail $\sum_{p>N}\psi(p)p^{-s}$ is $o(1)$ because
+$e^{-v/\log N}$ absorbs the $1+|\tau|$, and the classical zero--free region then gives
+$|\log L(s,\psi)|\ll_r\log\log(2+|\tau|)$.
+
+The coefficients themselves need a bound too, and it is not the $L$--functions that supply it:
+$|g_t|=1$ on $(\mathbb{Z}/r)^\times$ gives $\sum_\psi|c_\psi|^2=1$ by Parseval, so
+$\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt{\varphi(r)}$ by Cauchy--Schwarz. Their smallness comes
 entirely from the $L$--functions having no pole, \emph{not} from their coefficients: at $r=15$ four
 of the eight $c_\psi$ tie the principal one at $\sqrt r/\varphi(r)=0.4841$, and at $r=21$ five of
 twelve tie at $0.3819$, the minimum $1/\varphi(r)$ being attained only at $\psi=\chi$, where
 $\chi\psi$ is principal and the sum degenerates to a Ramanujan sum. Hence
 \[ M\;\ge\;\Bigl(1-\frac{\sqrt r}{\varphi(r)}\Bigr)\log\log N-O_r(\log\log\log N), \]
 and $\sqrt r/\varphi(r)\le\sqrt3/2=0.8660\ldots$ for every odd squarefree $r>1$, the maximum being
-at $r=3$ \textup{(\texttt{code/charcancel\_check.gp})}. So $M\gg\log\log N$ uniformly in $\tau$, and
+at $r=3$. That is not only a sweep: each local factor is $\sqrt p/(p-1)$, and
+$(p-1)/\sqrt p\ge2/\sqrt3$ for every odd prime, so the supremum is the single factor at $r=3$
+\textup{(\texttt{code/charcancel\_check.gp} corroborates to $r\le2\times10^5$)}.
+
+The constant is moreover \emph{asymptotically exact}, not merely a valid lower bound: computing
+$M$ directly at $r=5$, $t=1$ gives growth rate $\Delta M/\Delta\sum_{p}1/p=0.4411,0.4417,0.4419$ at
+$X=10^4,10^5,10^6,10^7$ against $1-\sqrt5/\varphi(5)=0.440983$. Two caveats from the same
+computation. At finite $X$ the measured $M$ sits \emph{below} the leading term, $1.201$ against
+$1.341$ at $r=5$, $X=10^7$, which is the $-O_r(\log\log\log N)$ deficit and confirms the lemma is
+asymptotic with no useful content at feasible $N$. And when $r\equiv3\pmod4$ the Gauss sum
+$\tau(\chi)$ is purely imaginary, so the main term is imaginary, the bound is far from sharp, and
+the true $M$ is of order $\log\log N$. So $M\gg\log\log N$. Note that $M\to\infty$ alone would not suffice: with the cut-off $T$ held
+fixed Hal\'asz gives only $\ll N T^{-1/2}$. What delivers $o(N)$ is that $T=\log N\to\infty$ as
+well, so both limits are in play. Then
 Hal\'asz gives $S_t(N):=\sum_mh_t(m)\ll N\bigl((1+M)e^{-M}+(\log N)^{-1/2}\bigr)=o(N)$. Assembling,
 and noting that only the $\varphi(r)$ values of $t$ coprime to $r$ contribute since $\chi(t)=0$
 otherwise,
