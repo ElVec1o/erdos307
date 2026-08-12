@@ -3736,41 +3736,47 @@ The point of Lemma~\ref{lem:symbolfact} is that $\sigma_r$ is \emph{additive} ov
 prime divisors, so after a Gauss-sum expansion the second factor becomes a product over $p\mid m$
 and the whole sum turns multiplicative. That is what puts it inside Hal\'asz's theorem.
 
-\begin{lemma}[Cancellation in the character sums; fixed $r$ only]\label{lem:charcancel}
+\begin{lemma}[Cancellation in the character sums]\label{lem:charcancel}
 Fix an odd squarefree $r>1$. \emph{The statement is qualitative and per fixed $r$; no uniformity in
-$r$ is claimed, and the uniform form is false.} See the erratum following the proof. Then
+$r$ is claimed, and the uniform form is false} \textup{(}Remark~\ref{rem:charcancelerratum}\textup{)}.
+Then
 \[ T_r(N)\;:=\!\!\sum_{\substack{m\le N,\ \mu^2(m)=1\\ \gcd(m,r)=1}}\!\!\Bigl(\frac{m'-2m}{r}\Bigr)\;=\;o_r(N)
 \qquad (N\to\infty). \]
 \end{lemma}
 \begin{proof}
-Take $r=q$ prime. \emph{The reduction to prime $r$ is incomplete.} Expanding
-$(\cdot/r)=\prod_{q\mid r}(\cdot/q)$ turns $T_r$ into a sum of a product of characters to distinct
-moduli, and ``running the argument in each factor'' is not a proof: the Hal\'asz input applies to a
-single multiplicative function, and the product over $q\mid r$ must be treated as one function to
-the modulus $r$, with its own distance $M$. Theorem~\ref{thm:a9} consumes exactly the composite
-moduli $r=pq$, so this gap is in the range that is used. What follows proves the prime case. Let
-$g=\sum_{t}(t/q)e_q(t)$, so $|g|=\sqrt q$ and $(x/q)=g^{-1}\sum_{t\bmod q}(t/q)e_q(tx)$ for every
-$x$. By Lemma~\ref{lem:symbolfact},
-\[ T_q(N)=g^{-1}\sum_{t\bmod q}\Bigl(\frac{t}{q}\Bigr)e_q(-2t)\sum_{m\le N}h_t(m),
-\qquad h_t(m)=\Bigl(\frac{m}{q}\Bigr)e_q\bigl(t\,\sigma_q(m)\bigr), \]
-where $h_t$ is extended to all integers by $h_t(p^k)=0$ for $k\ge2$ and $h_t(p)=0$ for $p\mid q$.
-Since $\sigma_q$ is additive over distinct primes, $h_t$ is multiplicative with $|h_t|\le1$ and
-$h_t(p)=(p/q)\,e_q(t\,p^{-1})$, a function of $p\bmod q$ alone.
+The argument runs at the modulus $r$ itself; no reduction to prime $r$ is needed, and the printed
+proof's appeal to one is withdrawn. Three standard inputs are cited: Hal\'asz's theorem, the Gauss
+sum evaluation $|\tau(\chi)|=\sqrt r$ for a primitive character, and
+$|\log L(1+i\tau,\psi)|\ll\log\log\bigl(r(2+|\tau|)\bigr)$ for $\psi$ non--principal.
 
-For $t=0$, $h_0=(\cdot/q)$ is a non-principal real character and the sum is $o(N)$.
+Write $\chi=(\cdot\mid r)$. For $r$ odd squarefree the Jacobi symbol is a \emph{primitive} real
+character modulo $r$, so $\chi(x)=\tau(\chi)^{-1}\sum_{t\bmod r}\chi(t)e_r(tx)$ for every $x$, with
+$|\tau(\chi)|=\sqrt r$ \textup{(}checked numerically at $r=15,21,33,35,105,1155$\textup{)}. By
+Lemma~\ref{lem:symbolfact}, $(m'-2m\mid r)=\chi(m)\,\chi(\sigma_r(m)-2)$ for squarefree $m$ coprime
+to $r$, and expanding the second factor,
+\[ T_r(N)=\tau(\chi)^{-1}\sum_{t\bmod r}\chi(t)\,e_r(-2t)\sum_{\substack{m\le N,\ \mu^2(m)=1\\ \gcd(m,r)=1}}h_t(m),
+   \qquad h_t(m)=\chi(m)\!\!\prod_{p\mid m}\!e_r\bigl(t\,p^{-1}\bigr), \]
+and $h_t$ is multiplicative on squarefree $m$ with $|h_t|=1$, which is what puts it inside
+Hal\'asz's theorem.
 
-For $t\not\equiv0$ we apply Hal\'asz's theorem in the Montgomery form: with
-$M=\min_{|\tau|\le\log N}\sum_{p\le N}\bigl(1-\operatorname{Re}h_t(p)p^{-i\tau}\bigr)/p$ one has
-$\sum_{m\le N}h_t(m)\ll N\bigl((1+M)e^{-M}+(\log N)^{-1/2}\bigr)$. If $|\tau|\ge1/\log N$ then
-$\bigl|\sum_{p\le N}p^{-1-i\tau}\bigr|\ll\log\log(3+|\tau|)$, so
-$M\ge\log\log N-O(\log\log\log N)$. If $|\tau|<1/\log N$ then $p^{-i\tau}=1+O(1)$ for $p\le N$ and,
-by Mertens in progressions,
-\[ M\;=\;\log\log N\Bigl(1-\operatorname{Re}\frac{1}{\varphi(q)}\sum_{u\in(\mathbb{Z}/q)^\times}
-   \Bigl(\frac{u}{q}\Bigr)e_q(t\,u^{-1})\Bigr)+O_q(1). \]
-The inner sum is a Sali\'e sum, of modulus at most $2\sqrt q$ for $t\not\equiv0$, so the bracket is
-at least $1-3/\sqrt q\ge\tfrac12$ for $q\ge36$. Either way $M\gg\log\log N$, whence
-$\sum_{m\le N}h_t(m)\ll N\log\log N(\log N)^{-1/2}=o(N)$. Summing the $q$ values of $t$ and dividing
-by $|g|=\sqrt q$ gives $T_q(N)\ll\sqrt q\cdot o(N)=o_q(N)$.
+It remains to show the Hal\'asz distance
+$M=\min_{|\tau|\le\log N}\sum_{p\le N}\bigl(1-\operatorname{Re}h_t(p)p^{-i\tau}\bigr)/p$ tends to
+infinity, and here the key point is that the estimate is \emph{uniform in $\tau$}. Expand
+$h_t$ on $(\mathbb{Z}/r)^\times$ in Dirichlet characters, $h_t=\sum_\psi c_\psi\psi$. The principal
+coefficient is
+\[ c_{\psi_0}=\frac1{\varphi(r)}\sum_{a\in(\mathbb{Z}/r)^\times}\chi(a)e_r(ta^{-1})
+   =\frac{\chi(t)\,\tau(\chi)}{\varphi(r)},\qquad |c_{\psi_0}|=\frac{\sqrt r}{\varphi(r)}, \]
+using $\chi(a^{-1})=\chi(a)$ and the primitivity above; the sum vanishes when $\gcd(t,r)>1$. Then
+\[ \sum_{p\le N}h_t(p)p^{-1-i\tau}
+   =c_{\psi_0}\!\!\sum_{p\le N,\,p\nmid r}\!\!p^{-1-i\tau}+\sum_{\psi\ne\psi_0}c_\psi\sum_{p\le N}\psi(p)p^{-1-i\tau}. \]
+The first sum is at most $\sum_{p\le N}1/p=\log\log N+O(1)$ in modulus, trivially and uniformly in
+$\tau$; the non--principal terms are $O_r\bigl(\log\log(r(2+|\tau|))\bigr)=O_r(\log\log\log N)$ for
+$|\tau|\le\log N$. Hence
+\[ M\;\ge\;\Bigl(1-\frac{\sqrt r}{\varphi(r)}\Bigr)\log\log N-O_r(\log\log\log N), \]
+and $\sqrt r/\varphi(r)\le\sqrt3/2=0.8660\ldots$ for every odd squarefree $r>1$, the maximum being
+at $r=3$ \textup{(\texttt{code/charcancel\_check.gp})}. So $M\gg\log\log N$ uniformly in $\tau$, and
+Hal\'asz gives $\sum_mh_t(m)\ll N\bigl((1+M)e^{-M}+(\log N)^{-1/2}\bigr)=o(N)$. Summing the $r$
+values of $t$ and dividing by $|\tau(\chi)|=\sqrt r$ gives $T_r(N)=o_r(N)$.
 \end{proof}
 
 \begin{remark}[Erratum: the $\tau$ bound above is false near the threshold]\label{rem:charcancelerratum}
@@ -3783,12 +3789,18 @@ by a factor $20.8$; at $\tau=1/\log N=0.05948$ the left side is $2.9773$ against
 $26.6$ \textup{(\texttt{code/charcancel\_check.gp})}. A second defect is that the inequality bounds the
 untwisted sum $\sum p^{-1-i\tau}$, whereas the Hal\'asz distance $M$ requires the $h_t$--twisted sum.
 
-Consequences, stated exactly. The lemma as displayed, qualitative and for \emph{fixed} $r$, is what
-Theorem~\ref{thm:a9} consumes: there $P$ is fixed first, finitely many pairs $pq$ are involved, and
-$N\to\infty$ makes each $T_{pq}(N)=o(N)$; letting $P\to\infty$ afterwards gives density zero with no
-uniformity used. Theorem~\ref{thm:a9} is therefore unaffected. What does \emph{not} survive is the
-uniform-in-$r$ form, and with it the rate of Corollary~\ref{cor:a9rate}, which is why that corollary
-now carries the label \textsc{conjecture}.
+Consequences, stated exactly. Neither defect touches the lemma as displayed, because the proof above
+does not use the offending step: it bounds the \emph{twisted} sum through the character expansion of
+$h_t$, where the principal coefficient contributes $\sqrt r/\varphi(r)\le0.8661$ of
+$\sum_{p\le N}1/p$ and the non--principal ones contribute $O_r(\log\log\log N)$, both uniformly in
+$\tau$. The trivial bound $\bigl|\sum_{p\le N}p^{-1-i\tau}\bigr|\le\sum_{p\le N}1/p$ is all that is
+needed of the untwisted sum, so the false inequality is not merely repaired but unnecessary.
+
+What does \emph{not} survive is uniformity in $r$: the error above is $O_r(\log\log\log N)$, with the
+implied constant depending on $r$ through the non--principal $L$--functions. Corollary~\ref{cor:a9rate}
+needs a bound uniform in $r=pq$ as $P\to\infty$, which this does not supply, and it is independently
+blocked by the regime mismatch recorded after Lemma~\ref{lem:reversal}. That corollary therefore keeps
+the label \textsc{conjecture}.
 \end{remark}
 Measured at $r=1009$, $N=3\times10^7$: $|\sum_m h_t(m)|/N$ equals $3.6\times10^{-6}$, $1.3\times10^{-3}$,
 $2.1\times10^{-3}$, $5.7\times10^{-4}$, $1.5\times10^{-3}$ at $t=0,1,2,17,500$, all of size $\sqrt N$
@@ -3813,23 +3825,19 @@ $m'-2m$, let alone $p^2$.
 Measured ratios of the count to $N/p^2$ at $N=3\times10^7$: $0.842$, $0.887$, $0.930$, $0.925$,
 $0.993$ for $p=5,7,11,13,101$, approaching $1$ as predicted.
 
-\begin{theorem}[The minus layer has density zero, on the squarefree stratum: \textsc{conjecture}]\label{thm:a9}
-\textup{Label downgraded.} The proof below reduces to Lemma~\ref{lem:charcancel} at the
-\emph{composite} moduli $r=pq$, and that lemma's reduction from composite $r$ to prime $r$ is a
-one--line assertion rather than an argument, as the erratum after it now records. The gap therefore
-sits precisely in the range this theorem uses, so the statement is retained as a conjecture. What is
-proved is the square--sieve skeleton together with the prime--modulus case of
-Lemma~\ref{lem:charcancel}.
-
-Two things are unaffected. Proposition~\ref{prop:plusthin} does not depend on this theorem: it has
-its own elementary proof through the divisor sum, and only the remark that ``the same argument
-reproves it'' falls. And the barrier, which is what \#307 actually rests on, is independent of the
-whole minus--layer analysis.
+\begin{theorem}[The minus layer has density zero, on the squarefree stratum]\label{thm:a9}
+\textup{Label restored.} A previous revision downgraded this to \textsc{conjecture}, because the
+square sieve below consumes Lemma~\ref{lem:charcancel} at the \emph{composite} moduli $r=pq$ and that
+lemma's printed proof reduced composite $r$ to prime $r$ by assertion. The reduction is now
+unnecessary: the corrected proof of Lemma~\ref{lem:charcancel} runs at the modulus $r$ itself, for
+every odd squarefree $r>1$ at once, so the gap this theorem inherited is closed and the label returns
+to \textsc{proved}. It is not \textsc{verified}: none of this is in Lean.
 
 $\#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}=o(N)$. Equivalently, atom
 $\mathrm{A}9$ holds on the squarefree stratum: the squarefree minus layer has density zero. The same
-argument with $m'+2m$ would reprove Proposition~\textup{\ref{prop:plusthin}} there, and inherits the
-same gap; that proposition's own elementary proof is unaffected.
+argument with $m'+2m$ reproves Proposition~\textup{\ref{prop:plusthin}} there, so the squarefree
+Pythagorean layer has density zero unconditionally; that proposition also has its own elementary
+proof through the divisor sum, independent of this one.
 
 The squarefree restriction is not cosmetic and earlier versions of this paper omitted it. Every tool
 in the proof, Rigidity, the cofactor identity, and Lemma~\ref{lem:charcancel}, is stated for
