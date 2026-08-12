@@ -3738,115 +3738,102 @@ prime divisors, so after a Gauss-sum expansion the second factor becomes a produ
 and the whole sum turns multiplicative. That is what puts it inside Hal\'asz's theorem.
 
 \begin{lemma}[Cancellation in the character sums]\label{lem:charcancel}
-Fix an odd squarefree $r>1$. \emph{The statement is qualitative and per fixed $r$; no uniformity in
-$r$ is claimed, and the uniform form is false} \textup{(}Remark~\ref{rem:charcancelerratum}\textup{)}.
-Then
+Fix an odd squarefree $r>1$. Then
 \[ T_r(N)\;:=\!\!\sum_{\substack{m\le N,\ \mu^2(m)=1\\ \gcd(m,r)=1}}\!\!\Bigl(\frac{m'-2m}{r}\Bigr)\;=\;o_r(N)
 \qquad (N\to\infty). \]
+The statement is qualitative and per fixed $r$: the implied constant depends on $r$, and no
+uniformity is claimed. Remark~\ref{rem:charcancelerratum} records why the uniform version is not
+available and what was previously claimed here in error; Remark~\ref{rem:charcancelsharp}
+records what the constant is and is not.
 \end{lemma}
 \begin{proof}
-The argument runs at the modulus $r$ itself; no reduction to prime $r$ is needed, and the printed
-proof's appeal to one is withdrawn. Four standard inputs are cited, all for \emph{fixed} $r$: Hal\'asz's theorem; the Gauss sum
-evaluation $|\tau(\chi)|=\sqrt r$ for a primitive character; the bound
-$|\log L(1+i\tau,\psi)|\ll_r\log\log(2+|\tau|)$ for $\psi$ non--principal; and Siegel--Walfisz, to
-pass from $\log L$ to the partial sum $\sum_{p\le N}\psi(p)p^{-1-i\tau}$ over the tail. The third is
-written with $r$ \emph{outside} the double logarithm deliberately. In $r$--uniform dress it is false:
-the lower half needs $L(1,\psi)$ bounded away from $0$, and unconditionally one has only
-$L(1,\psi)\gg r^{-1/2}$ effectively, or $\gg_\varepsilon r^{-\varepsilon}$ by Siegel and
-ineffectively, so $|\log L(1,\psi)|$ can be of order $\log r$. At fixed $r$ these are fixed nonzero
-constants and the argument is unaffected; the $r$--uniform form is exactly what
-Corollary~\ref{cor:a9rate} would need and does not have.
+Five standard facts are used, all at fixed $r$: Hal\'asz's theorem; $|\tau(\chi)|=\sqrt r$ for a
+primitive character; the classical zero--free region; $|\log L(s,\psi)|\ll_r\log\log(2+|\tau|)$ for
+$\psi$ non--principal at $s=1+1/\log N+i\tau$; and Siegel--Walfisz. None is formalised.
 
-Write $\chi=(\cdot\mid r)$. For $r$ odd squarefree the Jacobi symbol is a \emph{primitive} real
-character modulo $r$, so $\chi(x)=\tau(\chi)^{-1}\sum_{t\bmod r}\chi(t)e_r(tx)$ for every $x$, with
-$|\tau(\chi)|=\sqrt r$ \textup{(}checked numerically at $r=15,21,33,35,105,1155$\textup{)}. By
-Lemma~\ref{lem:symbolfact}, $(m'-2m\mid r)=\chi(m)\,\chi(\sigma_r(m)-2)$ for squarefree $m$ coprime
-to $r$, and expanding the second factor,
-\[ T_r(N)=\tau(\chi)^{-1}\sum_{t\bmod r}\chi(t)\,e_r(-2t)\sum_{\substack{m\le N,\ \mu^2(m)=1\\ \gcd(m,r)=1}}h_t(m),
-   \qquad h_t(m)=\chi(m)\!\!\prod_{p\mid m}\!e_r\bigl(t\,p^{-1}\bigr), \]
-Extend $h_t$ to all of $\mathbb{N}$ by $h_t(p^k)=0$ for $k\ge2$ and $h_t(p)=0$ for $p\mid r$, the
-only extension preserving the sum. It is then multiplicative with $|h_t|\le1$, which is Hal\'asz's
-hypothesis; note $|h_t|=1$ holds on the support only, and the completely multiplicative extension
-would \emph{not} preserve the identity.
+\emph{The expansion.} Write $\chi=(\cdot\mid r)$. For $r$ odd squarefree the Jacobi symbol is a
+primitive real character modulo $r$, so
+$\chi(x)=\tau(\chi)^{-1}\sum_{t\bmod r}\chi(t)e_r(tx)$ holds for \emph{every} $x$, including
+$\gcd(x,r)>1$, where both sides vanish. That case occurs: at $r=15$ already $m=2$ gives
+$\sigma_r(m)-2=6$. By Lemma~\ref{lem:symbolfact},
+$(m'-2m\mid r)=\chi(m)\,\chi(\sigma_r(m)-2)$, and expanding the second factor,
+\[ T_r(N)=\tau(\chi)^{-1}\sum_{t\bmod r}\chi(t)\,e_r(-2t)\;S_t(N),\qquad
+   S_t(N)=\!\!\sum_{\substack{m\le N,\ \mu^2(m)=1\\ \gcd(m,r)=1}}\!\!h_t(m), \]
+where $h_t(m)=\chi(m)\prod_{p\mid m}e_r(tp^{-1})$, using that $\sigma_r$ is a sum over $p\mid m$ and
+$e_r$ carries sums to products. Extend $h_t$ to $\mathbb{N}$ by $h_t(p^k)=0$ for $k\ge2$ and
+$h_t(p)=0$ for $p\mid r$, the only extension preserving $S_t$. It is multiplicative with
+$|h_t|\le1$, which is Hal\'asz's hypothesis; $|h_t|=1$ on the support only.
 
-It remains to show the Hal\'asz distance
-$M=\min_{|\tau|\le\log N}\sum_{p\le N}\bigl(1-\operatorname{Re}h_t(p)p^{-i\tau}\bigr)/p$ tends to
-infinity. Since $M$ is already a minimum, no free $\tau$ survives; what must be uniform over
-$|\tau|\le\log N$ are the two inner bounds below. Note first that $h_t$ is \emph{not} a function of $m\bmod r$, since it is built from the
-factorisation of $m$: at $r=7$, for instance, $h_1(2)\ne h_1(9)$ though $2\equiv9$. What is a
-function of the residue is its restriction to primes, and that is all the expansion needs. Put
-$g_t:(\mathbb{Z}/r)^\times\to\mathbb{C}$, $g_t(a)=\chi(a)e_r(ta^{-1})$, so that $h_t(p)=g_t(p\bmod r)$
-for $p\nmid r$, with the convention $h_t=0$ at $p\mid r$. Expand $g_t$ in Dirichlet characters,
-$g_t=\sum_\psi c_\psi\psi$. The principal
-coefficient is
+\emph{The distance.} Hal\'asz needs
+$M=\min_{|\tau|\le\log N}\sum_{p\le N}\bigl(1-\operatorname{Re}h_t(p)p^{-i\tau}\bigr)/p\to\infty$.
+Now $h_t$ is not a function of $m\bmod r$, being built from the factorisation: at $r=7$,
+$h_1(3)=0.2225+0.9749i$ while $h_1(10)=-1$, though $3\equiv10$. Its restriction to primes is,
+which is all that is needed. Put $g_t(a)=\chi(a)e_r(ta^{-1})$ on $(\mathbb{Z}/r)^\times$, so
+$h_t(p)=g_t(p\bmod r)$ for $p\nmid r$, and expand $g_t=\sum_\psi c_\psi\psi$. Reindexing by the
+involution $a\mapsto ta^{-1}$ of $(\mathbb{Z}/r)^\times$ and using $\chi(a^{-1})=\chi(a)$,
 \[ c_{\psi_0}=\frac1{\varphi(r)}\sum_{a\in(\mathbb{Z}/r)^\times}\chi(a)e_r(ta^{-1})
-   =\frac{\chi(t)\,\tau(\chi)}{\varphi(r)},\qquad |c_{\psi_0}|=\frac{\sqrt r}{\varphi(r)}, \]
-using $\chi(a^{-1})=\chi(a)$ and reindexing by the involution $a\mapsto ta^{-1}$; the sum vanishes
-when $\gcd(t,r)>1$, which is redundant here since the factor $\chi(t)$ in the expansion above
-already annihilates those $t$. \emph{No primitivity is used for this identity}: it holds for any
-quadratic character on any finite abelian group, as the formalisation below makes explicit.
-Primitivity is used twice, but elsewhere: for $|\tau(\chi)|=\sqrt r$, and for the Fourier inversion
-at arguments $x$ with $\gcd(x,r)>1$.
+   =\frac{\chi(t)\,\tau(\chi)}{\varphi(r)},\qquad |c_{\psi_0}|=\frac{\sqrt r}{\varphi(r)}. \]
+This identity uses no primitivity: it holds for any quadratic character on any finite abelian group,
+which is what the formalisation records. Primitivity enters twice elsewhere, for
+$|\tau(\chi)|=\sqrt r$ and for the inversion at $\gcd(x,r)>1$ above.
 
-\textup{Formalised.} This identity is the one new algebraic step of the repair, and it is the step
-the previous proof got wrong, so it is in Lean: \texttt{Erdos307.sum\_char\_twist\_inv} proves
-$\sum_a\chi(a)\psi(t a^{-1})=\chi(t)\sum_a\chi(a)\psi(a)$ for a quadratic character on a finite
-abelian group and \emph{any} $\psi$, resting on \texttt{quadratic\_inv}
-\textup{(}$\chi(g^{-1})=\chi(g)$, pure monoid algebra\textup{)} and
-\texttt{twist\_inv\_involutive}. The vanishing at $\gcd(t,r)>1$ is \emph{not} formalised: a
-previous revision claimed it was, citing a lemma whose hypotheses turned out to be contradictory and
-which therefore proved nothing; it has been deleted rather than repaired, and the vanishing is
-redundant in the main line anyway. With $\psi=e_r$ this says the left side is a \emph{Gauss} sum, not a Sali\'e sum, which is precisely
-why no reduction to prime modulus is needed
-\textup{(\texttt{lean/Erdos307/CharSum.lean})}. The three analytic inputs, Hal\'asz,
-$|\tau(\chi)|=\sqrt r$, and the bound on $\log L(1+i\tau,\psi)$, are cited and not formalised. Then
+Splitting the prime sum by $\psi$,
 \[ \sum_{p\le N}h_t(p)p^{-1-i\tau}
-   =c_{\psi_0}\!\!\sum_{p\le N,\,p\nmid r}\!\!p^{-1-i\tau}+\sum_{\psi\ne\psi_0}c_\psi\sum_{p\le N}\psi(p)p^{-1-i\tau}. \]
+   =c_{\psi_0}\!\!\sum_{p\le N,\,p\nmid r}\!\!p^{-1-i\tau}
+    +\sum_{\psi\ne\psi_0}c_\psi\sum_{p\le N}\psi(p)p^{-1-i\tau}. \]
 The first sum is at most $\sum_{p\le N}1/p=\log\log N+O(1)$ in modulus, trivially and uniformly in
-$\tau$; the non--principal terms are $O_r(\log\log\log N)$ for $|\tau|\le\log N$. That passage deserves its
-own sentence, because the obvious route to it fails. The cited bound governs the \emph{complete}
-Euler logarithm $\log L$, while what is needed is the truncation $\sum_{p\le N}\psi(p)p^{-1-i\tau}$,
-and partial summation against Siegel--Walfisz sheds a factor $1+|\tau|$ from differentiating
-$u^{-1-i\tau}$, giving $O_r(\log N)$ in the stated range, which is worse than trivial. The step that
-works is to move to the shifted point $s=1+1/\log N+i\tau$: the shift costs $O(1)$ since
-$\sum_{p\le N}\log p/(p\log N)\ll1$, the tail $\sum_{p>N}\psi(p)p^{-s}$ is $o(1)$ because
-$e^{-v/\log N}$ absorbs the $1+|\tau|$, and the classical zero--free region then gives
-$|\log L(s,\psi)|\ll_r\log\log(2+|\tau|)$.
-
-The coefficients themselves need a bound too, and it is not the $L$--functions that supply it:
-$|g_t|=1$ on $(\mathbb{Z}/r)^\times$ gives $\sum_\psi|c_\psi|^2=1$ by Parseval, so
-$\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt{\varphi(r)}$ by Cauchy--Schwarz. Their smallness comes
-entirely from the $L$--functions having no pole, \emph{not} from their coefficients: at $r=15$ four
-of the eight $c_\psi$ tie the principal one at $\sqrt r/\varphi(r)=0.4841$, and at $r=21$ five of
-twelve tie at $0.3819$, the minimum $1/\varphi(r)$ being attained only at $\psi=\chi$, where
-$\chi\psi$ is principal and the sum degenerates to a Ramanujan sum. Hence
-\[ M\;\ge\;\Bigl(1-\frac{\sqrt r}{\varphi(r)}\Bigr)\log\log N-O_r(\log\log\log N), \]
-and $\sqrt r/\varphi(r)\le\sqrt3/2=0.8660\ldots$ for every odd squarefree $r>1$, the maximum being
-at $r=3$. That is not only a sweep: each local factor is $\sqrt p/(p-1)$, and
+$\tau$. For the coefficients, $|g_t|=1$ gives $\sum_\psi|c_\psi|^2=1$ by Parseval, hence
+$\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt{\varphi(r)}$ by Cauchy--Schwarz; they are \emph{not} small
+individually, three of the eight tying the principal one at $r=15$. Their contribution is small
+because the $L$--functions have no pole, and reaching that needs care: the cited bound governs
+$\log L$, an Euler product over all $p$, while what is required is the truncation. Partial summation
+against Siegel--Walfisz applied directly sheds a factor $1+|\tau|$, which is fatal in the range
+$|\tau|\le\log N$. Instead move to $s=1+1/\log N+i\tau$. The shift costs $O(1)$ by Mertens, since
+$\sum_{p\le N}\log p/(p\log N)\ll1$; and the tail $\sum_{p>N}\psi(p)p^{-s}$ is $o(1)$ because
+Siegel--Walfisz contributes $e^{-c\sqrt v}$, which defeats the factor $1+|\tau|$ that partial
+summation costs, the total being $\ll(\log N)^2e^{-c\sqrt{\log N}}$. The zero--free region then
+gives $|\log L(s,\psi)|\ll_r\log\log(2+|\tau|)$, so the non--principal terms are $O_r(1)$ uniformly
+for $|\tau|\le\log N$. Hence
+\[ M\;\ge\;c_r\log\log N-O_r(1),\qquad c_r:=1-\frac{\sqrt r}{\varphi(r)}\;\ge\;1-\frac{\sqrt3}2
+   \;=\;0.1339\ldots, \]
+the extremum being at $r=3$: each local factor of $\sqrt r/\varphi(r)$ is $\sqrt p/(p-1)$, and
 $(p-1)/\sqrt p\ge2/\sqrt3$ for every odd prime, so the supremum is the single factor at $r=3$
-\textup{(\texttt{code/charcancel\_check.gp} corroborates to $r\le2\times10^5$)}.
+\textup{(\texttt{code/charcancel\_check.gp})}.
 
-The constant is moreover \emph{asymptotically exact}, not merely a valid lower bound: computing
-$M$ directly at $r=5$, $t=1$ gives growth rate $\Delta M/\Delta\sum_{p}1/p=0.4411,0.4417,0.4419$ at
-$X=10^4,10^5,10^6,10^7$ against $1-\sqrt5/\varphi(5)=0.440983$. Two caveats from the same
-computation. At finite $X$ the measured $M$ sits \emph{below} the leading term, $1.201$ against
-$1.341$ at $r=5$, $X=10^7$, which is the $-O_r(\log\log\log N)$ deficit and confirms the lemma is
-asymptotic with no useful content at feasible $N$. And when $r\equiv3\pmod4$ the Gauss sum
-$\tau(\chi)$ is purely imaginary, so the main term is imaginary, the bound is far from sharp, and
-the true $M$ is of order $\log\log N$. So $M\gg\log\log N$. Note that $M\to\infty$ alone would not suffice: with the cut-off $T$ held
-fixed Hal\'asz gives only $\ll N T^{-1/2}$. What delivers $o(N)$ is that $T=\log N\to\infty$ as
-well, so both limits are in play. Then
-Hal\'asz gives $S_t(N):=\sum_mh_t(m)\ll N\bigl((1+M)e^{-M}+(\log N)^{-1/2}\bigr)=o(N)$. Assembling,
-and noting that only the $\varphi(r)$ values of $t$ coprime to $r$ contribute since $\chi(t)=0$
-otherwise,
+\emph{Conclusion.} With $T=\log N$, Hal\'asz gives
+$S_t(N)\ll N\bigl((1+M)e^{-M}+(\log N)^{-1/2}\bigr)$. Note $M\to\infty$ alone would not suffice:
+at fixed $T$ the bound is only $\ll NT^{-1/2}$. Both limits are in play, and
+$S_t(N)\ll_rN(\log N)^{-c_r+o(1)}=o(N)$. Only the $\varphi(r)$ values of $t$ coprime to $r$
+contribute, since $\chi(t)=0$ otherwise, so
 \[ |T_r(N)|\;\le\;r^{-1/2}\!\!\sum_{\gcd(t,r)=1}\!\!|S_t(N)|\;\le\;\frac{\varphi(r)}{\sqrt r}\,
    \max_t|S_t(N)|\;\le\;\sqrt r\,\max_t|S_t(N)|\;=\;o_r(N). \]
-The net factor is a \emph{loss} of $\sqrt r$, not a gain of $r^{-1/2}$: the $\varphi(r)$ summands
-outweigh the $|\tau(\chi)|^{-1}$. At fixed $r$ that is a constant and the lemma follows, but the
-factor is not decorative, and it is the same $\sqrt r$ that reappears in
-Corollary~\ref{cor:a9rate} as $T_r(N)\ll\sqrt r\,N(\log N)^{-1/2}$ and forces the exponent $1/4$
-there.
+The net factor is a \emph{loss} of $\sqrt r$: the $\varphi(r)$ summands outweigh
+$|\tau(\chi)|^{-1}$. At fixed $r$ that is a constant.
 \end{proof}
+
+\begin{remark}[What the constant $c_r$ is and is not]\label{rem:charcancelsharp}
+Three things about $c_r=1-\sqrt r/\varphi(r)$ are worth recording, because an earlier revision
+overstated all three.
+
+\emph{Sharpness is conditional.} The bound $M\ge c_r\log\log N-O_r(1)$ is attained only when the
+main term $\chi(t)\tau(\chi)$ is real and positive. Since $\overline{\tau(\chi)}=\chi(-1)\tau(\chi)$
+with $\chi(-1)=(-1)^{(r-1)/2}$, the Gauss sum is purely imaginary for $r\equiv3\pmod4$, and there
+the true $M$ has constant $1$ rather than $c_r$. Measured at $r=5$, $X=10^7$: $M=1.201$ for the two
+residues with $\chi(t)=+1$, against $M=2.191$ for the other two. So the constant is attained for
+$r\equiv1\pmod4$ and $\chi(t)=+1$, and is not sharp otherwise.
+
+\emph{The error term is $O_r(1)$, not $O_r(\log\log\log N)$.} At $r=5$, $t=1$ the deficit between
+$M$ and $c_r\sum_{p\le X}1/p$ is $0.1407,0.1407,0.1405,0.1405$ at $X=10^4,\dots,10^7$, flat to four
+places, while $\log\log\log X$ rises by $28\%$ over the same range. The $\log\log\log$ enters only
+through uniformity in $\tau$.
+
+\emph{The rate that follows, and the one that does not.} Hal\'asz gives
+$T_r(N)\ll_rN(\log N)^{-c_r+o(1)}$. Since $c_3=0.134$ and $c_5=0.441$ are below $\tfrac12$, this
+does \emph{not} yield $T_r(N)\ll\sqrt r\,N(\log N)^{-1/2}$ at those moduli, and an earlier revision
+asserted that it did. Quantitatively the lemma is asymptotic in the strong sense: at $r=5$, with the
+measured constants and an implied Hal\'asz constant of $1$, the bound first beats the trivial
+$|T_r(N)|\le N$ near $\log N\approx148$, that is $N\approx10^{64}$.
+\end{remark}
 
 \begin{remark}[Erratum: the $\tau$ bound above is false near the threshold]\label{rem:charcancelerratum}
 The step ``if $|\tau|\ge1/\log N$ then
@@ -3858,18 +3845,21 @@ by a factor $20.8$; at $\tau=1/\log N=0.05948$ the left side is $2.9773$ against
 $26.6$ \textup{(\texttt{code/charcancel\_check.gp})}. A second defect is that the inequality bounds the
 untwisted sum $\sum p^{-1-i\tau}$, whereas the Hal\'asz distance $M$ requires the $h_t$--twisted sum.
 
-Consequences, stated exactly. Neither defect touches the lemma as displayed, because the proof above
+Consequences, stated exactly. Neither defect touches the lemma as now proved, because that proof
 does not use the offending step: it bounds the \emph{twisted} sum through the character expansion of
-$h_t$, where the principal coefficient contributes $\sqrt r/\varphi(r)\le0.8661$ of
-$\sum_{p\le N}1/p$ and the non--principal ones contribute $O_r(\log\log\log N)$, both uniformly in
-$\tau$. The trivial bound $\bigl|\sum_{p\le N}p^{-1-i\tau}\bigr|\le\sum_{p\le N}1/p$ is all that is
-needed of the untwisted sum, so the false inequality is not merely repaired but unnecessary.
+$h_t$, where the principal coefficient contributes at most $\sqrt r/\varphi(r)\le0.8661$ of
+$\sum_{p\le N}1/p$ and the non--principal ones contribute $O_r(1)$, both uniformly in $\tau$. The
+trivial bound $\bigl|\sum_{p\le N}p^{-1-i\tau}\bigr|\le\sum_{p\le N}1/p$ is all that is needed of the
+untwisted sum, so the false inequality is not merely repaired but unnecessary.
 
-What does \emph{not} survive is uniformity in $r$: the error above is $O_r(\log\log\log N)$, with the
-implied constant depending on $r$ through the non--principal $L$--functions. Corollary~\ref{cor:a9rate}
-needs a bound uniform in $r=pq$ as $P\to\infty$, which this does not supply, and it is independently
-blocked by the regime mismatch recorded after Lemma~\ref{lem:reversal}. That corollary therefore keeps
-the label \textsc{conjecture}.
+Two claims must be distinguished, and an earlier revision ran them together. What is shown false
+above is the $r$--\emph{uniform form of one input}, the $\log L$ bound, whose lower half needs
+$L(1,\psi)$ away from $0$ and has only $L(1,\psi)\gg r^{-1/2}$ effectively or $\gg_\varepsilon
+r^{-\varepsilon}$ by Siegel, ineffectively. That is \emph{not} the same as the uniform form of the
+lemma being false; the uniform lemma is simply \emph{not established here}, which is a weaker and
+accurate statement. Either way Corollary~\ref{cor:a9rate} needs a bound uniform in $r=pq$ as
+$P\to\infty$ that this argument does not supply, and it is independently blocked by the regime
+mismatch recorded after Lemma~\ref{lem:reversal}, so it keeps the label \textsc{conjecture}.
 \end{remark}
 Measured at $r=1009$, $N=3\times10^7$: $|\sum_m h_t(m)|/N$ equals $3.6\times10^{-6}$, $1.3\times10^{-3}$,
 $2.1\times10^{-3}$, $5.7\times10^{-4}$, $1.5\times10^{-3}$ at $t=0,1,2,17,500$, all of size $\sqrt N$
