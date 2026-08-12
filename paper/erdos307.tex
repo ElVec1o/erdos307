@@ -3720,7 +3720,8 @@ because $m'$ is not a polynomial and no Weil bound is available. The obstruction
 the relevant symbol factorises.
 
 \begin{lemma}[Factorisation of the symbol]\label{lem:symbolfact}
-Let $r$ be odd and let $m$ be squarefree with $\gcd(m,r)=1$ and no prime factor of $m$ dividing $r$.
+Let $r$ be odd and let $m$ be squarefree with $\gcd(m,r)=1$ \textup{(}equivalently, no prime factor
+of $m$ divides $r$\textup{)}.
 Put $\sigma_r(m)=\sum_{p\mid m}p^{-1}\in\mathbb{Z}/r$. Then $m'\equiv m\,\sigma_r(m)\pmod r$ and
 \[ \Bigl(\frac{m'-2m}{r}\Bigr)=\Bigl(\frac{m}{r}\Bigr)\Bigl(\frac{\sigma_r(m)-2}{r}\Bigr). \]
 \end{lemma}
@@ -3786,8 +3787,16 @@ $|\tau|\le\log N$. Hence
 \[ M\;\ge\;\Bigl(1-\frac{\sqrt r}{\varphi(r)}\Bigr)\log\log N-O_r(\log\log\log N), \]
 and $\sqrt r/\varphi(r)\le\sqrt3/2=0.8660\ldots$ for every odd squarefree $r>1$, the maximum being
 at $r=3$ \textup{(\texttt{code/charcancel\_check.gp})}. So $M\gg\log\log N$ uniformly in $\tau$, and
-Hal\'asz gives $\sum_mh_t(m)\ll N\bigl((1+M)e^{-M}+(\log N)^{-1/2}\bigr)=o(N)$. Summing the $r$
-values of $t$ and dividing by $|\tau(\chi)|=\sqrt r$ gives $T_r(N)=o_r(N)$.
+Hal\'asz gives $S_t(N):=\sum_mh_t(m)\ll N\bigl((1+M)e^{-M}+(\log N)^{-1/2}\bigr)=o(N)$. Assembling,
+and noting that only the $\varphi(r)$ values of $t$ coprime to $r$ contribute since $\chi(t)=0$
+otherwise,
+\[ |T_r(N)|\;\le\;r^{-1/2}\!\!\sum_{\gcd(t,r)=1}\!\!|S_t(N)|\;\le\;\frac{\varphi(r)}{\sqrt r}\,
+   \max_t|S_t(N)|\;\le\;\sqrt r\,\max_t|S_t(N)|\;=\;o_r(N). \]
+The net factor is a \emph{loss} of $\sqrt r$, not a gain of $r^{-1/2}$: the $\varphi(r)$ summands
+outweigh the $|\tau(\chi)|^{-1}$. At fixed $r$ that is a constant and the lemma follows, but the
+factor is not decorative, and it is the same $\sqrt r$ that reappears in
+Corollary~\ref{cor:a9rate} as $T_r(N)\ll\sqrt r\,N(\log N)^{-1/2}$ and forces the exponent $1/4$
+there.
 \end{proof}
 
 \begin{remark}[Erratum: the $\tau$ bound above is false near the threshold]\label{rem:charcancelerratum}
@@ -3827,8 +3836,13 @@ For $p\nmid m$ the condition is $\sigma_{p^2}(m)\equiv2\pmod{p^2}$ by Lemma~\ref
 applied with modulus $p^2$. Detecting it by additive characters, the non-trivial frequencies give
 multiplicative sums $\prod_{\ell\mid m}e_{p^2}(t/\ell)$ whose values at primes depend only on
 $\ell\bmod p^2$ and which are not Dirichlet characters, because $u\mapsto e_{p^2}(t/u)$ is not
-multiplicative; the Hal\'asz argument of Lemma~\ref{lem:charcancel} applies verbatim with the
-Sali\'e bound replaced by the Weil bound for Kloosterman sums to prime-power modulus. Hence the
+multiplicative; the Hal\'asz argument of Lemma~\ref{lem:charcancel} applies, but \emph{not}
+verbatim, and the difference is worth naming. That lemma uses primitivity of $\chi=(\cdot\mid r)$
+twice, for $|\tau(\chi)|=\sqrt r$ and for the principal coefficient $\chi(t)\tau(\chi)/\varphi(r)$;
+here $(\cdot\mid p^2)$ is trivial on $(\mathbb{Z}/p^2)^\times$, so there is no character twist at
+all. The principal coefficient is instead a Ramanujan sum $c_{p^2}(t)/\varphi(p^2)$, which vanishes
+for $\gcd(t,p^2)=1$ and equals $-1/(p-1)$ when $p\,\|\,t$; the distance bound follows more easily
+than in Lemma~\ref{lem:charcancel}, not by the same computation. Hence the
 density is $p^{-2}+o(1)$. The case $p\mid m$ does not arise at all: writing $m=pn$ with $p\nmid n$
 gives $m'=pn'+n$, so $m'-2m=n+p(n'-2n)\equiv n\not\equiv0\pmod p$, and $p$ does not even divide
 $m'-2m$, let alone $p^2$.
@@ -3863,9 +3877,15 @@ then $(a_m/p)=1$ for all such $p$, so $\sum_{p\in\mathcal{P}}(a_m/p)=\Pi$. Hence
 \[ \Pi^2\,\#\{m\le N: a_m=\square,\ \gcd(a_m,\textstyle\prod\mathcal{P})=1\}
    \;\le\;\sum_{m\le N}\Bigl(\sum_{p\in\mathcal{P}}\Bigl(\frac{a_m}{p}\Bigr)\Bigr)^2
    \;=\;\sum_{p,q\in\mathcal{P}}\ \sum_{m\le N}\Bigl(\frac{a_m}{pq}\Bigr). \]
-The diagonal $p=q$ contributes $(a_m/p^2)=(a_m/p)^2\in\{0,1\}$, hence at most $\Pi N$; the
-off-diagonal is $\sum_{p\neq q}T_{pq}(N)$, which is $o(N)$ for each of the finitely many pairs by
-Lemma~\ref{lem:charcancel}. A square divisible by $p$ is divisible by $p^2$, so the excluded $m$
+The diagonal $p=q$ contributes $(a_m/p^2)=(a_m/p)^2\in\{0,1\}$, hence at most $\Pi N$. The
+off-diagonal is $\sum_{p\ne q}\bigl(T_{pq}(N)+E_{pq}(N)\bigr)$, where $T_{pq}$ carries the
+coprimality condition $\gcd(m,pq)=1$ of Lemma~\ref{lem:charcancel} and
+$E_{pq}(N)=\sum_{m\le N,\ \mu^2(m)=1,\ \gcd(m,pq)>1}(a_m/pq)$ collects the terms it omits. That
+correction is harmless but is not empty and must be carried:
+$|E_{pq}(N)|\le\#\{m\le N:p\mid m\text{ or }q\mid m\}\le N(1/p+1/q)\le2N/P$, so
+$\Pi^{-2}\sum_{p\ne q}|E_{pq}(N)|\le2N/P$, which is dominated by the diagonal's own $N/\Pi\asymp
+N\log P/P$ and changes nothing below. Each $T_{pq}(N)$ is $o(N)$, for each of the finitely many
+pairs, by Lemma~\ref{lem:charcancel}. A square divisible by $p$ is divisible by $p^2$, so the excluded $m$
 number at most $\sum_{p\in\mathcal{P}}O(N/p^2)\ll N/(P\log P)$ by Lemma~\ref{lem:localsq}, using
 that $p\mid m$ is impossible there. Finally
 $a_m=0$ means $m'=2m$, a single line, of density zero by Proposition~\ref{prop:lines}. Altogether
@@ -3874,24 +3894,36 @@ The left side does not depend on $P$; letting $P\to\infty$ gives $0$.
 \end{proof}
 
 The proof of Theorem~\ref{thm:a9} sends $P\to\infty$ only after $N$, which costs all quantitative
-information. Keeping $P$ a function of $N$ turns it into an explicit rate, and what makes that
-legitimate is the uniformity already established in Lemma~\ref{lem:charcancel}: the pretentious
-distance there satisfies $M\ge(1-3/\sqrt r\,)\log\log N\ge\tfrac12\log\log N$ for $r\ge36$, with no
-dependence on $r$ beyond that.
+information. Keeping $P$ a function of $N$ would turn it into an explicit rate, and what that
+requires is uniformity in $r$ as $P\to\infty$.
+
+\emph{That uniformity is exactly what is not available}, and earlier editions of this paragraph
+asserted the opposite. Lemma~\ref{lem:charcancel} gives
+$M\ge\bigl(1-\sqrt r/\varphi(r)\bigr)\log\log N-O_r(\log\log\log N)$, with the error depending on
+$r$ through the non--principal $L$--functions, and its statement and the erratum following it both
+say so. The constant is $\sqrt r/\varphi(r)$, not the $3/\sqrt r$ printed here previously; the two
+are not interchangeable, since $\varphi(r)\ge r/3$ fails for odd squarefree $r$, first at
+$r=3\cdot5\cdots23=111{,}546{,}435$ with $\varphi(r)/r=0.3272$. The corollary below is therefore
+stated as a \textsc{conjecture} and its argument is a sketch of what a uniform version would give,
+not a proof.
 
 \begin{corollary}[A rate for $\mathrm{A}9$: \textsc{conjecture}]\label{cor:a9rate}
-The following rate does \emph{not} follow from Lemma~\ref{lem:charcancel} as stated there, because
-the uniform-in-$\tau$ bound its proof consumes is false near the threshold; see the erratum after
-that lemma. The statement is retained as a conjecture, and nothing in this paper depends on it.
+The following rate does \emph{not} follow from Lemma~\ref{lem:charcancel}, which is qualitative and
+per fixed $r$; deducing it needs a bound uniform in $r=pq$ as $P\to\infty$, and that is not
+established here. It is independently blocked by the regime mismatch recorded after
+Lemma~\ref{lem:reversal}. The statement is retained as a conjecture, nothing in this paper depends
+on it, and what follows is a sketch of the balancing a uniform version would permit rather than a
+proof.
 \[ \#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}\;\ll\;\frac{N\log\log N}{(\log N)^{1/4}}. \]
 \end{corollary}
-\begin{proof}
+\begin{proof}[Sketch, conditional on a uniform-in-$r$ form of Lemma~\ref{lem:charcancel}]
 Take $\mathcal{P}$ to be the primes in $(P,2P]$ with $P=P(N)$ to be chosen, so
 $\Pi\sim P/\log P$. The three terms of Theorem~\ref{thm:a9} are then
 \[ \frac{N}{\Pi}\ \ll\ \frac{N\log P}{P},\qquad
    \frac1{\Pi^2}\sum_{p\neq q}|T_{pq}(N)|\ \le\ \max_{p\neq q}|T_{pq}(N)|,\qquad
    \sum_{p\in\mathcal{P}}O\!\left(\frac{N}{p^2}\right)\ \ll\ \frac{N}{P\log P}. \]
-By Lemma~\ref{lem:charcancel} with its uniform $M$, Hal\'asz gives
+Granting a uniform-in-$r$ distance bound, which Lemma~\ref{lem:charcancel} does \emph{not}
+supply, Hal\'asz would give
 $T_r(N)\ll\sqrt r\,N(\log N)^{-1/2}$, and $r=pq\le4P^2$ gives $\sqrt r\le2P$, so the middle term is
 $\ll PN(\log N)^{-1/2}$. Balancing it against the first,
 $N\log P/P=PN(\log N)^{-1/2}$, gives $P\asymp(\log N)^{1/4}$, at which both equal
