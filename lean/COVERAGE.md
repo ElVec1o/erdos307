@@ -1,6 +1,6 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**53 of 106** labelled results are named by a Lean file in `Erdos307/` (31 files, **0 `sorry`**).
+**55 of 106** labelled results are named by a Lean file in `Erdos307/` (33 files, **0 `sorry`**).
 
 `lake env lean Check.lean` probes **269 declarations across all 31 modules**. Everything is on the
 three standard axioms or fewer, with exactly two exceptions: `dfs_run`, the pruned-search execution
@@ -69,15 +69,12 @@ print('uncovered:', sorted(labels - lean))
 EOF
 ```
 
-## COMPUTATIONAL (28)
+## COMPUTATIONAL (26)
 
-The result *is* a number a program produces. Formalising it would mean formalising the
-computation, which at these ranges means `native_decide` at a scale the kernel will not take. Each
-cites its generating script in `code/` (Rule 9).
+The result *is* a number a program produces.
 
 | label | statement |
 |---|---|
-| `cor:coprime60` | The coprime variant inherits the closed level |
 | `cor:diagonals` | Diagonal stratification: the cost of the last lattice step |
 | `cor:gos` | Nonemptiness families for the mu--Sondow conjecture |
 | `prop:anticorr` | The barrier is statistically complete |
@@ -102,20 +99,17 @@ cites its generating script in `code/` (Rule 9).
 | `prop:sectors` | Sector decomposition of level 60 |
 | `prop:slotstrat` | Slot stratification of the divisibility set |
 | `prop:sunit` | S--unit rigidity of twisted cycles |
-| `prop:tailkill` | The canonical tail family is empty: a reciprocity kill |
 | `prop:transport` | Divisor transport |
 | `thm:existence` | Existence of twisted derivative two--cycles |
 
 ## ANALYTIC (19)
 
-Needs analytic machinery Mathlib does not carry: divisor-sum asymptotics, density of
-`{sigma(m) >= x}`, Chernoff over primes, Weil, large sieve, Mertens. Where such a result has an
-elementary core, the core *is* formalised; `PlusThin.lean` is the model.
+Needs analytic machinery Mathlib does not carry.
 
 | label | statement |
 |---|---|
 | `cor:secondbarrier` | A second, independent derivation of the barrier |
-| `lem:charcancel` | Cancellation in the character sums; fixed r only |
+| `lem:charcancel` | Cancellation in the character sums |
 | `lem:localsq` | Local densities at p^2 |
 | `lem:reversal` | Reversal |
 | `prop:bilinear` | Kernel norm |
@@ -136,7 +130,7 @@ elementary core, the core *is* formalised; `PlusThin.lean` is the model.
 
 ## CONDITIONAL (3)
 
-Stated conditionally in the paper. Nothing downstream treats them as proved.
+Stated conditionally in the paper.
 
 | label | statement |
 |---|---|

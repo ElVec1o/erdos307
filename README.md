@@ -103,7 +103,7 @@ heuristic has no empirical support and cannot acquire any. **No proof either way
 ## Layout
 
 ```
-paper/   erdos307.tex, erdos307.pdf   — the note (84 pp; self-contained bibliography)
+paper/   erdos307.tex, erdos307.pdf   — the note (85 pp; self-contained bibliography)
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md
 certs/   independently checkable ECPP primality certificates: the immune families, and the
@@ -133,6 +133,10 @@ This history is **deliberately not rewritten.** Doing so would change every comm
 SHA. The cost is real and outward-facing; the benefit is cosmetic compliance with a convention that
 is already met going forward. Recording the discrepancy is the honest resolution.
 
+- **Consistency:** `bash code/check_consistency.sh` recomputes every cross-file number (page count,
+  coverage totals, `native_decide` site count, `sorry` count, orphan census, Lean anchor coverage)
+  from the artifact and exits nonzero on any mismatch. Three external audits found drift of exactly
+  this kind; the script exists so a fourth does not have to.
 - **Certificates:** `certs/lyap_refute_cofactor_ecpp.txt` is machine-readable and verifies under
   PARI with `primecertisvalid(read("certs/lyap_refute_cofactor_ecpp.txt"))`.
   `certs/immune_ecpp.txt` is a human-readable `primecertexport` dump and **cannot** be consumed that
