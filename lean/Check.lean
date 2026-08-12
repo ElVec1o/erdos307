@@ -4,6 +4,7 @@ import Erdos307.Campaign
 import Erdos307.Capstone
 import Erdos307.Closed
 import Erdos307.Congruential
+import Erdos307.Coprime60
 import Erdos307.Extremal
 import Erdos307.Frame
 import Erdos307.FunctionField
@@ -33,14 +34,13 @@ import Erdos307.Squarefree
 
 /-! # Axiom audit for the whole development
 
-Regenerated mechanically from `Erdos307/*.lean`, so it cannot drift behind the source: every
-`theorem` and `lemma` in every module is probed. Run from `lean/`:
+Regenerated mechanically from `Erdos307/*.lean`, so it cannot drift behind the source. Run from
+`lean/`:
 
     lake env lean Check.lean
 
 Expected: everything on `{propext, Classical.choice, Quot.sound}` or fewer, with exactly one
-exception, `dfs_run` and the `erdos307_sixty` that consumes it, which additionally carry
-`Lean.ofReduceBool`. `two_cycle_iff_double_fixed` and `forced39_nodup` depend on no axioms at all.
+exception, `dfs_run` and the `erdos307_sixty` that consumes it.
 -/
 
 open Erdos307
@@ -85,6 +85,11 @@ open Erdos307
 #print axioms no_period_two_of_two_nsmul_ne_zero
 #print axioms period_two_of_const_increment_of_ne
 #print axioms zmod_two_mul_eq_zero_of_period_two
+
+/-! ### Coprime60 -/
+#print axioms coprime_loss
+#print axioms loss_antitone
+#print axioms loss_at_277
 
 /-! ### Extremal -/
 #print axioms nth_prime_le_orderEmb

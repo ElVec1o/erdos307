@@ -26,6 +26,13 @@ recorded here as explicit numerals and checked by `norm_num`. That `n₀'` is sq
 outside Lean and is the only input taken on trust, exactly as the coprimality of `n` and `n'` is in
 `HalfLyap`.
 
+Trust boundary. `sigmaN0` is the mass of the witness as an explicit rational numeral, and the Lean
+development proves the criterion fails for that numeral. It does **not** prove that the numeral is
+the mass of the integer `n₀` of the paper: the factorisation of `n₀` and the primality of the
+141-digit cofactor are external, resting on the ECPP certificate in
+`certs/lyap_refute_cofactor_ecpp.txt`. So the refutation is Lean-checked modulo that identification,
+which is stated here rather than left implicit.
+
 Paper: Theorem `thm:lyapfalse`, Corollary `cor:halfsharp`.
 -/
 

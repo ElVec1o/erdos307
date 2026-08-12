@@ -32,12 +32,26 @@ missing Mathlib result or a deliberate refusal, not an absence of effort.
 A3 moved this release: regimes (i) and (ii) were prose and are now Lean. The other three are
 unchanged and are expected to stay starred until Mathlib grows the named results.
 
-## There are no unformalised purely-algebraic results
+## The "algebraic gap is zero" claim is retired
 
-Every remaining item needs a computation the kernel will not take, an analytic estimate absent from
-Mathlib, a conjectural hypothesis, or someone else's theorem. **The algebraic gap is zero** -- a
-claim this file has now had wrong twice, so it is stated as what it is: the output of the classifier
-below, re-derivable by the snippet that follows.
+This file asserted, in three consecutive releases, that no unformalised result is purely algebraic.
+It was wrong every time, and each time the counterexample was found by external audit rather than
+here:
+
+| release | counterexample | why the classifier missed it |
+|---|---|---|
+| v1.4.6 | `thm:ff` | the extractor required a `[title]` bracket, so untitled results were invisible |
+| v1.4.7 | `lem:symbolfact` | keyed on prose; the block reports an exhaustive check alongside an algebraic proof |
+| v1.4.8 | `cor:coprime60` | same cause: a least-prime-factor reduction filed as COMPUTATIONAL |
+
+Three failures of the same claim from three different causes is a sign the method is unfit, not that
+the instances were unlucky. **The claim is withdrawn.** What replaces it: the category column below
+is *indicative only*, derived from keywords in surrounding prose, and the `Paper:` anchor in each
+Lean file is the sole guarantee of coverage. Anyone auditing this repository should read the
+uncovered list and judge each entry directly rather than trusting the bucket it landed in.
+
+All three counterexamples are now formalised (`FunctionField.lean`, `NormalForm.symbolfact`,
+`Coprime60.lean`).
 
 ## How to re-run this audit
 

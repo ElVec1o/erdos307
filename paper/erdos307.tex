@@ -150,7 +150,9 @@ two--cycle has squarefree members with disjoint supports \cite{UfnarovskiAhlande
 Ufnarovski--\AA hlander conjecture that all derivative cycles have period one.
 \item \emph{Exporting} to that literature: our barrier ($\min(\prod P,\prod Q)\ge 2.09\times
 10^{56}$, Theorem~\ref{thm:barrier}) improves Kovi\v{c}'s lower bound $\approx 3.2\times10^9$
-\cite{Kovic2012} on the odd member of an $n''=n$ solution by roughly $47$ orders of magnitude.
+\cite{Kovic2012} \emph{on the odd member} of an $n''=n$ solution by roughly $47$ orders of
+magnitude. The comparison is against that specific bound; measured against other bounds in the same
+work the gain is smaller, and we make no claim about which of them is strongest.
 \end{itemize}
 
 \paragraph{Results and organisation.}
@@ -415,7 +417,10 @@ has $|P\cup Q|\ge 60$ elements, and $\min(\prod P,\prod Q)>3.50\times10^{57}$.
 Rigidity holds verbatim for pairwise--coprime families (the cofactor--sum argument uses only
 coprimality), so again $T(U)=s+t>2$. The least prime factors $\ell(e)$ of the elements are distinct,
 and $\sum_e 1/e\le\sum_e1/\ell(e)$. Suppose $|U|=59$ and some element $e$ is not prime, so
-$e\ge\ell(e)^2$. If $\ell(e)\le277$, the loss is
+$e\ge\ell(e)^2$. \textup{(}Formalised: \texttt{Erdos307.coprime\_loss} is the per--element bound,
+\texttt{loss\_antitone} its monotonicity, and \texttt{loss\_at\_277} the numeric consequence
+\textup{(}\texttt{lean/Erdos307/Coprime60.lean}\textup{)}; the slack itself is the level--59
+census.\textup{)} If $\ell(e)\le277$, the loss is
 $1/\ell-1/e\ge(\ell-1)/\ell^2\ge276/277^2=0.00359\ldots$, exceeding the maximal available slack
 $T_{59}-2=0.00235\ldots$; if $\ell(e)\ge281$, then $e\ge281^2$ while the other $58$ reciprocals sum
 to at most $T_{58}$, giving $T(U)\le T_{58}+281^{-2}=1.99875\ldots<2$. Either way $T(U)<2$, a
@@ -535,7 +540,8 @@ route to a large prime is \texttt{lucas\_primality}, which needs a complete fact
 $n-1$, and that is precisely what the $0$ of $34$ above rules out. Note the two counts answer different questions and both are correct: $81$ is the
 number of prime pairs, $34$ the number of \emph{immune} families among them. A complete kill/immune split of the residual is in any case beyond feasible
 computation, and the honest state of the single--tail sector is \emph{$46{,}483$ empty
-\textup{[P]}, $34$ conditionally immune \textup{[C]}, $3{,}478$ factoring--hard}.
+\textup{[P]}, $34$ immune and now unconditionally \textup{[P]} by the \textup{APRCL} run above,
+$3{,}478$ factoring--hard}.
 \end{proof}
 
 \begin{proposition}[Sector decomposition of level $60$]\label{prop:sectors}
@@ -2520,7 +2526,7 @@ arithmetic progression with common difference $2N$ whose outer terms are squares
 congruent--number--shaped configuration; the elliptic--curve machinery of that theory does not
 transfer because $N'$ is not an algebraic function of $N$. A $251$--term b--file to $N<10^6$
 (counting ratio $0.251$) and an OEIS submission draft accompany this note; the plus--hit
-sequence matched no OEIS entry in our search.
+sequence was not in OEIS when we searched; it is now A396915, submitted by us and cited above, so the entry is not independent corroboration.
 \textup{(v)} [P, C] \emph{General local law (QR tournament).} For every odd prime $\ell\mid N$ of
 a plus--hit, $N'+2N\equiv N/\ell\pmod\ell$ (all cofactor terms $N/p$ with $p\ne\ell$ carry a factor
 of $\ell$; only $N/\ell$ survives), so $N/\ell$ is a nonzero quadratic residue mod $\ell$. Verified

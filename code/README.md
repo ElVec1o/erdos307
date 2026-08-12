@@ -4,6 +4,10 @@ Python 3 with `sympy` and `numpy`. Every script is standalone (`python3 <name>.p
 use exact integer/rational arithmetic; floating point is used only for pre-screening. Runtimes are
 approximate (a laptop).
 
+This table documents the 24 scripts the paper cites by name. `code/` holds 102 tracked files in
+total; the remainder are supporting Rust and GP sources reachable from those, and are not individually
+documented here.
+
 | Script | What it computes | Expected output | Time |
 |---|---|---|---|
 | `barrier.py` | The quantitative barrier (exact rationals). | `m0 = 59`; `min(∏P,∏Q) = D_P ≥ ~2.093×10⁵⁶`. | ~5 s |

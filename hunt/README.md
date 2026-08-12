@@ -13,11 +13,11 @@ re-verified independently in Python before entering the paper.
 | `ladder_hunt.rs <1\|2\|3>` | Cycles over `ℤ[i]` / `ℤ[√−2]` / `ℤ[ω]` — the unit-group ladder. | populations 56 / 14 / 278 ≤ norm 2×10⁷; the phase law, plus the anti-holomorphic cycle. |
 | `real_hunt.rs` | Cycles over `ℤ[√2]` — the real-quadratic (infinite-unit) rung. | 30,204 cycles ≤ 2×10⁷ (vs 14/56/278 imaginary); minimal cycle at norms (46,49); the fully rational pair D(3707)=1547, D(1547)=3707; canonical empty to 2×10⁹. |
 | `tail_sweep.rs` | Level-60 tail family `U = first-59 ∪ {q}`: sweeps `q ≡ 5 (mod 8)` (other classes proven impossible mod 8 at startup) for the both-squares condition; resumable with autosave. | no tail solution with q ≤ 10¹² (now subsumed by Prop. tailkill: the family is empty for every q). |
-| `survivor_kill.rs` | Factoring attack (trial + Brent rho on a Montgomery bignum core) on the 18,742 Jacobi-inconclusive tail families; coprime-basis kill certificates, no primality testing needed. | 14,830 of 18,742 killed (rho budget 3e5/side) ⇒ **46,049/49,961 (92.2%)** of level-60 one-new-prime families proven empty; 3,912 open. |
+| `survivor_kill.rs` | Factoring attack (trial + Brent rho on a Montgomery bignum core) on the 18,742 Jacobi-inconclusive tail families; coprime-basis kill certificates, no primality testing needed. | 14,830 of 18,742 killed (rho budget 3e5/side). Together with the 31,219 Jacobi kills this stage reaches 46,049/49,961 (92.2%). `code/full_classify.py` then splits a further 434 cofactors, giving the paper's final **46,483/49,961 (93.0%)** proven empty, 3,478 open. Earlier versions of this file reported the intermediate 46,049 and 3,912 as if final. |
 | `close60.rs [K]` | Direct search for a level-60 #307 solution: all 60-sets with support in the first K primes and T>2, both-squares tested. | K=68: 1,258,448 sets, **0** pass the plus-square ⇒ no level-60 solution with max prime ≤ 337. |
 | `close59.rs` | Independent verification of Prop. close59 (own bignum, enumeration order opposite to `code/close59.py`). | all 49,961 admissible 59-prime supports fail the both-squares test ⇒ any solution has \|P∪Q\| ≥ 60. ~2 s. |
 
-`*_hits.txt` hold the certificates; `*.log` are sample run logs. Compiled binaries are committed for
+`*_hits.txt` hold the certificates. NOTE: `.log` files and compiled binaries are **not** committed (.gitignore excludes them); only `.out` result files are. Build from source with the commands below. Earlier versions of this file claimed committed binaries and logs for
 convenience and rebuild from source in seconds. Typical deep runs (and the verifying Python) are
 documented in the project's session record.
 

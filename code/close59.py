@@ -101,6 +101,6 @@ print(f"passing both-squares test:    {len(survivors)}")
 for U in survivors:
     print("  SURVIVOR:", U)
 if count == 49961 and not survivors:
-    print("VERIFIED: no 59-prime support closes -> any #307 solution has |P∪Q| >= 60.")
+    print("VERIFIED: no 59-prime support closes -> any #307 solution has |P u Q| >= 60.")
 else:
     print("WARNING: unexpected count or survivors -- investigate before citing.")
