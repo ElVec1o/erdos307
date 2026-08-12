@@ -65,14 +65,16 @@ $\Delta_0=M_0N(1-s_{M_0}s_N)$, provably does \emph{not} reduce the difficulty be
 (the natural ``make $\Delta_0$ small'' objective is \#307 in disguise). Recast as a bilinear breeder,
 the rule yields the maximal honest consequence (a conditional reduction $(\mathrm{H})\Rightarrow$
 \textsc{yes} to an explicit prime--density hypothesis) which a quantitative ledger shows is
-\emph{not} a feasible finite search. On the counting side we prove that \emph{both} Pythagorean layers have density zero
-unconditionally. The minus layer $m'-2m=d^2$ is the set on which the arithmetic derivative takes
+\emph{not} a feasible finite search. On the counting side we prove that both Pythagorean layers have density zero
+unconditionally \emph{on the squarefree stratum}, which is where every tool in the proof lives and
+where a \#307 solution lies by rigidity; the unrestricted statement is not proved. The minus layer $m'-2m=d^2$ is the set on which the arithmetic derivative takes
 square values, so Heath-Brown's square sieve applies once the symbol is factorised as
 $\bigl(\tfrac{m'-2m}{r}\bigr)=\bigl(\tfrac mr\bigr)\bigl(\tfrac{\sigma_r(m)-2}{r}\bigr)$, after
 which the additivity of $\sigma_r$ makes the relevant sums multiplicative and Hal\'asz supplies the
-cancellation; keeping the sieve parameter a function of $N$ gives the rate
-$\ll N\log\log N(\log N)^{-1/4}$. The sharp exponent $N^{1/2}$ is not reached, and we record three
-distinct reasons: the multiplicative decomposition scatters the cancellation across frequencies, a
+cancellation. Keeping the sieve parameter a function of $N$ would give the rate
+$\ll N\log\log N(\log N)^{-1/4}$, but that is stated as a \textsc{conjecture} and not proved here:
+it needs a form of the cancellation lemma uniform in the modulus, which we do not establish. The
+sharp exponent $N^{1/2}$ is not reached either, and we record three distinct reasons: the multiplicative decomposition scatters the cancellation across frequencies, a
 bilinear decomposition is unavailable for a signed non-multiplicative summand, and the natural
 large-sieve reformulation is circular at its principal term. The $34$ reciprocity-immune families at
 level $60$ are upgraded from probable to proved by Atkin--Morain certificates, archived for
@@ -3868,7 +3870,11 @@ $r=101,1009,10007,100003$ and $r=pq=101\cdot1009,\,1009\cdot10007$, giving
 $|T_r|/\sqrt N=8.1,\,0.1,\,1.2,\,1.0,\,1.0,\,0.2$ \textup{(\texttt{code/sqsieve\_test.rs})}.
 
 \begin{lemma}[Local densities at $p^2$]\label{lem:localsq}
-For each fixed odd prime $p$, $\ \#\{m\le N:\mu^2(m)=1,\ p^2\mid(m'-2m)\}\ll N/p^2$.
+For each odd prime $p$,
+$\ \limsup_{N\to\infty}N^{-1}\#\{m\le N:\mu^2(m)=1,\ p^2\mid(m'-2m)\}\le p^{-2}$, with absolute
+constant. \textup{(}The density form is the one Theorem~\ref{thm:a9} needs, because it sends
+$P\to\infty$; the form ``$\ll N/p^2$ for each fixed $p$'' advertises a $p$--dependent implied
+constant and would not license that limit.\textup{)}
 \end{lemma}
 \begin{proof}
 For $p\nmid m$ the condition is $\sigma_{p^2}(m)\equiv2\pmod{p^2}$ by Lemma~\ref{lem:symbolfact}
@@ -3899,9 +3905,11 @@ to \textsc{proved}. It is not \textsc{verified}: none of this is in Lean.
 
 $\#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}=o(N)$. Equivalently, atom
 $\mathrm{A}9$ holds on the squarefree stratum: the squarefree minus layer has density zero. The same
-argument with $m'+2m$ reproves Proposition~\textup{\ref{prop:plusthin}} there, so the squarefree
-Pythagorean layer has density zero unconditionally; that proposition also has its own elementary
-proof through the divisor sum, independent of this one.
+argument with $m'+2m$ gives the squarefree plus--analogue, so the squarefree Pythagorean layer has
+density zero unconditionally. That is \emph{not} a reproof of
+Proposition~\textup{\ref{prop:plusthin}}, which is a sharper $O(\sqrt X(\log X)^2)$ on the narrower
+semiprime stratum; the two are incomparable, and that proposition rests on its own elementary
+divisor--sum proof.
 
 The squarefree restriction is not cosmetic and earlier versions of this paper omitted it. Every tool
 in the proof, Rigidity, the cofactor identity, and Lemma~\ref{lem:charcancel}, is stated for
@@ -3913,9 +3921,14 @@ the unrestricted statement is not proved here.
 Write $a_m=m'-2m$ and fix $P$, letting $\mathcal{P}$ be the primes in $(P,2P]$ and
 $\Pi=|\mathcal{P}|\sim P/\log P$. If $a_m$ is a perfect square coprime to every $p\in\mathcal{P}$
 then $(a_m/p)=1$ for all such $p$, so $\sum_{p\in\mathcal{P}}(a_m/p)=\Pi$. Hence
-\[ \Pi^2\,\#\{m\le N: a_m=\square,\ \gcd(a_m,\textstyle\prod\mathcal{P})=1\}
-   \;\le\;\sum_{m\le N}\Bigl(\sum_{p\in\mathcal{P}}\Bigl(\frac{a_m}{p}\Bigr)\Bigr)^2
-   \;=\;\sum_{p,q\in\mathcal{P}}\ \sum_{m\le N}\Bigl(\frac{a_m}{pq}\Bigr). \]
+\[ \Pi^2\,\#\{m\le N:\ \mu^2(m)=1,\ a_m=\square,\ \gcd(a_m,\textstyle\prod\mathcal{P})=1\}
+   \;\le\!\!\sum_{\substack{m\le N\\ \mu^2(m)=1}}\!\!\Bigl(\sum_{p\in\mathcal{P}}\Bigl(\frac{a_m}{p}\Bigr)\Bigr)^2
+   \;=\;\sum_{p,q\in\mathcal{P}}\ \sum_{\substack{m\le N\\ \mu^2(m)=1}}\Bigl(\frac{a_m}{pq}\Bigr). \]
+Both $m$--sums carry $\mu^2(m)=1$ throughout, and so does the counting set on the left. This is not
+a convenience: every tool below is squarefree--only, and an earlier revision wrote these sums
+unrestricted, which made the identity with $T_{pq}+E_{pq}$ false by the non--squarefree terms. Those
+are not negligible, being empirically of size $N^{0.9}$ per pair against a $T_{pq}$ of size
+$N^{0.6}$, and the paper bounds them by nothing better than the trivial $(1-6/\pi^2)N$.
 The diagonal $p=q$ contributes $(a_m/p^2)=(a_m/p)^2\in\{0,1\}$, hence at most $\Pi N$. The
 off-diagonal is $\sum_{p\ne q}\bigl(T_{pq}(N)+E_{pq}(N)\bigr)$, where $T_{pq}$ carries the
 coprimality condition $\gcd(m,pq)=1$ of Lemma~\ref{lem:charcancel} and
@@ -3924,10 +3937,16 @@ correction is harmless but is not empty and must be carried:
 $|E_{pq}(N)|\le\#\{m\le N:p\mid m\text{ or }q\mid m\}\le N(1/p+1/q)\le2N/P$, so
 $\Pi^{-2}\sum_{p\ne q}|E_{pq}(N)|\le2N/P$, which is dominated by the diagonal's own $N/\Pi\asymp
 N\log P/P$ and changes nothing below. Each $T_{pq}(N)$ is $o(N)$, for each of the finitely many
-pairs, by Lemma~\ref{lem:charcancel}. A square divisible by $p$ is divisible by $p^2$, so the excluded $m$
-number at most $\sum_{p\in\mathcal{P}}O(N/p^2)\ll N/(P\log P)$ by Lemma~\ref{lem:localsq}, using
-that $p\mid m$ is impossible there. Finally
-$a_m=0$ means $m'=2m$, a single line, of density zero by Proposition~\ref{prop:lines}. Altogether
+pairs, by Lemma~\ref{lem:charcancel}. A square divisible by $p$ is divisible by $p^2$, so the excluded $m$ are counted by
+Lemma~\ref{lem:localsq} in its \emph{density} form: $\limsup_NN^{-1}\#\{m\le N:\mu^2(m)=1,\
+p^2\mid a_m\}\le p^{-2}$, with absolute constant $1$. That form is what the endgame needs, since
+sending $P\to\infty$ against a $p$--dependent implied constant would not be legitimate; the
+statement ``$\ll N/p^2$ for each fixed $p$'' advertises exactly such a constant and was cited here
+in an earlier revision. Summing, $\sum_{p\in\mathcal{P}}p^{-2}\le\Pi/P^2\asymp1/(P\log P)$. Here
+$p\mid m$ is impossible, since $m=pn$ with $p\nmid n$ gives $a_m=n+p(n'-2n)\equiv n\not\equiv0$,
+a computation that itself needs $\mu^2(m)=1$. The case $a_m=0$ does not arise: the theorem counts $a_m=\square>0$, and in any case
+$m'=2m$ has \emph{no} squarefree solution, since $\sigma(m)=2\in\mathbb{Z}$ forces $D_m=1$ by
+rigidity. Altogether
 \[ \limsup_{N\to\infty}\frac1N\#\{m\le N: a_m=\square>0\}\;\ll\;\frac1\Pi+\frac1{P\log P}. \]
 The left side does not depend on $P$; letting $P\to\infty$ gives $0$.
 \end{proof}
@@ -3949,11 +3968,17 @@ not a proof.
 \begin{corollary}[A rate for $\mathrm{A}9$: \textsc{conjecture}]\label{cor:a9rate}
 The following rate does \emph{not} follow from Lemma~\ref{lem:charcancel}, which is qualitative and
 per fixed $r$; deducing it needs a bound uniform in $r=pq$ as $P\to\infty$, and that is not
-established here. It is independently blocked by the regime mismatch recorded after
-Lemma~\ref{lem:reversal}. The statement is retained as a conjecture, nothing in this paper depends
+established here. It is independently blocked twice over: by the regime mismatch recorded after
+Lemma~\ref{lem:reversal}, and by Lemma~\ref{lem:localsq}, which at $P=P(N)$ would have to be uniform
+in $p$ and is not, its $o(1)$ being driven by non--principal $L$--functions modulo $p^2$ and
+ineffective in $p$. Theorem~\ref{thm:condpower} meets the same obstruction and sidesteps it with a
+divisor bound instead. The statement is retained as a conjecture, nothing in this paper depends
 on it, and what follows is a sketch of the balancing a uniform version would permit rather than a
 proof.
-\[ \#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}\;\ll\;\frac{N\log\log N}{(\log N)^{1/4}}. \]
+\[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}
+    \;\ll\;\frac{N\log\log N}{(\log N)^{1/4}}. \]
+The squarefree restriction is inherited from Theorem~\ref{thm:a9} and from
+Lemma~\ref{lem:charcancel}; an earlier revision stated this unrestricted.
 \end{corollary}
 \begin{proof}[Sketch, conditional on a uniform-in-$r$ form of Lemma~\ref{lem:charcancel}]
 Take $\mathcal{P}$ to be the primes in $(P,2P]$ with $P=P(N)$ to be chosen, so
@@ -4243,8 +4268,10 @@ counts a member. It asks only whether $m'-2m$ is a square, and answers by averag
 so the groupoid has nothing to act on. The one obstacle, that $m'$ is not a polynomial, is removed by
 Lemma~\ref{lem:symbolfact}: the symbol splits into a character in $m$ times a character in
 $\sigma_r(m)$, and $\sigma_r$ is additive, which is exactly the hypothesis Hal\'asz needs. The
-analytic inputs are all standard: Hal\'asz's theorem, the Sali\'e and Weil bounds, and Mertens in
-progressions. Note also that the theorem does not decide \#307, and cannot: it is a statement about
+analytic inputs are all standard: Hal\'asz's theorem, the Gauss sum evaluation
+$|\tau(\chi)|=\sqrt r$, the classical zero--free region, the $\log L$ bound for non--principal
+characters, and Siegel--Walfisz. No Sali\'e or Weil bound is used: the sum in question is a Gauss
+sum, as Lemma~\ref{lem:charcancel} records, and an earlier revision listed them here in error. Note also that the theorem does not decide \#307, and cannot: it is a statement about
 density, and a single two-cycle is a density-zero event.
 \end{remark}
 
