@@ -121,6 +121,18 @@ hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, w
   one exception: `erdos307_sixty`, which additionally carries the `native_decide` axiom of `dfs_run`.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)
   for primality and class-group work, and a few legacy Python 3 scripts (`sympy`, `numpy`).
+### Repository provenance
+
+Commits before v1.2 carry the author string `Vico Bonfioli` rather than `ElVec1o` (25 commits), and
+three of them (`6a936b7`, `c41efee`, `3e9920d`, the v1.0 and v1.1 releases) carry
+`Co-Authored-By:` trailers naming an AI assistant. The project's convention is `ElVec1o` with no AI
+attribution, and the git config and every commit from v1.2 onward comply.
+
+This history is **deliberately not rewritten.** Doing so would change every commit hash from
+`6a936b7` forward, invalidating all 13 release tags, every existing clone, and any externally cited
+SHA. The cost is real and outward-facing; the benefit is cosmetic compliance with a convention that
+is already met going forward. Recording the discrepancy is the honest resolution.
+
 - **Certificates:** `certs/lyap_refute_cofactor_ecpp.txt` is machine-readable and verifies under
   PARI with `primecertisvalid(read("certs/lyap_refute_cofactor_ecpp.txt"))`.
   `certs/immune_ecpp.txt` is a human-readable `primecertexport` dump and **cannot** be consumed that
