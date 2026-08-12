@@ -12,9 +12,17 @@ exhibiting a witness for each prime of F. This script measures how far partial
 factorisation of A_S - 1 and B_S - 1 gets, i.e. whether the certificates are within reach
 at all.
 
-Method: enumerate the 49,961 admissible bases of prop:close59, find those with A_S and B_S
-both BPSW-prime, then trial-divide n-1 to 1e6 and run bounded Pollard rho, reporting
-log(F)/log(n) against the BLS threshold 1/3.
+Method: enumerate the 49,961 admissible bases of prop:close59, find the 81 with A_S and B_S
+both BPSW-prime, keep the 34 IMMUNE ones, those additionally satisfying (D_S | A_S) = +1
+(the other 47 carry -1 and are already killed by reciprocity), then trial-divide n-1 to
+3e6 and run bounded Pollard rho on BOTH sides, reporting log(F)/log(n) against the BLS
+threshold 1/3 and taking the worse side, since immunity needs both A_S and B_S prime.
+
+Earlier versions of this script diverged from the paper in three ways, all fixed here and all
+found by external audit (REPRO-03): the Kronecker filter was missing, so `immune` held the 81
+both-prime bases while being compared against the recorded 34; the trial-division limit was
+1e6 against the paper's 3e6; and only A_S - 1 was factored, though the claim quantifies over
+both sides.
 
 Runtime: a few minutes (gmpy2). Deterministic; no randomness beyond fixed rho parameters.
 """
@@ -50,19 +58,25 @@ def dfs(i, need, cur, chosen):
 dfs(0, k, Fraction(0), [])
 print(f"admissible bases: {len(bases)} (expected 49961)")
 
-# ---- find the immune ones: A_S and B_S both BPSW-prime ---------------------
-immune = []
+# ---- both-prime bases, then the immune subset ------------------------------
+both_prime, immune = [], []
 for S in bases:
     D = mpz(1)
     for p in S: D *= p
     Nc = sum(D // p for p in S)
     A, B = Nc + 2 * D, Nc - 2 * D
     if is_prime(A) and is_prime(B):
-        immune.append((S, A, B))
-print(f"immune families (A_S, B_S both BPSW-prime): {len(immune)}  (recorded: 34)")
+        both_prime.append((S, A, B))
+        # immunity also needs the reciprocity residue (D_S | A_S) = +1; the rest are killed
+        if gmpy2.kronecker(D, A) == 1:
+            immune.append((S, A, B))
+print(f"bases with A_S, B_S both BPSW-prime : {len(both_prime)}  (paper: 81)")
+print(f"of those, immune, (D_S|A_S) = +1    : {len(immune)}  (paper: 34)")
+assert len(both_prime) == 81, f"both-prime count {len(both_prime)} != 81"
+assert len(immune) == 34, f"immune count {len(immune)} != 34"
 
 # ---- partial factorisation of n-1, and the BLS ratio -----------------------
-def partial_factor(n, tdiv_limit=10 ** 6, rho_rounds=6):
+def partial_factor(n, tdiv_limit=3 * 10 ** 6, rho_rounds=6):
     """return (F, factors) with F the fully-factored part of n found."""
     m = mpz(n); F = mpz(1); fs = []
     for p in range(2, tdiv_limit):
@@ -92,13 +106,17 @@ def partial_factor(n, tdiv_limit=10 ** 6, rho_rounds=6):
         F *= m; fs.append(int(m)); m = mpz(1)
     return F, fs
 
-print(f"\n{'#':>3} {'digits':>7} {'log F / log n':>14} {'BLS 1/3 met':>12}")
+print(f"\n{'#':>3} {'digits':>7} {'A ratio':>9} {'B ratio':>9} {'worse':>9} {'BLS 1/3':>8}")
 certified = 0
 for idx, (S, A, B) in enumerate(immune, 1):
     FA, _ = partial_factor(A - 1)
-    ratio = log(FA) / log(A) if FA > 1 else 0.0
-    ok = ratio > 1 / 3
+    FB, _ = partial_factor(B - 1)
+    rA = log(FA) / log(A) if FA > 1 else 0.0
+    rB = log(FB) / log(B) if FB > 1 else 0.0
+    worse = min(rA, rB)          # immunity needs BOTH sides certified
+    ok = worse > 1 / 3
     certified += ok
-    print(f"{idx:>3} {len(str(A)):>7} {ratio:>14.4f} {str(ok):>12}")
-print(f"\nfamilies reaching the BLS threshold: {certified} of {len(immune)}")
-print("label stays [C] for the rest: BPSW prime verdicts are not proofs.")
+    print(f"{idx:>3} {len(str(A)):>7} {rA:>9.4f} {rB:>9.4f} {worse:>9.4f} {str(ok):>8}")
+print(f"\nfamilies reaching the BLS threshold on both sides: {certified} of {len(immune)}")
+print("Paper claims 0 of 34; the elementary route does not reach.")
+print("The unconditional upgrade to [P] comes from APRCL instead: code/immune_prove.gp.")
