@@ -3149,9 +3149,17 @@ $r(a)$ is $0.5535$, attained at $a=3{,}972{,}254$; the frontier advances by deca
 $0.333,\,0.345,\,0.502,\,0.502,\,0.536,\,0.554$. In particular $r\ge1$ never occurs, the defect
 $|a''-a|$ is of size $a^{0.9}$ or larger in all but three cases, and the smallest relative defect is
 $0.4465$. Consequently the constant in the heuristic count of two-cycles, $f(1)\log X$ with $f$ the
-density of $r$ at $1$, is \emph{not measurable}: by Theorem~\textup{\ref{thm:barrier}} the entire
-region $r\ge1$ lies above $10^{112.9}$, so no sweep reaches it
-\textup{(\texttt{code/a10\_nearmiss.rs}, \texttt{code/a10\_density1.rs})}.
+density of $r$ at $1$, is \emph{not measurable}, and the obstruction is two--sided.
+
+By Theorem~\textup{\ref{thm:barrier}} the region $r\ge1$ lies above $10^{112.9}$. The window
+immediately to the \emph{left} of $1$ is barred as well, by AM--GM rather than by the barrier
+hypothesis: $\sigma(a)+\sigma(a')\ge2\sqrt{\sigma(a)\sigma(a')}=2\sqrt r$, and
+$2\sqrt r>T_{58}=1.99874\ldots$ as soon as $r>(T_{58}/2)^2=0.998740\ldots$, whence $|P\cup Q|\ge59$
+and the product again exceeds $\Pi_{59}>8.77\times10^{112}$. So the whole neighbourhood
+$r\in(0.998740,\infty)$ of the value $1$ lies above the barrier, not merely the half--line $r\ge1$,
+and no sweep reaches any of it \textup{(\texttt{code/a10\_nearmiss.rs},
+\texttt{code/a10\_density1.rs})}. Earlier editions barred only $r\ge1$, which left the left window
+formally open and the unmeasurability argument one--sided.
 \end{proposition}
 
 The region is not unreachable, only unsweepable. The witness $n_0$ of
@@ -3729,8 +3737,12 @@ $r$ is claimed, and the uniform form is false.} See the erratum following the pr
 \qquad (N\to\infty). \]
 \end{lemma}
 \begin{proof}
-Take $r=q$ prime; the general squarefree $r$ follows by expanding
-$(\cdot/r)=\prod_{q\mid r}(\cdot/q)$ and running the argument in each factor. Let
+Take $r=q$ prime. \emph{The reduction to prime $r$ is incomplete.} Expanding
+$(\cdot/r)=\prod_{q\mid r}(\cdot/q)$ turns $T_r$ into a sum of a product of characters to distinct
+moduli, and ``running the argument in each factor'' is not a proof: the Hal\'asz input applies to a
+single multiplicative function, and the product over $q\mid r$ must be treated as one function to
+the modulus $r$, with its own distance $M$. Theorem~\ref{thm:a9} consumes exactly the composite
+moduli $r=pq$, so this gap is in the range that is used. What follows proves the prime case. Let
 $g=\sum_{t}(t/q)e_q(t)$, so $|g|=\sqrt q$ and $(x/q)=g^{-1}\sum_{t\bmod q}(t/q)e_q(tx)$ for every
 $x$. By Lemma~\ref{lem:symbolfact},
 \[ T_q(N)=g^{-1}\sum_{t\bmod q}\Bigl(\frac{t}{q}\Bigr)e_q(-2t)\sum_{m\le N}h_t(m),
@@ -3795,11 +3807,23 @@ $m'-2m$, let alone $p^2$.
 Measured ratios of the count to $N/p^2$ at $N=3\times10^7$: $0.842$, $0.887$, $0.930$, $0.925$,
 $0.993$ for $p=5,7,11,13,101$, approaching $1$ as predicted.
 
-\begin{theorem}[The minus layer has density zero, on the squarefree stratum]\label{thm:a9}
+\begin{theorem}[The minus layer has density zero, on the squarefree stratum: \textsc{conjecture}]\label{thm:a9}
+\textup{Label downgraded.} The proof below reduces to Lemma~\ref{lem:charcancel} at the
+\emph{composite} moduli $r=pq$, and that lemma's reduction from composite $r$ to prime $r$ is a
+one--line assertion rather than an argument, as the erratum after it now records. The gap therefore
+sits precisely in the range this theorem uses, so the statement is retained as a conjecture. What is
+proved is the square--sieve skeleton together with the prime--modulus case of
+Lemma~\ref{lem:charcancel}.
+
+Two things are unaffected. Proposition~\ref{prop:plusthin} does not depend on this theorem: it has
+its own elementary proof through the divisor sum, and only the remark that ``the same argument
+reproves it'' falls. And the barrier, which is what \#307 actually rests on, is independent of the
+whole minus--layer analysis.
+
 $\#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}=o(N)$. Equivalently, atom
 $\mathrm{A}9$ holds on the squarefree stratum: the squarefree minus layer has density zero. The same
-argument with $m'+2m$ reproves Proposition~\textup{\ref{prop:plusthin}} there, so the squarefree
-Pythagorean layer has density zero unconditionally.
+argument with $m'+2m$ would reprove Proposition~\textup{\ref{prop:plusthin}} there, and inherits the
+same gap; that proposition's own elementary proof is unaffected.
 
 The squarefree restriction is not cosmetic and earlier versions of this paper omitted it. Every tool
 in the proof, Rigidity, the cofactor identity, and Lemma~\ref{lem:charcancel}, is stated for
@@ -4053,6 +4077,12 @@ Write $a_m=m'-2m$ and $a_m=\pm s_m^2k_m$ with $k_m$ squarefree. For odd squarefr
 where $b^{\pm}_k=\#\{m\le N:\mu^2(m)=1,\ k_m=k,\ \pm a_m>0\}$ depend on $N$ only. For
 $r=pq$ with $p,q\asymp N^{1/2}$ the error term is $O(1)$ by Lemma~\textup{\ref{lem:localsq}}, which
 gives $\#\{m\le N:p^2\mid a_m\}\ll N/p^2$.
+
+\emph{Regime caveat.} That $O(1)$ holds only at $p\asymp N^{1/2}$. The application in
+Corollary~\ref{cor:a9rate} balances at $P\asymp(\log N)^{1/4}$, where the same estimate gives
+$N/p^2\asymp N/(\log N)^{1/2}$, which is not $O(1)$ and is not $o(N)$ either. The two regimes are
+disjoint, so this lemma does not supply the error control that corollary needs. This is a second,
+independent reason for the label \textsc{conjecture} carried there.
 \end{lemma}
 \begin{proof}
 If $\gcd(a_m,r)=1$ then $(a_m/r)=(\pm1/r)(k_m/r)(s_m/r)^2=(\pm1/r)(k_m/r)$. The two sides can differ
@@ -4146,7 +4176,12 @@ $\delta(2)\le10^{-105.6}$ \textup{(\texttt{code/chernoff\_mass.rs})}.
 \end{theorem}
 \begin{proof}
 Split $D(c)$ at $|p|\le P$ and $|p|>P$. The first part is a union of at most $2P$ generalized lines,
-each of size $\ll Z/(\log Z)^{(1+o(1))\log_3 Z}$ by Proposition~\ref{prop:lines}; taking
+each of size $\ll Z/(\log Z)^{(1+o(1))\log_3 Z}$ by Proposition~\ref{prop:lines}
+\textup{(}\emph{caveat}: Proposition~\ref{prop:lines} is stated for \emph{integer} slope $e\ge1$,
+while the strata $L(p,2p-1,c)$ of Proposition~\ref{prop:slotstrat} have slope $(2p-1)/p$, which is
+non--integral for $p\ne1$. The bound is therefore invoked outside the range in which it is proved,
+and the first part of this proof is \textsc{conjecture} pending a version of
+Proposition~\ref{prop:lines} uniform over rational slopes\textup{)}; taking
 $P=P(Z)\to\infty$ slowly makes the total $o(Z)$. For the second, $|p|>P$ forces
 $|2-\sigma(m)|<(1+|c|/m)/P$ by the mass form, so for $m>|c|$ we get $\sigma(m)>2-2/P$, and the count
 is at most $\delta(2-2/P)Z(1+o(1))$. For the Chernoff bound, $f(m)=\prod_{p\mid m}e^{t/p}$ is
@@ -4752,7 +4787,11 @@ representation $E\,s^2+D\,d^2=4N^2$ (reducing mod $\ell$ forces $N$ to be a quad
 $(N\mid\ell)=-1$; this is the genus fragment of Proposition~\ref{prop:genus}), so every union of a \#307
 solution is a survivor. Now $N'\equiv N\,S_\ell(N)\pmod\ell$ with $S_\ell(N)=\sum_{p\mid N}p^{-1}$ an
 \emph{additive} function, so blocking at $\ell$ is an additive--function event ($S_\ell\equiv\pm2$) twisted by
-the quadratic character, of limiting density $1/(\ell+1)$. As $\sum_\ell1/(\ell+1)$ diverges (Mertens), the
+the quadratic character, of limiting density $1/(\ell+1)$ \textup{[}\textsc{heuristic}: this constant
+is asserted, not derived. Equidistribution of $S_\ell$ over $\mathbb{Z}/\ell$ together with density
+$\tfrac12$ for $(N\mid\ell)=-1$ would give $2/\ell\cdot\tfrac12=1/\ell$ instead. The two agree to
+leading order and $\sum_\ell1/\ell$ diverges as well, so the shape of the conclusion is unaffected;
+the exact constant is not established here\textup{]}. As $\sum_\ell1/(\ell+1)$ diverges (Mertens), the
 Selberg--Delange/Halász theory of additive functions in residue classes \cite{Tenenbaum} gives that the
 survivors have natural density zero among the squarefree integers (unconditional), with
 $\#\{\text{survivors}\le X\}=O\!\bigl(X/\log\log\log X\bigr)$ under a standard, but here unproved,
