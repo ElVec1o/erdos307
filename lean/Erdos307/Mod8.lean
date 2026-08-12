@@ -104,6 +104,16 @@ theorem prime_sums_congruent {P Q : Finset ℕ}
   rw [← hA, ← hB]
   ring
 
+/-- **`prop:mod8`(b), the second half.** The prime sums are congruent not only to each other but to
+the product `ab`: `S(a) ≡ ab (mod 8)`. This is the law read with `a' = b`, and an earlier version of
+this file proved only the first half while the paper stated both. -/
+theorem prime_sum_eq_product {P Q : Finset ℕ} (hP : ∀ p ∈ P, p.Prime) (hPodd : ∀ p ∈ P, Odd p)
+    (h1 : csum P = dprod Q) :
+    (∑ p ∈ P, ((p : ℕ) : ZMod 8)) = ((dprod P : ℕ) : ZMod 8) * ((dprod Q : ℕ) : ZMod 8) := by
+  have hA := mod8_law hP hPodd
+  rw [h1] at hA
+  exact hA.symm
+
 /-! ### The parity law and `thm:parity` -/
 
 /-- **The mod-2 shadow of the law.** Every cofactor `m/p` is odd, so `m' ≡ ω(m) (mod 2)`. Stated
@@ -173,6 +183,40 @@ theorem plus_hit_residue {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) (hodd : �
     ((dprod S : ℕ) : ZMod 8) * ((∑ p ∈ S, ((p : ℕ) : ZMod 8)) + 2) = 4 := by
   rw [← plus_quantity_mod8 hS hodd, hy]
   exact sq_values_mod8 y
+
+/-- An even number squares to `0` or `4` modulo `8`: `(2k)² = 4k²` and `k² ≡ 0` or `1 (mod 2)`. -/
+theorem even_sq_mod8 {s : ℕ} (h : Even s) :
+    ((s : ℕ) : ZMod 8) ^ 2 = 0 ∨ ((s : ℕ) : ZMod 8) ^ 2 = 4 := by
+  obtain ⟨k, rfl⟩ := h
+  rcases Nat.even_or_odd k with hk | hk
+  · obtain ⟨j, rfl⟩ := hk
+    left
+    have h8 : (8 : ZMod 8) = 0 := by decide
+    push_cast
+    linear_combination (2 * (j : ZMod 8) ^ 2) * h8
+  · obtain ⟨j, rfl⟩ := hk
+    right
+    have h8 : (8 : ZMod 8) = 0 := by decide
+    push_cast
+    linear_combination (2 * (j : ZMod 8) ^ 2 + 2 * (j : ZMod 8)) * h8
+
+/-- **`prop:mod8`(d), the `ω`-parity split.** When `ω(N)` is odd the plus quantity is odd, so an odd
+plus-hit forces `N(S(N)+2) ≡ 1 (mod 8)`; when `ω(N)` is even it forces `≡ 0` or `4`. The parity of
+`N' + 2N` is that of `N'`, which `parity_law` fixes as `ω(N)`. -/
+theorem plus_hit_residue_split {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) (hodd : ∀ p ∈ S, Odd p)
+    {s : ℕ} (hsq : csum S + 2 * dprod S = s ^ 2) :
+    (Odd s → ((dprod S : ℕ) : ZMod 8) * ((∑ p ∈ S, ((p : ℕ) : ZMod 8)) + 2) = 1) ∧
+    (Even s → ((dprod S : ℕ) : ZMod 8) * ((∑ p ∈ S, ((p : ℕ) : ZMod 8)) + 2) = 0 ∨
+              ((dprod S : ℕ) : ZMod 8) * ((∑ p ∈ S, ((p : ℕ) : ZMod 8)) + 2) = 4) := by
+  have hcast : ((csum S : ℕ) : ZMod 8) + 2 * ((dprod S : ℕ) : ZMod 8)
+      = ((s : ℕ) : ZMod 8) ^ 2 := by
+    have h := congrArg (fun n : ℕ => ((n : ℕ) : ZMod 8)) hsq
+    push_cast at h
+    exact h
+  have hkey : ((dprod S : ℕ) : ZMod 8) * ((∑ p ∈ S, ((p : ℕ) : ZMod 8)) + 2)
+      = ((s : ℕ) : ZMod 8) ^ 2 := by
+    rw [← plus_quantity_mod8 hS hodd]; exact hcast
+  exact ⟨fun h => by rw [hkey]; exact odd_sq_mod8 h, fun h => by rw [hkey]; exact even_sq_mod8 h⟩
 
 /-! ### `prop:mod8`(c): the mixed case -/
 

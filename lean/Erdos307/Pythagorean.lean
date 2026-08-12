@@ -86,6 +86,20 @@ theorem mass_ge_two_of_pythagorean {a b : ℚ} (ha : 0 < a) (hb : 0 < b) :
   rw [le_div_iff₀ (by positivity)]
   nlinarith [sq_nonneg (a - b)]
 
+/-- **The glue.** From the Pythagorean equation itself: if the support `U` has `N' = a² + b²` and
+`N = ab`, then the mass `N'/N` is at least `2`. This is what connects `mass_ge_two_of_pythagorean`,
+an inequality about rationals, to `card_ge_59_of_pythagorean`, which consumes a mass bound. An
+earlier version of this file proved the two ends and not the link, so the corollary's "Formalised."
+tag overstated what was there. -/
+theorem mass_ge_two_of_pyth_support {U : Finset ℕ} {a b : ℕ} (ha : 0 < a) (hb : 0 < b)
+    (hcs : csum U = a ^ 2 + b ^ 2) (hdp : dprod U = a * b) :
+    (2 : ℚ) ≤ (csum U : ℚ) / (dprod U : ℚ) := by
+  have ha' : (0 : ℚ) < (a : ℚ) := by exact_mod_cast ha
+  have hb' : (0 : ℚ) < (b : ℚ) := by exact_mod_cast hb
+  rw [hcs, hdp]
+  push_cast
+  exact mass_ge_two_of_pythagorean ha' hb'
+
 /-- **`cor:emptytest`.** A Pythagorean pair carries at least `59` primes in its support, so
 `N = ab ≥ Π₅₉ > 7.9 × 10^112` and no squarefree `N < 10^112` with `ω(N) ≥ 2` passes the
 single-integer test. The empirical "`0` of `103,596`" is a theorem, and the barrier extends from
@@ -94,6 +108,12 @@ theorem card_ge_59_of_pythagorean {U : Finset ℕ} (hU : ∀ p ∈ U, p.Prime)
     (h : (2 : ℚ) ≤ (csum U : ℚ) / (dprod U : ℚ)) : 59 ≤ U.card := by
   refine card_ge_59_of_recipSum_ge_two hU ?_
   rwa [recipSum_eq U hU]
+
+/-- **`cor:emptytest`, assembled.** A Pythagorean pair's support carries at least `59` primes,
+directly from the Pythagorean equation rather than from an assumed mass bound. -/
+theorem emptytest {U : Finset ℕ} {a b : ℕ} (hU : ∀ p ∈ U, p.Prime) (ha : 0 < a) (hb : 0 < b)
+    (hcs : csum U = a ^ 2 + b ^ 2) (hdp : dprod U = a * b) : 59 ≤ U.card :=
+  card_ge_59_of_pythagorean hU (mass_ge_two_of_pyth_support ha hb hcs hdp)
 
 /-! ### `prop:kcycles`: longer cycles are harder -/
 

@@ -1,31 +1,27 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**52 of 106** labelled results are named by a Lean file in `Erdos307/` (31 files, **0 `sorry`**).
+**53 of 106** labelled results are named by a Lean file in `Erdos307/` (31 files, **0 `sorry`**).
 
-Every theorem is on the three standard axioms with a single stated exception: `erdos307_sixty`
-carries one `ofReduceBool` axiom, from `dfs_run`, the pruned-search execution that closes level 60.
-The numeral bridge is kernel-checked, so the barrier itself (`card_ge_59`, `erdos307_barrier_closed`)
-carries no `native_decide`. `lake env lean Check.lean` probes 163 declarations across **all 30
-modules** and prints this.
+`lake env lean Check.lean` probes **269 declarations across all 31 modules**. Everything is on the
+three standard axioms or fewer, with exactly two exceptions: `dfs_run`, the pruned-search execution
+that closes level 60, and the `erdos307_sixty` that consumes it. The numeral bridge is
+kernel-checked, so `card_ge_59` and `erdos307_barrier_closed` carry no `native_decide`.
 
-This file exists so an audit finds a *stated boundary* rather than a gap. Every result the paper
-claims is in exactly one of two states: formalised, or listed below with the reason it is not.
+## What the category column is, and is not
 
-## Correction, v1.4.7
-
-The v1.4.6 edition of this file reported 48 of 104 and claimed `ALGEBRAIC` was empty. Both were
-wrong. The label extractor required a `[title]` bracket, so results written `\begin{theorem}\label{...}`
-were invisible to it: the true total is 106, and four labels (`thm:ff`, `prop:form`, `prop:strata`,
-`prop:untestable`) were neither anchored nor classified, which broke the "exactly one of two states"
-guarantee. `thm:ff` was in fact a two-line degree argument, so `ALGEBRAIC` was not empty either. The
-extractor is fixed, `thm:ff` is now formalised (`FunctionField.lean`), and the counts below are
-regenerated.
+The category is a **heuristic** applied to the surrounding prose; the `Paper:` anchor in each Lean
+file is the guarantee. The v1.4.6 edition of this file mis-filed `lem:symbolfact`, a two-line
+algebraic identity, as COMPUTATIONAL, because its block reports an exhaustive check alongside the
+proof. It also reported 48 of 104 while the true total is 106: the extractor required a `[title]`
+bracket, so untitled results such as `thm:ff` were invisible. Both are fixed, and both were found by
+external audit rather than by this file, which is the honest record.
 
 ## There are no unformalised purely-algebraic results
 
-Every remaining item needs something Lean cannot supply here: a computation at a scale the kernel
-will not take, an analytic estimate absent from Mathlib, a conjectural hypothesis, or someone else's
-theorem. **The algebraic gap is zero.**
+Every remaining item needs a computation the kernel will not take, an analytic estimate absent from
+Mathlib, a conjectural hypothesis, or someone else's theorem. **The algebraic gap is zero** -- a
+claim this file has now had wrong twice, so it is stated as what it is: the output of the classifier
+below, re-derivable by the snippet that follows.
 
 ## How to re-run this audit
 
@@ -33,7 +29,7 @@ theorem. **The algebraic gap is zero.**
 python3 - <<'EOF'
 import re, glob
 tex = open('paper/erdos307.tex').read()
-pat = re.compile(r'\\begin\{(theorem|proposition|lemma|corollary)\}(?:\[((?:[^\[\]]|\[[^\]]*\])*)\])?\s*\\label\{([a-z:0-9]+)\}')
+pat = re.compile(r'\\\\begin\\{(theorem|proposition|lemma|corollary)\\}(?:\\[((?:[^\\[\\]]|\\[[^\\]]*\\])*)\\])?\\s*\\\\label\\{([a-z:0-9]+)\\}')
 labels = {m[2] for m in pat.findall(tex)}
 lean = set()
 for f in glob.glob('lean/Erdos307/*.lean'):
@@ -43,24 +39,17 @@ print('uncovered:', sorted(labels - lean))
 EOF
 ```
 
-The optional-bracket group matters: without it, untitled results are silently dropped.
+## COMPUTATIONAL (28)
 
-Every Lean file carries a `Paper:` line naming the results it covers. A file without one is a bug in
-this scheme, not an uncovered result.
-
-## COMPUTATIONAL (29)
-
-The result *is* a number a program produces: a census, a sweep, an enumeration, a measured
-density. Formalising the statement would mean formalising the computation, which at these ranges means
-`native_decide` at a scale the kernel will not take. Each cites the script that produces it, and those
-scripts are tracked in `code/` (Rule 9). Out of scope by construction, not pending.
+The result *is* a number a program produces. Formalising it would mean formalising the
+computation, which at these ranges means `native_decide` at a scale the kernel will not take. Each
+cites its generating script in `code/` (Rule 9).
 
 | label | statement |
 |---|---|
 | `cor:coprime60` | The coprime variant inherits the closed level |
 | `cor:diagonals` | Diagonal stratification: the cost of the last lattice step |
 | `cor:gos` | Nonemptiness families for the mu--Sondow conjecture |
-| `lem:symbolfact` | Factorisation of the symbol |
 | `prop:anticorr` | The barrier is statistically complete |
 | `prop:bde` | Bilinear breeder form |
 | `prop:coladder` | The co--ladder and the arithmetic Riccati equation |
@@ -90,10 +79,8 @@ scripts are tracked in `code/` (Rule 9). Out of scope by construction, not pendi
 ## ANALYTIC (19)
 
 Needs analytic machinery Mathlib does not carry: divisor-sum asymptotics, density of
-`{σ(m) ≥ x}`, Chernoff bounds over primes, Weil's point count, large-sieve and character-sum
-estimates, Mertens. Genuine library gaps, not choices. The elementary skeleton underneath several of
-them *is* formalised; `PlusThin.lean` is the model, where the reduction to a divisor sum is complete in
-Lean and only the asymptotic is prose.
+`{sigma(m) >= x}`, Chernoff over primes, Weil, large sieve, Mertens. Where such a result has an
+elementary core, the core *is* formalised; `PlusThin.lean` is the model.
 
 | label | statement |
 |---|---|
@@ -119,8 +106,7 @@ Lean and only the asymptotic is prose.
 
 ## CONDITIONAL (3)
 
-Stated conditionally in the paper (on Bunyakovsky, Schinzel, GRH, or a named conjecture).
-Nothing downstream treats them as proved.
+Stated conditionally in the paper. Nothing downstream treats them as proved.
 
 | label | statement |
 |---|---|
@@ -130,7 +116,7 @@ Nothing downstream treats them as proved.
 
 ## CITED (3)
 
-Someone else's theorem, used as an input. Not ours to formalise.
+Someone else's theorem, used as an input.
 
 | label | statement |
 |---|---|

@@ -293,8 +293,9 @@ unconditional, because Rigidity already delivers squarefree, disjoint $P,Q$ from
 
 \textup{Formalised.} \texttt{Erdos307.bridge\_forward} is $(1)\Rightarrow(2)$ and cites nothing;
 the distinctness $a\ne b$ is \emph{derived} there, not assumed
-\textup{(}\texttt{dprod\_ne\_dprod}\textup{)}, and support--disjointness likewise
-\textup{(}\texttt{disjoint\_primeFactors\_of\_cycle}\textup{)}, both from Rigidity.
+\textup{(}\texttt{dprod\_ne\_dprod}\textup{)}. Support--disjointness is available separately as
+\texttt{disjoint\_primeFactors\_of\_cycle}, also from Rigidity; it is not consumed by
+\texttt{bridge\_forward}, which does not need it.
 \texttt{bridge\_backward} is $(2)\Rightarrow(1)$ with the Ufnarovski--\AA hlander squarefreeness
 appearing as an explicit hypothesis, and \texttt{two\_cycle\_iff\_double\_fixed} is
 $(2)\Leftrightarrow(3)$ for an arbitrary self--map, on \emph{no} axioms at all. $0$ \texttt{sorry}
@@ -2095,7 +2096,10 @@ two--cycles to the strictly weaker one--equation (Pythagorean) problem.
 \textup{Formalised.} \texttt{Erdos307.pyth\_sum\_of\_squares} is $N'=a^2+b^2$ from Leibniz and the
 cycle, \texttt{pyth\_discriminant} the resulting square, \texttt{split\_identity} and
 \texttt{split\_product} the two--layer form of Proposition~\ref{prop:split}, and
-\texttt{mass\_ge\_two\_of\_pythagorean} with \texttt{card\_ge\_59\_of\_pythagorean} this corollary.
+\texttt{mass\_ge\_two\_of\_pythagorean} with \texttt{card\_ge\_59\_of\_pythagorean} this corollary,
+glued by \texttt{mass\_ge\_two\_of\_pyth\_support} into \texttt{emptytest}, which takes the
+Pythagorean equation itself rather than an assumed mass bound. Earlier editions proved the two ends
+and not the link, so this tag overstated what was present.
 The AM--GM step of Proposition~\ref{prop:kcycles} is \texttt{sum\_ge\_card\_of\_prod\_eq\_one}, valid
 for every $k$ at once and proved from $\log x\le x-1$ rather than a $k$--term AM--GM. Bado's converse
 is cited, not reproved \textup{(\texttt{lean/Erdos307/Pythagorean.lean})}.
@@ -2148,7 +2152,8 @@ $k(N)\in\mathbb{Z}_{\le0}$; \#307 holds iff $k(N)=0$ for some $N$, and by~(3) th
 domain that is empty below $10^{112}$.
 \end{enumerate}
 
-\textup{Formalised.} \texttt{Erdos307.k\_nonpos} is \textup{(1)}, \texttt{rung\_parity\_mixed} and
+\textup{Formalised.} \texttt{Erdos307.k\_nonpos} is the bound $k\le0$ of \textup{(1)}; the
+finiteness of the ladder, $|k|<\min(b/a,\sigma(b))$, is not formalised. Further, \texttt{rung\_parity\_mixed} and
 \texttt{rung\_parity\_odd} are \textup{(2)}, \texttt{rung\_cross} and \texttt{rung\_mass\_indep} are
 \textup{(3)} \textup{(}the second being the invariance that carries
 Corollary~\ref{cor:emptytest} onto every rung\textup{)}, and \texttt{rung\_minus\_one} is
@@ -2464,8 +2469,11 @@ but they thin every hunt over the odd sector by a fixed factor.
 \texttt{odd\_sq\_mod8}; \texttt{prime\_sums\_congruent} is \textup{(b)}; \texttt{parity\_law} is
 \textup{(a)} and is stated over $\NN$ with $\bmod$, so it needs no \texttt{ZMod} API, and
 \texttt{omega\_even\_of\_even\_derivative} is the step Theorem~\ref{thm:parity}\textup{(i)} uses.
-Part~\textup{(d)} is \texttt{plus\_quantity\_mod8}, with the
-square--residue filter \texttt{plus\_hit\_residue}; part~\textup{(c)} is
+Part~\textup{(b)}'s second half, $S(a)\equiv ab$, is
+\texttt{prime\_sum\_eq\_product}; part~\textup{(d)} is \texttt{plus\_quantity\_mod8} with the
+square--residue filter \texttt{plus\_hit\_residue} and the $\omega$--parity split
+\texttt{plus\_hit\_residue\_split}, which supplies the $\equiv1$ versus $\equiv0,4$ dichotomy;
+part~\textup{(c)} is
 \texttt{mixed\_member\_mod16}, \texttt{even\_member\_mod16} and \texttt{mixed\_prime\_sum\_mod8},
 the mod--$16$ statements chaining onto the law through its integer form \texttt{mod8\_law\_int}. All
 four parts are therefore formal \textup{(\texttt{lean/Erdos307/Mod8.lean})}.
@@ -2547,9 +2555,11 @@ The proof splits into an elementary skeleton and an analytic tail, and the split
 explicit because the two have different status. The skeleton is formalised:
 \texttt{Erdos307.plus\_semiprime\_identity} is the factorisation $2s^2+1=(2p+1)(2q+1)$,
 \texttt{plus\_range} the bound $s^2\le3N+1$ that confines $s$ to $Y$, \texttt{plus\_recover} the
-injectivity, and \texttt{count\_le\_divisor\_sum} the reduction of the count to
-$\sum_{s\le Y}\tau(2s^2+1)$, proved in full by injecting into the disjoint union of the divisor
-sets. \texttt{card\_large\_le\_card\_small} and \texttt{tau\_le\_two\_small} are the
+injectivity, and \texttt{count\_le\_divisor\_sum} the reduction of a count to
+$\sum_{s\le Y}\tau(2s^2+1)$ by injection into the disjoint union of the divisor sets. That reduction
+is stated abstractly, over any finite set carrying a root and a divisor: the notion ``plus--hit''
+is not itself defined in Lean, so the instantiation to this layer is done in the prose above and not
+machine--checked. \texttt{card\_large\_le\_card\_small} and \texttt{tau\_le\_two\_small} are the
 divisor--pairing step that reorganises that sum over the small member alone, and
 \texttt{two\_roots\_quadratic} is the Hensel root count at the prime level, in a form needing only
 $2\ne0$ rather than the discriminant. $0$ \texttt{sorry}
@@ -2933,11 +2943,17 @@ prime factors of $a'$, and the existence route carries exactly one parameter, th
 
 \textup{Formalised.} \texttt{Erdos307.Q\_determined}: given $a'=b$, the set $Q$ is exactly the set of
 prime factors of $a'$. The one--prime normal form of Proposition~\ref{prop:oneprime} is
-\texttt{oneprime\_forced}, \texttt{oneprime\_cycle}, \texttt{oneprime\_mass\_identity} and
-\texttt{oneprime\_mass\_bound}, the last two giving part~\textup{(b)}: the mass identity holds for
+\texttt{oneprime\_forced}, \texttt{oneprime\_cycle}, \texttt{oneprime\_converse}
+\textup{(}which closes the equivalence; earlier editions formalised one direction only\textup{)},
+\texttt{oneprime\_mass\_identity} and \texttt{oneprime\_mass\_bound}, the last two giving
+part~\textup{(b)}: the mass identity holds for
 \emph{every} witness, prime or composite, so the exactness layer alone carries the barrier. The slot
 calculus of Proposition~\ref{prop:slot} is \texttt{slot\_layers} and \texttt{slot\_recovery}, the
-filter of Corollary~\ref{cor:qr} is \texttt{qr\_filter}, and the reduction mechanism behind
+filter of Corollary~\ref{cor:qr} is \texttt{qr\_filter}, resting on \texttt{cofactor\_survival},
+the congruence $N'+2N\equiv N/\ell\pmod\ell$, which is proved rather than assumed (an earlier edition
+stated \texttt{qr\_filter} with that arithmetic as a hypothesis on abstract residues, which left it
+contentless); Lemma~\ref{lem:symbolfact} is \texttt{Frame.csum\_eq\_mul\_recipSum} for its first half
+and \texttt{symbolfact} for the Jacobi factorisation; and the reduction mechanism behind
 Proposition~\ref{prop:noconj}, Rigidity and Lemma~\ref{lem:anatomy} alike is isolated once as
 \texttt{dvd\_sum\_erase\_iff} \textup{(\texttt{lean/Erdos307/NormalForm.lean})}.
 \end{proposition}

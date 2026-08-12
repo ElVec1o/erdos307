@@ -28,10 +28,11 @@ is: one parameter, then one primality condition.
   `prop:liveslot` and the census: a plus-hit is exactly `r = (s² - N₀)/E₀`, so the whole layer is a
   congruence `s² ≡ N₀ (mod E₀)` rather than a search.
 
-* **`cor:qr`.** Every `ℓ ∈ P ∪ Q` has `(N/ℓ ∣ ℓ) = +1`. Since `ℓ` divides exactly one of `a, b`, it
-  does not divide `a + b`, and `N/ℓ ≡ N' + 2N = (a+b)²` is a nonzero square. The filter is
-  split-free, which is its one advantage over Bado's linear congruence; squaring is lossy, so Bado's
-  is strictly stronger.
+* **`cor:qr`.** Every `ℓ ∈ P ∪ Q` has `(N/ℓ ∣ ℓ) = +1`. The arithmetic content is
+  `cofactor_survival`, `N' + 2N ≡ N/ℓ (mod ℓ)`, proved here rather than assumed: every term of
+  `N' = ∑ N/p` except the one at `ℓ` still contains `ℓ`. `qr_filter` then reads off that `N/ℓ` is a
+  nonzero square. `lem:symbolfact` is the companion factorisation, its first half being
+  `Frame.csum_eq_mul_recipSum` and its second `jacobiSym.mul_left`.
 
 * **`prop:noconj`.** Reducing a Leibniz derivative modulo one of its own primes kills every term but
   one, so the result is a unit times a nonzero cofactor. `dvd_sum_erase_iff` is that mechanism in
@@ -39,7 +40,8 @@ is: one parameter, then one primality condition.
   once makes all three instances one lemma.
 
 Paper: Proposition `prop:nofreeslot`, Corollary `cor:noslack`, Proposition `prop:oneprime`,
-Proposition `prop:slot`, Corollary `cor:qr`, Proposition `prop:noconj`.
+Proposition `prop:slot`, Corollary `cor:qr`, Lemma `lem:symbolfact`,
+Proposition `prop:noconj`.
 -/
 
 namespace Erdos307
@@ -96,6 +98,15 @@ theorem oneprime_cycle {M N Md Nd p : ℤ}
     (hN : N = M + Md * p) (hp : Nd = M * p) :
     Md * p + M = N ∧ Nd = M * p := ⟨by rw [hN]; ring, hp⟩
 
+/-- **`prop:oneprime`(a), the converse.** Every solution yields such a pair: given a cycle and a
+prime `p ∣ a`, set `M = a/p` and `N = b`. Then `N = M + M'p` and `N' = Mp` give the exactness
+equation back, so the normal form is an *iff* and each solution carries `ω(a)` witnesses.
+
+An earlier version of this file proved only the forward direction while the paper stated an
+equivalence. -/
+theorem oneprime_converse {M N Md Nd p : ℤ} (hN : N = M + Md * p) (hp : Nd = M * p) :
+    M * N - Md * Nd = M ^ 2 := by subst hN; subst hp; ring
+
 /-- **`prop:oneprime`(b), the identity.** `(σ(M) + 1/p)·σ(N) = 1` holds for *every* witness, whether
 or not `p` is prime, since `σ(M) = M'/M`, `σ(N) = N'/N = Mp/N` and `N = M'p + M`. This is why the
 exactness layer alone carries the full barrier. -/
@@ -133,18 +144,60 @@ theorem slot_recovery {N0 E0 r s : ℤ} (hE0 : E0 ≠ 0) (h : r * E0 + N0 = s ^ 
 
 /-! ### `cor:qr`: the quadratic-residue filter -/
 
-/-- **`cor:qr`.** For `ℓ ∈ P ∪ Q`, the cofactor `N/ℓ` is a nonzero quadratic residue modulo `ℓ`.
-Since `P` and `Q` are disjoint, `ℓ` divides exactly one of `a, b`, so `ℓ ∤ a + b`; combined with
-`N/ℓ ≡ N' + 2N = (a+b)²` this makes `N/ℓ` a nonzero square.
+/-- **Cofactor survival, the arithmetic content of `cor:qr`.** For `ℓ` in the support of a squarefree
+`N = ∏U`, the plus quantity reduces to the cofactor: `N' + 2N ≡ N/ℓ (mod ℓ)`.
+
+Every term of `N' = ∑_{p ∈ U} N/p` other than the one at `ℓ` still contains `ℓ`, so it vanishes
+modulo `ℓ`; and `2N ≡ 0` since `ℓ ∣ N`. What survives is exactly `N/ℓ`. This is the congruence the
+paper calls cofactor survival, and an earlier version of this file omitted it, leaving `qr_filter` a
+contentless shell that assumed its own arithmetic. -/
+theorem cofactor_survival {U : Finset ℕ} {ℓ : ℕ} (hU : ∀ p ∈ U, p.Prime) (hℓ : ℓ ∈ U) :
+    ((csum U + 2 * dprod U : ℕ) : ZMod ℓ) = ((dprod U / ℓ : ℕ) : ZMod ℓ) := by
+  have hℓ0 : 0 < ℓ := (hU ℓ hℓ).pos
+  have hdvd : ℓ ∣ dprod U := Finset.dvd_prod_of_mem _ hℓ
+  have hN : ((dprod U : ℕ) : ZMod ℓ) = 0 := (ZMod.natCast_eq_zero_iff _ _).mpr hdvd
+  have hsplit : csum U = dprod U / ℓ + ∑ p ∈ U.erase ℓ, dprod U / p := by
+    rw [csum]; exact (Finset.add_sum_erase U (fun p => dprod U / p) hℓ).symm
+  have hrest : ∀ p ∈ U.erase ℓ, ℓ ∣ dprod U / p := by
+    intro p hp
+    have hpU : p ∈ U := Finset.mem_of_mem_erase hp
+    have hne : ℓ ≠ p := fun h => (Finset.ne_of_mem_erase hp) h.symm
+    rw [dprod_div U hpU (hU p hpU).pos]
+    exact Finset.dvd_prod_of_mem _ (Finset.mem_erase.mpr ⟨hne, hℓ⟩)
+  have hzero : ∀ p ∈ U.erase ℓ, ((dprod U / p : ℕ) : ZMod ℓ) = 0 :=
+    fun p hp => (ZMod.natCast_eq_zero_iff _ _).mpr (hrest p hp)
+  push_cast [hsplit]
+  rw [Finset.sum_congr rfl hzero, Finset.sum_const_zero, hN]
+  ring
+
+/-- **`cor:qr`.** For `ℓ` in the support, the cofactor `N/ℓ` is a nonzero quadratic residue modulo
+`ℓ`. The plus quantity `N' + 2N` is a square automatically for a \#307 solution
+(`Sixty.plus_square`), and by `cofactor_survival` it is congruent to `N/ℓ`; nonvanishing is
+squarefreeness, since `ℓ` divides `N` exactly once.
 
 The filter is *split-free*: the residue is computable from the candidate union alone, with no
 knowledge of the `P` / `Q` partition. That is its one advantage over Bado's linear congruence, which
 is strictly stronger since squaring loses the sign. -/
-theorem qr_filter {ℓ : ℕ} [Fact ℓ.Prime] {a b c : ZMod ℓ}
-    (ha : a = 0) (hb : b ≠ 0) (hc : c = (a + b) ^ 2) :
-    c ≠ 0 ∧ IsSquare c := by
-  subst ha; subst hc
-  refine ⟨by simpa using pow_ne_zero 2 hb, ?_⟩
-  exact ⟨0 + b, by ring⟩
+theorem qr_filter {U : Finset ℕ} {ℓ : ℕ} [Fact ℓ.Prime] (hU : ∀ p ∈ U, p.Prime) (hℓ : ℓ ∈ U)
+    {s : ℕ} (hsq : csum U + 2 * dprod U = s ^ 2) (hns : ((s : ℕ) : ZMod ℓ) ≠ 0) :
+    ((dprod U / ℓ : ℕ) : ZMod ℓ) ≠ 0 ∧ IsSquare (((dprod U / ℓ : ℕ) : ZMod ℓ)) := by
+  have hcs := cofactor_survival hU hℓ
+  rw [hsq] at hcs
+  push_cast at hcs
+  refine ⟨?_, ?_⟩
+  · rw [← hcs]; exact pow_ne_zero 2 hns
+  · exact ⟨(s : ZMod ℓ), by rw [← hcs]; ring⟩
+
+/-! ### `lem:symbolfact`: the Jacobi factorisation -/
+
+/-- **`lem:symbolfact`.** With `σ_r(m) = ∑_{p ∣ m} p⁻¹` in `ℤ/r`, the Jacobi symbol factors:
+`((m' - 2m)/r) = (m/r)·((σ_r(m) - 2)/r)`.
+
+The first half, `m' ≡ m·σ_r(m) (mod r)`, is `Frame.csum_eq_mul_recipSum`. What remains is that the
+symbol is completely multiplicative in its numerator, which is `jacobiSym.mul_left`. The lemma is
+two lines and is algebraic throughout; an earlier edition of `COVERAGE.md` filed it as
+COMPUTATIONAL, because the classifier keyed on the exhaustive check reported alongside it. -/
+theorem symbolfact (r : ℕ) (m t : ℤ) : jacobiSym (m * t) r = jacobiSym m r * jacobiSym t r :=
+  jacobiSym.mul_left m t r
 
 end Erdos307
