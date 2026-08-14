@@ -3805,9 +3805,10 @@ size $\int_1^\infty e^{-w}w^{-1}dw=E_1(1)=0.2194$. The shift costs $O(1)$ by Mer
 $\sum_{p\le N}\log p/(p\log N)\ll1$, and it is convenient for keeping the Euler logarithm absolutely
 convergent, but it is not what makes the tail small. The zero--free region then gives
 $|\log L(s,\psi)|\ll_r\log\log(3+|\tau|)$, the argument of the double logarithm being taken above
-$e$ so that the bound is positive at $\tau=0$; the non--principal terms are $O_r(1)$ uniformly for
-$|\tau|\le\log N$. Hence
-\[ M\;\ge\;c_r\log\log N-O_r(1),\qquad c_r:=1-\frac{\sqrt r}{\varphi(r)}\;\ge\;1-\frac{\sqrt3}2
+$e$ so that the bound is positive at $\tau=0$; the non--principal terms are
+$O_r(\log\log(3+|\tau|))=O_r(\log\log\log N)$ uniformly for $|\tau|\le\log N$, since at the top of
+that range the cited input gives $\log\log(3+\log N)\asymp\log\log\log N$ and not $O(1)$. Hence
+\[ M\;\ge\;c_r\log\log N-O_r(\log\log\log N),\qquad c_r:=1-\frac{\sqrt r}{\varphi(r)}\;\ge\;1-\frac{\sqrt3}2
    \;=\;0.1339\ldots, \]
 the extremum being at $r=3$: each local factor of $\sqrt r/\varphi(r)$ is $\sqrt p/(p-1)$, and
 $(p-1)/\sqrt p\ge2/\sqrt3$ for every odd prime, so the supremum is the single factor at $r=3$
@@ -3816,7 +3817,10 @@ $(p-1)/\sqrt p\ge2/\sqrt3$ for every odd prime, so the supremum is the single fa
 \emph{Conclusion.} With $T=\log N$, Hal\'asz gives
 $S_t(N)=\sum_{m\le N}h_t(m)\ll N\bigl((1+M)e^{-M}+(\log N)^{-1/2}\bigr)$. Note $M\to\infty$ alone would not suffice:
 at fixed $T$ the bound is only $\ll NT^{-1/2}$. Both limits are in play, and
-$S_t(N)\ll_rN(\log N)^{-c_r+o(1)}=o(N)$. Only the $\varphi(r)$ values of $t$ coprime to $r$
+$S_t(N)\ll_rN(\log N)^{-\min(c_r,1/2)+o(1)}=o(N)$, the $\tfrac12$ being the floor the
+$(\log N)^{-1/2}$ term imposes however large $M$ becomes. Only $r=3$ and $r=5$ have $c_r\le\tfrac12$,
+so for every other modulus, and in particular for every $r=pq$ arising in Theorem~\ref{thm:a9}, the
+floor is the binding constraint. Only the $\varphi(r)$ values of $t$ coprime to $r$
 contribute, since $\chi(t)=0$ otherwise, so
 \[ |T_r(N)|\;\le\;r^{-1/2}\!\!\sum_{\gcd(t,r)=1}\!\!|S_t(N)|\;\le\;\frac{\varphi(r)}{\sqrt r}\,
    \max_t|S_t(N)|\;\le\;\sqrt r\,\max_t|S_t(N)|\;=\;o_r(N). \]
@@ -3839,7 +3843,9 @@ $t\equiv\pm1$, and to $1.558919\to1+\sqrt5/4=1.559017$ for the other two residue
 is $4.378$ against the leading term $1.341$. So the constant is attained for
 $r\equiv1\pmod4$ and $\chi(t)=+1$, and is not sharp otherwise.
 
-\emph{The error term is $O_r(1)$, not $O_r(\log\log\log N)$.} At $r=5$, $t=1$ the deficit between
+\emph{The finite-$X$ deficit is a constant, though the proved error term is not.} The bound carries
+$-O_r(\log\log\log N)$, which is what the $L$--bound gives at the top of the $\tau$--range; what is
+\emph{measured} at a single modulus is smaller and flat. At $r=5$, $t=1$ the deficit between
 $M$ and $c_r\sum_{p\le X}1/p$ is $0.1407,0.1407,0.1405,0.1405$ at $X=10^4,\dots,10^7$, flat to four
 places, while $\log\log\log X$ rises by $28\%$ over the same range. The $\log\log\log$ enters only
 through uniformity in $\tau$.
@@ -3849,7 +3855,9 @@ $T_r(N)\ll_rN(\log N)^{-c_r+o(1)}$. Since $c_3=0.134$ and $c_5=0.441$ are below 
 does \emph{not} yield $T_r(N)\ll\sqrt r\,N(\log N)^{-1/2}$ at those moduli, and an earlier revision
 asserted that it did. Quantitatively the lemma is asymptotic in the strong sense: at $r=5$, with the
 measured constants and an implied Hal\'asz constant of $1$, the bound first beats the trivial
-$|T_r(N)|\le N$ near $\log N\approx148$, that is $N\approx10^{64}$.
+$|T_r(N)|\le N$ at $\log N=143.0$, that is $N=10^{62.1}$. Measured against the honest trivial bound,
+which is $0.5066N$ because $T_r$ has only that many terms, the crossing moves to $\log N=1013.7$,
+that is $N=10^{440}$.
 \end{remark}
 
 \begin{remark}[Erratum: the $\tau$ bound above is false near the threshold]\label{rem:charcancelerratum}
@@ -3865,7 +3873,8 @@ untwisted sum $\sum p^{-1-i\tau}$, whereas the Hal\'asz distance $M$ requires th
 Consequences, stated exactly. Neither defect touches the lemma as now proved, because that proof
 does not use the offending step: it bounds the \emph{twisted} sum through the character expansion of
 $h_t$, where the principal coefficient contributes at most $\sqrt r/\varphi(r)\le0.8661$ of
-$\sum_{p\le N}1/p$ and the non--principal ones contribute $O_r(1)$, both uniformly in $\tau$. The
+$\sum_{p\le N}1/p$ and the non--principal ones contribute $O_r(\log\log\log N)$, both uniformly in
+$\tau$. The
 trivial bound $\bigl|\sum_{p\le N}p^{-1-i\tau}\bigr|\le\sum_{p\le N}1/p$ is all that is needed of the
 untwisted sum, so the false inequality is not merely repaired but unnecessary.
 
@@ -3902,21 +3911,35 @@ twice, for $|\tau(\chi)|=\sqrt r$ and for the principal coefficient $\chi(t)\tau
 here $(\cdot\mid p^2)$ is trivial on $(\mathbb{Z}/p^2)^\times$, so there is no character twist at
 all. The principal coefficient is instead a Ramanujan sum $c_{p^2}(t)/\varphi(p^2)$, which vanishes
 for $\gcd(t,p^2)=1$ and equals $-1/(p-1)$ when $p\,\|\,t$; the distance bound follows more easily
-than in Lemma~\ref{lem:charcancel}, not by the same computation. Hence the
-density is $p^{-2}+o(1)$. The case $p\mid m$ does not arise at all: writing $m=pn$ with $p\nmid n$
+than in Lemma~\ref{lem:charcancel}, not by the same computation. Hence the density is
+$\tfrac6{\pi^2}\cdot\tfrac p{p+1}\cdot p^{-2}+o(1)\le p^{-2}$. The two factors in front were omitted
+in an earlier revision: the count runs over \emph{squarefree} $m$ coprime to $p$, so it carries the
+squarefree density $6/\pi^2$ and the coprimality factor $p/(p+1)$. The error was in the safe
+direction, the stated $p^{-2}$ being an over-estimate, so the inequality the lemma asserts survives
+with room to spare. The case $p\mid m$ does not arise at all: writing $m=pn$ with $p\nmid n$
 gives $m'=pn'+n$, so $m'-2m=n+p(n'-2n)\equiv n\not\equiv0\pmod p$, and $p$ does not even divide
 $m'-2m$, let alone $p^2$.
 \end{proof}
-Measured ratios of the count to $N/p^2$ at $N=3\times10^7$: $0.842$, $0.887$, $0.930$, $0.925$,
-$0.993$ for $p=5,7,11,13,101$, approaching $1$ as predicted.
+Measured at $N=3\times10^7$ for $p=5,7,11,13,101$, the count divided by
+$\tfrac6{\pi^2}\tfrac p{p+1}N/p^2$ is $0.842$, $0.887$, $0.930$, $0.925$, $0.993$, approaching $1$ as
+the corrected density predicts. Against the bare $N/p^2$ the same data read $0.512$, $0.539$,
+$0.566$, $0.562$, $0.604$, approaching $6/\pi^2=0.6079$; an earlier revision printed the first list
+while describing it as the second.
 
-\begin{theorem}[The minus layer has density zero, on the squarefree stratum]\label{thm:a9}
-\textup{Label restored.} A previous revision downgraded this to \textsc{conjecture}, because the
-square sieve below consumes Lemma~\ref{lem:charcancel} at the \emph{composite} moduli $r=pq$ and that
-lemma's printed proof reduced composite $r$ to prime $r$ by assertion. The reduction is now
-unnecessary: the corrected proof of Lemma~\ref{lem:charcancel} runs at the modulus $r$ itself, for
-every odd squarefree $r>1$ at once, so the gap this theorem inherited is closed and the label returns
-to \textsc{proved}. It is not \textsc{verified}: none of this is in Lean.
+\begin{theorem}[The minus layer has density zero on the squarefree stratum: \textsc{conjecture}]\label{thm:a9}
+\textup{Label: \textsc{conjecture}, and this is a considered downgrade rather than a known error.}
+The argument below has survived four rounds of adversarial review at the level of its
+\emph{mathematics}: the square sieve, the $E_{pq}$ correction, the diagonal bound, the limsup
+argument and the whole of Lemma~\ref{lem:charcancel}'s algebra were each attacked and each held. What
+has not held is the \emph{text}. In three consecutive rounds a load-bearing display was found to have
+silently dropped a hypothesis, twice the coprimality condition and once the squarefree condition, and
+each repair introduced a fresh defect elsewhere. A statement whose written proof has needed a
+correction in every round of review, with no sign of the rate declining, has not earned
+\textsc{proved}, whatever one's private confidence in it.
+
+The honest position is therefore: the author believes the statement and believes the argument, and
+does not claim either as established. Nothing in this paper depends on it. Restoring the label
+requires a round of review that finds nothing, which has not yet happened.
 
 $\#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}=o(N)$. Equivalently, atom
 $\mathrm{A}9$ holds on the squarefree stratum: the squarefree minus layer has density zero. The same
@@ -3942,8 +3965,10 @@ then $(a_m/p)=1$ for all such $p$, so $\sum_{p\in\mathcal{P}}(a_m/p)=\Pi$. Hence
 Both $m$--sums carry $\mu^2(m)=1$ throughout, and so does the counting set on the left. This is not
 a convenience: every tool below is squarefree--only, and an earlier revision wrote these sums
 unrestricted, which made the identity with $T_{pq}+E_{pq}$ false by the non--squarefree terms. Those
-are not negligible, being empirically of size $N^{0.9}$ per pair against a $T_{pq}$ of size
-$N^{0.6}$, and the paper bounds them by nothing better than the trivial $(1-6/\pi^2)N$.
+are not negligible: measured at $N=3\times10^7$ the omitted sum is $119{,}473$ against a $T_{pq}$ of
+$2{,}699$ at $r=101\cdot1009$, and $169{,}949$ against $314$ at $r=1009\cdot10007$, exceeding the
+term the lemma controls by a factor $44$ to $540$. The paper bounds it by nothing better than the
+trivial $(1-6/\pi^2)N$.
 The diagonal $p=q$ contributes $(a_m/p^2)=(a_m/p)^2\in\{0,1\}$, hence at most $\Pi N$. The
 off-diagonal is $\sum_{p\ne q}\bigl(T_{pq}(N)+E_{pq}(N)\bigr)$, where $T_{pq}$ carries the
 coprimality condition $\gcd(m,pq)=1$ of Lemma~\ref{lem:charcancel} and
@@ -3962,8 +3987,11 @@ $p\mid m$ is impossible, since $m=pn$ with $p\nmid n$ gives $a_m=n+p(n'-2n)\equi
 a computation that itself needs $\mu^2(m)=1$. The case $a_m=0$ does not arise: the theorem counts $a_m=\square>0$, and in any case
 $m'=2m$ has \emph{no} squarefree solution, since $\sigma(m)=2\in\mathbb{Z}$ forces $D_m=1$ by
 rigidity. Altogether
-\[ \limsup_{N\to\infty}\frac1N\#\{m\le N: a_m=\square>0\}\;\ll\;\frac1\Pi+\frac1{P\log P}. \]
-The left side does not depend on $P$; letting $P\to\infty$ gives $0$.
+\[ \limsup_{N\to\infty}\frac1N\#\{m\le N:\ \mu^2(m)=1,\ a_m=\square>0\}\;\ll\;\frac1\Pi+\frac1{P\log P}. \]
+The left side does not depend on $P$; letting $P\to\infty$ gives $0$. The restriction $\mu^2(m)=1$
+must be carried here as everywhere above: without it the display would assert density zero for the
+\emph{full} minus layer, which is exactly the statement this theorem disclaims, and three successive
+revisions of this proof dropped it from one display or another.
 \end{proof}
 
 The proof of Theorem~\ref{thm:a9} sends $P\to\infty$ only after $N$, which costs all quantitative
@@ -4030,7 +4058,7 @@ There is an absolute $A\ge0$ with $|T_r(N)|\ll r^{A}N^{1/2+o(1)}$ for every odd 
 
 \begin{theorem}[Conditional power saving, and the crux exactly]\label{thm:condpower}
 Assume Hypothesis~\textup{\ref{hyp:sq}}. Then
-\[ \#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}\;\ll\;N^{1-\delta},
+\[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}\;\ll\;N^{1-\delta},
    \qquad \delta=\frac1{2(2A+1)}. \]
 In particular $A=0$ gives $N^{1/2+o(1)}$, which is exactly the bound
 $\mathrm{CRUX}\text{-}\mathrm{A}9$ asks for.
@@ -4156,7 +4184,7 @@ Type I/II analysis that we have not carried out. Until it is, the power saving b
 If the decomposition of Remark~\textup{\ref{rem:missingdecomp}} is carried out with the stated
 bounds, then combining Proposition~\ref{prop:bilinear} with Theorem~\ref{thm:pairavg} and
 Theorem~\ref{thm:condpower} at $P=N^{1/4}$ gives
-\[ \#\{m\le N:\ m'-2m\ \text{is a positive perfect square}\}\ \ll\ N^{3/4+o(1)} . \]
+\[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}\ \ll\ N^{3/4+o(1)} . \]
 \end{conjecture}
 
 The two ingredients that would feed it are themselves unconditional, and are recorded separately
@@ -4211,8 +4239,10 @@ Write $a_m=m'-2m$ and $a_m=\pm s_m^2k_m$ with $k_m$ squarefree. For odd squarefr
 \[ T_r(N)=\sum_{k}b_k^{+}\Bigl(\frac kr\Bigr)+\Bigl(\frac{-1}r\Bigr)\sum_{k}b_k^{-}\Bigl(\frac kr\Bigr)
    \;+\;O\bigl(\#\{m\le N:\ p^2\mid a_m\ \text{for some }p\mid r\}\bigr), \]
 where $b^{\pm}_k=\#\{m\le N:\mu^2(m)=1,\ k_m=k,\ \pm a_m>0\}$ depend on $N$ only. For
-$r=pq$ with $p,q\asymp N^{1/2}$ the error term is $O(1)$ by Lemma~\textup{\ref{lem:localsq}}, which
-gives $\#\{m\le N:p^2\mid a_m\}\ll N/p^2$.
+$r=pq$ with $p,q\asymp N^{1/2}$ one would want the error term to be $O(1)$, and an earlier revision
+cited Lemma~\textup{\ref{lem:localsq}} in the form $\#\{m\le N:p^2\mid a_m\}\ll N/p^2$. That form is
+the one that lemma explicitly disowns, since its implied constant depends on $p$ while $p$ here grows
+with $N$; the citation is withdrawn and the error term is not controlled at this range.
 
 \emph{Regime caveat.} That $O(1)$ holds only at $p\asymp N^{1/2}$. The application in
 Corollary~\ref{cor:a9rate} balances at $P\asymp(\log N)^{1/4}$, where the same estimate gives
@@ -4238,7 +4268,7 @@ $\#\{(m,m')\ \text{squarefree},\ \le N:\ a_ma_{m'}\ \text{is a perfect square}\}
 
 \begin{proposition}[The route is circular]\label{prop:circular}
 Hypothesis~\textup{\ref{hyp:kernel}} implies the bound it would be used to prove, so it cannot serve
-as a reduction. Indeed $b^{+}_1=\#\{m\le N:\ a_m\ \text{is a positive perfect square}\}$ is precisely
+as a reduction. Indeed $b^{+}_1=\#\{m\le N:\ \mu^2(m)=1,\ a_m\ \text{is a positive perfect square}\}$ is precisely
 the minus layer, and $(b^{+}_1)^2\le\sum_k|b^{+}_k|^2$, so
 Hypothesis~\textup{\ref{hyp:kernel}} forces $b^{+}_1\ll N^{1/2+o(1)}$, which is the conclusion.
 \end{proposition}
