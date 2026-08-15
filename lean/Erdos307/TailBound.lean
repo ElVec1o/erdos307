@@ -1,5 +1,7 @@
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.Ring
+import Mathlib.Tactic.LinearCombination
+import Mathlib.Algebra.Ring.Basic
 
 /-!
 # The Pythagorean tail prime is bounded: `rem:lehmer` is not Lehmer-class
@@ -168,9 +170,7 @@ solves `s - 2xt ≡ 0 (mod ℓ)` (possible whenever `2x` is invertible mod `ℓ`
 
 `c - (x + t·ℓ^(i+1))² = ℓ^(i+2) · (u - t²·ℓ^i)`.
 
-Pure ring identity; the induction that turns it into "a square modulo `ℓ^k` for every `k`" is
-routine and is **not** formalised here. What is formalised is the base case
-(`tail_value_mod_dvd`) and this step. -/
+Pure ring identity. `hensel_all_powers` runs the induction it powers. -/
 theorem hensel_lift_identity (c x s t u ℓ : ℤ) (i : ℕ)
     (hdef : c - x ^ 2 = s * ℓ ^ (i + 1)) (hsol : s - 2 * x * t = u * ℓ) :
     c - (x + t * ℓ ^ (i + 1)) ^ 2 = ℓ ^ (i + 2) * (u - t ^ 2 * ℓ ^ i) := by
@@ -181,5 +181,39 @@ theorem hensel_lift_identity (c x s t u ℓ : ℤ) (i : ℕ)
           - t ^ 2 * ℓ ^ (i + 1) * ℓ ^ (i + 1) := by rw [hdef]
     _ = (u * ℓ) * ℓ ^ (i + 1) - t ^ 2 * ℓ ^ (i + 1) * ℓ ^ (i + 1) := by rw [hs]; ring
     _ = ℓ ^ (i + 2) * (u - t ^ 2 * ℓ ^ i) := by ring
+
+/-- **Hensel, all powers.** If `c` is a square modulo `ℓ` at a root `x₀` whose double is invertible
+mod `ℓ` (witnessed by `w` with `ℓ ∣ 2x₀w - 1`), then `c` is a square modulo `ℓ^k` for **every** `k`,
+at a root congruent to `x₀`.
+
+Elementary and self-contained: the induction carries the congruence `ℓ ∣ x - x₀` so that `2x` stays
+invertible at every stage, and each step is `hensel_lift_identity` with `t = s·w`. -/
+theorem hensel_all_powers {c x₀ ℓ w : ℤ}
+    (hbase : ℓ ∣ c - x₀ ^ 2) (hw : ℓ ∣ 2 * x₀ * w - 1) (k : ℕ) :
+    ∃ x, ℓ ^ (k + 1) ∣ c - x ^ 2 ∧ ℓ ∣ x - x₀ := by
+  induction k with
+  | zero => exact ⟨x₀, by simpa using hbase, by simp⟩
+  | succ k ih =>
+    obtain ⟨x, hx, hx0⟩ := ih
+    obtain ⟨s, hs⟩ := hx
+    -- `2x` is invertible mod `ℓ` because `x ≡ x₀`
+    obtain ⟨a, ha⟩ := hw
+    obtain ⟨v, hv⟩ := hx0
+    have hu : 2 * x * w - 1 = ℓ * (a + 2 * w * v) := by linear_combination ha + 2 * w * hv
+    set u := a + 2 * w * v with hudef
+    refine ⟨x + s * w * ℓ ^ (k + 1), ⟨-(s * u) - (s * w) ^ 2 * ℓ ^ k, ?_⟩, ?_⟩
+    · linear_combination hs - ℓ ^ (k + 1) * s * hu
+    · exact ⟨v + s * w * ℓ ^ k, by linear_combination hv⟩
+
+/-- **No local obstruction at any prime dividing `D`, at every power.** Combining
+`tail_value_mod_dvd` with `hensel_all_powers`: for `ℓ ∣ D` with `2N` invertible mod `ℓ` (which
+rigidity supplies, since `gcd(D, N) = 1` and `ℓ` is odd), the search value `AB + Dm²` is a square
+modulo `ℓ^k` for every `k` and every `m`.
+
+So the tail search of `prop:tailbound` cannot be sieved at any prime dividing `D`, at any power. -/
+theorem tail_no_local_obstruction {ℓ D N w : ℤ} (m : ℤ) (hD : ℓ ∣ D)
+    (hw : ℓ ∣ 2 * N * w - 1) (k : ℕ) :
+    ∃ x, ℓ ^ (k + 1) ∣ ((N ^ 2 - 4 * D ^ 2) + D * m ^ 2) - x ^ 2 ∧ ℓ ∣ x - N :=
+  hensel_all_powers (tail_value_mod_dvd N m hD) hw k
 
 end Erdos307
