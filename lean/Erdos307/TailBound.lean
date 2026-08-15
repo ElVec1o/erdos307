@@ -136,4 +136,50 @@ theorem tail_finite {D N q m c x y : ℤ} (hm : 1 ≤ m) (hq : 0 < q) (hDN : D <
   have heq := tail_quadratic hm0 hq0 hx hy hsum hdiff
   exact ⟨tail_bound hq hm hDN heq, tail_discriminant heq hmc⟩
 
+/-! ### Why the finite search cannot be sieved cheaply -/
+
+/-- **No local obstruction at any prime dividing `D`.** The search of `prop:tailbound` asks whether
+`AB + Dm²` is a perfect square, with `AB = N² - 4D²`. For any `ℓ ∣ D` the value differs from `N²` by
+`D(m² - 4D)`, which `ℓ` divides:
+
+`(AB + Dm²) - N² = D(m² - 4D)`.
+
+So `AB + Dm² ≡ N² (mod ℓ)` for **every** `m`: a square residue, always. Since rigidity gives
+`gcd(D, N) = 1`, `ℓ` does not divide `2N`, and `hensel_lift_identity` below lifts the root to every
+power of `ℓ`.
+
+This is the analogue of `prop:localcomplete` for this formulation, and it has a sharp practical
+consequence: a modular sieve of the tail search must use primes coprime to `2D`. Because `D` contains
+every prime up to `167`, the classical `64/63/65/11` pre-filter for perfect squares rejects nothing
+at all here. Measured on the first immune base: `75%` pass rate mod `64`, `100%` mod `63`, against
+`18.75%` and `25.4%` for a uniform value. `code/tailsearch.rs` therefore filters on primes not
+dividing `2D`. -/
+theorem tail_value_sub_sq (D N m : ℤ) :
+    ((N ^ 2 - 4 * D ^ 2) + D * m ^ 2) - N ^ 2 = D * (m ^ 2 - 4 * D) := by ring
+
+/-- The divisibility form: every prime dividing `D` sees `AB + Dm²` as the square `N²`. -/
+theorem tail_value_mod_dvd {ℓ D : ℤ} (N m : ℤ) (h : ℓ ∣ D) :
+    ℓ ∣ ((N ^ 2 - 4 * D ^ 2) + D * m ^ 2) - N ^ 2 := by
+  rw [tail_value_sub_sq]; exact h.mul_right _
+
+/-- **The lifting step.** If `x² ≡ c` modulo `ℓ^(i+1)` with defect `c - x² = s·ℓ^(i+1)`, and `t`
+solves `s - 2xt ≡ 0 (mod ℓ)` (possible whenever `2x` is invertible mod `ℓ`, which holds here since
+`ℓ` is odd and `ℓ ∤ N`), then `x + t·ℓ^(i+1)` is a root one power further:
+
+`c - (x + t·ℓ^(i+1))² = ℓ^(i+2) · (u - t²·ℓ^i)`.
+
+Pure ring identity; the induction that turns it into "a square modulo `ℓ^k` for every `k`" is
+routine and is **not** formalised here. What is formalised is the base case
+(`tail_value_mod_dvd`) and this step. -/
+theorem hensel_lift_identity (c x s t u ℓ : ℤ) (i : ℕ)
+    (hdef : c - x ^ 2 = s * ℓ ^ (i + 1)) (hsol : s - 2 * x * t = u * ℓ) :
+    c - (x + t * ℓ ^ (i + 1)) ^ 2 = ℓ ^ (i + 2) * (u - t ^ 2 * ℓ ^ i) := by
+  have hs : s = u * ℓ + 2 * x * t := by linarith
+  calc c - (x + t * ℓ ^ (i + 1)) ^ 2
+      = (c - x ^ 2) - 2 * x * t * ℓ ^ (i + 1) - t ^ 2 * ℓ ^ (i + 1) * ℓ ^ (i + 1) := by ring
+    _ = s * ℓ ^ (i + 1) - 2 * x * t * ℓ ^ (i + 1)
+          - t ^ 2 * ℓ ^ (i + 1) * ℓ ^ (i + 1) := by rw [hdef]
+    _ = (u * ℓ) * ℓ ^ (i + 1) - t ^ 2 * ℓ ^ (i + 1) * ℓ ^ (i + 1) := by rw [hs]; ring
+    _ = ℓ ^ (i + 2) * (u - t ^ 2 * ℓ ^ i) := by ring
+
 end Erdos307

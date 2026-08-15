@@ -355,3 +355,6 @@ open Erdos307
 #print axioms tail_discriminant
 #print axioms tail_bound
 #print axioms tail_finite
+#print axioms tail_value_sub_sq
+#print axioms tail_value_mod_dvd
+#print axioms hensel_lift_identity

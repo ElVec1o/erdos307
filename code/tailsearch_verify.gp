@@ -103,14 +103,15 @@ print("");
 print("(B) exact verification of the searcher's survivors");
 {
 my(fn = "tailsearch_survivors.txt", lines, hits = 0, checked = 0);
-if(!fileexists(fn),
-  printf("   %s not present: run ./tailsearch first\n", fn)
+lines = iferr(readstr(fn), E, 0);
+if(type(lines) != "t_VEC",
+  printf("   %s not readable: run ./tailsearch first\n", fn)
 ,
-  lines = readstr(fn);
   for(i = 1, #lines,
-    my(L = lines[i]);
-    if(#L == 0 || L[1] == Vecsmall("#")[1], next);
-    my(w = eval(Str("[", strjoin(strsplit(L, " "), ","), "]")));
+    my(L = lines[i], tk, w);
+    if(#L == 0 || Vec(L)[1] == "#", next);
+    tk = select(s -> #s > 0, strsplit(L, " "));
+    w = vector(#tk, t, eval(tk[t]));
     my(fi = w[1] + 1, b = w[2], kcnt = w[3], D, A, B, S, N, odd, m);
     D = imm[fi][1]; A = imm[fi][2]; B = imm[fi][3]; S = imm[fi][4]; N = A - 2*D;
     odd = select(x -> x != 2, S);

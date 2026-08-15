@@ -5,7 +5,7 @@
 \usepackage{mathtools}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
-\usepackage{microtype}
+\usepackage[expansion=false]{microtype}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -777,11 +777,33 @@ along a real orbit, in \texttt{code/tailbound.gp}: on the base $D=1$, $N=7$ (bou
 gives $q_1=7$ prime, then $q_2=741895$, $q_3=76921173511$, and every later term composite, with both
 square conditions holding throughout.
 
-\emph{The count reverses sign.} The expected number of admissible $m$ is
-$\sum_{m\mid 4D}(AB+Dm^2)^{-1/2}\approx D^{-1/2}\sum_{m\mid4D}m^{-1}$, which on the first immune base
-is $2.4\times10^{-56}$ and below $10^{-38}$ summed over all $34$ immune families. The finite search is
-therefore expected to be empty on every one of them, which is the opposite of the ``weakly favours
-\textsc{yes}'' of Remark~\ref{rem:killcount} on exactly the families that reading was about.
+\emph{The count reverses sign, and the search has now been run.} The expected number of admissible
+$m$ is $\sum_{m\mid 4D}(AB+Dm^2)^{-1/2}\approx D^{-1/2}\sum_{m\mid4D}m^{-1}$, which on the first
+immune base is $2.4\times10^{-56}$ and below $10^{-38}$ summed over all $34$ immune families, the
+opposite of the ``weakly favours \textsc{yes}'' of Remark~\ref{rem:killcount} on exactly the families
+that reading was about. That prediction is now checked. The full divisor space is
+$4\cdot2^{58}\approx1.15\times10^{18}$ per family and is not enumerable, but because the hit
+probability falls like $1/(m\sqrt D)$ the expected count is carried by small $m$: restricting to
+$\omega(m)\le7$ leaves $1.2\times10^{-8}$ of the space and $99.9982\%$ of the expected count. Over all
+$34$ families that slice is $4.7081\times10^{10}$ candidates, and
+\[ \textup{it contains no }m\textup{ with }AB+Dm^2\textup{ a perfect square.} \]
+The run is \texttt{code/tailsearch.rs} (a cascade of quadratic--residue filters modulo primes coprime
+to $2D$, $771$ survivors) with every survivor then tested exactly by \texttt{issquare} in
+\texttt{code/tailsearch\_verify.gp} ($0$ squares). A positive control recovers the known solutions of
+the toy base $D=1$, $N=7$, and an exhaustive exact run at $\omega(m)\le2$ agrees with the filter, so
+the cascade is not silently over--rejecting. This is \textsc{verified} on the stated slice, not on the
+full divisor set: the residual $0.0018\%$ of the expected count is untested.
+
+The filter primes must be coprime to $2D$, which is itself a structural fact rather than a
+convenience. Since $D$ contains every prime up to $167$, for any $\ell\mid D$
+\[ AB+Dm^2-N^2=D\bigl(m^2-4D\bigr)\equiv0 \pmod{\ell}, \]
+so the value is the square $N^2$ modulo $\ell$ for \emph{every} $m$, and as $\gcd(D,N)=1$ Hensel
+lifts that root to every power of $\ell$. The tail search therefore has no local obstruction at any
+prime dividing $D$, the analogue of Proposition~\ref{prop:localcomplete} for this formulation; the
+classical $64/63/65/11$ pre--filter for squares rejects nothing here, measured at a $75\%$ pass rate
+modulo $64$ and $100\%$ modulo $63$. Formalised as \texttt{tail\_value\_mod\_dvd} and
+\texttt{hensel\_lift\_identity}; the induction from the step to all powers is routine and is not
+formalised.
 
 \emph{The paper's own height estimate now says the same thing.} Remark~\ref{rem:lehmer} puts the
 least point of a nonempty fiber at height $\exp\bigl(10^{112}\bigr)$ on regulator grounds, so its
@@ -3849,456 +3871,12 @@ and the whole sum turns multiplicative. That is what puts it inside Hal\'asz's t
 
 \subsection{The square sieve and Theorem~\ref{thm:a9}}\label{ssec:sieve}
 
-\begin{lemma}[Cancellation in the character sums]\label{lem:charcancel}
-Fix an odd squarefree $r>1$. Then
-\[ T_r(N)\;:=\!\!\sum_{\substack{m\le N,\ \mu^2(m)=1\\ \gcd(m,r)=1}}\!\!\Bigl(\frac{m'-2m}{r}\Bigr)\;=\;o_r(N)
-\qquad (N\to\infty). \]
-The statement is qualitative and per fixed $r$: the implied constant depends on $r$, and no
-uniformity is claimed. Remark~\ref{rem:charcancelerratum} records why the uniform version is not
-available and what was previously claimed here in error; Remark~\ref{rem:charcancelsharp}
-records what the constant is and is not.
-\end{lemma}
-\begin{proof}
-Five standard facts are used, all at fixed $r$: Hal\'asz's theorem; $|\tau(\chi)|=\sqrt r$ for a
-primitive character; the classical zero--free region; $|\log L(s,\psi)|\ll_r\log\log(3+|\tau|)$ for
-$\psi$ non--principal at $s=1+1/\log N+i\tau$; and Siegel--Walfisz. None is formalised.
-
-\emph{The expansion.} Write $\chi=(\cdot\mid r)$. For $r$ odd squarefree the Jacobi symbol is a
-primitive real character modulo $r$, so
-$\chi(x)=\tau(\chi)^{-1}\sum_{t\bmod r}\chi(t)e_r(tx)$ holds for \emph{every} $x$, including
-$\gcd(x,r)>1$, where both sides vanish. That case occurs: at $r=15$ already $m=2$ gives
-$\sigma_r(m)-2=6$. By Lemma~\ref{lem:symbolfact},
-$(m'-2m\mid r)=\chi(m)\,\chi(\sigma_r(m)-2)$, and expanding the second factor,
-\[ T_r(N)=\tau(\chi)^{-1}\sum_{t\bmod r}\chi(t)\,e_r(-2t)\;S_t(N),\qquad
-   S_t(N)=\!\!\sum_{\substack{m\le N,\ \mu^2(m)=1\\ \gcd(m,r)=1}}\!\!h_t(m), \]
-where $h_t(m)=\chi(m)\prod_{p\mid m}e_r(tp^{-1})$, using that $\sigma_r$ is a sum over $p\mid m$ and
-$e_r$ carries sums to products. Extend $h_t$ to $\mathbb{N}$ by $h_t(p^k)=0$ for $k\ge2$ and
-$h_t(p)=0$ for $p\mid r$, the only extension preserving $S_t$. It is multiplicative with
-$|h_t|\le1$, which is Hal\'asz's hypothesis; $|h_t|=1$ on the support only.
-
-\emph{The distance.} Hal\'asz needs
-$M=\min_{|\tau|\le\log N}\sum_{p\le N}\bigl(1-\operatorname{Re}h_t(p)p^{-i\tau}\bigr)/p\to\infty$.
-Now $h_t$ is not a function of $m\bmod r$, being built from the factorisation: at $r=7$,
-$h_1(3)=0.2225+0.9749i$ while $h_1(10)=-1$, though $3\equiv10$. Its restriction to primes is,
-which is all that is needed. Put $g_t(a)=\chi(a)e_r(ta^{-1})$ on $(\mathbb{Z}/r)^\times$, so
-$h_t(p)=g_t(p\bmod r)$ for $p\nmid r$, and expand $g_t=\sum_\psi c_\psi\psi$. Reindexing by the
-involution $a\mapsto ta^{-1}$ of $(\mathbb{Z}/r)^\times$ and using $\chi(a^{-1})=\chi(a)$,
-\[ c_{\psi_0}=\frac1{\varphi(r)}\sum_{a\in(\mathbb{Z}/r)^\times}\chi(a)e_r(ta^{-1})
-   =\frac{\chi(t)\,\tau(\chi)}{\varphi(r)},\qquad |c_{\psi_0}|=\frac{\sqrt r}{\varphi(r)}. \]
-This identity uses no primitivity: it holds for any quadratic character on any finite abelian group,
-which is what the formalisation records. Primitivity enters twice elsewhere, for
-$|\tau(\chi)|=\sqrt r$ and for the inversion at $\gcd(x,r)>1$ above.
-
-Splitting the prime sum by $\psi$,
-\[ \sum_{p\le N}h_t(p)p^{-1-i\tau}
-   =c_{\psi_0}\!\!\sum_{p\le N,\,p\nmid r}\!\!p^{-1-i\tau}
-    +\sum_{\psi\ne\psi_0}c_\psi\sum_{p\le N}\psi(p)p^{-1-i\tau}. \]
-The first sum is at most $\sum_{p\le N}1/p=\log\log N+O(1)$ in modulus, trivially and uniformly in
-$\tau$. For the coefficients, $|g_t|=1$ gives $\sum_\psi|c_\psi|^2=1$ by Parseval, hence
-$\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt{\varphi(r)}$ by Cauchy--Schwarz; they are \emph{not} small
-individually. Indeed $c_\psi=\varphi(r)^{-1}\sum_b(\chi\psi)(b)e_r(tb)$, so
-$|c_\psi|=\sqrt{\operatorname{cond}(\chi\psi)}/\varphi(r)$, and the maximum $\sqrt r/\varphi(r)$ is
-attained exactly on the $\prod_{p\mid r}(p-2)$ characters with $\chi\psi$ primitive: three of the
-eight at $r=15$, five of the twelve at $r=21$. Their contribution is small
-because the $L$--functions have no pole, and reaching that needs care: the cited bound governs
-$\log L$, an Euler product over all $p$, while what is required is the truncation. Both routes go by partial summation against Siegel--Walfisz and both shed the same factor
-$1+|\tau|$; what differs is the \emph{range}, and it is the range and not any shift that does the
-work. On $[2,N]$ one is left with $\int_{\log2}^{\log N}u^{-A}du=O_A(1)$, so $(1+|\tau|)\cdot O(1)$
-is $\ll\log N$, worse than trivial. On $[N,\infty)$, writing $A(v)=\sum_{p\le v}\psi(p)\ll_{A,r}
-v(\log v)^{-A}$,
-\[ \sum_{p>N}\psi(p)p^{-s}\;=\;-A(N)N^{-s}+s\!\int_N^\infty\!A(v)v^{-s-1}\,dv
-   \;\ll\;(\log N)^{-A}+(1+|\tau|)\frac{(\log N)^{1-A}}{A-1}\;\ll\;(\log N)^{2-A}, \]
-which is $o(1)$ for $A>2$ and $|\tau|\le\log N$. Note what is \emph{not} used: the damping
-$p^{-1/\log N}$ attached to the shifted point $s=1+1/\log N+i\tau$ is bounded by $1$ and is simply
-discarded above. It contributes nothing to the tail, and indeed the shift alone leaves the tail of
-size $\int_1^\infty e^{-w}w^{-1}dw=E_1(1)=0.2194$. The shift costs $O(1)$ by Mertens, since
-$\sum_{p\le N}\log p/(p\log N)\ll1$, and it is convenient for keeping the Euler logarithm absolutely
-convergent, but it is not what makes the tail small. The zero--free region then gives
-$|\log L(s,\psi)|\ll_r\log\log(3+|\tau|)$, the argument of the double logarithm being taken above
-$e$ so that the bound is positive at $\tau=0$; the non--principal terms are
-$O_r(\log\log(3+|\tau|))=O_r(\log\log\log N)$ uniformly for $|\tau|\le\log N$, since at the top of
-that range the cited input gives $\log\log(3+\log N)\asymp\log\log\log N$ and not $O(1)$. Hence
-\[ M\;\ge\;c_r\log\log N-O_r(\log\log\log N),\qquad c_r:=1-\frac{\sqrt r}{\varphi(r)}\;\ge\;1-\frac{\sqrt3}2
-   \;=\;0.1339\ldots, \]
-the extremum being at $r=3$: each local factor of $\sqrt r/\varphi(r)$ is $\sqrt p/(p-1)$, and
-$(p-1)/\sqrt p\ge2/\sqrt3$ for every odd prime, so the supremum is the single factor at $r=3$
-\textup{(\texttt{code/charcancel\_check.gp})}.
-
-\emph{Conclusion.} With $T=\log N$, Hal\'asz gives
-$S_t(N)=\sum_{m\le N}h_t(m)\ll N\bigl((1+M)e^{-M}+(\log N)^{-1/2}\bigr)$. Note $M\to\infty$ alone would not suffice:
-at fixed $T$ the bound is only $\ll NT^{-1/2}$. Both limits are in play, and
-$S_t(N)\ll_rN(\log N)^{-\min(c_r,1/2)+o(1)}=o(N)$, the $\tfrac12$ being the floor the
-$(\log N)^{-1/2}$ term imposes however large $M$ becomes. Only $r=3$ and $r=5$ have $c_r\le\tfrac12$,
-so for every other modulus, and in particular for every $r=pq$ arising in Theorem~\ref{thm:a9}, the
-floor is the binding constraint. Only the $\varphi(r)$ values of $t$ coprime to $r$
-contribute, since $\chi(t)=0$ otherwise, so
-\[ |T_r(N)|\;\le\;r^{-1/2}\!\!\sum_{\gcd(t,r)=1}\!\!|S_t(N)|\;\le\;\frac{\varphi(r)}{\sqrt r}\,
-   \max_t|S_t(N)|\;\le\;\sqrt r\,\max_t|S_t(N)|\;=\;o_r(N). \]
-The net factor is a \emph{loss} of $\sqrt r$: the $\varphi(r)$ summands outweigh
-$|\tau(\chi)|^{-1}$. At fixed $r$ that is a constant.
-\end{proof}
-
-\begin{remark}[What the constant $c_r$ is and is not]\label{rem:charcancelsharp}
-Three things about $c_r=1-\sqrt r/\varphi(r)$ are worth recording, because an earlier revision
-overstated all three.
-
-\emph{Sharpness is conditional.} The bound $M\ge c_r\log\log N-O_r(1)$ is attained only when the
-main term $\chi(t)\tau(\chi)$ is real and positive. Since $\overline{\tau(\chi)}=\chi(-1)\tau(\chi)$
-with $\chi(-1)=(-1)^{(r-1)/2}$, the Gauss sum is purely imaginary for $r\equiv3\pmod4$, and there
-the true $M$ has constant $1$ rather than $c_r$. For $\chi(t)=-1$ the main term has the wrong sign, and no
-admissible $\tau$ rotates it back, since $|\sum_{p\le X}p^{-1-i\tau}|$ collapses to
-$O(\log\log(3+|\tau|))$ away from $\tau=0$; there the constant is $1+\sqrt r/\varphi(r)$. Measured
-at $r=5$: the growth rate $\Delta M/\Delta\sum_p1/p$ tends to $0.440885\to1-\sqrt5/4=0.440983$ for
-$t\equiv\pm1$, and to $1.558919\to1+\sqrt5/4=1.559017$ for the other two residues, whose $M(10^7)$
-is $4.378$ against the leading term $1.341$. So the constant is attained for
-$r\equiv1\pmod4$ and $\chi(t)=+1$, and is not sharp otherwise.
-
-\emph{The finite-$X$ deficit is a constant, though the proved error term is not.} The bound carries
-$-O_r(\log\log\log N)$, which is what the $L$--bound gives at the top of the $\tau$--range; what is
-\emph{measured} at a single modulus is smaller and flat. At $r=5$, $t=1$ the deficit between
-$M$ and $c_r\sum_{p\le X}1/p$ is $0.1407,0.1407,0.1405,0.1405$ at $X=10^4,\dots,10^7$, flat to four
-places, while $\log\log\log X$ rises by $28\%$ over the same range. The $\log\log\log$ enters only
-through uniformity in $\tau$.
-
-\emph{The rate that follows, and the one that does not.} Hal\'asz gives
-$T_r(N)\ll_rN(\log N)^{-c_r+o(1)}$. Since $c_3=0.134$ and $c_5=0.441$ are below $\tfrac12$, this
-does \emph{not} yield $T_r(N)\ll\sqrt r\,N(\log N)^{-1/2}$ at those moduli, and an earlier revision
-asserted that it did. Quantitatively the lemma is asymptotic in the strong sense: at $r=5$, with the
-measured constants and an implied Hal\'asz constant of $1$, the bound first beats the trivial
-$|T_r(N)|\le N$ at $\log N=143.0$, that is $N=10^{62.1}$. Measured against the honest trivial bound,
-which is $0.5066N$ because $T_r$ has only that many terms, the crossing moves to $\log N=1013.7$,
-that is $N=10^{440}$.
-\end{remark}
-
-\begin{remark}[Erratum: the $\tau$ bound above is false near the threshold]\label{rem:charcancelerratum}
-The step ``if $|\tau|\ge1/\log N$ then
-$\bigl|\sum_{p\le N}p^{-1-i\tau}\bigr|\ll\log\log(3+|\tau|)$'' is \emph{false} in the range that
-matters. Near the threshold the sum has size about $\log(1/|\tau|)$, which is of order $\log\log N$,
-not $\log\log(3+|\tau|)$, which is of order $1$. Measured at $N=2\times10^{7}$ with
-$\tau=2/\log N=0.11897$: the left side is $2.6797$ against a claimed bound of $0.12883$, a violation
-by a factor $20.8$; at $\tau=1/\log N=0.05948$ the left side is $2.9773$ against $0.11176$, a factor
-$26.6$ \textup{(\texttt{code/charcancel\_check.gp})}. A second defect is that the inequality bounds the
-untwisted sum $\sum p^{-1-i\tau}$, whereas the Hal\'asz distance $M$ requires the $h_t$--twisted sum.
-
-Consequences, stated exactly. Neither defect touches the lemma as now proved, because that proof
-does not use the offending step: it bounds the \emph{twisted} sum through the character expansion of
-$h_t$, where the principal coefficient contributes at most $\sqrt r/\varphi(r)\le0.8661$ of
-$\sum_{p\le N}1/p$ and the non--principal ones contribute $O_r(\log\log\log N)$, both uniformly in
-$\tau$. The
-trivial bound $\bigl|\sum_{p\le N}p^{-1-i\tau}\bigr|\le\sum_{p\le N}1/p$ is all that is needed of the
-untwisted sum, so the false inequality is not merely repaired but unnecessary.
-
-Two claims must be distinguished, and an earlier revision ran them together. What is shown false
-above is the $r$--\emph{uniform form of one input}, the $\log L$ bound, whose lower half needs
-$L(1,\psi)$ away from $0$ and has only $L(1,\psi)\gg r^{-1/2}$ effectively or $\gg_\varepsilon
-r^{-\varepsilon}$ by Siegel, ineffectively. That is \emph{not} the same as the uniform form of the
-lemma being false; the uniform lemma is simply \emph{not established here}, which is a weaker and
-accurate statement. Either way Corollary~\ref{cor:a9rate} needs a bound uniform in $r=pq$ as
-$P\to\infty$ that this argument does not supply, and it is independently blocked by the regime
-mismatch recorded after Lemma~\ref{lem:reversal}, so it keeps the label \textsc{conjecture}.
-\end{remark}
-Measured at $r=1009$, $N=3\times10^7$: $|\sum_m h_t(m)|/N$ equals $3.6\times10^{-6}$, $1.3\times10^{-3}$,
-$2.1\times10^{-3}$, $5.7\times10^{-4}$, $1.5\times10^{-3}$ at $t=0,1,2,17,500$, all of size $\sqrt N$
-rather than merely $o(N)$. The sums $T_r(N)$ themselves were measured at $N=5\times10^7$ for
-$r=101,1009,10007,100003$ and $r=pq=101\cdot1009,\,1009\cdot10007$, giving
-$|T_r|/\sqrt N=8.1,\,0.1,\,1.2,\,1.0,\,1.0,\,0.2$ \textup{(\texttt{code/sqsieve\_test.rs})}.
-
-\begin{lemma}[Local densities at $p^2$]\label{lem:localsq}
-For each odd prime $p$,
-$\ \limsup_{N\to\infty}N^{-1}\#\{m\le N:\mu^2(m)=1,\ p^2\mid(m'-2m)\}\le p^{-2}$, with absolute
-constant. \textup{(}The density form is the one Theorem~\ref{thm:a9} needs, because it sends
-$P\to\infty$; the form ``$\ll N/p^2$ for each fixed $p$'' advertises a $p$--dependent implied
-constant and would not license that limit.\textup{)}
-\end{lemma}
-\begin{proof}
-For $p\nmid m$ the condition is $\sigma_{p^2}(m)\equiv2\pmod{p^2}$ by Lemma~\ref{lem:symbolfact}
-applied with modulus $p^2$. Detecting it by additive characters, the non-trivial frequencies give
-multiplicative sums $\prod_{\ell\mid m}e_{p^2}(t/\ell)$ whose values at primes depend only on
-$\ell\bmod p^2$ and which are not Dirichlet characters, because $u\mapsto e_{p^2}(t/u)$ is not
-multiplicative; the Hal\'asz argument of Lemma~\ref{lem:charcancel} applies, but \emph{not}
-verbatim, and the difference is worth naming. That lemma uses primitivity of $\chi=(\cdot\mid r)$
-twice, for $|\tau(\chi)|=\sqrt r$ and for the principal coefficient $\chi(t)\tau(\chi)/\varphi(r)$;
-here $(\cdot\mid p^2)$ is trivial on $(\mathbb{Z}/p^2)^\times$, so there is no character twist at
-all. The principal coefficient is instead a Ramanujan sum $c_{p^2}(t)/\varphi(p^2)$, which vanishes
-for $\gcd(t,p^2)=1$ and equals $-1/(p-1)$ when $p\,\|\,t$; the distance bound follows more easily
-than in Lemma~\ref{lem:charcancel}, not by the same computation. Hence the density is
-$\tfrac6{\pi^2}\cdot\tfrac p{p+1}\cdot p^{-2}+o(1)\le p^{-2}$. The two factors in front were omitted
-in an earlier revision: the count runs over \emph{squarefree} $m$ coprime to $p$, so it carries the
-squarefree density $6/\pi^2$ and the coprimality factor $p/(p+1)$. The error was in the safe
-direction, the stated $p^{-2}$ being an over-estimate, so the inequality the lemma asserts survives
-with room to spare. The case $p\mid m$ does not arise at all: writing $m=pn$ with $p\nmid n$
-gives $m'=pn'+n$, so $m'-2m=n+p(n'-2n)\equiv n\not\equiv0\pmod p$, and $p$ does not even divide
-$m'-2m$, let alone $p^2$.
-\end{proof}
-Measured at $N=3\times10^7$ for $p=5,7,11,13,101$, the count divided by
-$\tfrac6{\pi^2}\tfrac p{p+1}N/p^2$ is $0.842$, $0.887$, $0.930$, $0.925$, $0.993$, approaching $1$ as
-the corrected density predicts. Against the bare $N/p^2$ the same data read $0.512$, $0.539$,
-$0.566$, $0.562$, $0.604$, approaching $6/\pi^2=0.6079$; an earlier revision printed the first list
-while describing it as the second.
-
-\begin{theorem}[The minus layer has density zero on the squarefree stratum: \textsc{conjecture}]\label{thm:a9}
-\textup{Label: \textsc{conjecture}, and this is a considered downgrade rather than a known error.}
-The argument below has survived four rounds of adversarial review at the level of its
-\emph{mathematics}: the square sieve, the $E_{pq}$ correction, the diagonal bound, the limsup
-argument and the whole of Lemma~\ref{lem:charcancel}'s algebra were each attacked and each held. What
-has not held is the \emph{text}. In three consecutive rounds a load-bearing display was found to have
-silently dropped a hypothesis, twice the coprimality condition and once the squarefree condition, and
-each repair introduced a fresh defect elsewhere. A statement whose written proof has needed a
-correction in every round of review, with no sign of the rate declining, has not earned
-\textsc{proved}, whatever one's private confidence in it.
-
-The honest position is therefore: the author believes the statement and believes the argument, and
-does not claim either as established. Nothing in this paper depends on it. Restoring the label
-requires a round of review that finds nothing, which has not yet happened.
-
-$\#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}=o(N)$. Equivalently, atom
-$\mathrm{A}9$ holds on the squarefree stratum: the squarefree minus layer has density zero. The same
-argument with $m'+2m$ gives the squarefree plus--analogue, so the squarefree Pythagorean layer has
-density zero unconditionally. That is \emph{not} a reproof of
-Proposition~\textup{\ref{prop:plusthin}}, which is a sharper $O(\sqrt X(\log X)^2)$ on the narrower
-semiprime stratum; the two are incomparable, and that proposition rests on its own elementary
-divisor--sum proof.
-
-The squarefree restriction is not cosmetic and earlier versions of this paper omitted it. Every tool
-in the proof, Rigidity, the cofactor identity, and Lemma~\ref{lem:charcancel}, is stated for
-squarefree $m$; the non-squarefree stratum, of density $1-6/\pi^2\approx0.392$, is untreated. Since
-a \#307 solution is squarefree by Rigidity, the restriction costs nothing for the application, but
-the unrestricted statement is not proved here.
-\end{theorem}
-\begin{proof}
-Write $a_m=m'-2m$ and fix $P$, letting $\mathcal{P}$ be the primes in $(P,2P]$ and
-$\Pi=|\mathcal{P}|\sim P/\log P$. If $a_m$ is a perfect square coprime to every $p\in\mathcal{P}$
-then $(a_m/p)=1$ for all such $p$, so $\sum_{p\in\mathcal{P}}(a_m/p)=\Pi$. Hence
-\[ \Pi^2\,\#\{m\le N:\ \mu^2(m)=1,\ a_m=\square,\ \gcd(a_m,\textstyle\prod\mathcal{P})=1\}
-   \;\le\!\!\sum_{\substack{m\le N\\ \mu^2(m)=1}}\!\!\Bigl(\sum_{p\in\mathcal{P}}\Bigl(\frac{a_m}{p}\Bigr)\Bigr)^2
-   \;=\;\sum_{p,q\in\mathcal{P}}\ \sum_{\substack{m\le N\\ \mu^2(m)=1}}\Bigl(\frac{a_m}{pq}\Bigr). \]
-Both $m$--sums carry $\mu^2(m)=1$ throughout, and so does the counting set on the left. This is not
-a convenience: every tool below is squarefree--only, and an earlier revision wrote these sums
-unrestricted, which made the identity with $T_{pq}+E_{pq}$ false by the non--squarefree terms. Those
-are not negligible: measured at $N=3\times10^7$ the omitted sum is $119{,}473$ against a $T_{pq}$ of
-$2{,}699$ at $r=101\cdot1009$, and $169{,}949$ against $314$ at $r=1009\cdot10007$, exceeding the
-term the lemma controls by a factor $44$ to $540$. The paper bounds it by nothing better than the
-trivial $(1-6/\pi^2)N$.
-The diagonal $p=q$ contributes $(a_m/p^2)=(a_m/p)^2\in\{0,1\}$, hence at most $\Pi N$. The
-off-diagonal is $\sum_{p\ne q}\bigl(T_{pq}(N)+E_{pq}(N)\bigr)$, where $T_{pq}$ carries the
-coprimality condition $\gcd(m,pq)=1$ of Lemma~\ref{lem:charcancel} and
-$E_{pq}(N)=\sum_{m\le N,\ \mu^2(m)=1,\ \gcd(m,pq)>1}(a_m/pq)$ collects the terms it omits. That
-correction is harmless but is not empty and must be carried:
-$|E_{pq}(N)|\le\#\{m\le N:p\mid m\text{ or }q\mid m\}\le N(1/p+1/q)\le2N/P$, so
-$\Pi^{-2}\sum_{p\ne q}|E_{pq}(N)|\le2N/P$, which is dominated by the diagonal's own $N/\Pi\asymp
-N\log P/P$ and changes nothing below. Each $T_{pq}(N)$ is $o(N)$, for each of the finitely many
-pairs, by Lemma~\ref{lem:charcancel}. A square divisible by $p$ is divisible by $p^2$, so the excluded $m$ are counted by
-Lemma~\ref{lem:localsq} in its \emph{density} form: $\limsup_NN^{-1}\#\{m\le N:\mu^2(m)=1,\
-p^2\mid a_m\}\le p^{-2}$, with absolute constant $1$. That form is what the endgame needs, since
-sending $P\to\infty$ against a $p$--dependent implied constant would not be legitimate; the
-statement ``$\ll N/p^2$ for each fixed $p$'' advertises exactly such a constant and was cited here
-in an earlier revision. Summing, $\sum_{p\in\mathcal{P}}p^{-2}\le\Pi/P^2\asymp1/(P\log P)$. Here
-$p\mid m$ is impossible, since $m=pn$ with $p\nmid n$ gives $a_m=n+p(n'-2n)\equiv n\not\equiv0$,
-a computation that itself needs $\mu^2(m)=1$. The case $a_m=0$ does not arise: the theorem counts $a_m=\square>0$, and in any case
-$m'=2m$ has \emph{no} squarefree solution, since $\sigma(m)=2\in\mathbb{Z}$ forces $D_m=1$ by
-rigidity. Altogether
-\[ \limsup_{N\to\infty}\frac1N\#\{m\le N:\ \mu^2(m)=1,\ a_m=\square>0\}\;\ll\;\frac1\Pi+\frac1{P\log P}. \]
-The left side does not depend on $P$; letting $P\to\infty$ gives $0$. The restriction $\mu^2(m)=1$
-must be carried here as everywhere above: without it the display would assert density zero for the
-\emph{full} minus layer, which is exactly the statement this theorem disclaims, and three successive
-revisions of this proof dropped it from one display or another.
-\end{proof}
-
-The proof of Theorem~\ref{thm:a9} sends $P\to\infty$ only after $N$, which costs all quantitative
-information. Keeping $P$ a function of $N$ would turn it into an explicit rate, and what that
-requires is uniformity in $r$ as $P\to\infty$.
-
-\emph{That uniformity is exactly what is not available}, and earlier editions of this paragraph
-asserted the opposite. Lemma~\ref{lem:charcancel} gives
-$M\ge\bigl(1-\sqrt r/\varphi(r)\bigr)\log\log N-O_r(\log\log\log N)$, with the error depending on
-$r$ through the non--principal $L$--functions, and its statement and the erratum following it both
-say so. The constant is $\sqrt r/\varphi(r)$, not the $3/\sqrt r$ printed here previously; the two
-are not interchangeable, since $\varphi(r)\ge r/3$ fails for odd squarefree $r$, first at
-$r=3\cdot5\cdots23=111{,}546{,}435$ with $\varphi(r)/r=0.3272$. The corollary below is therefore
-stated as a \textsc{conjecture} and its argument is a sketch of what a uniform version would give,
-not a proof.
-
-\begin{corollary}[A rate for $\mathrm{A}9$: \textsc{conjecture}]\label{cor:a9rate}
-The following rate does \emph{not} follow from Lemma~\ref{lem:charcancel}, which is qualitative and
-per fixed $r$; deducing it needs a bound uniform in $r=pq$ as $P\to\infty$, and that is not
-established here. It is independently blocked twice over: by the regime mismatch recorded after
-Lemma~\ref{lem:reversal}, and by Lemma~\ref{lem:localsq}, which at $P=P(N)$ would have to be uniform
-in $p$ and is not, its $o(1)$ being driven by non--principal $L$--functions modulo $p^2$ and
-ineffective in $p$. Theorem~\ref{thm:condpower} meets the same obstruction and sidesteps it with a
-divisor bound instead. The statement is retained as a conjecture, nothing in this paper depends
-on it, and what follows is a sketch of the balancing a uniform version would permit rather than a
-proof.
-\[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}
-    \;\ll\;\frac{N\log\log N}{(\log N)^{1/4}}. \]
-The squarefree restriction is inherited from Theorem~\ref{thm:a9} and from
-Lemma~\ref{lem:charcancel}; an earlier revision stated this unrestricted.
-\end{corollary}
-\begin{proof}[Sketch, conditional on a uniform-in-$r$ form of Lemma~\ref{lem:charcancel}]
-Take $\mathcal{P}$ to be the primes in $(P,2P]$ with $P=P(N)$ to be chosen, so
-$\Pi\sim P/\log P$. The three terms of Theorem~\ref{thm:a9} are then
-\[ \frac{N}{\Pi}\ \ll\ \frac{N\log P}{P},\qquad
-   \frac1{\Pi^2}\sum_{p\neq q}|T_{pq}(N)|\ \le\ \max_{p\neq q}|T_{pq}(N)|,\qquad
-   \sum_{p\in\mathcal{P}}O\!\left(\frac{N}{p^2}\right)\ \ll\ \frac{N}{P\log P}. \]
-Granting a uniform-in-$r$ distance bound, which Lemma~\ref{lem:charcancel} does \emph{not}
-supply, Hal\'asz would give
-$T_r(N)\ll\sqrt r\,N(\log N)^{-1/2}$, and $r=pq\le4P^2$ gives $\sqrt r\le2P$, so the middle term is
-$\ll PN(\log N)^{-1/2}$. Balancing it against the first,
-$N\log P/P=PN(\log N)^{-1/2}$, gives $P\asymp(\log N)^{1/4}$, at which both equal
-$N\log\log N(\log N)^{-1/4}$ up to constants; the third term is then $O\bigl(N(\log N)^{-1/4}/\log\log N\bigr)$
-and is absorbed.
-\end{proof}
-
-\begin{remark}[Where the exponent comes from]\label{rem:rateexponent}
-The exponent $\tfrac14$ is not intrinsic to the arithmetic. It is what remains after balancing
-against the floor $N(\log N)^{-1/2}$ in the Montgomery form of Hal\'asz's theorem, which holds
-however large the pretentious distance $M$ becomes. Any improvement of that floor transfers here
-without change: a floor of $N(\log N)^{-\alpha}$ yields the exponent $\alpha/2$. The measured
-character sums are of size $\sqrt N$ rather than $N(\log N)^{-1/2}$
-(Section~\ref{sec:sqsieve}), so the truth is far stronger than what the general theorem can deliver,
-and the gap is entirely in the analytic input rather than in the sieve.
-\end{remark}
-
-The exponent $\tfrac14$ is an artefact of the general theorem, not of the arithmetic, and the gap
-can be closed off exactly. Everything in the sieve except the character-sum input is elementary, so
-the reachable exponent is a function of one measurable quantity: how $T_r(N)$ grows with $r$.
-
-\begin{hypothesis}[Square-root cancellation, uniform in the modulus]\label{hyp:sq}
-There is an absolute $A\ge0$ with $|T_r(N)|\ll r^{A}N^{1/2+o(1)}$ for every odd squarefree $r$.
-\end{hypothesis}
-
-\begin{theorem}[Conditional power saving, and the crux exactly]\label{thm:condpower}
-Assume Hypothesis~\textup{\ref{hyp:sq}}. Then
-\[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}\;\ll\;N^{1-\delta},
-   \qquad \delta=\frac1{2(2A+1)}. \]
-In particular $A=0$ gives $N^{1/2+o(1)}$, which is exactly the bound
-$\mathrm{CRUX}\text{-}\mathrm{A}9$ asks for.
-\end{theorem}
-\begin{proof}
-Run the sieve of Theorem~\ref{thm:a9} with $\mathcal{P}$ the primes in $(P,2P]$, $\Pi\sim P/\log P$,
-and dispose of the $m$ with $p\mid a_m$ by the divisor bound rather than
-Lemma~\ref{lem:localsq}: a perfect square $a_m$ has at most $\log(2N)/\log P$ prime factors in
-$\mathcal{P}$, so $\sum_{p\in\mathcal{P}}(a_m/p)\ge\Pi/2$ once $\Pi\ge2\log(2N)/\log P$. Then
-\[ \#\{\,\cdot\,\}\ \ll\ \frac{N}{\Pi}+\frac1{\Pi^2}\sum_{p\neq q}|T_{pq}(N)|
-   \ \ll\ \frac{N\log P}{P}+P^{2A}N^{1/2+o(1)}, \]
-since $pq\le4P^2$. Balancing the two terms gives $P=N^{1/(2(2A+1))}$ and the stated exponent; the
-side condition $\Pi\ge2\log(2N)/\log P$ holds comfortably at that $P$. For $A=0$ take
-$P=N^{1/2}$, whence both terms are $N^{1/2+o(1)}$.
-\end{proof}
-
-\begin{remark}[The hypothesis is measured, and $A$ reads as zero]\label{rem:Ameasured}
-Hypothesis~\ref{hyp:sq} is not a wish. At $N=4\times10^7$, so $\sqrt N=6.325\times10^3$, the ratio
-$|T_r(N)|/\sqrt N$ across twelve moduli spanning ten orders of magnitude is
-\[
-\begin{array}{lrrrrrr}
-r\ \text{prime}: & 101 & 1009 & 10007 & 100003 & 10^6{+}3 & 10^7{+}19\\
-|T_r|/\sqrt N:   & 7.38 & 0.17 & 0.84 & 1.07 & 0.05 & 0.15\\[2pt]
-r=pq:            & 101909 & 10097063 & 1000730021 & 100003300009 & & \\
-|T_r|/\sqrt N:   & 0.95 & 0.21 & 1.30 & 0.64 & &
-\end{array}
-\]
-together with $2.34$ and $1.00$ at the squarefree $1155$ and $1113121$. The implied exponent
-$A=\log(|T_r|/\sqrt N)/\log r$ is $+0.006$, $-0.004$, $+0.013$, $-0.018$ and $-0.000$ at the five
-largest moduli; the outlying $+0.433$ occurs at $r=101$, where $\log r$ is too small for the ratio to
-be meaningful. Note that the last two moduli \emph{exceed} $N$, and the sums are still of size
-$\sqrt N$ \textup{(\texttt{code/sqsieve\_uniform.rs})}.
-
-So the sharp form of $\mathrm{A}9$ is not blocked by the sieve, which is elementary, nor by the
-arithmetic, which cooperates: it is blocked by the absence of a Weil-type bound for a character sum
-whose argument is not a polynomial. That is a single, isolated, and precisely stated analytic
-deficit, and Lemma~\ref{lem:symbolfact} has already reduced it to a sum over a multiplicative
-function of $\sigma_r$.
-\end{remark}
-
-The obvious route to Hypothesis~\ref{hyp:sq} is the one already used in
-Lemma~\ref{lem:charcancel}: expand by Gauss sums and bound each multiplicative sum
-$\sum_{m\le N}h_t(m)$ separately, where square-root cancellation would follow from a Weil-type
-input or, in the analytic form, from \textup{GRH} applied to
-$\prod_\chi L(s,\chi)^{\widehat\alpha(\chi)}$. That route is closed. The reason is not the one a first look suggests.
-
-\begin{proposition}[The decomposition destroys the cancellation]\label{prop:routeclosed}
-Write $\alpha(u)=(u/r)e_r(t u^{-1})$, so that $h_t(p)=\alpha(p\bmod r)$. The principal Fourier
-coefficient $\widehat\alpha(\chi_0)=\varphi(r)^{-1}\sum_u\alpha(u)$ is a Sali\'e sum; measured, it has
-modulus exactly $\sqrt r$ before normalisation, at $r=1009$ and $r=10007$ giving $31.8$ and $100.0$
-against $\sqrt r=31.76$ and $100.03$. It is therefore nonzero, and $\prod_\chi
-L(s,\chi)^{\widehat\alpha(\chi)}$ retains a $\zeta$-type branch point at $s=1$. This does \emph{not}
-by itself decide the matter, since the measured sums fall $50$ to $350$ times below what that branch
-point predicts. What decides it is the growth in $N$: at $r=10007$, $t=1$,
-\[
-\begin{array}{lrrrrr}
-N: & 10^6 & 3\times10^6 & 10^7 & 3\times10^7 & 6\times10^7\\
-|\sum h_t|/\sqrt N: & 0.67 & 0.48 & 0.69 & 2.08 & 2.29
-\end{array}
-\]
-a fitted exponent of $0.800$ over that range, with $|\sum h_t|/(N/\log N)$ flat near $0.005$. The
-individual multiplicative sums thus grow strictly faster than $\sqrt N$
-\textup{(\texttt{code/sqsieve\_route.rs})}.
-\end{proposition}
-
-\begin{remark}[Where the cancellation actually lives]\label{rem:whereitlives}
-Since $T_r(N)$ itself measures at $\sqrt N$ across ten orders of magnitude in $r$
-(Remark~\ref{rem:Ameasured}) while each $\sum_m h_t(m)$ measured here grows like $N^{0.8}$, the
-cancellation in $T_r$ is not present frequency by frequency: it lies in the sum over $t$. The
-magnitude is not marginal. At $r=1009$, $N=4\times10^7$, bounding each frequency separately and
-summing trivially gives $\sqrt r\,N/\log N\approx7\times10^{7}$, against a measured
-$|T_r|=1050$: a factor of about $7\times10^{4}$ is lost the moment the Gauss expansion is taken.
-
-The deficit behind Hypothesis~\ref{hyp:sq} is therefore not a missing Weil bound for a single
-character sum, which is how Remark~\ref{rem:Ameasured} first framed it. It is that the only
-available decomposition of $T_r$ scatters the cancellation across frequencies, and no current
-technique grips cancellation in that position. Stating it this way is more useful than the
-Weil framing, because it says what would have to be new: an estimate for $T_r$ that never passes
-through the multiplicative decomposition at all.
-\end{remark}
-
-Remark~\ref{rem:whereitlives} asked for an estimate for $T_r$ that never passes through the
-multiplicative decomposition. The following is the mechanism such an estimate would use, isolated
-and proved; the reduction of $T_r$ to it is \emph{not} established here, and we say precisely what
-is missing.
-
-\begin{proposition}[Kernel norm]\label{prop:bilinear}
-Since $\sigma_r$ is additive, for coprime $d,e$ Lemma~\ref{lem:symbolfact} gives
-\[ \Bigl(\frac{(de)'-2de}{r}\Bigr)=\Bigl(\frac{d}{r}\Bigr)\Bigl(\frac{e}{r}\Bigr)\,
-   K\bigl(\sigma_r(d),\sigma_r(e)\bigr),\qquad K(u,v)=\Bigl(\frac{u+v-2}{r}\Bigr). \]
-The matrix $K$ is Toeplitz in $u+v$, so $K(u,v)=\sum_\xi\widehat f(\xi)e_r(\xi u)e_r(\xi v)$
-diagonalises it against the orthogonal system $(e_r(\xi u))_u$ of norm $\sqrt r$. As $\widehat f(\xi)$
-is a normalised Gauss sum, $|\widehat f(\xi)|=r^{-1/2}$ for $\xi\neq0$ and $\widehat f(0)=0$, so every
-singular value of $K$ equals $\sqrt r$ and
-\[ \|K\|_{\mathrm{op}}=\sqrt r . \]
-Consequently \emph{any} bilinear form $\sum_{d\sim D}\sum_{e\sim E}\alpha_d\beta_e\,
-K(\sigma_r(d),\sigma_r(e))$ is at most $\sqrt r\,\|A\|_2\|B\|_2$, where
-$A(u)=\sum_{d\sim D,\ \sigma_r(d)\equiv u}\alpha_d$ and $B$ is defined likewise. No multiplicative
-decomposition is used; the only input is the modulus of a Gauss sum.
-\end{proposition}
-
-\begin{remark}[What is missing, stated exactly]\label{rem:missingdecomp}
-Proposition~\ref{prop:bilinear} bounds bilinear forms, not $T_r$. Passing from one to the other
-requires a decomposition of $\sum_{m\le N}$ into bilinear pieces, and two obstacles are real rather
-than cosmetic.
-\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
-\item Summing over coprime pairs $(d,e)$ with $de=m$ weights each $m$ by $2^{\omega(m)}$: at
-$N=2\times10^6$ the coprime-pair count is $10{,}014{,}190$ against $1{,}215{,}876$ squarefree $m$, a
-factor $8.24$. Since the summand is \emph{signed}, no inequality relates $\sum_m F(m)$ to
-$\sum_m 2^{\omega(m)}F(m)$ in either direction.
-\item A single dyadic block $d\sim D$ sees only a minority of $m$: for $D=\sqrt N$ at
-$N=2\times10^6$, $24.7\%$ \textup{(\texttt{code/sqsieve\_bilinear.rs})}.
-\end{enumerate}
-The natural repair is the largest-prime-factor split $m=pn$ with $p=P^{+}(m)$, which is unique and so
-avoids \textup{(i)}; the $A$-side is then supported on primes, where $\|A\|_2^2\ll\pi(D)^2/\varphi(r)+\pi(D)$
-follows from Brun--Titchmarsh uniformly in $r$, and the $B$-side is governed by
-Theorem~\ref{thm:pairavg}. What remains is the coupling $P^{+}(n)<p$ and the dyadic bookkeeping, a
-Type I/II analysis that we have not carried out. Until it is, the power saving below is
-\textbf{CONJECTURAL}, and Corollary~\ref{cor:a9rate} remains the best unconditional rate proved here.
-\end{remark}
-
-\begin{conjecture}[Power saving, pending the decomposition]\label{conj:power34}
-If the decomposition of Remark~\textup{\ref{rem:missingdecomp}} is carried out with the stated
-bounds, then combining Proposition~\ref{prop:bilinear} with Theorem~\ref{thm:pairavg} and
-Theorem~\ref{thm:condpower} at $P=N^{1/4}$ gives
-\[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}\ \ll\ N^{3/4+o(1)} . \]
-\end{conjecture}
-
-The two ingredients that would feed it are themselves unconditional, and are recorded separately
-because they do not depend on the missing step.
+The argument for Theorem~\ref{thm:a9} is a square sieve whose analytic input does not close, which
+is why the theorem stands at \textsc{conjecture} and why Remark~\ref{rem:whatisleft} keeps it off
+the critical path. It occupied eight pages in the main line, ahead of results that are proved. It is
+moved verbatim to Appendix~\ref{app:sieve}; nothing is omitted and every label is unchanged, so the
+cross-references from \S\ref{ssec:pairavg} still resolve. What the argument establishes, what it
+assumes, and exactly where the gap sits are stated there.
 
 \subsection{Pair averages and the mass--two wall}\label{ssec:pairavg}
 
@@ -5084,6 +4662,469 @@ We stress the scope: survivors remain \emph{infinite}, and a \#307 solution; one
 $2.09\times10^{56}$, in the density--zero stratum $\sigma(N)\ge2$; is untouched by such an average
 statement, which speaks only to the typical integer, not to existence.
 \end{proposition}
+
+
+\appendix
+
+\section{The square sieve: the argument for the minus-layer density theorem, and where it fails}\label{app:sieve}
+
+Relegated from \S\ref{ssec:sieve}. Theorem~\ref{thm:a9} is labelled \textsc{conjecture}: the
+sieve below is a complete argument except for its analytic input, and that input is not supplied
+here. It is kept in full because the algebraic layer is correct and reusable, and because the
+location of the gap is itself the useful information.
+
+
+\begin{lemma}[Cancellation in the character sums]\label{lem:charcancel}
+Fix an odd squarefree $r>1$. Then
+\[ T_r(N)\;:=\!\!\sum_{\substack{m\le N,\ \mu^2(m)=1\\ \gcd(m,r)=1}}\!\!\Bigl(\frac{m'-2m}{r}\Bigr)\;=\;o_r(N)
+\qquad (N\to\infty). \]
+The statement is qualitative and per fixed $r$: the implied constant depends on $r$, and no
+uniformity is claimed. Remark~\ref{rem:charcancelerratum} records why the uniform version is not
+available and what was previously claimed here in error; Remark~\ref{rem:charcancelsharp}
+records what the constant is and is not.
+\end{lemma}
+\begin{proof}
+Five standard facts are used, all at fixed $r$: Hal\'asz's theorem; $|\tau(\chi)|=\sqrt r$ for a
+primitive character; the classical zero--free region; $|\log L(s,\psi)|\ll_r\log\log(3+|\tau|)$ for
+$\psi$ non--principal at $s=1+1/\log N+i\tau$; and Siegel--Walfisz. None is formalised.
+
+\emph{The expansion.} Write $\chi=(\cdot\mid r)$. For $r$ odd squarefree the Jacobi symbol is a
+primitive real character modulo $r$, so
+$\chi(x)=\tau(\chi)^{-1}\sum_{t\bmod r}\chi(t)e_r(tx)$ holds for \emph{every} $x$, including
+$\gcd(x,r)>1$, where both sides vanish. That case occurs: at $r=15$ already $m=2$ gives
+$\sigma_r(m)-2=6$. By Lemma~\ref{lem:symbolfact},
+$(m'-2m\mid r)=\chi(m)\,\chi(\sigma_r(m)-2)$, and expanding the second factor,
+\[ T_r(N)=\tau(\chi)^{-1}\sum_{t\bmod r}\chi(t)\,e_r(-2t)\;S_t(N),\qquad
+   S_t(N)=\!\!\sum_{\substack{m\le N,\ \mu^2(m)=1\\ \gcd(m,r)=1}}\!\!h_t(m), \]
+where $h_t(m)=\chi(m)\prod_{p\mid m}e_r(tp^{-1})$, using that $\sigma_r$ is a sum over $p\mid m$ and
+$e_r$ carries sums to products. Extend $h_t$ to $\mathbb{N}$ by $h_t(p^k)=0$ for $k\ge2$ and
+$h_t(p)=0$ for $p\mid r$, the only extension preserving $S_t$. It is multiplicative with
+$|h_t|\le1$, which is Hal\'asz's hypothesis; $|h_t|=1$ on the support only.
+
+\emph{The distance.} Hal\'asz needs
+$M=\min_{|\tau|\le\log N}\sum_{p\le N}\bigl(1-\operatorname{Re}h_t(p)p^{-i\tau}\bigr)/p\to\infty$.
+Now $h_t$ is not a function of $m\bmod r$, being built from the factorisation: at $r=7$,
+$h_1(3)=0.2225+0.9749i$ while $h_1(10)=-1$, though $3\equiv10$. Its restriction to primes is,
+which is all that is needed. Put $g_t(a)=\chi(a)e_r(ta^{-1})$ on $(\mathbb{Z}/r)^\times$, so
+$h_t(p)=g_t(p\bmod r)$ for $p\nmid r$, and expand $g_t=\sum_\psi c_\psi\psi$. Reindexing by the
+involution $a\mapsto ta^{-1}$ of $(\mathbb{Z}/r)^\times$ and using $\chi(a^{-1})=\chi(a)$,
+\[ c_{\psi_0}=\frac1{\varphi(r)}\sum_{a\in(\mathbb{Z}/r)^\times}\chi(a)e_r(ta^{-1})
+   =\frac{\chi(t)\,\tau(\chi)}{\varphi(r)},\qquad |c_{\psi_0}|=\frac{\sqrt r}{\varphi(r)}. \]
+This identity uses no primitivity: it holds for any quadratic character on any finite abelian group,
+which is what the formalisation records. Primitivity enters twice elsewhere, for
+$|\tau(\chi)|=\sqrt r$ and for the inversion at $\gcd(x,r)>1$ above.
+
+Splitting the prime sum by $\psi$,
+\[ \sum_{p\le N}h_t(p)p^{-1-i\tau}
+   =c_{\psi_0}\!\!\sum_{p\le N,\,p\nmid r}\!\!p^{-1-i\tau}
+    +\sum_{\psi\ne\psi_0}c_\psi\sum_{p\le N}\psi(p)p^{-1-i\tau}. \]
+The first sum is at most $\sum_{p\le N}1/p=\log\log N+O(1)$ in modulus, trivially and uniformly in
+$\tau$. For the coefficients, $|g_t|=1$ gives $\sum_\psi|c_\psi|^2=1$ by Parseval, hence
+$\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt{\varphi(r)}$ by Cauchy--Schwarz; they are \emph{not} small
+individually. Indeed $c_\psi=\varphi(r)^{-1}\sum_b(\chi\psi)(b)e_r(tb)$, so
+$|c_\psi|=\sqrt{\operatorname{cond}(\chi\psi)}/\varphi(r)$, and the maximum $\sqrt r/\varphi(r)$ is
+attained exactly on the $\prod_{p\mid r}(p-2)$ characters with $\chi\psi$ primitive: three of the
+eight at $r=15$, five of the twelve at $r=21$. Their contribution is small
+because the $L$--functions have no pole, and reaching that needs care: the cited bound governs
+$\log L$, an Euler product over all $p$, while what is required is the truncation. Both routes go by partial summation against Siegel--Walfisz and both shed the same factor
+$1+|\tau|$; what differs is the \emph{range}, and it is the range and not any shift that does the
+work. On $[2,N]$ one is left with $\int_{\log2}^{\log N}u^{-A}du=O_A(1)$, so $(1+|\tau|)\cdot O(1)$
+is $\ll\log N$, worse than trivial. On $[N,\infty)$, writing $A(v)=\sum_{p\le v}\psi(p)\ll_{A,r}
+v(\log v)^{-A}$,
+\[ \sum_{p>N}\psi(p)p^{-s}\;=\;-A(N)N^{-s}+s\!\int_N^\infty\!A(v)v^{-s-1}\,dv
+   \;\ll\;(\log N)^{-A}+(1+|\tau|)\frac{(\log N)^{1-A}}{A-1}\;\ll\;(\log N)^{2-A}, \]
+which is $o(1)$ for $A>2$ and $|\tau|\le\log N$. Note what is \emph{not} used: the damping
+$p^{-1/\log N}$ attached to the shifted point $s=1+1/\log N+i\tau$ is bounded by $1$ and is simply
+discarded above. It contributes nothing to the tail, and indeed the shift alone leaves the tail of
+size $\int_1^\infty e^{-w}w^{-1}dw=E_1(1)=0.2194$. The shift costs $O(1)$ by Mertens, since
+$\sum_{p\le N}\log p/(p\log N)\ll1$, and it is convenient for keeping the Euler logarithm absolutely
+convergent, but it is not what makes the tail small. The zero--free region then gives
+$|\log L(s,\psi)|\ll_r\log\log(3+|\tau|)$, the argument of the double logarithm being taken above
+$e$ so that the bound is positive at $\tau=0$; the non--principal terms are
+$O_r(\log\log(3+|\tau|))=O_r(\log\log\log N)$ uniformly for $|\tau|\le\log N$, since at the top of
+that range the cited input gives $\log\log(3+\log N)\asymp\log\log\log N$ and not $O(1)$. Hence
+\[ M\;\ge\;c_r\log\log N-O_r(\log\log\log N),\qquad c_r:=1-\frac{\sqrt r}{\varphi(r)}\;\ge\;1-\frac{\sqrt3}2
+   \;=\;0.1339\ldots, \]
+the extremum being at $r=3$: each local factor of $\sqrt r/\varphi(r)$ is $\sqrt p/(p-1)$, and
+$(p-1)/\sqrt p\ge2/\sqrt3$ for every odd prime, so the supremum is the single factor at $r=3$
+\textup{(\texttt{code/charcancel\_check.gp})}.
+
+\emph{Conclusion.} With $T=\log N$, Hal\'asz gives
+$S_t(N)=\sum_{m\le N}h_t(m)\ll N\bigl((1+M)e^{-M}+(\log N)^{-1/2}\bigr)$. Note $M\to\infty$ alone would not suffice:
+at fixed $T$ the bound is only $\ll NT^{-1/2}$. Both limits are in play, and
+$S_t(N)\ll_rN(\log N)^{-\min(c_r,1/2)+o(1)}=o(N)$, the $\tfrac12$ being the floor the
+$(\log N)^{-1/2}$ term imposes however large $M$ becomes. Only $r=3$ and $r=5$ have $c_r\le\tfrac12$,
+so for every other modulus, and in particular for every $r=pq$ arising in Theorem~\ref{thm:a9}, the
+floor is the binding constraint. Only the $\varphi(r)$ values of $t$ coprime to $r$
+contribute, since $\chi(t)=0$ otherwise, so
+\[ |T_r(N)|\;\le\;r^{-1/2}\!\!\sum_{\gcd(t,r)=1}\!\!|S_t(N)|\;\le\;\frac{\varphi(r)}{\sqrt r}\,
+   \max_t|S_t(N)|\;\le\;\sqrt r\,\max_t|S_t(N)|\;=\;o_r(N). \]
+The net factor is a \emph{loss} of $\sqrt r$: the $\varphi(r)$ summands outweigh
+$|\tau(\chi)|^{-1}$. At fixed $r$ that is a constant.
+\end{proof}
+
+\begin{remark}[What the constant $c_r$ is and is not]\label{rem:charcancelsharp}
+Three things about $c_r=1-\sqrt r/\varphi(r)$ are worth recording, because an earlier revision
+overstated all three.
+
+\emph{Sharpness is conditional.} The bound $M\ge c_r\log\log N-O_r(1)$ is attained only when the
+main term $\chi(t)\tau(\chi)$ is real and positive. Since $\overline{\tau(\chi)}=\chi(-1)\tau(\chi)$
+with $\chi(-1)=(-1)^{(r-1)/2}$, the Gauss sum is purely imaginary for $r\equiv3\pmod4$, and there
+the true $M$ has constant $1$ rather than $c_r$. For $\chi(t)=-1$ the main term has the wrong sign, and no
+admissible $\tau$ rotates it back, since $|\sum_{p\le X}p^{-1-i\tau}|$ collapses to
+$O(\log\log(3+|\tau|))$ away from $\tau=0$; there the constant is $1+\sqrt r/\varphi(r)$. Measured
+at $r=5$: the growth rate $\Delta M/\Delta\sum_p1/p$ tends to $0.440885\to1-\sqrt5/4=0.440983$ for
+$t\equiv\pm1$, and to $1.558919\to1+\sqrt5/4=1.559017$ for the other two residues, whose $M(10^7)$
+is $4.378$ against the leading term $1.341$. So the constant is attained for
+$r\equiv1\pmod4$ and $\chi(t)=+1$, and is not sharp otherwise.
+
+\emph{The finite-$X$ deficit is a constant, though the proved error term is not.} The bound carries
+$-O_r(\log\log\log N)$, which is what the $L$--bound gives at the top of the $\tau$--range; what is
+\emph{measured} at a single modulus is smaller and flat. At $r=5$, $t=1$ the deficit between
+$M$ and $c_r\sum_{p\le X}1/p$ is $0.1407,0.1407,0.1405,0.1405$ at $X=10^4,\dots,10^7$, flat to four
+places, while $\log\log\log X$ rises by $28\%$ over the same range. The $\log\log\log$ enters only
+through uniformity in $\tau$.
+
+\emph{The rate that follows, and the one that does not.} Hal\'asz gives
+$T_r(N)\ll_rN(\log N)^{-c_r+o(1)}$. Since $c_3=0.134$ and $c_5=0.441$ are below $\tfrac12$, this
+does \emph{not} yield $T_r(N)\ll\sqrt r\,N(\log N)^{-1/2}$ at those moduli, and an earlier revision
+asserted that it did. Quantitatively the lemma is asymptotic in the strong sense: at $r=5$, with the
+measured constants and an implied Hal\'asz constant of $1$, the bound first beats the trivial
+$|T_r(N)|\le N$ at $\log N=143.0$, that is $N=10^{62.1}$. Measured against the honest trivial bound,
+which is $0.5066N$ because $T_r$ has only that many terms, the crossing moves to $\log N=1013.7$,
+that is $N=10^{440}$.
+\end{remark}
+
+\begin{remark}[Erratum: the $\tau$ bound above is false near the threshold]\label{rem:charcancelerratum}
+The step ``if $|\tau|\ge1/\log N$ then
+$\bigl|\sum_{p\le N}p^{-1-i\tau}\bigr|\ll\log\log(3+|\tau|)$'' is \emph{false} in the range that
+matters. Near the threshold the sum has size about $\log(1/|\tau|)$, which is of order $\log\log N$,
+not $\log\log(3+|\tau|)$, which is of order $1$. Measured at $N=2\times10^{7}$ with
+$\tau=2/\log N=0.11897$: the left side is $2.6797$ against a claimed bound of $0.12883$, a violation
+by a factor $20.8$; at $\tau=1/\log N=0.05948$ the left side is $2.9773$ against $0.11176$, a factor
+$26.6$ \textup{(\texttt{code/charcancel\_check.gp})}. A second defect is that the inequality bounds the
+untwisted sum $\sum p^{-1-i\tau}$, whereas the Hal\'asz distance $M$ requires the $h_t$--twisted sum.
+
+Consequences, stated exactly. Neither defect touches the lemma as now proved, because that proof
+does not use the offending step: it bounds the \emph{twisted} sum through the character expansion of
+$h_t$, where the principal coefficient contributes at most $\sqrt r/\varphi(r)\le0.8661$ of
+$\sum_{p\le N}1/p$ and the non--principal ones contribute $O_r(\log\log\log N)$, both uniformly in
+$\tau$. The
+trivial bound $\bigl|\sum_{p\le N}p^{-1-i\tau}\bigr|\le\sum_{p\le N}1/p$ is all that is needed of the
+untwisted sum, so the false inequality is not merely repaired but unnecessary.
+
+Two claims must be distinguished, and an earlier revision ran them together. What is shown false
+above is the $r$--\emph{uniform form of one input}, the $\log L$ bound, whose lower half needs
+$L(1,\psi)$ away from $0$ and has only $L(1,\psi)\gg r^{-1/2}$ effectively or $\gg_\varepsilon
+r^{-\varepsilon}$ by Siegel, ineffectively. That is \emph{not} the same as the uniform form of the
+lemma being false; the uniform lemma is simply \emph{not established here}, which is a weaker and
+accurate statement. Either way Corollary~\ref{cor:a9rate} needs a bound uniform in $r=pq$ as
+$P\to\infty$ that this argument does not supply, and it is independently blocked by the regime
+mismatch recorded after Lemma~\ref{lem:reversal}, so it keeps the label \textsc{conjecture}.
+\end{remark}
+Measured at $r=1009$, $N=3\times10^7$: $|\sum_m h_t(m)|/N$ equals $3.6\times10^{-6}$, $1.3\times10^{-3}$,
+$2.1\times10^{-3}$, $5.7\times10^{-4}$, $1.5\times10^{-3}$ at $t=0,1,2,17,500$, all of size $\sqrt N$
+rather than merely $o(N)$. The sums $T_r(N)$ themselves were measured at $N=5\times10^7$ for
+$r=101,1009,10007,100003$ and $r=pq=101\cdot1009,\,1009\cdot10007$, giving
+$|T_r|/\sqrt N=8.1,\,0.1,\,1.2,\,1.0,\,1.0,\,0.2$ \textup{(\texttt{code/sqsieve\_test.rs})}.
+
+\begin{lemma}[Local densities at $p^2$]\label{lem:localsq}
+For each odd prime $p$,
+$\ \limsup_{N\to\infty}N^{-1}\#\{m\le N:\mu^2(m)=1,\ p^2\mid(m'-2m)\}\le p^{-2}$, with absolute
+constant. \textup{(}The density form is the one Theorem~\ref{thm:a9} needs, because it sends
+$P\to\infty$; the form ``$\ll N/p^2$ for each fixed $p$'' advertises a $p$--dependent implied
+constant and would not license that limit.\textup{)}
+\end{lemma}
+\begin{proof}
+For $p\nmid m$ the condition is $\sigma_{p^2}(m)\equiv2\pmod{p^2}$ by Lemma~\ref{lem:symbolfact}
+applied with modulus $p^2$. Detecting it by additive characters, the non-trivial frequencies give
+multiplicative sums $\prod_{\ell\mid m}e_{p^2}(t/\ell)$ whose values at primes depend only on
+$\ell\bmod p^2$ and which are not Dirichlet characters, because $u\mapsto e_{p^2}(t/u)$ is not
+multiplicative; the Hal\'asz argument of Lemma~\ref{lem:charcancel} applies, but \emph{not}
+verbatim, and the difference is worth naming. That lemma uses primitivity of $\chi=(\cdot\mid r)$
+twice, for $|\tau(\chi)|=\sqrt r$ and for the principal coefficient $\chi(t)\tau(\chi)/\varphi(r)$;
+here $(\cdot\mid p^2)$ is trivial on $(\mathbb{Z}/p^2)^\times$, so there is no character twist at
+all. The principal coefficient is instead a Ramanujan sum $c_{p^2}(t)/\varphi(p^2)$, which vanishes
+for $\gcd(t,p^2)=1$ and equals $-1/(p-1)$ when $p\,\|\,t$; the distance bound follows more easily
+than in Lemma~\ref{lem:charcancel}, not by the same computation. Hence the density is
+$\tfrac6{\pi^2}\cdot\tfrac p{p+1}\cdot p^{-2}+o(1)\le p^{-2}$. The two factors in front were omitted
+in an earlier revision: the count runs over \emph{squarefree} $m$ coprime to $p$, so it carries the
+squarefree density $6/\pi^2$ and the coprimality factor $p/(p+1)$. The error was in the safe
+direction, the stated $p^{-2}$ being an over-estimate, so the inequality the lemma asserts survives
+with room to spare. The case $p\mid m$ does not arise at all: writing $m=pn$ with $p\nmid n$
+gives $m'=pn'+n$, so $m'-2m=n+p(n'-2n)\equiv n\not\equiv0\pmod p$, and $p$ does not even divide
+$m'-2m$, let alone $p^2$.
+\end{proof}
+Measured at $N=3\times10^7$ for $p=5,7,11,13,101$, the count divided by
+$\tfrac6{\pi^2}\tfrac p{p+1}N/p^2$ is $0.842$, $0.887$, $0.930$, $0.925$, $0.993$, approaching $1$ as
+the corrected density predicts. Against the bare $N/p^2$ the same data read $0.512$, $0.539$,
+$0.566$, $0.562$, $0.604$, approaching $6/\pi^2=0.6079$; an earlier revision printed the first list
+while describing it as the second.
+
+\begin{theorem}[The minus layer has density zero on the squarefree stratum: \textsc{conjecture}]\label{thm:a9}
+\textup{Label: \textsc{conjecture}, and this is a considered downgrade rather than a known error.}
+The argument below has survived four rounds of adversarial review at the level of its
+\emph{mathematics}: the square sieve, the $E_{pq}$ correction, the diagonal bound, the limsup
+argument and the whole of Lemma~\ref{lem:charcancel}'s algebra were each attacked and each held. What
+has not held is the \emph{text}. In three consecutive rounds a load-bearing display was found to have
+silently dropped a hypothesis, twice the coprimality condition and once the squarefree condition, and
+each repair introduced a fresh defect elsewhere. A statement whose written proof has needed a
+correction in every round of review, with no sign of the rate declining, has not earned
+\textsc{proved}, whatever one's private confidence in it.
+
+The honest position is therefore: the author believes the statement and believes the argument, and
+does not claim either as established. Nothing in this paper depends on it. Restoring the label
+requires a round of review that finds nothing, which has not yet happened.
+
+$\#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}=o(N)$. Equivalently, atom
+$\mathrm{A}9$ holds on the squarefree stratum: the squarefree minus layer has density zero. The same
+argument with $m'+2m$ gives the squarefree plus--analogue, so the squarefree Pythagorean layer has
+density zero unconditionally. That is \emph{not} a reproof of
+Proposition~\textup{\ref{prop:plusthin}}, which is a sharper $O(\sqrt X(\log X)^2)$ on the narrower
+semiprime stratum; the two are incomparable, and that proposition rests on its own elementary
+divisor--sum proof.
+
+The squarefree restriction is not cosmetic and earlier versions of this paper omitted it. Every tool
+in the proof, Rigidity, the cofactor identity, and Lemma~\ref{lem:charcancel}, is stated for
+squarefree $m$; the non-squarefree stratum, of density $1-6/\pi^2\approx0.392$, is untreated. Since
+a \#307 solution is squarefree by Rigidity, the restriction costs nothing for the application, but
+the unrestricted statement is not proved here.
+\end{theorem}
+\begin{proof}
+Write $a_m=m'-2m$ and fix $P$, letting $\mathcal{P}$ be the primes in $(P,2P]$ and
+$\Pi=|\mathcal{P}|\sim P/\log P$. If $a_m$ is a perfect square coprime to every $p\in\mathcal{P}$
+then $(a_m/p)=1$ for all such $p$, so $\sum_{p\in\mathcal{P}}(a_m/p)=\Pi$. Hence
+\[ \Pi^2\,\#\{m\le N:\ \mu^2(m)=1,\ a_m=\square,\ \gcd(a_m,\textstyle\prod\mathcal{P})=1\}
+   \;\le\!\!\sum_{\substack{m\le N\\ \mu^2(m)=1}}\!\!\Bigl(\sum_{p\in\mathcal{P}}\Bigl(\frac{a_m}{p}\Bigr)\Bigr)^2
+   \;=\;\sum_{p,q\in\mathcal{P}}\ \sum_{\substack{m\le N\\ \mu^2(m)=1}}\Bigl(\frac{a_m}{pq}\Bigr). \]
+Both $m$--sums carry $\mu^2(m)=1$ throughout, and so does the counting set on the left. This is not
+a convenience: every tool below is squarefree--only, and an earlier revision wrote these sums
+unrestricted, which made the identity with $T_{pq}+E_{pq}$ false by the non--squarefree terms. Those
+are not negligible: measured at $N=3\times10^7$ the omitted sum is $119{,}473$ against a $T_{pq}$ of
+$2{,}699$ at $r=101\cdot1009$, and $169{,}949$ against $314$ at $r=1009\cdot10007$, exceeding the
+term the lemma controls by a factor $44$ to $540$. The paper bounds it by nothing better than the
+trivial $(1-6/\pi^2)N$.
+The diagonal $p=q$ contributes $(a_m/p^2)=(a_m/p)^2\in\{0,1\}$, hence at most $\Pi N$. The
+off-diagonal is $\sum_{p\ne q}\bigl(T_{pq}(N)+E_{pq}(N)\bigr)$, where $T_{pq}$ carries the
+coprimality condition $\gcd(m,pq)=1$ of Lemma~\ref{lem:charcancel} and
+$E_{pq}(N)=\sum_{m\le N,\ \mu^2(m)=1,\ \gcd(m,pq)>1}(a_m/pq)$ collects the terms it omits. That
+correction is harmless but is not empty and must be carried:
+$|E_{pq}(N)|\le\#\{m\le N:p\mid m\text{ or }q\mid m\}\le N(1/p+1/q)\le2N/P$, so
+$\Pi^{-2}\sum_{p\ne q}|E_{pq}(N)|\le2N/P$, which is dominated by the diagonal's own $N/\Pi\asymp
+N\log P/P$ and changes nothing below. Each $T_{pq}(N)$ is $o(N)$, for each of the finitely many
+pairs, by Lemma~\ref{lem:charcancel}. A square divisible by $p$ is divisible by $p^2$, so the excluded $m$ are counted by
+Lemma~\ref{lem:localsq} in its \emph{density} form: $\limsup_NN^{-1}\#\{m\le N:\mu^2(m)=1,\
+p^2\mid a_m\}\le p^{-2}$, with absolute constant $1$. That form is what the endgame needs, since
+sending $P\to\infty$ against a $p$--dependent implied constant would not be legitimate; the
+statement ``$\ll N/p^2$ for each fixed $p$'' advertises exactly such a constant and was cited here
+in an earlier revision. Summing, $\sum_{p\in\mathcal{P}}p^{-2}\le\Pi/P^2\asymp1/(P\log P)$. Here
+$p\mid m$ is impossible, since $m=pn$ with $p\nmid n$ gives $a_m=n+p(n'-2n)\equiv n\not\equiv0$,
+a computation that itself needs $\mu^2(m)=1$. The case $a_m=0$ does not arise: the theorem counts $a_m=\square>0$, and in any case
+$m'=2m$ has \emph{no} squarefree solution, since $\sigma(m)=2\in\mathbb{Z}$ forces $D_m=1$ by
+rigidity. Altogether
+\[ \limsup_{N\to\infty}\frac1N\#\{m\le N:\ \mu^2(m)=1,\ a_m=\square>0\}\;\ll\;\frac1\Pi+\frac1{P\log P}. \]
+The left side does not depend on $P$; letting $P\to\infty$ gives $0$. The restriction $\mu^2(m)=1$
+must be carried here as everywhere above: without it the display would assert density zero for the
+\emph{full} minus layer, which is exactly the statement this theorem disclaims, and three successive
+revisions of this proof dropped it from one display or another.
+\end{proof}
+
+The proof of Theorem~\ref{thm:a9} sends $P\to\infty$ only after $N$, which costs all quantitative
+information. Keeping $P$ a function of $N$ would turn it into an explicit rate, and what that
+requires is uniformity in $r$ as $P\to\infty$.
+
+\emph{That uniformity is exactly what is not available}, and earlier editions of this paragraph
+asserted the opposite. Lemma~\ref{lem:charcancel} gives
+$M\ge\bigl(1-\sqrt r/\varphi(r)\bigr)\log\log N-O_r(\log\log\log N)$, with the error depending on
+$r$ through the non--principal $L$--functions, and its statement and the erratum following it both
+say so. The constant is $\sqrt r/\varphi(r)$, not the $3/\sqrt r$ printed here previously; the two
+are not interchangeable, since $\varphi(r)\ge r/3$ fails for odd squarefree $r$, first at
+$r=3\cdot5\cdots23=111{,}546{,}435$ with $\varphi(r)/r=0.3272$. The corollary below is therefore
+stated as a \textsc{conjecture} and its argument is a sketch of what a uniform version would give,
+not a proof.
+
+\begin{corollary}[A rate for $\mathrm{A}9$: \textsc{conjecture}]\label{cor:a9rate}
+The following rate does \emph{not} follow from Lemma~\ref{lem:charcancel}, which is qualitative and
+per fixed $r$; deducing it needs a bound uniform in $r=pq$ as $P\to\infty$, and that is not
+established here. It is independently blocked twice over: by the regime mismatch recorded after
+Lemma~\ref{lem:reversal}, and by Lemma~\ref{lem:localsq}, which at $P=P(N)$ would have to be uniform
+in $p$ and is not, its $o(1)$ being driven by non--principal $L$--functions modulo $p^2$ and
+ineffective in $p$. Theorem~\ref{thm:condpower} meets the same obstruction and sidesteps it with a
+divisor bound instead. The statement is retained as a conjecture, nothing in this paper depends
+on it, and what follows is a sketch of the balancing a uniform version would permit rather than a
+proof.
+\[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}
+    \;\ll\;\frac{N\log\log N}{(\log N)^{1/4}}. \]
+The squarefree restriction is inherited from Theorem~\ref{thm:a9} and from
+Lemma~\ref{lem:charcancel}; an earlier revision stated this unrestricted.
+\end{corollary}
+\begin{proof}[Sketch, conditional on a uniform-in-$r$ form of Lemma~\ref{lem:charcancel}]
+Take $\mathcal{P}$ to be the primes in $(P,2P]$ with $P=P(N)$ to be chosen, so
+$\Pi\sim P/\log P$. The three terms of Theorem~\ref{thm:a9} are then
+\[ \frac{N}{\Pi}\ \ll\ \frac{N\log P}{P},\qquad
+   \frac1{\Pi^2}\sum_{p\neq q}|T_{pq}(N)|\ \le\ \max_{p\neq q}|T_{pq}(N)|,\qquad
+   \sum_{p\in\mathcal{P}}O\!\left(\frac{N}{p^2}\right)\ \ll\ \frac{N}{P\log P}. \]
+Granting a uniform-in-$r$ distance bound, which Lemma~\ref{lem:charcancel} does \emph{not}
+supply, Hal\'asz would give
+$T_r(N)\ll\sqrt r\,N(\log N)^{-1/2}$, and $r=pq\le4P^2$ gives $\sqrt r\le2P$, so the middle term is
+$\ll PN(\log N)^{-1/2}$. Balancing it against the first,
+$N\log P/P=PN(\log N)^{-1/2}$, gives $P\asymp(\log N)^{1/4}$, at which both equal
+$N\log\log N(\log N)^{-1/4}$ up to constants; the third term is then $O\bigl(N(\log N)^{-1/4}/\log\log N\bigr)$
+and is absorbed.
+\end{proof}
+
+\begin{remark}[Where the exponent comes from]\label{rem:rateexponent}
+The exponent $\tfrac14$ is not intrinsic to the arithmetic. It is what remains after balancing
+against the floor $N(\log N)^{-1/2}$ in the Montgomery form of Hal\'asz's theorem, which holds
+however large the pretentious distance $M$ becomes. Any improvement of that floor transfers here
+without change: a floor of $N(\log N)^{-\alpha}$ yields the exponent $\alpha/2$. The measured
+character sums are of size $\sqrt N$ rather than $N(\log N)^{-1/2}$
+(Section~\ref{sec:sqsieve}), so the truth is far stronger than what the general theorem can deliver,
+and the gap is entirely in the analytic input rather than in the sieve.
+\end{remark}
+
+The exponent $\tfrac14$ is an artefact of the general theorem, not of the arithmetic, and the gap
+can be closed off exactly. Everything in the sieve except the character-sum input is elementary, so
+the reachable exponent is a function of one measurable quantity: how $T_r(N)$ grows with $r$.
+
+\begin{hypothesis}[Square-root cancellation, uniform in the modulus]\label{hyp:sq}
+There is an absolute $A\ge0$ with $|T_r(N)|\ll r^{A}N^{1/2+o(1)}$ for every odd squarefree $r$.
+\end{hypothesis}
+
+\begin{theorem}[Conditional power saving, and the crux exactly]\label{thm:condpower}
+Assume Hypothesis~\textup{\ref{hyp:sq}}. Then
+\[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}\;\ll\;N^{1-\delta},
+   \qquad \delta=\frac1{2(2A+1)}. \]
+In particular $A=0$ gives $N^{1/2+o(1)}$, which is exactly the bound
+$\mathrm{CRUX}\text{-}\mathrm{A}9$ asks for.
+\end{theorem}
+\begin{proof}
+Run the sieve of Theorem~\ref{thm:a9} with $\mathcal{P}$ the primes in $(P,2P]$, $\Pi\sim P/\log P$,
+and dispose of the $m$ with $p\mid a_m$ by the divisor bound rather than
+Lemma~\ref{lem:localsq}: a perfect square $a_m$ has at most $\log(2N)/\log P$ prime factors in
+$\mathcal{P}$, so $\sum_{p\in\mathcal{P}}(a_m/p)\ge\Pi/2$ once $\Pi\ge2\log(2N)/\log P$. Then
+\[ \#\{\,\cdot\,\}\ \ll\ \frac{N}{\Pi}+\frac1{\Pi^2}\sum_{p\neq q}|T_{pq}(N)|
+   \ \ll\ \frac{N\log P}{P}+P^{2A}N^{1/2+o(1)}, \]
+since $pq\le4P^2$. Balancing the two terms gives $P=N^{1/(2(2A+1))}$ and the stated exponent; the
+side condition $\Pi\ge2\log(2N)/\log P$ holds comfortably at that $P$. For $A=0$ take
+$P=N^{1/2}$, whence both terms are $N^{1/2+o(1)}$.
+\end{proof}
+
+\begin{remark}[The hypothesis is measured, and $A$ reads as zero]\label{rem:Ameasured}
+Hypothesis~\ref{hyp:sq} is not a wish. At $N=4\times10^7$, so $\sqrt N=6.325\times10^3$, the ratio
+$|T_r(N)|/\sqrt N$ across twelve moduli spanning ten orders of magnitude is
+\[
+\begin{array}{lrrrrrr}
+r\ \text{prime}: & 101 & 1009 & 10007 & 100003 & 10^6{+}3 & 10^7{+}19\\
+|T_r|/\sqrt N:   & 7.38 & 0.17 & 0.84 & 1.07 & 0.05 & 0.15\\[2pt]
+r=pq:            & 101909 & 10097063 & 1000730021 & 100003300009 & & \\
+|T_r|/\sqrt N:   & 0.95 & 0.21 & 1.30 & 0.64 & &
+\end{array}
+\]
+together with $2.34$ and $1.00$ at the squarefree $1155$ and $1113121$. The implied exponent
+$A=\log(|T_r|/\sqrt N)/\log r$ is $+0.006$, $-0.004$, $+0.013$, $-0.018$ and $-0.000$ at the five
+largest moduli; the outlying $+0.433$ occurs at $r=101$, where $\log r$ is too small for the ratio to
+be meaningful. Note that the last two moduli \emph{exceed} $N$, and the sums are still of size
+$\sqrt N$ \textup{(\texttt{code/sqsieve\_uniform.rs})}.
+
+So the sharp form of $\mathrm{A}9$ is not blocked by the sieve, which is elementary, nor by the
+arithmetic, which cooperates: it is blocked by the absence of a Weil-type bound for a character sum
+whose argument is not a polynomial. That is a single, isolated, and precisely stated analytic
+deficit, and Lemma~\ref{lem:symbolfact} has already reduced it to a sum over a multiplicative
+function of $\sigma_r$.
+\end{remark}
+
+The obvious route to Hypothesis~\ref{hyp:sq} is the one already used in
+Lemma~\ref{lem:charcancel}: expand by Gauss sums and bound each multiplicative sum
+$\sum_{m\le N}h_t(m)$ separately, where square-root cancellation would follow from a Weil-type
+input or, in the analytic form, from \textup{GRH} applied to
+$\prod_\chi L(s,\chi)^{\widehat\alpha(\chi)}$. That route is closed. The reason is not the one a first look suggests.
+
+\begin{proposition}[The decomposition destroys the cancellation]\label{prop:routeclosed}
+Write $\alpha(u)=(u/r)e_r(t u^{-1})$, so that $h_t(p)=\alpha(p\bmod r)$. The principal Fourier
+coefficient $\widehat\alpha(\chi_0)=\varphi(r)^{-1}\sum_u\alpha(u)$ is a Sali\'e sum; measured, it has
+modulus exactly $\sqrt r$ before normalisation, at $r=1009$ and $r=10007$ giving $31.8$ and $100.0$
+against $\sqrt r=31.76$ and $100.03$. It is therefore nonzero, and $\prod_\chi
+L(s,\chi)^{\widehat\alpha(\chi)}$ retains a $\zeta$-type branch point at $s=1$. This does \emph{not}
+by itself decide the matter, since the measured sums fall $50$ to $350$ times below what that branch
+point predicts. What decides it is the growth in $N$: at $r=10007$, $t=1$,
+\[
+\begin{array}{lrrrrr}
+N: & 10^6 & 3\times10^6 & 10^7 & 3\times10^7 & 6\times10^7\\
+|\sum h_t|/\sqrt N: & 0.67 & 0.48 & 0.69 & 2.08 & 2.29
+\end{array}
+\]
+a fitted exponent of $0.800$ over that range, with $|\sum h_t|/(N/\log N)$ flat near $0.005$. The
+individual multiplicative sums thus grow strictly faster than $\sqrt N$
+\textup{(\texttt{code/sqsieve\_route.rs})}.
+\end{proposition}
+
+\begin{remark}[Where the cancellation actually lives]\label{rem:whereitlives}
+Since $T_r(N)$ itself measures at $\sqrt N$ across ten orders of magnitude in $r$
+(Remark~\ref{rem:Ameasured}) while each $\sum_m h_t(m)$ measured here grows like $N^{0.8}$, the
+cancellation in $T_r$ is not present frequency by frequency: it lies in the sum over $t$. The
+magnitude is not marginal. At $r=1009$, $N=4\times10^7$, bounding each frequency separately and
+summing trivially gives $\sqrt r\,N/\log N\approx7\times10^{7}$, against a measured
+$|T_r|=1050$: a factor of about $7\times10^{4}$ is lost the moment the Gauss expansion is taken.
+
+The deficit behind Hypothesis~\ref{hyp:sq} is therefore not a missing Weil bound for a single
+character sum, which is how Remark~\ref{rem:Ameasured} first framed it. It is that the only
+available decomposition of $T_r$ scatters the cancellation across frequencies, and no current
+technique grips cancellation in that position. Stating it this way is more useful than the
+Weil framing, because it says what would have to be new: an estimate for $T_r$ that never passes
+through the multiplicative decomposition at all.
+\end{remark}
+
+Remark~\ref{rem:whereitlives} asked for an estimate for $T_r$ that never passes through the
+multiplicative decomposition. The following is the mechanism such an estimate would use, isolated
+and proved; the reduction of $T_r$ to it is \emph{not} established here, and we say precisely what
+is missing.
+
+\begin{proposition}[Kernel norm]\label{prop:bilinear}
+Since $\sigma_r$ is additive, for coprime $d,e$ Lemma~\ref{lem:symbolfact} gives
+\[ \Bigl(\frac{(de)'-2de}{r}\Bigr)=\Bigl(\frac{d}{r}\Bigr)\Bigl(\frac{e}{r}\Bigr)\,
+   K\bigl(\sigma_r(d),\sigma_r(e)\bigr),\qquad K(u,v)=\Bigl(\frac{u+v-2}{r}\Bigr). \]
+The matrix $K$ is Toeplitz in $u+v$, so $K(u,v)=\sum_\xi\widehat f(\xi)e_r(\xi u)e_r(\xi v)$
+diagonalises it against the orthogonal system $(e_r(\xi u))_u$ of norm $\sqrt r$. As $\widehat f(\xi)$
+is a normalised Gauss sum, $|\widehat f(\xi)|=r^{-1/2}$ for $\xi\neq0$ and $\widehat f(0)=0$, so every
+singular value of $K$ equals $\sqrt r$ and
+\[ \|K\|_{\mathrm{op}}=\sqrt r . \]
+Consequently \emph{any} bilinear form $\sum_{d\sim D}\sum_{e\sim E}\alpha_d\beta_e\,
+K(\sigma_r(d),\sigma_r(e))$ is at most $\sqrt r\,\|A\|_2\|B\|_2$, where
+$A(u)=\sum_{d\sim D,\ \sigma_r(d)\equiv u}\alpha_d$ and $B$ is defined likewise. No multiplicative
+decomposition is used; the only input is the modulus of a Gauss sum.
+\end{proposition}
+
+\begin{remark}[What is missing, stated exactly]\label{rem:missingdecomp}
+Proposition~\ref{prop:bilinear} bounds bilinear forms, not $T_r$. Passing from one to the other
+requires a decomposition of $\sum_{m\le N}$ into bilinear pieces, and two obstacles are real rather
+than cosmetic.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+\item Summing over coprime pairs $(d,e)$ with $de=m$ weights each $m$ by $2^{\omega(m)}$: at
+$N=2\times10^6$ the coprime-pair count is $10{,}014{,}190$ against $1{,}215{,}876$ squarefree $m$, a
+factor $8.24$. Since the summand is \emph{signed}, no inequality relates $\sum_m F(m)$ to
+$\sum_m 2^{\omega(m)}F(m)$ in either direction.
+\item A single dyadic block $d\sim D$ sees only a minority of $m$: for $D=\sqrt N$ at
+$N=2\times10^6$, $24.7\%$ \textup{(\texttt{code/sqsieve\_bilinear.rs})}.
+\end{enumerate}
+The natural repair is the largest-prime-factor split $m=pn$ with $p=P^{+}(m)$, which is unique and so
+avoids \textup{(i)}; the $A$-side is then supported on primes, where $\|A\|_2^2\ll\pi(D)^2/\varphi(r)+\pi(D)$
+follows from Brun--Titchmarsh uniformly in $r$, and the $B$-side is governed by
+Theorem~\ref{thm:pairavg}. What remains is the coupling $P^{+}(n)<p$ and the dyadic bookkeeping, a
+Type I/II analysis that we have not carried out. Until it is, the power saving below is
+\textbf{CONJECTURAL}, and Corollary~\ref{cor:a9rate} remains the best unconditional rate proved here.
+\end{remark}
+
+\begin{conjecture}[Power saving, pending the decomposition]\label{conj:power34}
+If the decomposition of Remark~\textup{\ref{rem:missingdecomp}} is carried out with the stated
+bounds, then combining Proposition~\ref{prop:bilinear} with Theorem~\ref{thm:pairavg} and
+Theorem~\ref{thm:condpower} at $P=N^{1/4}$ gives
+\[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}\ \ll\ N^{3/4+o(1)} . \]
+\end{conjecture}
+
+The two ingredients that would feed it are themselves unconditional, and are recorded separately
+because they do not depend on the missing step.
+
 
 \begin{thebibliography}{9}
 \bibitem{Barbeau1961} E.~J.~Barbeau, \emph{Remarks on an arithmetic derivative}, Canad.\ Math.\
