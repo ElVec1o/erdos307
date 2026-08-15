@@ -795,80 +795,58 @@ Formalised in \texttt{lean/Erdos307/TailBound.lean} (\texttt{tail\_factor}, \tex
 axioms, with a non--vacuity witness at the base above.
 \end{remark}
 
-\begin{remark}[The immune signal, and why its Lehmer reading fails]\label{rem:lehmer}
-The reading of this remark is superseded by Proposition~\ref{prop:tailbound} and
-Remark~\ref{rem:notlehmer}: everything below about the \emph{orbit} stands, but the inference that
-primality along it is the residual question does not, because the tail prime is bounded by $4N$. It
-is kept because the orbit, its growth rate and its three gates are what the bound is a statement
-about. The immune families of Remark~\ref{rem:killcount} do not merely survive the sieve; they carry
-a definite arithmetic shape. For a reciprocity--immune base the Pell system of Remark~\ref{rem:tier60},
+\begin{remark}[The immune signal, and where its Lehmer reading broke]\label{rem:lehmer}
+Superseded by Proposition~\ref{prop:tailbound} and Remark~\ref{rem:notlehmer}: the orbit described
+here is real, but the inference that primality along it is the residual question is not, because the
+tail prime is bounded by $4N$. What follows is the orbit, the three gates, and the structural points
+that survive.
+
+For a reciprocity--immune base the Pell system of Remark~\ref{rem:tier60},
 $B_Sx^2-A_Sy^2=-4D_S^2$, is locally soluble everywhere ($\kappa_S>0$), and a Pythagorean pair in the
-tail family $S\cup\{q\}$ is \emph{exactly} a solution with $q=(x^2-D_S)/A_S=(y^2-D_S)/B_S$ a positive
-prime. Its solutions grow like $\varepsilon^n$ in the fundamental unit of the order of discriminant
-$4A_SB_S$ ($224$ digits, $A_SB_S$ a nonsquare, on an explicit immune base), so $q_n$ grows
-exponentially: the surviving question is the primality of a term of an exponential sequence; the
-Lehmer/Mersenne phenomenon, not a Bunyakovsky one. This is the same residue already isolated over
-$\mathbb{Z}[\sqrt2]$ in Remark~\ref{rem:folding} (primality of $|N(\rho)|$ along Pell--growing
-sequences), now on rational soil, and it sharpens the ``weakly favours \textsc{yes}'' of
-Remark~\ref{rem:killcount}: the immune contribution to the count is not a generic thin--set
-$\sum q^{-1}$ but a Lehmer--type expectation; heuristically infinitely many prime $q_n$, yet
-exhibiting even one (let alone one meeting the $k=0$ cycle condition $D(a)=b$ that a genuine two--cycle
-demands on top of the Pythagorean pair) is open in the way the infinitude of Mersenne primes is open.
-The return itself, however, is milder than ``$k=0$'' suggests: on the Pythagorean locus the deviation
-$k=(a'-b)/a$ is an \emph{integer} (the identity $v(D(u)-v)=u(u-D(v))$ with $\gcd(u,v)=1$), forced into
-$\{0,-1\}$ by the near--balanced immune ratio, so $k=0$ is a sign choice rather than a measure--zero
-coincidence, and the naive Wieferich shortcut that would pin $q$ is vacuous, since $x^2\equiv D_S\pmod q$
-holds identically from $x^2=A_Sq+D_S$. Whether $k=0$ is met with positive conditional density is itself
-unresolved, but the wall is the primality of $q_n$, not the return. A
-reciprocity--killed base is the complementary degeneration: there the same Pell system is locally
-\emph{insoluble} ($\kappa_S=0$), so no candidate $q_n$ exists at all. The dichotomy of
-Proposition~\ref{prop:tailkill} is thus Pell--solubility versus Pell--insolubility, and the residual
-existence signal is precisely a Lehmer primality question the present methods do not reach. This
-complements Proposition~\ref{prop:nopoly}, which proves \#307 admits \emph{no} polynomial
-parametrisation: the present Pell orbit exhibits the family that \emph{does} parametrise it, an
-exponential one. That the parametrisation is forced to be exponential is exactly why the residual
-question is Lehmer--class (primes in an exponential sequence) and not Schinzel--class (primes in a
-polynomial), which places it beyond every standard prime--density conjecture. It is worth locating
-\emph{where} that hardness enters, because neither square condition carries it alone. Imposing only
-the minus--square on the tail family, $d^2=B_Sq+D_S$, gives $q=(d^2-D_S)/B_S$; the admissible $d$
-are those with $d^2\equiv D_S\pmod{B_S}$, and along such a class $d=d_0+tB_S$ one has the identity
-\[ q(t)\;=\;\frac{d_0^2-D_S}{B_S}\;+\;2d_0\,t\;+\;B_S\,t^2, \]
-a \emph{quadratic} in $t$ with integer coefficients (verified on toy bases:
-$3+54t+173t^2$, $7+238t+1693t^2$, $2+446t+17357t^2$). So the minus--square alone asks only for
-prime values of a quadratic; a Bunyakovsky question, of the same class as the $p=5$ family of
-Proposition~\ref{prop:plus}\textup{(iii)}, conjecturally routine. The plus--square is likewise a
-single square condition. It is their \emph{conjunction} (the Pythagorean condition, equivalently
-the Pell system $B_Sx^2-A_Sy^2=-4D_S^2$) that replaces the quadratic parameter by a fundamental
-unit and turns the question exponential. The Lehmer--hardness is therefore a property of the
-\emph{pair} of conditions, not of either one: this is the sandwich that
-locates the whole difficulty. The class can be named exactly. Since $x_{n+1}=tx_n-x_{n-1}$ has
-$x_n=(\alpha^n+\beta^n)/2$ with $\alpha\beta=1$, the squares $x_n^2$ have characteristic roots
-$\alpha^2,\beta^2,1$, and the constant shift is absorbed by the root $1$: the candidate sequence
+tail family $S\cup\{q\}$ is \emph{exactly} a solution with $q=(x^2-D_S)/A_S=(y^2-D_S)/B_S$ a
+positive prime. Its solutions grow like $\varepsilon^n$ in the fundamental unit of the order of
+discriminant $4A_SB_S$ ($224$ digits, $A_SB_S$ a nonsquare, on an explicit immune base). Writing
+$x_{n+1}=tx_n-x_{n-1}$ with $x_n=(\alpha^n+\beta^n)/2$ and $\alpha\beta=1$, the squares $x_n^2$ have
+characteristic roots $\alpha^2,\beta^2,1$ and the constant shift is absorbed by the root $1$, so
 \[ q_n=\frac{x_n^2-D_S}{A_S}\qquad\text{satisfies}\qquad q_{n+3}=(t^2-1)q_{n+2}-(t^2-1)q_{n+1}+q_n, \]
-a non--degenerate \emph{ternary linear recurrence} (verified on four Pell parameters). So the
-existence route asks for a prime term of a ternary linear recurrence, and no unconditional
-infinitude of prime terms is known for \emph{any} non--degenerate linear recurrence of order $\ge2$.
-The one unconditional tool that does reach exponentially growing sequences, the primitive divisor
-theorem of Bilu--Hanrot--Voutier \cite{BHV2001} (every term beyond the $30$th of a Lucas or Lehmer
-sequence has a primitive prime divisor), yields \emph{divisors}, not primality, and so does not
-transfer: $q_n$ must itself be the new prime of the support. The complementary negative route is
-already closed from the other side; an algebraic factorisation is unavailable ($D_S$ squarefree,
-so $x^2-D_S$ is irreducible) and no covering congruence can kill the family by
-Proposition~\ref{prop:localcomplete}. Both directions therefore fail on the same object, for
-opposite reasons. Quantitatively the wall is \emph{double}--exponential in expectation:
-immunity makes $A_SB_S$ a product of two distinct primes, hence squarefree, so the conic lives in the
-near--maximal order of $\mathbb{Q}(\sqrt{A_SB_S})$ of discriminant ${\sim}A_SB_S\approx10^{224}$
-($\sqrt\Delta\approx10^{112}$, computed exactly at base scale), and the class--number formula puts the
-expected regulator at $R=\sqrt\Delta\,L(1,\chi)/(2h)\approx10^{112}$; barring an anomalously large class
-number, the \emph{least} point of a nonempty fiber sits at height $\exp\bigl(10^{112}\bigr)$; and
-nonemptiness itself is a class--group condition, since Hasse supplies only rational points. Three nested
-gates therefore separate an immune family from a solution: fiber nonemptiness (class group), a prime
-$q_n$ along the orbit (Lehmer), and the $k=0$ return; a direct sweep to $q\le10^{12}$ was structurally
-incapable of reaching even the first gate. By contrast the twisted fibers of Remark~\ref{rem:forced}
-have measured least points at two--digit norms and unbounded fiber multiplicity (their linear count is a
-sum over ${\sim}X$ Pell fibers, each individually orbit--sparse; the unimodular fibers
-$\det=\pm1$ are empty in a $6\times10^7$ box): the tier gap between the twisted and rational problems is
-precisely a \emph{fiber--height} gap in one and the same landscape, primality on Pell fibers.
+a non--degenerate ternary linear recurrence (verified on four Pell parameters). A
+reciprocity--killed base is the complementary degeneration: there the same system is locally
+\emph{insoluble} ($\kappa_S=0$), so no candidate exists at all, and the dichotomy of
+Proposition~\ref{prop:tailkill} is Pell--solubility versus Pell--insolubility.
+
+The return is milder than ``$k=0$'' suggests: on the Pythagorean locus the deviation $k=(a'-b)/a$ is
+an \emph{integer} (the identity $v(D(u)-v)=u(u-D(v))$ with $\gcd(u,v)=1$), forced into $\{0,-1\}$ by
+the near--balanced immune ratio, so $k=0$ is a sign choice rather than a measure--zero coincidence,
+and the naive Wieferich shortcut that would pin $q$ is vacuous, since $x^2\equiv D_S\pmod q$ holds
+identically from $x^2=A_Sq+D_S$.
+
+Neither square condition carries the difficulty alone. Imposing only the minus--square,
+$d^2=B_Sq+D_S$, the admissible $d$ satisfy $d^2\equiv D_S\pmod{B_S}$, and along such a class
+$d=d_0+tB_S$ one has
+\[ q(t)\;=\;\frac{d_0^2-D_S}{B_S}\;+\;2d_0\,t\;+\;B_S\,t^2, \]
+a quadratic in $t$ (toy bases: $3+54t+173t^2$, $7+238t+1693t^2$, $2+446t+17357t^2$): a Bunyakovsky
+question, of the same class as the $p=5$ family of Proposition~\ref{prop:plus}\textup{(iii)}, and
+conjecturally routine. It is the \emph{conjunction} of the two squares that replaces the quadratic
+parameter by a fundamental unit and turns the orbit exponential.
+
+\emph{Where the reading broke.} That exponential growth was taken to place the question in the
+Lehmer class, on two grounds: no algebraic factorisation is available, $D_S$ being squarefree so
+that $x^2-D_S$ is irreducible, and no covering congruence can kill the family, by
+Proposition~\ref{prop:localcomplete}. Both observations are correct, and neither is the relevant
+one. The factorisation that does exist is not of $x^2-D_S$ but of $x^2-y^2=4D_Sq$, available because
+$A_S-B_S=4D_S$ \emph{exactly}: the identity was used here only to build the Pell system, never
+multiplicatively. Proposition~\ref{prop:tailbound} draws it, and the ternary recurrence above then
+supplies no prime term past $q\le4N$.
+
+Three nested gates separate an immune family from a solution: fiber nonemptiness, a tail prime, and
+the $k=0$ return. The first is a class--group condition, since Hasse supplies only rational points,
+and it is quantitative: immunity makes $A_SB_S$ a product of two distinct primes, hence squarefree,
+so the conic lives in the near--maximal order of $\mathbb{Q}(\sqrt{A_SB_S})$ of discriminant
+${\sim}A_SB_S\approx10^{224}$, and the class--number formula puts the expected regulator at
+$R=\sqrt\Delta\,L(1,\chi)/(2h)\approx10^{112}$; barring an anomalously large class number, the
+\emph{least} point of a nonempty fiber sits at height $\exp\bigl(10^{112}\bigr)$. That estimate is
+used in Remark~\ref{rem:notlehmer} as independent corroboration that the second gate is empty. A
+direct sweep to $q\le10^{12}$ was structurally incapable of reaching even the first gate.
 \end{remark}
 
 \begin{remark}[The affine sieve does not reach a rank--one orbit]\label{rem:affinesieve}
