@@ -787,6 +787,21 @@ probability falls like $1/(m\sqrt D)$ the expected count is carried by small $m$
 $\omega(m)\le7$ leaves $1.2\times10^{-8}$ of the space and $99.9982\%$ of the expected count. Over all
 $34$ families that slice is $4.7081\times10^{10}$ candidates, and
 \[ \textup{it contains no }m\textup{ with }AB+Dm^2\textup{ a perfect square.} \]
+
+The same search has been run over \emph{every} admissible base, which matters because
+Proposition~\ref{prop:tailbound} requires no primality of $A_S$ or $B_S$, only the algebra. The $34$
+immune families are the ones left after the Jacobi kill and the factoring attack, and their immunity
+is conditional on a Baillie--PSW verdict; the other $3{,}444$ of the $3{,}478$ open families are open
+precisely because $A_S$ or $B_S$ is a balanced semiprime nobody can split. The tail search does not
+care. Over all $49{,}961$ admissible bases at $\omega(m)\le4$, which is $99.2\%$ of the expected count
+per base, the run is $9.1296\times10^{10}$ candidates, $1{,}469$ survive the modular cascade, and
+exact \texttt{issquare} kills all $1{,}469$. Every survivor was additionally checked to satisfy
+$m\mid 4D$, the hypothesis the proposition needs. So
+\[ \textup{no admissible base admits a Pythagorean tail prime with }\omega(m)\le4, \]
+unconditionally and with no primality input. Where Proposition~\ref{prop:tailkill} leaves $3{,}478$
+of the one--new--prime families at level $60$ open, of which $34$ only conditionally immune, this
+leaves none open on the stated slice. It is a slice result and not a proof: the untested remainder is
+$0.8\%$ of the expected count per base, and $\omega(m)\ge5$ is untested.
 The run is \texttt{code/tailsearch.rs} (a cascade of quadratic--residue filters modulo primes coprime
 to $2D$, $771$ survivors) with every survivor then tested exactly by \texttt{issquare} in
 \texttt{code/tailsearch\_verify.gp} ($0$ squares). A positive control recovers the known solutions of
