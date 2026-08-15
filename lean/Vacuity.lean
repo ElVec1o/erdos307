@@ -129,4 +129,15 @@ example : True := by
   have := deg_drop_of_terms (d := 3) (dp := 1) (dterm := 2) (by norm_num) (by norm_num)
   trivial
 
+/-- **A genuine Pythagorean pair.** `tail_finite` carries seven hypotheses including two square
+conditions on the same `q`, which is exactly the shape that could conflict silently. The base
+`D = 1`, `N = 7` (so `A = 9`, `B = 5`) with `q = 7` realises all of them: `9·7 + 1 = 64 = 8²` and
+`5·7 + 1 = 36 = 6²`, with `x + y = 14 = 7·2` and `x - y = 2`. Its conclusion `q ≤ 4N` reads
+`7 ≤ 28`, and this is the same base whose Pell orbit is stepped out in `code/tailbound.gp`, where
+every later term is composite. -/
+example : True := by
+  have := tail_finite (D := 1) (N := 7) (q := 7) (m := 2) (c := 2) (x := 8) (y := 6)
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+  trivial
+
 end Erdos307.Vacuity

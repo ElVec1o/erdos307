@@ -735,9 +735,73 @@ $\ell\in\{3,5,7,101,277\}$; the Weil floor at every prime $281\le\ell\le600$; $A
 below $10^6$, consistent with the balanced--semiprime wall of Remark~\ref{rem:campaign}.)
 \end{proposition}
 
-\begin{remark}[The immune signal is Lehmer--type]\label{rem:lehmer}
-The immune families of Remark~\ref{rem:killcount} do not merely survive the sieve; they carry a
-definite arithmetic shape. For a reciprocity--immune base the Pell system of Remark~\ref{rem:tier60},
+\begin{proposition}[The Pythagorean tail prime is bounded]\label{prop:tailbound}
+Let $S$ be a finite set of primes, $D=\prod S$, $N=\sum_{p\in S}D/p$, $A=N+2D$, $B=N-2D$, and suppose
+$D<N$. Let $q$ be a prime with $q\nmid 2D$ for which $Aq+D$ and $Bq+D$ are both perfect squares. Then
+there are integers $m,c$ with $mc=4D$ and
+\[ q^2m^2-4Nq+c^2-4D=0, \qquad \bigl(qm^2-2N\bigr)^2=4\bigl(AB+Dm^2\bigr), \]
+so that $q=2(N\pm k)/m^2$ with $k^2=AB+Dm^2$ and $m\mid 4D$. In particular
+\[ q\ \le\ 4N. \]
+\end{proposition}
+
+\begin{proof}
+Write $x^2=Aq+D$ and $y^2=Bq+D$ with $x,y\ge0$. Since $A-B=4D$ \emph{exactly},
+$x^2-y^2=(A-B)q=4Dq$, that is $(x+y)(x-y)=4Dq$. The prime $q$ divides exactly one of the two factors:
+were it to divide both it would divide $2x$ and $2y$, hence $x$ and $y$ as $q$ is odd, hence
+$q^2\mid 4Dq$ and $q\mid 4D$, against $q\nmid2D$. Write the factor divisible by $q$ as $qm$ and the
+other as $c$, so that $mc=4D$ and, in either case, $2x=qm+c$. Multiplying by $m$,
+\[ 2xm\;=\;qm^2+mc\;=\;qm^2+4D, \]
+and squaring against $x^2=(N+2D)q+D$ gives
+$4m^2\bigl((N+2D)q+D\bigr)=q^2m^4+8Dqm^2+16D^2$. Substituting $16D^2=m^2c^2$ and cancelling $m^2>0$
+leaves $q^2m^2-4Nq+c^2-4D=0$; completing the square and using $AB=N^2-4D^2$ gives the second display.
+Finally $m\ge1$ and $c^2\ge0$ give $4Nq=q^2m^2+c^2-4D\ge q^2-4D$, so if $q\ge4N+1$ then
+$q^2\ge4Nq+q>4Nq+4D$ because $q>4N>4D$, a contradiction. Hence $q\le4N$.
+\end{proof}
+
+\begin{remark}[The Lehmer reading of the tail is withdrawn]\label{rem:notlehmer}
+Remark~\ref{rem:lehmer} below reads the surviving question as the primality of a term $q_n$ of the
+\emph{exponential} Pell orbit, and Remark~\ref{rem:whatisleft} names that orbit as the only live
+branch. Proposition~\ref{prop:tailbound} withdraws the reading. The orbit is genuinely infinite and
+both square conditions do hold along all of it; what fails is that no term past $4N$ can be prime.
+The single identity responsible is $A-B=4D$, which the earlier treatment used only to form the Pell
+system and never to factor $4Dq$.
+
+Three consequences, in increasing order of what they cost.
+
+\emph{The gate is finite, not Lehmer.} The tail primes of a base lie in the explicit finite set
+$\{2(N\pm k)/m^2: m\mid 4D,\ k^2=AB+Dm^2\}$. So the second of the three gates is a search over the
+divisors of $4D$, not a primality question along an exponential sequence, and the classification of
+the residual difficulty as Lehmer--class rather than Schinzel--class does not survive. Checked sound
+\emph{and complete} against exhaustive search on $1200$ bases with zero mismatches, and stepped out
+along a real orbit, in \texttt{code/tailbound.gp}: on the base $D=1$, $N=7$ (bound $4N=28$) the orbit
+gives $q_1=7$ prime, then $q_2=741895$, $q_3=76921173511$, and every later term composite, with both
+square conditions holding throughout.
+
+\emph{The count reverses sign.} The expected number of admissible $m$ is
+$\sum_{m\mid 4D}(AB+Dm^2)^{-1/2}\approx D^{-1/2}\sum_{m\mid4D}m^{-1}$, which on the first immune base
+is $2.4\times10^{-56}$ and below $10^{-38}$ summed over all $34$ immune families. The finite search is
+therefore expected to be empty on every one of them, which is the opposite of the ``weakly favours
+\textsc{yes}'' of Remark~\ref{rem:killcount} on exactly the families that reading was about.
+
+\emph{The paper's own height estimate now says the same thing.} Remark~\ref{rem:lehmer} puts the
+least point of a nonempty fiber at height $\exp\bigl(10^{112}\bigr)$ on regulator grounds, so its
+$q\approx x^2/A$ carries some $10^{112}$ digits, against a bound of $115$. Two independent estimates,
+one from divisor counting and one from the class--number formula, agree that no immune family admits
+a Pythagorean tail prime. Neither is a proof: the bound $q\le4N$ is proved, the emptiness is
+\textsc{heuristic}.
+
+Formalised in \texttt{lean/Erdos307/TailBound.lean} (\texttt{tail\_factor}, \texttt{tail\_quadratic},
+\texttt{tail\_discriminant}, \texttt{tail\_bound}, \texttt{tail\_finite}) on the three standard
+axioms, with a non--vacuity witness at the base above.
+\end{remark}
+
+\begin{remark}[The immune signal, and why its Lehmer reading fails]\label{rem:lehmer}
+The reading of this remark is superseded by Proposition~\ref{prop:tailbound} and
+Remark~\ref{rem:notlehmer}: everything below about the \emph{orbit} stands, but the inference that
+primality along it is the residual question does not, because the tail prime is bounded by $4N$. It
+is kept because the orbit, its growth rate and its three gates are what the bound is a statement
+about. The immune families of Remark~\ref{rem:killcount} do not merely survive the sieve; they carry
+a definite arithmetic shape. For a reciprocity--immune base the Pell system of Remark~\ref{rem:tier60},
 $B_Sx^2-A_Sy^2=-4D_S^2$, is locally soluble everywhere ($\kappa_S>0$), and a Pythagorean pair in the
 tail family $S\cup\{q\}$ is \emph{exactly} a solution with $q=(x^2-D_S)/A_S=(y^2-D_S)/B_S$ a positive
 prime. Its solutions grow like $\varepsilon^n$ in the fundamental unit of the order of discriminant
@@ -2990,7 +3054,9 @@ primes by ranging over the $\tau(s^2)$ factorisations $(rq_1-s)(rq_2-s)=s^2$: by
 Proposition~\ref{prop:nofreeslot} the pair $(q_1,q_2)$ is already forced to be the corresponding
 part of the factorisation of $a'$. The exponential parametrisation of
 Remark~\textup{\ref{rem:lehmer}} is therefore intrinsic, not an artefact of the one-free-prime
-ansatz, and no amount of extra slots converts the Lehmer question into a Bunyakovsky one.
+ansatz, and no amount of extra slots converts it into a Bunyakovsky one. What does dispose of the
+exponential growth is not extra slots but Proposition~\ref{prop:tailbound}, which bounds the tail
+prime outright and so replaces the orbit by a finite divisor search.
 \end{corollary}
 
 The second closure is not new here, but it belongs in this list because it is what forces the whole
@@ -3332,7 +3398,13 @@ would need in order to keep the main term above its own error grows like $X$ its
 circle-method errors save a power of $X$ or a power of $\log X$. So an analytic proof here would
 have to be \emph{exact}, with error identically zero, rather than sharp.
 \item \emph{Construct exactly.} This is the only branch alive, and it exists: the Pell orbit of
-Remark~\ref{rem:lehmer}.
+Remark~\ref{rem:lehmer}. It is alive but narrower than it was.
+Proposition~\ref{prop:tailbound} bounds the tail prime by $4N$, so the orbit contributes nothing past
+a bounded initial segment and the construction is a finite search over the divisors of $4D$ rather
+than a Lehmer primality question; Remark~\ref{rem:notlehmer} then makes that finite search
+heuristically empty on all $34$ immune families, by two independent estimates. What survives is the
+branch itself, not its expectation: the construction must now either come from a base outside the
+immune list or exploit the parametrisation $q=2(N\pm k)/m^2$ directly.
 \end{enumerate}
 
 The two exclusions interlock, and the interlock is the real statement. Exactness is what algebra
@@ -3350,13 +3422,19 @@ itself is not heuristic: Theorem~\ref{thm:ff} and Proposition~\ref{prop:nopoly} 
 \textup{PROVED}, and so is the reduction of branch (c) to a primality question. So what follows is
 stated at the strength of its weakest link, which is the model.
 
-What remains of \#307 is therefore one question and not a programme: whether a determined term
-$q_n$ of the exponential Pell sequence attached to an immune base is prime, together with the sign
-selection $k=0$, which Remark~\ref{rem:lehmer} shows is a choice between $\{0,-1\}$ rather than a
-coincidence of measure zero. By Proposition~\ref{prop:nopoly} the parametrisation is forced to be
-exponential rather than polynomial, which places the question in the Lehmer class rather than the
-Schinzel class, and it is open there for every non-degenerate sequence, Mersenne and Lucas included.
-That is the whole of the residue, and it is why nothing in this paper decides the problem.
+What remains of \#307 is therefore one question and not a programme: whether some base admits a
+Pythagorean tail prime, together with the sign selection $k=0$, which Remark~\ref{rem:lehmer} shows
+is a choice between $\{0,-1\}$ rather than a coincidence of measure zero. By
+Proposition~\ref{prop:nopoly} the orbit parametrising the Pythagorean locus is forced to be
+exponential rather than polynomial. That was previously read as placing the question in the Lehmer
+class rather than the Schinzel class, hence open for every non-degenerate sequence; but by
+Proposition~\ref{prop:tailbound} a prime tail satisfies $q\le4N$, so the exponential orbit supplies
+no candidate past a bounded initial segment and the question is neither Lehmer nor Schinzel. It is a
+finite search over the divisors $m\mid4D$ with $AB+Dm^2$ a square, which
+Remark~\ref{rem:notlehmer} makes heuristically empty on all $34$ immune families. The residue is
+thus smaller and better located than it was, and still undecided: the bound is proved, the
+emptiness is not, and no base outside the immune list has been examined at all. That is why nothing
+in this paper decides the problem.
 \end{remark}
 
 The measurement does expose a sharp structural fact, which turns out to be exactly the barrier seen

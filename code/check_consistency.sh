@@ -32,6 +32,16 @@ stated_tot=$(grep -o '\*\*[0-9]* of [0-9]*\*\*' lean/COVERAGE.md | head -1 | gre
 chk "coverage covered" "$stated" "$cov"
 chk "coverage total" "$stated_tot" "$tot"
 
+# README and COVERAGE.md each carry their own copy of the declaration/module counts. Both drifted
+# once (README sat at 159/30 while the build was at 304/36), so both are recomputed here.
+mods=$(ls lean/Erdos307/*.lean | wc -l | tr -d ' ')
+decls=$(grep -c '^#print axioms' lean/Check.lean | tr -d ' ')
+chk "Check.lean declarations" "$decls" "$(grep -oE '[0-9]+ declarations' README.md | grep -oE '[0-9]+')"
+chk "README module count"     "$mods"  "$(grep -oE 'across all [0-9]+ modules' README.md | grep -oE '[0-9]+')"
+chk "COVERAGE declarations"   "$decls" "$(grep -oE '\*\*[0-9]+ declarations' lean/COVERAGE.md | grep -oE '[0-9]+')"
+chk "COVERAGE module count"   "$mods"  "$(grep -oE 'across all [0-9]+ modules' lean/COVERAGE.md | grep -oE '[0-9]+')"
+chk "COVERAGE file count"     "$mods"  "$(grep -oE '\([0-9]+ files' lean/COVERAGE.md | grep -oE '[0-9]+')"
+
 nd=$(grep -rn 'native_decide' lean/Erdos307/*.lean | grep -c ':= by')
 chk "native_decide sites" "1" "$nd"
 

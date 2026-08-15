@@ -33,6 +33,7 @@ import Erdos307.Rigidity
 import Erdos307.Sixty
 import Erdos307.SquareSieve
 import Erdos307.Squarefree
+import Erdos307.TailBound
 
 /-! # Axiom audit for the whole development
 
@@ -50,15 +51,16 @@ theorem passes this file cleanly; one did. `Vacuity.lean` is the companion check
 
 open Erdos307
 
-/-! ### Barrier -/
 #print axioms reciprocal_sum_gt_two
+#print axioms P58
+#print axioms N58
+#print axioms P59
+#print axioms N59
 #print axioms recipSum58_lt_two
 #print axioms recipSum59_gt_two
 #print axioms barrier_numeric
 #print axioms barrier_algebraic
 #print axioms barrier
-
-/-! ### Bridge -/
 #print axioms two_cycle_iff_double_fixed
 #print axioms ad_dprod
 #print axioms dprod_ne_dprod
@@ -67,55 +69,37 @@ open Erdos307
 #print axioms bridge_backward
 #print axioms mass_eq
 #print axioms bridge
-
-/-! ### Campaign -/
 #print axioms jacobiSym_add_four_mul
 #print axioms jacobiSym_A_eq_B
-
-/-! ### Capstone -/
 #print axioms dprod_pos
 #print axioms recipSum_eq
 #print axioms solution_disjoint
 #print axioms erdos307_barrier
-
-/-! ### CharSum -/
 #print axioms quadratic_inv
 #print axioms twist_inv_involutive
 #print axioms sum_char_twist_inv
-
-/-! ### Closed -/
 #print axioms hmono_all
 #print axioms recip_sum_ge_two
 #print axioms card_ge_59
 #print axioms erdos307_barrier_closed
-
-/-! ### Congruential -/
 #print axioms const_increment_iterate
 #print axioms two_nsmul_eq_zero_of_period_two
 #print axioms no_period_two_of_two_nsmul_ne_zero
 #print axioms period_two_of_const_increment_of_ne
 #print axioms zmod_two_mul_eq_zero_of_period_two
-
-/-! ### Coprime60 -/
 #print axioms coprime_loss
 #print axioms loss_antitone
 #print axioms loss_at_277
-
-/-! ### Distinctness -/
 #print axioms half_add_half
 #print axioms multiset_solution
 #print axioms distinctness_carries_the_barrier
 #print axioms transfer_dissolves
-
-/-! ### Extremal -/
 #print axioms nth_prime_le_orderEmb
 #print axioms orderEmb_prod
 #print axioms orderEmb_sum
 #print axioms prod_first_primes_le
 #print axioms recipSum_le_first_primes
 #print axioms hRatio_of_extremal
-
-/-! ### Frame -/
 #print axioms csum_insert_prime
 #print axioms dprod_insert_prime
 #print axioms frame_cycle
@@ -123,30 +107,20 @@ open Erdos307
 #print axioms anatomy_on_support
 #print axioms csum_eq_mul_recipSum
 #print axioms anatomy_iff
-
-/-! ### FunctionField -/
 #print axioms deg_drop_of_terms
 #print axioms no_two_cycle_of_drop
 #print axioms no_fixed_point_of_drop
 #print axioms ff_no_cycle
-
-/-! ### HalfLyap -/
 #print axioms log_lt_half_sub
 #print axioms delta_decreasing
 #print axioms two_le_add_of_mul_eq_one
-
-/-! ### InfZero -/
 #print axioms exists_block_sum_near
 #print axioms infimum_zero
-
-/-! ### Injective -/
 #print axioms den_eq_of_coprime_cross
 #print axioms dprod_eq_of_mass_eq
 #print axioms csum_eq_of_mass_eq
 #print axioms dprod_primeFactors
 #print axioms eq_of_cross
-
-/-! ### Ladder -/
 #print axioms k_nonpos
 #print axioms rung_cross
 #print axioms rung_mass_indep
@@ -154,30 +128,22 @@ open Erdos307
 #print axioms rung_parity_mixed
 #print axioms rung_parity_odd
 #print axioms k_determined
-
-/-! ### LiveSlot -/
 #print axioms live_slot_threshold
 #print axioms recipSum9_lt_three_halves
 #print axioms three_halves_le_recipSum10
 #print axioms threshold_bracket
-
-/-! ### LocalComplete -/
 #print axioms regime_one_collapse
 #print axioms regime_one_same_argument
 #print axioms regime_two_constant
 #print axioms regime_two_constant'
 #print axioms regime_three_count
 #print axioms no_single_class
-
-/-! ### LyapFalse -/
 #print axioms criterion_fails_of_pos
 #print axioms criterion_fails_of_nonpos
 #print axioms no_lambda_works
 #print axioms one_lt_sigmaN0
 #print axioms sigmaN0_lt
 #print axioms lyapunov_criterion_false
-
-/-! ### Mod8 -/
 #print axioms odd_sq_mod8
 #print axioms cofactor_odd
 #print axioms mod8_law
@@ -198,16 +164,12 @@ open Erdos307
 #print axioms mixed_member_mod16
 #print axioms even_member_mod16
 #print axioms mixed_prime_sum_mod8
-
-/-! ### NoGain -/
 #print axioms cycle_product
 #print axioms le_max_of_both
 #print axioms cycle_bound
 #print axioms cycle_bound_max
 #print axioms gain_lt_one_order
 #print axioms nogain
-
-/-! ### NoInvariant -/
 #print axioms half_works
 #print axioms no_f_above_two
 #print axioms mass_sum_threshold
@@ -215,8 +177,7 @@ open Erdos307
 #print axioms exists_f_of_injective
 #print axioms increment_iff
 #print axioms no_two_cycle_of_decreasing
-
-/-! ### NoPlace -/
+#print axioms Descends
 #print axioms not_descends_of_le
 #print axioms der_thirty
 #print axioms not_descent_of_strictMono
@@ -226,14 +187,10 @@ open Erdos307
 #print axioms raises_five
 #print axioms not_descent_padic
 #print axioms no_place_descent
-
-/-! ### NoPoly -/
 #print axioms const_prod_eq_one_of_tendsto
 #print axioms eps_eq_zero_of_identity
 #print axioms nonconstant_empty
 #print axioms nopoly
-
-/-! ### NormalForm -/
 #print axioms dvd_sum_erase_iff
 #print axioms Q_determined
 #print axioms oneprime_forced
@@ -246,8 +203,6 @@ open Erdos307
 #print axioms cofactor_survival
 #print axioms qr_filter
 #print axioms symbolfact
-
-/-! ### Numeral -/
 #print axioms np0
 #print axioms np1
 #print axioms np2
@@ -313,13 +268,9 @@ open Erdos307
 #print axioms sum_first59
 #print axioms sum_first58
 #print axioms base_case
-
-/-! ### PairAvg -/
 #print axioms card_filter_dvd_le
 #print axioms sum_filter_comm
 #print axioms pairavg_bound
-
-/-! ### PairLocal -/
 #print axioms no_pinning
 #print axioms no_pinning_isUnit
 #print axioms A_sub_B
@@ -329,8 +280,6 @@ open Erdos307
 #print axioms regime_one_first_mod
 #print axioms four_two_eq_zero
 #print axioms targets_agree_mod_eight
-
-/-! ### PlusThin -/
 #print axioms plus_semiprime_identity
 #print axioms plus_range
 #print axioms plus_injective_aux
@@ -340,8 +289,6 @@ open Erdos307
 #print axioms two_roots_quadratic
 #print axioms card_large_le_card_small
 #print axioms tau_le_two_small
-
-/-! ### Pythagorean -/
 #print axioms pyth_sum_of_squares
 #print axioms pyth_discriminant
 #print axioms split_identity
@@ -352,17 +299,19 @@ open Erdos307
 #print axioms emptytest
 #print axioms sum_ge_card_of_prod_eq_one
 #print axioms two_le_sum_of_mul_eq_one
-
-/-! ### RhoBarrier -/
 #print axioms card_ge_59_of_recipSum_ge_two
 #print axioms card_union_ge_59_of_masses
-
-/-! ### Rigidity -/
+#print axioms dprod
+#print axioms csum
 #print axioms dprod_div
 #print axioms rigidity_coprime
 #print axioms solution_structure
-
-/-! ### Sixty -/
+#print axioms forced39
+#print axioms pool99
+#print axioms rsum
+#print axioms thr
+#print axioms plusVal
+#print axioms nsqB
 #print axioms nsqB_false_of_isSquare
 #print axioms rsum_nil
 #print axioms rsum_cons
@@ -373,6 +322,7 @@ open Erdos307
 #print axioms rsum_take_shift
 #print axioms rsum_sublist_le
 #print axioms sublist_of_pairwise_lt
+#print axioms dfs
 #print axioms dfs_sound
 #print axioms list_prod_toList
 #print axioms list_sum_toList
@@ -394,14 +344,14 @@ open Erdos307
 #print axioms pool99_pos
 #print axioms dfs_run
 #print axioms erdos307_sixty
-
-/-! ### SquareSieve -/
 #print axioms sieve_core
 #print axioms sum_sq_expand
 #print axioms square_sieve
-
-/-! ### Squarefree -/
 #print axioms primeSquareSum_certificate
 #print axioms good_density_pos
 #print axioms squarefree_positive_density_of_bound
-
+#print axioms tail_factor
+#print axioms tail_quadratic
+#print axioms tail_discriminant
+#print axioms tail_bound
+#print axioms tail_finite
