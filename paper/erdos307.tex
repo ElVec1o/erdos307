@@ -3111,13 +3111,46 @@ $d\log p$, and inert primes contribute $1/p^{d}$, that is, nothing. The error wa
 statement about the tail as a statement about the minimum. The barrier consumes only \emph{finitely
 many} primes, and for any finite set of small primes one may choose $K$ in which all of them split;
 Chebotarev constrains how often splitting happens, not which particular primes split.
-\item \emph{What survives.} For a \emph{fixed} field the measurement stands: $\mathbb{Q}$ needs $59$
-primes and $10^{112.9}$, whereas $\mathbb{Q}(i)$ needs $226$ prime ideals and $10^{735.1}$
-\textup{(\texttt{code/a10\_fieldbarrier.gp})}. What does not survive is the use of this proposition
-as a \emph{block}: the number--field route is not foreclosed by a barrier transfer. Whether an
-ideal-theoretic solution in some $\mathcal{O}_K$ bears on \#307, which asks about rational primes,
-is a separate question this paper does not settle. Status: \textsc{open}.
+\item \emph{What survives, and what closes the route instead.} For a \emph{fixed} field the
+measurement stands: $\mathbb{Q}$ needs $59$ primes and $10^{112.9}$, whereas $\mathbb{Q}(i)$ needs
+$226$ prime ideals and $10^{735.1}$ \textup{(\texttt{code/a10\_fieldbarrier.gp})}. What does not
+survive is the use of this proposition as a \emph{block}. The route is nevertheless closed, and by a
+sounder argument, which is Proposition~\ref{prop:distinct} below: the ideal--theoretic \#307 is
+\emph{trivially soluble}, so it carries no information about the rational problem.
 \end{enumerate}
+\end{proposition}
+
+\begin{proposition}[The difficulty of \#307 is distinctness, not mass]\label{prop:distinct}
+Allow $P$ and $Q$ to be finite \emph{multisets} of primes rather than sets. Then the \#307 equation
+is soluble with four primes in total:
+$\bigl(\tfrac12+\tfrac12\bigr)\bigl(\tfrac12+\tfrac12\bigr)=1$. With $P,Q$ genuine sets the same
+equation forces $|P\cup Q|\ge59$ and $\prod>10^{112.9}$ by Theorem~\ref{thm:barrier}. The barrier is
+therefore a statement about the injectivity of $p\mapsto1/p$ on the primes, not about the arithmetic
+of the mass condition.
+
+Two consequences, and the second is the operative one.
+
+\textup{(i)} \emph{The ideal--theoretic problem is trivial.} In $K=\mathbb{Q}(\sqrt{17},\sqrt{33})$
+the prime $2$ splits completely into four pairwise coprime prime ideals of norm $2$; taking
+$P=\{\pi_1,\pi_2\}$ and $Q=\{\pi_3,\pi_4\}$ gives $\sigma(P)=\sigma(Q)=1$ and $|P\cup Q|=4$
+\textup{(\texttt{code/ideal307.gp})}. Nor does the derivative transfer: $\pi_1+\pi_2$ is the unit
+ideal, so $a'$ collapses. This is the correct reason the number--field route is closed, and it
+explains why refuting the previous proposition reopened nothing: the transferred problem was never
+the same problem.
+
+\textup{(ii)} \emph{A no--go for transfers generally.} Any setting admitting two distinct objects of
+the same norm $n\ge2$ on each side solves the mass equation at size four, whatever the setting is.
+So a dictionary permitting repeated denominators \emph{dissolves} \#307 rather than relocating its
+difficulty, and can carry no information about it. This prunes a class of attacks in one line, and
+it is the test any future transfer should face first. Corollary~\ref{cor:coprime60} passes it only
+because pairwise--coprime integers still have distinct least prime factors, which is distinctness
+re-entering through the back door.
+
+\textup{Formalised.} \texttt{Erdos307.multiset\_solution} is the four--element witness,
+\texttt{distinctness\_carries\_the\_barrier} the contrast against
+\texttt{card\_ge\_59\_of\_recipSum\_ge\_two}, stated as a conjunction so the two halves cannot drift
+apart, and \texttt{transfer\_dissolves} the general no--go
+\textup{(\texttt{lean/Erdos307/Distinctness.lean})}.
 \end{proposition}
 
 \begin{remark}[The three other blocks, attacked]\label{rem:blockattacks}

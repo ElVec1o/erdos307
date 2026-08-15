@@ -6,6 +6,7 @@ import Erdos307.CharSum
 import Erdos307.Closed
 import Erdos307.Congruential
 import Erdos307.Coprime60
+import Erdos307.Distinctness
 import Erdos307.Extremal
 import Erdos307.Frame
 import Erdos307.FunctionField
@@ -44,7 +45,7 @@ Expected: everything on `{propext, Classical.choice, Quot.sound}` or fewer, with
 exception, `dfs_run` and the `erdos307_sixty` that consumes it.
 
 `#print axioms` reports nothing about whether a theorem's hypotheses are satisfiable. A vacuous
-theorem passes this file cleanly; one did, and was caught by adversarial review instead.
+theorem passes this file cleanly; one did. `Vacuity.lean` is the companion check.
 -/
 
 open Erdos307
@@ -99,6 +100,12 @@ open Erdos307
 #print axioms coprime_loss
 #print axioms loss_antitone
 #print axioms loss_at_277
+
+/-! ### Distinctness -/
+#print axioms half_add_half
+#print axioms multiset_solution
+#print axioms distinctness_carries_the_barrier
+#print axioms transfer_dissolves
 
 /-! ### Extremal -/
 #print axioms nth_prime_le_orderEmb

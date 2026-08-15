@@ -32,3 +32,4 @@ import Erdos307.FunctionField
 import Erdos307.LocalComplete
 import Erdos307.Coprime60
 import Erdos307.CharSum
+import Erdos307.Distinctness
