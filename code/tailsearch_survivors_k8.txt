@@ -1,3 +1,14 @@
 # survivors of the modular cascade: family b k prime_indices...
 # verify exactly with tailsearch_verify.gp; these are NOT yet solutions
 0 2 8 0 1 2 14 30 35 45 54
+0 1 8 0 1 10 24 50 51 53 54
+0 0 8 0 2 6 7 13 14 18 48
+0 1 8 0 2 9 17 18 30 33 54
+0 2 8 0 3 5 8 14 36 47 50
+0 2 8 0 4 10 20 38 43 50 55
+0 1 8 0 4 13 25 32 33 39 51
+0 2 8 0 5 9 15 49 51 53 55
+0 1 8 0 5 16 18 23 28 33 35
+0 2 7 0 6 7 18 22 28 54
+0 2 8 0 6 8 26 43 50 54 56
+0 2 8 0 7 8 11 16 25 28 52
