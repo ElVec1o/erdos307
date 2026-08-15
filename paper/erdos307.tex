@@ -2188,6 +2188,17 @@ squarefreeness and tracks the line parameter, which is why the classical members
 The deviation parameter of Proposition~\ref{prop:pairform} organises the one--equation problem into a
 short graded family.
 
+\section{The deviation ladder, the plus layer, and a second route to the barrier}\label{sec:ladderplus}
+
+The material below accreted onto the ``note added'' above because it grew out of the imported
+union criterion, and it stayed there. None of it is prior work: it is the deviation ladder, the
+function--field places, the mod--$8$ law, the plus layer, the slot anatomy, and an independent
+derivation of the barrier constant, and it includes two results carrying Lean formalisations
+(Propositions~\ref{prop:noplace} and~\ref{prop:plusthin}). It is given its own section and
+subsections here so that it can be found.
+
+\subsection{The deviation ladder}\label{ssec:ladder}
+
 \begin{proposition}[The deviation ladder]\label{prop:ladder}
 Let $(a,b)$ be a Pythagorean pair with $a<b$ and parameter $k$. Writing
 $\sigma(m)=\sum_{p\mid m}1/p$, one has $k=\sigma(a)-b/a=a/b-\sigma(b)\in\mathbb{Z}$, and:
@@ -2417,6 +2428,8 @@ from the cycle layer, sharpening the integer obstruction to ``the archimedean or
 The function--field immunity is more fragile than the characteristic: it is destroyed by inverting
 a single place.
 
+\subsection{Function--field places}\label{ssec:ffplaces}
+
 \begin{proposition}[Inverting one place destroys the function--field obstruction]\label{prop:ffsunit}
 Over the $S$--integers $\mathbb{F}_q[t,t^{-1}]$, whose unit group $\mathbb{F}_q^\times\cdot t^{\mathbb{Z}}$
 is infinite, unit--valued derivative two--cycles exist. Over $\mathbb{F}_3$ the smallest has degree
@@ -2482,6 +2495,8 @@ witnesses outright. Ostrowski enters \texttt{no\_place\_descent} as an explicit 
 hypothesis rather than silently. $0$ \texttt{sorry}
 \textup{(\texttt{lean/Erdos307/NoPlace.lean})}.
 \end{proposition}
+
+\subsection{The mod--$8$ law and the plus layer}\label{ssec:pluslayer}
 
 \begin{proposition}[Deviation calculus for $k$--cycles]\label{prop:kdev}
 For pairwise coprime squarefree $a_1,\dots,a_k$ with product $N$ and deviations
@@ -2695,6 +2710,8 @@ the injection collision--free; \texttt{code/pluszero.py}.)
 On a derivative \emph{line} the slot is not merely constrained; it is pinned, and the counting
 sharpens to every line at once.
 
+\subsection{Slot and line anatomy}\label{ssec:slotanatomy}
+
 \begin{proposition}[The determined slot: all derivative lines are thin, uniformly]\label{prop:lines}
 For integers $e\ge1$ and $c$,
 \[ \#\{N\le X\ \textnormal{squarefree}:\ N'=eN+c\}\;\ll\;\frac{X}{(\log X)^{(1+o(1))\log_3X}}, \]
@@ -2789,6 +2806,8 @@ exact on every chain (\texttt{code/peeling\_groupoid.py}).
 
 The determined slot bounds more than itself: unwound one level further it constrains the
 \emph{second} prime by a mass.
+
+\subsection{A second derivation of the barrier constant}\label{ssec:secondbarrier}
 
 \begin{proposition}[Mass--defect bound on the second prime]\label{prop:massbound}
 Let $M$ be squarefree with $\omega(M)\ge3$ on the line $M'=eM+c$, and write $p=P^+(M)$, $m=M/p$,
@@ -3828,6 +3847,8 @@ The point of Lemma~\ref{lem:symbolfact} is that $\sigma_r$ is \emph{additive} ov
 prime divisors, so after a Gauss-sum expansion the second factor becomes a product over $p\mid m$
 and the whole sum turns multiplicative. That is what puts it inside Hal\'asz's theorem.
 
+\subsection{The square sieve and Theorem~\ref{thm:a9}}\label{ssec:sieve}
+
 \begin{lemma}[Cancellation in the character sums]\label{lem:charcancel}
 Fix an odd squarefree $r>1$. Then
 \[ T_r(N)\;:=\!\!\sum_{\substack{m\le N,\ \mu^2(m)=1\\ \gcd(m,r)=1}}\!\!\Bigl(\frac{m'-2m}{r}\Bigr)\;=\;o_r(N)
@@ -4279,6 +4300,8 @@ Theorem~\ref{thm:condpower} at $P=N^{1/4}$ gives
 The two ingredients that would feed it are themselves unconditional, and are recorded separately
 because they do not depend on the missing step.
 
+\subsection{Pair averages and the mass--two wall}\label{ssec:pairavg}
+
 \begin{lemma}[$\sigma$ is injective on squarefree integers]\label{lem:sigmainj}
 For squarefree $d,d'$, $\sigma(d)=\sigma(d')$ forces $d=d'$. Consequently
 $F(d,d'):=D(d)\,d'-D(d')\,d=dd'(\sigma(d)-\sigma(d'))$ vanishes only on the diagonal.
@@ -4513,6 +4536,8 @@ summed over all moduli. \#307 sits exactly between two missing estimates on one 
 the heuristics can be read either way and why progress on either side would be informative about the
 other. The remaining walls are, in this sense, one wall seen from two directions.
 \end{remark}
+
+\subsection{Slot structure}\label{ssec:slotstructure}
 
 \begin{corollary}[Quadratic--residue filter for \#307 solutions]\label{cor:qr}
 Let $(P,Q)$ solve Erd\H{o}s~\#307 and set $a=D_P$, $b=D_Q$, $N=ab$. Since $N'=a^2+b^2$ and
@@ -4828,6 +4853,8 @@ search; it retires $45\%$ of them. The same program run without the
 mass gate returns the two representations of Proposition~\ref{prop:form} exactly, at $N_0=30$ with
 $(s,d)=(11,1)$ and $N_0=1722$ with $(83,1)$, both with $r=1$, which is the control that the search
 sees what it should.
+
+\subsection{Classical layers: genus, Giuga, parity}\label{ssec:classical}
 
 \begin{proposition}[A principal--genus necessary condition, and a cascade on solutions]\label{prop:genus}
 As $\gcd(N_0,N_0')=1$, the value $4N_0^2$ is a square coprime to the odd part of $\operatorname{disc}
