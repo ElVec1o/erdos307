@@ -1,6 +1,6 @@
 # On the equation n″ = n and Erdős Problem #307
 
-**Author:** Vico Bonfioli — <vico@anvilstack.com>
+**Author:** Vico Bonfioli — <vicobonfioli@gmail.com>
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20684626.svg)](https://doi.org/10.5281/zenodo.20684626)
 
