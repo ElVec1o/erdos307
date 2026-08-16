@@ -104,6 +104,7 @@ open Erdos307
 #print axioms harmonic_eq_sum_one_div
 #print axioms sum_tau_div_le_log_sq
 #print axioms count_in_residue_classes
+#print axioms two_pow_omega_le_tau
 #print axioms nth_prime_le_orderEmb
 #print axioms orderEmb_prod
 #print axioms orderEmb_sum

@@ -1,6 +1,7 @@
 import Mathlib.NumberTheory.Divisors
 import Mathlib.Algebra.Order.BigOperators.Group.Finset
 import Mathlib.Algebra.BigOperators.Ring.Finset
+import Mathlib.NumberTheory.ArithmeticFunction.Misc
 import Mathlib.NumberTheory.Harmonic.Bounds
 import Mathlib.Tactic.Positivity
 
@@ -204,5 +205,36 @@ theorem count_in_residue_classes (Y u : ℕ) (hu : 0 < u) (R : Finset ℕ) :
     calc a = u * (a / u) + a % u := (Nat.div_add_mod a u).symm
       _ = u * (b / u) + b % u := by rw [h1, h2]
       _ = b := Nat.div_add_mod b u
+
+/-! ### Toward the last gap in A6
+
+`prop:plusthin` needs `|R_u| ≤ τ(u)`, where `R_u` is the set of roots of `2s² + 1 ≡ 0` modulo `u`.
+The standard route is `|R_u| ≤ 2^ω(u) ≤ τ(u)`, and the second inequality is elementary. It is proved
+here; the first is not, and what it needs is recorded below. -/
+
+/-- **`2^ω(u) ≤ τ(u)`.** Each prime of `u` occurs to exponent at least `1`, so each factor `e_p + 1`
+of `τ(u) = ∏ (e_p + 1)` is at least `2`.
+
+This is the half of A6's remaining lemma that needs no new theory.
+
+**The other half is not here, and Mathlib does not supply it.** What remains is `|R_u| ≤ 2^ω(u)`,
+which is CRT multiplicativity of a root count: writing `u = ∏ p^e`, the equivalence
+`ZMod (mn) ≃+* ZMod m × ZMod n` for coprime `m, n` carries `R_{mn}` bijectively to `R_m × R_n`
+because `2s² + 1` has integer coefficients and so commutes with the ring map; and at each odd prime
+power `|R_{p^e}| ≤ 2`, since `x² = y²` with `x, y` units forces `p^e ∣ x - y` or `p^e ∣ x + y`
+(`p` cannot divide both, as `p` is odd and `x` is a unit). Mathlib packages neither the transport of
+a root set through `ZMod.chineseRemainder` nor any bound on square roots in `ZMod n`, so this is a
+build from scratch and is the single outstanding gap in A6. -/
+theorem two_pow_omega_le_tau {u : ℕ} (hu : u ≠ 0) :
+    2 ^ u.primeFactors.card ≤ u.divisors.card := by
+  rw [Nat.card_divisors hu]
+  calc 2 ^ u.primeFactors.card
+      = ∏ _p ∈ u.primeFactors, 2 := by rw [Finset.prod_const]
+    _ ≤ ∏ p ∈ u.primeFactors, (u.factorization p + 1) := by
+        refine Finset.prod_le_prod' ?_
+        intro p hp
+        have : 1 ≤ u.factorization p := (Nat.Prime.factorization_pos_of_dvd
+          (Nat.prime_of_mem_primeFactors hp) hu (Nat.dvd_of_mem_primeFactors hp))
+        omega
 
 end Erdos307

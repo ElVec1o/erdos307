@@ -52,10 +52,12 @@ The range count is also formal: `count_in_residue_classes` gives
 is Mathlib's `harmonic_le_one_add_log`, so `sum_tau_div_le_log_sq` states the bound in the printed
 `(1 + log Z)²` form rather than merely implying it.
 
-**One lemma is left.** The chain needs `|R| ≤ τ(u)`, where `R` is the set of roots of `2s²+1 ≡ 0`
-modulo `u`: the root count is multiplicative across prime powers by CRT, giving `2^ω(u) ≤ τ(u)`, with
-`two_roots_quadratic` supplying the factor `2` at each prime. Mathlib does not package
-multiplicativity of a root count, and it is the only remaining gap in A6. Erdős's sharpening and
+**One lemma is left, and half of it is now proved.** The chain needs `|R| ≤ τ(u)` for `R` the roots
+of `2s²+1 ≡ 0` modulo `u`, via `|R| ≤ 2^ω(u) ≤ τ(u)`. The right-hand inequality is
+`two_pow_omega_le_tau` in `DivisorSum.lean`, elementary since every exponent is at least `1`. The
+left-hand one is CRT multiplicativity of a root count, which Mathlib does not package in any form:
+neither transport of a root set through `ZMod.chineseRemainder` nor a bound on square roots in
+`ZMod n` is available. That single inequality is the whole of what separates A6 from VERIFIED. Erdős's sharpening and
 Bunyakovsky's conditional lower bound stay cited and are used by neither the upper bound stated here
 nor a density-zero claim.
 

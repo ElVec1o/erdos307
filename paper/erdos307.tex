@@ -599,8 +599,11 @@ observation that the two square conditions are one, \texttt{regime\_one\_first} 
 $\ell$ to $\ell^j$ that regime~\textup{(1)} needs is \texttt{square\_lifts\_to\_prime\_powers},
 proved from \texttt{hensel\_all\_powers}: if $\ell$ is an odd prime not dividing $c$ and $c$ is a
 square modulo $\ell$, it is a square modulo every power of $\ell$. Weil's bound for the point count
-in regime~\textup{(2)} is the one remaining cited input, and it is the only one. $0$ \texttt{sorry}
-\textup{(\texttt{lean/Erdos307/PairLocal.lean})}.
+in regime~\textup{(2)} is the one remaining input, and it is \emph{cited}, not pending: the quantity
+$\delta=u^2-4m$ is a quartic in $y$, so the count is Hasse--Weil for $v^2=\delta(y)$, and Mathlib has
+elliptic--curve infrastructure but no point--count bound. Formalising Hasse's theorem is a
+contribution to Mathlib rather than to this problem, so the star here records a citation. $0$
+\texttt{sorry} \textup{(\texttt{lean/Erdos307/PairLocal.lean})}.
 \end{proposition}
 \begin{proof}
 First, no $\ell$ pins either target to a constant: that needs $\ell\mid A$ (or $B$) \emph{and}
@@ -725,8 +728,10 @@ terms $\le2$). \textup{(}Regimes~\textup{(i)} and~\textup{(ii)} are formalised:
 \texttt{Erdos307.regime\_one\_collapse}, \texttt{regime\_one\_same\_argument} and
 \texttt{regime\_two\_constant} \textup{(}\texttt{lean/Erdos307/LocalComplete.lean}\textup{)}.
 Regime~\textup{(iii)}'s counting step is \texttt{regime\_three\_count}, which takes the two complete
-character--sum evaluations as hypotheses; those evaluations are not in Mathlib, so this proposition
-keeps its formalisation star.\textup{)}
+character--sum evaluations as hypotheses. Those evaluations, $\sum_q\chi(aq+b)=0$ for $a\ne0$ and
+$\sum_q\chi((aq+b)(cq+d))=-\chi(ac)$ for $ad\ne bc$, are classical and are \emph{cited}, not pending:
+Mathlib does not carry them, and supplying them is a contribution to Mathlib rather than to this
+problem. The star on this proposition records a citation, not unfinished work.\textup{)}
 Consequently $Q_\ell\ne\emptyset$ forces $|Q_\ell|\ge2$ at every modulus, the surviving
 local density is positive (e.g.\ $\prod_{\ell\le300}|Q_\ell|/\ell\approx2.2\times10^{-19}>0$ on the
 canonical base), and by CRT \emph{no finite system of congruences (no covering) can annihilate an
