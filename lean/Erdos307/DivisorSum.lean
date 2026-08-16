@@ -1,6 +1,7 @@
 import Mathlib.NumberTheory.Divisors
 import Mathlib.Algebra.Order.BigOperators.Group.Finset
 import Mathlib.Algebra.BigOperators.Ring.Finset
+import Mathlib.NumberTheory.Harmonic.Bounds
 import Mathlib.Tactic.Positivity
 
 /-!
@@ -141,5 +142,67 @@ theorem sum_tau_le_mul_harmonic_sq (Z : ℕ) :
   calc (u.divisors.card : ℚ) * u ≤ (u.divisors.card : ℚ) * Z :=
         mul_le_mul_of_nonneg_left huZ hnn
     _ = (Z : ℚ) * (u.divisors.card : ℚ) := mul_comm _ _
+
+/-! ### The logarithmic form
+
+Mathlib's `harmonic_le_one_add_log` converts the harmonic statements above into the shape the paper
+prints, `H_Z ≤ 1 + log Z`, at no cost. This is what makes the formal content match the printed claim
+rather than merely implying it. -/
+
+/-- `∑_{d ≤ Z} 1/d` is Mathlib's `harmonic Z`. -/
+theorem harmonic_eq_sum_one_div (Z : ℕ) : (∑ d ∈ Icc 1 Z, (1 : ℚ) / d) = harmonic Z := by
+  rw [harmonic_eq_sum_Icc]
+  exact Finset.sum_congr rfl (fun d _ => one_div _)
+
+/-- **The printed form.** `∑_{u ≤ Z} τ(u)/u ≤ (1 + log Z)²`, over `ℝ`.
+
+The `(log Z)²` that `prop:plusthin` reports, with an explicit constant and no asymptotic. Obtained
+from `sum_tau_div_le_harmonic_sq` by `harmonic_le_one_add_log`; the harmonic statement is the one
+with content, and this is its translation. -/
+theorem sum_tau_div_le_log_sq (Z : ℕ) :
+    ∑ u ∈ Icc 1 Z, ((u.divisors.card : ℝ)) / u ≤ (1 + Real.log Z) ^ 2 := by
+  have hQ := sum_tau_div_le_harmonic_sq Z
+  rw [harmonic_eq_sum_one_div] at hQ
+  have hcast : ∑ u ∈ Icc 1 Z, ((u.divisors.card : ℝ)) / u
+      ≤ ((harmonic Z : ℚ) : ℝ) ^ 2 := by
+    have := (Rat.cast_le (K := ℝ)).mpr hQ
+    push_cast at this ⊢
+    exact this
+  refine hcast.trans ?_
+  have h0 : (0 : ℝ) ≤ ((harmonic Z : ℚ) : ℝ) := by
+    have : (0 : ℚ) ≤ harmonic Z := by
+      rw [harmonic_eq_sum_Icc]; positivity
+    exact_mod_cast this
+  exact pow_le_pow_left₀ h0 (harmonic_le_one_add_log Z) 2
+
+/-! ### Counting a range by residue classes
+
+The second input `prop:plusthin` needs beyond the divisor sums: if the admissible `s` lie in `R`
+residue classes modulo `u`, then a range of length `Y+1` contains at most `R·(Y/u + 1)` of them.
+Elementary, and the proof is the obvious injection. -/
+
+/-- **Range count by residue classes.** The `s ≤ Y` whose residue mod `u` lies in `R` number at most
+`|R|·(Y/u + 1)`.
+
+The map `s ↦ (s % u, s / u)` is injective, since `s = u·(s/u) + s%u` recovers `s`, and it lands in
+`R ×ˢ [0, Y/u]`. Applied with `R` the roots of `2s² + 1 ≡ 0 (mod u)`, this is the step that turns
+the divisor sum of `count_le_divisor_sum` into a count over `s`. -/
+theorem count_in_residue_classes (Y u : ℕ) (hu : 0 < u) (R : Finset ℕ) :
+    (((Finset.range (Y + 1)).filter (fun s => s % u ∈ R)).card) ≤ R.card * (Y / u + 1) := by
+  classical
+  have hcard : (R ×ˢ Finset.range (Y / u + 1)).card = R.card * (Y / u + 1) := by
+    rw [Finset.card_product, Finset.card_range]
+  rw [← hcard]
+  refine Finset.card_le_card_of_injOn (fun s => (s % u, s / u)) ?_ ?_
+  · intro s hs
+    simp only [Finset.mem_coe, Finset.mem_filter, Finset.mem_range] at hs
+    refine Finset.mem_product.mpr ⟨hs.2, Finset.mem_range.mpr ?_⟩
+    exact Nat.lt_succ_of_le (Nat.div_le_div_right (by omega))
+  · intro a ha b hb hab
+    have h1 : a % u = b % u := congrArg Prod.fst hab
+    have h2 : a / u = b / u := congrArg Prod.snd hab
+    calc a = u * (a / u) + a % u := (Nat.div_add_mod a u).symm
+      _ = u * (b / u) + b % u := by rw [h1, h2]
+      _ = b := Nat.div_add_mod b u
 
 end Erdos307

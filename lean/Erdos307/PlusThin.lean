@@ -47,10 +47,17 @@ only the upper halves of the divisor sums, which are elementary double counting 
 `∑_{u≤Z} τ(u)/u ≤ H_Z²` and `∑_{u≤Z} τ(u) ≤ Z·H_Z²`, which are the two this proof combines as
 `Y·∑τ(u)/u + ∑τ(u)`. Citing the asymptotic `∼` was citing more than the argument uses.
 
-What is still not in Lean is the assembly, not the divisor sums: the range count
-`#{s ≤ Y : u ∣ 2s²+1} ≤ (roots mod u)·(Y/u + 1)`, the CRT step `roots ≤ 2^ω(u) ≤ τ(u)` on top of
-`two_roots_quadratic`, and `H_Z ≤ 1 + log Z`. Erdős's sharpening and Bunyakovsky's conditional lower
-bound remain cited, but neither is used by the upper bound stated here.
+The range count is also formal: `count_in_residue_classes` gives
+`#{s ≤ Y : s mod u ∈ R} ≤ |R|·(Y/u + 1)` by the injection `s ↦ (s mod u, s / u)`. And `H_Z ≤ 1+log Z`
+is Mathlib's `harmonic_le_one_add_log`, so `sum_tau_div_le_log_sq` states the bound in the printed
+`(1 + log Z)²` form rather than merely implying it.
+
+**One lemma is left.** The chain needs `|R| ≤ τ(u)`, where `R` is the set of roots of `2s²+1 ≡ 0`
+modulo `u`: the root count is multiplicative across prime powers by CRT, giving `2^ω(u) ≤ τ(u)`, with
+`two_roots_quadratic` supplying the factor `2` at each prime. Mathlib does not package
+multiplicativity of a root count, and it is the only remaining gap in A6. Erdős's sharpening and
+Bunyakovsky's conditional lower bound stay cited and are used by neither the upper bound stated here
+nor a density-zero claim.
 
 The `ω ≥ 3` stratum remains empirical, as `prop:strata` records; nothing here touches it.
 
