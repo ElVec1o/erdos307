@@ -2,6 +2,12 @@
 
 **Author:** Vico Bonfioli — <vico@anvilstack.com>
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20684626.svg)](https://doi.org/10.5281/zenodo.20684626)
+
+Archived on Zenodo at every release. The concept DOI
+[10.5281/zenodo.20684626](https://doi.org/10.5281/zenodo.20684626) always resolves to the
+latest version; each release also carries its own version DOI.
+
 This repository accompanies the note *"On the equation n″ = n and a problem of Erdős and Barbeau on
 products of prime-reciprocal sums."* It contains the paper, a Lean 4 formalization of the rigidity and
 barrier results, and the computational scripts and enumerators behind every numerical claim.

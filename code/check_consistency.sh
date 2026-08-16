@@ -49,7 +49,7 @@ sry=$(grep -rn 'sorry' lean/Erdos307/*.lean | grep -v 'sorry`-free\|sorryAx' | w
 chk "sorry count" "0" "$sry"
 
 orph=$(git ls-files | grep -v '^\(paper\|lean\|code\|data\|certs\|hunt\)/' \
-       | grep -v '^\(README.md\|LICENSE\|.gitignore\|CLAUDE.md\|RULES.md\)$' | wc -l | tr -d ' ')
+       | grep -v '^\(README.md\|LICENSE\|.gitignore\|CLAUDE.md\|RULES.md\|CITATION.cff\)$' | wc -l | tr -d ' ')
 chk "orphan files" "0" "$orph"
 
 unanch=$(for f in lean/Erdos307/*.lean; do grep -q 'Paper:' "$f" || basename "$f"; done | wc -l | tr -d ' ')
