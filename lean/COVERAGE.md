@@ -26,11 +26,12 @@ missing Mathlib result or a deliberate refusal, not an absence of effort.
 |---|---|---|---|
 | **A3** `prop:localcomplete` | regimes (i) and (ii) in `LocalComplete.lean` | regime (iii)'s complete character sums | Mathlib lemmas for `sum_q chi(aq+b) = 0` (`a != 0`) and `sum_q chi((aq+b)(cq+d)) = -chi(ac)` (`ad != bc`). Both standard, neither present. |
 | **A6** `prop:plusthin` | the whole elementary skeleton through `count_le_divisor_sum` | Dirichlet's divisor asymptotics | `sum_{u<=Z} tau(u) ~ Z log Z` and `sum_{u<=Z} tau(u)/u ~ (log Z)^2/2`. Absent from Mathlib. |
-| **A7** `prop:pairlocal` | no-pinning, the regime-(2) collapse identity, regime (1)'s explicit unit, regime (3)'s mod-8 collapse | Weil's point count and Hensel lifting | A Mathlib bound on points of a quartic over `F_l`, plus lifting a nonsingular point to `l^j`. Weil is absent. |
+| **A7** `prop:pairlocal` | no-pinning, the regime-(2) collapse identity, regime (1)'s explicit unit, regime (3)'s mod-8 collapse, **and the `l` to `l^j` lift** (`square_lifts_to_prime_powers`, from `hensel_all_powers`) | Weil's point count alone | A Mathlib bound on points of a quartic over `F_l`. The Hensel-lifting half of this blocker was discharged this release, so one cited input remains, not two. |
 | **A8** `prop:nogain` | the full inequality chain, `cycle_bound_max` | the value `113.2` | A finite minimisation over subsets `S`, done in `code/minimise_structured.rs`. Formalising it means `native_decide` at a scale that would add an axiom to a result that currently needs none. **Deliberately not done**; the paper labels the value a computation. |
 
-A3 moved this release: regimes (i) and (ii) were prose and are now Lean. The other three are
-unchanged and are expected to stay starred until Mathlib grows the named results.
+A7 moved this release: its lifting input is now proved rather than cited, leaving Weil's bound as
+its only remaining assumption. A3 moved in the previous one. A6 and A8 are unchanged, and all four
+stay starred until Mathlib grows the named results (A8 by deliberate refusal, not absence).
 
 ## The "algebraic gap is zero" claim is retired
 

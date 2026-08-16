@@ -1,5 +1,9 @@
+import Erdos307.TailBound
 import Mathlib.Data.ZMod.Basic
 import Mathlib.RingTheory.Coprime.Basic
+import Mathlib.RingTheory.PrincipalIdealDomain
+import Mathlib.RingTheory.Int.Basic
+import Mathlib.RingTheory.Bezout
 import Mathlib.Tactic.LinearCombination
 
 /-!
@@ -40,9 +44,9 @@ share, together with the two regimes whose content is algebraic rather than anal
   `(A mod 8, D mod 8)` showing some achievable pair makes the common target `≡ 1 (mod 8)` is a
   computation, in `code/pairlocal.py`.
 
-Two inputs are cited and not reproved: Weil's bound for the point count in regime (2), and the
-lifting of a nonsingular point from `ℓ` to `ℓ^j`. Both are standard; neither is arithmetic special
-to \#307.
+One input is cited and not reproved: Weil's bound for the point count in regime (2). The second
+former citation, lifting a nonsingular point from `ℓ` to `ℓ^j`, is now `square_lifts_to_prime_powers`
+below, proved from `hensel_all_powers`; it is no longer assumed.
 
 The consequence is the one that matters for the programme. Unlike the single-tail family, the pair
 sector admits no congruence obstruction at all: it is a genuine two-parameter surface per base,
@@ -102,6 +106,33 @@ theorem regime_one_second {ℓ : ℕ} {B D N α : ZMod ℓ}
     (hB : B = N - 2 * D) (hD : D = 0) (hα : N * α = 1) :
     B * (α * 1) + D * (α + 1) = 1 ^ 2 := by
   subst hB; subst hD; linear_combination hα
+
+/-- **The lifting input, no longer cited.** Regime (1) needs "a unit square modulo `ℓ` lifts to
+`ℓ^j`", which was one of the two facts this file imported without proof. It is now discharged:
+`hensel_all_powers` supplies exactly this lift, and the invertibility it requires is automatic here
+because `ℓ` is an odd prime not dividing `c`.
+
+If `ℓ` is an odd prime, `ℓ ∤ c`, and `c` is a square modulo `ℓ`, then `c` is a square modulo every
+power of `ℓ`. The unit hypothesis is what makes `2x₀` invertible: `ℓ ∤ c` forces `ℓ ∤ x₀`, and `ℓ`
+odd forces `ℓ ∤ 2`.
+
+This leaves Weil's point count in regime (2) as the *only* remaining cited input of `prop:pairlocal`,
+so the atom's blocker list drops from two items to one. -/
+theorem square_lifts_to_prime_powers {ℓ c x₀ : ℤ} (hℓ : Prime ℓ) (hodd : ¬ (ℓ ∣ 2))
+    (hc : ¬ ℓ ∣ c) (hbase : ℓ ∣ c - x₀ ^ 2) (j : ℕ) :
+    ∃ x, ℓ ^ (j + 1) ∣ c - x ^ 2 := by
+  -- `ℓ ∤ x₀`, else `ℓ ∣ x₀^2` and `ℓ ∣ c - x₀^2` give `ℓ ∣ c`
+  have hx₀ : ¬ ℓ ∣ x₀ := by
+    intro h
+    have h2 : ℓ ∣ x₀ ^ 2 := h.pow (by norm_num)
+    exact hc (by simpa using dvd_add hbase h2)
+  have h2x : ¬ ℓ ∣ 2 * x₀ := fun h => (hℓ.2.2 2 x₀ h).elim hodd hx₀
+  -- so `2x₀` is invertible mod `ℓ`
+  have hcop : IsCoprime ℓ (2 * x₀) := (Prime.coprime_iff_not_dvd hℓ).mpr h2x
+  obtain ⟨u, v, huv⟩ := hcop
+  have hw : ℓ ∣ 2 * x₀ * v - 1 := ⟨-u, by linarith [huv]⟩
+  obtain ⟨x, hx, _⟩ := hensel_all_powers hbase hw j
+  exact ⟨x, hx⟩
 
 /-- The same for the first target, so that regime (1) produces both squares at once. -/
 theorem regime_one_first_mod {ℓ : ℕ} {A D N α : ZMod ℓ}

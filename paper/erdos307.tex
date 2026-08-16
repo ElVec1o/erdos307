@@ -595,8 +595,11 @@ Remark~\ref{rem:campaign} is a theorem, and the certificate programme provably e
 tail--kill mechanism unavailable, \texttt{collapse\_identity} is regime~\textup{(2)}'s
 observation that the two square conditions are one, \texttt{regime\_one\_first} and
 \texttt{regime\_one\_second} are the explicit unit of regime~\textup{(1)}, and
-\texttt{targets\_agree\_mod\_eight} is the mod--$8$ collapse of regime~\textup{(3)}. Weil's bound
-and the lifting of a nonsingular point are cited, not reproved. $0$ \texttt{sorry}
+\texttt{targets\_agree\_mod\_eight} is the mod--$8$ collapse of regime~\textup{(3)}. The lift from
+$\ell$ to $\ell^j$ that regime~\textup{(1)} needs is \texttt{square\_lifts\_to\_prime\_powers},
+proved from \texttt{hensel\_all\_powers}: if $\ell$ is an odd prime not dividing $c$ and $c$ is a
+square modulo $\ell$, it is a square modulo every power of $\ell$. Weil's bound for the point count
+in regime~\textup{(2)} is the one remaining cited input, and it is the only one. $0$ \texttt{sorry}
 \textup{(\texttt{lean/Erdos307/PairLocal.lean})}.
 \end{proposition}
 \begin{proof}
