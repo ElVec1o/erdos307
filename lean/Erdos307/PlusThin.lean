@@ -41,15 +41,16 @@ completely, formalising the first and naming the second.
 gives the conditional lower bound; and the lifting of the simple roots from `ℓ` to `ℓ^j` is Hensel.
 
 Two of those are no longer cited. The lift is `square_lifts_to_prime_powers` in `PairLocal.lean`,
-from `hensel_all_powers`. And a thinness conclusion consumes only the *upper* half of the divisor
-sums, which is elementary double counting rather than analysis: `sum_tau_div_le_harmonic_sq` in
-`DivisorSum.lean` proves `∑_{u≤Z} τ(u)/u ≤ H_Z²` with `H_Z = ∑_{d≤Z} 1/d`, stated harmonically so
-that no logarithm is needed. That is the factor carrying the `(log Z)²`.
+from `hensel_all_powers`. And the conclusion `O(√X (log X)²)` is an *upper* bound, so it consumes
+only the upper halves of the divisor sums, which are elementary double counting rather than analysis.
+`DivisorSum.lean` proves both, harmonically so that no logarithm enters:
+`∑_{u≤Z} τ(u)/u ≤ H_Z²` and `∑_{u≤Z} τ(u) ≤ Z·H_Z²`, which are the two this proof combines as
+`Y·∑τ(u)/u + ∑τ(u)`. Citing the asymptotic `∼` was citing more than the argument uses.
 
-What remains cited is the matching *lower* bounds, the constant `½`, and Erdős's sharpening, none of
-which a density-zero statement needs but all of which the paper's stated rate does. So the passage
-from `count_le_divisor_sum` to `O(√X (log X)²)` with that exact constant is still not asserted in
-Lean; the upper bound behind it now is.
+What is still not in Lean is the assembly, not the divisor sums: the range count
+`#{s ≤ Y : u ∣ 2s²+1} ≤ (roots mod u)·(Y/u + 1)`, the CRT step `roots ≤ 2^ω(u) ≤ τ(u)` on top of
+`two_roots_quadratic`, and `H_Z ≤ 1 + log Z`. Erdős's sharpening and Bunyakovsky's conditional lower
+bound remain cited, but neither is used by the upper bound stated here.
 
 The `ω ≥ 3` stratum remains empirical, as `prop:strata` records; nothing here touches it.
 

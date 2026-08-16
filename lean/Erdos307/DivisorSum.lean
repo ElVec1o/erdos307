@@ -19,8 +19,9 @@ are proved here, stated with the harmonic sum `H_Z = ∑_{d ≤ Z} 1/d` in place
 removes the last analytic ingredient:
 
   `∑_{u ≤ Z} τ(u)/u ≤ H_Z²`     (`sum_tau_div_le_harmonic_sq`)
+  `∑_{u ≤ Z} τ(u)   ≤ Z · H_Z²`  (`sum_tau_le_mul_harmonic_sq`)
 
-which is the half carrying the `(log Z)²` that `prop:plusthin` needs.
+and `prop:plusthin` consumes exactly these two, as `Y·∑τ(u)/u + ∑τ(u)`.
 
 The proof of each is the same one line of counting: `τ(u)` is the number of pairs `(d, m)` with
 `dm = u`, so summing over `u ≤ Z` is summing over pairs with `dm ≤ Z`, and that set of pairs sits
@@ -29,10 +30,16 @@ inside the full square `[1,Z] × [1,Z]`, where the sum factors.
 `H_Z ≤ 1 + log Z` recovers the usual shape when wanted, but nothing here needs it, and keeping the
 statements harmonic is what makes them formal rather than cited.
 
-What this does **not** do: the asymptotic `∼` remains unavailable, so any step of `prop:plusthin`
-needing a matching lower bound, or the exact constant `½`, is still cited. A6 keeps its star; what
-changes is that its blocker is now the *lower* bounds and the constant, not the divisor sums as a
-whole.
+**Why the upper halves suffice.** `prop:plusthin` concludes `O(√X (log X)²)`, an upper bound, and an
+upper bound needs only upper bounds on its inputs. Citing the asymptotic `∼` was citing more than the
+argument uses. The lower halves and the constant `½` are needed only for a matching *lower* bound,
+which `prop:plusthin` does not assert.
+
+What this does **not** do: it does not finish A6. The divisor sums are no longer the blocker, but the
+assembly around them is not formalised either, namely the range count
+`#{s ≤ Y : u ∣ 2s²+1} ≤ (roots mod u)·(Y/u + 1)`, the bound `roots ≤ 2^ω(u) ≤ τ(u)` by CRT from
+`two_roots_quadratic`, and `H_Z ≤ 1 + log Z` if the statement is wanted with logarithms. A6 keeps its
+star, with that assembly as the recorded blocker in place of the divisor sums.
 
 Paper: Proposition `prop:plusthin`, Proposition `prop:plus`.
 -/
@@ -109,5 +116,30 @@ theorem sum_tau_div_le_harmonic_sq (Z : ℕ) :
     refine Finset.sum_congr rfl ?_
     intro p _
     exact (one_div_mul_one_div _ _).symm
+
+/-- **The unweighted bound.** `∑_{u ≤ Z} τ(u) ≤ Z · H_Z²`.
+
+Weaker than Dirichlet's `Z log Z` by one harmonic factor, and free: every `u` in range satisfies
+`u ≤ Z`, so `τ(u) = (τ(u)/u)·u ≤ Z·(τ(u)/u)`, and `sum_tau_div_le_harmonic_sq` finishes it.
+
+The loss costs nothing where it is used. `prop:plusthin` combines the two sums as
+`Y·∑τ(u)/u + ∑τ(u)`, and with `Z ≍ Y` both terms are `O(Y·H²)`, which is the `√X (log X)²` shape it
+reports. A sharper `Z·H_Z` would need the per-`d` count `⌊Z/d⌋`, a different argument, and would not
+change the stated rate. -/
+theorem sum_tau_le_mul_harmonic_sq (Z : ℕ) :
+    ∑ u ∈ Icc 1 Z, (u.divisors.card : ℚ) ≤ (Z : ℚ) * (∑ d ∈ Icc 1 Z, (1 : ℚ) / d) ^ 2 := by
+  refine le_trans ?_ (mul_le_mul_of_nonneg_left (sum_tau_div_le_harmonic_sq Z) (by positivity))
+  rw [Finset.mul_sum]
+  refine Finset.sum_le_sum ?_
+  intro u hu
+  rw [mem_Icc] at hu
+  have hu0 : (0 : ℚ) < u := by exact_mod_cast Nat.lt_of_lt_of_le Nat.zero_lt_one hu.1
+  have huZ : (u : ℚ) ≤ Z := by exact_mod_cast hu.2
+  rw [mul_div_assoc']
+  rw [le_div_iff₀ hu0]
+  have hnn : (0 : ℚ) ≤ (u.divisors.card : ℚ) := by positivity
+  calc (u.divisors.card : ℚ) * u ≤ (u.divisors.card : ℚ) * Z :=
+        mul_le_mul_of_nonneg_left huZ hnn
+    _ = (Z : ℚ) * (u.divisors.card : ℚ) := mul_comm _ _
 
 end Erdos307
