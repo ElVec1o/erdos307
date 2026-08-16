@@ -36,11 +36,20 @@ completely, formalising the first and naming the second.
   the sum over `s` may be reorganised over the *small* member `u ≤ √2 Y` only. This is the step that
   turns a divisor sum into a divisibility count.
 
-**The analytic tail, cited and not proved.** Dirichlet's `∑_{u≤Z} τ(u) ∼ Z log Z` and
+**The analytic tail, partly discharged.** Dirichlet's `∑_{u≤Z} τ(u) ∼ Z log Z` and
 `∑_{u≤Z} τ(u)/u ∼ ½(log Z)²` give the `Y(log Y)²`; Erdős's bound gives the sharpening; Bunyakovsky
 gives the conditional lower bound; and the lifting of the simple roots from `ℓ` to `ℓ^j` is Hensel.
-Mathlib carries none of the divisor-sum asymptotics, so the passage from `count_le_divisor_sum` to
-`O(√X (log X)²)` is not available in Lean and is not asserted here.
+
+Two of those are no longer cited. The lift is `square_lifts_to_prime_powers` in `PairLocal.lean`,
+from `hensel_all_powers`. And a thinness conclusion consumes only the *upper* half of the divisor
+sums, which is elementary double counting rather than analysis: `sum_tau_div_le_harmonic_sq` in
+`DivisorSum.lean` proves `∑_{u≤Z} τ(u)/u ≤ H_Z²` with `H_Z = ∑_{d≤Z} 1/d`, stated harmonically so
+that no logarithm is needed. That is the factor carrying the `(log Z)²`.
+
+What remains cited is the matching *lower* bounds, the constant `½`, and Erdős's sharpening, none of
+which a density-zero statement needs but all of which the paper's stated rate does. So the passage
+from `count_le_divisor_sum` to `O(√X (log X)²)` with that exact constant is still not asserted in
+Lean; the upper bound behind it now is.
 
 The `ω ≥ 3` stratum remains empirical, as `prop:strata` records; nothing here touches it.
 

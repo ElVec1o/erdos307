@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**58 of 109** labelled results are named by a Lean file in `Erdos307/` (37 files, **0 `sorry`**).
+**58 of 109** labelled results are named by a Lean file in `Erdos307/` (38 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **312 declarations across all 37 modules**. Everything is on the
+`lake env lean Check.lean` probes **317 declarations across all 38 modules**. Everything is on the
 three standard axioms or fewer, with exactly two exceptions: `dfs_run`, the pruned-search execution
 that closes level 60, and the `erdos307_sixty` that consumes it. The numeral bridge is
 kernel-checked, so `card_ge_59` and `erdos307_barrier_closed` carry no `native_decide`.
@@ -25,7 +25,7 @@ missing Mathlib result or a deliberate refusal, not an absence of effort.
 | atom | formalised | blocked on | what unblocks it |
 |---|---|---|---|
 | **A3** `prop:localcomplete` | regimes (i) and (ii) in `LocalComplete.lean` | regime (iii)'s complete character sums | Mathlib lemmas for `sum_q chi(aq+b) = 0` (`a != 0`) and `sum_q chi((aq+b)(cq+d)) = -chi(ac)` (`ad != bc`). Both standard, neither present. |
-| **A6** `prop:plusthin` | the whole elementary skeleton through `count_le_divisor_sum` | Dirichlet's divisor asymptotics | `sum_{u<=Z} tau(u) ~ Z log Z` and `sum_{u<=Z} tau(u)/u ~ (log Z)^2/2`. Absent from Mathlib. |
+| **A6** `prop:plusthin` | the elementary skeleton through `count_le_divisor_sum`, **and the divisor-sum upper bound** `sum_{u<=Z} tau(u)/u <= H_Z^2` (`sum_tau_div_le_harmonic_sq`, harmonic form, no logs) | the matching lower bounds and the constant 1/2 | Dirichlet's asymptotic `~`, not just the upper half. A density-zero statement does not need it; the paper's stated rate does. The upper bound was the elementary half and is now proved. |
 | **A7** `prop:pairlocal` | no-pinning, the regime-(2) collapse identity, regime (1)'s explicit unit, regime (3)'s mod-8 collapse, **and the `l` to `l^j` lift** (`square_lifts_to_prime_powers`, from `hensel_all_powers`) | Weil's point count alone | A Mathlib bound on points of a quartic over `F_l`. The Hensel-lifting half of this blocker was discharged this release, so one cited input remains, not two. |
 | **A8** `prop:nogain` | the full inequality chain, `cycle_bound_max` | the value `113.2` | A finite minimisation over subsets `S`, done in `code/minimise_structured.rs`. Formalising it means `native_decide` at a scale that would add an axiom to a result that currently needs none. **Deliberately not done**; the paper labels the value a computation. |
 

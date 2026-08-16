@@ -7,6 +7,7 @@ import Erdos307.Closed
 import Erdos307.Congruential
 import Erdos307.Coprime60
 import Erdos307.Distinctness
+import Erdos307.DivisorSum
 import Erdos307.Extremal
 import Erdos307.Frame
 import Erdos307.FunctionField
@@ -95,6 +96,10 @@ open Erdos307
 #print axioms multiset_solution
 #print axioms distinctness_carries_the_barrier
 #print axioms transfer_dissolves
+#print axioms divisorsAntidiagonal_subset_square
+#print axioms divisorsAntidiagonal_pairwiseDisjoint
+#print axioms tau_div_eq_antidiagonal_sum
+#print axioms sum_tau_div_le_harmonic_sq
 #print axioms nth_prime_le_orderEmb
 #print axioms orderEmb_prod
 #print axioms orderEmb_sum
@@ -281,6 +286,7 @@ open Erdos307
 #print axioms collapse_identity
 #print axioms regime_one_first
 #print axioms regime_one_second
+#print axioms square_lifts_to_prime_powers
 #print axioms regime_one_first_mod
 #print axioms four_two_eq_zero
 #print axioms targets_agree_mod_eight
