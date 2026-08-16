@@ -217,14 +217,28 @@ of `τ(u) = ∏ (e_p + 1)` is at least `2`.
 
 This is the half of A6's remaining lemma that needs no new theory.
 
-**The other half is not here, and Mathlib does not supply it.** What remains is `|R_u| ≤ 2^ω(u)`,
-which is CRT multiplicativity of a root count: writing `u = ∏ p^e`, the equivalence
-`ZMod (mn) ≃+* ZMod m × ZMod n` for coprime `m, n` carries `R_{mn}` bijectively to `R_m × R_n`
-because `2s² + 1` has integer coefficients and so commutes with the ring map; and at each odd prime
-power `|R_{p^e}| ≤ 2`, since `x² = y²` with `x, y` units forces `p^e ∣ x - y` or `p^e ∣ x + y`
-(`p` cannot divide both, as `p` is odd and `x` is a unit). Mathlib packages neither the transport of
-a root set through `ZMod.chineseRemainder` nor any bound on square roots in `ZMod n`, so this is a
-build from scratch and is the single outstanding gap in A6. -/
+**The other half, and it does not need CRT.** What remains is `|R_u| ≤ τ(u)` directly. Fix a root
+`s₀`. For any root `s`, subtracting `2s² + 1 ≡ 0` from `2s₀² + 1 ≡ 0` gives `u ∣ 2(s-s₀)(s+s₀)`, and
+`u` odd makes `2` invertible, so `u ∣ (s-s₀)(s+s₀)`. Put `d = gcd(u, s-s₀)` and `e = gcd(u, s+s₀)`.
+Then
+
+* `gcd(d, e) = 1`: a common divisor `g` divides `2s` and `2s₀`, is odd because `g ∣ u`, hence divides
+  `s₀`; but `g ∣ u ∣ 2s₀² + 1`, so `g ∣ 1`.
+* `d · e = u`: `u ∣ d·e` is `Nat.dvd_gcd_mul_gcd_iff_dvd_mul` applied to `u ∣ (s-s₀)(s+s₀)`, which
+  needs no coprimality at all; and `d·e ∣ u` is `Nat.Coprime.mul_dvd_of_dvd_of_dvd` from the previous
+  point. So `Nat.dvd_antisymm` closes it.
+* `s ↦ d` is therefore injective into `u.divisors`: two roots with the same `d` share `e = u/d` as
+  well, so `d` and `e` both divide their difference, and `d·e = u` does too.
+
+Every step of that has Mathlib support, `Nat.dvd_gcd_mul_gcd_iff_dvd_mul` being the one that looked
+missing and is not. The earlier plan through CRT multiplicativity of a root count is abandoned as
+unnecessary; this route avoids `ZMod.chineseRemainder` entirely.
+
+Checked before formalising, in `code/rootcount_check.gp`: over the odd `u < 20000`, of which `2596`
+carry a root, `|R_u| ≤ τ(u)` holds without exception, and the bound is **tight**, with
+`|R_u| = τ(u) = 16` at `u = 10659`. The injection and both supporting facts were checked directly on
+`8998` pairs, with no failure of injectivity, of `gcd(d,e) = 1`, or of `d·e = u`. The lemma itself is
+not yet written; what is settled is that it is true, tight, and unblocked. -/
 theorem two_pow_omega_le_tau {u : ℕ} (hu : u ≠ 0) :
     2 ^ u.primeFactors.card ≤ u.divisors.card := by
   rw [Nat.card_divisors hu]
