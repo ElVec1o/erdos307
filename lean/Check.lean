@@ -14,6 +14,7 @@ import Erdos307.HalfLyap
 import Erdos307.InfZero
 import Erdos307.Injective
 import Erdos307.Ladder
+import Erdos307.LevelBarrier
 import Erdos307.LiveSlot
 import Erdos307.LocalComplete
 import Erdos307.LyapFalse
@@ -128,6 +129,9 @@ open Erdos307
 #print axioms rung_parity_mixed
 #print axioms rung_parity_odd
 #print axioms k_determined
+#print axioms admissible_extends
+#print axioms admissible_of_card_add
+#print axioms level_enumeration_terminates
 #print axioms live_slot_threshold
 #print axioms recipSum9_lt_three_halves
 #print axioms three_halves_le_recipSum10
@@ -358,3 +362,5 @@ open Erdos307
 #print axioms tail_value_sub_sq
 #print axioms tail_value_mod_dvd
 #print axioms hensel_lift_identity
+#print axioms hensel_all_powers
+#print axioms tail_no_local_obstruction

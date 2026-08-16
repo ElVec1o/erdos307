@@ -834,6 +834,43 @@ Formalised in \texttt{lean/Erdos307/TailBound.lean} (\texttt{tail\_factor}, \tex
 axioms, with a non--vacuity witness at the base above.
 \end{remark}
 
+\begin{proposition}[The level--by--level programme terminates at $60$]\label{prop:levelbarrier}
+Let $U$ be a finite set of primes with $\sum_{p\in U}1/p>2$ and let $B$ be arbitrary. Then there is a
+prime $q>B$ with $q\notin U$ such that $U\cup\{q\}$ again has $\sum 1/p>2$. Consequently, for every
+$n>59$ there are infinitely many $n$--element prime supports of mass exceeding $2$.
+\end{proposition}
+
+\begin{proof}
+The primes are infinite, so choose a prime $q$ exceeding both $B$ and $\max U$; then $q\notin U$ and
+$\sum_{p\in U\cup\{q\}}1/p=\sum_{p\in U}1/p+1/q>2$. Iterating from the first $59$ primes, whose
+reciprocal sum is $N_{59}/P_{59}=2.00235\ldots>2$, produces admissible supports of every cardinality
+above $59$, each containing a prime beyond any prescribed bound.
+\end{proof}
+
+\begin{remark}[What the level barrier costs, and what it does not]\label{rem:levelbarrier}
+Proposition~\ref{prop:close59} closes level $59$ by enumerating its $49{,}961$ admissible supports,
+and Proposition~\ref{prop:tailkill} together with the search of Remark~\ref{rem:notlehmer} closes
+level $60$ by adjoining one prime to each. The obvious continuation is to enumerate the admissible
+$60$--element supports and repeat. Proposition~\ref{prop:levelbarrier} says there is no such
+enumeration.
+
+The finiteness at level $59$ is an accident of one inequality being tight: $59$ primes reach mass $2$
+only just, at $2.00235\ldots$, so demanding mass $>2$ from exactly $59$ primes pins them near the
+smallest $59$. Allow a sixtieth and the first $59$ already carry the mass alone, leaving the sixtieth
+entirely free. The mass condition, having been met, constrains nothing further.
+
+Two consequences, and the second is the one that matters. The searches of
+Remark~\ref{rem:notlehmer}, however far they are pushed in $\omega(m)$, bear on level $60$ alone;
+widening them is not a route upward. And any further progress on \#307 must be
+\emph{non--enumerative}: exhausting supports one level at a time is not merely expensive beyond
+level $60$, it is impossible, so the method behind every unconditional exclusion in this note is now
+spent. That is a no--go, not a resource limit.
+
+Formalised in \texttt{lean/Erdos307/LevelBarrier.lean} (\texttt{admissible\_extends},
+\texttt{admissible\_of\_card\_add}, \texttt{level\_enumeration\_terminates}) on the three standard
+axioms, with a non--vacuity witness exhibiting the first $59$ primes as a set the hypotheses apply
+to.
+\end{remark}
 \begin{remark}[The immune signal, and where its Lehmer reading broke]\label{rem:lehmer}
 Superseded by Proposition~\ref{prop:tailbound} and Remark~\ref{rem:notlehmer}: the orbit described
 here is real, but the inference that primality along it is the residual question is not, because the
@@ -3434,7 +3471,14 @@ would need in order to keep the main term above its own error grows like $X$ its
 circle-method errors save a power of $X$ or a power of $\log X$. So an analytic proof here would
 have to be \emph{exact}, with error identically zero, rather than sharp.
 \item \emph{Construct exactly.} This is the only branch alive, and it exists: the Pell orbit of
-Remark~\ref{rem:lehmer}. It is alive but narrower than it was.
+Remark~\ref{rem:lehmer}. It is alive but narrower than it was, and the narrowing should not be
+mistaken for proximity. Two cautions, both quantitative. The searches of
+Remark~\ref{rem:notlehmer} came back empty over $3.99\times10^{11}$ candidates, but empty was the
+\emph{predicted} outcome: the expected count was $2.4\times10^{-56}$, so the computation confirms the
+heuristic model rather than deciding anything, and a confirmed model is not a decided problem. And by
+Proposition~\ref{prop:levelbarrier} those searches cannot be continued upward at all, since the
+admissible supports are infinite at every level past $59$. The unconditional exclusions of this note
+stop where enumeration stops, which is now.
 Proposition~\ref{prop:tailbound} bounds the tail prime by $4N$, so the orbit contributes nothing past
 a bounded initial segment and the construction is a finite search over the divisors of $4D$ rather
 than a Lehmer primality question; Remark~\ref{rem:notlehmer} then makes that finite search

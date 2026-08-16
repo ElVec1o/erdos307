@@ -129,6 +129,27 @@ example : True := by
   have := deg_drop_of_terms (d := 3) (dp := 1) (dterm := 2) (by norm_num) (by norm_num)
   trivial
 
+/-- **The level barrier is not vacuous.** `admissible_extends` and `level_enumeration_terminates`
+assume a finite set of primes of mass `> 2`, which is exactly the hypothesis the barrier says needs
+`59` primes. The first `59` primes realise it: `∑_{i<59} 1/p_i = N59/P59 = 2.00235… > 2`. The image
+of `range 59` under `Nat.nth Nat.Prime` is the witnessing `Finset`, and the sum transfers because
+`Nat.nth Nat.Prime` is injective on an infinite predicate. -/
+example : True := by
+  have hinj : Function.Injective (Nat.nth Nat.Prime) :=
+    Nat.nth_injective Nat.infinite_setOf_prime
+  have hsum : ∑ p ∈ (Finset.range 59).image (Nat.nth Nat.Prime), (p : ℚ)⁻¹
+      = (N59 : ℚ) / (P59 : ℚ) := by
+    rw [Finset.sum_image (fun _ _ _ _ h => hinj h)]
+    exact sum_first59
+  have h2 : (2 : ℚ) < ∑ p ∈ (Finset.range 59).image (Nat.nth Nat.Prime), (p : ℚ)⁻¹ := by
+    rw [hsum]; unfold N59 P59; norm_num
+  have := admissible_extends
+    (U := (Finset.range 59).image (Nat.nth Nat.Prime))
+    (fun p hp => by
+      obtain ⟨i, _, rfl⟩ := Finset.mem_image.mp hp
+      exact Nat.prime_nth_prime i) h2 10
+  trivial
+
 /-- **A genuine Pythagorean pair.** `tail_finite` carries seven hypotheses including two square
 conditions on the same `q`, which is exactly the shape that could conflict silently. The base
 `D = 1`, `N = 7` (so `A = 9`, `B = 5`) with `q = 7` realises all of them: `9·7 + 1 = 64 = 8²` and

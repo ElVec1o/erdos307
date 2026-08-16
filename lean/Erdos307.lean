@@ -34,3 +34,4 @@ import Erdos307.Coprime60
 import Erdos307.CharSum
 import Erdos307.Distinctness
 import Erdos307.TailBound
+import Erdos307.LevelBarrier
