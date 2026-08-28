@@ -3402,11 +3402,34 @@ $(p_1,p_2,p_3)=(569,1949,15461)$,
    \qquad a'=2\cdot3\cdot5\cdot P_{118}, \]
 and, exactly,
 \[ r(a)=1+6.278713\times10^{-9},\qquad a''>a. \]
-This is $1.6\times10^{5}$ times closer to $1$ than the preceding record. The construction is not
-exhausted: over the same sweep the smallest \emph{available} overshoot was $1.209\times10^{-14}$, and
-what limits the reported value is the rate at which $a'$ takes the form $2\cdot3\cdot5\cdot P$, not the
-tuning \textup{(\texttt{code/nearmiss\_ladder.gp}, re--checked in
-\texttt{code/nearmiss\_ladder\_verify.gp})}. Consistently with the two--sided statement above, $a$
+This is $1.6\times10^{5}$ times closer to $1$ than the preceding record.
+
+That record is on the wrong side of $1$, and identifying the family says why. Every witness here has
+$a'=2\cdot3\cdot5\cdot P$ with $P$ prime, which is exactly the stratum $M=30$ of
+Proposition~\textup{\ref{prop:oneprime}}: with $M'=31$ the equation $MN-M'N'=M^2$ reads
+$30N-31N'=900$, and the proposition's $N=M+M'p$, $N'=Mp$ become $a=31P+30$, $a'=30P$. Two identities
+follow, both exact: $a''=(30P)'=31P+30$, so $r=a''/a=(31P+30)/a$, and a solution of the stratum is
+precisely $30a-31a'=900$. Hence
+\[ \sigma(a)=\frac{30P}{31P+30}=\frac{30}{31}-\frac{900}{31a}\;<\;\frac{30}{31} \]
+for every solution of this stratum, strictly. Approaches to $1$ from \emph{above}, which is what the
+$6.28\times10^{-9}$ above and the $3.76\times10^{-9}$ of a wider sweep are, therefore lie on a side
+the stratum cannot populate. They stand as records for the spectrum of $r$ and cannot converge on a
+solution.
+
+Aimed below instead, where the stratum's solutions must lie, the same ladder gives
+\[ a=449\cdot9851\cdot152879\!\!\prod_{7\le p\le271}\!\!p \quad(58\text{ primes},\ 121\text{ digits}),
+   \qquad a'=2\cdot3\cdot5\cdot P_{120}, \]
+and, exactly,
+\[ r(a)=1-5.377478\times10^{-10},\qquad \sigma(a)<\tfrac{30}{31},\qquad a''<a, \]
+which is $1.5\times10^{7}$ times closer to $1$ than the previous record from below. For this witness
+$30a-31a'$ is a $114$--digit number where a solution needs $900$, which is the honest measure of the
+distance remaining: the ratio is close, the integer is not.
+
+Neither construction is exhausted. Over the same sweeps the smallest \emph{available} deficit was
+$2.043\times10^{-18}$ from below and $1.209\times10^{-14}$ from above; what limits the reported values
+is the rate at which $a'$ takes the form $2\cdot3\cdot5\cdot P$, not the tuning
+\textup{(\texttt{code/nearmiss\_ladder.gp}, \texttt{code/nearmiss\_below.gp}, re--checked in
+\texttt{code/nearmiss\_ladder\_verify.gp} and \texttt{code/nearmiss\_below\_verify.gp})}. Consistently with the two--sided statement above, $a$
 lies past the barrier: $118>113$ digits, and $r$ sits inside the barred neighbourhood
 $(0.998740,\infty)$.
 
