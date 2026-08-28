@@ -3381,7 +3381,32 @@ division is prime, so $\sigma(a')$ is known and not merely bounded below. It imp
 both sides at once, against $7.9220\times10^{-3}$ from below and $3.944\times10^{-2}$ from above,
 the latter being $r(n_0)$ of Theorem~\ref{thm:lyapfalse}
 \textup{(\texttt{code/nearmiss\_above.gp}, re--checked independently in
-\texttt{code/nearmiss\_above\_verify.gp})}. Consistently with the two--sided statement above, $a$
+\texttt{code/nearmiss\_above\_verify.gp})}.
+
+That record is not the natural limit, and seeing why identifies what the near--miss problem actually
+is. In every witness of this shape $a'=2\cdot3\cdot5\cdot P$ with $P$ prime, so
+$\sigma(a')=\tfrac{31}{30}+P^{-1}$ with $P^{-1}$ of size $10^{-118}$, and therefore
+\[ |r(a)-1|=\tfrac{31}{30}\,\bigl|\sigma(a)-\tfrac{30}{31}\bigr| \]
+to any precision that matters. The quantity $a'$ has dropped out. What remains is the Diophantine
+question of how closely a sum of \emph{distinct prime reciprocals} approaches $30/31$ from above, and
+the $10^{-3}$ above is only the granularity of adjusting by a single prime below $4000$.
+
+Closing the deficit in stages removes that ceiling. With $d=\tfrac{30}{31}-\sigma(S)$ for
+$S$ the primes in $[7,271]$, take $p_1$ the least prime exceeding $1/d$, then $p_2$ the least
+exceeding $1/(d-p_1^{-1})$, and finally $p_3$ the greatest prime below the reciprocal of what
+remains; the overshoot is then of order $\mathrm{gap}(p_3)/p_3^{2}$. Each rung squares the precision.
+Sweeping the choice at the first two rungs and retaining those that satisfy the forcing congruence
+and have $a'=2\cdot3\cdot5\cdot P$ gives, with
+$(p_1,p_2,p_3)=(569,1949,15461)$,
+\[ a=569\cdot1949\cdot15461\!\!\prod_{7\le p\le271}\!\!p \quad(58\text{ primes},\ 120\text{ digits}),
+   \qquad a'=2\cdot3\cdot5\cdot P_{118}, \]
+and, exactly,
+\[ r(a)=1+6.278713\times10^{-9},\qquad a''>a. \]
+This is $1.6\times10^{5}$ times closer to $1$ than the preceding record. The construction is not
+exhausted: over the same sweep the smallest \emph{available} overshoot was $1.209\times10^{-14}$, and
+what limits the reported value is the rate at which $a'$ takes the form $2\cdot3\cdot5\cdot P$, not the
+tuning \textup{(\texttt{code/nearmiss\_ladder.gp}, re--checked in
+\texttt{code/nearmiss\_ladder\_verify.gp})}. Consistently with the two--sided statement above, $a$
 lies past the barrier: $118>113$ digits, and $r$ sits inside the barred neighbourhood
 $(0.998740,\infty)$.
 
