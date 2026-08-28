@@ -58,10 +58,10 @@
 default(parisize, 6000000000);
 TARGET  = 30/31;
 TRIAL   = 50000;
-MAXPEEL = 6000;
+MAXPEEL = 40000;
 XBASE   = 271;
-W1 = 120;
-W2 = 120;
+W1 = 420;
+W2 = 420;
 
 mass(v) = sum(i = 1, #v, 1/v[i]);
 dsum(v) = my(N = prod(i = 1, #v, v[i])); sum(i = 1, #v, N / v[i]);

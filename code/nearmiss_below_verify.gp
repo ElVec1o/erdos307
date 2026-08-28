@@ -12,7 +12,7 @@
 \\
 \\ Usage: gp -q -f nearmiss_below_verify.gp
 
-S = [7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,449,9851,152879];
+S = [7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,431,68111,2792213];
 {
 my(a, ap, s, rem, small, P, sa, sap, r, app, T);
 T = 30/31;
@@ -21,13 +21,13 @@ ap = sum(i=1,#S, a/S[i]);
 printf(" 1. entries prime and pairwise distinct : %d\n", #select(p->isprime(p),S)==#S && #Set(S)==#S);
 printf(" 2. omega(a) = %d, squarefree by construction\n", #S);
 printf(" 3. a has %d digits; barrier needs >113 : %d\n", #digits(a), a > 877*10^110);
-printf(" 4. a' matches the reported value       : %d\n", ap == 6907275015628906932375496391912902792382216801779851495854137984625927801154759288262208960550301791760558092812085447510);
+printf(" 4. a' matches the reported value       : %d\n", ap == 837288885659892797916647449012132923898804294528776421078427486752518267800789540655989042643179360174669202127328403141870);
 s = 0; rem = ap; small = List();
 forprime(p = 2, 50000, if(rem % p == 0, listput(small,p); s += 1/p; rem /= p; if(rem % p == 0, error("a' not squarefree"))));
 P = rem;
 printf(" 5. small primes of a' are exactly {2,3,5} : %d\n", Vec(small)==[2,3,5]);
 printf(" 6. cofactor P has %d digits and is prime  : %d\n", #digits(P), ispseudoprime(P));
-printf(" 7. P matches the reported value        : %d\n", P == 230242500520963564412516546397096759746073893392661716528471266154197593371825309608740298685010059725351936427069514917);
+printf(" 7. P matches the reported value        : %d\n", P == 27909629521996426597221581633737764129960143150959214035947582891750608926692984688532968088105978672488973404244280104729);
 printf(" 8. a' = 30*P exactly                   : %d\n", ap == 30*P);
 sa = sum(i=1,#S,1/S[i]); sap = s + 1/P; r = sa*sap; app = ap*sap;
 printf(" 9. a'' = 31*P + 30 exactly             : %d\n", app == 31*P + 30);
