@@ -61,3 +61,11 @@ code/*.log
 code/lyap_refute_cofactor_ecpp.txt
 code/barrier_probability
 code/calibrate_f1
+
+# derived artifacts: compiled binaries and regenerable data dumps (Rule 10)
+code/live_slot_census
+code/live_slot_census2
+code/live_slot_census3
+code/tailsearch
+code/tailsearch_cfg_all.txt
+code/tailsearch_all.log
