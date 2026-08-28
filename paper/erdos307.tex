@@ -3368,7 +3368,24 @@ $\sigma(a')=\tfrac{31}{30}+\varepsilon$ gives
 with $P_{99}$ prime, both $a$ and $a'$ squarefree, $108$ digits, and
 \[ r(a)=0.99207796\ldots,\qquad |r(a)-1|=7.9220\times10^{-3}, \]
 against the smallest relative defect $0.4465$ over the swept range
-\textup{(\texttt{code/nearmiss\_tune.gp})}. What remains unmeasurable is the density of $r$ at $1$,
+\textup{(\texttt{code/nearmiss\_tune.gp})}.
+
+The same tuning with its acceptance window mirrored, $\sigma(a)$ just \emph{above} $30/31$ rather than
+just below, reaches $1$ from the other side and closer. With
+\[ a=3301\!\!\prod_{\substack{7\le p\le293\\ p\notin\{137,263\}}}\!\!p, \qquad
+   a'=2\cdot3\cdot5\cdot P_{117}, \]
+where $P_{117}$ is a $117$--digit prime, one has $a$ of $118$ digits and, exactly,
+\[ r(a)=1.001014244\ldots,\qquad |r(a)-1|=1.0142\times10^{-3},\qquad a''>a. \]
+This is exact rather than a lower bound, since $a'$ factors completely: the cofactor after trial
+division is prime, so $\sigma(a')$ is known and not merely bounded below. It improves the record on
+both sides at once, against $7.9220\times10^{-3}$ from below and $3.944\times10^{-2}$ from above,
+the latter being $r(n_0)$ of Theorem~\ref{thm:lyapfalse}
+\textup{(\texttt{code/nearmiss\_above.gp}, re--checked independently in
+\texttt{code/nearmiss\_above\_verify.gp})}. Consistently with the two--sided statement above, $a$
+lies past the barrier: $118>113$ digits, and $r$ sits inside the barred neighbourhood
+$(0.998740,\infty)$.
+
+What remains unmeasurable is the density of $r$ at $1$,
 since constructed points do not estimate a density, and that is what the heuristic constant needs.
 The frontier reported above is therefore superseded as a record and unchanged as an argument.
 
