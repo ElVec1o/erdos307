@@ -12,13 +12,14 @@ abstract: >-
   rate, not merely polynomial ones, which rules out the Thabit/Euler programme that is the classical
   technique for problems of this kind. The known approximation theorem is made effective and given a
   certified witness: disjoint prime sets with |(sum 1/p)(sum 1/q) - 1| = 4.98e-4016, all 69 primes
-  proved prime. Several other approaches are closed with proofs, and the
+  proved prime. The near-miss frontier is shown to obey a double-logarithmic law, which recovers the
+  barrier constant from an independent direction. Several other approaches are closed with proofs, and the
   constructive route is given an exact cost accounting. The problem itself remains open.
 authors:
   - family-names: Bonfioli
     given-names: Vico
     email: vicobonfioli@gmail.com
-version: 1.10.0
+version: 1.11.0
 date-released: 2026-08-29
 type: software
 license: MIT
