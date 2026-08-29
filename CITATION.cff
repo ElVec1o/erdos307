@@ -3,13 +3,19 @@ message: "If you use this work, please cite it as below."
 title: "On the equation n'' = n and a problem of Erdos and Barbeau on products of prime-reciprocal sums"
 abstract: >-
   A structural study of Erdos Problem #307: do finite sets of distinct primes P, Q exist with
-  (sum 1/p)(sum 1/q) = 1? The problem is shown equivalent to a two-cycle of the arithmetic
-  derivative, a barrier |P u Q| >= 60 is proved and machine-checked in Lean 4, and several
-  approaches are closed with proofs. The problem itself remains open.
+  (sum 1/p)(sum 1/q) = 1? The problem is identified with Conjecture 4 of Ufnarovski and Ahlander
+  (2003), which states it in the arithmetic-derivative literature, so #307 and the two-cycle
+  question n'' = n are the same problem. A barrier is proved and machine-checked in Lean 4: any
+  solution has |P u Q| >= 60 and min(prod P, prod Q) >= 2.09e56, for both members and without
+  hypotheses. This appears to be the first valid unconditional bound of its kind, the only prior
+  candidate resting on an invalid step. Several approaches are closed with proofs, and the
+  constructive route is given an exact cost accounting. The problem itself remains open.
 authors:
   - family-names: Bonfioli
     given-names: Vico
     email: vicobonfioli@gmail.com
+version: 1.8.0
+date-released: 2026-08-29
 type: software
 license: MIT
 repository-code: "https://github.com/ElVec1o/erdos307"
