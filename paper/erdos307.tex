@@ -2068,6 +2068,44 @@ The ratio is largest on the smallest frames, where it is already below $1$, and 
 from there. Since a productive frame needs $\tau(K)/|G|$ well above $1$, no frame in the range
 supplies one, and the trend is against scale rather than with it.
 
+\paragraph{The descent, and why it cannot be iterated.} Adjoining a prime $w$ to $M_0$ acts on
+$G$ \emph{linearly}: with $M_0\mapsto M_0w$ one has $M_0'\mapsto M_0'w+M_0$ and hence
+\[ G\ \longmapsto\ wG-M_0N', \qquad\text{so}\qquad |G_{\mathrm{new}}|=|G|\cdot|w-w^{*}|,
+   \qquad w^{*}:=\frac{M_0N'}{G}=\frac{\sigma(N)}{\varepsilon}, \]
+writing $\varepsilon=1-\sigma(M_0)\sigma(N)=G/(M_0N)$. Since $G=0$ is \#307, this is a descent
+towards a solution, and on the $\varepsilon$ scale it is quadratic: $\varepsilon_{\mathrm{new}}
+=\varepsilon^{2}\theta/\sigma(N)$ with $\theta=w-w^{*}$. It is a Newton iteration for \#307.
+
+Three facts close it. First, it cannot start below the barrier: $w^{*}=\sigma(N)/\varepsilon\ge2$
+needs $\varepsilon\le\sigma(N)/2$, i.e.\ $\sigma(M_0)\sigma(N)$ near $1$, which by AM--GM needs
+$\sigma(M_0N)\ge2$ and so $\omega(M_0N)\ge59$. Over $4{,}284{,}896$ coprime squarefree frames with
+$M_0\le5000$, $N\le3000$ the smallest $|\varepsilon|$ is $0.470$, and $w^{*}<2$ throughout.
+
+Second, only $w=\lfloor w^{*}\rfloor$ or $\lceil w^{*}\rceil$ can shrink $|G|$, since
+$|G_{\mathrm{new}}|<|G|$ demands $|w-w^{*}|<1$. So a step descends only when one of those two
+integers is prime, with probability $\approx2/\log w^{*}$.
+
+Third, and decisively, a successful step squares the difficulty. From $w^{*}=M_0N'/G$,
+\[ w^{*}_{\mathrm{new}}=\frac{M_0wN'}{G\theta}=w^{*}\cdot\frac{w}{\theta}\ \approx\
+   \frac{(w^{*})^{2}}{\theta}, \]
+so $\log w^{*}$ more than doubles at every step while $\log|G|$ falls by only $|\log\theta|\approx
+0.69$. The gain is linear in the number of steps $k$ and the cost is quadratic in the exponent:
+$|G|$ falls like $2^{-k}$, whereas the probability of surviving $k$ steps is
+$\prod_{j<k}2/\log w^{*}_j\asymp2^{-k^{2}/2}$. Starting from the greedy frame $N=30$,
+$M_0=\prod_{7\le p\le271}p$, where $\log|G|=249$ and $w^{*}=428.2$
+(\texttt{code/breeder\_descent.gp}):
+\[
+\begin{array}{l|cccccc}
+\text{paths available} & 10^{2} & 10^{4} & 10^{6} & 10^{8} & 10^{10} & 10^{12}\\\hline
+\text{reachable depth }k & 3 & 5 & 6 & 7 & 8 & 8\\
+|G|\text{ shrinks by} & 8 & 32 & 64 & 128 & 256 & 256
+\end{array}
+\]
+against the factor $10^{108}$ required to reach $G=0$. Even $10^{12}$ independent descent paths buy
+eight steps and a factor $256$. This is the quantitative form of the circularity of
+Section~\ref{sec:frame}: the Newton iteration for \#307 exists, is exact, and converges quadratically,
+and each step costs a prime whose size is the square of the last one's.
+
 \paragraph{Why $(\mathrm{H})$ is not a finite search.} It is tempting to read $(\mathrm{H})$ as
 ``run a certificate hunt that is expected to succeed.'' It is not, for a quantitative reason. The
 expected number of certificates from one frame is $\mathbb{E}\approx
