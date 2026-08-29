@@ -3676,6 +3676,39 @@ Proposition~\ref{prop:nearmiss} the size of $|\sigma(P)\sigma(Q)-1|$ does not me
 towards the integer identity at all. The value of the construction is that it makes an existence
 theorem effective and exhibits a witness anyone can check.
 
+\begin{proposition}[The near--miss frontier obeys a double--logarithmic law]\label{prop:frontier}
+For $X\ge2$ put $R(X)=\max\{r(a):a\le X\ \text{squarefree}\}$, where $r(a)=\sigma(a)\sigma(a')$. Let
+$\omega_{\max}(X)$ be the largest $k$ with $\Pi_k\le X$, let $\sigma_{\max}(X)=T_{\omega_{\max}(X)}$,
+and let $n(X)$ be the largest $n$ with $\Pi_n\le X^{2}\sigma_{\max}(X)$. Then
+\[ R(X)\ \le\ \Bigl(\tfrac12\,T_{n(X)}\Bigr)^{2}. \]
+\end{proposition}
+\begin{proof}
+Rigidity gives $\gcd(a,a')=1$, so $U=\operatorname{supp}(a)\sqcup\operatorname{supp}(a')$ has
+$|U|=\omega(a)+\omega(a')$ distinct primes and $\prod_{p\in U}p\mid aa'$. By AM--GM,
+$\sum_{p\in U}1/p=\sigma(a)+\sigma(a')\ge2\sqrt{\sigma(a)\sigma(a')}=2\sqrt{r}$, while the same sum
+is at most $T_{|U|}$ by the extremality of the smallest primes; hence $r\le(T_{|U|}/2)^{2}$. For the
+size, $\Pi_{|U|}\le\prod_{p\in U}p\le aa'=a^{2}\sigma(a)\le X^{2}\sigma_{\max}(X)$, so
+$|U|\le n(X)$, and $T$ is increasing.
+\end{proof}
+
+The bound is unconditional, needs no squarefreeness of $a'$, and is close: against the measured
+frontier of Proposition~\ref{prop:nearmiss} it reads
+\[
+\begin{array}{l|cccccc}
+X & 10^{2} & 10^{3} & 10^{4} & 10^{5} & 10^{6} & 10^{7}\\\hline
+\text{bound} & 0.4014 & 0.4920 & 0.5296 & 0.5879 & 0.6129 & 0.6342\\
+\max r \text{ observed} & 0.333 & 0.345 & 0.502 & 0.502 & 0.536 & 0.554
+\end{array}
+\]
+\textup{(\texttt{code/frontier\_bound.gp})}. Two consequences. First, since
+$T_{n(X)}=\log\log\bigl(X^{2}\sigma_{\max}\bigr)+M+o(1)$ by Mertens, the frontier can climb only like
+\[ R(X)\ \le\ \tfrac14\bigl(\log\log X^{2}+M+o(1)\bigr)^{2}, \]
+a \emph{doubly logarithmic} law: this is why the measured frontier crawls, and why an extrapolation
+of its per--decade advance is worthless. Second, the bound reaches $1$ exactly when $T_{n}\ge2$, that
+is $n\ge59$, that is $X^{2}\sigma_{\max}\ge\Pi_{59}$, giving $X\ge2.0942\times10^{56}$ --- the
+constant of Theorem~\ref{thm:barrier}, recovered here from the frontier side rather than from the
+cycle equations. The two derivations are independent and agree to all printed digits.
+
 The region is not unreachable, only unsweepable. The witness $n_0$ of
 Theorem~\ref{thm:lyapfalse} has $n_0$ and $n_0'$ both squarefree and
 $r(n_0)=\sigma(n_0)\sigma(n_0')=1.03944\ldots$, so $n_0''>n_0$: the value $1$ that a solution must
