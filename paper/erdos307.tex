@@ -3909,6 +3909,29 @@ a reduction by a factor $8.6\times10^{15}$ \textup{(\texttt{code/free\_band.gp})
 computation of Proposition~\ref{prop:close59} is therefore not a brute force over an unbounded space
 but an exact traversal of a set whose two ends are both pinned by the same inequality.
 
+\begin{corollary}[The level--$59$ count, from the two pins]\label{cor:count59}
+The admissible supports at level $59$ are exactly the sets
+\[ \{p:p\le167\}\ \cup\ S, \qquad S\subset\{p:167<p\le787\},\quad |S|=20,\quad
+   \sum_{p\in S}\frac1p\ >\ 2-T_{39}\,=\,0.0883759429\ldots, \]
+and there are $49{,}961$ of them.
+\end{corollary}
+\begin{proof}
+Membership of the core is Proposition~\ref{prop:window}, the ceiling is Proposition~\ref{prop:band},
+and the displayed inequality is $\sigma(U)>2$ after subtracting the forced mass
+$T_{39}=1.9116240570\ldots$. The count is a $20$--from--$99$ knapsack, evaluated in
+\texttt{code/level59\_count.rs}.
+\end{proof}
+
+This is not a closed formula --- subset--sum counts do not have one --- but it is a closed
+\emph{characterisation}, and it reduces the level to a search of $119{,}509$ nodes in place of the
+original enumeration. That the two independent routes agree on $49{,}961$ is the point: the pins are
+not merely necessary conditions that happen to hold, they cut out the level exactly, and nothing
+outside them is doing any work. The evaluation also reports no subset sum within $10^{-12}$ of the
+threshold, so the floating comparison is measured to be safe rather than assumed. For orientation,
+the baseline $20$ smallest candidates carry $0.0907260944\ldots$, exceeding the threshold by
+$T_{59}-2=0.0023501514\ldots$, and every admissible $S$ is a perturbation of that baseline within
+this budget.
+
 \begin{proposition}[The barrier stratified by the smaller support]\label{prop:split}
 Let $(a,b)$ be a two--cycle and put $k=\min(\omega(a),\omega(b))$. Then
 \[ k=1\ \Rightarrow\ |U|\ge1413, \qquad k=2\ \Rightarrow\ |U|\ge69, \qquad
