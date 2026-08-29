@@ -3709,6 +3709,35 @@ is $n\ge59$, that is $X^{2}\sigma_{\max}\ge\Pi_{59}$, giving $X\ge2.0942\times10
 constant of Theorem~\ref{thm:barrier}, recovered here from the frontier side rather than from the
 cycle equations. The two derivations are independent and agree to all printed digits.
 
+\begin{corollary}[The cost of a near--miss; the barrier as a function of $r$]\label{cor:cost}
+For $0<r\le1$ put $n(r)=\min\{n:T_n\ge2\sqrt r\}$. Every squarefree $a$ with $r(a)\ge r$ has
+$|U|\ge n(r)$, hence $aa'\ge\Pi_{n(r)}$ and
+\[ \min(a,a')\ \ge\ \sqrt{\Pi_{n(r)}/T_{n(r)}}. \]
+\end{corollary}
+\begin{proof}
+The first display of the proof of Proposition~\ref{prop:frontier} gives $2\sqrt r\le\sum_{p\in U}1/p
+\le T_{|U|}$, so $|U|\ge n(r)$; the rest is Theorem~\ref{thm:barrier} verbatim with $59$ replaced by
+$n(r)$.
+\end{proof}
+
+At $r=1$ this returns $n=59$ and $2.0929\times10^{56}$, so Theorem~\ref{thm:barrier} is the endpoint
+of a one--parameter family rather than an isolated statement. The family is what makes the crawl
+quantitative \textup{(\texttt{code/nearmiss\_cost.gp})}:
+\[
+\begin{array}{l|cccccccc}
+r & 0.5 & 0.554 & 0.6 & 0.7 & 0.8 & 0.9 & 0.99 & 1\\\hline
+n(r) & 8 & 9 & 11 & 16 & 24 & 37 & 56 & 59\\
+\min(a,a')\ge & 2.6\!\cdot\!10^{3} & 1.2\!\cdot\!10^{4} & 3.6\!\cdot\!10^{5} & 4.4\!\cdot\!10^{9} &
+ 1.2\!\cdot\!10^{17} & 4.3\!\cdot\!10^{30} & 4.7\!\cdot\!10^{52} & 2.1\!\cdot\!10^{56}
+\end{array}
+\]
+Each increment in $r$ is paid for exponentially in the product, which is the same double--logarithmic
+law seen from the other side: $r$ enters the bound only through $2\sqrt r$, and $T_n$ grows like
+$\log\log p_n$. It also explains the shape of the swept data. The record $r=0.5535$ needs
+$\min(a,a')\ge1.2\times10^{4}$ and was found at $a=3{,}972{,}254$; the next decade of $r$ costs four
+decades of $a$, and by $r=0.7$ the requirement has passed $10^{9}$, beyond any sweep that has been
+run.
+
 The region is not unreachable, only unsweepable. The witness $n_0$ of
 Theorem~\ref{thm:lyapfalse} has $n_0$ and $n_0'$ both squarefree and
 $r(n_0)=\sigma(n_0)\sigma(n_0')=1.03944\ldots$, so $n_0''>n_0$: the value $1$ that a solution must
