@@ -1,4 +1,5 @@
 import Erdos307.Barrier
+import Erdos307.Breeder
 import Erdos307.Bridge
 import Erdos307.Campaign
 import Erdos307.Capstone
@@ -388,6 +389,10 @@ open Erdos307
 #print axioms tail_m_even
 #print axioms tail_bound_sharp
 #print axioms tail_discriminant_alpha
+#print axioms Erdos307.Breeder.breeder_bilinear_iff
+#print axioms Erdos307.Breeder.breeder_key
+#print axioms Erdos307.Breeder.breeder_q_integral
+#print axioms Erdos307.Breeder.breeder_integral
 #print axioms tail_finite
 #print axioms tail_value_sub_sq
 #print axioms tail_value_mod_dvd

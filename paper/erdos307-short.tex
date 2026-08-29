@@ -1934,6 +1934,30 @@ Expanding, $(Gr-c)(Gp-c)-K=-N'G\,(a'-b)$ (verified symbolically), so the bilinea
 equivalent to $a'=b$; the second cycle equation $b'=a$ then determines $q$ as stated.
 \end{proof}
 
+\begin{proposition}[The breeder is integral]\label{prop:bdeint}
+Keep the notation of Proposition~\textup{\ref{prop:bde}} and let $G\ne0$. Then
+\[ (Gr-c)(Gp-c)=K \iff G\,rp-c(r+p)=N^{2}, \]
+and every solution of that equation has
+\[ N\ \big|\ a', \qquad q=\frac{M_0rp-N}{N'}=\frac{a'}{N}\ \in\ \mathbb{Z}. \]
+\end{proposition}
+\begin{proof}
+Expanding, $(Gr-c)(Gp-c)-c^{2}=G\bigl(G\,rp-c(r+p)\bigr)$ while $K-c^{2}=GN^{2}$, so the two
+equations differ by the factor $G\ne0$. Substituting $G=NM_0-N'M_0'$, $c=M_0N'$, $a=M_0rp$ and
+$a'=M_0'rp+M_0(r+p)$ into $G\,rp-c(r+p)=N^{2}$ gives
+$NM_0rp-N'M_0'rp-M_0N'(r+p)=N^{2}$, that is
+\[ N\,(a-N)\;=\;N'\bigl(M_0'rp+M_0(r+p)\bigr)\;=\;N'a'. \]
+Hence $N\mid N'a'$, and $N$ squarefree gives $\gcd(N,N')=1$, so $N\mid a'$ and $q=a'/N$.
+\end{proof}
+
+This is worth isolating because the displayed $q=(M_0rp-N)/N'$ is a quotient by a quantity of the
+size of the barrier, and one might expect a candidate to be usable only when $N'$ happens to divide
+$M_0rp-N$ --- a further demand of probability about $1/N'$, which would leave the construction
+hopeless for reasons having nothing to do with primality. There is no such demand. The expectation
+$\mathbb{E}\approx\bigl(\tau(K)/G\bigr)(\ln r\ln p\ln q)^{-1}$ is therefore the correct count: the
+breeder loses candidates only to primality, never to integrality. A scan of $51{,}132$ frames
+(\texttt{code/breeder\_integral.gp}) produced $9$ admissible candidates, every one with integral $q$.
+Formalised in \texttt{lean/Erdos307/Breeder.lean}.
+
 Each factorisation $K=d\cdot(K/d)$ with $d\equiv-c\ (\mathrm{mod}\ G)$ proposes a candidate
 $(r,p)=\bigl((d+c)/G,(K/d+c)/G\bigr)$; a solution is any such candidate whose $r,p,q$ are all prime.
 A dual, partition--side form is occasionally useful:
