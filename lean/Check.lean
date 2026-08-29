@@ -7,6 +7,7 @@ import Erdos307.CharSum
 import Erdos307.Closed
 import Erdos307.Congruential
 import Erdos307.Coprime60
+import Erdos307.Dictionary
 import Erdos307.Distinctness
 import Erdos307.DivisorSum
 import Erdos307.Extremal
@@ -209,6 +210,10 @@ open Erdos307
 #print axioms eps_eq_zero_of_identity
 #print axioms nonconstant_empty
 #print axioms nopoly
+#print axioms Erdos307.Dictionary.cost_of_ratio
+#print axioms Erdos307.Dictionary.mass_window
+#print axioms Erdos307.Dictionary.uniform_from_multiplicity
+#print axioms Erdos307.Dictionary.band_bound
 #print axioms no_family_of_any_shape
 #print axioms dvd_sum_erase_iff
 #print axioms Q_determined
