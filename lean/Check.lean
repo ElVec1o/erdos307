@@ -35,6 +35,7 @@ import Erdos307.Rigidity
 import Erdos307.Sixty
 import Erdos307.SquareSieve
 import Erdos307.Squarefree
+import Erdos307.StratumGeneral
 import Erdos307.StratumM30
 import Erdos307.TailBound
 
@@ -372,6 +373,10 @@ open Erdos307
 #print axioms stratum_sigma_lt
 #print axioms stratum_sigma_defect
 #print axioms stratum_M30
+#print axioms Erdos307.StratumGeneral.stratum_sigma_lt_general
+#print axioms Erdos307.StratumGeneral.stratum_sigma_mul
+#print axioms Erdos307.StratumGeneral.stratum_sigma_defect_general
+#print axioms Erdos307.StratumGeneral.stratum_sigma_lt_thirty
 #print axioms tail_factor
 #print axioms tail_quadratic
 #print axioms tail_discriminant

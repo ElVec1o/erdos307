@@ -36,7 +36,8 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
 - **Rigidity.** `Σ 1/p` is automatically in lowest terms, forcing `N_P = D_Q`, `N_Q = D_P`,
   `P ∩ Q = ∅` (Lean-formalized).
 - **Barrier.** Any solution has `|P ∪ Q| ≥ 59` and `min(∏P, ∏Q) ≥ 2.09 × 10⁵⁶`, improving the best
-  published `n″ = n` bound by ~47 orders of magnitude — so all direct search is void. **This barrier is
+  published `n″ = n` bound (Kovič 2012, Prop. 18: `max{m,n} ≥ 1.92 × 10²¹`, and `r + s ≥ 34`) by
+  ~35 orders of magnitude, and from one member to both — so all direct search is void. **This barrier is
   fully machine-checked in Lean 4** (`erdos307_barrier_closed`, no extremality hypothesis, and no
   `native_decide`: the numeral bridge is kernel-checked). A finite verification over the complete
   list of 49,961 admissible 59-prime supports then **proves** `|P ∪ Q| ≥ 60`
@@ -122,7 +123,7 @@ hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, w
 
 - **Paper:** `cd paper && pdflatex erdos307.tex` twice (for cross-references). No BibTeX run needed.
 - **Lean:** `cd lean && lake exe cache get && lake build` (Lean / mathlib `v4.30.0`). Then
-  `lake env lean Check.lean` prints the axiom dependencies of 328 declarations across all 39 modules
+  `lake env lean Check.lean` prints the axiom dependencies of 332 declarations across all 40 modules
   — everything depends only on `propext, Classical.choice, Quot.sound` (no `sorryAx`), with exactly
   one exception: `erdos307_sixty`, which additionally carries the `native_decide` axiom of `dfs_run`.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)

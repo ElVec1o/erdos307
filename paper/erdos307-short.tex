@@ -147,11 +147,16 @@ The bridge is productive in both directions.
 two--cycle has squarefree members with disjoint supports \cite{UfnarovskiAhlander2003} makes the
 ``finite sets of distinct primes'' hypothesis of \#307 automatic, and links \#307 to the
 Ufnarovski--\AA hlander conjecture that all derivative cycles have period one.
-\item \emph{Exporting} to that literature: our barrier ($\min(\prod P,\prod Q)\ge 2.09\times
-10^{56}$, Theorem~\ref{thm:barrier}) improves Kovi\v{c}'s lower bound $\approx 3.2\times10^9$
-\cite{Kovic2012} \emph{on the odd member} of an $n''=n$ solution by roughly $47$ orders of
-magnitude. The comparison is against that specific bound; measured against other bounds in the same
-work the gain is smaller, and we make no claim about which of them is strongest.
+\item \emph{Exporting} to that literature: our barrier (Theorem~\ref{thm:barrier}) improves the
+known bounds on an $n''=n$ solution. Kovi\v{c} \cite{Kovic2012} proves two, and we compare against
+the stronger. His Proposition~17 gives $>3\cdot5\cdots29\approx3.23\times10^9$ on the \emph{odd}
+member; his Proposition~18 gives $r+s\ge34$ and, for \emph{at least one} member, the bound
+$\prod_{i=1}^{17}p_i\approx1.92\times10^{21}$. Against the latter, $\min(\prod P,\prod Q)\ge
+2.09\times10^{56}$ is a gain of $35.0$ orders of magnitude, and it is a gain in kind as well as in
+size: it bounds \emph{both} members, not one. On cardinality, Kovi\v{c}'s Proposition~18 is the
+antecedent of our $|U|\ge60$: he obtains $r+s\ge34$ unconditionally, and $r+s\ge57$ under the extra
+hypothesis $\min\{p_1,q_1\}\ge3$, which \#307 does not supply. Our $|U|\ge60$ is unconditional. The
+two arguments are independent --- his runs through $p_1q_s<rs$, ours through $\sum_{p\in U}1/p>2$.
 \end{itemize}
 
 \paragraph{Results and organisation.}
@@ -338,8 +343,9 @@ For any solution $(P,Q)$ of \#307, with $U=P\cup Q$:
 2.0929\ldots\times10^{56}$, where $T_{59}=\sum_{i=1}^{59}1/p_i=2.00235\ldots$. In particular both
 $\prod P$ and $\prod Q$ exceed $2.09\times10^{56}$.
 \end{enumerate}
-Consequently every $n''=n$ solution has both members $>2.09\times10^{56}$, improving Kovi\v{c}'s
-bound $\approx 3.2\times10^9$ \cite{Kovic2012} by about $47$ orders of magnitude.
+Consequently every $n''=n$ solution has both members $>2.09\times10^{56}$, improving the strongest
+bound of \cite{Kovic2012} (Proposition~18, $\max\{m,n\}\ge\prod_{i=1}^{17}p_i\approx1.92\times
+10^{21}$) by $35.0$ orders of magnitude, and improving it from one member to both.
 \end{theorem}
 
 \begin{proof}
@@ -2170,7 +2176,7 @@ the responsibility of the author. The author thanks the contributors to the Math
 
 \section{Note added: prior and concurrent work}\label{sec:prior}
 
-After this note was drafted, two items came to light; having now examined both directly, we record
+After this note was drafted, three items came to light; having now examined each directly, we record
 the overlaps precisely.
 
 \paragraph{Seva (MathOverflow 323194, 2019) \cite{Seva323194}.}
@@ -2180,6 +2186,21 @@ reformulation belongs here. He further asks whether every $s$--trajectory stabil
 $s$--analogue of the Ufnarovski--\AA hlander conjecture, posed independently of it. (Note $s\ne n'$
 globally, e.g.\ $s(p^\alpha)=p^{\alpha-1}$, but $s=n'$ on squarefree integers, where both two--cycle
 questions live.)
+
+\paragraph{Kovi\v{c} (2012), Proposition~18 \cite{Kovic2012}.}
+A third item, older than both and not noticed at drafting. Kovi\v{c} bounds the two--cycle system
+$n'=m$, $m'=n$ from the inequalities $p_1q_s<rs$ and $q_1p_r<rs$, where $r=\omega(n)$, $s=\omega(m)$,
+obtaining $r+s\ge34$ unconditionally, $r+s\ge57$ if $\min\{p_1,q_1\}\ge3$, $r+s\ge110$ if
+$\min\{p_1,q_1\}\ge5$, and hence $\max\{m,n\}\ge\prod_{i=1}^{17}p_i\approx1.92\times10^{21}$. This is
+the true antecedent of our Theorem~\ref{thm:barrier}, and it is stronger than the Proposition~17
+bound $\approx3.23\times10^9$ that we had cited as the comparison point; the introduction now
+compares against Proposition~18. Our contribution over it is threefold: $|U|\ge60$ unconditionally
+rather than $34$ (and without his $\min\{p_1,q_1\}\ge3$, which \#307 does not supply); the product
+bound on \emph{both} members rather than one; and $35.0$ orders of magnitude in that bound. The
+arguments are independent: his is a two--sided size comparison between a squarefree number and its
+derivative, ours is $\sum_{p\in U}1/p=s+t>2$ by AM--GM followed by a prime--counting minimality
+argument. We claim no priority for the \emph{existence} of a cardinality barrier, only for its
+value and its unconditionality.
 
 \paragraph{Bado (preprint, Aix--Marseille, 2026) \cite{Bado2026}.}
 Working with $A(S)=\sum_{p\in S}M(S)/p$ and $M(S)=\prod_{p\in S}p$ (our $N_S,D_S$), Bado independently
@@ -2616,7 +2637,17 @@ Driving the ratio further is therefore not evidence about the integer, and the l
 line of attack. What survives it is structural and is stated above: the family is the $M=30$ stratum
 of Proposition~\ref{prop:oneprime}, its solutions satisfy $\sigma(a)<30/31$ strictly, and approaches
 from above cannot reach one. Those three facts are machine--checked in
-\texttt{lean/Erdos307/StratumM30.lean}. Consistently with the two--sided statement above, $a$
+\texttt{lean/Erdos307/StratumM30.lean}.
+
+The constant $30/31$ is not special. In the normal form of Proposition~\ref{prop:oneprime} a solution
+of the $M$--stratum is $a=Mp$, $b=N=M+M'p$, so $\sigma(a)=\sigma(M)+1/p$ and, by the identity
+$(\sigma(M)+1/p)\sigma(N)=1$ of part~(b), $\sigma(b)=1/\sigma(a)<1/\sigma(M)=M/M'$, with defect
+exactly $M^2/(M'(M+M'p))$. Hence \emph{every} stratum is one--sided: for no squarefree $M$ does the
+half--space $\sigma(b)\ge M/M'$ contain a solution, and $M=30$ recovers $30/31$. This is a corollary
+of Proposition~\ref{prop:oneprime}(b) rather than a new result, but it is the constraint that governs
+search direction, so it is machine--checked in \texttt{lean/Erdos307/StratumGeneral.lean}. The
+consequence for the near--miss programme is that the mirrored tuning of the previous paragraph is not
+merely unlucky at $M=30$; the corresponding tuning is empty in every stratum. Consistently with the two--sided statement above, $a$
 lies past the barrier: $118>113$ digits, and $r$ sits inside the barred neighbourhood
 $(0.998740,\infty)$.
 
