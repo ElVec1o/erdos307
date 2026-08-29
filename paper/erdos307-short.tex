@@ -3153,6 +3153,23 @@ three--cycle of Proposition~\ref{prop:kcycles}: at its minimal level a three--cy
 $6.19\times10^{6}$. Its support is almost completely determined, with a slack of $3.09\times10^{-8}$
 to distribute among the remaining $46{,}732$ places.
 
+The same reading applies with the mass restricted to primes $\ge P$, which is the setting of
+Proposition~\ref{prop:twoparam}. At $P=3$, the all--odd case of Theorem~\ref{thm:parity}, the
+minimal level is $n=1412$ with slack $2.069\times10^{-5}$; every odd prime up to $9{,}484$ is forced,
+$1{,}174$ of the $1{,}412$ or $83\%$, no prime exceeds $15{,}592$, and the product is $10^{5040.1}$.
+At $P=5$ the figures are $n=40{,}259$, $24{,}770$ forced, $\max U<1.61\times10^{6}$ and $10^{209582}$,
+reproducing Proposition~\ref{prop:twoparam} from the structural side.
+
+That the all--odd case is $83\%$ forced does not make it a feasible search, and it is worth
+recording why, since the shape invites the comparison with level $59$. There the free part was $20$
+primes from $99$ candidates and the count was $49{,}961$. Here it is $238$ from $643$: the forced
+mass is $1.97751561\ldots$, so the free primes must carry more than $0.02248438\ldots$ against a
+baseline of $0.02250507\ldots$, an excess of $2.069\times10^{-5}$. A traversal capped at
+$4\times10^{8}$ nodes reaches $1.977\times10^{8}$ admissible supports without exhausting the space
+\textup{(\texttt{code/level\_structure.rs})}. The slack per free place, not the forced fraction, is
+what decides enumerability, and here it is $87$ times larger per place than at level $59$. Question
+(ii) of this section does not close this way.
+
 \begin{proposition}[The barrier stratified by the smaller support]\label{prop:split}
 Let $(a,b)$ be a two--cycle and put $k=\min(\omega(a),\omega(b))$. Then
 \[ k=1\ \Rightarrow\ |U|\ge1413, \qquad k=2\ \Rightarrow\ |U|\ge69, \qquad

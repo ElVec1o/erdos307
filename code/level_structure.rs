@@ -12,6 +12,12 @@
 // prop:band. At c = 3 (a three-cycle) the core is 314,407 of 361,139, 87 per cent: every prime up
 // to 4,476,608 is forced, and max(U) < 6.19e6. A three-cycle has almost no freedom in its support.
 //
+// The file also carries the restricted-prime reading (min prime >= P), which reproduces
+// prop:twoparam from the structural side, and a capped traversal of the all-odd cell showing that
+// 83 per cent forcing does NOT make it enumerable: 238 free places from 643 candidates, excess
+// 2.069e-5, and a cap of 4e8 nodes reaches 1.977e8 admissible supports without exhausting. The
+// slack per free place decides enumerability, not the forced fraction.
+//
 // Run:  rustc -O -o level_structure level_structure.rs && ./level_structure
 //
 // The level-minimal structure as a function of c: forced core, band ceiling, slack.
@@ -41,5 +47,86 @@ fn main() {
         let band = if t[n - 1] < c { 1.0 / (c - t[n - 1]) } else { f64::INFINITY };
         println!("  {:.4} | {:8} | {:9} | {:.3e} | {:9} ({:>6}) | {:.4e}",
                  c, n, ps[n - 1], slack, forced_upto, nforced, band);
+    }
+}
+// prop:levelstructure at the all-odd cell: c = 2 carried by primes >= 3.
+fn main() {
+    let lim: usize = 60_000_000;
+    let mut s = vec![true; lim + 1];
+    s[0] = false; s[1] = false;
+    let mut i = 2usize;
+    while i * i <= lim { if s[i] { let mut j = i * i; while j <= lim { s[j] = false; j += i; } } i += 1; }
+    for &pmin in &[2usize, 3, 5] {
+        let ps: Vec<usize> = (pmin..=lim).filter(|&k| s[k]).collect();
+        let mut t = vec![0f64; ps.len() + 1];
+        for k in 0..ps.len() { t[k + 1] = t[k] + 1.0 / ps[k] as f64; }
+        let c = 2.0f64;
+        let mut n = 0usize;
+        while n < ps.len() && t[n] < c { n += 1; }
+        if n >= ps.len() { println!("min prime {}: out of range", pmin); continue; }
+        let slack = t[n] - c;
+        let thr = t[n + 1] - c;
+        let forced_upto = if thr > 0.0 { (1.0 / thr) as usize } else { 0 };
+        let nforced = ps.iter().take_while(|&&p| p <= forced_upto).count();
+        let band = if t[n - 1] < c { 1.0 / (c - t[n - 1]) } else { f64::INFINITY };
+        // product of the minimal support, log10
+        let lg: f64 = ps[..n].iter().map(|&p| (p as f64).log10()).sum();
+        println!("min prime >= {:2} : n = {:6}, last = {:8}, slack = {:.4e}, forced <= {:8} ({:6}, {:.0}%), max(U) < {:.4e}, prod = 10^{:.1}",
+                 pmin, n, ps[n - 1], slack, forced_upto, nforced,
+                 100.0 * nforced as f64 / n as f64, band, lg);
+    }
+}
+// Is the all-odd cell an enumerable search, the way level 59 was?
+fn main() {
+    let lim: usize = 200_000;
+    let mut s = vec![true; lim + 1];
+    s[0] = false; s[1] = false;
+    let mut i = 2usize;
+    while i * i <= lim { if s[i] { let mut j = i * i; while j <= lim { s[j] = false; j += i; } } i += 1; }
+    let ps: Vec<usize> = (3..=lim).filter(|&k| s[k]).collect();
+    let mut t = vec![0f64; ps.len() + 1];
+    for k in 0..ps.len() { t[k + 1] = t[k] + 1.0 / ps[k] as f64; }
+    let c = 2.0f64;
+    let mut n = 0usize; while t[n] < c { n += 1; }
+    let thr = t[n + 1] - c;
+    let forced_upto = (1.0 / thr) as usize;
+    let nf = ps.iter().take_while(|&&p| p <= forced_upto).count();
+    let band = 1.0 / (c - t[n - 1]);
+    let ncand = ps.iter().take_while(|&&p| (p as f64) < band).count() - nf;
+    let free = n - nf;
+    let forced_mass: f64 = ps[..nf].iter().map(|&p| 1.0 / p as f64).sum();
+    let target = c - forced_mass;
+    println!("all-odd cell: n = {}, forced = {} (<= {}), free = {}, candidates = {}",
+             n, nf, forced_upto, free, ncand);
+    println!("forced mass = {:.12}, free {} must carry > {:.12}", forced_mass, free, target);
+    let cand: Vec<f64> = ps[nf..nf + ncand].iter().map(|&p| 1.0 / p as f64).collect();
+    // baseline: the `free` smallest candidates
+    let base: f64 = cand[..free].iter().sum();
+    println!("baseline (free smallest) = {:.12}, excess over target = {:.4e}", base, base - target);
+    // capped DFS
+    let mut best = vec![vec![f64::NEG_INFINITY; free + 1]; ncand + 2];
+    for i in (0..=ncand).rev() {
+        best[i][0] = 0.0;
+        for j in 1..=free { if i + j <= ncand { best[i][j] = cand[i..i + j].iter().sum(); } }
+    }
+    let cap: u64 = 400_000_000;
+    let mut count: u64 = 0; let mut nodes: u64 = 0; let mut capped = false;
+    struct F { i: usize, c: usize, m: f64 }
+    let mut st = vec![F { i: 0, c: 0, m: 0.0 }];
+    while let Some(f) = st.pop() {
+        nodes += 1;
+        if nodes > cap { capped = true; break; }
+        if f.c == free { if f.m > target { count += 1; } continue; }
+        if f.i >= ncand { continue; }
+        let need = free - f.c;
+        if f.i + need > ncand { continue; }
+        if f.m + best[f.i][need] <= target { continue; }
+        st.push(F { i: f.i + 1, c: f.c, m: f.m });
+        st.push(F { i: f.i + 1, c: f.c + 1, m: f.m + cand[f.i] });
+    }
+    if capped {
+        println!("NODE CAP {} hit; count so far {} -- the all-odd cell is NOT enumerable this way", cap, count);
+    } else {
+        println!("admissible all-odd supports = {} (nodes {})", count, nodes);
     }
 }
