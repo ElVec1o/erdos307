@@ -2605,7 +2605,18 @@ Neither construction is exhausted. Over the same sweeps the smallest \emph{avail
 $2.043\times10^{-18}$ from below and $1.209\times10^{-14}$ from above; what limits the reported values
 is the rate at which $a'$ takes the form $2\cdot3\cdot5\cdot P$, not the tuning
 \textup{(\texttt{code/nearmiss\_ladder.gp}, \texttt{code/nearmiss\_below.gp}, re--checked in
-\texttt{code/nearmiss\_ladder\_verify.gp} and \texttt{code/nearmiss\_below\_verify.gp})}. Consistently with the two--sided statement above, $a$
+\texttt{code/nearmiss\_ladder\_verify.gp} and \texttt{code/nearmiss\_below\_verify.gp})}.
+
+We stop here, and the reason is a measurement rather than a budget. Between the two from--below
+witnesses the ratio improved by three orders of magnitude while $30a-31a'$ fell from $114$ digits to
+$112$, against the $3$ a solution requires. Exhausting the available deficit would gain perhaps five
+more digits of the $112$. The near--miss frontier measures $|r-1|$, a ratio; membership of the
+stratum is the integer identity $30a-31a'=900$, and the two are not commensurable at this scale.
+Driving the ratio further is therefore not evidence about the integer, and the line is closed as a
+line of attack. What survives it is structural and is stated above: the family is the $M=30$ stratum
+of Proposition~\ref{prop:oneprime}, its solutions satisfy $\sigma(a)<30/31$ strictly, and approaches
+from above cannot reach one. Those three facts are machine--checked in
+\texttt{lean/Erdos307/StratumM30.lean}. Consistently with the two--sided statement above, $a$
 lies past the barrier: $118>113$ digits, and $r$ sits inside the barred neighbourhood
 $(0.998740,\infty)$.
 
