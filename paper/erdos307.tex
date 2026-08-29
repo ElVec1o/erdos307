@@ -40,11 +40,13 @@ whether there exist two finite sets $P,Q$ of primes with
 $\bigl(\sum_{p\in P}\tfrac1p\bigr)\bigl(\sum_{q\in Q}\tfrac1q\bigr)=1$.
 Writing $a=\prod P$, $b=\prod Q$, a solution exists if and only if the \emph{arithmetic derivative}
 has a two--cycle $a'=b,\ b'=a$ with $a\neq b$; equivalently iff $n''=n$ has a solution that is not a
-fixed point $p^{p}$. The two--cycle reformulation is due to Seva (2019) and, independently, Bado
-(2026); our starting point is to identify the map with the arithmetic derivative, which ties \#307 to
-the Ufnarovski--\AA hlander dynamics: the conjecture that every
-$n''=n$--cycle has period one would force \#307 to have answer \textsc{no}, while a \textsc{yes}
-would refute it. Exploiting the equivalence we prove a \emph{rigidity lemma} (each prime--reciprocal
+fixed point $p^{p}$. That reformulation, and the equivalence with the derivative, are due to
+Ufnarovski--\AA hlander \cite{UfnarovskiAhlander2003}, whose Conjecture~4 asserts in exactly these
+terms that $\bigl(\sum1/p_i\bigr)\bigl(\sum1/q_j\bigr)=1$ has no solution in distinct primes. Our
+starting point is that \#307 \emph{is} that conjecture --- an identification neither literature
+records --- which ties the problem to the Ufnarovski--\AA hlander dynamics: their conjecture that
+every $n''=n$--cycle has period one would force \#307 to have answer \textsc{no}, while a
+\textsc{yes} would refute it. Exploiting the equivalence we prove a \emph{rigidity lemma} (each prime--reciprocal
 sum is automatically in lowest terms, so $N_P=D_Q$, $N_Q=D_P$, and $P\cap Q=\varnothing$) and a
 quantitative \emph{barrier}: building on Rosen's bound $|P\cup Q|\ge 59$, any solution has
 $\min(\prod P,\prod Q)\ge 2.09\times10^{56}$, improving the best published lower bound for $n''=n$
@@ -134,15 +136,19 @@ problem; Barbeau \cite{Barbeau1961} gave the first systematic study, with the mo
 Ufnarovski--\AA hlander \cite{UfnarovskiAhlander2003} and OEIS \cite{OEIS_A003415}.) For
 $n=\prod_i p_i^{e_i}$ one has $n'=n\sum_i e_i/p_i$. We show (Section~\ref{sec:bridge}) that \#307
 is \emph{equivalent} to the existence of a two--cycle of $n\mapsto n'$ that is not a fixed point.
-The two--cycle reformulation itself is not new: it was stated ``in disguise'' by Seva
-\cite{Seva323194} in 2019 (via the map $Q\mapsto Q\sum_{p\mid Q}1/p$, which agrees with the
-arithmetic derivative on squarefree integers, where the question lives), and obtained independently
-by Bado \cite{Bado2026}; see the note in Section~\ref{sec:prior}. Neither, however, identifies the
-map with the \emph{arithmetic derivative} of Barbeau \cite{Barbeau1961} and Ufnarovski--\AA hlander
-\cite{UfnarovskiAhlander2003}. That identification (and the resulting two--way bridge to the
-$n''=n$ literature (importing the Ufnarovski--\AA hlander conjecture, exporting our bounds)) is the
-starting contribution of this note; remarkably, Barbeau authored foundational papers on both sides
-(1961 and 1976 \cite{Barbeau1976}).
+The two--cycle reformulation itself is not new, and it is older than is generally recorded.
+Ufnarovski--\AA hlander \cite{UfnarovskiAhlander2003} prove that a period--two point of $n\mapsto n'$
+has squarefree members with disjoint supports, and deduce that the period--two case of their
+Conjecture~3 is equivalent to their Conjecture~4: $\bigl(\sum_{i\le k}1/p_i\bigr)
+\bigl(\sum_{j\le l}1/q_j\bigr)=1$ has no solution in distinct primes. That is \#307, in the
+derivative literature, in 2003. It was restated ``in disguise'' by Seva \cite{Seva323194} in 2019
+(via $Q\mapsto Q\sum_{p\mid Q}1/p$, which agrees with the arithmetic derivative on squarefree
+integers, where the question lives), who is the first to name it as \#307, and obtained
+independently by Bado \cite{Bado2026}; see Section~\ref{sec:prior}. What is new here is the
+identification of the two problems --- \#307 is Ufnarovski--\AA hlander's Conjecture~4 --- and the
+resulting two--way bridge, importing their period--one conjecture and exporting our bounds.
+Remarkably, Barbeau authored foundational papers on both sides (1961 and 1976
+\cite{Barbeau1961,Barbeau1976}).
 
 The bridge is productive in both directions.
 \begin{itemize}[leftmargin=1.4em]
@@ -151,8 +157,7 @@ two--cycle has squarefree members with disjoint supports \cite{UfnarovskiAhlande
 ``finite sets of distinct primes'' hypothesis of \#307 automatic, and links \#307 to the
 Ufnarovski--\AA hlander conjecture that all derivative cycles have period one.
 \item \emph{Exporting} to that literature: our barrier (Theorem~\ref{thm:barrier}) is, we believe,
-the first valid unconditional bound of its kind, and establishing that required auditing what was
-already there. Kovi\v{c} \cite{Kovic2012} states three bounds on an $n''=n$ solution. A computer
+the first valid unconditional bound of its kind. Kovi\v{c} \cite{Kovic2012} states three bounds on an $n''=n$ solution. A computer
 search gives $x>10^4$, unconditionally. Proposition~17 gives $>3\cdot5\cdots29\approx3.23\times10^9$,
 but only when the \emph{smaller} member is odd; Kovi\v{c} notes explicitly that no estimate follows
 otherwise. Proposition~18 claims the unconditional $r+s\ge34$ and $\max\{m,n\}\ge\prod_{i=1}^{17}p_i
@@ -2162,14 +2167,15 @@ method.
 
 \paragraph{Attribution.}
 We are careful to separate prior, concurrent, and present contributions (details in
-Section~\ref{sec:prior}). \emph{Prior/concurrent:} the two--cycle reformulation is due to Seva
-\cite{Seva323194} (2019) and, independently, Bado \cite{Bado2026}; the bound $|P\cup Q|\ge59$ to
+Section~\ref{sec:prior}). \emph{Prior/concurrent:} the two--cycle reformulation, and its
+equivalence with the arithmetic derivative, are due to Ufnarovski--\AA hlander
+\cite{UfnarovskiAhlander2003} (2003, Conjecture~4); the naming of it as \#307 to Seva
+\cite{Seva323194} (2019); an independent rederivation to Bado \cite{Bado2026}; the bound $|P\cup Q|\ge59$ to
 J.~Rosen and the disjointness valuation $v_p(\sum1/p_i)=-1$ to R.~Israel \cite{MO320838}; the source
 identification to ``Woett'' \cite{MO320838}. Bado \cite{Bado2026} independently obtained the rigidity
 cross--matching, the local anatomy, the parity restriction, a one--sided exact test, approximate
-solvability, and the union criterion of Proposition~\ref{prop:pyth}. \emph{Present note:} the
-identification of the map with the arithmetic derivative and the two--way bridge to the
-Ufnarovski--\AA hlander--Kovi\v{c} literature; the product barrier $2.09\times10^{56}$; the
+solvability, and the union criterion of Proposition~\ref{prop:pyth}. \emph{Present note:} the identification of \#307 with
+Ufnarovski--\AA hlander's Conjecture~4 and the resulting two--way bridge to the $n''=n$ literature; the product barrier $2.09\times10^{56}$; the
 function--field theorem and archimedean localisation; the constructive deficit analysis and seed
 obstruction; the Erd\H{o}s--Wintner density theorem, and the $k$--cycle barriers. Both external
 sources \cite{Seva323194,Bado2026} have been examined directly and the overlaps above reflect their
@@ -2183,26 +2189,37 @@ refute each claim. All statements, proofs, attributions, and the final text were
 the responsibility of the author. The author thanks the contributors to the MathOverflow thread
 \cite{MO320838}; in particular R.~Israel and J.~Rosen, whose observations are credited above.
 
-\section{Note added: prior and concurrent work}\label{sec:prior}
+\section{Prior and concurrent work}\label{sec:prior}
 
-After this note was drafted, three items came to light; having now examined each directly, we record
-the overlaps precisely.
+We record the overlaps with four items, each examined directly.
+
+\paragraph{Ufnarovski--\AA hlander (2003) \cite{UfnarovskiAhlander2003}.}
+Their Theorem~5 gives $p^{k}\|n$, $0<k<p$ $\Rightarrow$ $p^{k-1}\|n'$, and their Theorem~4 gives
+$n^{(j)}\to\infty$ when $p^{p}\mid n$ properly; together with Corollary~2 ($n$ squarefree
+$\Leftrightarrow$ $(n,n')=1$) these force a period--two point to have squarefree members with
+disjoint supports. The argument is sound: for $2\le k<p$ two applications of Theorem~5 give
+$v_p(n'')=k-2\ne k$, while $k\ge p$ falls to Theorem~4 or to the fixed point $n=p^p$, and the edge
+cases $p=2$, $k\in\{2,3\}$ are covered by the latter because $4=p^p$. They then state the
+period--two case as \textbf{Conjecture~4}: $\bigl(\sum_{i\le k}1/p_i\bigr)\bigl(\sum_{j\le l}
+1/q_j\bigr)=1$ has no solution in distinct primes. This is \#307, and priority for the two--cycle
+reformulation belongs here rather than to 2019: what \cite{Seva323194} adds is the identification of
+that equation as \#307, which \cite{UfnarovskiAhlander2003} does not make --- they cite
+\cite{Barbeau1961} for the derivative, not \cite{Barbeau1976} for the problem. The consequence is
+that \#307 has been an open conjecture in the arithmetic--derivative literature since 2003 under
+another name, and that the bounds of Section~\ref{sec:barrier} are bounds on Conjecture~4.
 
 \paragraph{Seva (MathOverflow 323194, 2019) \cite{Seva323194}.}
 Defines $s(Q)=Q\sum_{p\mid Q}1/p$, derives the valuation property $v_p(s(Q))=v_p(Q)-1$, asks for
-$s(P)=Q$, $s(Q)=P$, and states this is Problem~\#307 ``in disguise.'' Priority for the two--cycle
-reformulation belongs here. He further asks whether every $s$--trajectory stabilises at $0$; the
+$s(P)=Q$, $s(Q)=P$, and states this is Problem~\#307 ``in disguise.'' Priority for \emph{naming}
+the two--cycle question as \#307 belongs here. He further asks whether every $s$--trajectory stabilises at $0$; the
 $s$--analogue of the Ufnarovski--\AA hlander conjecture, posed independently of it. (Note $s\ne n'$
 globally, e.g.\ $s(p^\alpha)=p^{\alpha-1}$, but $s=n'$ on squarefree integers, where both two--cycle
 questions live.)
 
 \paragraph{Kovi\v{c} (2012), Propositions~17 and~18 \cite{Kovic2012}.}
-A third item, older than both and not examined at drafting. We had cited Proposition~17 as the
-comparison point for Theorem~\ref{thm:barrier}. Reading the paper directly turned up Proposition~18,
-which claims strictly more --- the unconditional $r+s\ge34$, with $r+s\ge57$ if $\min\{p_1,q_1\}\ge3$
-and $r+s\ge110$ if $\min\{p_1,q_1\}\ge5$, together with $p_1<r$, $q_1<s$ and
-$\max\{m,n\}\ge\prod_{i=1}^{17}p_i\approx1.92\times10^{21}$. We record why we do not treat it as
-prior art for the cardinality bound.
+Proposition~18 claims the unconditional $r+s\ge34$, with $r+s\ge57$ if $\min\{p_1,q_1\}\ge3$ and
+$r+s\ge110$ if $\min\{p_1,q_1\}\ge5$, together with $p_1<r$, $q_1<s$ and
+$\max\{m,n\}\ge\prod_{i=1}^{17}p_i\approx1.92\times10^{21}$. Its proof does not establish them.
 
 The proof opens with two correct pairs of bounds, which after substituting $n'=m$, $m'=n$ read
 \[ \text{(A)}\quad \frac{rn}{p_r}<m<\frac{rn}{p_1}, \qquad\qquad
@@ -2239,8 +2256,8 @@ follows when it is even, so it is a conditional bound. The consequence for the r
 strongest valid unconditional bound in the prior literature is the computer search $x>10^4$, that
 Theorem~\ref{thm:barrier} improves it by $52$ orders of magnitude, and that $|U|\ge60$ is, as far as
 we can determine, the first valid cardinality bound for arithmetic--derivative two--cycles rather
-than an improvement on an earlier one. We note this without any suggestion that the gap diminishes
-\cite{Kovic2012}, which remains the standard reference and whose Propositions~16 and~17 we use.
+than an improvement on an earlier one. None of this diminishes \cite{Kovic2012}, which remains the standard reference and whose
+Propositions~16 and~17 we use.
 
 \paragraph{Bado (preprint, Aix--Marseille, 2026) \cite{Bado2026}.}
 Working with $A(S)=\sum_{p\in S}M(S)/p$ and $M(S)=\prod_{p\in S}p$ (our $N_S,D_S$), Bado independently

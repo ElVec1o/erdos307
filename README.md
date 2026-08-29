@@ -33,6 +33,14 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
 
 ## What the paper establishes
 
+- **#307 is Ufnarovski–Åhlander's Conjecture 4.** Ufnarovski & Åhlander (2003, *J. Integer Seq.* **6**,
+  Art. 03.3.4) prove a period-two point of `n ↦ n′` has squarefree members with disjoint supports, and
+  state the resulting equation — `(Σ 1/pᵢ)(Σ 1/qⱼ) = 1` has no solution in distinct primes — as their
+  Conjecture 4. That is Erdős #307, in the derivative literature, in 2003. It is generally credited to
+  2019. Priority for the reformulation belongs to 2003; what 2019 adds is *naming* it as #307. So #307
+  has been open in a second literature, under another name, for over twenty years, and the barrier
+  below is a bound on Conjecture 4.
+
 - **An erratum in the standard reference.** Kovič (2012, *J. Integer Seq.* **15**, Art. 12.3.8),
   Prop. 18 claims `r + s ≥ 34` and `max{m,n} ≥ 1.92 × 10²¹` for two-cycles. The proof multiplies an
   *upper* bound on `m` against a *lower* bound on `n`; the directions don't compose. Its own bounds
