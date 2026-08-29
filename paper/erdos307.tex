@@ -2035,6 +2035,39 @@ place in the paper where formalisation caught a missing hypothesis before review
 polynomially parametrised) to a theorem for \emph{all} fixed--shape families: the prime--density
 hypothesis behind \#307 is irreducibly non--polynomial, which is why no standard conjecture applies.
 
+\begin{proposition}[Near--miss frames are extremal for $G$]\label{prop:nearframe}
+Let $a$ be squarefree with $a'$ squarefree, and take the frame $(M_0,N)=(a,a')$, so that
+$M_0'=a'$ and $N'=a''$. Then
+\[ G\;=\;NM_0-N'M_0'\;=\;a'\,(a-a''), \]
+and since $a''\ne a$ unless \#307 is solved, $|a-a''|\ge1$ and therefore $|G|\ge a'$.
+\end{proposition}
+\begin{proof}
+Direct substitution; the inequality is $|a-a''|\ge1$ for the nonzero integer $a-a''$.
+\end{proof}
+
+The point is not that the bound is large but that it runs the wrong way. Writing $r=a''/a$ for the
+near--miss ratio, $G=aa'(1-r)$, so a frame built from a good near--miss has $1-r$ small and $aa'$
+correspondingly large, and the two cancel \emph{exactly}, because $a(1-r)=a-a''$ is an integer and a
+nonzero one. Improving the near--miss therefore does not shrink $G$; it drives $a'$ up and $G$ with
+it. The witness of Proposition~\ref{prop:nearmiss}, with $|1-r|=1.65\times10^{-13}$, gives
+$|G|\ge a'>10^{112}$, against the $\log_{10}G\approx13$ that the Baker--Harman--Pintz route reaches
+at the barrier. So the natural reading of ``steer $\Delta_0$ small by steering $s_{M_0}s_N$ to $1$''
+is not merely circular in the sense of Section~\ref{sec:frame}: on near--miss frames it is inverted.
+
+Small $|G|$ does occur, but only on small frames: over $1{,}143{,}888$ coprime squarefree frames with
+$M_0,N\le2000$ the minimum is $|G|=5$, at $(M_0,N)=(2,3)$. That is the supply--demand conflict in raw
+form, and it can be measured. Binning by $|G|$ and taking the best frame in each bin
+(\texttt{code/breeder\_supply.gp}) gives
+\[
+\begin{array}{l|cccccc}
+\log_{10}|G| & 0.5 & 1.5 & 2.5 & 3.5 & 4.5 & 5.0\\\hline
+\max \tau(K)/|G| & 0.600 & 0.313 & 0.214 & 0.053 & 0.0065 & 0.0030
+\end{array}
+\]
+The ratio is largest on the smallest frames, where it is already below $1$, and decays monotonically
+from there. Since a productive frame needs $\tau(K)/|G|$ well above $1$, no frame in the range
+supplies one, and the trend is against scale rather than with it.
+
 \paragraph{Why $(\mathrm{H})$ is not a finite search.} It is tempting to read $(\mathrm{H})$ as
 ``run a certificate hunt that is expected to succeed.'' It is not, for a quantitative reason. The
 expected number of certificates from one frame is $\mathbb{E}\approx
