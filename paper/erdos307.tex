@@ -806,6 +806,47 @@ $-\bigl((g+N)^2-4D^2\bigr)/2$, negative since $N>2D$. So the root decreases in $
 largest at $\alpha=1$.
 \end{proof}
 
+\begin{proposition}[What a barrier improvement must supply]\label{prop:barthreshold}
+Let $(a,b)$ be a solution with $a<b$ and put $t=b/a$, so that $t=\sigma(a)$ and, by
+$\sigma(a)\sigma(b)=1$,
+\[ \sigma(U)\;=\;\sigma(a)+\sigma(b)\;=\;t+\tfrac1t. \]
+For $n$ with $T_n>2$ let $t_n>1$ be the root of $t+1/t=T_n$. Since $\sigma(U)\le T_{|U|}$,
+\[ \sigma(a)>t_n\ \Longrightarrow\ |U|\ \ge\ n+1, \]
+and this is the only route by which a mass argument can raise the barrier. Numerically
+\[
+\begin{array}{l|cccccc}
+n & 59 & 60 & 61 & 62 & 63 & 64\\\hline
+T_n & 2.0023502 & 2.0059089 & 2.0094424 & 2.0128554 & 2.0161127 & 2.0193282\\
+t_n & 1.0496677 & 1.0798804 & 1.1020081 & 1.1199914 & 1.1352477 & 1.1490254
+\end{array}
+\]
+\end{proposition}
+
+So the barrier level is decided entirely by how close $\sigma(a)$ may lie to $1$, and each further
+level demands a definite gap: $|U|\ge61$ needs $\sigma(a)>1.0799$, a full $8\%$ above $1$.
+
+That is why the mass mechanism is exhausted here rather than merely difficult. The only
+unconditional lower bound on the gap is $\sigma(a)-1=(a'-a)/a\ge1/a$, which is worthless at
+$a>10^{56}$; and $\sigma$ genuinely comes close to $1$ from above on very few primes, the
+Sylvester-type set $\{2,3,7,41\}$ giving $\sigma=1.00058\ldots$ with four. Nothing in the cycle
+equations forbids $a'-a=1$. A barrier past $60$ must therefore come from a mechanism that bounds
+$\sigma(a)$ away from $1$ without appealing to the size of $U$ --- which is what
+Theorem~\ref{thm:barrier} does in the opposite direction --- and we know of none.
+
+The same reduction locates the extreme case. Writing $c=b-a$, the identity
+$\sigma(U)-2=(t-1)^2/t=c^2/D$ is the minus layer $D'-2D=c^2$, and $\gcd(c,D)=\gcd(b-a,ab)=1$ because
+$\gcd(a,b)=1$. Since an admissible support contains every prime $\le167$
+\textup{(}Remark~\ref{rem:tier60}\textup{)}, $c$ is divisible by none of them, so $c=1$ or
+$c\ge173$. The branch $c=1$ is $D'=2D+1$, equivalently $a'=a+1$ and $(a+1)'=a$; it is the closest a
+solution could come to $\sigma(a)=1$, and it is exactly the configuration a mass argument cannot
+reach. Below $3\times10^{6}$ the equation $a'=a+1$ has only the solutions $30$, $858$, $1722$ and
+$66{,}198$, and none extends: for the first three $a+1$ is prime, so $(a+1)'=1$, and for the last
+$a+1$ is not squarefree. The branch is not excluded, only unsearched, since the barrier puts it above
+$10^{56}$. The level--$59$
+computation that gives $|U|\ge60$ is, in these terms, an exhaustive verification that
+$\sigma(a)>t_{59}$, and Proposition~\ref{prop:levelbarrier} says the same verification is unavailable
+one level up.
+
 \begin{remark}[The Lehmer reading of the tail is withdrawn]\label{rem:notlehmer}
 Remark~\ref{rem:lehmer} below reads the surviving question as the primality of a term $q_n$ of the
 \emph{exponential} Pell orbit, and Remark~\ref{rem:whatisleft} names that orbit as the only live
