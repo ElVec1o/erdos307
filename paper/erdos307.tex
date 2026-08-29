@@ -3837,7 +3837,9 @@ r=1,\ \text{i.e.\ a two--cycle} & 2 & 59 & \text{Theorem~\ref{thm:barrier}}\\
 k\text{--cycle} & k/\lfloor k/2\rfloor & 59\ (k\text{ even}) & \text{Proposition~\ref{prop:kuniform}}\\
 \text{three--cycle} & 3 & 361{,}139 & \text{Proposition~\ref{prop:kcycles}}\\
 \text{all--odd, }\min U\ge3 & 2\ \text{on }p\ge3 & 1{,}412 & \text{Theorem~\ref{thm:parity}}\\
-a''\ge2a & 2\sqrt2 & 37{,}963 & \text{above}
+a''\ge2a & 2\sqrt2 & 37{,}963 & \text{above}\\
+\text{orbit of growth }G\text{ in }L\text{ steps} & \tfrac{L}{\lceil L/2\rceil}G^{1/L} &
+ \text{varies} & \text{Proposition~\ref{prop:growth}}
 \end{array}
 \]
 The coincidence $2\sqrt{9/4}=3=c(3)$ is why $r=9/4$ and the three--cycle carry the identical bound
@@ -3845,6 +3847,43 @@ $361{,}139$: they are the same value of $c$. What looked like six separate barri
 mass--to--size dictionary, and the only mathematics specific to each row is the derivation of its
 $c$.
 \end{remark}
+
+\begin{proposition}[The derivative cannot outgrow its own support]\label{prop:growth}
+Let $a_0\to a_1\to\dots\to a_L$ be an orbit segment of the arithmetic derivative with every $a_i$
+squarefree, put $G=a_L/a_0$ and let $U=\bigcup_{i<L}\operatorname{supp}(a_i)$. Then
+\[ \sum_{p\in U}\frac1p\ \ge\ \frac{L}{\lceil L/2\rceil}\,G^{1/L},
+\qquad\text{equivalently}\qquad
+G\ \le\ \Bigl(\frac{\lceil L/2\rceil}{L}\,T_{|U|}\Bigr)^{\!L}, \]
+and for even $L$ the geometric growth rate satisfies $G^{1/L}\le T_{|U|}/2$.
+\end{proposition}
+\begin{proof}
+Squarefreeness gives $\gcd(a_i,a_i')=1$, so consecutive members are coprime and
+$S_p=\{i<L:p\mid a_i\}$ has no two consecutive elements: it is independent in the path on $L$
+vertices, whence $|S_p|\le\lceil L/2\rceil$. Then $\sum_{i<L}\sigma(a_i)=\sum_{p\in U}|S_p|/p\le
+\lceil L/2\rceil\sum_{p\in U}1/p$, while $\prod_{i<L}\sigma(a_i)=a_L/a_0=G$ gives
+$\sum_{i<L}\sigma(a_i)\ge LG^{1/L}$ by AM--GM. The second form inverts the first using
+$\sum_{p\in U}1/p\le T_{|U|}$.
+\end{proof}
+
+This is the general shape of which the rest of the dictionary is a specialisation: at $L=2$ it reads
+$\sum_{p\in U}1/p\ge2\sqrt G$, which is Corollary~\ref{cor:cost} with $G=r$; at $G=1$ it returns
+$c=L/\lceil L/2\rceil\to2$, which is Proposition~\ref{prop:kuniform} on the path in place of the
+cycle. The statement it adds is dynamical rather than Diophantine, and it bounds the growth branch
+of Ufnarovski--\AA hlander's Conjecture~2: an orbit may tend to infinity, but only slowly unless it
+accumulates an enormous support \textup{(\texttt{code/growth\_bound.gp})}:
+\[
+\begin{array}{l|cccccc}
+\text{rate }g & 1.05 & 1.10 & 1.25 & 1.50 & 1.75 & 2\\\hline
+|U|\ \ge & 97 & 170 & 1{,}413 & 361{,}139 & 4.6\times10^{9} & 4.3\times10^{16}\\
+\text{largest prime}\ \ge & 5.4\!\cdot\!10^{2} & 1.0\!\cdot\!10^{3} & 1.2\!\cdot\!10^{4} &
+ 5.2\!\cdot\!10^{6} & 1.2\!\cdot\!10^{11} & 1.8\!\cdot\!10^{18}
+\end{array}
+\]
+A squarefree orbit that doubles at every step needs some $4.3\times10^{16}$ distinct primes in its
+supports and a prime past $1.8\times10^{18}$: sustained rapid growth is not merely unobserved but
+impossible on a small support. The hypothesis that every $a_i$ is squarefree is essential and is not
+generic along orbits; it is automatic on cycles, by Ufnarovski--\AA hlander, which is why the cycle
+rows of the dictionary carry no such caveat.
 
 The region is not unreachable, only unsweepable. The witness $n_0$ of
 Theorem~\ref{thm:lyapfalse} has $n_0$ and $n_0'$ both squarefree and
