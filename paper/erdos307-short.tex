@@ -2763,6 +2763,44 @@ and no sweep reaches any of it \textup{(\texttt{code/a10\_nearmiss.rs},
 formally open and the unmeasurability argument one--sided.
 \end{proposition}
 
+\begin{proposition}[An effective approximation theorem, with a certified witness]\label{prop:effapprox}
+Bado's Theorem~10.2 \cite{Bado2026} asserts that for every $Y$ and every $\varepsilon>0$ there are
+disjoint finite sets of primes $P,Q$, all greater than $Y$, with $0\le\sigma(P)\sigma(Q)-1<
+\varepsilon$. The proof is a greedy accumulation and is ineffective. Made effective it is expensive:
+to land in $[T,T+\eta)$ the accumulation must start above $\approx1/\eta$, and Mertens gives
+$\sum_{Y_1<p\le W}1/p\approx\log\log W-\log\log Y_1=T$, so $W=Y_1^{e^{T}}$; two stages with
+$T\approx1$ put the largest prime and the cardinality both at $\approx\varepsilon^{-e^{2}}=
+\varepsilon^{-7.389\ldots}$.
+
+A Newton ladder does the same work with a handful of primes. Take $Q=\{2,3,5\}$, so
+$\sigma(Q)=31/30$ and $P$ must approach $30/31$; from a pool, repeat $p\leftarrow$ the least prime
+$\ge1/d$ and $d\leftarrow d-1/p$, where $d$ is the running deficit. Each rung squares it,
+$d_{\mathrm{new}}=d-1/p\approx t\,d^{2}$ with $t$ the local prime gap, so the largest prime is
+$\approx\varepsilon^{-1/2}$ and the number of rungs is $O(\log\log(1/\varepsilon))$. Taking the pool
+to be the primes $7\le p\le271$ and nine rungs gives $|P|=64$, $|Q|=3$, largest prime of $505$
+digits, and, in exact rational arithmetic,
+\[ \bigl|\sigma(P)\sigma(Q)-1\bigr|\;=\;9.5748\ldots\times10^{-1007}. \]
+Every rung prime is \emph{proved} prime by \textup{APR--CL}, the $505$--digit one in about six
+seconds, and the whole verification runs in under ten
+\textup{(\texttt{code/nearmiss\_effective.gp})}.
+\end{proposition}
+
+The gap is not marginal. At $\varepsilon=10^{-13}$ the greedy needs a largest prime near $10^{94}$
+and some $10^{92}$ primes; the ladder needs a largest prime near $10^{7}$ and three rungs. The
+ladder is exponentially better in the size of the largest prime and doubly exponentially better in
+the count, and the reason is visible: greedy convergence is linear in the number of primes, Newton
+convergence is quadratic. Truncating gives certificates of any size --- five rungs and a $34$--digit
+largest prime already give $6.07\times10^{-66}$. The witness above approaches $1$ from below; taking
+the last rung's prime just under $1/d$ instead overshoots, so either side is available and the
+statement of Theorem~10.2 as printed is met.
+
+What this is not: progress towards a solution. A free pair of disjoint prime sets carries none of
+the rigidity an exact hit requires --- $\sigma(P)\sigma(Q)=1$ forces $\prod P=(\prod Q)'$ and
+$\prod Q=(\prod P)'$, and nothing in the ladder produces that --- and by
+Proposition~\ref{prop:nearmiss} the size of $|\sigma(P)\sigma(Q)-1|$ does not measure progress
+towards the integer identity at all. The value of the construction is that it makes an existence
+theorem effective and exhibits a witness anyone can check.
+
 The region is not unreachable, only unsweepable. The witness $n_0$ of
 Theorem~\ref{thm:lyapfalse} has $n_0$ and $n_0'$ both squarefree and
 $r(n_0)=\sigma(n_0)\sigma(n_0')=1.03944\ldots$, so $n_0''>n_0$: the value $1$ that a solution must
