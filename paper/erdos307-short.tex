@@ -1189,9 +1189,46 @@ contains at least $m_k$ primes, where $m_k$ is least with $\sum_{i\le m_k}1/p_i\
 and $m_3=361{,}139$ (last prime $5{,}195{,}977$), so a three--cycle has at least $361{,}139$ primes in
 its support and product exceeding $10^{2.26\times10^{6}}$ (hence its largest member exceeds
 $10^{752{,}194}$); by Mertens $m_k$ grows doubly exponentially. Two--cycles are thus the extremal,
-and only practically relevant; case. (For $k\ge4$ non--consecutive members may share primes; the
-bound then holds for the multiset reciprocal sum.)
+and only practically relevant; case for that measure. For $k\ge4$ non--consecutive members may share
+primes, so the displayed bound is one on the \emph{multiset} reciprocal sum; the union's own sum is
+bounded in Proposition~\textup{\ref{prop:kuniform}}.
 \end{proposition}
+
+\begin{proposition}[The barrier is uniform in the period]\label{prop:kuniform}
+Let $a_1\to a_2\to\dots\to a_k\to a_1$ be a cycle of the arithmetic derivative with $k\ge2$ and
+$a_i\neq a_{i+1}$, and let $U=\bigcup_i\operatorname{supp}(a_i)$. Then
+\[ \sum_{p\in U}\frac1p\ \ge\ \frac{k}{\lfloor k/2\rfloor}, \]
+so $|U|\ge m(k)$, the least $n$ with $T_n\ge k/\lfloor k/2\rfloor$, and $\prod_{p\in U}p\ge\Pi_{m(k)}$.
+Since $k/\lfloor k/2\rfloor\ge2$ always, with equality exactly for even $k$,
+\[ |U|\ \ge\ 59\quad\text{and}\quad \prod_{p\in U}p\ >\ 8.77\times10^{112} \]
+for a cycle of \emph{every} period.
+\end{proposition}
+\begin{proof}
+Rigidity gives $\gcd(a_i,a_i')=1$, and $a_{i+1}=a_i'$, so $a_i$ and $a_{i+1}$ are coprime. Hence for
+each prime $p$ the set $S_p=\{i:p\mid a_i\}$ contains no two cyclically consecutive indices, i.e.\ it
+is an independent set in the cycle graph $C_k$, and therefore $|S_p|\le\lfloor k/2\rfloor$.
+Consequently
+\[ \sum_{i}\sigma(a_i)\;=\;\sum_{p\in U}\frac{|S_p|}{p}\;\le\;\Bigl\lfloor\tfrac k2\Bigr\rfloor
+   \sum_{p\in U}\frac1p . \]
+The masses satisfy $\prod_i\sigma(a_i)=\prod_i a_{i+1}/a_i=1$, so $\sum_i\sigma(a_i)\ge k$ by AM--GM.
+Combining the two displays gives the claim, and $T$ is increasing.
+\end{proof}
+
+The bound is uniform rather than growing, and it is the union support that a search or a sieve sees.
+Odd periods are genuinely harder, even ones are not:
+\[
+\begin{array}{l|cccccccc}
+k & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\\hline
+k/\lfloor k/2\rfloor & 2 & 3 & 2 & 5/2 & 2 & 7/3 & 2 & 9/4\\
+m(k) & 59 & 361{,}139 & 59 & 1{,}413 & 59 & 400 & 59 & 231
+\end{array}
+\]
+so $m(9)<m(7)<m(5)$: the sequence is not monotone in $k$, and $m(k)=59$ \emph{exactly} for every
+even $k$, not merely in the limit. The consequence
+worth naming is that Theorem~\ref{thm:barrier} is not a statement about period two at all: every
+nontrivial cycle of the arithmetic derivative, of any length, carries at least $59$ primes and a
+product past $8.77\times10^{112}$. The barrier therefore bounds the whole of
+Ufnarovski--\AA hlander's Conjecture~3 and not merely its period--two case, which is \#307.
 
 \section{Local anatomy and a heuristic model}\label{sec:anatomy}
 
