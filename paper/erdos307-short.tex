@@ -1610,7 +1610,7 @@ $\mathbb{Z}[i]$: Leibniz holds for disjoint supports, so a cycle $(a,b)$ has $D(
 with $D(N)-2N=(a-b)^2$ and $2N-D(N)=\bigl(i(a-b)\bigr)^2$ (all verified exactly on the cycles found).
 The last equation exposes the wall: over $\mathbb{Z}[i]$, where $-1=i^2$ is a square, \emph{both}
 discriminant factors are squares automatically, and the plus/minus distinction of
-Proposition~13.13 of the full version (which over $\mathbb{Z}$ carries the entire obstruction, via
+Proposition~14.14 of the full version (which over $\mathbb{Z}$ carries the entire obstruction, via
 $(a-b)^2\ge0\Rightarrow\sigma(N)\ge2$) has no content. The unique non--transferring link is the
 sign--definiteness of squares: the barrier is, in the end, the \emph{formal reality} of $\mathbb{Q}$ in
 the sense of Artin--Schreier. (The two Artin--Schreier theorems thus bracket the problem: their
@@ -2586,7 +2586,7 @@ two--cycles to the strictly weaker one--equation (Pythagorean) problem.
 
 \textup{Formalised.} \texttt{Erdos307.pyth\_sum\_of\_squares} is $N'=a^2+b^2$ from Leibniz and the
 cycle, \texttt{pyth\_discriminant} the resulting square, \texttt{split\_identity} and
-\texttt{split\_product} the two--layer form of Proposition~13.13 of the full version, and
+\texttt{split\_product} the two--layer form of Proposition~14.14 of the full version, and
 \texttt{mass\_ge\_two\_of\_pythagorean} with \texttt{card\_ge\_59\_of\_pythagorean} this corollary,
 glued by \texttt{mass\_ge\_two\_of\_pyth\_support} into \texttt{emptytest}, which takes the
 Pythagorean equation itself rather than an assumed mass bound. Earlier editions proved the two ends
@@ -3023,6 +3023,32 @@ $361{,}139$: they are the same value of $c$. What looked like six separate barri
 mass--to--size dictionary, and the only mathematics specific to each row is the derivation of its
 $c$.
 \end{remark}
+
+\begin{proposition}[The barrier stratified by the smaller support]\label{prop:split}
+Let $(a,b)$ be a two--cycle and put $k=\min(\omega(a),\omega(b))$. Then
+\[ k=1\ \Rightarrow\ |U|\ge1413, \qquad k=2\ \Rightarrow\ |U|\ge69, \qquad
+   k\ge3\ \Rightarrow\ |U|\ge59, \]
+and the last is attained. Consequently every two--cycle with $|U|\le68$ has
+$\min(\omega(a),\omega(b))\ge3$.
+\end{proposition}
+\begin{proof}
+Write $T=T_{|U|}$. The supports are disjoint, so $\sigma(a)+\sigma(b)\le T$, and
+$\sigma(a)\le T_k$ for the member with $k$ primes. The product $x(T-x)$ is increasing for
+$x\le T/2$, so $\sigma(a)\sigma(b)\le m(T-m)$ with $m=\min(T_k,T/2)$, and $\sigma(a)\sigma(b)=1$
+forces $m(T-m)\ge1$. For $k\ge3$ one has $T_k\ge T_3=31/30>T/2$ in the relevant range, so $m=T/2$
+and the condition is $T\ge2$, i.e.\ $|U|\ge59$. For $k\le2$ one has $T_k<T/2$, so $m=T_k$ and the
+condition is $T\ge T_k+1/T_k$: at $k=1$, $T\ge2.5$ and $|U|\ge1413$; at $k=2$, $T\ge2.0333\ldots$ and
+$|U|\ge69$.
+\end{proof}
+
+The stratification is sharp at each end. At $k=1$ the member is a prime $p$, so $\sigma(b)=p\ge2$ and
+$b$ must carry mass $2$ on primes other than $p$, which needs $1412$ of them; at $k=2$ the best case
+is $a=6$, whence $\sigma(b)\ge6/5$ on primes $\ge5$, which needs $67$. This contains and extends
+Proposition~16 of \cite{Kovic2012}, that no two--cycle has both members a product of two primes: the
+present statement rules out \emph{either} member having two prime factors unless $|U|\ge69$, and
+either having one unless $|U|\ge1413$. Since Proposition~\ref{prop:close59} gives $|U|\ge60$, the
+window $60\le|U|\le68$ that any level--by--level search must cross admits only splits with both
+$\omega(a)\ge3$ and $\omega(b)\ge3$ \textup{(\texttt{code/split\_bound.gp})}.
 
 \begin{proposition}[The derivative cannot outgrow its own support]\label{prop:growth}
 Let $a_0\to a_1\to\dots\to a_L$ be an orbit segment of the arithmetic derivative with every $a_i$
