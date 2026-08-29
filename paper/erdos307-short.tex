@@ -767,8 +767,13 @@ Let $S$ be a finite set of primes, $D=\prod S$, $N=\sum_{p\in S}D/p$, $A=N+2D$, 
 $D<N$. Let $q$ be a prime with $q\nmid 2D$ for which $Aq+D$ and $Bq+D$ are both perfect squares. Then
 there are integers $m,c$ with $mc=4D$ and
 \[ q^2m^2-4Nq+c^2-4D=0, \qquad \bigl(qm^2-2N\bigr)^2=4\bigl(AB+Dm^2\bigr), \]
-so that $q=2(N\pm k)/m^2$ with $k^2=AB+Dm^2$ and $m\mid 4D$. In particular
-\[ q\ \le\ 4N. \]
+so that $q=2(N\pm k)/m^2$ with $k^2=AB+Dm^2$ and $m\mid 4D$. Moreover $m$ is \emph{even}, and
+consequently
+\[ q\ \le\ N. \]
+The extremal case is $m=2$, where $q$ is the larger root of $q^2-Nq+(D^2-D)=0$; writing
+$\sigma=\sigma(S)=N/D$ and $t=\tfrac12\bigl(\sigma+\sqrt{\sigma^2-4}\bigr)$, that root is
+$tD+O(1)$, so the largest admissible tail is the base times the very ratio $b/a$ that the mass
+forces. At level $59$ this is $9.207\times10^{112}=1.0497\,D$, a factor $7.63$ below $4N$.
 \end{proposition}
 
 \begin{proof}
@@ -781,15 +786,18 @@ other as $c$, so that $mc=4D$ and, in either case, $2x=qm+c$. Multiplying by $m$
 and squaring against $x^2=(N+2D)q+D$ gives
 $4m^2\bigl((N+2D)q+D\bigr)=q^2m^4+8Dqm^2+16D^2$. Substituting $16D^2=m^2c^2$ and cancelling $m^2>0$
 leaves $q^2m^2-4Nq+c^2-4D=0$; completing the square and using $AB=N^2-4D^2$ gives the second display.
-Finally $m\ge1$ and $c^2\ge0$ give $4Nq=q^2m^2+c^2-4D\ge q^2-4D$, so if $q\ge4N+1$ then
-$q^2\ge4Nq+q>4Nq+4D$ because $q>4N>4D$, a contradiction. Hence $q\le4N$.
+For the parity, $x+y$ and $x-y$ differ by $2y$ and so have equal parity; were both odd their
+product would be odd, whereas it is $4Dq$. Hence both are even, and as $q$ is odd, $m$ is even.
+Finally $m^2\ge4$ and $c^2\ge0$ give $4Nq=q^2m^2+c^2-4D\ge 4q^2-4D$, that is $Nq\ge q^2-D$; if
+$q\ge N+1$ then $q^2-Nq-D\ge q-D>0$ because $D<N<q$, a contradiction. Hence $q\le N$. (Using only
+$m\ge1$ in the last step gives $q\le4N$; the parity is what removes the factor four.)
 \end{proof}
 
 \begin{remark}[The Lehmer reading of the tail is withdrawn]\label{rem:notlehmer}
 Remark~\ref{rem:lehmer} below reads the surviving question as the primality of a term $q_n$ of the
 \emph{exponential} Pell orbit, and Remark~\ref{rem:whatisleft} names that orbit as the only live
 branch. Proposition~\ref{prop:tailbound} withdraws the reading. The orbit is genuinely infinite and
-both square conditions do hold along all of it; what fails is that no term past $4N$ can be prime.
+both square conditions do hold along all of it; what fails is that no term past $N$ can be prime.
 The single identity responsible is $A-B=4D$, which the earlier treatment used only to form the Pell
 system and never to factor $4Dq$.
 
@@ -800,7 +808,7 @@ $\{2(N\pm k)/m^2: m\mid 4D,\ k^2=AB+Dm^2\}$. So the second of the three gates is
 divisors of $4D$, not a primality question along an exponential sequence, and the classification of
 the residual difficulty as Lehmer--class rather than Schinzel--class does not survive. Checked sound
 \emph{and complete} against exhaustive search on $1200$ bases with zero mismatches, and stepped out
-along a real orbit, in \texttt{code/tailbound.gp}: on the base $D=1$, $N=7$ (bound $4N=28$) the orbit
+along a real orbit, in \texttt{code/tailbound.gp}: on the base $D=1$, $N=7$ (bound $N=7$) the orbit
 gives $q_1=7$ prime, then $q_2=741895$, $q_3=76921173511$, and every later term composite, with both
 square conditions holding throughout.
 
@@ -853,7 +861,7 @@ formalised.
 least point of a nonempty fiber at height $\exp\bigl(10^{112}\bigr)$ on regulator grounds, so its
 $q\approx x^2/A$ carries some $10^{112}$ digits, against a bound of $115$. Two independent estimates,
 one from divisor counting and one from the class--number formula, agree that no immune family admits
-a Pythagorean tail prime. Neither is a proof: the bound $q\le4N$ is proved, the emptiness is
+a Pythagorean tail prime. Neither is a proof: the bound $q\le N$ is proved, the emptiness is
 \textsc{heuristic}.
 
 Formalised in \texttt{lean/Erdos307/TailBound.lean} (\texttt{tail\_factor}, \texttt{tail\_quadratic},
@@ -901,7 +909,7 @@ to.
 \begin{remark}[The immune signal, and where its Lehmer reading broke]\label{rem:lehmer}
 Superseded by Proposition~\ref{prop:tailbound} and Remark~\ref{rem:notlehmer}: the orbit described
 here is real, but the inference that primality along it is the residual question is not, because the
-tail prime is bounded by $4N$. What follows is the orbit, the three gates, and the structural points
+tail prime is bounded by $N$. What follows is the orbit, the three gates, and the structural points
 that survive.
 
 For a reciprocity--immune base the Pell system of Remark~\ref{rem:tier60},
@@ -939,7 +947,7 @@ Proposition~\ref{prop:localcomplete}. Both observations are correct, and neither
 one. The factorisation that does exist is not of $x^2-D_S$ but of $x^2-y^2=4D_Sq$, available because
 $A_S-B_S=4D_S$ \emph{exactly}: the identity was used here only to build the Pell system, never
 multiplicatively. Proposition~\ref{prop:tailbound} draws it, and the ternary recurrence above then
-supplies no prime term past $q\le4N$.
+supplies no prime term past $q\le N$.
 
 Three nested gates separate an immune family from a solution: fiber nonemptiness, a tail prime, and
 the $k=0$ return. The first is a class--group condition, since Hasse supplies only rational points,

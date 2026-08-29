@@ -385,6 +385,8 @@ open Erdos307
 #print axioms tail_quadratic
 #print axioms tail_discriminant
 #print axioms tail_bound
+#print axioms tail_m_even
+#print axioms tail_bound_sharp
 #print axioms tail_finite
 #print axioms tail_value_sub_sq
 #print axioms tail_value_mod_dvd
