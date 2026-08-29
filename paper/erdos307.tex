@@ -2383,22 +2383,38 @@ Proposition~\ref{prop:close59}'s product bounds are proved in this paper and not
 
 \section{Status and questions}\label{sec:status}
 
-Erd\H{o}s~\#307 remains \textbf{open}. We have shown it is equivalent to the existence of a non--trivial
-two--cycle of the arithmetic derivative; established rigidity and a barrier
-(Rosen's $|P\cup Q|\ge59$, together with our $\min(\prod P,\prod Q)\ge2.09\times10^{56}$) that voids
-all direct search and improves the $n''=n$ record by $\sim47$ orders of magnitude; given a parity
-dichotomy, a proof that longer cycles are strictly harder, an Erd\H{o}s--Wintner density theorem, and
-a function--field theorem localising the obstruction to the archimedean place; developed an exact
-Th\=abit/Euler--type constructive calculus and a bilinear breeder form whose central obstruction we
-identify precisely, and extracted the maximal
-honest consequence of the construction; a conditional reduction $(\mathrm{H})\Rightarrow$
-\textsc{yes} to an explicit prime--density hypothesis, together with a quantitative ledger showing
-that $(\mathrm{H})$ is \emph{not} a feasible finite search (the supply--demand conflict through
-$K=GN^2+c^2$ keeps the expected certificate count per reachable frame below $1$). The
-rigidity result and the barrier are fully Lean--verified (extremality proved, not assumed), and the
-finite verification of Proposition~\ref{prop:close59} sharpens the barrier to $|P\cup Q|\ge60$,
-$\min(\prod P,\prod Q)>3.50\times10^{57}$. The heuristics weakly favour \textsc{yes} (existence), hence weakly against
-the period--one Ufnarovski--\AA hlander conjecture, but we claim no proof in either direction.
+Erd\H{o}s~\#307 remains \textbf{open}. It is Conjecture~4 of Ufnarovski--\AA hlander
+\cite{UfnarovskiAhlander2003}, so it is equivalent to the existence of a non--trivial two--cycle of
+the arithmetic derivative and has been open in that literature since $2003$ under another name. We
+establish rigidity and a barrier, $|P\cup Q|\ge60$ with $\min(\prod P,\prod Q)>3.50\times10^{57}$,
+which voids all direct search; it appears to be the first valid unconditional bound of its kind,
+the only prior candidate resting on an invalid step (Section~\ref{sec:prior}). The rigidity result
+and the barrier are Lean--verified, extremality proved rather than assumed.
+
+The barrier is one instance of a single inequality. Writing $n(c)=\min\{n:T_n\ge c\}$,
+\[ \sum_{p\in U}1/p\ \ge\ c\ \Longrightarrow\ |U|\ge n(c),\qquad \prod_{p\in U}p\ \ge\ \Pi_{n(c)}, \]
+and the arithmetic of each result enters only in producing its $c$ (Remark~\ref{rem:dictionary}).
+Read in the size it gives the double--logarithmic frontier law
+(Proposition~\ref{prop:frontier}); in the near--miss ratio, the cost family
+(Corollary~\ref{cor:cost}), whose endpoint at $r=1$ is the barrier and which shows $a''\ge2a$ needs
+$37{,}963$ primes; in the period, that the barrier is uniform in $k$, so it bounds the whole of
+Ufnarovski--\AA hlander's Conjecture~3 and not only \#307 (Proposition~\ref{prop:kuniform}); in the
+orbit length, that the derivative cannot outgrow its own support
+(Proposition~\ref{prop:growth}); in the split, that $\min(\omega(a),\omega(b))\ge3$ whenever
+$|U|\le68$ (Proposition~\ref{prop:split}); and in the level, the forced core and the ceiling that
+pin level $59$ from both sides and yield its admissible count $49{,}961$ in closed characterisation
+(Propositions~\ref{prop:window},~\ref{prop:band}, Corollary~\ref{cor:count59}). The algebraic cores
+of these are Lean--verified (\texttt{Dictionary.lean}).
+
+On the constructive side we give a Th\=abit/Euler--type calculus and a bilinear breeder whose
+candidate $q$ is always integral (Proposition~\ref{prop:bdeint}), a conditional reduction
+$(\mathrm{H})\Rightarrow$\textsc{yes}, and a quantitative ledger showing $(\mathrm{H})$ is not a
+feasible finite search. No fixed--shape family of any growth rate can parametrise \#307
+(Proposition~\ref{prop:nofamily}), which closes the Th\=abit/Euler programme rather than only its
+polynomial shadow. We also give a parity dichotomy, an Erd\H{o}s--Wintner density theorem, and a
+function--field theorem localising the obstruction to the archimedean place. The heuristics favour
+\textsc{yes}, and the model behind them survives a second--moment test
+(Proposition~\ref{prop:anticorr}); we claim no proof in either direction.
 
 Open problems: (i) close the residual $3{,}478$ single--tail families at level $60$, and close the
 pair sector of Proposition~\ref{prop:sectors}; for which Proposition~\ref{prop:pairlocal} rules
