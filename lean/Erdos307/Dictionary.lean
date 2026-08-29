@@ -86,4 +86,32 @@ the exceptional prime has `1/q > 2 - T`. Finiteness of the level is exactly `T <
 theorem band_bound {T q total : ℝ} (_hq : 0 < q) (htot : 2 < total)
     (hsplit : total ≤ T + 1 / q) : 2 - T < 1 / q := by linarith
 
+/-- **The band at a general constant.** `prop:band` was stated at `c = 2`; the argument uses only
+that all but one prime carry at most `T`. This is `prop:levelstructure`'s ceiling. -/
+theorem band_bound_general {c T q total : ℝ} (htot : c ≤ total) (hsplit : total ≤ T + 1 / q) :
+    c - T ≤ 1 / q := by linarith
+
+/-- **The forced core.** If `p` is absent from the support, extremality caps the support's mass at
+`Tnext - 1/p`, so carrying mass at least `c` forces `1/p ≤ Tnext - c`. Contrapositively, every
+prime with `1/p > Tnext - c` lies in the support. This is `prop:window`'s second half at a general
+constant, hence `prop:levelstructure`'s core. -/
+theorem forced_prime {c Tnext p total : ℝ} (hmax : total ≤ Tnext - 1 / p) (hmass : c ≤ total) :
+    1 / p ≤ Tnext - c := by linarith
+
+/-- **The threshold pushes the level.** `x + 1/x` is strictly increasing above `1`, so a mass
+`σ(a) > t` forces the union mass past `t + 1/t`. With `t = t_n` solving `t + 1/t = T_n`, this is
+`prop:barthreshold`: exceeding `t_n` forces `|U| ≥ n+1` by extremality. -/
+theorem threshold_pushes {sa sb t : ℝ} (ht1 : 1 < t) (hgt : t < sa) (hprod : sa * sb = 1) :
+    t + 1 / t < sa + sb := by
+  have ht0 : (0 : ℝ) < t := lt_trans one_pos ht1
+  have hsa : (0 : ℝ) < sa := lt_trans ht0 hgt
+  have hb : sb = 1 / sa := by field_simp; linear_combination hprod
+  subst hb
+  have hsat : (1 : ℝ) < sa * t := by nlinarith [hgt, ht1, ht0]
+  have key : (sa + 1 / sa) - (t + 1 / t) = (sa - t) * (sa * t - 1) / (sa * t) := by
+    field_simp; ring
+  have hpos : 0 < (sa - t) * (sa * t - 1) / (sa * t) :=
+    div_pos (mul_pos (by linarith) (by linarith)) (mul_pos hsa ht0)
+  linarith [key, hpos]
+
 end Erdos307.Dictionary

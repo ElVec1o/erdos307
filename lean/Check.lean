@@ -214,6 +214,9 @@ open Erdos307
 #print axioms Erdos307.Dictionary.mass_window
 #print axioms Erdos307.Dictionary.uniform_from_multiplicity
 #print axioms Erdos307.Dictionary.band_bound
+#print axioms Erdos307.Dictionary.band_bound_general
+#print axioms Erdos307.Dictionary.forced_prime
+#print axioms Erdos307.Dictionary.threshold_pushes
 #print axioms no_family_of_any_shape
 #print axioms dvd_sum_erase_iff
 #print axioms Q_determined
