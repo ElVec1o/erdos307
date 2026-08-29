@@ -2957,7 +2957,7 @@ constant of Theorem~\ref{thm:barrier}, recovered here from the frontier side rat
 cycle equations. The two derivations are independent and agree to all printed digits.
 
 \begin{corollary}[The cost of a near--miss; the barrier as a function of $r$]\label{cor:cost}
-For $0<r\le1$ put $n(r)=\min\{n:T_n\ge2\sqrt r\}$. Every squarefree $a$ with $r(a)\ge r$ has
+For $r>0$ put $n(r)=\min\{n:T_n\ge2\sqrt r\}$. Every squarefree $a$ with $r(a)\ge r$ has
 $|U|\ge n(r)$, hence $aa'\ge\Pi_{n(r)}$ and
 \[ \min(a,a')\ \ge\ \sqrt{\Pi_{n(r)}/T_{n(r)}}. \]
 \end{corollary}
@@ -2984,6 +2984,43 @@ $\log\log p_n$. It also explains the shape of the swept data. The record $r=0.55
 $\min(a,a')\ge1.2\times10^{4}$ and was found at $a=3{,}972{,}254$; the next decade of $r$ costs four
 decades of $a$, and by $r=0.7$ the requirement has passed $10^{9}$, beyond any sweep that has been
 run.
+
+The restriction $r\le1$ is not used in the proof, and above $1$ the corollary says how expensive it
+is for the second derivative to \emph{exceed} its argument:
+\[
+\begin{array}{l|cccccc}
+r & 1 & 1.03944 & 1.25 & 1.5 & 2 & 9/4\\\hline
+n(r) & 59 & 71 & 212 & 940 & 37{,}963 & 361{,}139\\
+\min(a,a')\ge & 10^{56.3} & 10^{71.3} & 10^{274.8} & 10^{1579.7} & 10^{98275.7} & 10^{1127769.3}
+\end{array}
+\]
+So $a''\ge2a$ forces a union support of $37{,}963$ primes and $\min(a,a')>10^{98275}$: the second
+derivative cannot double its argument except at wholly inaccessible size. The witness of
+Theorem~\ref{thm:lyapfalse}, with $r=1.03944$, needs $|U|\ge71$ and $\min\ge10^{71.3}$, and its $142$
+digits supply both.
+
+\begin{remark}[One inequality, six barriers]\label{rem:dictionary}
+Corollary~\ref{cor:cost} and Propositions~\ref{prop:kuniform} and~\ref{prop:twoparam} are the same
+statement read at different constants. Every barrier in this note is an instance of
+\[ \sum_{p\in U}\frac1p\ \ge\ c \quad\Longrightarrow\quad |U|\ \ge\ n(c),\qquad \prod_{p\in U}p\ \ge\
+\Pi_{n(c)}, \]
+with $n(c)=\min\{n:T_n\ge c\}$, and the arithmetic enters only in producing $c$:
+\[
+\begin{array}{l|c|c|l}
+\text{configuration} & c & n(c) & \text{recorded as}\\\hline
+\text{near--miss ratio }r & 2\sqrt r & \text{varies} & \text{Corollary~\ref{cor:cost}}\\
+r=1,\ \text{i.e.\ a two--cycle} & 2 & 59 & \text{Theorem~\ref{thm:barrier}}\\
+k\text{--cycle} & k/\lfloor k/2\rfloor & 59\ (k\text{ even}) & \text{Proposition~\ref{prop:kuniform}}\\
+\text{three--cycle} & 3 & 361{,}139 & \text{Proposition~\ref{prop:kcycles}}\\
+\text{all--odd, }\min U\ge3 & 2\ \text{on }p\ge3 & 1{,}412 & \text{Theorem~\ref{thm:parity}}\\
+a''\ge2a & 2\sqrt2 & 37{,}963 & \text{above}
+\end{array}
+\]
+The coincidence $2\sqrt{9/4}=3=c(3)$ is why $r=9/4$ and the three--cycle carry the identical bound
+$361{,}139$: they are the same value of $c$. What looked like six separate barriers is one
+mass--to--size dictionary, and the only mathematics specific to each row is the derivation of its
+$c$.
+\end{remark}
 
 The region is not unreachable, only unsweepable. The witness $n_0$ of
 Theorem~\ref{thm:lyapfalse} has $n_0$ and $n_0'$ both squarefree and

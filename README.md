@@ -129,7 +129,7 @@ heuristic has no empirical support and cannot acquire any. **No proof either way
 ## Layout
 
 ```
-paper/   erdos307.tex, erdos307.pdf   — the note (101 pp; self-contained bibliography)
+paper/   erdos307.tex, erdos307.pdf   — the note (102 pp; self-contained bibliography)
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md
 certs/   independently checkable ECPP primality certificates: the immune families, and the
