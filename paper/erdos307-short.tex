@@ -2047,8 +2047,19 @@ generalisation is of the same shape. A member $3\cdot2^{n}-1$ is positive and te
 it satisfies the hypotheses above and the family is excluded. Proposition~\ref{prop:nofamily}
 therefore closes the whole Th\=abit/Euler programme for \#307, not merely its polynomial shadow: no
 fixed--shape rule of any growth rate can generate solutions, and the constructive calculus of
-Section~\ref{sec:frame} is not failing for want of a cleverer ansatz. Formalised as
-\texttt{Erdos307.no\_family\_of\_any\_shape}, three standard axioms.
+Section~\ref{sec:frame} is not failing for want of a cleverer ansatz.
+
+Two limits on the statement should be read with it. The hypothesis that the families have
+\emph{fixed} cardinality is used, in the splitting into constants plus a remainder tending to $0$, and
+a family whose support grows with $t$ is not covered; that gap is real, and harmless, since a growing
+support is a growing number of simultaneous primality demands rather than a weaker one. And
+positivity is a genuine hypothesis, not a consequence, for the reason recorded in
+Remark~\ref{rem:nopolyerratum}. Formalised as \texttt{Erdos307.no\_family\_of\_any\_shape} on three
+standard axioms, in the same shape as Proposition~\ref{prop:nopoly}: the abstract core is proved, and
+the two facts the family supplies --- that each nonconstant member contributes a strictly positive
+reciprocal and that the remainders tend to $0$ --- enter as hypotheses rather than being derived, so
+what is imported stays visible. The theorem's statement quantifies over arbitrary index types and
+arbitrary $f_P:\mathbb{N}\to\iota\to\mathbb{R}$; no polynomial occurs anywhere in it.
 
 \begin{remark}[Erratum: positivity is a hypothesis, not a consequence]\label{rem:nopolyerratum}
 Earlier versions asked only that each polynomial take prime values for infinitely many integers $t$,
