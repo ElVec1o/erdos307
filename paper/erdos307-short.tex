@@ -49,8 +49,15 @@ every $n''=n$--cycle has period one would force \#307 to have answer \textsc{no}
 \textsc{yes} would refute it. Exploiting the equivalence we prove a \emph{rigidity lemma} (each prime--reciprocal
 sum is automatically in lowest terms, so $N_P=D_Q$, $N_Q=D_P$, and $P\cap Q=\varnothing$) and a
 quantitative \emph{barrier}: building on Rosen's bound $|P\cup Q|\ge 59$, any solution has
-$\min(\prod P,\prod Q)\ge 2.09\times10^{56}$, improving the best published lower bound for $n''=n$
-solutions by about $47$ orders of magnitude. A finite verification over the complete list of
+$\min(\prod P,\prod Q)\ge 2.09\times10^{56}$, for \emph{both} members. This is the first valid
+unconditional bound of its kind. The prior claims are Kovi\v{c}'s: his Proposition~17 is sound but
+conditional on the smaller member being odd, while Proposition~18 --- the only unconditional
+cardinality and size bound in the literature, giving $r+s\ge34$ and
+$\max\{m,n\}\ge\prod_{i\le17}p_i$ --- rests on an invalid step, deriving $p_1q_s<rs$ by multiplying
+an upper bound against a lower one, where the available products give only $p_1q_1<rs<p_rq_s$ and no
+cardinality bound at all; we give an explicit model and machine--check both points. Against the
+strongest surviving unconditional bound, that paper's computer search $x>10^4$, the gain is $52$
+orders of magnitude. A finite verification over the complete list of
 $49{,}961$ admissible $59$--prime supports then closes the $59$--prime level: any solution in fact
 has $|P\cup Q|\ge 60$ and $\min(\prod P,\prod Q)>3.50\times10^{57}$; a quadratic--reciprocity
 certificate, requiring no factorisation, then proves the canonical tail family (the first $59$
@@ -64,17 +71,15 @@ that the abundance density $0.0420$ is a genuine constant, and a Th\=abit/Euler-
 calculus (the \emph{Frame
 Rule} and a divisor--trick) that faithfully parametrises solutions but, by an exact identity
 $\Delta_0=M_0N(1-s_{M_0}s_N)$, provably does \emph{not} reduce the difficulty below \#307 itself
-(the natural ``make $\Delta_0$ small'' objective is \#307 in disguise). Recast as a bilinear breeder,
-the rule yields the maximal honest consequence (a conditional reduction $(\mathrm{H})\Rightarrow$
-\textsc{yes} to an explicit prime--density hypothesis) which a quantitative ledger shows is
-\emph{not} a feasible finite search. On the counting side we prove that both Pythagorean layers have density zero
+(the natural ``make $\Delta_0$ small'' objective is \#307 in disguise). Recast as a bilinear breeder it yields a conditional reduction
+$(\mathrm{H})\Rightarrow$\textsc{yes} to an explicit prime--density hypothesis, which a quantitative
+ledger shows is not a feasible finite search. On the counting side we prove that both Pythagorean layers have density zero
 unconditionally \emph{on the squarefree stratum}, which is where every tool in the proof lives and
 where a \#307 solution lies by rigidity; the unrestricted statement is not proved. Both Pythagorean layers have density zero on the squarefree stratum by a square--sieve argument; that argument, its conditional rate and the three obstructions to the sharp exponent $N^{1/2}$ are given in the full version and are not reproduced here. The $34$ reciprocity-immune families at
 level $60$ are upgraded from probable to proved by Atkin--Morain certificates, archived for
 independent verification. The rigidity result, the barrier, and the arithmetic core of the counting
-argument are formalised in Lean~4 (mathlib), the smallest--primes extremality being proved rather
-than assumed; the only non--logical input is a verified evaluation of the first $59$ primes. The
-problem remains open. The heuristic case for existence is weaker than it appears: the constant in
+argument are formalised in Lean~4 (mathlib), extremality proved rather than assumed; the only
+non--logical input is a verified evaluation of the first $59$ primes. The problem remains open. The heuristic case for existence is weaker than it appears: the constant in
 the expected-count heuristic cannot be measured even in principle, since the barrier places the
 entire relevant region above $10^{112.9}$ while the largest value of $\sigma(a)\sigma(a')$ observed
 below $10^{7}$ is $0.5535$.
