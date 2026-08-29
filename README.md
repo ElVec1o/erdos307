@@ -33,11 +33,22 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
 
 ## What the paper establishes
 
+- **An erratum in the standard reference.** Kovič (2012, *J. Integer Seq.* **15**, Art. 12.3.8),
+  Prop. 18 claims `r + s ≥ 34` and `max{m,n} ≥ 1.92 × 10²¹` for two-cycles. The proof multiplies an
+  *upper* bound on `m` against a *lower* bound on `n`; the directions don't compose. Its own bounds
+  yield exactly `p₁q₁ < rs < p_r q_s`, from which no cardinality bound follows. Explicit model in
+  [`code/kovic_prop18_audit.gp`](code/kovic_prop18_audit.gp), machine-checked in
+  [`lean/Erdos307/KovicProp18.lean`](lean/Erdos307/KovicProp18.lean). The *inference* is refuted, not
+  the *statement* — which is true, but as a corollary of the barrier below. Consequence: `|P ∪ Q| ≥ 60`
+  appears to be the **first** valid cardinality bound for arithmetic-derivative two-cycles.
+
 - **Rigidity.** `Σ 1/p` is automatically in lowest terms, forcing `N_P = D_Q`, `N_Q = D_P`,
   `P ∩ Q = ∅` (Lean-formalized).
-- **Barrier.** Any solution has `|P ∪ Q| ≥ 59` and `min(∏P, ∏Q) ≥ 2.09 × 10⁵⁶`, improving the best
-  published `n″ = n` bound (Kovič 2012, Prop. 18: `max{m,n} ≥ 1.92 × 10²¹`, and `r + s ≥ 34`) by
-  ~35 orders of magnitude, and from one member to both — so all direct search is void. **This barrier is
+- **Barrier.** Any solution has `|P ∪ Q| ≥ 59` and `min(∏P, ∏Q) ≥ 2.09 × 10⁵⁶`, for **both**
+  members, unconditionally — improving the strongest valid unconditional `n″ = n` bound in the
+  literature (Kovič 2012's computer search, `x > 10⁴`) by ~52 orders of magnitude, and the
+  conditional Kovič Prop. 17 (`3.23 × 10⁹`, when the smaller member is odd) by ~47. So all direct
+  search is void. **This barrier is
   fully machine-checked in Lean 4** (`erdos307_barrier_closed`, no extremality hypothesis, and no
   `native_decide`: the numeral bridge is kernel-checked). A finite verification over the complete
   list of 49,961 admissible 59-prime supports then **proves** `|P ∪ Q| ≥ 60`
@@ -110,7 +121,7 @@ heuristic has no empirical support and cannot acquire any. **No proof either way
 ## Layout
 
 ```
-paper/   erdos307.tex, erdos307.pdf   — the note (93 pp; self-contained bibliography)
+paper/   erdos307.tex, erdos307.pdf   — the note (94 pp; self-contained bibliography)
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md
 certs/   independently checkable ECPP primality certificates: the immune families, and the
@@ -123,7 +134,7 @@ hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, w
 
 - **Paper:** `cd paper && pdflatex erdos307.tex` twice (for cross-references). No BibTeX run needed.
 - **Lean:** `cd lean && lake exe cache get && lake build` (Lean / mathlib `v4.30.0`). Then
-  `lake env lean Check.lean` prints the axiom dependencies of 332 declarations across all 40 modules
+  `lake env lean Check.lean` prints the axiom dependencies of 335 declarations across all 41 modules
   — everything depends only on `propext, Classical.choice, Quot.sound` (no `sorryAx`), with exactly
   one exception: `erdos307_sixty`, which additionally carries the `native_decide` axiom of `dfs_run`.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)

@@ -150,16 +150,18 @@ The bridge is productive in both directions.
 two--cycle has squarefree members with disjoint supports \cite{UfnarovskiAhlander2003} makes the
 ``finite sets of distinct primes'' hypothesis of \#307 automatic, and links \#307 to the
 Ufnarovski--\AA hlander conjecture that all derivative cycles have period one.
-\item \emph{Exporting} to that literature: our barrier (Theorem~\ref{thm:barrier}) improves the
-known bounds on an $n''=n$ solution. Kovi\v{c} \cite{Kovic2012} proves two, and we compare against
-the stronger. His Proposition~17 gives $>3\cdot5\cdots29\approx3.23\times10^9$ on the \emph{odd}
-member; his Proposition~18 gives $r+s\ge34$ and, for \emph{at least one} member, the bound
-$\prod_{i=1}^{17}p_i\approx1.92\times10^{21}$. Against the latter, $\min(\prod P,\prod Q)\ge
-2.09\times10^{56}$ is a gain of $35.0$ orders of magnitude, and it is a gain in kind as well as in
-size: it bounds \emph{both} members, not one. On cardinality, Kovi\v{c}'s Proposition~18 is the
-antecedent of our $|U|\ge60$: he obtains $r+s\ge34$ unconditionally, and $r+s\ge57$ under the extra
-hypothesis $\min\{p_1,q_1\}\ge3$, which \#307 does not supply. Our $|U|\ge60$ is unconditional. The
-two arguments are independent --- his runs through $p_1q_s<rs$, ours through $\sum_{p\in U}1/p>2$.
+\item \emph{Exporting} to that literature: our barrier (Theorem~\ref{thm:barrier}) is, we believe,
+the first valid unconditional bound of its kind, and establishing that required auditing what was
+already there. Kovi\v{c} \cite{Kovic2012} states three bounds on an $n''=n$ solution. A computer
+search gives $x>10^4$, unconditionally. Proposition~17 gives $>3\cdot5\cdots29\approx3.23\times10^9$,
+but only when the \emph{smaller} member is odd; Kovi\v{c} notes explicitly that no estimate follows
+otherwise. Proposition~18 claims the unconditional $r+s\ge34$ and $\max\{m,n\}\ge\prod_{i=1}^{17}p_i
+\approx1.92\times10^{21}$; its proof does not establish them, for the reason set out in
+Section~\ref{sec:prior}. Against the strongest \emph{valid unconditional} bound, $10^4$, our
+$\min(\prod P,\prod Q)\ge2.09\times10^{56}$ is a gain of $52$ orders of magnitude; against the
+conditional Proposition~17 it is $47$, in the case where that proposition applies. On cardinality
+there is no prior bound to improve: $|U|\ge60$ appears to be the first, and it re-derives
+Kovi\v{c}'s claimed $r+s\ge34$ as a corollary by an unrelated route.
 \end{itemize}
 
 \paragraph{Results and organisation.}
@@ -346,9 +348,13 @@ For any solution $(P,Q)$ of \#307, with $U=P\cup Q$:
 2.0929\ldots\times10^{56}$, where $T_{59}=\sum_{i=1}^{59}1/p_i=2.00235\ldots$. In particular both
 $\prod P$ and $\prod Q$ exceed $2.09\times10^{56}$.
 \end{enumerate}
-Consequently every $n''=n$ solution has both members $>2.09\times10^{56}$, improving the strongest
-bound of \cite{Kovic2012} (Proposition~18, $\max\{m,n\}\ge\prod_{i=1}^{17}p_i\approx1.92\times
-10^{21}$) by $35.0$ orders of magnitude, and improving it from one member to both.
+Consequently every $n''=n$ solution has both members $>2.09\times10^{56}$. The strongest valid
+unconditional bound previously available is the computer search $x>10^4$ of \cite{Kovic2012}, so this
+is a gain of $52$ orders of magnitude; against the conditional Proposition~17 of that paper
+($3.23\times10^9$, when the smaller member is odd) it is $47$. The unconditional $r+s\ge34$ and
+$\max\{m,n\}\ge1.92\times10^{21}$ claimed in Proposition~18 of \cite{Kovic2012} are not established
+by their proof (Section~\ref{sec:prior}); the bound above does not rely on them and in fact implies
+the first.
 \end{theorem}
 
 \begin{proof}
@@ -2190,20 +2196,51 @@ $s$--analogue of the Ufnarovski--\AA hlander conjecture, posed independently of 
 globally, e.g.\ $s(p^\alpha)=p^{\alpha-1}$, but $s=n'$ on squarefree integers, where both two--cycle
 questions live.)
 
-\paragraph{Kovi\v{c} (2012), Proposition~18 \cite{Kovic2012}.}
-A third item, older than both and not noticed at drafting. Kovi\v{c} bounds the two--cycle system
-$n'=m$, $m'=n$ from the inequalities $p_1q_s<rs$ and $q_1p_r<rs$, where $r=\omega(n)$, $s=\omega(m)$,
-obtaining $r+s\ge34$ unconditionally, $r+s\ge57$ if $\min\{p_1,q_1\}\ge3$, $r+s\ge110$ if
-$\min\{p_1,q_1\}\ge5$, and hence $\max\{m,n\}\ge\prod_{i=1}^{17}p_i\approx1.92\times10^{21}$. This is
-the true antecedent of our Theorem~\ref{thm:barrier}, and it is stronger than the Proposition~17
-bound $\approx3.23\times10^9$ that we had cited as the comparison point; the introduction now
-compares against Proposition~18. Our contribution over it is threefold: $|U|\ge60$ unconditionally
-rather than $34$ (and without his $\min\{p_1,q_1\}\ge3$, which \#307 does not supply); the product
-bound on \emph{both} members rather than one; and $35.0$ orders of magnitude in that bound. The
-arguments are independent: his is a two--sided size comparison between a squarefree number and its
-derivative, ours is $\sum_{p\in U}1/p=s+t>2$ by AM--GM followed by a prime--counting minimality
-argument. We claim no priority for the \emph{existence} of a cardinality barrier, only for its
-value and its unconditionality.
+\paragraph{Kovi\v{c} (2012), Propositions~17 and~18 \cite{Kovic2012}.}
+A third item, older than both and not examined at drafting. We had cited Proposition~17 as the
+comparison point for Theorem~\ref{thm:barrier}. Reading the paper directly turned up Proposition~18,
+which claims strictly more --- the unconditional $r+s\ge34$, with $r+s\ge57$ if $\min\{p_1,q_1\}\ge3$
+and $r+s\ge110$ if $\min\{p_1,q_1\}\ge5$, together with $p_1<r$, $q_1<s$ and
+$\max\{m,n\}\ge\prod_{i=1}^{17}p_i\approx1.92\times10^{21}$. We record why we do not treat it as
+prior art for the cardinality bound.
+
+The proof opens with two correct pairs of bounds, which after substituting $n'=m$, $m'=n$ read
+\[ \text{(A)}\quad \frac{rn}{p_r}<m<\frac{rn}{p_1}, \qquad\qquad
+   \text{(B)}\quad \frac{sm}{q_s}<n<\frac{sm}{q_1}, \]
+and continues ``Hence: $p_1q_s<rs$ and $q_1p_r<rs$.'' Those two carry everything downstream, via
+$2\max\{p_r,q_s\}<N^2/4$ against $\max\{p_r,q_s\}\ge P_N$. But multiplying inequalities is sound only
+when the directions agree, and from (A) and (B) exactly two products are available:
+\[ \text{upper}\times\text{upper}:\ p_1q_1<rs, \qquad
+   \text{lower}\times\text{lower}:\ rs<p_rq_s. \]
+The asserted $p_1q_s<rs$ pairs an upper bound on $m$, which carries $p_1$, with a lower bound on $n$,
+which carries $q_s$; the directions do not compose. Nor is the step recoverable. Writing
+$\sigma(n)=n'/n$, the cycle says precisely that $\sigma(n)\in(r/p_r,\,r/p_1)$ and that
+$\sigma(m)=1/\sigma(n)\in(s/q_s,\,s/q_1)$, i.e.\ that $\sigma(n)$ lies in
+$(r/p_r,\,r/p_1)\cap(q_1/s,\,q_s/s)$. Nonemptiness of that intersection is equivalent to the
+conjunction of the two valid products above and to nothing further, whereas $p_1q_s<rs$ is
+$q_s/s<r/p_1$, a comparison of the two \emph{upper} endpoints, which nonemptiness never constrains.
+Accordingly $\prod_{i=1}^{17}p_i$ falls with $r+s\ge34$: it is $r+s\ge34$ that supplies the $17$.
+Two arithmetic slips sit in the same proposition: Table~2 lists $P_{11}=27$, and the displayed
+``product of the first $17$ primes'' is printed with $27$ in place of $29$.
+
+An explicit model is in \texttt{code/kovic\_prop18\_audit.gp}: with
+$n=2\cdot5\cdot13\cdot37\cdot53\cdot73\cdot79\cdot89\cdot97\cdot101$ and
+$m=3\cdot7\cdot19\cdot31\cdot43\cdot59\cdot67\cdot71\cdot83\cdot103$, squarefree with disjoint
+supports and $r=s=10$, all four inequalities of (A) and (B) hold while $p_1q_s=206>100=rs$ and
+$q_1p_r=303>100$. The valid products and the invalidity of the step are machine--checked in
+\texttt{lean/Erdos307/KovicProp18.lean}.
+
+What is refuted is the \emph{inference}, not the \emph{statement}. No two--cycle is known, so no
+counterexample to $r+s\ge34$ can be exhibited and none is claimed; the conclusion is unproven rather
+than false, and it is in fact true, since Theorem~\ref{thm:barrier} gives $|U|\ge60$ by a route that
+touches none of this. Proposition~17, by contrast, is sound, and so is Proposition~16; but
+Proposition~17 assumes the \emph{smaller} member is odd, and Kovi\v{c} observes that no estimate
+follows when it is even, so it is a conditional bound. The consequence for the record is that the
+strongest valid unconditional bound in the prior literature is the computer search $x>10^4$, that
+Theorem~\ref{thm:barrier} improves it by $52$ orders of magnitude, and that $|U|\ge60$ is, as far as
+we can determine, the first valid cardinality bound for arithmetic--derivative two--cycles rather
+than an improvement on an earlier one. We note this without any suggestion that the gap diminishes
+\cite{Kovic2012}, which remains the standard reference and whose Propositions~16 and~17 we use.
 
 \paragraph{Bado (preprint, Aix--Marseille, 2026) \cite{Bado2026}.}
 Working with $A(S)=\sum_{p\in S}M(S)/p$ and $M(S)=\prod_{p\in S}p$ (our $N_S,D_S$), Bado independently

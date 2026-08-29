@@ -38,3 +38,4 @@ import Erdos307.LevelBarrier
 import Erdos307.DivisorSum
 import Erdos307.StratumM30
 import Erdos307.StratumGeneral
+import Erdos307.KovicProp18

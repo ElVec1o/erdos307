@@ -15,6 +15,7 @@ import Erdos307.HalfLyap
 import Erdos307.InfZero
 import Erdos307.Injective
 import Erdos307.Ladder
+import Erdos307.KovicProp18
 import Erdos307.LevelBarrier
 import Erdos307.LiveSlot
 import Erdos307.LocalComplete
@@ -373,6 +374,9 @@ open Erdos307
 #print axioms stratum_sigma_lt
 #print axioms stratum_sigma_defect
 #print axioms stratum_M30
+#print axioms Erdos307.KovicProp18.kovic_valid
+#print axioms Erdos307.KovicProp18.kovic_step_invalid
+#print axioms Erdos307.KovicProp18.kovic_step_invalid'
 #print axioms Erdos307.StratumGeneral.stratum_sigma_lt_general
 #print axioms Erdos307.StratumGeneral.stratum_sigma_mul
 #print axioms Erdos307.StratumGeneral.stratum_sigma_defect_general

@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**59 of 109** labelled results are named by a Lean file in `Erdos307/` (40 files, **0 `sorry`**).
+**59 of 109** labelled results are named by a Lean file in `Erdos307/` (41 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **332 declarations across all 40 modules**. Everything is on the
+`lake env lean Check.lean` probes **335 declarations across all 41 modules**. Everything is on the
 three standard axioms or fewer, with exactly two exceptions: `dfs_run`, the pruned-search execution
 that closes level 60, and the `erdos307_sixty` that consumes it. The numeral bridge is
 kernel-checked, so `card_ge_59` and `erdos307_barrier_closed` carry no `native_decide`.
