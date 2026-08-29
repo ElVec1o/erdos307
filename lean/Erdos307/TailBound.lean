@@ -139,6 +139,17 @@ theorem tail_m_even {D q m c x : ℤ} (hq : q % 2 = 1)
      by rw [← hmc, hj, hc]; ring⟩
   omega
 
+/-- **The `α`-form of the discriminant.** With `m = 2α`, `c = 2β` and `αβ = D`, the tail equation
+`q²m² - 4Nq + c² - 4D = 0` becomes `α²q² - Nq + (β² - D) = 0`, whose discriminant identity is the
+following. At `α = 1` it reads `(2q - N)² = N² - 4D² + 4D`, which is the sharp bound of
+`prop:tailbound`: the largest tail is `tD + O(1)` with `t = (σ + √(σ²-4))/2`, `σ = N/D`. -/
+theorem tail_discriminant_alpha {D N q a b : ℤ} (hab : a * b = D)
+    (heq : a ^ 2 * q ^ 2 - N * q + (b ^ 2 - D) = 0) :
+    (2 * a ^ 2 * q - N) ^ 2 = N ^ 2 - 4 * D ^ 2 + 4 * a ^ 2 * D := by
+  have h : a ^ 2 * q ^ 2 = N * q - b ^ 2 + D := by linarith
+  have hD : D ^ 2 = a ^ 2 * b ^ 2 := by rw [← hab]; ring
+  nlinarith [h, hD, sq_nonneg (a * q)]
+
 /-- **The sharpened bound.** With `m ≥ 2`, which `tail_m_even` supplies, the same identity gives
 `q ≤ N` in place of the recorded `q ≤ 4N` -- a factor of four. The proof is the recorded one with
 `m² ≥ 4` in place of `m² ≥ 1`: `4Nq = q²m² + c² - 4D ≥ 4q² - 4D`, so `Nq ≥ q² - D`, and `q ≥ N+1`
