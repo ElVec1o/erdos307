@@ -3881,6 +3881,34 @@ is $49{,}961$ and not astronomical. At level $60$ the forced core has fallen to 
 part to $33$, and by level $68$ --- the top of the window Proposition~\ref{prop:split} says a level
 search must cross --- only $9$ primes remain forced.
 
+\begin{proposition}[The free band; why exactly one level is finite]\label{prop:band}
+Let $U$ be an admissible support with $|U|=n$ and let $q=\max U$. If $T_{n-1}<2$ then
+\[ q\ <\ \frac1{2-T_{n-1}}. \]
+For $n\le58$ no admissible support exists, since $T_n<2$. For $n=59$ the hypothesis holds,
+$T_{58}=1.99874\ldots$, and $q<793.68$, so $q\le787$. For $n\ge60$ it fails, since
+$T_{59}=2.00235\ldots>2$, and no bound on $q$ is available.
+\end{proposition}
+\begin{proof}
+The $n-1$ primes of $U$ other than $q$ carry at most $T_{n-1}$, so $\sigma(U)>2$ forces
+$1/q>2-T_{n-1}$.
+\end{proof}
+
+This is the mechanism of Proposition~\ref{prop:levelbarrier} in its sharpest form. Level--by--level
+enumeration is finite at $59$ and infinite from $60$, and the switch is the single fact
+\[ T_{58}\ <\ 2\ <\ T_{59}. \]
+Below $59$ there is not enough mass to reach $2$ at all; at $59$ every prime is capped at $787$; at
+$60$ the first $59$ primes already carry mass $2.00235>2$, so appending \emph{any} prime leaves an
+admissible support and the count is infinite at once. There is nothing gradual about the transition,
+and it happens at one level.
+
+Together with Proposition~\ref{prop:window} this closes level $59$ from both sides. The support
+contains every one of the $39$ primes $\le167$ and is contained in the $138$ primes $\le787$, so the
+free part is a choice of $20$ primes from the $99$ candidates in $(167,787]$. Unconstrained that is
+$\binom{99}{20}=4.288\times10^{20}$ choices; the mass condition $\sigma(U)>2$ cuts it to $49{,}961$,
+a reduction by a factor $8.6\times10^{15}$ \textup{(\texttt{code/free\_band.gp})}. The level--$59$
+computation of Proposition~\ref{prop:close59} is therefore not a brute force over an unbounded space
+but an exact traversal of a set whose two ends are both pinned by the same inequality.
+
 \begin{proposition}[The barrier stratified by the smaller support]\label{prop:split}
 Let $(a,b)$ be a two--cycle and put $k=\min(\omega(a),\omega(b))$. Then
 \[ k=1\ \Rightarrow\ |U|\ge1413, \qquad k=2\ \Rightarrow\ |U|\ge69, \qquad
