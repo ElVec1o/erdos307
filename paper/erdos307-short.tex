@@ -1610,7 +1610,7 @@ $\mathbb{Z}[i]$: Leibniz holds for disjoint supports, so a cycle $(a,b)$ has $D(
 with $D(N)-2N=(a-b)^2$ and $2N-D(N)=\bigl(i(a-b)\bigr)^2$ (all verified exactly on the cycles found).
 The last equation exposes the wall: over $\mathbb{Z}[i]$, where $-1=i^2$ is a square, \emph{both}
 discriminant factors are squares automatically, and the plus/minus distinction of
-Proposition~14.18 of the full version (which over $\mathbb{Z}$ carries the entire obstruction, via
+Proposition~14.19 of the full version (which over $\mathbb{Z}$ carries the entire obstruction, via
 $(a-b)^2\ge0\Rightarrow\sigma(N)\ge2$) has no content. The unique non--transferring link is the
 sign--definiteness of squares: the barrier is, in the end, the \emph{formal reality} of $\mathbb{Q}$ in
 the sense of Artin--Schreier. (The two Artin--Schreier theorems thus bracket the problem: their
@@ -2398,7 +2398,7 @@ $37{,}963$ primes; in the period, that the barrier is uniform in $k$, so it boun
 Ufnarovski--\AA hlander's Conjecture~3 and not only \#307 (Proposition~\ref{prop:kuniform}); in the
 orbit length, that the derivative cannot outgrow its own support
 (Proposition~\ref{prop:growth}); in the split, that $\min(\omega(a),\omega(b))\ge3$ whenever
-$|U|\le68$ (Proposition~14.18 of the full version); and in the level, the forced core and the ceiling that
+$|U|\le68$ (Proposition~14.19 of the full version); and in the level, the forced core and the ceiling that
 pin level $59$ from both sides and yield its admissible count $49{,}961$ in closed characterisation
 (Propositions~\ref{prop:window},~\ref{prop:band}, Corollary~\ref{cor:count59}). The algebraic cores
 of these are Lean--verified (\texttt{Dictionary.lean}).
@@ -2602,7 +2602,7 @@ two--cycles to the strictly weaker one--equation (Pythagorean) problem.
 
 \textup{Formalised.} \texttt{Erdos307.pyth\_sum\_of\_squares} is $N'=a^2+b^2$ from Leibniz and the
 cycle, \texttt{pyth\_discriminant} the resulting square, \texttt{split\_identity} and
-\texttt{split\_product} the two--layer form of Proposition~14.18 of the full version, and
+\texttt{split\_product} the two--layer form of Proposition~14.19 of the full version, and
 \texttt{mass\_ge\_two\_of\_pythagorean} with \texttt{card\_ge\_59\_of\_pythagorean} this corollary,
 glued by \texttt{mass\_ge\_two\_of\_pyth\_support} into \texttt{emptytest}, which takes the
 Pythagorean equation itself rather than an assumed mass bound. Earlier editions proved the two ends
@@ -3055,7 +3055,7 @@ Both halves are sharp and both are informative at $n=59$. The window is
 $[0.952682,\,1.049668]$: \emph{each member's mass is pinned within five per cent of $1$}. And the
 forcing puts every prime up to $167$ in $U$ --- $39$ of the $59$ --- so two thirds of the support is
 determined before any search begins. The window also recovers
-Proposition~14.18 of the full version: the smaller member needs $T_k\ge1/t_n$, which gives $k\ge3$ for
+Proposition~14.19 of the full version: the smaller member needs $T_k\ge1/t_n$, which gives $k\ge3$ for
 $n\le68$, $k\ge2$ from $n=69$ and $k\ge1$ at $n=1413$, reproducing that proposition's three
 thresholds exactly. The forcing decays with the level:
 \[
@@ -3070,7 +3070,7 @@ The $39$ forced primes carry mass $1.91162\ldots$, so the remaining $20$ must su
 $0.08838$ from primes above $167$; the twenty smallest such primes reach exactly that, at $277$. The
 free part is therefore a choice of $20$ primes from a narrow band, which is why the admissible count
 is $49{,}961$ and not astronomical. At level $60$ the forced core has fallen to $27$ and the free
-part to $33$, and by level $68$ --- the top of the window Proposition~14.18 of the full version says a level
+part to $33$, and by level $68$ --- the top of the window Proposition~14.19 of the full version says a level
 search must cross --- only $9$ primes remain forced.
 
 \begin{proposition}[The free band; why exactly one level is finite]\label{prop:band}
@@ -3123,6 +3123,32 @@ threshold, so the floating comparison is measured to be safe rather than assumed
 the baseline $20$ smallest candidates carry $0.0907260944\ldots$, exceeding the threshold by
 $T_{59}-2=0.0023501514\ldots$, and every admissible $S$ is a perturbation of that baseline within
 this budget.
+
+\begin{proposition}[The admissible supports are not a tree]\label{prop:nottree}
+There are admissible supports at level $60$ with no admissible subset at level $59$. Explicitly,
+\[ U\;=\;\{p:p\le271\}\ \cup\ \{809,\,811\} \]
+has $|U|=60$ and $\sigma(U)=2.0012091\ldots>2$, while every $59$--element subset has mass below $2$.
+\end{proposition}
+\begin{proof}
+Deleting the largest prime loses the least mass, so if that deletion is inadmissible every deletion
+is. Here $\sigma(U)-1/811=1.9999761\ldots<2$.
+\end{proof}
+
+Such supports are exactly those of the form $V\cup\{q\}$ with $|V|=59$, $\sigma(V)\le2$,
+$q>\max V$ and $q<1/(2-\sigma(V))$, and they are not exceptional. Taking $V=\{p\le271\}\cup\{r\}$
+with $r>794$, so that $\sigma(V)<2$, each $r$ admits every prime $q$ in
+$\bigl(r,\ 1/(2-\sigma(V))\bigr)$: at $r=797$ that interval reaches $190{,}414$ and contains
+$17{,}061$ primes, and summing over $r<4000$ gives $60{,}831$ such supports from this one shape alone
+\textup{(\texttt{code/level\_structure.rs})}.
+
+The consequence is for the organisation of a level search, and it is independent of
+Proposition~\ref{prop:levelbarrier}. That proposition says level $60$ has infinitely many admissible
+supports; this one says that even the part reachable with bounded primes is not exhausted by the
+base--plus--tail organisation, because the admissible supports do not form a tree under adjunction.
+Closing every one--new--prime family at level $60$, which is question~(i) of
+Section~\ref{sec:status}, would therefore still not close level $60$. The searches of
+Propositions~\ref{prop:tailkill} and~\ref{prop:close59} are stated over one--new--prime families
+throughout and are unaffected; what changes is the reading of what completing them would buy.
 
 \begin{proposition}[The level--minimal structure at any $c$]\label{prop:levelstructure}
 Let $U$ satisfy $\sum_{p\in U}1/p\ge c$ with $|U|=n(c)=\min\{n:T_n\ge c\}$. Then every prime $p$ with

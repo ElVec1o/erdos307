@@ -3948,6 +3948,32 @@ the baseline $20$ smallest candidates carry $0.0907260944\ldots$, exceeding the 
 $T_{59}-2=0.0023501514\ldots$, and every admissible $S$ is a perturbation of that baseline within
 this budget.
 
+\begin{proposition}[The admissible supports are not a tree]\label{prop:nottree}
+There are admissible supports at level $60$ with no admissible subset at level $59$. Explicitly,
+\[ U\;=\;\{p:p\le271\}\ \cup\ \{809,\,811\} \]
+has $|U|=60$ and $\sigma(U)=2.0012091\ldots>2$, while every $59$--element subset has mass below $2$.
+\end{proposition}
+\begin{proof}
+Deleting the largest prime loses the least mass, so if that deletion is inadmissible every deletion
+is. Here $\sigma(U)-1/811=1.9999761\ldots<2$.
+\end{proof}
+
+Such supports are exactly those of the form $V\cup\{q\}$ with $|V|=59$, $\sigma(V)\le2$,
+$q>\max V$ and $q<1/(2-\sigma(V))$, and they are not exceptional. Taking $V=\{p\le271\}\cup\{r\}$
+with $r>794$, so that $\sigma(V)<2$, each $r$ admits every prime $q$ in
+$\bigl(r,\ 1/(2-\sigma(V))\bigr)$: at $r=797$ that interval reaches $190{,}414$ and contains
+$17{,}061$ primes, and summing over $r<4000$ gives $60{,}831$ such supports from this one shape alone
+\textup{(\texttt{code/level\_structure.rs})}.
+
+The consequence is for the organisation of a level search, and it is independent of
+Proposition~\ref{prop:levelbarrier}. That proposition says level $60$ has infinitely many admissible
+supports; this one says that even the part reachable with bounded primes is not exhausted by the
+base--plus--tail organisation, because the admissible supports do not form a tree under adjunction.
+Closing every one--new--prime family at level $60$, which is question~(i) of
+Section~\ref{sec:status}, would therefore still not close level $60$. The searches of
+Propositions~\ref{prop:tailkill} and~\ref{prop:close59} are stated over one--new--prime families
+throughout and are unaffected; what changes is the reading of what completing them would buy.
+
 \begin{proposition}[The level--minimal structure at any $c$]\label{prop:levelstructure}
 Let $U$ satisfy $\sum_{p\in U}1/p\ge c$ with $|U|=n(c)=\min\{n:T_n\ge c\}$. Then every prime $p$ with
 $1/p\ge T_{n(c)+1}-c$ lies in $U$, and $\max U<1/\bigl(c-T_{n(c)-1}\bigr)$, the denominator being

@@ -18,6 +18,10 @@
 // 2.069e-5, and a cap of 4e8 nodes reaches 1.977e8 admissible supports without exhausting. The
 // slack per free place decides enumerability, not the forced fraction.
 //
+// It also carries the orphan census behind prop:nottree: level-60 admissible supports with no
+// admissible 59-subset. These are V u {q} with |V| = 59, mass(V) <= 2, q > max V and
+// q < 1/(2 - mass V). From V = {p <= 271} u {r} alone, r < 4000 gives 60,831 of them.
+//
 // Run:  rustc -O -o level_structure level_structure.rs && ./level_structure
 //
 // The level-minimal structure as a function of c: forced core, band ceiling, slack.
@@ -130,3 +134,30 @@ fn main() {
         println!("admissible all-odd supports = {} (nodes {})", count, nodes);
     }
 }
+\p 30
+{
+my(T58, r, mV, lo, hi, cnt, tot, shown);
+T58 = 0.0; forprime(p = 2, 271, T58 += 1.0/p);
+print("Level-60 admissible supports with NO admissible 59-subset.");
+print("Such a U is V u {q} with |V| = 59, mass(V) <= 2, q > max(V), and 1/q > 2 - mass(V),");
+print("so q < 1/(2 - mass(V)). Taking V = {first 58 primes} u {r} with r > 794 (so mass(V) < 2):");
+print("");
+print("     r    |  mass(V)     | q ranges over (r, 1/(2-mass V)) | count of q");
+tot = 0; shown = 0;
+forprime(r = 797, 4000,
+  mV = T58 + 1.0/r;
+  if(mV >= 2, next);
+  hi = 1.0/(2 - mV);
+  cnt = 0;
+  forprime(q = r+1, min(hi, 10^7), cnt++);
+  tot += cnt;
+  if(shown < 8, shown++;
+    printf("  %6d  | %.10f | (%6d, %10.0f)          | %7d\n", r, mV, r, hi, cnt));
+);
+print("  ...");
+printf("total orphan level-60 supports of this shape (r < 4000): %d\n", tot);
+print("");
+print("So they are abundant, not exceptional. Completing every one-new-prime family at level 60");
+print("would still leave these untouched, since none of them contains an admissible 59-set.");
+}
+quit;
