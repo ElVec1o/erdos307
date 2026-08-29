@@ -3948,6 +3948,35 @@ the baseline $20$ smallest candidates carry $0.0907260944\ldots$, exceeding the 
 $T_{59}-2=0.0023501514\ldots$, and every admissible $S$ is a perturbation of that baseline within
 this budget.
 
+\begin{proposition}[The level--minimal structure at any $c$]\label{prop:levelstructure}
+Let $U$ satisfy $\sum_{p\in U}1/p\ge c$ with $|U|=n(c)=\min\{n:T_n\ge c\}$. Then every prime $p$ with
+$1/p\ge T_{n(c)+1}-c$ lies in $U$, and $\max U<1/\bigl(c-T_{n(c)-1}\bigr)$, the denominator being
+positive by minimality of $n(c)$.
+\end{proposition}
+\begin{proof}
+Both are Propositions~\ref{prop:window} and~\ref{prop:band} with $2$ replaced by $c$; neither
+argument uses the value.
+\end{proof}
+
+The slack $T_{n(c)}-c$ is the total mass a support may waste, and it collapses as $c$ grows, so the
+support becomes more forced, not less \textup{(\texttt{code/level\_structure.rs})}:
+\[
+\begin{array}{l|ccccc}
+c & 2 & 9/4 & 7/3 & 5/2 & 3\\\hline
+n(c) & 59 & 231 & 400 & 1{,}413 & 361{,}139\\
+T_{n(c)}-c & 2.35\!\cdot\!10^{-3} & 2.33\!\cdot\!10^{-4} & 2.44\!\cdot\!10^{-4} &
+  2.07\!\cdot\!10^{-5} & 3.09\!\cdot\!10^{-8}\\
+\text{forced primes} & 39 & 181 & 259 & 1{,}175 & 314{,}407\\
+\text{forced fraction} & 66\% & 78\% & 65\% & 83\% & 87\%\\
+\max U< & 793.7 & 2{,}194 & 8{,}284 & 15{,}592 & 6.19\!\cdot\!10^{6}
+\end{array}
+\]
+The row $c=2$ is Propositions~\ref{prop:window} and~\ref{prop:band}, recovered. The row $c=3$ is the
+three--cycle of Proposition~\ref{prop:kcycles}: at its minimal level a three--cycle contains
+\emph{every} prime up to $4{,}476{,}608$, that is $314{,}407$ of its $361{,}139$, and no prime beyond
+$6.19\times10^{6}$. Its support is almost completely determined, with a slack of $3.09\times10^{-8}$
+to distribute among the remaining $46{,}732$ places.
+
 \begin{proposition}[The barrier stratified by the smaller support]\label{prop:split}
 Let $(a,b)$ be a two--cycle and put $k=\min(\omega(a),\omega(b))$. Then
 \[ k=1\ \Rightarrow\ |U|\ge1413, \qquad k=2\ \Rightarrow\ |U|\ge69, \qquad
