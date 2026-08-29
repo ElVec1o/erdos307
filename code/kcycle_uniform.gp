@@ -17,6 +17,12 @@
  * m(9) = 231. The sequence is not monotone (m(9) < m(7) < m(5)) and equals 59 exactly at every
  * even k. prop:kcycles covers k <= 3 for the multiset sum; this is the union support, for all k.
  *
+ * With the extra hypothesis min(U) >= P the same argument gives prop:twoparam, M(k,P) being the
+ * least m with the m smallest primes >= P reaching c(k). Values (k=2 row): M(2,2)=59 with product
+ * 10^112.9, M(2,3)=1412 with 10^5040.1, M(2,5)=40259 with 10^209582, M(2,7)=588500 with 10^3810432.
+ * M(2,2), M(2,3) and M(3,2) reproduce thm:barrier, the all-odd branch of thm:parity and
+ * prop:kcycles exactly, which is the cross-check the family deserves.
+ *
  * Run:  gp -q -f kcycle_uniform.gp
  */
 

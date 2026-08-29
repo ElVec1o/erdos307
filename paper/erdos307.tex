@@ -1233,6 +1233,40 @@ nontrivial cycle of the arithmetic derivative, of any length, carries at least $
 product past $8.77\times10^{112}$. The barrier therefore bounds the whole of
 Ufnarovski--\AA hlander's Conjecture~3 and not merely its period--two case, which is \#307.
 
+\begin{proposition}[The barrier as a function of period and smallest prime]\label{prop:twoparam}
+Let $a_1\to\dots\to a_k\to a_1$ be a cycle with $k\ge2$, let $U$ be the union of the supports, and
+suppose $\min U\ge P$. With $c(k)=k/\lfloor k/2\rfloor$, let $M(k,P)$ be the least $m$ for which the
+$m$ smallest primes $\ge P$ have reciprocal sum at least $c(k)$. Then $|U|\ge M(k,P)$, and
+$\prod_{p\in U}p$ is at least the product of those $m$ primes.
+\end{proposition}
+\begin{proof}
+Proposition~\ref{prop:kuniform} gives $\sum_{p\in U}1/p\ge c(k)$, and among sets of $m$ primes all
+$\ge P$ the reciprocal sum is maximised by the $m$ smallest such primes.
+\end{proof}
+
+\[
+\begin{array}{l|ccccc}
+M(k,P) & k=2 & k=3 & k=5 & k=7 & k=9\\\hline
+P=2 & 59 & 361{,}139 & 1{,}413 & 400 & 231\\
+P=3 & 1{,}412 & \text{---} & 361{,}138 & 40{,}260 & 15{,}473\\
+P=5 & 40{,}259 & \text{---} & \text{---} & \text{---} & 1{,}266{,}094\\
+P=7 & 588{,}500 & \text{---} & \text{---} & \text{---} & \text{---}
+\end{array}
+\]
+(dashes exceed $\pi(4\times10^{7})$; \texttt{code/kcycle\_uniform.gp}). The family contains three
+results proved elsewhere in this note as special cases, and reproduces each of them exactly:
+$M(2,2)=59$ is Theorem~\ref{thm:barrier}; $M(2,3)=1412$, with product $10^{5040.1}$ and hence
+$\min(\prod P,\prod Q)>10^{2519}$, is the all--odd branch of Theorem~\ref{thm:parity}; and
+$M(3,2)=361{,}139$ is Proposition~\ref{prop:kcycles}. That three independent derivations land on the
+same integers is the check the family deserves.
+
+Two readings. The parity dichotomy is not special to period two: an all--odd cycle of \emph{any} even
+period needs $1{,}412$ primes and a product past $10^{5040}$, and of period $9$ still needs
+$15{,}473$. And the family supplies, in valid form, the conditional statements that
+Proposition~18 of \cite{Kovic2012} asserts but does not establish: for $\min U\ge3$ that proposition
+claims $r+s\ge57$ where the true bound is $M(2,3)=1{,}412$, and for $\min U\ge5$ it claims
+$r+s\ge110$ where the true bound is $M(2,5)=40{,}259$ --- larger by factors of $24.8$ and $366$.
+
 \section{Local anatomy and a heuristic model}\label{sec:anatomy}
 
 \begin{lemma}[Local anatomy]\label{lem:anatomy}
