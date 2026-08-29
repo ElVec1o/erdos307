@@ -35,6 +35,7 @@ import Erdos307.Rigidity
 import Erdos307.Sixty
 import Erdos307.SquareSieve
 import Erdos307.Squarefree
+import Erdos307.StratumM30
 import Erdos307.TailBound
 
 /-! # Axiom audit for the whole development
@@ -365,6 +366,12 @@ open Erdos307
 #print axioms primeSquareSum_certificate
 #print axioms good_density_pos
 #print axioms squarefree_positive_density_of_bound
+#print axioms deriv_thirty_mul_prime
+#print axioms stratum_linear
+#print axioms stratum_linear_conv
+#print axioms stratum_sigma_lt
+#print axioms stratum_sigma_defect
+#print axioms stratum_M30
 #print axioms tail_factor
 #print axioms tail_quadratic
 #print axioms tail_discriminant
