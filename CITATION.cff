@@ -16,13 +16,15 @@ abstract: >-
   barrier constant from an independent direction. The barrier is shown to be uniform in the period,
   so it bounds the whole Ufnarovski-Ahlander cycle conjecture and not only its period-two case, and
   six barriers of the note are identified as one mass-to-size inequality read at different
-  constants. Several other approaches are closed with proofs, and the
+  constants. The same inequality, read in the size, the ratio, the period, the smallest prime, the
+  orbit length and the split, yields a family of barriers that also derives the forced core, the
+  ceiling on the largest prime, and the level-59 admissible count. Several other approaches are closed with proofs, and the
   constructive route is given an exact cost accounting. The problem itself remains open.
 authors:
   - family-names: Bonfioli
     given-names: Vico
     email: vicobonfioli@gmail.com
-version: 1.12.0
+version: 1.13.0
 date-released: 2026-08-29
 type: software
 license: MIT
