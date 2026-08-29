@@ -209,6 +209,7 @@ open Erdos307
 #print axioms eps_eq_zero_of_identity
 #print axioms nonconstant_empty
 #print axioms nopoly
+#print axioms no_family_of_any_shape
 #print axioms dvd_sum_erase_iff
 #print axioms Q_determined
 #print axioms oneprime_forced

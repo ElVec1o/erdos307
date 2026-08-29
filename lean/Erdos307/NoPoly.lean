@@ -116,4 +116,30 @@ theorem nopoly {ι κ : Type*} {AP AQ : ℝ} {NCP : Finset ι} {NCQ : Finset κ}
     NCP = ∅ ∧ NCQ = ∅ :=
   nonconstant_empty hAP hAQ (hfP 0) (hfQ 0) (const_prod_eq_one_of_tendsto hid hP hQ) (hid 0)
 
+/-- **No family of any shape.** The hypotheses above never mention polynomials: `nopoly` is stated
+for arbitrary index types and arbitrary `fP : ℕ → ι → ℝ`. The only place polynomiality is used in the
+prose proof is the step "holding at infinitely many `t`, the relation holds identically", and that
+step is avoidable -- restrict to the subsequence on which it holds. This theorem does exactly that.
+
+The consequence is stronger than `prop:nopoly` as stated. What is excluded is not merely a
+polynomial parametrisation but a *fixed-shape family of any growth rate whatsoever* whose nonconstant
+members take positive prime values tending to infinity: exponential families included. That is the
+Thâbit/Euler shape -- `3·2ⁿ-1` and its relatives -- which is the classical constructive
+technique for amicable pairs and the obvious thing to try here, and which no polynomial no-go
+touches. The three hypotheses that remain are exactly: finitely many members, values positive, and
+nonconstant members growing (so their reciprocals sum to `0` in the limit). -/
+theorem no_family_of_any_shape {ι κ : Type*} {AP AQ : ℝ} {NCP : Finset ι} {NCQ : Finset κ}
+    {fP : ℕ → ι → ℝ} {fQ : ℕ → κ → ℝ}
+    (φ : ℕ → ℕ) (hφ : StrictMono φ)
+    (hAP : 0 ≤ AP) (hAQ : 0 ≤ AQ)
+    (hfP : ∀ t, ∀ i ∈ NCP, 0 < fP t i) (hfQ : ∀ t, ∀ j ∈ NCQ, 0 < fQ t j)
+    (hid : ∀ n, (AP + ∑ i ∈ NCP, fP (φ n) i) * (AQ + ∑ j ∈ NCQ, fQ (φ n) j) = 1)
+    (hP : Tendsto (fun t => ∑ i ∈ NCP, fP t i) atTop (𝓝 0))
+    (hQ : Tendsto (fun t => ∑ j ∈ NCQ, fQ t j) atTop (𝓝 0)) :
+    NCP = ∅ ∧ NCQ = ∅ := by
+  have hφt : Tendsto φ atTop atTop := hφ.tendsto_atTop
+  exact nopoly (fP := fun n => fP (φ n)) (fQ := fun n => fQ (φ n))
+    hAP hAQ (fun n => hfP (φ n)) (fun n => hfQ (φ n)) hid
+    (hP.comp hφt) (hQ.comp hφt)
+
 end Erdos307
