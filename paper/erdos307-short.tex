@@ -1610,7 +1610,7 @@ $\mathbb{Z}[i]$: Leibniz holds for disjoint supports, so a cycle $(a,b)$ has $D(
 with $D(N)-2N=(a-b)^2$ and $2N-D(N)=\bigl(i(a-b)\bigr)^2$ (all verified exactly on the cycles found).
 The last equation exposes the wall: over $\mathbb{Z}[i]$, where $-1=i^2$ is a square, \emph{both}
 discriminant factors are squares automatically, and the plus/minus distinction of
-Proposition~14.14 of the full version (which over $\mathbb{Z}$ carries the entire obstruction, via
+Proposition~14.15 of the full version (which over $\mathbb{Z}$ carries the entire obstruction, via
 $(a-b)^2\ge0\Rightarrow\sigma(N)\ge2$) has no content. The unique non--transferring link is the
 sign--definiteness of squares: the barrier is, in the end, the \emph{formal reality} of $\mathbb{Q}$ in
 the sense of Artin--Schreier. (The two Artin--Schreier theorems thus bracket the problem: their
@@ -2586,7 +2586,7 @@ two--cycles to the strictly weaker one--equation (Pythagorean) problem.
 
 \textup{Formalised.} \texttt{Erdos307.pyth\_sum\_of\_squares} is $N'=a^2+b^2$ from Leibniz and the
 cycle, \texttt{pyth\_discriminant} the resulting square, \texttt{split\_identity} and
-\texttt{split\_product} the two--layer form of Proposition~14.14 of the full version, and
+\texttt{split\_product} the two--layer form of Proposition~14.15 of the full version, and
 \texttt{mass\_ge\_two\_of\_pythagorean} with \texttt{card\_ge\_59\_of\_pythagorean} this corollary,
 glued by \texttt{mass\_ge\_two\_of\_pyth\_support} into \texttt{emptytest}, which takes the
 Pythagorean equation itself rather than an assumed mass bound. Earlier editions proved the two ends
@@ -3023,6 +3023,39 @@ $361{,}139$: they are the same value of $c$. What looked like six separate barri
 mass--to--size dictionary, and the only mathematics specific to each row is the derivation of its
 $c$.
 \end{remark}
+
+\begin{proposition}[The mass window, and the forced core]\label{prop:window}
+Let $(a,b)$ be a two--cycle with $|U|=n$ and let $t_n>1$ solve $t+1/t=T_n$. Then
+\[ \frac1{t_n}\ \le\ \sigma(a),\,\sigma(b)\ \le\ t_n, \]
+and every prime $p$ with $1/p\ge T_{n+1}-2$ lies in $U$.
+\end{proposition}
+\begin{proof}
+The masses are positive with product $1$ and sum at most $T_n$, so each is between the roots of
+$z^2-T_nz+1$. If $p\notin U$ then the $n$ primes of $U$ carry at most $T_{n+1}-1/p$, and
+$\sigma(U)>2$ forces $1/p<T_{n+1}-2$.
+\end{proof}
+
+Both halves are sharp and both are informative at $n=59$. The window is
+$[0.952682,\,1.049668]$: \emph{each member's mass is pinned within five per cent of $1$}. And the
+forcing puts every prime up to $167$ in $U$ --- $39$ of the $59$ --- so two thirds of the support is
+determined before any search begins. The window also recovers
+Proposition~14.15 of the full version: the smaller member needs $T_k\ge1/t_n$, which gives $k\ge3$ for
+$n\le68$, $k\ge2$ from $n=69$ and $k\ge1$ at $n=1413$, reproducing that proposition's three
+thresholds exactly. The forcing decays with the level:
+\[
+\begin{array}{l|cccccccc}
+n & 59 & 60 & 61 & 62 & 63 & 65 & 68 & 72\\\hline
+\text{all }p\le & 167 & 103 & 73 & 61 & 47 & 37 & 23 & 19\\
+\text{forced} & 39 & 27 & 21 & 18 & 15 & 12 & 9 & 8
+\end{array}
+\]
+\textup{(\texttt{code/forced\_core.gp})}. This accounts for the size of the level--$59$ enumeration.
+The $39$ forced primes carry mass $1.91162\ldots$, so the remaining $20$ must supply more than
+$0.08838$ from primes above $167$; the twenty smallest such primes reach exactly that, at $277$. The
+free part is therefore a choice of $20$ primes from a narrow band, which is why the admissible count
+is $49{,}961$ and not astronomical. At level $60$ the forced core has fallen to $27$ and the free
+part to $33$, and by level $68$ --- the top of the window Proposition~14.15 of the full version says a level
+search must cross --- only $9$ primes remain forced.
 
 \begin{proposition}[The barrier stratified by the smaller support]\label{prop:split}
 Let $(a,b)$ be a two--cycle and put $k=\min(\omega(a),\omega(b))$. Then
