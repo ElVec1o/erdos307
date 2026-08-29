@@ -3601,12 +3601,22 @@ $\sigma(Q)=31/30$ and $P$ must approach $30/31$; from a pool, repeat $p\leftarro
 $\ge1/d$ and $d\leftarrow d-1/p$, where $d$ is the running deficit. Each rung squares it,
 $d_{\mathrm{new}}=d-1/p\approx t\,d^{2}$ with $t$ the local prime gap, so the largest prime is
 $\approx\varepsilon^{-1/2}$ and the number of rungs is $O(\log\log(1/\varepsilon))$. Taking the pool
-to be the primes $7\le p\le271$ and nine rungs gives $|P|=64$, $|Q|=3$, largest prime of $505$
+to be the primes $7\le p\le271$ and eleven rungs gives $|P|=66$, $|Q|=3$, largest prime of $2{,}010$
 digits, and, in exact rational arithmetic,
-\[ \bigl|\sigma(P)\sigma(Q)-1\bigr|\;=\;9.5748\ldots\times10^{-1007}. \]
-Every rung prime is \emph{proved} prime by \textup{APR--CL}, the $505$--digit one in about six
-seconds, and the whole verification runs in under ten
-\textup{(\texttt{code/nearmiss\_effective.gp})}.
+\[ \bigl|\sigma(P)\sigma(Q)-1\bigr|\;=\;4.98523\ldots\times10^{-4016}, \]
+a rational whose numerator has $129$ digits and whose denominator has $4{,}145$. Every rung prime is
+\emph{proved} prime by \textup{APR--CL}, not merely a pseudoprime
+\textup{(\texttt{code/nearmiss\_effective.gp})}. The certificate is tiered, and a reader may stop
+where they like:
+\[
+\begin{array}{l|ccc}
+\text{rungs} & 9 & 10 & 11\\\hline
+\text{largest prime (digits)} & 505 & 1{,}007 & 2{,}010\\
+\bigl|\sigma(P)\sigma(Q)-1\bigr| & 9.57\times10^{-1007} & 2\times10^{-2010} &
+  4.99\times10^{-4016}\\
+\text{cumulative certification} & <10\text{ s} & \approx110\text{ s} & \approx27\text{ min}
+\end{array}
+\]
 \end{proposition}
 
 The gap is not marginal. At $\varepsilon=10^{-13}$ the greedy needs a largest prime near $10^{94}$
@@ -3614,7 +3624,7 @@ and some $10^{92}$ primes; the ladder needs a largest prime near $10^{7}$ and th
 ladder is exponentially better in the size of the largest prime and doubly exponentially better in
 the count, and the reason is visible: greedy convergence is linear in the number of primes, Newton
 convergence is quadratic. Truncating gives certificates of any size --- five rungs and a $34$--digit
-largest prime already give $6.07\times10^{-66}$. The witness above approaches $1$ from below; taking
+largest prime already give $6.07\times10^{-66}$, and seven rungs give $3.22\times10^{-254}$. The witness above approaches $1$ from below; taking
 the last rung's prime just under $1/d$ instead overshoots, so either side is available and the
 statement of Theorem~10.2 as printed is met.
 

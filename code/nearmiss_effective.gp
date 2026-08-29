@@ -16,11 +16,13 @@
  *      d_new = d - 1/p ~ t d^2,    t the local prime gap,
  * so the largest prime is ~eps^(-1/2) and the number of rungs is O(loglog(1/eps)).
  *
- * With the pool = primes 7..271 and nine rungs this gives 64 primes in P and 3 in Q, largest prime
- * 505 digits, and
- *      |sigma(P)sigma(Q) - 1| = 9.5748...e-1007,
- * computed in exact rational arithmetic. Every rung prime is PROVED prime by isprime (APR-CL), the
- * 505-digit one in about six seconds; the whole verification runs in under ten.
+ * With the pool = primes 7..271 and eleven rungs this gives 66 primes in P and 3 in Q, largest
+ * prime 2,010 digits, and
+ *      |sigma(P)sigma(Q) - 1| = 4.98523...e-4016,
+ * computed in exact rational arithmetic; the numerator has 129 digits and the denominator 4,145.
+ * Every rung prime is PROVED prime by isprime (APR-CL), not merely a pseudoprime. The certificate
+ * is tiered: 9 rungs give 9.57e-1007 and certify in under 10 s, 10 rungs give 2e-2010 in about
+ * 110 s, and 11 rungs give 4.99e-4016 in about 27 minutes (the 2,010-digit rung dominates).
  *
  * Scope. This is an approximation result and nothing more. It does not approach a solution of #307:
  * a free pair of disjoint prime sets carries none of the rigidity that an exact hit requires, and by
@@ -31,7 +33,8 @@
  * Run:  gp -q -f nearmiss_effective.gp
  */
 
-default(parisizemax, 4000000000);
+RUNGS = 11;
+default(parisizemax, 16000000000);
 \p 40
 {
 my(s, d, R, sP, sQ, prod, t0, k);
@@ -42,7 +45,7 @@ R = List();
 print("Q = {2,3,5},  sigma(Q) = 31/30;   target for P is 30/31");
 print("pool = primes 7..271  (55 primes)");
 printf("initial deficit d0 = %.6e\n\n", 1.0*d);
-for(k = 1, 9,
+for(k = 1, RUNGS,
   my(pk);
   pk = nextprime(ceil(1/d));
   listput(R, pk);
@@ -64,7 +67,7 @@ for(i = 1, #R,
 );
 print("");
 print("truncations, for a reader who wants a smaller certificate:");
-for(k = 4, 9,
+for(k = 4, RUNGS,
   my(s2, prod2);
   s2 = 0; forprime(q = 7, 271, s2 += 1/q);
   s2 += sum(i = 1, k, 1/R[i]);
