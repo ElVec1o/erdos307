@@ -752,11 +752,20 @@ $|Q_\ell|\ge(\ell-3)/4-2\ge40$ (the linear sums vanish, the quadratic sum is $-\
 terms $\le2$). \textup{(}Regimes~\textup{(i)} and~\textup{(ii)} are formalised:
 \texttt{Erdos307.regime\_one\_collapse}, \texttt{regime\_one\_same\_argument} and
 \texttt{regime\_two\_constant} \textup{(}\texttt{lean/Erdos307/LocalComplete.lean}\textup{)}.
-Regime~\textup{(iii)}'s counting step is \texttt{regime\_three\_count}, which takes the two complete
-character--sum evaluations as hypotheses. Those evaluations, $\sum_q\chi(aq+b)=0$ for $a\ne0$ and
-$\sum_q\chi((aq+b)(cq+d))=-\chi(ac)$ for $ad\ne bc$, are classical and are \emph{cited}, not pending:
-Mathlib does not carry them, and supplying them is a contribution to Mathlib rather than to this
-problem. The star on this proposition records a citation, not unfinished work.\textup{)}
+Regime~\textup{(iii)}'s counting step is \texttt{regime\_three\_count}, and its two complete
+character--sum hypotheses are now theorems rather than citations:
+$\sum_q\chi(aq+b)=0$ for $a\ne0$ is \texttt{Erdos307.sum\_quadraticChar\_affine}, the reindexing
+$q\mapsto aq+b$ followed by \texttt{quadraticChar\_sum\_zero}; and
+$\sum_q\chi((aq+b)(cq+d))=-\chi(ac)$ for $ad\ne bc$ is
+\texttt{Erdos307.sum\_quadraticChar\_quadratic}, proved by factoring out $\chi(ac)$, translating to
+$\sum_u\chi\bigl(u(u+e)\bigr)$ with $e\ne0$, writing $u(u+e)=u^2(1+e/u)$ for $u\ne0$ so that the
+character value is $\chi(1+e/u)$, and reindexing by the involution $u\mapsto e/u$ of the nonzero
+elements to reach $\sum_{t\ne0}\chi(1+t)=0-\chi(1)=-1$. Both hold over any finite field of odd
+characteristic. $0$ \texttt{sorry}
+\textup{(\texttt{lean/Erdos307/CompleteSums.lean})}. Checked against direct evaluation for all odd
+primes $\ell\le59$: the linear sum over every $(a,b)$ with $a\ne0$, and the quadratic sum over all
+$33{,}008{,}952$ quadruples with $ad\ne bc$ --- $0$ violations
+\textup{(\texttt{code/complete\_sums\_check.gp})}.\textup{)}
 Consequently $Q_\ell\ne\emptyset$ forces $|Q_\ell|\ge2$ at every modulus, the surviving
 local density is positive (e.g.\ $\prod_{\ell\le300}|Q_\ell|/\ell\approx2.2\times10^{-19}>0$ on the
 canonical base), and by CRT \emph{no finite system of congruences (no covering) can annihilate an

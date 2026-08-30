@@ -8,6 +8,7 @@ import Erdos307.Closed
 import Erdos307.Congruential
 import Erdos307.Coprime
 import Erdos307.RootCount
+import Erdos307.CompleteSums
 import Erdos307.Coprime60
 import Erdos307.Witness
 import Erdos307.Dictionary
@@ -426,3 +427,6 @@ open Erdos307
 #print axioms Erdos307.rootSet_card_prime_pow_le_two
 #print axioms Erdos307.rootSet_card_le_two_pow_omega
 #print axioms Erdos307.rootSet_card_le_tau
+#print axioms Erdos307.sum_quadraticChar_affine
+#print axioms Erdos307.sum_quadraticChar_quadratic
+#print axioms Erdos307.sum_quadraticChar_shift

@@ -1,3 +1,4 @@
+import Erdos307.CompleteSums
 import Erdos307
 
 /-!
@@ -159,6 +160,20 @@ every later term is composite. -/
 example : True := by
   have := tail_finite (D := 1) (N := 7) (q := 7) (m := 2) (c := 2) (x := 8) (y := 6)
     (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+  trivial
+
+
+/-! ### `prop:localcomplete`'s complete sums are not vacuous -/
+
+/-- The hypotheses of `sum_quadraticChar_quadratic` are jointly satisfiable: `F = ZMod 5` has odd
+characteristic, and `a = c = d = 1`, `b = 0` gives `a*d = 1 ≠ 0 = b*c`. So the evaluation
+`∑_q χ((aq+b)(cq+d)) = -χ(ac)` is asserted about a nonempty set of data. -/
+example : True := by
+  haveI : Fact (Nat.Prime 5) := ⟨by norm_num⟩
+  have hchar : ringChar (ZMod 5) ≠ 2 := by rw [ZMod.ringChar_zmod_n]; norm_num
+  have hne : (1 : ZMod 5) * 1 ≠ 0 * 1 := by norm_num
+  have := Erdos307.sum_quadraticChar_quadratic (F := ZMod 5) hchar
+    (a := 1) (b := 0) (c := 1) (d := 1) one_ne_zero one_ne_zero hne
   trivial
 
 end Erdos307.Vacuity
