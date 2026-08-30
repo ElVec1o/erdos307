@@ -11,6 +11,7 @@ import Erdos307.RootCount
 import Erdos307.CompleteSums
 import Erdos307.NoGainWitness
 import Erdos307.PairLocalCount
+import Erdos307.NonSquare
 import Erdos307.Coprime60
 import Erdos307.Witness
 import Erdos307.Dictionary
@@ -436,3 +437,6 @@ open Erdos307
 #print axioms Erdos307.NoGainWitness.rsum_Sw
 #print axioms Erdos307.pairlocal_inner_sum
 #print axioms Erdos307.pairlocal_count_pos
+#print axioms Erdos307.dfsA_run
+#print axioms Erdos307.dfs_of_dfsA
+#print axioms Erdos307.not_isSquare_of_nsqCert

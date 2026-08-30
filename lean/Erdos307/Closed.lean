@@ -15,7 +15,7 @@ The sharp value is a paper result, not a Lean one.
 
 Since v1.4.6 the numeral bridge is kernel-checked by `decide`, so these results do **not** inherit
 `Lean.ofReduceBool`: `card_ge_59` and `erdos307_barrier_closed` are on the three standard axioms.
-The project's only `native_decide` site is `dfs_run` in `Sixty.lean`.
+The project has no `native_decide` site: every decidable fact is checked by the kernel.
 
 Paper: Lemma `lem:59`, Theorem `thm:barrier` in closed form.
 -/

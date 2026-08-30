@@ -5,6 +5,7 @@ import Erdos307.Capstone
 import Erdos307.Extremal
 import Erdos307.Numeral
 import Erdos307.Closed
+import Erdos307.NonSquare
 
 /-!
 # Erdős #307 — closing the 59-prime level: `|P ∪ Q| ≥ 60`
@@ -18,14 +19,18 @@ Formalization of Proposition `close59` of the note.  Structure:
 * A solution supported on `U` forces `csum U + 2·dprod U = (dprod P + dprod Q)²`
   (the Pythagorean/plus square), in particular a perfect square.
 * A pruned DFS over the pool (`dfs`, proven sound: it covers *every* qualifying
-  20-subset) checks by `native_decide` that `csum U + 2·dprod U` is a non-square
-  for each of the 49,961 admissible supports.  Contradiction.
+  20-subset) checks that `csum U + 2·dprod U` is a non-square for each of the 49,961
+  admissible supports.  Contradiction.
 
-The only non-logical input is `native_decide` on the **single** fact `dfs_run`, the DFS execution
-itself. Every other decidable fact here, and the whole numeral bridge of `Erdos307.Numeral`, is
-checked by the kernel via `decide`, so `Erdos307.card_ge_59` and `erdos307_barrier_closed` carry
-only the three standard axioms. `erdos307_sixty` depends on exactly one `ofReduceBool` axiom, and
-`#print axioms` names it.
+The search is run by the **kernel**. `dfs` compares rationals, which the kernel cannot reduce at
+all -- `Nat.gcd` is well-founded recursion, not a GMP primitive -- so the execution was previously
+delegated to `native_decide`. Scaling by `Mscale`, the product of the 138 primes in play, clears the
+denominators exactly, and `dfsA` then takes the same branches as `dfs` over the integers; the leaf
+test uses the residue certificate of `Erdos307.NonSquare` in place of `Nat.sqrt`, and the product
+and cofactor sum are carried down the recursion instead of rebuilt at each leaf. `dfsA_run` is
+`decide`, and `dfs_run` follows through `dfs_of_dfsA`. There is no `native_decide` and no
+`ofReduceBool`: `erdos307_sixty`, like everything else here, carries only the three standard
+axioms.
 
 Paper: Proposition `prop:close59`, Theorem `thm:barrier` at level 60.
 -/
@@ -370,7 +375,210 @@ lemma pool99_pairwise : pool99.Pairwise (· < ·) := by decide
 
 lemma pool99_pos : ∀ x ∈ pool99, 0 < x := by decide
 
-lemma dfs_run : dfs pool99 20 0 [] = true := by native_decide
+
+/-! ## The search, run by the kernel
+
+`dfs` compares rationals, and the kernel cannot reduce `Rat` comparisons: `Nat.gcd` is well-founded
+recursion, not a GMP primitive, so `decide` on `dfs` does not evaluate at all. That is why the search
+was previously delegated to `native_decide`, at the cost of the `Lean.ofReduceBool` axiom.
+
+Scaling by `Mscale`, the product of all `138` primes in play, removes the rationals without
+approximation: every `1/p` becomes the integer `Mscale / p`, and `thr` becomes the integer `thrM`, so
+the scaled search `dfsA` takes *exactly* the same branches as `dfs`. Two further changes make the
+kernel run it in well under a minute: the leaf test uses the modular certificate of
+`Erdos307.NonSquare` in place of `Nat.sqrt`, and the product and cofactor-sum are carried down the
+recursion rather than recomputed from `chosen` at each of the `49,961` leaves.
+-/
+
+/-- The product of `forced39 ++ pool99`: the common denominator of every reciprocal in play. -/
+def Mscale : ℕ := 587711349675320102989400444802724115225082390560315736634930041277275195793926797047357491327110462658195324486047607003645301092965092456412595768353430843365413065818682917883304285583082671336687009563216918389800112386407484406460630913698814543629186115898642231481641279546576957597435648091657212688633258316137955056230
+
+/-- `Mscale * thr`, an integer. -/
+def thrM : ℕ := 51939544712372837647132640693577364405383408682167116022881026223508385622321458625953051757761670930410762435263904996223412245192936938377507142658269568299072467675482885770362996356391496756103183827391682873428828074408124338251716757174763359832316200290202236585011125358070640802967809934728716326824038096278558994409
+
+/-- The scaled reciprocal `Mscale / p`, exact for every `p` in play. -/
+def wt (x : ℕ) : ℕ := Mscale / x
+
+def wsum (l : List ℕ) : ℕ := (l.map wt).sum
+
+/-- `∏ forced39`. -/
+def P0 : ℕ := 962947420735983927056946215901134429196419130606213075415963491270
+
+/-- `∑_{p ∈ forced39} (∏ forced39)/p`. -/
+def D0 : ℕ := 1840793455149223796977553240989608507934961889604586193282330007699
+
+/-- The cofactor sum, so that `plusVal l = dval l + 2 * l.prod` definitionally. -/
+def dval (l : List ℕ) : ℕ := (l.map fun p => l.prod / p).sum
+
+lemma plusVal_eq (l : List ℕ) : plusVal l = dval l + 2 * l.prod := rfl
+
+/-- The scaled search. `pr` and `ds` carry `∏` and `dval` of `forced39 ++ chosen`. -/
+def dfsA : List ℕ → ℕ → ℕ → ℕ → ℕ → Bool
+  | _, 0, cur, pr, ds => if thrM ≤ cur then nsqCert (ds + 2 * pr) else true
+  | [], _ + 1, _, _, _ => true
+  | x :: xs, need + 1, cur, pr, ds =>
+    if cur + wsum ((x :: xs).take (need + 1)) < thrM then true
+    else dfsA xs need (cur + wt x) (x * pr) (pr + x * ds)
+      && dfsA xs (need + 1) cur pr ds
+
+set_option maxHeartbeats 0 in
+/-- The whole search, checked by the kernel. Roughly a minute. -/
+theorem dfsA_run : dfsA pool99 20 0 P0 D0 = true := by decide
+
+
+/-! ### The bridge: the scaled search implies the rational one -/
+
+lemma Mscale_pos : 0 < Mscale := by decide
+
+lemma pool99_dvd : ∀ x ∈ pool99, x ∣ Mscale := by decide
+
+lemma forced39_dvd : ∀ x ∈ forced39, x ∣ Mscale := by decide
+
+lemma wt_cast {x : ℕ} (hx : 0 < x) (hd : x ∣ Mscale) : (wt x : ℚ) = (Mscale : ℚ) / x := by
+  rw [wt, Nat.cast_div hd (by exact_mod_cast hx.ne')]
+
+lemma wsum_cast : ∀ {l : List ℕ}, (∀ p ∈ l, 0 < p) → (∀ p ∈ l, p ∣ Mscale) →
+    (wsum l : ℚ) = (Mscale : ℚ) * rsum l := by
+  intro l
+  induction l with
+  | nil => intro _ _; simp [wsum, rsum]
+  | cons a t ih =>
+    intro hpos hdvd
+    have ha : 0 < a := hpos a (List.mem_cons_self)
+    have had : a ∣ Mscale := hdvd a (List.mem_cons_self)
+    have ht1 : ∀ p ∈ t, 0 < p := fun p hp => hpos p (List.mem_cons_of_mem _ hp)
+    have ht2 : ∀ p ∈ t, p ∣ Mscale := fun p hp => hdvd p (List.mem_cons_of_mem _ hp)
+    have hrec : (wsum t : ℚ) = (Mscale : ℚ) * rsum t := ih ht1 ht2
+    have hexp : wsum (a :: t) = wt a + wsum t := by simp [wsum]
+    have hane : (a : ℚ) ≠ 0 := by exact_mod_cast ha.ne'
+    rw [hexp, Nat.cast_add, wt_cast ha had, hrec, rsum_cons, div_eq_mul_inv]
+    ring
+
+lemma thrM_add : thrM + wsum forced39 = 2 * Mscale := by decide
+
+lemma thrM_cast : (thrM : ℚ) = (Mscale : ℚ) * thr := by
+  have h := thrM_add
+  have hf1 : ∀ p ∈ forced39, 0 < p := by decide
+  have := wsum_cast hf1 forced39_dvd
+  have hc : (thrM : ℚ) + (wsum forced39 : ℚ) = 2 * (Mscale : ℚ) := by exact_mod_cast h
+  rw [this] at hc
+  rw [thr, mul_sub]
+  linear_combination hc
+
+lemma nsqCert_to_nsqB {n : ℕ} (h : nsqCert n = true) : nsqB n = true := by
+  have := not_isSquare_of_nsqCert h
+  simp only [nsqB, decide_eq_true_eq, ne_eq]
+  intro hsq
+  exact this ⟨Nat.sqrt n, hsq.symm⟩
+
+lemma dval_perm {l l' : List ℕ} (h : l.Perm l') : dval l = dval l' := by
+  simp only [dval]
+  rw [h.prod_eq]
+  exact (h.map _).sum_eq
+
+lemma dval_cons {x : ℕ} {l : List ℕ} (hx : 0 < x) :
+    dval (x :: l) = l.prod + x * dval l := by
+  simp only [dval, List.map_cons, List.sum_cons, List.prod_cons]
+  have h1 : x * l.prod / x = l.prod := Nat.mul_div_cancel_left _ hx
+  rw [h1]
+  congr 1
+  have h2 : ∀ p ∈ l, x * l.prod / p = x * (l.prod / p) := fun p hp =>
+    Nat.mul_div_assoc x (List.dvd_prod hp)
+  rw [List.map_congr_left h2]
+  exact List.sum_map_mul_left l (fun p => l.prod / p) x
+
+set_option maxHeartbeats 1000000 in
+theorem dfs_of_dfsA : ∀ (l : List ℕ), (∀ x ∈ l, 0 < x) → (∀ x ∈ l, x ∣ Mscale) →
+    ∀ (need : ℕ) (curN : ℕ) (curQ : ℚ) (pr ds : ℕ) (chosen : List ℕ),
+    (curN : ℚ) = (Mscale : ℚ) * curQ →
+    pr = (forced39 ++ chosen).prod →
+    ds = dval (forced39 ++ chosen) →
+    dfsA l need curN pr ds = true → dfs l need curQ chosen = true := by
+  intro l
+  induction l with
+  | nil =>
+    intro _ _ need curN curQ pr ds chosen hcur hpr hds hA
+    cases need with
+    | zero =>
+      rw [dfs]
+      by_cases h : thr ≤ curQ
+      · rw [if_pos h]
+        rw [dfsA] at hA
+        have hM : (thrM : ℚ) ≤ (curN : ℚ) := by
+          rw [thrM_cast, hcur]
+          have hM0 : (0 : ℚ) < Mscale := by exact_mod_cast Mscale_pos
+          exact mul_le_mul_of_nonneg_left h (le_of_lt hM0)
+        have hMn : thrM ≤ curN := by exact_mod_cast hM
+        rw [if_pos hMn] at hA
+        have hval : ds + 2 * pr = plusVal (forced39 ++ chosen) := by
+          rw [plusVal_eq, hpr, hds]
+        rw [hval] at hA
+        exact nsqCert_to_nsqB hA
+      · rw [if_neg h]
+    | succ n => rw [dfs]
+  | cons x xs ih =>
+    intro hpos hdvd need curN curQ pr ds chosen hcur hpr hds hA
+    have hx : 0 < x := hpos x (List.mem_cons_self)
+    have hxd : x ∣ Mscale := hdvd x (List.mem_cons_self)
+    have ht1 : ∀ y ∈ xs, 0 < y := fun y hy => hpos y (List.mem_cons_of_mem _ hy)
+    have ht2 : ∀ y ∈ xs, y ∣ Mscale := fun y hy => hdvd y (List.mem_cons_of_mem _ hy)
+    have hMQ : (0 : ℚ) < Mscale := by exact_mod_cast Mscale_pos
+    cases need with
+    | zero =>
+      rw [dfs]
+      by_cases h : thr ≤ curQ
+      · rw [if_pos h]
+        rw [dfsA] at hA
+        have hM : (thrM : ℚ) ≤ (curN : ℚ) := by
+          rw [thrM_cast, hcur]
+          exact mul_le_mul_of_nonneg_left h (le_of_lt hMQ)
+        have hMn : thrM ≤ curN := by exact_mod_cast hM
+        rw [if_pos hMn] at hA
+        have hval : ds + 2 * pr = plusVal (forced39 ++ chosen) := by
+          rw [plusVal_eq, hpr, hds]
+        rw [hval] at hA
+        exact nsqCert_to_nsqB hA
+      · rw [if_neg h]
+    | succ n =>
+      rw [dfs]
+      by_cases hprune : curQ + rsum ((x :: xs).take (n + 1)) < thr
+      · rw [if_pos hprune]
+      · rw [if_neg hprune]
+        push_neg at hprune
+        -- the scaled search did not prune either
+        have htake1 : ∀ p ∈ (x :: xs).take (n + 1), 0 < p := fun p hp =>
+          hpos p (List.mem_of_mem_take hp)
+        have htake2 : ∀ p ∈ (x :: xs).take (n + 1), p ∣ Mscale := fun p hp =>
+          hdvd p (List.mem_of_mem_take hp)
+        have hws := wsum_cast htake1 htake2
+        have hnoprune : ¬ (curN + wsum ((x :: xs).take (n + 1)) < thrM) := by
+          intro hc
+          have : (curN : ℚ) + (wsum ((x :: xs).take (n + 1)) : ℚ) < (thrM : ℚ) := by
+            exact_mod_cast hc
+          rw [hcur, hws, thrM_cast] at this
+          have hfac : (Mscale : ℚ) * (curQ + rsum ((x :: xs).take (n + 1)))
+              < (Mscale : ℚ) * thr := by rw [mul_add]; exact this
+          exact absurd hprune (not_le.mpr (lt_of_mul_lt_mul_left hfac (le_of_lt hMQ)))
+        rw [dfsA, if_neg hnoprune, Bool.and_eq_true] at hA
+        obtain ⟨hA1, hA2⟩ := hA
+        rw [Bool.and_eq_true]
+        constructor
+        · refine ih ht1 ht2 n (curN + wt x) (curQ + (x : ℚ)⁻¹) (x * pr) (pr + x * ds) (x :: chosen)
+            ?_ ?_ ?_ hA1
+          · rw [Nat.cast_add, hcur, wt_cast hx hxd, div_eq_mul_inv]
+            ring
+          · rw [hpr, (List.perm_middle (a := x) (l₁ := forced39) (l₂ := chosen)).prod_eq,
+              List.prod_cons]
+          · rw [hds, hpr, dval_perm (List.perm_middle (a := x) (l₁ := forced39) (l₂ := chosen)),
+              dval_cons hx]
+        · exact ih ht1 ht2 (n + 1) curN curQ pr ds chosen hcur hpr hds hA2
+
+lemma dfs_run : dfs pool99 20 0 [] = true := by
+  refine dfs_of_dfsA pool99 pool99_pos pool99_dvd 20 0 0 P0 D0 [] (by norm_num) ?_ ?_ dfsA_run
+  · show P0 = (forced39 ++ []).prod
+    decide
+  · show D0 = dval (forced39 ++ [])
+    decide
 
 /-! ## The main theorem -/
 

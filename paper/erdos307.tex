@@ -461,7 +461,7 @@ Theorem~\ref{thm:barrier} is machine--checked in Lean~4, and so is
 Proposition~\ref{prop:close59}: the theorem \texttt{erdos307\_sixty} formalises the entire
 argument; the forced--primes and element bounds, the Pythagorean plus--square, and a pruned
 depth--first search over the pool whose \emph{completeness is proved, not assumed}
-(\texttt{dfs\_sound}), the search itself running under \texttt{native\_decide}; on top of the
+(\texttt{dfs\_sound}), the search itself running under the kernel; on top of the
 two independent unverified programs. The level cannot be climbed further by finite means: already at $|U|=60$ the family
 $U=\{p_1,\dots,p_{59}\}\cup\{q\}$ qualifies for \emph{every} prime $q>277$, and on it the two square
 conditions read $x^2=Aq+\Pi_{59}$, $y^2=Bq+\Pi_{59}$ with $A,B=N_{59}\pm2\Pi_{59}$, i.e.\ the
@@ -2429,12 +2429,25 @@ It is no longer an open dependency: \texttt{Erdos307.Extremal} proves it
 \texttt{hRatio\_of\_extremal}), which is why Theorem~\ref{thm:barrier} appears above in the
 hypothesis-free form \texttt{erdos307\_barrier\_closed}.
 
-Two remarks on the trust boundary, since it moved at v1.4.6. The numeral bridge
-$\texttt{np0}\dots\texttt{np59}$ is checked by the Lean kernel through \texttt{decide}, not by
-\texttt{native\_decide}, so \texttt{card\_ge\_59} and \texttt{erdos307\_barrier\_closed} carry only
-the three standard axioms. The whole development contains exactly one \texttt{native\_decide} site,
-\texttt{dfs\_run}, the pruned-search execution behind Proposition~\ref{prop:close59}; it is the only
-non-logical input anywhere, and \texttt{erdos307\_sixty} is the only theorem that carries it.
+On the trust boundary: there is none beyond the logic. Every declaration in the development,
+without exception, depends only on \texttt{propext}, \texttt{Classical.choice} and
+\texttt{Quot.sound}; there is no \texttt{native\_decide} site and no \texttt{ofReduceBool}.
+
+The one that resisted was the pruned search behind Proposition~\ref{prop:close59}. \texttt{dfs}
+compares rationals, and the Lean kernel cannot reduce a \texttt{Rat} comparison at all, since
+\texttt{Nat.gcd} is well-founded recursion rather than a \textup{GMP} primitive; \texttt{decide}
+does not merely run slowly on it, it fails to evaluate. Three changes move the execution into the
+kernel. Scaling by $M=\prod(\texttt{forced39}\cup\texttt{pool99})$, a $327$--digit integer, clears
+every denominator \emph{exactly}: each $1/p$ becomes $M/p$ and $\mathrm{thr}$ becomes the integer
+$M\cdot\mathrm{thr}$, so the scaled search branches identically and the soundness theorem
+\texttt{dfs\_sound} is reused unchanged. The leaf test replaces \texttt{Nat.sqrt} on a $130$--digit
+number, some hundreds of structural steps, by a residue certificate: eleven moduli
+$\{8,19,167,127,149,67,59,101,73,191,41\}$, with their quadratic residues stored as bitmasks, cover
+all $49{,}961$ supports, and a non--residue is a proof of non--squareness
+\textup{(\texttt{lean/Erdos307/NonSquare.lean})}. Finally the product and cofactor sum are carried
+down the recursion rather than rebuilt at each leaf. The kernel then runs the whole search in about
+a minute \textup{(\texttt{dfsA\_run}, \texttt{dfs\_of\_dfsA})}.
+
 Proposition~\ref{prop:close59}'s product bounds are proved in this paper and not in Lean:
 \texttt{erdos307\_sixty} establishes $|P\cup Q|\ge60$ alone.
 

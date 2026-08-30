@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**72 of 132** labelled results are named by a Lean file in `Erdos307/` (49 files, **0 `sorry`**).
+**72 of 132** labelled results are named by a Lean file in `Erdos307/` (50 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **372 declarations across all 49 modules**. Everything is on the
+`lake env lean Check.lean` probes **375 declarations across all 50 modules**. Everything is on the
 three standard axioms or fewer, with exactly two exceptions: `dfs_run`, the pruned-search execution
 that closes level 60, and the `erdos307_sixty` that consumes it. The numeral bridge is
 kernel-checked, so `card_ge_59` and `erdos307_barrier_closed` carry no `native_decide`.
@@ -15,6 +15,20 @@ algebraic identity, as COMPUTATIONAL, because its block reports an exhaustive ch
 proof. It also reported 48 of 104 while the true total is 106: the extractor required a `[title]`
 bracket, so untitled results such as `thm:ff` were invisible. Both are fixed, and both were found by
 external audit rather than by this file, which is the honest record.
+
+## Trust boundary: none beyond the logic
+
+Every declaration in the development depends only on `propext`, `Classical.choice` and
+`Quot.sound`. There is no `native_decide` site and no `ofReduceBool` anywhere.
+
+The last one was `dfs_run`, the pruned search of `prop:close59`. `dfs` compares rationals and the
+kernel cannot reduce a `Rat` comparison at all -- `Nat.gcd` is well-founded recursion, not a GMP
+primitive -- so `decide` did not merely run slowly on it, it failed to evaluate. Removed by three
+changes: scale by `Mscale`, the 327-digit product of the 138 primes in play, which clears the
+denominators EXACTLY so the scaled search branches identically and `dfs_sound` is reused unchanged;
+replace `Nat.sqrt` on a 130-digit number by an eleven-modulus residue certificate
+(`NonSquare.lean`); and carry the product and cofactor sum down the recursion instead of rebuilding
+them at each of the 49,961 leaves. The kernel runs the search in about a minute.
 
 ## Formalisation debt (Rule 5): none
 

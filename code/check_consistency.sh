@@ -43,7 +43,7 @@ chk "COVERAGE module count"   "$mods"  "$(grep -oE 'across all [0-9]+ modules' l
 chk "COVERAGE file count"     "$mods"  "$(grep -oE '\([0-9]+ files' lean/COVERAGE.md | grep -oE '[0-9]+')"
 
 nd=$(grep -rn 'native_decide' lean/Erdos307/*.lean | grep -c ':= by')
-chk "native_decide sites" "1" "$nd"
+chk "native_decide sites" "0" "$nd"
 
 sry=$(grep -rn 'sorry' lean/Erdos307/*.lean | grep -v 'sorry`-free\|sorryAx' | wc -l | tr -d ' ')
 chk "sorry count" "0" "$sry"
