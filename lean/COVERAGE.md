@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**72 of 132** labelled results are named by a Lean file in `Erdos307/` (48 files, **0 `sorry`**).
+**72 of 132** labelled results are named by a Lean file in `Erdos307/` (49 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **370 declarations across all 48 modules**. Everything is on the
+`lake env lean Check.lean` probes **372 declarations across all 49 modules**. Everything is on the
 three standard axioms or fewer, with exactly two exceptions: `dfs_run`, the pruned-search execution
 that closes level 60, and the `erdos307_sixty` that consumes it. The numeral bridge is
 kernel-checked, so `card_ge_59` and `erdos307_barrier_closed` carry no `native_decide`.
@@ -16,10 +16,16 @@ proof. It also reported 48 of 104 while the true total is 106: the extractor req
 bracket, so untitled results such as `thm:ff` were invisible. Both are fixed, and both were found by
 external audit rather than by this file, which is the honest record.
 
-## Formalisation debt (Rule 5): one atom, and it is a cited external input
+## Formalisation debt (Rule 5): none
 
 Rule 5 requires every atom sitting at PROVED to carry either an active formalisation or a recorded
-blocker, and forbids "not yet attempted". One is blocked, and the blocker is specific.
+blocker, and forbids "not yet attempted". **No atom is blocked.** All four are discharged, and three of the four fell because the blocker had
+been mis-stated rather than because the mathematics was hard. **A7 is discharged**: its regime (2)
+cited Hasse-Weil for a point count, but the statement needs only *existence* of one point, and
+counting the pairs directly gives a double character sum whose inner sums are the two complete
+evaluations proved for A3. `pairlocal_inner_sum` and `pairlocal_count_pos`
+(`lean/Erdos307/PairLocalCount.lean`) carry it, positive from `l >= 17` against the `l >= 107` in
+play. 0 `sorry`, standard axioms.
 **A8 is discharged.** It was carried as a deliberate refusal, on the ground that certifying the
 minimisation behind `113.2` would need `native_decide`. That was the wrong direction: the conclusion
 drawn is that the *gain* over the barrier is under one order, which is an UPPER bound on a minimum,
@@ -45,12 +51,12 @@ that needed proving was the easy direction all along.
 
 | atom | formalised | blocked on | what unblocks it |
 |---|---|---|---|
-| **A7** `prop:pairlocal` (**cited input**) | no-pinning, the regime-(2) collapse identity, regime (1)'s explicit unit, regime (3)'s mod-8 collapse, **and the `l` to `l^j` lift** (`square_lifts_to_prime_powers`, from `hensel_all_powers`) | Weil's point count alone | A Mathlib bound on points of a quartic over `F_l`. The Hensel-lifting half of this blocker was discharged this release, so one cited input remains, not two. |
 
 A6 moved furthest this release: its divisor sums, their logarithmic form, and the range count are
 all formal, leaving the CRT root bound as the single remaining lemma. A7 moved in the previous
-release, to Weil alone. One atom remains starred: A7, which waits on Mathlib growing Hasse-Weil.
-A3, A6 and A8 are all done.
+release, to Weil alone -- and then past it. No atom remains starred. The recurring error was
+treating "Mathlib does not carry the named theorem" as evidence that the step needs that theorem;
+in three of four cases the step did not.
 
 ## The "algebraic gap is zero" claim is retired
 

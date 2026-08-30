@@ -623,12 +623,17 @@ observation that the two square conditions are one, \texttt{regime\_one\_first} 
 \texttt{targets\_agree\_mod\_eight} is the mod--$8$ collapse of regime~\textup{(3)}. The lift from
 $\ell$ to $\ell^j$ that regime~\textup{(1)} needs is \texttt{square\_lifts\_to\_prime\_powers},
 proved from \texttt{hensel\_all\_powers}: if $\ell$ is an odd prime not dividing $c$ and $c$ is a
-square modulo $\ell$, it is a square modulo every power of $\ell$. Weil's bound for the point count
-in regime~\textup{(2)} is the one remaining input, and it is \emph{cited}, not pending: the quantity
-$\delta=u^2-4m$ is a quartic in $y$, so the count is Hasse--Weil for $v^2=\delta(y)$, and Mathlib has
-elliptic--curve infrastructure but no point--count bound. Formalising Hasse's theorem is a
-contribution to Mathlib rather than to this problem, so the star here records a citation. $0$
-\texttt{sorry} \textup{(\texttt{lean/Erdos307/PairLocal.lean})}.
+square modulo $\ell$, it is a square modulo every power of $\ell$. Regime~\textup{(2)} carried a citation to Weil's
+bound in earlier revisions; it does not need one. Its two steps are
+\texttt{Erdos307.pairlocal\_inner\_sum}, the evaluation of the inner sum of $S_{fg}$ as
+$-\chi\bigl((A\alpha+D)(B\alpha+D)\bigr)$ by the quadratic complete sum of
+Proposition~\ref{prop:localcomplete}, with its side condition discharged as $4D^2\alpha^2\ne0$; and
+\texttt{pairlocal\_count\_pos}, the arithmetic turning the resulting $O(\ell)$ bounds into a positive
+count from $\ell\ge17$. $0$ \texttt{sorry} \textup{(\texttt{lean/Erdos307/PairLocal.lean},
+\texttt{lean/Erdos307/PairLocalCount.lean})}. Checked directly: over $872$ random bases with
+$A-B=4D$ and every odd $\ell\le400$, the count of admissible $(\alpha,\beta)$ was positive in every
+case and tracks $(\ell-1)^2/4$; the crude bounds $|S_f|,|S_g|\le2\ell$, $|S_{fg}|\le3\ell$ held in
+all $409$ cases tested \textup{(\texttt{code/pairlocal\_count.gp})}.
 \end{proposition}
 \begin{proof}
 First, no $\ell$ pins either target to a constant: that needs $\ell\mid A$ (or $B$) \emph{and}
@@ -644,13 +649,21 @@ is a unit congruent to a square, so $y$ exists modulo $\ell^j$.
 
 \emph{(2) $\ell$ odd, $\ell\nmid2D$} (in particular every $\ell\ge107$ outside $W$). The two
 conditions are secretly \emph{one}: setting $m=(x^2-y^2)/4D$ and $u=(x^2-Am)/D$, the relation
-$A-B=4D$ gives the polynomial identity $Bm+Du=y^2$. So any $(x,y)$ with $xy\ne0$, $x^2\ne y^2$ and
-$\delta:=u^2-4m$ a square delivers $\alpha,\beta$ as the roots of $z^2-uz+m$ (nonzero, as
-$\alpha\beta=m\ne0$). For each admissible $x$, $\delta$ is a quartic in $y$ and not a square in
-$\overline{\mathbb F}_\ell[y]$ (a factorisation $(Q-R)(Q+R)=16D^3(x^2-y^2)$ would force
-$\ell\mid4D$), so Weil's bound gives $\tfrac12\ell^2+O(\ell^{3/2})$ admissible pairs; positive
-well below $\ell=107$. The point is nonsingular ($xy\ne0$; the Jacobian contains
-$\operatorname{diag}(2x,2y)$), so it lifts to every $\ell^j$.
+$A-B=4D$ gives the polynomial identity $Bm+Du=y^2$. Only \emph{existence} is wanted, and counting the
+pairs $(\alpha,\beta)$ directly settles it with no curve and no Weil bound. Write $\chi$ for the
+quadratic character, $f=A\alpha\beta+D(\alpha+\beta)$ and $g=B\alpha\beta+D(\alpha+\beta)$. Summing
+$\tfrac14(1+\chi(f))(1+\chi(g))$ over $\alpha,\beta\in\mathbb F_\ell^{\times}$ and discarding the at
+most $2(\ell-1)$ pairs with $fg=0$,
+\[ 4\,\#\{\text{both nonzero squares}\}\;\ge\;(\ell-1)^2+S_f+S_g+S_{fg}-8(\ell-1). \]
+For fixed $\alpha$ each target is \emph{linear} in $\beta$, so the inner sums of $S_f$ and $S_g$
+vanish by the linear evaluation above, leaving $|S_f|,|S_g|\le2\ell$. And $fg$ is a \emph{product of
+two linear forms} in $\beta$, so its inner sum is the quadratic evaluation, whose side condition
+$ad\ne bc$ is here $D\alpha(A-B)\alpha=4D^2\alpha^2\ne0$ --- exactly the hypotheses
+$\ell\nmid2D$ and $\alpha\ne0$; summing the resulting $-\chi\bigl((A\alpha+D)(B\alpha+D)\bigr)$ over
+$\alpha$ is that same evaluation again, so $|S_{fg}|\le3\ell$. Hence the count is positive as soon as
+$(\ell-1)^2-7\ell-8(\ell-1)>0$, i.e.\ from $\ell\ge17$, far below the $\ell\ge107$ in play. The point
+is nonsingular ($\alpha\beta\ne0$; the Jacobian contains $\operatorname{diag}(2x,2y)$), so it lifts
+to every $\ell^j$.
 
 \emph{(3) $\ell=2$.} Both targets are odd and agree modulo $8$ (as $\alpha\beta$ is odd,
 $D(\alpha+\beta)\equiv0\bmod4$, and $(A-B)\alpha\beta=4D\alpha\beta\equiv0\bmod8$), and a finite

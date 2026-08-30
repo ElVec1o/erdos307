@@ -45,3 +45,4 @@ import Erdos307.Witness
 import Erdos307.RootCount
 import Erdos307.CompleteSums
 import Erdos307.NoGainWitness
+import Erdos307.PairLocalCount
