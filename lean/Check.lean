@@ -6,7 +6,9 @@ import Erdos307.Capstone
 import Erdos307.CharSum
 import Erdos307.Closed
 import Erdos307.Congruential
+import Erdos307.Coprime
 import Erdos307.Coprime60
+import Erdos307.Witness
 import Erdos307.Dictionary
 import Erdos307.Distinctness
 import Erdos307.DivisorSum
@@ -411,3 +413,7 @@ open Erdos307
 #print axioms hensel_lift_identity
 #print axioms hensel_all_powers
 #print axioms tail_no_local_obstruction
+#print axioms Erdos307.Witness.rsum_Ps
+#print axioms Erdos307.Witness.effapprox_witness
+#print axioms Erdos307.Coprime.sum_inv_ne_one
+#print axioms Erdos307.Coprime.coprime_numerator
