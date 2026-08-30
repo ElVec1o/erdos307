@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**72 of 131** labelled results are named by a Lean file in `Erdos307/` (45 files, **0 `sorry`**).
+**72 of 131** labelled results are named by a Lean file in `Erdos307/` (46 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **361 declarations across all 45 modules**. Everything is on the
+`lake env lean Check.lean` probes **365 declarations across all 46 modules**. Everything is on the
 three standard axioms or fewer, with exactly two exceptions: `dfs_run`, the pruned-search execution
 that closes level 60, and the `erdos307_sixty` that consumes it. The numeral bridge is
 kernel-checked, so `card_ge_59` and `erdos307_barrier_closed` carry no `native_decide`.
@@ -16,13 +16,17 @@ proof. It also reported 48 of 104 while the true total is 106: the extractor req
 bracket, so untitled results such as `thm:ff` were invisible. Both are fixed, and both were found by
 external audit rather than by this file, which is the honest record.
 
-## Formalisation debt (Rule 5): four atoms, and two kinds of blocker
+## Formalisation debt (Rule 5): three atoms, and two kinds of blocker
 
 Rule 5 requires every atom sitting at PROVED to carry either an active formalisation or a recorded
-blocker, and forbids "not yet attempted". These four are blocked, and each blocker is specific.
+blocker, and forbids "not yet attempted". Three are blocked, and each blocker is specific.
+**A6 is discharged**: the CRT root bound that was its only missing lemma is now
+`Erdos307.rootSet_card_le_two_pow_omega`, composed with `two_pow_omega_le_tau` as
+`rootSet_card_le_tau` (`lean/Erdos307/RootCount.lean`, 0 `sorry`, standard axioms). What is left of
+A6 is the instantiation of an abstract reduction to this layer, not a lemma: "plus-hit" is not
+defined in Lean, and the paper says so.
 
-They are not the same kind of debt, and the table should not pretend otherwise. **A6 is reachable**:
-what it lacks is one elementary lemma, and the rest of its chain is now formal. **A3 and A7 are
+They are not the same kind of debt, and the table should not pretend otherwise. **A3 and A7 are
 permanently cited external inputs**: each needs a named classical theorem that Mathlib does not have
 and whose formalisation is a research contribution in its own right (complete character sums for A3,
 Hasse-Weil for A7). Carrying them as though they were pending work misrepresents them; they are
@@ -31,14 +35,14 @@ citations, and the paper states them as such. **A8 is a deliberate refusal**, un
 | atom | formalised | blocked on | what unblocks it |
 |---|---|---|---|
 | **A3** `prop:localcomplete` (**cited input**) | regimes (i) and (ii) in `LocalComplete.lean` | regime (iii)'s complete character sums | Mathlib lemmas for `sum_q chi(aq+b) = 0` (`a != 0`) and `sum_q chi((aq+b)(cq+d)) = -chi(ac)` (`ad != bc`). Both standard, neither present. |
-| **A6** `prop:plusthin` (**reachable**) | the elementary skeleton through `count_le_divisor_sum`; both divisor-sum upper bounds; the log form `sum tau(u)/u <= (1+log Z)^2`; and the range count `count_in_residue_classes` | one lemma: the CRT root bound | `roots of 2s^2+1 = 0 mod u` is multiplicative across prime powers, giving `<= 2^omega(u) <= tau(u)`. Needs CRT multiplicativity of a root count on top of `two_roots_quadratic`, which Mathlib does not package but which is elementary. This is the only piece left. |
 | **A7** `prop:pairlocal` (**cited input**) | no-pinning, the regime-(2) collapse identity, regime (1)'s explicit unit, regime (3)'s mod-8 collapse, **and the `l` to `l^j` lift** (`square_lifts_to_prime_powers`, from `hensel_all_powers`) | Weil's point count alone | A Mathlib bound on points of a quartic over `F_l`. The Hensel-lifting half of this blocker was discharged this release, so one cited input remains, not two. |
 | **A8** `prop:nogain` | the full inequality chain, `cycle_bound_max` | the value `113.2` | A finite minimisation over subsets `S`, done in `code/minimise_structured.rs`. Formalising it means `native_decide` at a scale that would add an axiom to a result that currently needs none. **Deliberately not done**; the paper labels the value a computation. |
 
 A6 moved furthest this release: its divisor sums, their logarithmic form, and the range count are
 all formal, leaving the CRT root bound as the single remaining lemma. A7 moved in the previous
-release, to Weil alone. All four stay starred, but only A6 is work that this project can finish;
-A3 and A7 wait on Mathlib growing classical theorems, and A8 is refused on purpose.
+release, to Weil alone. Of the three that remain starred, none is work this project can finish:
+A3 and A7 wait on Mathlib growing classical theorems, and A8 is refused on purpose. A6, which was
+the one reachable item, is done.
 
 ## The "algebraic gap is zero" claim is retired
 

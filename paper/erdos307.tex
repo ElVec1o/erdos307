@@ -3340,11 +3340,27 @@ divisor--pairing step that reorganises that sum over the small member alone, and
 $2\ne0$ rather than the discriminant. $0$ \texttt{sorry}
 \textup{(\texttt{lean/Erdos307/PlusThin.lean})}.
 
-The tail is not, and cannot presently be: Dirichlet's $\sum_{u\le Z}\tau(u)\sim Z\log Z$ and
-$\sum_{u\le Z}\tau(u)/u\sim\tfrac12(\log Z)^2$ have no counterpart in Mathlib, so the passage from
-the divisor sum to $O\bigl(\sqrt X(\log X)^2\bigr)$ is asserted in prose only, as are Erd\H{o}s's
-sharpening and Bunyakovsky's lower bound. This is the one place in the paper where the gap between
-the prose and the formal record is an absence in the library rather than a choice.
+The rest of the elementary chain is formal as well. The count of $s\le Y$ in the admissible residue
+classes is \texttt{count\_in\_residue\_classes}, and the divisor sum is bounded in the printed shape
+by \texttt{sum\_tau\_div\_le\_log\_sq}, $\sum_{u\le Z}\tau(u)/u\le(1+\log Z)^2$, from Mathlib's
+\texttt{harmonic\_le\_one\_add\_log}. Only Dirichlet's \emph{asymptotics} are absent from the
+library, and the upper bound does not use them.
+
+The step that was missing is now supplied. The chain needs $|R|\le\tau(u)$ for $R$ the roots of
+$2s^2+1\equiv0$ modulo $u$, and the half $2^{\omega(u)}\le\tau(u)$ was already
+\texttt{two\_pow\_omega\_le\_tau}. The other half, $|R|\le2^{\omega(u)}$, is the multiplicativity of
+the root count, and is now \texttt{Erdos307.rootSet\_card\_le\_two\_pow\_omega}, with the
+composition \texttt{rootSet\_card\_le\_tau}. Two steps, both elementary in $\mathbb{Z}/u$: the
+Chinese remainder ring equivalence carries a root modulo $ab$ to a pair of roots injectively, so the
+count is submultiplicative on coprime factors \textup{(}\texttt{rootSet\_card\_mul\_le}\textup{)};
+and modulo an odd prime power there are at most two roots, because $(x-y)(x+y)=0$ while $p$ cannot
+divide the representatives of both factors, their sum representing the unit $2x$
+\textup{(}\texttt{rootSet\_card\_prime\_pow\_le\_two}\textup{)}. Modulo a power of $2$ there are
+none. $0$ \texttt{sorry} \textup{(\texttt{lean/Erdos307/RootCount.lean})}.
+
+What remains outside Lean is the \emph{instantiation}, not a lemma: ``plus--hit'' is not defined in
+Lean, so tying the abstract reduction to this layer is done in the prose above. Erd\H{o}s's
+sharpening and Bunyakovsky's lower bound stay cited, and neither is used by the upper bound.
 \end{remark}
 
 The semiprime argument generalises: the slot calculus of Proposition~\ref{prop:slot} counts.
