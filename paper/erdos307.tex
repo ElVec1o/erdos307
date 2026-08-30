@@ -2508,6 +2508,41 @@ already satisfies $\sum_{b\in B}1/b\approx1$ of the congruences by chance, the s
 window is performing at the random baseline: the freedom the congruence route needs is exactly the
 freedom the mass window removes.
 
+\subsection{Candidates that are smooth by construction}\label{ssec:smoothbuilt}
+
+Both failures above share an order of operations: fix a ground set $U$, split it, and hope $\beta$
+comes out smooth. Reversing the order removes the obstruction. Choose the small primes $B_0$ that
+are to divide $\beta$, draw $A$ from primes above $\max B_0$, and \emph{impose}
+$\sum_{a\in A}a^{-1}\equiv0\pmod q$ for each $q\in B_0$. Two points make this work where the earlier
+routes did not. First, the conditions are congruences on $A$ alone, so they can be solved exactly
+rather than sampled --- we use meet--in--the--middle over disjoint swap pairs drawn from adjacent
+primes, so the mass moves by less than $10^{-4}$. Second, and decisively, $B$ is no longer the
+complement of a fixed ground set but whatever factors $\beta$; the rigid window $x+y=T(U)$ of
+Section~\ref{ssec:coprimesieve} therefore does not apply, and the only surviving requirement is
+$x>1$.
+
+Two obstructions appear and both are removable. Every pool prime is odd, so $a^{-1}\equiv1\pmod2$ and
+the residue mod $2$ is pinned to $|A|\bmod2$: no swap can move it, and $|A|$ must be even. And
+forcing $q\mid\beta$ does not prevent $q^2\mid\beta$, in which case the block contributes $1/q^2$ in
+place of $1/q$ --- at $B_0=\{2,\dots,41\}$ an unconstrained solution came out with $2^5\,\|\,\beta$ and
+$3^3\,\|\,\beta$, which alone costs $0.76$ and fails the sieve. Imposing $q\,\|\,\beta$, tested by the
+same identity taken modulo $q^2$, repairs it.
+
+\begin{proposition}[The necessary condition is constructible]\label{prop:smoothbuilt}
+For every $B_0$ among the first $8$ to $12$ primes there are coprime families $A$ of primes above
+$\max B_0$ with $x=\sum_A1/a>1$ such that each $q\in B_0$ divides $\beta$ exactly once. Such $A$
+satisfy $y_{\max}(\beta)\ge\sum_{q\in B_0}1/q>1>1/x$, hence pass
+Proposition~\ref{prop:coprimesieve}.
+\end{proposition}
+
+Verified in exact multiprecision arithmetic at $B_0=\{2,\dots,37\}$: $|A|=3290$, largest member
+$31{,}063$, $\log_{10}\alpha=\log_{10}\beta=13{,}163.1$, $\gcd(\alpha,\beta)=1$, every forced prime
+exactly dividing $\beta$, and
+\[ y_{\max}(\beta)=1.5927\ldots\ \ge\ 1/x=0.99597\ldots \]
+\textup{(\texttt{code/smooth\_by\_construction.rs})}. Against $0$ of $5{,}272$ for the sampled
+search, the construction passes at every depth from $8$ to $12$; depth $13$ needs modulus
+$3.0\times10^{14}$ and more swap pairs than the $2^{24}$ table cap admits.
+
 \begin{remark}\label{rem:coprimeverdict}
 The two routes are worth separating. The \emph{factorisation} obstacle is genuinely gone --- both
 tests run in arithmetic modulo $10^{10}$ and never form $\beta$ --- and
@@ -2515,8 +2550,12 @@ Proposition~\ref{prop:coprimesieve} is a sound, essentially free first pass that
 should run. What replaces it is a harder obstacle: inside the mass window the candidates are not
 merely hard to test, they are uniformly far from the target, by a margin of $0.77$ in $y_{\max}$ at
 the observed best. A search for a $1$--free coprime example must therefore generate candidates that
-are smooth \emph{by construction} rather than filtered for smoothness after the fact, and we do not
-have a construction that respects the mass window while doing so.
+are smooth \emph{by construction} rather than filtered for smoothness after the fact.
+Section~\ref{ssec:smoothbuilt} gives such a construction. What it does not give is a test of
+sufficiency: deciding whether some coprime factorisation of $\beta$ sums to exactly $\alpha/\beta$
+needs the factorisation of $\beta$, whose unfactored part in the verified instance has $13{,}151$
+digits. Factoring returns, but only at the last step, and it no longer blocks the generation of
+candidates.
 \end{remark}
 
 \section{Status and questions}\label{sec:status}
