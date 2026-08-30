@@ -1259,8 +1259,8 @@ X & 10^{6} & 10^{7} & 10^{9} & 10^{12} & 10^{18} & 10^{30}\\\hline
 \text{rules out every }k\le & 18 & 16 & 12 & 9 & 6 & 3
 \end{array}
 \]
-The sweep to $10^{7}$ of Proposition~\ref{prop:nearmiss} therefore already excludes every cycle of
-period at most $16$ with all members in range, and not merely period two. This is the practical form
+The sweep of Proposition~\ref{prop:nearmiss}, now carried to $10^{8}$, therefore already excludes
+every cycle of period at most $14$ with all members in range, and not merely period two. This is the practical form
 of Proposition~\ref{prop:kuniform}: because the barrier does not weaken with the period, a single
 bounded search settles a whole initial segment of Ufnarovski--\AA hlander's Conjecture~3 at once,
 whereas the period--two reading of the same computation settles only $k=2$.
@@ -2912,7 +2912,11 @@ way such heuristics are calibrated.
 \begin{proposition}[The near-miss spectrum, and why the heuristic cannot be calibrated]\label{prop:nearmiss}
 Over all $4{,}385{,}727$ integers $a\le10^7$ with $a$ and $a'$ both squarefree, the maximum of
 $r(a)$ is $0.5535$, attained at $a=3{,}972{,}254$; the frontier advances by decade as
-$0.333,\,0.345,\,0.502,\,0.502,\,0.536,\,0.554$. In particular $r\ge1$ never occurs, the defect
+$0.333,\,0.345,\,0.502,\,0.502,\,0.536,\,0.554$, and at $10^{8}$ it reaches $0.586076$ at
+$a=23{,}667{,}105$ \textup{(\texttt{code/sweep1e8.rs}, which reproduces every earlier decade
+independently)}. This last decade was run as a test of Proposition~\ref{prop:frontier}: the bound
+$R(10^{8})\le0.67270$ and the range $[0.55,0.62]$ suggested by the earlier decades were both
+recorded before the computation, and both hold. In particular $r\ge1$ never occurs, the defect
 $|a''-a|$ is of size $a^{0.9}$ or larger in all but three cases, and the smallest relative defect is
 $0.4465$. Consequently the constant in the heuristic count of two-cycles, $f(1)\log X$ with $f$ the
 density of $r$ at $1$, is \emph{not measurable}, and the obstruction is two--sided.
