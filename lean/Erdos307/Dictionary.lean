@@ -114,4 +114,12 @@ theorem threshold_pushes {sa sb t : ℝ} (ht1 : 1 < t) (hgt : t < sa) (hprod : s
     div_pos (mul_pos (by linarith) (by linarith)) (mul_pos hsa ht0)
   linarith [key, hpos]
 
+/-- **How many rungs.** Positivity of the two masses of a Pythagorean pair gives `-t < k ≤ 0` for
+the integer rung index, and the level pins `t ≤ T`. So `k` is bounded below by `1 - ⌈T⌉`, hence
+takes at most `⌈T⌉` values. With `T = t_n` this is `prop:rungcount`: two rungs while `t_n < 2`,
+that is while `T_n < 5/2`, that is for every level up to `1412`. -/
+theorem rung_floor {t T : ℝ} {k : ℤ} (hk : -t < (k : ℝ)) (hT : t ≤ T) : 1 - ⌈T⌉ ≤ k := by
+  have h : -k < ⌈T⌉ := Int.lt_ceil.mpr (by push_cast; linarith)
+  omega
+
 end Erdos307.Dictionary

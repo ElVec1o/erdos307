@@ -894,7 +894,20 @@ The run is \texttt{code/tailsearch.rs} (a cascade of quadratic--residue filters 
 to $2D$, $771$ survivors) with every survivor then tested exactly by \texttt{issquare} in
 \texttt{code/tailsearch\_verify.gp} ($0$ squares). A positive control recovers the known solutions of
 the toy base $D=1$, $N=7$, and an exhaustive exact run at $\omega(m)\le2$ agrees with the filter, so
-the cascade is not silently over--rejecting. This is \textsc{verified} on the stated slice, not on the
+the cascade is not silently over--rejecting.
+
+It is worth recording what the slice covers in the other measure, since the two are thirteen orders
+apart. The parametrisation runs over $m\mid4D$ with $m$ even, so $m=2\alpha$ with $\alpha\mid D$, and
+at level $59$ that is $2^{59}=5.7646\times10^{17}$ divisors. Splitting on the parity of $\alpha$, the
+divisors with $\omega(m)\le4$ number $2\sum_{j\le3}\binom{58}{j}=65{,}136$, and those with
+$\omega(m)\le8$ number $2\sum_{j\le7}\binom{58}{j}=692{,}376{,}800$. As fractions of the space the
+bound $q\le N$ actually proves finite, these are
+\[ 1.130\times10^{-13}\qquad\text{and}\qquad 1.201\times10^{-9}, \]
+against the $99.2\%$ and $99.9998\%$ of the \emph{expected count} quoted above. Both figures are
+correct and they measure different things: the expected count concentrates on small $\omega$, the hit
+probability falling like $1/(m\sqrt D)$, so a slice can carry almost all of the expectation while
+carrying almost none of the space. Only the second pair of numbers is a statement about what has
+been checked. This is \textsc{verified} on the stated slice, not on the
 full divisor set: the residual $0.0018\%$ of the expected count is untested.
 
 The filter primes must be coprime to $2D$, which is itself a structural fact rather than a

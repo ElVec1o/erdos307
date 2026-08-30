@@ -129,7 +129,7 @@ heuristic has no empirical support and cannot acquire any. **No proof either way
 ## Layout
 
 ```
-paper/   erdos307.tex, erdos307.pdf   — the note (106 pp; self-contained bibliography)
+paper/   erdos307.tex, erdos307.pdf   — the note (107 pp; self-contained bibliography)
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md
 certs/   independently checkable ECPP primality certificates: the immune families, and the
@@ -142,7 +142,7 @@ hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, w
 
 - **Paper:** `cd paper && pdflatex erdos307.tex` twice (for cross-references). No BibTeX run needed.
 - **Lean:** `cd lean && lake exe cache get && lake build` (Lean / mathlib `v4.30.0`). Then
-  `lake env lean Check.lean` prints the axiom dependencies of 350 declarations across all 43 modules
+  `lake env lean Check.lean` prints the axiom dependencies of 351 declarations across all 43 modules
   — everything depends only on `propext, Classical.choice, Quot.sound` (no `sorryAx`), with exactly
   one exception: `erdos307_sixty`, which additionally carries the `native_decide` axiom of `dfs_run`.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)
