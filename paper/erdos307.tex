@@ -3950,6 +3950,28 @@ the baseline $20$ smallest candidates carry $0.0907260944\ldots$, exceeding the 
 $T_{59}-2=0.0023501514\ldots$, and every admissible $S$ is a perturbation of that baseline within
 this budget.
 
+\begin{proposition}[How many rungs the ladder has]\label{prop:rungcount}
+Let $(a,b)$ be a Pythagorean pair with $a<b$, $t=b/a$ and $|U|=n$. Positivity of the two masses gives
+$-t<k\le0$, so $k$ takes at most $\lceil t\rceil$ values, and $t\le t_n$ where $t_n+1/t_n=T_n$. Hence
+the number of rungs available at level $n$ is at most $\lceil t_n\rceil$, and
+\[ t_n>m\iff T_n>m+\tfrac1m . \]
+In particular the ladder has exactly the two rungs $k\in\{0,-1\}$ at every level $n\le1412$, and the
+third rung $k=-2$ opens only at $n=1413$.
+\end{proposition}
+
+Two readings. First, the hypothesis $\sigma(ab)<5/2$ under which
+Proposition~\ref{cor:kdetermined} confines $k$ to $\{0,-1\}$ is not a restriction anywhere a search
+operates: it is equivalent to $t<2$, hence to $n\le1412$, and at level $59$ one has $t=1.049668$ with
+$\lceil t\rceil=2$. The confinement is unconditional throughout the range the rest of this note
+inhabits, and the hypothesis only becomes real past level $1412$.
+
+Second, $1413$ is not a new constant. It is the level at which $T_n$ reaches $5/2$, and that is the
+same threshold as the all--odd case of Theorem~\ref{thm:parity}: an all--odd cycle needs mass $2$ on
+primes $\ge3$, hence $T_n\ge2+\tfrac12$. The level at which the ladder acquires a third rung and the
+level at which an all--odd cycle becomes possible are the same level, for the same reason
+\textup{(\texttt{code/level\_structure.rs})}. The fourth rung would need $T_n>10/3$, beyond
+$\pi(4\times10^{7})$.
+
 \begin{proposition}[The admissible supports are not a tree]\label{prop:nottree}
 There are admissible supports at level $60$ with no admissible subset at level $59$. Explicitly,
 \[ U\;=\;\{p:p\le271\}\ \cup\ \{809,\,811\} \]

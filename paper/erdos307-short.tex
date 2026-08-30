@@ -1610,7 +1610,7 @@ $\mathbb{Z}[i]$: Leibniz holds for disjoint supports, so a cycle $(a,b)$ has $D(
 with $D(N)-2N=(a-b)^2$ and $2N-D(N)=\bigl(i(a-b)\bigr)^2$ (all verified exactly on the cycles found).
 The last equation exposes the wall: over $\mathbb{Z}[i]$, where $-1=i^2$ is a square, \emph{both}
 discriminant factors are squares automatically, and the plus/minus distinction of
-Proposition~14.19 of the full version (which over $\mathbb{Z}$ carries the entire obstruction, via
+Proposition~14.20 of the full version (which over $\mathbb{Z}$ carries the entire obstruction, via
 $(a-b)^2\ge0\Rightarrow\sigma(N)\ge2$) has no content. The unique non--transferring link is the
 sign--definiteness of squares: the barrier is, in the end, the \emph{formal reality} of $\mathbb{Q}$ in
 the sense of Artin--Schreier. (The two Artin--Schreier theorems thus bracket the problem: their
@@ -2398,7 +2398,7 @@ $37{,}963$ primes; in the period, that the barrier is uniform in $k$, so it boun
 Ufnarovski--\AA hlander's Conjecture~3 and not only \#307 (Proposition~\ref{prop:kuniform}); in the
 orbit length, that the derivative cannot outgrow its own support
 (Proposition~\ref{prop:growth}); in the split, that $\min(\omega(a),\omega(b))\ge3$ whenever
-$|U|\le68$ (Proposition~14.19 of the full version); and in the level, the forced core and the ceiling that
+$|U|\le68$ (Proposition~14.20 of the full version); and in the level, the forced core and the ceiling that
 pin level $59$ from both sides and yield its admissible count $49{,}961$ in closed characterisation
 (Propositions~\ref{prop:window},~\ref{prop:band}, Corollary~\ref{cor:count59}). The algebraic cores
 of these are Lean--verified (\texttt{Dictionary.lean}).
@@ -2604,7 +2604,7 @@ two--cycles to the strictly weaker one--equation (Pythagorean) problem.
 
 \textup{Formalised.} \texttt{Erdos307.pyth\_sum\_of\_squares} is $N'=a^2+b^2$ from Leibniz and the
 cycle, \texttt{pyth\_discriminant} the resulting square, \texttt{split\_identity} and
-\texttt{split\_product} the two--layer form of Proposition~14.19 of the full version, and
+\texttt{split\_product} the two--layer form of Proposition~14.20 of the full version, and
 \texttt{mass\_ge\_two\_of\_pythagorean} with \texttt{card\_ge\_59\_of\_pythagorean} this corollary,
 glued by \texttt{mass\_ge\_two\_of\_pyth\_support} into \texttt{emptytest}, which takes the
 Pythagorean equation itself rather than an assumed mass bound. Earlier editions proved the two ends
@@ -3057,7 +3057,7 @@ Both halves are sharp and both are informative at $n=59$. The window is
 $[0.952682,\,1.049668]$: \emph{each member's mass is pinned within five per cent of $1$}. And the
 forcing puts every prime up to $167$ in $U$ --- $39$ of the $59$ --- so two thirds of the support is
 determined before any search begins. The window also recovers
-Proposition~14.19 of the full version: the smaller member needs $T_k\ge1/t_n$, which gives $k\ge3$ for
+Proposition~14.20 of the full version: the smaller member needs $T_k\ge1/t_n$, which gives $k\ge3$ for
 $n\le68$, $k\ge2$ from $n=69$ and $k\ge1$ at $n=1413$, reproducing that proposition's three
 thresholds exactly. The forcing decays with the level:
 \[
@@ -3072,7 +3072,7 @@ The $39$ forced primes carry mass $1.91162\ldots$, so the remaining $20$ must su
 $0.08838$ from primes above $167$; the twenty smallest such primes reach exactly that, at $277$. The
 free part is therefore a choice of $20$ primes from a narrow band, which is why the admissible count
 is $49{,}961$ and not astronomical. At level $60$ the forced core has fallen to $27$ and the free
-part to $33$, and by level $68$ --- the top of the window Proposition~14.19 of the full version says a level
+part to $33$, and by level $68$ --- the top of the window Proposition~14.20 of the full version says a level
 search must cross --- only $9$ primes remain forced.
 
 \begin{proposition}[The free band; why exactly one level is finite]\label{prop:band}
@@ -3125,6 +3125,28 @@ threshold, so the floating comparison is measured to be safe rather than assumed
 the baseline $20$ smallest candidates carry $0.0907260944\ldots$, exceeding the threshold by
 $T_{59}-2=0.0023501514\ldots$, and every admissible $S$ is a perturbation of that baseline within
 this budget.
+
+\begin{proposition}[How many rungs the ladder has]\label{prop:rungcount}
+Let $(a,b)$ be a Pythagorean pair with $a<b$, $t=b/a$ and $|U|=n$. Positivity of the two masses gives
+$-t<k\le0$, so $k$ takes at most $\lceil t\rceil$ values, and $t\le t_n$ where $t_n+1/t_n=T_n$. Hence
+the number of rungs available at level $n$ is at most $\lceil t_n\rceil$, and
+\[ t_n>m\iff T_n>m+\tfrac1m . \]
+In particular the ladder has exactly the two rungs $k\in\{0,-1\}$ at every level $n\le1412$, and the
+third rung $k=-2$ opens only at $n=1413$.
+\end{proposition}
+
+Two readings. First, the hypothesis $\sigma(ab)<5/2$ under which
+Corollary~13.5 of the full version confines $k$ to $\{0,-1\}$ is not a restriction anywhere a search
+operates: it is equivalent to $t<2$, hence to $n\le1412$, and at level $59$ one has $t=1.049668$ with
+$\lceil t\rceil=2$. The confinement is unconditional throughout the range the rest of this note
+inhabits, and the hypothesis only becomes real past level $1412$.
+
+Second, $1413$ is not a new constant. It is the level at which $T_n$ reaches $5/2$, and that is the
+same threshold as the all--odd case of Theorem~\ref{thm:parity}: an all--odd cycle needs mass $2$ on
+primes $\ge3$, hence $T_n\ge2+\tfrac12$. The level at which the ladder acquires a third rung and the
+level at which an all--odd cycle becomes possible are the same level, for the same reason
+\textup{(\texttt{code/level\_structure.rs})}. The fourth rung would need $T_n>10/3$, beyond
+$\pi(4\times10^{7})$.
 
 \begin{proposition}[The admissible supports are not a tree]\label{prop:nottree}
 There are admissible supports at level $60$ with no admissible subset at level $59$. Explicitly,
