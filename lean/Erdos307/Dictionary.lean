@@ -122,4 +122,31 @@ theorem rung_floor {t T : ℝ} {k : ℤ} (hk : -t < (k : ℝ)) (hT : t ≤ T) : 
   have h : -k < ⌈T⌉ := Int.lt_ceil.mpr (by push_cast; linarith)
   omega
 
+/-- **A ladder rung never overshoots.** Choosing `p ≥ 1/d` leaves the deficit nonnegative and
+strictly smaller. This is the invariant that makes the ladder of `prop:effapprox` well defined: the
+approach to the target is monotone and from one side. -/
+theorem ladder_step {d p : ℝ} (hd : 0 < d) (hp : 1 / d ≤ p) : 0 ≤ d - 1 / p ∧ d - 1 / p < d := by
+  have hp0 : 0 < p := lt_of_lt_of_le (by positivity) hp
+  have h1 : 1 / p ≤ d := by
+    rw [div_le_iff₀ hp0]
+    rw [div_le_iff₀ hd] at hp
+    linarith
+  exact ⟨by linarith, by linarith [one_div_pos.mpr hp0]⟩
+
+/-- **A ladder rung converges quadratically.** If the prime chosen is within `g` of `1/d`, the new
+deficit is at most `g d²`. With `g` the local prime gap this is the squaring that makes the largest
+prime of `prop:effapprox` scale like `ε^(-1/2)` rather than the greedy `ε^(-e²)`. -/
+theorem ladder_quadratic {d p g : ℝ} (hd : 0 < d) (hp : 1 / d ≤ p) (hpg : p ≤ 1 / d + g)
+    (_hg : 0 ≤ g) : d - 1 / p ≤ g * d ^ 2 := by
+  have hp0 : 0 < p := lt_of_lt_of_le (by positivity) hp
+  have hpd : 1 ≤ p * d := by rw [div_le_iff₀ hd] at hp; linarith
+  have hub : p * d ≤ 1 + g * d := by
+    have := mul_le_mul_of_nonneg_right hpg hd.le
+    rw [add_mul, div_mul_cancel₀ _ (ne_of_gt hd)] at this
+    linarith
+  have hinv : 1 / p ≤ d := by rw [div_le_iff₀ hp0]; linarith
+  have key : d - 1 / p = (p * d - 1) / p := by field_simp
+  rw [key, div_le_iff₀ hp0]
+  nlinarith [hub, hinv, hp0, hd]
+
 end Erdos307.Dictionary

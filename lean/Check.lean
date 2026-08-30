@@ -218,6 +218,8 @@ open Erdos307
 #print axioms Erdos307.Dictionary.forced_prime
 #print axioms Erdos307.Dictionary.threshold_pushes
 #print axioms Erdos307.Dictionary.rung_floor
+#print axioms Erdos307.Dictionary.ladder_step
+#print axioms Erdos307.Dictionary.ladder_quadratic
 #print axioms no_family_of_any_shape
 #print axioms dvd_sum_erase_iff
 #print axioms Q_determined
