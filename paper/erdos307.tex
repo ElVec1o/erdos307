@@ -2558,6 +2558,56 @@ digits. Factoring returns, but only at the last step, and it no longer blocks th
 candidates.
 \end{remark}
 
+\subsection{The two--member side, and what every known example really is}\label{ssec:twoside}
+
+The searches above treat both sides symmetrically. They need not be. Suppose one side has exactly
+two members, $A=\{u,v\}$. Then $\alpha=uv$ and $\beta=u+v$, so $u$ and $v$ are the roots of
+$z^2-\beta z+\alpha=0$: \emph{$A$ is recovered from $(\alpha,\beta)$ by a quadratic, with no
+factorisation at all}. The roots are automatically coprime, since $\gcd(u,v)$ divides
+$\gcd(u+v,uv)=\gcd(\beta,\alpha)=1$.
+
+\begin{proposition}[The two--member reduction]\label{prop:twoside}
+Let $B$ be a coprime family, $\beta=\prod B$, and let $u\ge1$ be an integer with $u<\beta$. Then
+$\{u,\beta-u\}$ and $B$ satisfy $\bigl(\sum_A1/a\bigr)\bigl(\sum_B1/b\bigr)=1$ if and only if
+\[ D(B)\;=\;u(\beta-u),\qquad\text{that is}\qquad \sum_{b\in B}\frac1b=\frac{u(\beta-u)}{\beta}. \]
+$0$ \texttt{sorry} \textup{(\texttt{Erdos307.Coprime.two\_element\_identity})}.
+\end{proposition}
+\begin{proof}
+$\sum_{a\in A}1/a=1/u+1/(\beta-u)=\beta/\bigl(u(\beta-u)\bigr)$, and $\sum_B1/b=D(B)/\beta$. The
+product is $D(B)/\bigl(u(\beta-u)\bigr)$, which is $1$ exactly when $D(B)=u(\beta-u)$.
+\end{proof}
+
+The value of $u$ decides everything, and it identifies the known examples.
+
+\emph{$u=1$.} The condition is $D(B)=\beta-1$, which is precisely the \emph{primary pseudoperfect}
+condition, and $A=\{1,\beta-1\}$. This is $(1+\frac15)(\frac12+\frac13)$ from $\beta=6$ and
+$(1+\frac1{1805})(\frac12+\frac13+\frac17+\frac1{43})$ from $\beta=1806$; the Sylvester products
+$2,6,42,1806$ are pseudoperfect because Sylvester's recursion maintains $\beta-D(B)=1$ identically.
+So the whole recorded family of solutions is the case $u=1$, and it contains the member $1$ for the
+structural reason that $u$ \emph{is} that member.
+
+\emph{$u=2$.} The first $1$--free case. The condition is $D(B)=2\beta-4$, i.e.\
+$\sum_{b\in B}1/b=2-4/\beta$, and then $A=\{2,\beta-2\}$, which needs $\beta$ odd so that
+$\gcd(2,\beta-2)=1$ \textup{(}$0$ \texttt{sorry}, \texttt{Erdos307.Coprime.two\_free\_case}\textup{)}.
+Reducing $D(B)=2\beta-4$ modulo each $b\in B$ gives the Znám--type system
+$\prod_{b'\ne b}b'\equiv-4\pmod b$, and conversely those congruences force
+$\beta\mid D(B)-2\beta+4$, so with $1<\sum_B1/b<2$ the quotient is an integer in $(-1,0]$ and must
+vanish: \emph{the local conditions imply the global one}.
+
+\begin{remark}[The price of dropping the member $1$]\label{rem:twosidecost}
+The reduction is exact and factoring--free, but it fixes the size. Since
+$\sum_B1/b=2-4/\beta$ and $B$ consists of odd pairwise coprime integers, the reciprocal sum must
+exceed $2$, and $\sum_{3\le p\le X}1/p$ first exceeds $2$ at the $1412$nd odd prime $p=11789$
+\textup{(}sum $2.0000206\ldots$\textup{)}. Hence $|A\cup B|\ge1414$, against $60$ for the prime
+problem: passing from $u=1$ to $u=2$ costs a factor of $23$ in the number of members, because the
+member $1$ was carrying a full unit of mass that must now be found among odd reciprocals.
+This is the exact price of the gap on the problem page, and it is why the Sylvester descent, which
+produces the $u=1$ family for free, does not reach $u=2$: driving $e=2\prod B-D(B)$ to a divisor of
+$\beta+4$ by the recursion $e\mapsto be-\prod B$ failed over $399$ seeds, the smallest $e$ reached
+being $2.7\times10^{6}$, while the products outrun any bound long before $1412$ members
+\textup{(\texttt{code/two\_side\_descent.gp})}.
+\end{remark}
+
 \section{Status and questions}\label{sec:status}
 
 Erd\H{o}s~\#307 remains \textbf{open}. It is Conjecture~4 of Ufnarovski--\AA hlander

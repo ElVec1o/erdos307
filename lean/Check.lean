@@ -418,3 +418,6 @@ open Erdos307
 #print axioms Erdos307.Coprime.sum_inv_ne_one
 #print axioms Erdos307.Coprime.coprime_numerator
 #print axioms Erdos307.Coprime.merge_loses
+#print axioms Erdos307.Coprime.two_element_identity
+#print axioms Erdos307.Coprime.ppn_case
+#print axioms Erdos307.Coprime.two_free_case

@@ -135,4 +135,30 @@ theorem merge_loses {m n : ℚ} (hm : 2 ≤ m) (hn : 2 ≤ n) : 1 / (m * n) < 1 
     apply div_pos (by norm_num) hn0
   linarith
 
+
+/-! ### The two-element side, and why the known examples contain `1` -/
+
+/-- **The master identity.** If one side of the coprime relaxation has just two members `u` and
+`β - u`, then the identity holds exactly when the other side has product `β` and reciprocal sum
+`u(β-u)/β`. Everything about the known examples follows from the value of `u`. -/
+theorem two_element_identity {β u : ℚ} (hβ : β ≠ 0) (hu : u ≠ 0) (hv : β - u ≠ 0) :
+    (1 / u + 1 / (β - u)) * (u * (β - u) / β) = 1 := by
+  field_simp
+  ring
+
+/-- `u = 1`: the other side must satisfy `∑ 1/b = 1 - 1/β`, which is the primary pseudoperfect
+condition `D(B) = β - 1`. This is the case of every known solution of the relaxation, and it is
+exactly why they all contain the member `1`. -/
+theorem ppn_case {β : ℚ} (hβ : β ≠ 0) (h1 : β - 1 ≠ 0) :
+    (1 / 1 + 1 / (β - 1)) * (1 - 1 / β) = 1 := by
+  field_simp
+  ring
+
+/-- `u = 2`: the first `1`-free case. The other side must satisfy `∑ 1/b = 2 - 4/β`, that is
+`D(B) = 2β - 4`. Then `{2, β-2}` and `B` solve the relaxation with `1 ∉ P ∪ Q`. -/
+theorem two_free_case {β : ℚ} (hβ : β ≠ 0) (h2 : β - 2 ≠ 0) :
+    (1 / 2 + 1 / (β - 2)) * (2 - 4 / β) = 1 := by
+  field_simp
+  ring
+
 end Erdos307.Coprime
