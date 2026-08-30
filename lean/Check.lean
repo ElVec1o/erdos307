@@ -417,3 +417,4 @@ open Erdos307
 #print axioms Erdos307.Witness.effapprox_witness
 #print axioms Erdos307.Coprime.sum_inv_ne_one
 #print axioms Erdos307.Coprime.coprime_numerator
+#print axioms Erdos307.Coprime.merge_loses

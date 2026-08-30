@@ -2453,6 +2453,72 @@ $\alpha/a$ is divisible by $a$ while $\alpha/a=\prod_{b\ne a}b$ is coprime to it
 Corollary~\ref{cor:coprime60}'s proof that was previously carried in prose.
 \end{remark}
 
+\subsection{A rejection sieve that factors nothing}\label{ssec:coprimesieve}
+
+The obvious search for a $1$--free coprime example fixes one side and reads off the other: a coprime
+family $A$ with product $\alpha$ determines its partner $\beta=\sum_{a\in A}\alpha/a$, and $B$ must
+then be a coprime factorisation of $\beta$ with $\sum_{b\in B}1/b=\alpha/\beta$. The recorded
+obstacle is that testing a candidate appears to require factorising $\beta$, which at the sizes
+Corollary~\ref{cor:coprime60} forces is out of reach. It does not.
+
+\begin{proposition}[A necessary condition, computable in small modular arithmetic]\label{prop:coprimesieve}
+Let $A$ be a coprime family with $\alpha=\prod A$, $x=\sum_{a\in A}1/a$ and
+$\beta=\sum_{a\in A}\alpha/a$. If some coprime family $B$ satisfies $\bigl(\sum_A1/a\bigr)
+\bigl(\sum_B1/b\bigr)=1$, then
+\[ y_{\max}(\beta)\;:=\;\sum_{p^e\,\|\,\beta}\frac1{p^e}\;\ge\;\frac1x .\]
+Moreover $y_{\max}(\beta)$ is computable without forming or factorising $\beta$: for every prime
+power $p^e$ with $p\nmid\alpha$, Lemma~\ref{lem:symbolfact} gives
+$\beta\equiv\alpha\sum_{a\in A}a^{-1}\pmod{p^e}$, so each $v_p(\beta)$ is decided by arithmetic
+modulo $p^e$ alone.
+\end{proposition}
+\begin{proof}
+Write $y=\sum_B1/b=N/\gamma$ with $\gamma=\prod B$ and $N=\sum_{b\in B}\gamma/b$. As in
+Remark~\ref{rem:coprimeedge}, $\gcd(\beta,\alpha)=\gcd(N,\gamma)=1$, so $xy=1$ reads
+$\beta N=\alpha\gamma$ with $\beta\mid\gamma$ and $N\mid\alpha$, forcing $\gamma=\beta$ and
+$N=\alpha$. Hence $B$ is a coprime factorisation of $\beta$ and $\sum_B1/b=\alpha/\beta=1/x$. Every coprime factorisation is obtained
+from the factorisation into prime powers by merging blocks, and merging strictly decreases the
+reciprocal sum, since $1/(mn)<1/m+1/n$ for $m,n\ge2$ \textup{(}$0$ \texttt{sorry},
+\texttt{Erdos307.Coprime.merge\_loses}\textup{)}. Hence the prime--power factorisation is the
+maximiser and $1/x=\sum_B1/b\le y_{\max}(\beta)$. The congruence is
+Lemma~\ref{lem:symbolfact} with $r=p^e$, legitimate because $p\nmid\alpha$.
+\end{proof}
+
+The test is therefore free: primes above a trial bound $Z$ contribute below $1/Z$ apiece, so trial
+moduli up to $10^5$ already pin $y_{\max}$ to within $10^{-5}$, using no integer larger than $10^{10}$.
+Verified against direct multiprecision evaluation of $v_p(\beta)$ over $200$ random families and all
+$p\le500$: $13{,}065$ valuations, $0$ mismatches \textup{(\texttt{code/beta\_smoothness.rs},
+checked by the script in the same file's header)}.
+
+What the sieve says is stark. Over $5{,}272$ splits of the first $60$ primes lying in the mass window
+$|xy-1|\le10^{-2}$, the mean of $y_{\max}(\beta)$ is $0.1795$ and its maximum is $0.8371$, against a
+requirement of $1/x\approx0.95$: \emph{not one candidate survives}
+\textup{(\texttt{code/beta\_smoothness.rs})}. The mechanism is a tension between the two constraints.
+Reaching $x\approx1$ obliges $A$ to hold small primes; but $\gcd(\alpha,\beta)=1$ bars every prime of
+$A$ from dividing $\beta$, and $y_{\max}$ is carried almost entirely by the small primes. The mass
+window and the smoothness requirement pull on the same scarce resource.
+
+The same tension defeats the complementary route, which uses Lemma~\ref{lem:symbolfact} in the
+forward direction: $b\mid\beta$ is equivalent to $\sum_{a\in A}a^{-1}\equiv0\pmod b$, a subset--sum
+condition on $A$ that again needs no factorisation, so one may try to \emph{impose} the divisibilities
+$\beta$ must satisfy. Annealing on the forced divisor $D(A)=\prod\{b\in B:\ b\mid\beta\}$ over ground
+sets of $60$ to $70$ primes reaches $\log_{10}D\approx10$ against $\log_{10}\beta\approx50$--$75$ in a
+window $|xy-1|\le10^{-2}$, and degrades to $\log_{10}D\approx3$ as the window tightens to $10^{-7}$,
+below which no split is found at all \textup{(\texttt{code/split\_forcing.rs})}. Since a random split
+already satisfies $\sum_{b\in B}1/b\approx1$ of the congruences by chance, the search inside the mass
+window is performing at the random baseline: the freedom the congruence route needs is exactly the
+freedom the mass window removes.
+
+\begin{remark}\label{rem:coprimeverdict}
+The two routes are worth separating. The \emph{factorisation} obstacle is genuinely gone --- both
+tests run in arithmetic modulo $10^{10}$ and never form $\beta$ --- and
+Proposition~\ref{prop:coprimesieve} is a sound, essentially free first pass that any future search
+should run. What replaces it is a harder obstacle: inside the mass window the candidates are not
+merely hard to test, they are uniformly far from the target, by a margin of $0.77$ in $y_{\max}$ at
+the observed best. A search for a $1$--free coprime example must therefore generate candidates that
+are smooth \emph{by construction} rather than filtered for smoothness after the fact, and we do not
+have a construction that respects the mass window while doing so.
+\end{remark}
+
 \section{Status and questions}\label{sec:status}
 
 Erd\H{o}s~\#307 remains \textbf{open}. It is Conjecture~4 of Ufnarovski--\AA hlander

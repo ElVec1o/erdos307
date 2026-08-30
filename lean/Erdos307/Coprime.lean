@@ -120,4 +120,19 @@ theorem coprime_numerator {A : Finset ℕ} (h1 : ∀ a ∈ A, 0 < a)
   rw [hsplit, hj, mul_comm]
   exact (Nat.coprime_add_mul_right_left (α / a) a j).mpr hcopa
 
+
+/-- **Merging blocks loses mass.** Replacing two coprime blocks by their product strictly decreases
+the reciprocal sum. Hence among all coprime factorisations of an integer the one into prime powers
+has the largest reciprocal sum, which is what makes the smoothness test of `prop:coprimesieve` a
+necessary condition. -/
+theorem merge_loses {m n : ℚ} (hm : 2 ≤ m) (hn : 2 ≤ n) : 1 / (m * n) < 1 / m + 1 / n := by
+  have hm0 : (0 : ℚ) < m := by linarith
+  have hn0 : (0 : ℚ) < n := by linarith
+  have hmn : m ≤ m * n := by nlinarith
+  have h1 : 1 / (m * n) ≤ 1 / m := by
+    apply div_le_div_of_nonneg_left (by norm_num) hm0 hmn
+  have h2 : (0 : ℚ) < 1 / n := by
+    apply div_pos (by norm_num) hn0
+  linarith
+
 end Erdos307.Coprime
