@@ -1246,6 +1246,28 @@ nontrivial cycle of the arithmetic derivative, of any length, carries at least $
 product past $8.77\times10^{112}$. The barrier therefore bounds the whole of
 Ufnarovski--\AA hlander's Conjecture~3 and not merely its period--two case, which is \#307.
 
+\begin{corollary}[What a bounded sweep rules out, for every period at once]\label{cor:sweepperiod}
+Let $a_1\to\dots\to a_k\to a_1$ be a cycle with every member at most $X$. Then
+\[ k\ \ge\ \frac{\log_{10}\Pi_{59}}{\log_{10}X}\ =\ \frac{112.94\ldots}{\log_{10}X}. \]
+\end{corollary}
+\begin{proof}
+Proposition~\ref{prop:kuniform} gives $|U|\ge59$ for a cycle of any period, so
+$\prod_{p\in U}p\ge\Pi_{59}>8.77\times10^{112}$. Every prime of $U$ divides some member, so
+$\prod_{p\in U}p$ divides $\prod_i a_i\le X^{k}$.
+\end{proof}
+
+\[
+\begin{array}{l|cccccc}
+X & 10^{6} & 10^{7} & 10^{9} & 10^{12} & 10^{18} & 10^{30}\\\hline
+\text{rules out every }k\le & 18 & 16 & 12 & 9 & 6 & 3
+\end{array}
+\]
+The sweep to $10^{7}$ of Proposition~\ref{prop:nearmiss} therefore already excludes every cycle of
+period at most $16$ with all members in range, and not merely period two. This is the practical form
+of Proposition~\ref{prop:kuniform}: because the barrier does not weaken with the period, a single
+bounded search settles a whole initial segment of Ufnarovski--\AA hlander's Conjecture~3 at once,
+whereas the period--two reading of the same computation settles only $k=2$.
+
 \begin{proposition}[The barrier as a function of period and smallest prime]\label{prop:twoparam}
 Let $a_1\to\dots\to a_k\to a_1$ be a cycle with $k\ge2$, let $U$ be the union of the supports, and
 suppose $\min U\ge P$. With $c(k)=k/\lfloor k/2\rfloor$, let $M(k,P)$ be the least $m$ for which the
