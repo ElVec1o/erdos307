@@ -9,6 +9,7 @@ import Erdos307.Congruential
 import Erdos307.Coprime
 import Erdos307.RootCount
 import Erdos307.CompleteSums
+import Erdos307.NoGainWitness
 import Erdos307.Coprime60
 import Erdos307.Witness
 import Erdos307.Dictionary
@@ -430,3 +431,5 @@ open Erdos307
 #print axioms Erdos307.sum_quadraticChar_affine
 #print axioms Erdos307.sum_quadraticChar_quadratic
 #print axioms Erdos307.sum_quadraticChar_shift
+#print axioms Erdos307.NoGainWitness.nogain_witness
+#print axioms Erdos307.NoGainWitness.rsum_Sw

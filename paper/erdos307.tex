@@ -2603,6 +2603,23 @@ $\prod_{b'\ne b}b'\equiv-4\pmod b$, and conversely those congruences force
 $\beta\mid D(B)-2\beta+4$, so with $1<\sum_B1/b<2$ the quotient is an integer in $(-1,0]$ and must
 vanish: \emph{the local conditions imply the global one}.
 
+\begin{proposition}[$u$ is the mass, so $u=1$ is the only cheap case]\label{prop:umass}
+In the situation of Proposition~\ref{prop:twoside}, $\sum_{b\in B}1/b=u(\beta-u)/\beta=u-u^2/\beta$.
+Hence the reciprocal sum of $B$ is $u$ up to $O(u^2/\beta)$: the parameter $u$ \emph{is} the mass
+$B$ must carry. Consequently the cost is monotone in $u$, and $u=1$ --- the case that contains the
+member $1$ --- is the only value for which $B$ needs mass $\approx1$ and can therefore be short.
+\end{proposition}
+
+This settles what one might hope for from larger $u$. Since $\sum_A1/a=1/u+1/(\beta-u)$ and
+$\sum_B1/b$ is its reciprocal, asking for $1\notin P\cup Q$ is asking for $u\ge2$, which is asking
+for $B$ to carry mass at least $2-4/\beta$; $u=3$ demands $3-9/\beta$, and so on. There is no
+cheaper $u$ hiding above $2$, and no analogue of Sylvester's invariant to be had there: the
+invariant $\beta-D(B)=1$ works at $u=1$ precisely because mass $1$ is reachable in four terms.
+Verified exhaustively: over every $\beta\le4\times10^{7}$ and \emph{every} coprime factorisation of
+it --- all set partitions of its prime powers --- the discriminant $\beta^2-4D(B)$ is a square with
+admissible root in exactly $7$ cases, and every one has $u=1$. The largest $u$ attained anywhere in
+that range is $1$ \textup{(\texttt{code/two\_member\_scan.rs})}.
+
 \begin{remark}[The price of dropping the member $1$]\label{rem:twosidecost}
 The reduction is exact and factoring--free, but it fixes the size. Since
 $\sum_B1/b=2-4/\beta$ and $B$ consists of odd pairwise coprime integers, the reciprocal sum must
@@ -5589,12 +5606,23 @@ Theorem~\ref{thm:barrier} is $\log_{10}N\ge112.9$: \emph{the cycle condition buy
 beyond the mass condition}, and Theorem~\ref{thm:barrier} is already close to optimal for arguments
 of this class.
 
-\textup{Formalised, in part.} The deductive content is \texttt{Erdos307.cycle\_bound\_max}: two
-independent lower bounds on $a$ combine through the maximum, and $N=a^2\sigma(a)$ is monotone in
-both arguments, so the constraints give a bound on $N$. The \emph{value} $113.2$ is the output of a
-finite minimisation over $S$ and is not a theorem in Lean; \texttt{nogain} records only that
-$10^{113.2}\ge10^{112.9}$, and \texttt{gain\_lt\_one\_order} that the gain is under one order of
-magnitude. $0$ \texttt{sorry} \textup{(\texttt{lean/Erdos307/NoGain.lean})}.
+\textup{Formalised.} The deductive content is \texttt{Erdos307.cycle\_bound\_max}: two independent
+lower bounds on $a$ combine through the maximum, and $N=a^2\sigma(a)$ is monotone in both arguments,
+so the constraints give a bound on $N$. The conclusion drawn --- that the gain over
+Theorem~\ref{thm:barrier} is under one order --- is an \emph{upper} bound on a minimum, and an upper
+bound on a minimum needs one witness, not the search. Since $\Pi_{\min}(S)$ is itself a minimum,
+bounding the expression at $S$ from above needs a witness for it too: any $T$ disjoint from $S$ with
+$\sigma(T)\ge1/\sigma(S)$ has $\Pi_{\min}(S)\le\prod T$. Taking $S$ to be the odd primes to $151$
+less $\{3,97\}$ and $T$ its greedy completion, $26$ primes ending at $277$, one checks
+$\prod T\le\prod S\cdot\sigma(S)$, so the maximum is $\prod S$, and
+\[ \Bigl(\bigl(\textstyle\prod S\bigr)^2\sigma(S)\Bigr)^{2}\;<\;10^{227}, \]
+squared so the exponent is an integer: the bound on $\log_{10}N$ at this $S$ is at most $113.5$, and
+the gain over $112.9$ is under $0.6$ of one order. Note $\bigl(\prod S\bigr)^2\sigma(S)$ is an
+integer, $\sigma(S)$ having denominator exactly $\prod S$, so the whole check is exact integer
+arithmetic. $0$ \texttt{sorry} \textup{(\texttt{lean/Erdos307/NoGain.lean},
+\texttt{lean/Erdos307/NoGainWitness.lean})}. The exhaustive minimisation certifies the sharper claim
+that $113.2$ is exactly the minimum; that is not needed here, and it was the only reason this
+proposition was carried as a formalisation refusal.
 \end{proposition}
 
 \begin{remark}[Why restricted families overstated the gain]\label{rem:sectorsquared}
