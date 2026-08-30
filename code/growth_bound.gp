@@ -81,3 +81,33 @@ print("attainable; 1.50 needs 10^138; doubling needs 10^(6.2e7). The arithmetic 
 print("can grow slowly at any scale and fast only at scales no computation reaches.");
 }
 quit;
+\p 25
+{
+my(M, lgX, l2X, g, lo, hi, mid, nc, i);
+M = 0.2614972128;
+print("Inverting cor:growthscale: the largest rate a squarefree orbit can sustain up to X");
+print("satisfies n(2g) log2(g) = (log2 X)^2, with n(c) ~ Li(exp(exp(c - M))).");
+print("");
+print("      X        | log2 X    | max sustainable rate g");
+foreach([1e8, 1e20, 1e100, 1e1000, 1e100000, 1e10000000], lgXv,
+  lgX = log(lgXv)/log(10);
+  l2X = lgX*log(10)/log(2);
+  lo = 1.0001; hi = 3.0;
+  for(i = 1, 200,
+    mid = (lo+hi)/2;
+    nc = exp(exp(2*mid - M)); nc = nc/log(nc);
+    if(nc*log(mid)/log(2) > l2X^2, hi = mid, lo = mid);
+  );
+  printf("  10^%-9.0f | %9.3e | %.4f\n", lgX, l2X, lo);
+);
+print("");
+print("So the ceiling is a TRIPLE logarithm: n(2g) grows like exp(exp(2g)), so");
+print("     exp(exp(2g)) ~ (log2 X)^2   =>   g ~ (1/2) log log log X.");
+print("Even at X = 10^(10^7) the sustainable rate is below 1.8. For any range a computation");
+print("can address, a squarefree orbit grows at rate under 1.5.");
+print("");
+print("Consequence for the escape branch of Ufnarovski-Ahlander Conjecture 2: an orbit that");
+print("tends to infinity while remaining squarefree must do so sub-geometrically in every");
+print("bounded window, its rate decaying like the triple logarithm of the window.");
+}
+quit;

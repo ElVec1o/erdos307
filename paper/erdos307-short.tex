@@ -3347,6 +3347,30 @@ computation reaches. Rate $1.25$ needs members past $2.6\times10^{6}$, so it is 
 sweep of Proposition~\ref{prop:nearmiss}; rate $1.5$ needs $10^{138}$; and a squarefree orbit cannot
 double at every step unless its members exceed $10^{6.2\times10^{7}}$.
 
+Inverting the corollary bounds the rate itself. The largest $g$ a squarefree orbit can sustain up to
+$X$ solves $n(2g)\log_2g=(\log_2X)^2$, and since $n(c)$ grows like
+$\operatorname{Li}\bigl(e^{e^{c-M}}\bigr)$ this gives $e^{e^{2g}}\asymp(\log_2X)^2$, that is
+\[ g\ \sim\ \tfrac12\log\log\log X . \]
+\[
+\begin{array}{l|cccccc}
+X & 10^{8} & 10^{20} & 10^{100} & 10^{1000} & 10^{10^{5}} & 10^{10^{7}}\\\hline
+\text{max sustainable }g & 1.2768 & 1.3590 & 1.4808 & 1.6174 & 1.8134 & 1.9537
+\end{array}
+\]
+The ceiling is a triple logarithm, so it is effectively a constant: even at $X=10^{10^{7}}$ the rate
+stays below $2$, and for any range a computation can address it is below $1.5$. The reading for the
+escape branch of Ufnarovski--\AA hlander's Conjecture~2 is that an orbit tending to infinity while
+remaining squarefree must do so sub--geometrically in every bounded window, its rate decaying like
+the triple logarithm of that window. Escape is possible; escape at a fixed geometric rate is not.
+
+The mass window transfers to the normal form as well. In Proposition~\ref{prop:oneprime} a solution
+is $a=Mp$, so $\sigma(a)=\sigma(M)+1/p$, and Proposition~\ref{prop:window} places $\sigma(a)$ in
+$[1/t_n,t_n]$. Hence
+\[ \sigma(M)\ \in\ \bigl[\,1/t_n-1/p,\ t_n\,\bigr], \]
+which at level $59$ is $[0.9527-1/p,\ 1.0497]$: the base of the one--prime normal form carries mass
+within five per cent of $1$, just as each member does, and $\omega(M)\ge2$ by
+Proposition~14.20 of the full version.
+
 The region is not unreachable, only unsweepable. The witness $n_0$ of
 Theorem~\ref{thm:lyapfalse} has $n_0$ and $n_0'$ both squarefree and
 $r(n_0)=\sigma(n_0)\sigma(n_0')=1.03944\ldots$, so $n_0''>n_0$: the value $1$ that a solution must
