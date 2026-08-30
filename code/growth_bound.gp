@@ -51,3 +51,33 @@ print("So a doubling orbit (g = 2) needs a union support of about 4e16 primes.")
 print("Sustained rapid growth is impossible for the arithmetic derivative on a small support.");
 }
 quit;
+\p 25
+{
+my(s, n, gs, tg, hit, i, l2, lgX);
+print("Sustaining growth rate g over a squarefree orbit needs T_|U| >= 2g, so |U| >= n(2g).");
+print("With every member at most X: omega(a_i) <= log2 X and L <= log_g X, so");
+print("     |U| <= L log2 X <= (log2 X)^2 log2(g)^{-1} ... rearranged,");
+print("     log2 X  >=  sqrt( n(2g) * log2(g) ).");
+print("");
+gs = [1.10, 1.25, 1.50, 1.75, 2.00];
+tg = vector(#gs, i, 2*gs[i]);
+hit = vector(#gs, i, 0);
+s = 0.0; n = 0;
+forprime(p = 2, 30000000, s += 1.0/p; n++;
+  for(i = 1, #gs, if(hit[i]==0 && s >= tg[i], hit[i] = n));
+  if(vecmin(hit) > 0, break));
+print("   rate g | needs T >= | n(2g)        | members must exceed");
+for(i = 1, #gs,
+  my(nn);
+  if(hit[i] > 0, nn = 1.0*hit[i],
+     nn = exp(exp(tg[i] - 0.2614972128)); nn = nn/log(nn));
+  l2 = sqrt(nn * log(gs[i])/log(2));
+  lgX = l2 * log(2)/log(10);
+  printf("    %.2f  |    %.2f    | %.4e | 10^%.4g\n", gs[i], tg[i], nn, lgX);
+);
+print("");
+print("So the transition is sharp. Growth at 1.10 needs only members past 10^2, which is");
+print("attainable; 1.50 needs 10^138; doubling needs 10^(6.2e7). The arithmetic derivative");
+print("can grow slowly at any scale and fast only at scales no computation reaches.");
+}
+quit;

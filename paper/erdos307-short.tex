@@ -3322,6 +3322,31 @@ impossible on a small support. The hypothesis that every $a_i$ is squarefree is 
 generic along orbits; it is automatic on cycles, by Ufnarovski--\AA hlander, which is why the cycle
 rows of the dictionary carry no such caveat.
 
+\begin{corollary}[Sustained growth needs scale, and the scale is enormous]\label{cor:growthscale}
+Let $a_0\to\dots\to a_L$ be a squarefree orbit segment with every member at most $X$ and geometric
+growth rate at least $g>1$. Then
+\[ \log_2X\ \ge\ \sqrt{\,n(2g)\,\log_2 g\,},\qquad n(c)=\min\{n:T_n\ge c\}. \]
+\end{corollary}
+\begin{proof}
+Proposition~\ref{prop:growth} gives $\sum_{p\in U}1/p\ge2g$, so $|U|\ge n(2g)$. Every member is at
+most $X$, so $\omega(a_i)\le\log_2X$ and $|U|\le\sum_{i<L}\omega(a_i)\le L\log_2X$; growth at rate
+$g$ from $a_0\ge2$ gives $a_L\ge g^{L}$, so $L\le\log_gX=\log_2X/\log_2g$. Combining,
+$(\log_2X)^2/\log_2g\ge n(2g)$.
+\end{proof}
+
+The threshold is explosive \textup{(\texttt{code/growth\_bound.gp})}:
+\[
+\begin{array}{l|ccccc}
+g & 1.10 & 1.25 & 1.50 & 1.75 & 2\\\hline
+\text{members must exceed} & 10^{1.5} & 10^{6.4} & 10^{138} & 10^{18420} &
+ 10^{6.23\times10^{7}}
+\end{array}
+\]
+The arithmetic derivative can therefore grow slowly at any scale and quickly only at scales no
+computation reaches. Rate $1.25$ needs members past $2.6\times10^{6}$, so it is visible inside the
+sweep of Proposition~\ref{prop:nearmiss}; rate $1.5$ needs $10^{138}$; and a squarefree orbit cannot
+double at every step unless its members exceed $10^{6.2\times10^{7}}$.
+
 The region is not unreachable, only unsweepable. The witness $n_0$ of
 Theorem~\ref{thm:lyapfalse} has $n_0$ and $n_0'$ both squarefree and
 $r(n_0)=\sigma(n_0)\sigma(n_0')=1.03944\ldots$, so $n_0''>n_0$: the value $1$ that a solution must
