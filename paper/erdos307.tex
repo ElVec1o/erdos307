@@ -3807,6 +3807,14 @@ where they like:
 \text{cumulative certification} & <10\text{ s} & \approx110\text{ s} & \approx27\text{ min}
 \end{array}
 \]
+The statement is machine--checked at the three--rung tier, where the largest prime is
+$2{,}348{,}039{,}453$ and the defect is $2.1111\ldots\times10^{-18}$: the primality of all $58$
+primes, the disjointness of the two sides, the exact value of $\sigma(P)$ as a ratio of a $126$--
+and a $129$--digit integer, and the bound $|\sigma(P)\sigma(Q)-1|<10^{-17}$ are all verified in
+\texttt{Erdos307.Witness.effapprox\_witness}, on the standard axioms and with no appeal to
+kernel--external evaluation. Beyond that tier the primes are certified by APR--CL, which Mathlib
+does not carry; the higher rungs are therefore cited to the \textup{PARI/GP} certificate rather
+than formalised. $0$ \texttt{sorry} \textup{(\texttt{lean/Erdos307/Witness.lean})}.
 \end{proposition}
 
 The gap is not marginal. At $\varepsilon=10^{-13}$ the greedy needs a largest prime near $10^{94}$
