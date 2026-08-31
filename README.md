@@ -65,10 +65,11 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
   and ∑1/p ≥ 2". That implication does not hold as displayed, since the first 59 prime reciprocals
   already sum to 2.00235, so those hypotheses give Rosen's `≥ 59`; reaching 60 needs the 49,961
   supports excluded one at a time. We claim the proof, not the statement. Any solution also has
-  `min(∏P, ∏Q) > 3.50 × 10⁵⁷` and `min(∏P, ∏Q) > 3.50 × 10⁵⁷`
+  `min(∏P, ∏Q) > 3.50 × 10⁵⁷`
   — verified by two independent exact-integer programs (`code/close59.py`, `hunt/close59.rs`) **and
   machine-checked in Lean 4** (`erdos307_sixty`: the search's completeness is proved, not assumed;
-  the enumeration's single `dfs_run` step is the project's one `native_decide` use). The product
+  the enumeration's `dfs_run` step runs under the kernel's own `decide`, with no `native_decide`).
+  The product
   bounds `Π₆₀ > 2.46 × 10¹¹⁵` and `min(∏P,∏Q) > 3.5053 × 10⁵⁷` are proved in the paper, not in Lean:
   `erdos307_sixty` proves `|P ∪ Q| ≥ 60` only. The coprime variant with `1 ∉ P∪Q` inherits the
   full `≥ 60` bound (Cor. coprime60).
@@ -133,7 +134,7 @@ heuristic has no empirical support and cannot acquire any. **No proof either way
 
 ```
 paper/   erdos307-core.pdf       — the paper (31 pp; the results)
-         erdos307-companion.pdf  — the companion (94 pp; explorations, closures, the square sieve and the density theorem)
+         erdos307-companion.pdf  — the companion (95 pp; explorations, closures, the square sieve and the density theorem)
          erdos307.tex            — the single source both are generated from
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md

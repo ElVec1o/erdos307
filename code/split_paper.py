@@ -54,9 +54,8 @@ Problem~\#313; the $1$--free case needs $1414$ members and carries an obstructio
 
 The results are formalised in Lean~4, with every declaration depending only on the standard axioms
 and no appeal to kernel--external evaluation. A companion note records the exploratory and negative
-material -- the certificate programme, the function--field lens, the breeder form, the square sieve
--- and one positive result: both Pythagorean layers have density zero on the squarefree stratum,
-with a rate. The problem remains open.
+material, and one positive result: both Pythagorean layers have density zero on the squarefree
+stratum, with a rate. The problem remains open.
 \end{abstract}"""
 
 
@@ -133,7 +132,7 @@ def main():
     comp_body = "".join(t for _, t in comp_blocks)
     # the appendix marker travels with the companion, which is where the appendix lives
     if app_at != -1 and "\\appendix" not in comp_body:
-        comp_body = comp_body.replace("\\section{The square sieve: the argument",
+        comp_body = comp_body.replace("\\section{The minus--layer density theorem",
                                       "\\appendix\n\\section{The square sieve: the argument")
     comp_body = retarget(comp_body, core_labels, "K-")
     comp_title = ("\\title{Companion to \\emph{On the equation $n''=n$ and a problem of "

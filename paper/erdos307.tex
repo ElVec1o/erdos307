@@ -5311,7 +5311,8 @@ must live. The general conjecture is what remains.
 Over all $153{,}397{,}754$ such $n\le4\times10^8$, $(\ast)$ holds for every
 $\lambda\in(0.275438,\,1.250828)$ and fails for no step
 \textup{(\texttt{code/lyap\_battery.rs})}. The interval narrows with the range, of width
-$1.654,\,1.267,\,1.237,\,1.116,\,1.092,\,1.004,\,0.975$ at cutoffs $10^4$ through $4\times10^8$;
+$1.654$, $1.267$, $1.237$, $1.116$, $1.092$, $1.004$, $0.975$ at cutoffs $10^4$ through
+$4\times10^8$;
 the binding lower constraint is at $n=\Pi_9=223{,}092{,}870$. Six
 candidate functions were tested and five died, among them the control $\delta=\log n$, which fails
 first at $n=30$ where $\sigma=1.0333$; a battery that did not kill it would not be testing anything
@@ -6598,9 +6599,11 @@ through Siegel--Walfisz and through Siegel's theorem; no effective form is claim
 \end{proof}
 
 \begin{lemma}[Two uniform deficit bounds]\label{lem:deficit}
-\textup{(Label discipline: written after Lemma~\ref{lem:charcancelunif} earned its label, and
-subject to the same standard --- it carries no label until a review that did not write it finds
-nothing.)}
+\textup{(Label discipline, as for Lemma~\ref{lem:charcancelunif}: three rounds of adversarial review,
+each by a session that did not write the text. The first two found five defects --- including a
+principal--coefficient value false in one of three cases, and a numerical certificate that tested the
+wrong congruence with a silently inoperative coprimality filter --- all repaired; the third found
+nothing, which is what the label records.)}
 Let $\delta\in(0,1)$ and $c\in\{2,-2\}$. Uniformly for primes $p\ne q$ in
 $(\tfrac12(\log\log N)^{1-\delta},(\log\log N)^{1-\delta}]$, with implied constants that depend only
 on $\delta$ and are ineffective,
@@ -6787,7 +6790,7 @@ Immediate from Proposition~\ref{prop:condrate}, which gives the minus--layer cou
 $\ll_\delta N\log\log\log N/(\log\log N)^{1-\delta}=o(N)$ on the squarefree stratum for any fixed
 $\delta\in(0,1)$, and the plus--layer count by the same statement. Remark~\ref{rem:a9original}
 records an independent route to the qualitative form.
-\end{remark}
+\end{proof}
 
 \begin{remark}[The original route, and what it does and does not give]\label{rem:a9original}
 This is the argument that carried Theorem~\ref{thm:a9} before
@@ -6815,7 +6818,9 @@ off-diagonal is $\sum_{p\ne q}\bigl(T_{pq}(N)+E_{pq}(N)\bigr)$, where $T_{pq}$ c
 coprimality condition $\gcd(m,pq)=1$ of Lemma~\ref{lem:charcancel} and
 $E_{pq}(N)=\sum_{m\le N,\ \mu^2(m)=1,\ \gcd(m,pq)>1}(a_m/pq)$ collects the terms it omits. That
 correction is harmless but is not empty and must be carried:
-$|E_{pq}(N)|\le\#\{m\le N:p\mid m\text{ or }q\mid m\}\le N(1/p+1/q)\le2N/P$, so
+$|E_{pq}(N)|\le\#\{m\le N:p\mid m\text{ or }q\mid m\}\le N(1/p+1/q)\le2N/P$ --- the primes here
+lie in $(P,2P]$, whereas Proposition~\ref{prop:condrate} takes them in $(P/2,P]$ and so carries
+$4N/P$ --- so
 $\Pi^{-2}\sum_{p\ne q}|E_{pq}(N)|\le2N/P$, which is dominated by the diagonal's own $N/\Pi\asymp
 N\log P/P$ and changes nothing below. Each $T_{pq}(N)$ is $o(N)$, for each of the finitely many
 pairs, by Lemma~\ref{lem:charcancel}. A square divisible by $p$ is divisible by $p^2$, so the excluded $m$ are counted by
@@ -6833,7 +6838,7 @@ The left side does not depend on $P$; letting $P\to\infty$ gives $0$. The restri
 must be carried here as everywhere above: without it the display would assert density zero for the
 \emph{full} minus layer, which is exactly the statement this theorem disclaims, and three successive
 revisions of this proof dropped it from one display or another.
-\end{proof}
+\end{remark}
 
 The proof of Theorem~\ref{thm:a9} sends $P\to\infty$ only after $N$, which costs all quantitative
 information. Keeping $P$ a function of $N$ would turn it into an explicit rate, and what that

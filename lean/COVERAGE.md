@@ -3,9 +3,9 @@
 **77 of 144** labelled results are named by a Lean file in `Erdos307/` (53 files, **0 `sorry`**).
 
 `lake env lean Check.lean` probes **386 declarations across all 53 modules**. Everything is on the
-three standard axioms or fewer, with exactly two exceptions: `dfs_run`, the pruned-search execution
-that closes level 60, and the `erdos307_sixty` that consumes it. The numeral bridge is
-kernel-checked, so `card_ge_59` and `erdos307_barrier_closed` carry no `native_decide`.
+three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
+closes level 60, was the last site off that footing; it and the `erdos307_sixty` that consumes it are
+now kernel-`decide`, as is the numeral bridge behind `card_ge_59` and `erdos307_barrier_closed`.
 
 ## What the category column is, and is not
 
@@ -60,8 +60,9 @@ direct evaluation for all odd primes up to 59 (33,008,952 quadruples, 0 violatio
 A6 is the instantiation of an abstract reduction to this layer, not a lemma: "plus-hit" is not
 defined in Lean, and the paper says so.
 
-They are not the same kind of debt. **A7 is a cited external input**: it needs Hasse-Weil, which
-Mathlib does not have and whose formalisation is a research contribution in its own right. A3 was in that category and is no longer: the character sums
+They were not the same kind of debt. A7 was described here as a cited external input needing
+Hasse-Weil; that was mis-stated too, and counting the pairs directly gives a double character sum
+instead. A3 was in that category and is no longer: the character sums
 turned out to be elementary once written in the right form, which is a reminder that "Mathlib does
 not carry it" is not the same as "it is hard". A8's refusal was likewise mis-framed --- the claim
 that needed proving was the easy direction all along.
