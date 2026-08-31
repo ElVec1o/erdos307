@@ -56,4 +56,32 @@ theorem port_period_two {d b q₁ q₂ : ℕ} (hd : 0 < d) (hcop : Nat.Coprime d
   have h : d ∣ b * (q₁ + q₂) := ⟨k, by rw [hk] at hrec; nlinarith [hrec]⟩
   exact Nat.Coprime.dvd_of_dvd_mul_left hcop h
 
+/-- **The balanced splits are exactly the forbidden ones.** `thm:frame` needs
+`Δ = D(1 - σ(P₀)σ(Q₀))` positive, so a split of the base must have `σ(P₀)σ(Q₀) < 1`. Since
+`σ(P₀) + σ(Q₀)` is fixed at `σ(S)`, the product is a downward parabola in `σ(P₀)`, maximal at the
+midpoint; so admissible splits lie strictly *outside* the base's own mass window `[1/t, t]`, and the
+mass-balanced splits — where one would look first — are precisely excluded.
+
+This is the exact complement of `Erdos307.mass_window`, which puts the mass of a *solution* inside
+the window of the full support. -/
+theorem split_outside_window {x y s t : ℚ} (hsum : x + y = s) (hprod : x * y < 1)
+    (ht : 0 < t) (hroot : t ^ 2 - s * t + 1 = 0) : x < 1 / t ∨ t < x := by
+  have ht0 : t ≠ 0 := ne_of_gt ht
+  have hy : y = s - x := by linarith
+  subst hy
+  have hq : 0 < x ^ 2 - s * x + 1 := by nlinarith [hprod]
+  have h1 : (1 : ℚ) / t = s - t := by
+    field_simp
+    linear_combination hroot
+  have hfac : 0 < (x - t) * (x - 1 / t) := by
+    rw [h1]
+    nlinarith [hq, hroot]
+  rcases lt_trichotomy x (1 / t) with h | h | h
+  · exact Or.inl h
+  · exfalso; rw [h] at hfac; simp at hfac
+  · right
+    by_contra hc
+    push_neg at hc
+    nlinarith [hfac, hc, h]
+
 end Erdos307

@@ -2846,6 +2846,35 @@ requires --- $c=2$ with $B$ and both primes odd --- a sweep of $162{,}110$ state
 \textup{(\texttt{code/port\_orbit.gp})}.
 \end{remark}
 
+\begin{corollary}[The balanced splits are exactly the forbidden ones]\label{cor:splitbalance}
+In the situation of Corollary~\ref{cor:level61height}, a split $S=P_0\sqcup Q_0$ can support a
+solution only if $\sigma(P_0)\sigma(Q_0)<1$, hence only if $\sigma(P_0)$ lies strictly \emph{outside}
+the base's own mass window $[1/t_0,t_0]$, where $t_0+1/t_0=\sigma(S)$. In particular the
+mass--balanced splits, $\sigma(P_0)\approx\sigma(S)/2$, are precisely excluded. $0$ \texttt{sorry}
+\textup{(\texttt{Erdos307.split\_outside\_window})}.
+\end{corollary}
+\begin{proof}
+Theorem~\ref{thm:frame} gives $\alpha=(MN'+N^2)/\Delta$ with $\Delta=D(1-\sigma(P_0)\sigma(Q_0))$, and
+$\alpha>0$ forces $\Delta>0$. With $\sigma(P_0)+\sigma(Q_0)=\sigma(S)$ fixed, the product is the
+downward parabola $z\mapsto z(\sigma(S)-z)$, which exceeds $1$ exactly between the roots of
+$z^2-\sigma(S)z+1$ and is maximal at the midpoint.
+\end{proof}
+
+\begin{remark}[Why level $61$ is still not enumerable]\label{rem:level61search}
+This is the complement of Proposition~\ref{prop:window}, which places the mass of a \emph{solution}
+inside the window of the full support; here the split of the \emph{base} must sit outside its own.
+It is a genuine constraint and it points a search away from where one would naturally begin, but it
+does not make level $61$ enumerable, and it is worth recording the arithmetic rather than leaving the
+size vague. Sampling $2\times10^{6}$ splits of the first $59$ primes, $89.4\%$ satisfy
+$\sigma(P_0)\sigma(Q_0)<1$, so the condition removes about one split in nine
+\textup{(\texttt{code/split\_balance.gp})}. Against $49{,}961$ bases and $2^{59}$ splits each, some
+$2.6\times10^{22}$ candidates remain, and the product--balance $M\approx N\approx\sqrt D$ that
+Theorem~\ref{thm:frame} prefers trims this by a further factor of order $10$, not of order $10^{10}$.
+Each surviving candidate still needs two divisibility tests on $113$--digit integers. We therefore
+record level $61$ as out of computational reach by roughly ten orders of magnitude, and note that no
+constraint in this paper closes that gap.
+\end{remark}
+
 \begin{remark}[What actually obstructs, in both problems]\label{rem:portobstruction}
 It is worth being exact about where the difficulty sits, because the port dynamics is not where it
 sits. Along Sylvester's chain the value is $\Delta\equiv1$ \emph{identically}, so for \#313 the value
