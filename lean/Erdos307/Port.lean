@@ -41,4 +41,19 @@ theorem port_fixed_value {d b q : ℕ} (hcop : Nat.Coprime d b) (hq : 1 ≤ q)
   subst hd1
   omega
 
+/-- **Period two.** `prop:portfixed` is sharp at period one only: a two-step orbit
+`Δ ↦ q₁Δ - B ↦ Δ` is possible above the value `1`, and requires exactly `Δ ∣ q₁ + q₂`. Such orbits
+do occur at `c = 1` --- `B = 33` gives `Δ : 19 ↦ 5 ↦ 19` with `q₁ = 2`, `q₂ = 17` --- but they are
+single events, not families: returning a second time needs a fresh pair, since the condition ties
+the primes to `B`. -/
+theorem port_period_two {d b q₁ q₂ : ℕ} (hd : 0 < d) (hcop : Nat.Coprime d b)
+    (hrec : q₁ * q₂ * d = d + b * (q₁ + q₂)) : d ∣ q₁ + q₂ := by
+  have h1 : 1 ≤ q₁ * q₂ := by
+    by_contra hc
+    push_neg at hc
+    interval_cases h : (q₁ * q₂) <;> omega
+  obtain ⟨k, hk⟩ := Nat.exists_eq_add_of_le h1
+  have h : d ∣ b * (q₁ + q₂) := ⟨k, by rw [hk] at hrec; nlinarith [hrec]⟩
+  exact Nat.Coprime.dvd_of_dvd_mul_left hcop h
+
 end Erdos307

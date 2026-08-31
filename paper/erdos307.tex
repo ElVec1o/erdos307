@@ -2835,6 +2835,32 @@ sweep, every one had $\Delta=1$ \textup{(\texttt{code/port\_recursion.gp})}.
 The consequence for transfer is specific. Machinery built for \#313 targets the value $1$ and may
 use its stability; anything of that kind does not carry to $u\ge2$, where the stability is provably
 absent. What does carry is the recursion itself, which is value--blind.
+
+Proposition~\ref{prop:portfixed} is sharp at period one only. A two--step orbit
+$\Delta\mapsto q_1\Delta-B\mapsto\Delta$ is possible above the value $1$, and requires exactly
+$\Delta\mid q_1+q_2$ \textup{(}$0$ \texttt{sorry}, \texttt{Erdos307.port\_period\_two}\textup{)};
+at $c=1$ such orbits occur, for instance $B=33$ with $\Delta:19\mapsto5\mapsto19$ at
+$q_1=2$, $q_2=17$. They are single events rather than families, since returning a second time needs
+a fresh pair: the condition ties the primes to $B$. In the regime that the $1$--free case actually
+requires --- $c=2$ with $B$ and both primes odd --- a sweep of $162{,}110$ states found none
+\textup{(\texttt{code/port\_orbit.gp})}.
+\end{remark}
+
+\begin{remark}[What actually obstructs, in both problems]\label{rem:portobstruction}
+It is worth being exact about where the difficulty sits, because the port dynamics is not where it
+sits. Along Sylvester's chain the value is $\Delta\equiv1$ \emph{identically}, so for \#313 the value
+dynamics never obstructs at all; what obstructs is that the next element $B/\Delta+1$ must be
+\emph{prime}, and the chain $2,6,42,1806$ stops because $1807=13\cdot139$. That single composite is
+the whole reason \#313 is open rather than settled by Sylvester.
+
+The comparison is then clean, and it is the honest conclusion of the transfer. \#313 carries one
+obstruction: the primality of a constructed element. The $1$--free case of \#307's relaxation
+carries that same obstruction \emph{and}, by Proposition~\ref{prop:portfixed}, a second one that
+\#313 does not have --- no self--sustaining value to run a chain along in the first place. So the two
+problems are not of equal difficulty under this correspondence: \#307's relaxation is strictly harder
+in an identifiable way, and a solution of \#313 would not by itself supply one. This is a negative
+conclusion, but it is a proved one rather than a failed search, and it retires the transfer as a
+route.
 \end{remark}
 
 \emph{$u=2$.} The first $1$--free case. The condition is $D(B)=2\beta-4$, i.e.\

@@ -449,3 +449,4 @@ open Erdos307
 #print axioms Erdos307.mass_ladder_step
 #print axioms Erdos307.mass_ladder_step'
 #print axioms Erdos307.port_fixed_value
+#print axioms Erdos307.port_period_two
