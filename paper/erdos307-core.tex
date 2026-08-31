@@ -673,7 +673,7 @@ the following holds.
 \item \emph{Mixed parity.} Exactly one of $a,b$ is even; say $a=2k$ with $k$ odd. Then $b=a'$ is odd
 and $\omega(b)$ is even.
 \item \emph{All odd.} Both $a,b$ are odd. Then $P\cup Q$ avoids $2$, so reaching reciprocal sum $>2$
-needs $\ge 1412$ odd primes, and $\min(a,b)>10^{2519}$.
+needs $\ge 1412$ odd primes, and $\min(a,b)>10^{2519}$. Moreover $|P|$ and $|Q|$ are both odd.
 \end{enumerate}
 \end{theorem}
 
@@ -681,8 +681,13 @@ needs $\ge 1412$ odd primes, and $\min(a,b)>10^{2519}$.
 They cannot both be even, as $\gcd(a,b)=\gcd(a,a')=1$. In case~(i), write $a=2k$, $k$ odd squarefree;
 $b=a'=k+2k'$ is odd. For odd squarefree $b=\prod_{i}q_i$ one has
 $b'=\sum_i b/q_i\equiv \omega(b)\pmod 2$ (each $b/q_i$ is odd). Since $b'=a$ is even,
-$\omega(b)\equiv0\pmod2$. In case~(ii) the union of supports omits $2$; the reciprocal sum of the
-first $1411$ odd primes is $<2$ while that of the first $1412$ exceeds $2$, so $|P\cup Q|\ge 1412$
+$\omega(b)\equiv0\pmod2$. In case~(ii) the same congruence gives the cardinalities: $b=a'\equiv\omega(a)\pmod2$ with $b$ odd
+forces $\omega(a)=|P|$ odd, and symmetrically $|Q|$ is odd. \textup{(}The same conclusion follows
+from Proposition~2.3 of \cite{FewPrimes2025} applied to the expansion
+$1=\sum_{p\in P,q\in Q}1/(pq)$, whose rank is $|P|\,|Q|$, with $n=2$; it does not improve
+$|P\cup Q|\ge1412$, since $|P|+|Q|$ is even either way.\textup{)} The union of supports omits $2$;
+the reciprocal sum of the first $1411$ odd primes is $<2$ while that of the first $1412$ exceeds
+$2$, so $|P\cup Q|\ge 1412$
 and $\prod_{p\in P\cup Q}p\ge 10^{5040}$ (product of the $1412$ smallest odd primes, by direct
 computation). Applying the same rigidity/ratio argument as in Theorem~\ref{thm:barrier}(b) (now
 with $2\notin U$) gives $\min(a,b)\ge\sqrt{R/T(U)}>10^{2519}$. The all--odd case is therefore
@@ -1431,6 +1436,12 @@ equation, with a residue that is a rarity condition. Theorem~\ref{thm:frame} per
 reduction here. The difference is the scale of the residue, which the barrier places above
 $10^{56}$ rather than $10^{10}$, and that difference is the whole of why the same method finishes
 there and not here.
+
+Its algorithms do not reach \#307: they are built for one or two distinct primes with high
+multiplicity \textup{(}the paper says ``a small number of primes, say $1$ or $2$'', and its tables
+are for $\{p\}$ and $\{2,p\}$\textup{)}, whereas a solution here needs at least $60$ distinct primes
+each to the first power. The two regimes are disjoint, not merely separated by scale. What does
+transfer is one necessary condition, recorded in Theorem~\ref{thm:parity}.
 
 \cite{StretchedEG2026} bounds the distance from $1$ to the best reciprocal subsum of a multiset of
 reciprocal mass $K$ by $\exp(-c\sqrt{K\log K})$, improving $\ll K^{-2}$. It concerns how well $1$
