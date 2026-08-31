@@ -1843,7 +1843,7 @@ $\mathbb{Z}[i]$: Leibniz holds for disjoint supports, so a cycle $(a,b)$ has $D(
 with $D(N)-2N=(a-b)^2$ and $2N-D(N)=\bigl(i(a-b)\bigr)^2$ (all verified exactly on the cycles found).
 The last equation exposes the wall: over $\mathbb{Z}[i]$, where $-1=i^2$ is a square, \emph{both}
 discriminant factors are squares automatically, and the plus/minus distinction of
-Proposition~\ref{prop:split} (which over $\mathbb{Z}$ carries the entire obstruction, via
+Proposition~\ref{prop:splitdisc} (which over $\mathbb{Z}$ carries the entire obstruction, via
 $(a-b)^2\ge0\Rightarrow\sigma(N)\ge2$) has no content. The unique non--transferring link is the
 sign--definiteness of squares: the barrier is, in the end, the \emph{formal reality} of $\mathbb{Q}$ in
 the sense of Artin--Schreier. (The two Artin--Schreier theorems thus bracket the problem: their
@@ -3259,7 +3259,7 @@ two--cycles to the strictly weaker one--equation (Pythagorean) problem.
 
 \textup{Formalised.} \texttt{Erdos307.pyth\_sum\_of\_squares} is $N'=a^2+b^2$ from Leibniz and the
 cycle, \texttt{pyth\_discriminant} the resulting square, \texttt{split\_identity} and
-\texttt{split\_product} the two--layer form of Proposition~\ref{prop:split}, and
+\texttt{split\_product} the two--layer form of Proposition~\ref{prop:splitdisc}, and
 \texttt{mass\_ge\_two\_of\_pythagorean} with \texttt{card\_ge\_59\_of\_pythagorean} this corollary,
 glued by \texttt{mass\_ge\_two\_of\_pyth\_support} into \texttt{emptytest}, which takes the
 Pythagorean equation itself rather than an assumed mass bound. Earlier editions proved the two ends
@@ -3613,7 +3613,7 @@ reciprocal sum). At $k=2$, $\kappa_1=-\kappa_2$ is the deviation of Proposition~
 $\sum\kappa_i=0$ is $a^2+b^2=(ab)'$.
 \end{proposition}
 
-\begin{proposition}[Split discriminant]\label{prop:split}
+\begin{proposition}[Split discriminant]\label{prop:splitdisc}
 For coprime squarefree $a,b$ with $N=ab$,
 \[ N'+2N-(a+b)^2=N'-2N-(a-b)^2=(ab)'-a^2-b^2. \]
 Hence $N$ is the product of a Pythagorean pair iff $N'-2N$ and $N'+2N$ are \emph{both} perfect squares
@@ -3677,7 +3677,7 @@ $(2s)^2\equiv-2\pmod\ell$ for every prime $\ell\mid(2p+1)(2q+1)$, whence $\ell\e
 $p\equiv q\equiv1\pmod4$ (verified on all $59$ semiprime instances; this explains the dominance of $5$
 and $13$). \textup{(ii)} \textup{[}empirical\textup{]} $\#\{\text{plus--hits}\le X\}\approx0.25\sqrt X$
 (ratios $0.250,0.253,0.255$ at $X=5\!\times\!10^4,10^5,2\!\times\!10^5$): the plus factor behaves like
-a random integer of its size, so (with Proposition~\ref{prop:split}) the whole integer
+a random integer of its size, so (with Proposition~\ref{prop:splitdisc}) the whole integer
 obstruction sits in the minus factor. \textup{(iii)} Fixing $p=5$, $q=(s^2-5)/11$ with $s$ even and
 $s\equiv\pm4\pmod{11}$ gives $q\equiv1\pmod4$, and each prime value yields the plus--hit $N=5q$
 ($68$ with $s<2000$, up to $N=1{,}774{,}805$); Bunyakovsky's conjecture for this quadratic thus
@@ -5795,7 +5795,7 @@ squarefree plus--hit with no $P\mid Q$ split and is not subsumed by Bado.
 \end{corollary}
 
 The plus-- and minus--hits both organise into one--prime ``slot'' families, which makes the structure
-of Proposition~\ref{prop:split} explicit at every $\omega$.
+of Proposition~\ref{prop:splitdisc} explicit at every $\omega$.
 
 \begin{proposition}[Slot calculus for the discriminant layers]\label{prop:slot}
 Let $N_0$ be squarefree, $r\nmid N_0$ a prime, $N=N_0r$, and $E_0\coloneqq N_0'+2N_0$. By Leibniz
@@ -6179,7 +6179,7 @@ coprime to $d$) to $2\times10^6$ for all $d\le50$ gives $21$ on the plus lines (
 with the parity remark) and $81$ on the minus lines, with \emph{no} adjacent pair at any $d\le50$; the
 barrier in gap--stratified form. \textup{(}For coprime $M$ on $n'=n-\alpha$ and $N$ on $n'=n+\beta$, Leibniz
 gives $(MN)'-2MN=\beta M-\alpha N$, so $\beta M-\alpha N=\square$ would manufacture a minus--side square in
-the sense of Proposition~\ref{prop:split}; the case $(\alpha,\beta)=(1,1)$, $M-N=1$ is the $d=1$ cycle
+the sense of Proposition~\ref{prop:splitdisc}; the case $(\alpha,\beta)=(1,1)$, $M-N=1$ is the $d=1$ cycle
 itself, and the known finite Giuga/primary--pseudoperfect lists contain no coprime pair, all members being
 even.\textup{)} To our knowledge this gap--stratified equivalence and the pairing of opposite--sign lines at
 fixed additive distance are new; the lines themselves are \cite{GrauOllerMarcenSadornil2021}.
@@ -6491,6 +6491,111 @@ accurate statement. Either way Corollary~\ref{cor:a9rate} needs a bound uniform 
 $P\to\infty$ that this argument does not supply, and it is independently blocked by the regime
 mismatch recorded after Lemma~\ref{lem:reversal}, so it keeps the label \textsc{conjecture}.
 \end{remark}
+
+\begin{lemma}[Cancellation, uniform at polyloglog moduli]\label{lem:charcancelunif}
+Fix $\delta\in(0,1)$. For every odd squarefree $r$ with $7\le r\le(\log\log N)^{2-\delta}$,
+\[ T_r(N)\;\ll\;N\,(\log N)^{-2/5}, \]
+with an implied constant that is absolute but ineffective. For $r\in\{3,5\}$ the same holds with
+exponents $c_3-\varepsilon=0.133\ldots$ and $c_5-\varepsilon=0.441\ldots$ in place of $2/5$, as in
+Remark~\ref{rem:charcancelsharp}.
+\end{lemma}
+\begin{proof}
+The proof of Lemma~\ref{lem:charcancel} is followed step by step; what is new is that every
+implied constant is tracked in $r$, and each is absolute in the stated range. Write
+$L=\log\log N$, so $r\le L^{2-\delta}$ and $\log r\le(2-\delta)\log L$.
+
+\emph{Expansion.} Unchanged: $|T_r(N)|\le r^{-1/2}\sum_{t}|S_t(N)|\le r^{1/2}\max_t|S_t(N)|$,
+the sum over the $\varphi(r)$ values of $t$ with $\gcd(t,r)=1$, since $\chi(t)=0$ otherwise; the
+loss $r^{1/2}\le L$ is absorbed below.
+
+\emph{The distance.} As before,
+$\sum_{p\le N}h_t(p)p^{-1-i\tau}=c_{\psi_0}\sum_{p\le N,\,p\nmid r}p^{-1-i\tau}
++\sum_{\psi\ne\psi_0}c_\psi S_\psi(\tau)$ with $S_\psi(\tau)=\sum_{p\le N}\psi(p)p^{-1-i\tau}$
+and $|c_{\psi_0}|=\sqrt r/\varphi(r)$. The principal part is at most
+$(\sqrt r/\varphi(r))\log\log N$ in modulus, trivially and uniformly in $\tau$; dropping the
+primes $p\mid r$ from the untwisted sum costs $\sum_{p\mid r}1/p\le\omega(r)/3+O(1)=O(\log L)$,
+absorbed into the error below.
+
+\emph{The non--principal sums, uniformly.} Fix $\psi\ne\psi_0$ mod $r$ and $|\tau|\le\log N$, and
+put $s=1+1/\log N+i\tau$. Partial summation against Siegel--Walfisz, exactly as in
+Lemma~\ref{lem:charcancel} with $A=3$, replaces the truncated sum by
+$\log L(s,\psi)+O(1)$ at a cost $O((\log N)^{-1})$; Siegel--Walfisz is uniform, with an absolute
+ineffective constant, for conductors up to $(\log N)^{3}$, and $r\le L^{2}\le(\log N)^{3}$ holds
+for all $N\ge16$. For $\log L(s,\psi)$ two cases arise. If $L(\cdot,\psi)$ has no exceptional
+zero, the classical zero--free region gives
+$|\log L(s,\psi)|\ll\log\log\bigl(r(3+|\tau|)\bigr)\ll\log L$ with an absolute constant. If
+$\psi$ is real with an exceptional zero $\beta$, then
+$\log L(s,\psi)=\log(s-\beta)+O\bigl(\log\log(r(3+|\tau|))\bigr)$, and for \emph{every}
+$|\tau|\le\log N$, not only $\tau=0$,
+\[ |s-\beta|\;\ge\;\operatorname{Re}(s)-\beta\;>\;1-\beta\;\ge\;c(\varepsilon)\,r^{-\varepsilon} \]
+by Siegel's theorem in zero--location form, so
+$|\log(s-\beta)|\le\varepsilon\log r+O_\varepsilon(1)\ll\varepsilon\log L+O_\varepsilon(1)$. In
+both cases $|S_\psi(\tau)|\ll\log L$, absolutely and ineffectively, uniformly in
+$|\tau|\le\log N$.
+
+\emph{Assembly.} By Cauchy--Schwarz on the coefficients,
+$\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt{\varphi(r)}\le L^{1-\delta/2}$, so the non--principal
+contribution to the distance is $\ll L^{1-\delta/2}\log L=o(L)$, and
+\[ M\;\ge\;\Bigl(1-\frac{\sqrt r}{\varphi(r)}\Bigr)L\;-\;O\bigl(L^{1-\delta/2}\log L\bigr)
+   \;\ge\;\Bigl(1-\frac{\sqrt r}{\varphi(r)}-o(1)\Bigr)L . \]
+The constant $1-\sqrt r/\varphi(r)$ does \emph{not} tend to $1$ over the whole range: it is
+$0.133\ldots$ at $r=3$ and $0.441\ldots$ at $r=5$, and exceeds $1/2$ for every odd squarefree
+$r\ge7$: the minimum over that range is $1-\sqrt{15}/8=0.515\ldots$ at $r=15$, since each local
+factor satisfies $(p-1)/\sqrt p\ge2/\sqrt3$ and only $r=3,5$ fall below
+\textup{(\texttt{code/uniform\_constants\_check.gp})}. Hal\'asz
+(Montgomery's form; the constants are absolute and the function enters only through $|h_t|\le1$)
+then gives $\max_t|S_t(N)|\ll N(1+M)e^{-M}+N(\log N)^{-1/2}\ll N(\log N)^{-1/2+o(1)}$ for
+$r\ge7$, and the expansion loss $r^{1/2}\le L$ leaves
+$T_r(N)\ll N(\log N)^{-1/2+o(1)}\ll N(\log N)^{-2/5}$.
+
+Two honesty notes, as in Remark~\ref{rem:charcancelsharp}. The $o(1)$ terms above are vacuous at
+every computable $N$: the crux inequality $L^{1-\delta/2}\log L\ll L$ first bites, at
+$\delta=0.2$, around $\log\log N\approx e^{36}$. And the constant is ineffective twice over,
+through Siegel--Walfisz and through Siegel's theorem; no effective form is claimed.
+\end{proof}
+
+\begin{conjecture}[Two uniform deficit lemmas]\label{conj:deficit}
+Uniformly for primes $p\ne q$ in $(\tfrac12(\log\log N)^{1-\delta},(\log\log N)^{1-\delta}]$,
+with absolute implied constants,
+\[ \#\{m\le N:\ \mu^2(m)=1,\ \gcd(m,p)=1,\ \sigma_p(m)\equiv2\ (p)\}\ \ll\ N/p, \qquad
+   \#\{m\le N:\ \ldots\equiv2\ (p)\ \text{and}\ (q)\}\ \ll\ N/(pq). \]
+The natural route is the additive--character analogue of Lemma~\ref{lem:charcancelunif}: the
+detector $e_p(t\sigma_p(m))$ makes the summand multiplicative in $m$, the principal Fourier
+coefficient of $a\mapsto e_p(ta^{-1})$ is a Ramanujan sum, $-1/(p-1)$, so the distance constant is
+$1-1/(p-1)$, larger than in Lemma~\ref{lem:charcancelunif}; Lemma~\ref{lem:localsq} runs the same
+computation at fixed modulus. The uniform write--up has not been carried out, and after three
+failed reviews of Theorem~\ref{thm:a9}'s text no step of it will be assumed routine.
+\end{conjecture}
+
+\begin{proposition}[A rate on the minus layer, conditional on the deficit lemmas]\label{prop:condrate}
+Assume Conjecture~\ref{conj:deficit}. Then, for every $\delta\in(0,1)$,
+\[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{a positive perfect square}\}
+   \;\ll\;N\,\frac{\log\log\log N}{(\log\log N)^{1-\delta}} , \]
+and the same for $m'+2m$. In particular Theorem~\ref{thm:a9} would follow with a rate, by an
+argument with no diagonalisation over $r$.
+\end{proposition}
+\begin{proof}
+Let $P=(\log\log N)^{1-\delta}$, $\mathcal P$ the primes in $(P/2,P]$, $\Pi=|\mathcal P|\gg
+P/\log P$, and $a_m=m'-2m$. First, $a_m\ne0$ for every squarefree $m$: $a_m=0$ forces
+$\sigma(m)=2$ exactly, impossible for $m>1$ since $\gcd(D(m),m)=1$ (Theorem~\ref{thm:structure})
+and $a_1=-2$. If $a_m$ is a positive square then $(a_m\mid p)\ne-1$ for every $p$, and
+$(a_m\mid p)=0$ exactly when $p\mid a_m$, so
+$\sum_{p\in\mathcal P}(a_m\mid p)\ \ge\ \Pi-\#\{p\in\mathcal P:p\mid a_m\}$. Squaring and summing
+over all squarefree $m\le N$,
+\[ \Pi^2\,\#\{\text{squares}\}\ \le\ \sum_{p\ne q}\bigl(T_{pq}(N)+E_{pq}\bigr)\;+\;\Pi N
+   \;+\;2\Pi\sum_{p}\#\{m:p\mid a_m\}\;+\;\sum_{p\ne q}\#\{m:\ p\mid a_m,\ q\mid a_m\}
+   \;+\;\sum_p\#\{m:p\mid a_m\}, \]
+where $E_{pq}\le2N/P$ collects the $m$ with $\gcd(m,pq)>1$, dropped from $T_{pq}$'s summation
+range exactly as in the argument for Theorem~\ref{thm:a9}. By
+Lemma~\ref{lem:charcancelunif} at $r=pq\le(\log\log N)^{2-2\delta}$ (each $r$ odd squarefree,
+$r\ge7$), $\sum_{p\ne q}|T_{pq}|\le\Pi^2N(\log N)^{-2/5}$. By Conjecture~\ref{conj:deficit},
+$\sum_p\#\{m:p\mid a_m\}\ll N\Pi/P\ll N/\log P$ and the two--prime sum is $\ll\Pi^2N/P^2\ll
+N/(\log P)^2$. Dividing by $\Pi^2$: the diagonal $\Pi N$ gives the main term
+$N/\Pi\ll N\log P/P$, and every other term is smaller. Since $\log P\asymp\log\log\log N$, the
+bound follows. Note $\mu^2(m)$ and the coprimality conditions are carried inside every count;
+no M\"obius expansion is performed.
+\end{proof}
+
 Measured at $r=1009$, $N=3\times10^7$: $|\sum_m h_t(m)|/N$ equals $3.6\times10^{-6}$, $1.3\times10^{-3}$,
 $2.1\times10^{-3}$, $5.7\times10^{-4}$, $1.5\times10^{-3}$ at $t=0,1,2,17,500$, all of size $\sqrt N$
 rather than merely $o(N)$. The sums $T_r(N)$ themselves were measured at $N=5\times10^7$ for

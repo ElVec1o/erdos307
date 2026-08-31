@@ -45,6 +45,9 @@ chk "COVERAGE declarations"   "$decls" "$(grep -oE '\*\*[0-9]+ declarations' lea
 chk "COVERAGE module count"   "$mods"  "$(grep -oE 'across all [0-9]+ modules' lean/COVERAGE.md | grep -oE '[0-9]+')"
 chk "COVERAGE file count"     "$mods"  "$(grep -oE '\([0-9]+ files' lean/COVERAGE.md | grep -oE '[0-9]+')"
 
+dup=$(grep -o '\\label{[^}]*}' paper/erdos307.tex | sort | uniq -d | wc -l | tr -d ' ')
+chk "duplicate labels" "0" "$dup"
+
 nd=$(grep -rn 'native_decide' lean/Erdos307/*.lean | grep -c ':= by')
 chk "native_decide sites" "0" "$nd"
 
