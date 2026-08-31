@@ -13,6 +13,7 @@ import Erdos307.NoGainWitness
 import Erdos307.PairLocalCount
 import Erdos307.NonSquare
 import Erdos307.LevelFinite
+import Erdos307.Port
 import Erdos307.Coprime60
 import Erdos307.Witness
 import Erdos307.Dictionary
@@ -447,3 +448,4 @@ open Erdos307
 #print axioms Erdos307.max_le_of_mass_deficit'
 #print axioms Erdos307.mass_ladder_step
 #print axioms Erdos307.mass_ladder_step'
+#print axioms Erdos307.port_fixed_value

@@ -2803,6 +2803,40 @@ $u\beta-\partial(\beta)=u^{2}$, that is, the port $(1,u)$ filled at value $u^{2}
 The $1$--free case of the relaxation is therefore a port--filling problem one step outside the range
 that \#313 occupies, which is where any machinery developed for \#313 would have to be pushed.
 
+\begin{proposition}[Only the value one sustains itself]\label{prop:portfixed}
+For squarefree $B$ and $c\ge1$ put $\Delta_c(B)=cB-\partial(B)$. Then $\gcd(\Delta_c(B),B)=1$, and
+appending a prime $q\nmid B$ gives $\Delta_c(qB)=q\,\Delta_c(B)-B$. Consequently a step returns to
+the same value, $\Delta_c(qB)=\Delta_c(B)$, only when $\Delta_c(B)=1$, and then $q=B+1$. $0$
+\texttt{sorry} \textup{(\texttt{Erdos307.port\_fixed\_value})}.
+\end{proposition}
+\begin{proof}
+A prime $p\mid B$ dividing $\Delta_c(B)$ would divide $\partial(B)$, contradicting
+Theorem~\ref{thm:structure}; so $\gcd(\Delta_c(B),B)=1$. The recursion is
+$\partial(qB)=B+q\,\partial(B)$. Fixing the value gives $\Delta_c(B)(q-1)=B$, so $\Delta_c(B)\mid B$,
+and coprimality forces $\Delta_c(B)=1$.
+\end{proof}
+
+\begin{remark}[Why \#313 has a family and the $1$--free case has none]\label{rem:portvalue}
+Proposition~\ref{prop:portfixed} explains the asymmetry between
+Corollary~\ref{cor:threethirteen}'s two sides. At $u=1$ the target value is $1$, which is a fixed
+point of the port step: from $\Delta=1$ the choice $q=B+1$ returns $\Delta=1$, and iterating from
+$B=2$ gives $2,6,42,1806,\dots$, Sylvester's sequence, whose partial products are exactly the known
+primary pseudoperfect numbers. The family costs nothing because the recursion sits still.
+
+At $u\ge2$ the target is $u^{2}$, and by the proposition \emph{no} value other than $1$ is
+self-sustaining, so there is no orbit to sit on: every step must be steered, and the deficit
+$\Delta$ wanders. This is the structural content of the failed descent recorded earlier --- over
+$399$ seeds the recursion $\Delta\mapsto q\Delta-B$ never reached a divisor of $B+4$, the smallest
+$\Delta$ attained being $2.7\times10^{6}$ \textup{(\texttt{code/two\_side\_descent.gp})}. The search
+was not unlucky. Verified: $23{,}916$ pairs $(B,c)$ with $\gcd(\Delta_c(B),B)=1$ and $0$ failures,
+$14{,}920$ checks of the recursion with $0$ failures, and among all self-sustaining steps found in a
+sweep, every one had $\Delta=1$ \textup{(\texttt{code/port\_recursion.gp})}.
+
+The consequence for transfer is specific. Machinery built for \#313 targets the value $1$ and may
+use its stability; anything of that kind does not carry to $u\ge2$, where the stability is provably
+absent. What does carry is the recursion itself, which is value--blind.
+\end{remark}
+
 \emph{$u=2$.} The first $1$--free case. The condition is $D(B)=2\beta-4$, i.e.\
 $\sum_{b\in B}1/b=2-4/\beta$, and then $A=\{2,\beta-2\}$, which needs $\beta$ odd so that
 $\gcd(2,\beta-2)=1$ \textup{(}$0$ \texttt{sorry}, \texttt{Erdos307.Coprime.two\_free\_case}\textup{)}.
