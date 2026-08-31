@@ -445,3 +445,5 @@ open Erdos307
 #print axioms Erdos307.erdos307_level_finite
 #print axioms Erdos307.max_le_of_mass_deficit
 #print axioms Erdos307.max_le_of_mass_deficit'
+#print axioms Erdos307.mass_ladder_step
+#print axioms Erdos307.mass_ladder_step'

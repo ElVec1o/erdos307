@@ -19,13 +19,21 @@ abstract: >-
   constants. The same inequality, read in the size, the ratio, the period, the smallest prime, the
   orbit length and the split, yields a family of barriers that also derives the forced core, the
   ceiling on the largest prime, and the level-59 admissible count. Several other approaches are closed with proofs, and the
-  constructive route is given an exact cost accounting. The problem itself remains open.
+  constructive route is given an exact cost accounting. Every level of the problem is shown to be
+  finite and effectively decidable: for each pair of cardinalities there are only finitely many
+  solutions, so the infinitude of admissible supports above level 59 bounds the search space and not
+  the solution set, and the problem reduces to the halting of one explicit search. The largest
+  element of a support is bounded by an explicit function of the others, and the 59 smallest are
+  bounded at every level, which gives the first open level a stated size. The formalisation carries
+  no non-standard axioms: there is no native_decide anywhere, and every one of the 381 probed
+  declarations depends only on propext, Classical.choice and Quot.sound. The problem itself remains
+  open.
 authors:
   - family-names: Bonfioli
     given-names: Vico
     email: vicobonfioli@gmail.com
-version: 1.20.0
-date-released: 2026-08-29
+version: 1.21.0
+date-released: 2026-08-31
 type: software
 license: MIT
 repository-code: "https://github.com/ElVec1o/erdos307"

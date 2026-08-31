@@ -297,5 +297,30 @@ theorem max_le_of_mass_deficit' {D N q : ℚ} (hD : 0 < D) (hq : 0 < q)
   refine h.trans (le_of_eq ?_)
   field_simp
 
-end Erdos307
+/-! ### The mass ladder: the 59 smallest elements are bounded at every level
 
+`cor:maxbound` bounds the largest element in terms of the others, so to reach a concrete number the
+small elements must be bounded first. The mass supplies exactly that, and for a reason that does not
+degrade with the level: at position `j` the remaining `k - j + 1` elements must still carry the
+residual mass `r`, and `u j` is the smallest of them, so `u j ≤ (k - j + 1) / r`. The residual is
+positive whenever the elements below `j` carry less than `2`, which is guaranteed for `j ≤ 59`
+because `T₅₈ < 2`. Only elements from the 60th up escape.
+-/
+
+/-- **The ladder step.** If `c` elements each at least `x` carry reciprocal mass at least `r > 0`,
+then `x ≤ c / r`. Applied at position `j` of a support with `c = k - j + 1` remaining elements and
+`r` the residual mass, this bounds the `j`-th smallest element. -/
+theorem mass_ladder_step {x r : ℚ} {c : ℕ} (hx : 0 < x) (hr : 0 < r) (hc : 0 < c)
+    (hmass : r ≤ (c : ℚ) * x⁻¹) : x ≤ (c : ℚ) / r := by
+  have hcpos : (0 : ℚ) < (c : ℚ) := by exact_mod_cast hc
+  rw [le_div_iff₀ hr]
+  rw [inv_eq_one_div, mul_one_div, le_div_iff₀ hx] at hmass
+  linarith
+
+/-- The residual form actually used: with `s` the mass already accumulated below position `j`, the
+`j`-th element is bounded whenever `s < 2`. -/
+theorem mass_ladder_step' {x s : ℚ} {c : ℕ} (hx : 0 < x) (hs : s < 2) (hc : 0 < c)
+    (hmass : 2 - s ≤ (c : ℚ) * x⁻¹) : x ≤ (c : ℚ) / (2 - s) :=
+  mass_ladder_step hx (by linarith) hc hmass
+
+end Erdos307
