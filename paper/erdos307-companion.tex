@@ -4789,7 +4789,7 @@ adversarial review; each found defects that were repaired, so under the project'
 statement does not yet carry \textsc{proved}, which requires a round that finds nothing.)}
 Fix $\delta\in(0,1)$. For every odd squarefree $r$ with $7\le r\le(\log\log N)^{2-\delta}$,
 \[ T_r(N)\;\ll\;N\,(\log N)^{-2/5}, \]
-with an implied constant that is absolute but ineffective; the same bound, by the same proof with
+with an implied constant that depends only on $\delta$ and is ineffective; the same bound, by the same proof with
 $e_r(+2t)$ in place of $e_r(-2t)$, holds for the sum with $(m'+2m\mid r)$ in place of
 $(m'-2m\mid r)$. For $r\in\{3,5\}$ the same holds with
 exponents $c_3-\varepsilon=0.133\ldots$ and $c_5-\varepsilon=0.4409\ldots$ in place of $2/5$, as in
@@ -4842,9 +4842,12 @@ contribution to the distance is $\ll L^{1-\delta/2}\log L=o(L)$, and
    \;\ge\;\Bigl(1-\frac{\sqrt r}{\varphi(r)}-o(1)\Bigr)L . \]
 The constant $1-\sqrt r/\varphi(r)$ does \emph{not} tend to $1$ over the whole range: it is
 $0.133\ldots$ at $r=3$ and $0.441\ldots$ at $r=5$, and exceeds $1/2$ for every odd squarefree
-$r\ge7$: the minimum over that range is $1-\sqrt{15}/8=0.515\ldots$ at $r=15$, since each local
-factor satisfies $(p-1)/\sqrt p\ge2/\sqrt3$ and only $r=3,5$ fall below; swept directly over all odd squarefree $r\le20001$
-\textup{(\texttt{code/uniform\_min\_sweep.gp})}. Hal\'asz
+$r\ge7$, with minimum $1-\sqrt{15}/8=0.515\ldots$ at $r=15$. Indeed
+$\sqrt r/\varphi(r)=\prod_{p\mid r}\sqrt p/(p-1)$, every factor is $<1$, and $p\mapsto\sqrt p/(p-1)$
+is decreasing on $p\ge3$; so adjoining a prime only shrinks the product, and over $\omega(r)\ge2$
+the supremum is attained at $r=15$, giving $\sqrt r/\varphi(r)\le\sqrt{15}/8=0.4841\ldots$, while
+for $\omega(r)=1$ with $p\ge7$ it is at most $\sqrt7/6=0.4409\ldots$. Only $r=3,5$ exceed $1/2$
+\textup{(}values confirmed for $r\le20001$ in \texttt{code/uniform\_min\_sweep.gp}\textup{)}. Hal\'asz
 (Montgomery's form; the constants are absolute and the function enters only through $|h_t|\le1$)
 then gives $\max_t|S_t(N)|\ll N(1+M)e^{-M}+N(\log N)^{-1/2}\ll N(\log N)^{-1/2+o(1)}$ for
 $r\ge7$, and the expansion loss $r^{1/2}\le L$ leaves
