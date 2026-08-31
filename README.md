@@ -129,7 +129,7 @@ heuristic has no empirical support and cannot acquire any. **No proof either way
 ## Layout
 
 ```
-paper/   erdos307-core.pdf       — the paper (30 pp; the results)
+paper/   erdos307-core.pdf       — the paper (31 pp; the results)
          erdos307-companion.pdf  — the companion (91 pp; explorations, closures, the square sieve)
          erdos307.tex            — the single source both are generated from
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results

@@ -110,10 +110,19 @@ def main():
             return "\\ref{" + prefix + lab + "}" if lab in foreign else m.group(0)
         return re.sub(r"\\ref\{([^}]*)\}", sub, text)
 
+
+    def name_companion(text):
+        """A pointer into the companion must read as one, not as a section of this paper."""
+        text = re.sub(r"Section~\\ref\{C-([^}]*)\}",
+                      r"Section~\\ref{C-\1} of the companion", text)
+        text = re.sub(r"Sections~\\ref\{C-([^}]*)\}",
+                      r"Sections~\\ref{C-\1} of the companion", text)
+        return text
+
     xr = "\\usepackage{xr}\n"
 
     core_body = lead + "".join(t for _, t in core_blocks)
-    core_body = retarget(core_body, comp_labels, "C-")
+    core_body = name_companion(retarget(core_body, comp_labels, "C-"))
     core = (preamble.replace("\\usepackage[expansion=false]{microtype}",
                              "\\usepackage[expansion=false]{microtype}\n" + xr)
             + "\\externaldocument[C-]{erdos307-companion}\n"
