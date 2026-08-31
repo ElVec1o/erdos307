@@ -267,4 +267,35 @@ theorem erdos307_level_finite (m n : ℕ) :
   exact ⟨fun p hp => (h1 p hp).two_le, fun q hq => (h2 q hq).two_le, h3, h4, by
     simpa using h5⟩
 
+/-! ### The largest element is explicitly bounded at every level
+
+`sols_finite` is effective but crude: its height bound compounds doubly exponentially, because the
+generic induction uses only the sizes of the two sides. At a support the square conditions are
+available too, and they bound the largest element by an explicit function of the others. The two
+regimes are separated by whether the remaining elements already carry mass `2`.
+-/
+
+/-- **The mass regime.** If the support minus its largest element carries mass below `2`, the
+largest element is pinned by the deficit alone: it must supply what is missing. At the base of the
+first `58` primes this gives `q ≤ 793.67…`, recovering the bound `795` that `Sixty.lean` proves by a
+separate route. -/
+theorem max_le_of_mass_deficit {σ q : ℚ} (hq : 0 < q) (hσ : σ < 2) (hmass : 2 ≤ σ + 1 / q) :
+    q ≤ 1 / (2 - σ) := by
+  have hd : 0 < 2 - σ := by linarith
+  have h1 : 2 - σ ≤ 1 / q := by linarith
+  rw [le_div_iff₀ hd]
+  rw [le_div_iff₀ hq] at h1
+  linarith
+
+/-- The mass regime in the arithmetic form used at a support: `D` the product of the other
+elements, `N` their cofactor sum, so `σ = N/D`. -/
+theorem max_le_of_mass_deficit' {D N q : ℚ} (hD : 0 < D) (hq : 0 < q)
+    (hσ : N < 2 * D) (hmass : 2 ≤ N / D + 1 / q) :
+    q ≤ D / (2 * D - N) := by
+  have h := max_le_of_mass_deficit hq (by rw [div_lt_iff₀ hD]; linarith) hmass
+  have hd : 0 < 2 - N / D := by rw [sub_pos, div_lt_iff₀ hD]; linarith
+  refine h.trans (le_of_eq ?_)
+  field_simp
+
 end Erdos307
+

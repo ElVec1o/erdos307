@@ -1013,6 +1013,39 @@ of the elements already fixed, so the resulting height bound is doubly exponenti
 but effective.
 \end{proof}
 
+\begin{corollary}[The largest element of a support is explicitly bounded]\label{cor:maxbound}
+Let $U$ be the support of a two--cycle, $q=\max U$, $S=U\setminus\{q\}$, $D=\prod S$ and
+$N=\sum_{p\in S}D/p$. Then
+\[ N<2D\ \Longrightarrow\ q\le\frac{D}{2D-N},
+   \qquad\qquad N\ge2D\ \Longrightarrow\ q\le\tfrac12\Bigl(N+\sqrt{N^{2}-4D^{2}+4D}\Bigr). \]
+In both regimes $q$ is bounded by an explicit function of $S$ alone, so the enumeration at each
+level is a finite tree whose branching is known in advance. $0$ \texttt{sorry} for the mass regime
+\textup{(\texttt{Erdos307.max\_le\_of\_mass\_deficit}, \texttt{max\_le\_of\_mass\_deficit'})}.
+\end{corollary}
+\begin{proof}
+The mass of a two--cycle support is $\ge2$ \textup{(}$\sigma(P)+\sigma(Q)\ge2\sqrt{\sigma(P)\sigma(Q)}=2$\textup{)},
+so $N/D+1/q\ge2$. If $N<2D$ then $1/q\ge2-N/D>0$ and the first bound follows. If $N\ge2D$ then
+$D<N$ and $q\nmid2D$, and both $Aq+D$ and $Bq+D$ are squares, being $D(U)+2\prod U=(\prod P+\prod
+Q)^2$ and $D(U)-2\prod U=(\prod P-\prod Q)^2$ under $\prod U=qD$ and $D(U)=D+qN$; the second bound
+is then Proposition~\ref{prop:tailbound} at $\alpha=1$, the discriminant being nonnegative because
+$N\ge2D$.
+\end{proof}
+
+\begin{remark}[What the window does not do]\label{rem:windownotpin}
+It is worth recording what fails, since the natural guess is wrong. One might hope the mass window
+pins all but the top few elements of a support, leaving a bounded search. It does not, and the
+pinning weakens as the level rises: a prime $p$ is forced into a $k$--element support exactly when
+$1/p>T_{k+1}-2$, which forces $39$ primes at level $59$, $27$ at level $60$ and only $21$
+\textup{(}all $p\le73$\textup{)} at level $61$, leaving $40$ of the $61$ elements unconstrained by
+mass. The bound of Corollary~\ref{cor:maxbound} comes from the square conditions, not from the mass,
+and this is why: past level $59$ the mass condition, once met, constrains nothing further.
+Consistency check: at the base of the first $58$ primes the mass regime gives $q\le793.67\ldots$,
+while \texttt{Erdos307.elt\_le\_795} bounds the elements of a $59$--element support by $795$ through
+an unrelated argument \textup{(\texttt{code/level\_dichotomy.gp}; $400$ bases, $0$ failures)}.
+At level $61$ the second regime applies at the extremal base and gives $q\le1.1020\,D$ with
+$\log_{10}D=117.84$.
+\end{remark}
+
 \begin{remark}[The level--by--level programme survives its own barrier]\label{rem:levelrestored}
 Together with Proposition~\ref{prop:levelbarrier} this splits the situation cleanly: at every level
 above $59$ the admissible supports are infinite, and the solutions are finite with an effective

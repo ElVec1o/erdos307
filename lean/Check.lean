@@ -443,3 +443,5 @@ open Erdos307
 #print axioms Erdos307.not_isSquare_of_nsqCert
 #print axioms Erdos307.sols_finite
 #print axioms Erdos307.erdos307_level_finite
+#print axioms Erdos307.max_le_of_mass_deficit
+#print axioms Erdos307.max_le_of_mass_deficit'
