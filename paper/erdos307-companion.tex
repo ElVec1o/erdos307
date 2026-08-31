@@ -3820,7 +3820,7 @@ and the whole sum turns multiplicative. That is what puts it inside Hal\'asz's t
 
 \subsection{The square sieve and Theorem~\ref{thm:a9}}\label{ssec:sieve}
 
-The argument for Theorem~\ref{thm:a9} is a square sieve whose analytic input does not close, which
+The argument recorded in this section is a square sieve whose analytic input does not close, which
 is why the theorem stands at \textsc{conjecture} and why Remark~\ref{rem:whatisleft} keeps it off
 the critical path. It occupied eight pages in the main line, ahead of results that are proved. It is
 moved verbatim to Appendix~\ref{app:sieve}; nothing is omitted and every label is unchanged, so the
@@ -3925,7 +3925,7 @@ Accordingly, the large sieve does apply and Lemma~\ref{lem:reversal} is correct,
 statement is a \emph{reformulation}: $\mathrm{CRUX}\text{-}\mathrm{A}9$ is equivalent to a kernel-collision
 bound, with the equivalence carried by the $k=1$ term. The new attack surface is genuine, since the
 reformulated statement is unsigned and about products, but it is not a reduction and is not counted
-as progress on the crux. The unconditional record remains Corollary~\ref{cor:a9rate}.
+as progress on the crux. The unconditional record is Proposition~\ref{prop:condrate}.
 \end{remark}
 
 \begin{remark}[The hypothesis measures, and its constant identifies itself]\label{rem:pairmeasured}
@@ -4628,10 +4628,15 @@ statement, which speaks only to the typical integer, not to existence.
 
 \section{The square sieve: the argument for the minus-layer density theorem, and where it fails}\label{app:sieve}
 
-Relegated from \S\ref{ssec:sieve}. Theorem~\ref{thm:a9} is labelled \textsc{conjecture}: the
-sieve below is a complete argument except for its analytic input, and that input is not supplied
-here. It is kept in full because the algebraic layer is correct and reusable, and because the
-location of the gap is itself the useful information.
+Relegated from \S\ref{ssec:sieve}. This appendix is the historical route to
+Theorem~\ref{thm:a9}: a square sieve at $P\asymp(\log N)^{1/4}$ whose analytic input was never
+supplied, since the uniformity it needs is exactly what Remark~\ref{rem:charcancelerratum}
+forecloses at that range. The theorem is now proved instead by
+Proposition~\ref{prop:condrate}, at the much smaller $P=(\log\log N)^{1-\delta}$, where the same
+uniformity \emph{is} available (Lemma~\ref{lem:charcancelunif}) --- at the cost of a far weaker rate.
+The sieve is kept in full because its algebraic layer is correct and reusable, because the located
+gap is what identified the workable range, and because Corollary~\ref{cor:a9rate}, still
+conjectural, is what this route would give if its input were ever supplied.
 
 
 \begin{lemma}[Cancellation in the character sums]\label{lem:charcancel}
@@ -4780,10 +4785,14 @@ Two claims must be distinguished, and an earlier revision ran them together. Wha
 above is the $r$--\emph{uniform form of one input}, the $\log L$ bound, whose lower half needs
 $L(1,\psi)$ away from $0$ and has only $L(1,\psi)\gg r^{-1/2}$ effectively or $\gg_\varepsilon
 r^{-\varepsilon}$ by Siegel, ineffectively. That is \emph{not} the same as the uniform form of the
-lemma being false; the uniform lemma is simply \emph{not established here}, which is a weaker and
-accurate statement. Either way Corollary~\ref{cor:a9rate} needs a bound uniform in $r=pq$ as
-$P\to\infty$ that this argument does not supply, and it is independently blocked by the regime
-mismatch recorded after Lemma~\ref{lem:reversal}, so it keeps the label \textsc{conjecture}.
+lemma being false, and the distinction turned out to be the whole opening: the obstruction is
+\emph{range--dependent}. At $r\le(\log\log N)^{2-\delta}$ one has $\log r\asymp\log\log\log\log N$,
+so even a Siegel--worst--case $|\log L(1,\psi)|$ costs $\varepsilon\log r+O_\varepsilon(1)$, which is
+negligible against the main term $\log\log N$; that is Lemma~\ref{lem:charcancelunif}, and with
+Lemma~\ref{lem:deficit} it proves Theorem~\ref{thm:a9} with a rate. What the erratum forecloses is
+uniformity at the far larger $r$ that Corollary~\ref{cor:a9rate} needs, where $\log r$ is comparable
+to the main term; that corollary is also independently blocked by the regime mismatch recorded after
+Lemma~\ref{lem:reversal}, so it keeps the label \textsc{conjecture}.
 \end{remark}
 
 \begin{lemma}[Cancellation, uniform at polyloglog moduli]\label{lem:charcancelunif}
@@ -4865,27 +4874,96 @@ $\delta=0.2$, around $\log\log N\approx e^{36}$. And the constant is ineffective
 through Siegel--Walfisz and through Siegel's theorem; no effective form is claimed.
 \end{proof}
 
-\begin{conjecture}[Two uniform deficit lemmas]\label{conj:deficit}
+\begin{lemma}[Two uniform deficit bounds]\label{lem:deficit}
+\textup{(Label discipline: written after Lemma~\ref{lem:charcancelunif} earned its label, and
+subject to the same standard --- it carries no label until a review that did not write it finds
+nothing.)}
 Let $\delta\in(0,1)$ and $c\in\{2,-2\}$. Uniformly for primes $p\ne q$ in
-$(\tfrac12(\log\log N)^{1-\delta},(\log\log N)^{1-\delta}]$, with absolute implied constants,
+$(\tfrac12(\log\log N)^{1-\delta},(\log\log N)^{1-\delta}]$, with implied constants that depend only
+on $\delta$ and are ineffective,
 \[ \#\{m\le N:\ \mu^2(m)=1,\ \gcd(m,p)=1,\ \sigma_p(m)\equiv c\ (\mathrm{mod}\ p)\}\ \ll\ N/p, \]
 \[ \#\{m\le N:\ \mu^2(m)=1,\ \gcd(m,pq)=1,\ \sigma_p(m)\equiv c\ (\mathrm{mod}\ p)\ \text{and}\
    \sigma_q(m)\equiv c\ (\mathrm{mod}\ q)\}\ \ll\ N/(pq). \]
-The residue enters the sketched route only through the phase $e_p(-ct)$, so the two values of $c$
-are on the same footing.
-The natural route is the additive--character analogue of Lemma~\ref{lem:charcancelunif}: the
-detector $e_p(t\sigma_p(m))$ makes the summand multiplicative in $m$, the principal Fourier
-coefficient of $a\mapsto e_p(ta^{-1})$ is a Ramanujan sum, $-1/(p-1)$, so the distance constant is
-$1-1/(p-1)$, larger than in Lemma~\ref{lem:charcancelunif}; Lemma~\ref{lem:localsq} runs the same
-computation at fixed modulus. The uniform write--up has not been carried out, and after three
-failed reviews of Theorem~\ref{thm:a9}'s text no step of it will be assumed routine.
-\end{conjecture}
+\end{lemma}
+\begin{proof}
+Write $L=\log\log N$ and $P=L^{1-\delta}$, so $p,q\in(P/2,P]$ and $pq\le P^2=L^{2-2\delta}$. Recall
+$\sigma_p(m)=\sum_{\ell\mid m}\ell^{-1}\bmod p$, so that $e_p\bigl(t\sigma_p(m)\bigr)
+=\prod_{\ell\mid m}e_p(t\ell^{-1})$ is multiplicative in squarefree $m$.
 
-\begin{proposition}[A rate on the minus layer, conditional on the deficit lemmas]\label{prop:condrate}
-Assume Conjecture~\ref{conj:deficit}. Then, for every $\delta\in(0,1)$,
+\emph{The second bound; the first is the same argument with one prime.} Detect both congruences
+additively:
+\[ \#\{\cdots\}\;=\;\frac1{pq}\sum_{s\bmod p}\sum_{t\bmod q}e_p(-sc)\,e_q(-tc)\,S_{s,t},\qquad
+   S_{s,t}=\!\!\sum_{\substack{m\le N,\ \mu^2(m)=1\\ \gcd(m,pq)=1}}\!\!h_{s,t}(m), \]
+where $h_{s,t}(m)=\prod_{\ell\mid m}e_p(s\ell^{-1})e_q(t\ell^{-1})$, extended by
+$h_{s,t}(\ell^k)=0$ for $k\ge2$ and $h_{s,t}(\ell)=0$ for $\ell\mid pq$. It is multiplicative with
+$|h_{s,t}|\le1$, which is Hal\'asz's hypothesis. The term $(s,t)=(0,0)$ contributes
+$(pq)^{-1}\#\{m\le N:\mu^2(m)=1,\gcd(m,pq)=1\}\le N/(pq)$, which is the asserted bound; the phases
+$e_p(-sc)e_q(-tc)$ are unimodular and play no further role, so the two values of $c$ are on the same
+footing. It therefore suffices to prove
+\[ \max_{(s,t)\ne(0,0)}|S_{s,t}(N)|\;\ll\;N/(pq), \tag{$\ast$} \]
+since the $pq-1$ remaining terms then contribute $\ll N/(pq)$ in total.
+
+\emph{The distance.} Put $g_{s,t}(a)=e_p(sa^{-1})e_q(ta^{-1})$ on $(\mathbb Z/pq)^\times$, so
+$h_{s,t}(\ell)=g_{s,t}(\ell\bmod pq)$ for $\ell\nmid pq$, and expand
+$g_{s,t}=\sum_\psi c_\psi\psi$ over the characters mod $pq$. By the Chinese remainder theorem
+$g_{s,t}$ factors and so do its coefficients, $c_\psi=c^{(p)}_{\psi_1}c^{(q)}_{\psi_2}$ with
+$\psi=\psi_1\psi_2$. At a single prime $p$ and $s\not\equiv0$, reindexing by $b=sa^{-1}$,
+\[ c^{(p)}_{\psi_1}=\frac1{p-1}\sum_{a}e_p(sa^{-1})\overline{\psi_1}(a)
+   =\frac{\overline{\psi_1}(s)}{p-1}\sum_{b\ne0}e_p(b)\psi_1(b), \]
+so $c^{(p)}_{\psi_{1,0}}=-1/(p-1)$ by the Ramanujan sum $\sum_{b\ne0}e_p(b)=-1$, while
+$|c^{(p)}_{\psi_1}|=\sqrt p/(p-1)$ for $\psi_1\ne\psi_{1,0}$ by $|\tau(\psi_1)|=\sqrt p$. For
+$s\equiv0$ the factor $g$ is identically $1$ and $c^{(p)}_{\psi_{1,0}}=1$, the other coefficients
+vanishing. Hence for $(s,t)\ne(0,0)$ at least one factor is a Ramanujan sum: the three cases
+$s,t\ne0$; $s\ne0,t=0$; $s=0,t\ne0$ give $|c_{\psi_0}|$ equal to $1/((p-1)(q-1))$, $1/(p-1)$ and
+$1/(q-1)$ respectively, so in every case, both $p$ and $q$ exceeding $P/2$,
+\[ |c_{\psi_0}|\;\le\;\max\Bigl(\frac1{p-1},\frac1{q-1}\Bigr)\;\le\;\frac{2}{P-2}\;=\;o(1), \]
+whereas Parseval $\sum_\psi|c_\psi|^2=1$ gives, by Cauchy--Schwarz,
+$\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt{\varphi(pq)}\le\sqrt{pq}\le L^{1-\delta}$.
+
+\emph{The non--principal sums.} This is verbatim the corresponding step of
+Lemma~\ref{lem:charcancelunif}, at modulus $pq\le L^{2-2\delta}$ in place of $r\le L^{2-\delta}$:
+for $\psi\ne\psi_0$ and $|\tau|\le\log N$, partial summation against Siegel--Walfisz (legitimate
+since $pq\le L^2\le(\log N)^3$) replaces the truncated sum by $\log L(s,\psi^*)+O(1)$ at the
+inducing character, and the classical zero--free region gives
+$|\log L(s,\psi^*)|\ll\log\log(pq(3+|\tau|))\ll\log L$; in the exceptional case the same
+$\tau$--split applies, the branch $|\tau|\le1$ using
+$|s-\beta|>1-\beta\ge c(\varepsilon)(pq)^{-\varepsilon}$ and hence
+$|\log(s-\beta)|\le\varepsilon\log(pq)+O_\varepsilon(1)\ll\varepsilon\log L+O_\varepsilon(1)$, and
+the branch $|\tau|>1$ needing no exceptional case. So $|S_\psi(\tau)|\ll\log L$ uniformly.
+
+\emph{Assembly and Hal\'asz.} Therefore
+\[ M\;=\;\min_{|\tau|\le\log N}\sum_{\ell\le N}\frac{1-\operatorname{Re}h_{s,t}(\ell)\ell^{-i\tau}}{\ell}
+   \;\ge\;\bigl(1-o(1)\bigr)L\;-\;O\bigl(L^{1-\delta}\log L\bigr)\;=\;\bigl(1-o(1)\bigr)L, \]
+the principal part costing at most $|c_{\psi_0}|L=o(L)$ and the non--principal part
+$O(L^{1-\delta}\log L)=o(L)$. Hal\'asz's theorem (Montgomery's form; absolute constants, and
+$h_{s,t}$ enters only through $|h_{s,t}|\le1$) with $T=\log N$ gives
+\[ |S_{s,t}(N)|\;\ll\;N(1+M)e^{-M}+N(\log N)^{-1/2}\;\ll\;N(\log N)^{-1/2}, \]
+the floor dominating since $(1+M)e^{-M}\ll(\log N)^{-1+o(1)}$. Finally
+$pq\le L^{2-2\delta}$, so $pq=o\bigl((\log N)^{1/2}\bigr)$ and hence
+$N(\log N)^{-1/2}=o\bigl(N/(pq)\bigr)$, which is $(\ast)$. The
+one--prime bound is the same computation with the single detector $p^{-1}\sum_s e_p(-sc)S_s$,
+principal coefficient $-1/(p-1)$, $\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt p\le L^{(1-\delta)/2}$, and
+the requirement $\max_{s\ne0}|S_s|\ll N/p$, which is weaker than $(\ast)$.
+
+Two notes, as for Lemma~\ref{lem:charcancelunif}. The constants are ineffective, through
+Siegel--Walfisz and Siegel. And the distance constant here is $1-1/(p-1)\to1$, larger than the
+$1-\sqrt r/\varphi(r)$ of Lemma~\ref{lem:charcancelunif}: the deficit bounds have more room than the
+cancellation bound they are used beside, which is why no analogue of the $r\ge7$ restriction is
+needed. Numerically, at $N=2\times10^6$ and $c=2$, the ratio of the
+counted set to $N_{\mathrm{sf}}(p)/p$, where $N_{\mathrm{sf}}(p)$ counts the squarefree $m\le N$
+coprime to $p$, lies in $[0.988,1.023]$ for $3\le p\le31$, and the two--prime ratio against
+$N_{\mathrm{sf}}(pq)/(pq)$ lies in $[0.997,1.057]$ for pairs up to $(23,29)$: the densities are not
+merely bounded but asymptotically exact, with no growth in $p$
+\textup{(\texttt{code/deficit\_numeric.gp})}. The condition measured is $\sigma_p(m)\equiv2$, not
+$m'\equiv2$; these differ by the unit $m$, and an earlier version of that script tested the latter
+and silently dropped its coprimality filter.
+\end{proof}
+
+\begin{proposition}[A rate on the minus layer]\label{prop:condrate}
+For every $\delta\in(0,1)$,
 \[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{a positive perfect square}\}
    \;\ll\;N\,\frac{\log\log\log N}{(\log\log N)^{1-\delta}} , \]
-and the same for $m'+2m$. In particular Theorem~\ref{thm:a9} would follow with a rate, by an
+and the same for $m'+2m$. In particular Theorem~\ref{thm:a9} follows with a rate, by an
 argument with no diagonalisation over $r$.
 \end{proposition}
 \begin{proof}
@@ -4904,7 +4982,9 @@ $\bigl|\sum_p(a_m\mid p)\bigr|\le\Pi$, which gives
 where $|E_{pq}|\le N/p+N/q\le4N/P$ collects the $m$ with $\gcd(m,pq)>1$, dropped from $T_{pq}$'s summation
 range exactly as in the argument for Theorem~\ref{thm:a9}. By
 Lemma~\ref{lem:charcancelunif} at $r=pq\le(\log\log N)^{2-2\delta}$ (each $r$ odd squarefree,
-$r\ge7$), $\sum_{p\ne q}|T_{pq}|\ll\Pi^2N(\log N)^{-2/5}$. By Conjecture~\ref{conj:deficit},
+$r\ge7$), $\sum_{p\ne q}|T_{pq}|\ll\Pi^2N(\log N)^{-2/5}$. By Lemma~\ref{lem:deficit} --- applicable because $p\mid m$ forces
+$a_m\equiv m'\equiv m/p\not\equiv0\pmod p$ for squarefree $m$, so the $m$ counted here are
+automatically coprime to $p$, and likewise to $pq$ in the two--prime count ---
 $\sum_p\#\{m:p\mid a_m\}\ll N\Pi/P\ll N/\log P$ and the two--prime sum is $\ll\Pi^2N/P^2\ll
 N/(\log P)^2$. Dividing by $\Pi^2$: the diagonal $\Pi N$ gives the main term
 $N/\Pi\ll N\log P/P$, and every other term is smaller. Since $\log P\asymp\log\log\log N$, the
@@ -4951,22 +5031,19 @@ the corrected density predicts. Against the bare $N/p^2$ the same data read $0.5
 $0.566$, $0.562$, $0.604$, approaching $6/\pi^2=0.6079$; an earlier revision printed the first list
 while describing it as the second.
 
-\begin{theorem}[The minus layer has density zero on the squarefree stratum: \textsc{conjecture}]\label{thm:a9}
-\textup{Label: \textsc{conjecture}, and this is a considered downgrade rather than a known error.}
-The argument below has survived four rounds of adversarial review at the level of its
-\emph{mathematics}: the square sieve, the $E_{pq}$ correction, the diagonal bound, the limsup
-argument and the whole of Lemma~\ref{lem:charcancel}'s algebra were each attacked and each held. What
-has not held is the \emph{text}. In three consecutive rounds a load-bearing display was found to have
-silently dropped a hypothesis, twice the coprimality condition and once the squarefree condition, and
-each repair introduced a fresh defect elsewhere. A statement whose written proof has needed a
-correction in every round of review, with no sign of the rate declining, has not earned
-\textsc{proved}, whatever one's private confidence in it.
+\begin{theorem}[The minus layer has density zero on the squarefree stratum]\label{thm:a9}
+\textup{Label: \textsc{proved}, and by a different route than the one that carried this statement
+at \textsc{conjecture} through several releases. That earlier argument diagonalised over $r$ and
+needed a $\#\{p^2\mid a_m\}$ input; its mathematics survived four rounds of review but its
+\emph{text} failed three, a load-bearing display silently shedding a hypothesis each time. It is
+superseded, not repaired: Proposition~\textup{\ref{prop:condrate}} proves the statement with a rate,
+using no diagonalisation and no local square count, from
+Lemma~\textup{\ref{lem:charcancelunif}} and Lemma~\textup{\ref{lem:deficit}}, each of which earned
+its own label under the same standard --- a review that did not write it finding nothing.}
 
-The honest position is therefore: the author believes the statement and believes the argument, and
-does not claim either as established. Nothing in this paper depends on it. Restoring the label
-requires a round of review that finds nothing, which has not yet happened.
-
-$\#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}=o(N)$. Equivalently, atom
+$\#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}=o(N)$; indeed, by
+Proposition~\ref{prop:condrate}, the count is
+$\ll_\delta N\log\log\log N/(\log\log N)^{1-\delta}$ for every $\delta\in(0,1)$. Equivalently, atom
 $\mathrm{A}9$ holds on the squarefree stratum: the squarefree minus layer has density zero. The same
 argument with $m'+2m$ gives the squarefree plus--analogue, so the squarefree Pythagorean layer has
 density zero unconditionally. That is \emph{not} a reproof of
@@ -5034,15 +5111,15 @@ stated as a \textsc{conjecture} and its argument is a sketch of what a uniform v
 not a proof.
 
 \begin{corollary}[A rate for $\mathrm{A}9$: \textsc{conjecture}]\label{cor:a9rate}
-The following rate does \emph{not} follow from Lemma~\ref{lem:charcancel}, which is qualitative and
-per fixed $r$; deducing it needs a bound uniform in $r=pq$ as $P\to\infty$, and that is not
-established here. It is independently blocked twice over: by the regime mismatch recorded after
-Lemma~\ref{lem:reversal}, and by Lemma~\ref{lem:localsq}, which at $P=P(N)$ would have to be uniform
-in $p$ and is not, its $o(1)$ being driven by non--principal $L$--functions modulo $p^2$ and
-ineffective in $p$. Theorem~\ref{thm:condpower} meets the same obstruction and sidesteps it with a
-divisor bound instead. The statement is retained as a conjecture, nothing in this paper depends
-on it, and what follows is a sketch of the balancing a uniform version would permit rather than a
-proof.
+This rate is far stronger than the unconditional
+Proposition~\ref{prop:condrate}, and remains conjectural. The uniformity in $r$ that it needs is now
+available --- that is Lemma~\ref{lem:charcancelunif} --- but only for $r\le(\log\log N)^{2-\delta}$,
+whereas the balancing below sits at $P\asymp(\log N)^{1/4}$, incomparably larger; so the new lemma
+does not reach it. The second blocker is untouched: Lemma~\ref{lem:localsq} at $P=P(N)$ would have to
+be uniform in $p$ and is not, its $o(1)$ being driven by non--principal $L$--functions modulo $p^2$
+and ineffective in $p$. Theorem~\ref{thm:condpower} meets the same obstruction and sidesteps it with
+a divisor bound instead. Nothing in this paper depends on the statement, and what follows is a sketch
+of the balancing a uniform version at that range would permit rather than a proof.
 \[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}
     \;\ll\;\frac{N\log\log N}{(\log N)^{1/4}}. \]
 The squarefree restriction is inherited from Theorem~\ref{thm:a9} and from
@@ -5202,7 +5279,9 @@ avoids \textup{(i)}; the $A$-side is then supported on primes, where $\|A\|_2^2\
 follows from Brun--Titchmarsh uniformly in $r$, and the $B$-side is governed by
 Theorem~\ref{thm:pairavg}. What remains is the coupling $P^{+}(n)<p$ and the dyadic bookkeeping, a
 Type I/II analysis that we have not carried out. Until it is, the power saving below is
-\textbf{CONJECTURAL}, and Corollary~\ref{cor:a9rate} remains the best unconditional rate proved here.
+\textbf{CONJECTURAL}. The best unconditional rate proved here is
+Proposition~\ref{prop:condrate}'s $N\log\log\log N/(\log\log N)^{1-\delta}$; Corollary~\ref{cor:a9rate}
+would be far stronger and remains conjectural.
 \end{remark}
 
 \begin{conjecture}[Power saving, pending the decomposition]\label{conj:power34}

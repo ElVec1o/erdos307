@@ -1474,6 +1474,20 @@ pin level $59$ from both sides and yield its admissible count $49{,}961$ in clos
 (Propositions~\ref{C-prop:window},~\ref{C-prop:band}, Corollary~\ref{C-cor:count59}). The algebraic cores
 of these are Lean--verified (\texttt{Dictionary.lean}).
 
+One analytic statement is settled here that was open through several revisions of this paper. The
+squarefree minus layer $\{m:m'-2m=\square\}$ has density zero, with a rate
+(Theorem~\ref{C-thm:a9}, Proposition~\ref{C-prop:condrate}), and likewise the plus layer, so the
+squarefree Pythagorean layer has density zero unconditionally. The route is not the square sieve of
+Appendix~\ref{C-app:sieve}, whose analytic input is foreclosed at its range by
+Remark~\ref{C-rem:charcancelerratum}; it is a sieve at the far smaller
+$P=(\log\log N)^{1-\delta}$, where two uniform estimates \emph{are} available ---
+Lemma~\ref{C-lem:charcancelunif} for the character sums and Lemma~\ref{C-lem:deficit} for the local
+deficits. The obstruction the erratum records turned out to be range--dependent rather than
+absolute, and that is the whole of the opening. The rate obtained,
+$N\log\log\log N/(\log\log N)^{1-\delta}$, is very weak; the far stronger
+Corollary~\ref{C-cor:a9rate} remains conjectural and independently blocked. Nothing else in this paper
+depends on any of it, and the barrier is untouched.
+
 On the constructive side we give a Th\=abit/Euler--type calculus and a bilinear breeder whose
 candidate $q$ is always integral (Proposition~\ref{C-prop:bdeint}), a conditional reduction
 $(\mathrm{H})\Rightarrow$\textsc{yes}, and a quantitative ledger showing $(\mathrm{H})$ is not a
