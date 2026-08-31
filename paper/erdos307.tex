@@ -976,12 +976,58 @@ Proposition~\ref{prop:close59} closes level $59$ by enumerating its $49{,}961$ a
 and Proposition~\ref{prop:tailkill} together with the search of Remark~\ref{rem:notlehmer} closes
 level $60$ by adjoining one prime to each. The obvious continuation is to enumerate the admissible
 $60$--element supports and repeat. Proposition~\ref{prop:levelbarrier} says there is no such
-enumeration.
+enumeration \emph{of supports}.
 
 The finiteness at level $59$ is an accident of one inequality being tight: $59$ primes reach mass $2$
 only just, at $2.00235\ldots$, so demanding mass $>2$ from exactly $59$ primes pins them near the
 smallest $59$. Allow a sixtieth and the first $59$ already carry the mass alone, leaving the sixtieth
-entirely free. The mass condition, having been met, constrains nothing further.
+entirely free. The mass condition, having been met, constrains nothing further. The next proposition
+shows that the \emph{solutions} are nevertheless finite at every level: the haystack is infinite, the
+needles are not.
+
+\begin{proposition}[Each level carries only finitely many solutions]\label{prop:levelfinite}
+Fix cardinalities $m,n\ge0$ and rationals $c_1,c_2\ge0$. The equation
+\[ \Bigl(c_1+\sum_{a\in A}\frac1a\Bigr)\Bigl(c_2+\sum_{b\in B}\frac1b\Bigr)=1 \]
+has only finitely many solutions in sets $A,B$ of integers $\ge2$ with $|A|=m$, $|B|=n$; in
+particular, for every $(m,n)$ there are only finitely many pairs of prime sets with
+$\sigma(P)\sigma(Q)=1$, $|P|=m$, $|Q|=n$, and the bound is effective. $0$ \texttt{sorry}
+\textup{(\texttt{Erdos307.sols\_finite}, \texttt{erdos307\_level\_finite})}.
+\end{proposition}
+\begin{proof}
+Induct on $m+n$; the constants absorb removed elements. Write $u,v$ for the two sums and
+$\varepsilon=1-c_1c_2$. Expanding, any solution satisfies $c_1v+u(c_2+v)=\varepsilon$, and the left
+side is strictly positive for $m+n\ge1$ (if $m\ge1$ then $u>0$ and $c_2+v>0$, else the product is
+$0$; if $m=0$ then $c_1(c_2+v)=1$ forces $c_1>0$, $v>0$), so $\varepsilon>0$ is fixed by
+$(c_1,c_2)$ alone. One of the two terms is at least $\varepsilon/2$.
+
+If $u(c_2+v)\ge\varepsilon/2$: every $b\in B$ has $1/b\le1/2$, so $v\le n/2$, whence
+$u\ge\varepsilon/(2c_2+n)$; since $u$ is a sum of $m$ terms, some $a_0\in A$ has
+$1/a_0\ge u/m$, that is
+\[ a_0\;\le\;\frac{m\,(2c_2+n)}{\varepsilon}. \]
+Moving $a_0$ into the constant, $(A\setminus\{a_0\},B)$ solves the equation with
+$(m-1,n,c_1+1/a_0,c_2)$, and the map is injective for fixed $a_0$. If instead
+$c_1v\ge\varepsilon/2$, then symmetrically some $b_0\le2c_1n/\varepsilon$ moves into $c_2$. Either
+way the solution set injects into finitely many strictly smaller problems, and the induction closes.
+The bounds compound: each step divides by an $\varepsilon$ whose denominator is at most the product
+of the elements already fixed, so the resulting height bound is doubly exponential in $m+n$; crude,
+but effective.
+\end{proof}
+
+\begin{remark}[The level--by--level programme survives its own barrier]\label{rem:levelrestored}
+Together with Proposition~\ref{prop:levelbarrier} this splits the situation cleanly: at every level
+above $59$ the admissible supports are infinite, and the solutions are finite with an effective
+height bound. Restricted to any fixed level, \#307 is therefore \emph{decidable}: a terminating
+computation either exhibits the finitely many solutions or certifies that the level is empty. What
+is genuinely unbounded in the problem is only the level itself, so \#307 is equivalent to the
+halting of one explicit search, which is the precise content of the problem page's
+\textup{VERIFIABLE} tag. We record the honest scale: the bound of
+Proposition~\ref{prop:levelfinite} at level $61$ is astronomically beyond enumeration, so
+decidability in principle does not yield a computation in practice; the value of the proposition is
+structural. Validated on the inhomogeneous case $c_1=1$, where solutions are the known
+$1$--containing coprime examples: the enumeration recovers $(\{5\},\{2,3\})$,
+$(\{41\},\{2,3,7\})$, $(\{1805\},\{2,3,7,43\})$ and their congeners, every one containing an
+element within the proven bound \textup{(\texttt{code/level\_finite\_check.gp})}.
+\end{remark}
 
 Two consequences, and the second is the one that matters. The searches of
 Remark~\ref{rem:notlehmer}, however far they are pushed in $\omega(m)$, bear on level $60$ alone;

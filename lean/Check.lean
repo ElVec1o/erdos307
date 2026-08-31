@@ -12,6 +12,7 @@ import Erdos307.CompleteSums
 import Erdos307.NoGainWitness
 import Erdos307.PairLocalCount
 import Erdos307.NonSquare
+import Erdos307.LevelFinite
 import Erdos307.Coprime60
 import Erdos307.Witness
 import Erdos307.Dictionary
@@ -440,3 +441,5 @@ open Erdos307
 #print axioms Erdos307.dfsA_run
 #print axioms Erdos307.dfs_of_dfsA
 #print axioms Erdos307.not_isSquare_of_nsqCert
+#print axioms Erdos307.sols_finite
+#print axioms Erdos307.erdos307_level_finite
