@@ -1,6 +1,6 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**74 of 135** labelled results are named by a Lean file in `Erdos307/` (51 files, **0 `sorry`**).
+**74 of 137** labelled results are named by a Lean file in `Erdos307/` (51 files, **0 `sorry`**).
 
 `lake env lean Check.lean` probes **381 declarations across all 51 modules**. Everything is on the
 three standard axioms or fewer, with exactly two exceptions: `dfs_run`, the pruned-search execution
