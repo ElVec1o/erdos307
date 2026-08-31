@@ -14,9 +14,12 @@ chk() { # name  expected  actual
   else printf "  FAIL  %-28s stated %s, actual %s\n" "$1" "$2" "$3"; fail=1; fi
 }
 
-pdf=$(pdfinfo paper/erdos307.pdf 2>/dev/null | awk '/Pages/{print $2}')
-readme_pp=$(grep -o 'the note ([0-9]* pp' README.md | grep -o '[0-9]*')
-chk "paper page count" "$readme_pp" "$pdf"
+core_pdf=$(pdfinfo paper/erdos307-core.pdf 2>/dev/null | awk '/Pages/{print $2}')
+comp_pdf=$(pdfinfo paper/erdos307-companion.pdf 2>/dev/null | awk '/Pages/{print $2}')
+readme_core=$(grep -o 'the paper ([0-9]* pp' README.md | grep -o '[0-9]*')
+readme_comp=$(grep -o 'the companion ([0-9]* pp' README.md | grep -o '[0-9]*')
+chk "core page count" "$readme_core" "$core_pdf"
+chk "companion page count" "$readme_comp" "$comp_pdf"
 
 read cov tot < <(python3 -c "
 import re, glob

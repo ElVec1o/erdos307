@@ -129,7 +129,9 @@ heuristic has no empirical support and cannot acquire any. **No proof either way
 ## Layout
 
 ```
-paper/   erdos307.tex, erdos307.pdf   — the note (118 pp; self-contained bibliography)
+paper/   erdos307-core.pdf       — the paper (42 pp; the results)
+         erdos307-companion.pdf  — the companion (79 pp; explorations, closures, the square sieve)
+         erdos307.tex            — the single source both are generated from
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md
 certs/   independently checkable ECPP primality certificates: the immune families, and the
@@ -140,11 +142,13 @@ hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, w
 
 ## Building
 
-- **Paper:** `cd paper && pdflatex erdos307.tex` twice (for cross-references). No BibTeX run needed.
+- **Paper:** `cd paper && python3 ../code/split_paper.py` then build companion, core, companion,
+  core with `pdflatex` (twice each, for the `xr` cross-references). No BibTeX run needed. The two
+  documents are derived from `erdos307.tex`, never hand-edited, so they cannot drift.
 - **Lean:** `cd lean && lake exe cache get && lake build` (Lean / mathlib `v4.30.0`). Then
   `lake env lean Check.lean` prints the axiom dependencies of 386 declarations across all 53 modules
   — everything depends only on `propext, Classical.choice, Quot.sound` (no `sorryAx`), with exactly
-  one exception: `erdos307_sixty`, which additionally carries the `native_decide` axiom of `dfs_run`.
+  no exceptions: there is no `native_decide` anywhere in the development.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)
   for primality and class-group work, and a few legacy Python 3 scripts (`sympy`, `numpy`).
 ### Repository provenance
