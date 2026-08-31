@@ -2846,6 +2846,37 @@ requires --- $c=2$ with $B$ and both primes odd --- a sweep of $162{,}110$ state
 \textup{(\texttt{code/port\_orbit.gp})}.
 \end{remark}
 
+\begin{proposition}[The barrier survives relaxing the equations to divisibilities]\label{prop:divrelax}
+Let $P,Q$ be disjoint finite sets of primes and suppose only that
+\[ \textstyle\prod Q\ \bigm|\ D(P)\qquad\text{and}\qquad \prod P\ \bigm|\ D(Q), \]
+in place of the two equalities a two--cycle requires. Then
+$\sigma(P)\sigma(Q)\ge1$, hence $\sigma(P)+\sigma(Q)\ge2$, and therefore $|P\cup Q|\ge60$ and
+$\min(\prod P,\prod Q)\ge2.09\times10^{56}$ as in Theorem~\ref{thm:barrier}. $0$ \texttt{sorry}
+\textup{(\texttt{Erdos307.mass\_from\_divisibility})}.
+\end{proposition}
+\begin{proof}
+Divisibility between positive integers gives $\prod Q\le D(P)=\sigma(P)\prod P$ and
+$\prod P\le D(Q)=\sigma(Q)\prod Q$. Multiplying and cancelling the positive quantity
+$\prod P\prod Q$ leaves $1\le\sigma(P)\sigma(Q)$, and the arithmetic--geometric mean inequality
+gives $\sigma(P)+\sigma(Q)\ge2$, which is the only input Theorem~\ref{thm:barrier} consumes.
+\end{proof}
+
+\begin{remark}[What the relaxation localises]\label{rem:divrelax}
+The relaxation is worth recording because it is natural to expect the mass condition to be an
+artefact of the \emph{exact} equations, so that weakening them would open room below level $60$. It
+does not: the divisibilities alone already force the mass, because a divisibility between positive
+integers is an inequality, and the two inequalities point in opposite directions. Consequently the
+difficulty in \#307 is not located in the passage from ``$\prod Q$ divides $D(P)$'' to
+``$\prod Q$ equals $D(P)$''; both carry the same barrier.
+
+At $|P|=|Q|=2$ the relaxed system has no solutions at all among the primes below $283$
+\textup{(}$2{,}925{,}810$ pairs, $0$ solutions, \texttt{code/relax\_divisibility.gp}\textup{)}, and
+Proposition~\ref{prop:divrelax} says why: four primes cannot carry mass $2$. A random search for
+relaxed solutions is therefore vacuous rather than evidential, and the proposition is checked
+instead on the arithmetic it actually asserts, over $200{,}000$ random positive quadruples with $0$
+counterexamples.
+\end{remark}
+
 \begin{corollary}[The balanced splits are exactly the forbidden ones]\label{cor:splitbalance}
 In the situation of Corollary~\ref{cor:level61height}, a split $S=P_0\sqcup Q_0$ can support a
 solution only if $\sigma(P_0)\sigma(Q_0)<1$, hence only if $\sigma(P_0)$ lies strictly \emph{outside}

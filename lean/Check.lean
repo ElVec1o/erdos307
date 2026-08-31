@@ -14,6 +14,7 @@ import Erdos307.PairLocalCount
 import Erdos307.NonSquare
 import Erdos307.LevelFinite
 import Erdos307.Port
+import Erdos307.Divisibility
 import Erdos307.Coprime60
 import Erdos307.Witness
 import Erdos307.Dictionary
@@ -451,3 +452,5 @@ open Erdos307
 #print axioms Erdos307.port_fixed_value
 #print axioms Erdos307.port_period_two
 #print axioms Erdos307.split_outside_window
+#print axioms Erdos307.mass_prod_ge_one_of_le
+#print axioms Erdos307.mass_from_divisibility
