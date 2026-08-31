@@ -4784,10 +4784,15 @@ mismatch recorded after Lemma~\ref{lem:reversal}, so it keeps the label \textsc{
 \end{remark}
 
 \begin{lemma}[Cancellation, uniform at polyloglog moduli]\label{lem:charcancelunif}
+\textup{(Label discipline, as for Theorem~\ref{thm:a9}: this proof has been through two rounds of
+adversarial review; each found defects that were repaired, so under the project's standard the
+statement does not yet carry \textsc{proved}, which requires a round that finds nothing.)}
 Fix $\delta\in(0,1)$. For every odd squarefree $r$ with $7\le r\le(\log\log N)^{2-\delta}$,
 \[ T_r(N)\;\ll\;N\,(\log N)^{-2/5}, \]
-with an implied constant that is absolute but ineffective. For $r\in\{3,5\}$ the same holds with
-exponents $c_3-\varepsilon=0.133\ldots$ and $c_5-\varepsilon=0.441\ldots$ in place of $2/5$, as in
+with an implied constant that is absolute but ineffective; the same bound, by the same proof with
+$e_r(+2t)$ in place of $e_r(-2t)$, holds for the sum with $(m'+2m\mid r)$ in place of
+$(m'-2m\mid r)$. For $r\in\{3,5\}$ the same holds with
+exponents $c_3-\varepsilon=0.133\ldots$ and $c_5-\varepsilon=0.4409\ldots$ in place of $2/5$, as in
 Remark~\ref{rem:charcancelsharp}.
 \end{lemma}
 \begin{proof}
@@ -4808,20 +4813,26 @@ primes $p\mid r$ from the untwisted sum costs $\sum_{p\mid r}1/p\le\omega(r)/3+O
 absorbed into the error below.
 
 \emph{The non--principal sums, uniformly.} Fix $\psi\ne\psi_0$ mod $r$ and $|\tau|\le\log N$, and
-put $s=1+1/\log N+i\tau$. Partial summation against Siegel--Walfisz, exactly as in
+put $s=1+1/\log N+i\tau$. For composite $r$ the character $\psi$ need not be primitive; let
+$\psi^{*}$ of conductor $d\mid r$, $d>1$, induce it. Then $S_\psi$ and $S_{\psi^{*}}$ differ only at
+the primes $p\mid r$, by at most $\sum_{p\mid r}1/p=O(\log L)$, absorbed into the bound below, and
+Siegel--Walfisz, the zero--free region and Siegel's theorem are applied to $\psi^{*}$. Partial summation against Siegel--Walfisz, exactly as in
 Lemma~\ref{lem:charcancel} with $A=3$, replaces the truncated sum by
 $\log L(s,\psi)+O(1)$ at a cost $O((\log N)^{-1})$; Siegel--Walfisz is uniform, with an absolute
 ineffective constant, for conductors up to $(\log N)^{3}$, and $r\le L^{2}\le(\log N)^{3}$ holds
 for all $N\ge16$. For $\log L(s,\psi)$ two cases arise. If $L(\cdot,\psi)$ has no exceptional
 zero, the classical zero--free region gives
 $|\log L(s,\psi)|\ll\log\log\bigl(r(3+|\tau|)\bigr)\ll\log L$ with an absolute constant. If
-$\psi$ is real with an exceptional zero $\beta$, then
-$\log L(s,\psi)=\log(s-\beta)+O\bigl(\log\log(r(3+|\tau|))\bigr)$, and for \emph{every}
-$|\tau|\le\log N$, not only $\tau=0$,
+$\psi$ is real with an exceptional zero $\beta$, split the $\tau$--range. For $|\tau|\le1$ the local
+decomposition $\log L(s,\psi)=\log(s-\beta)+O\bigl(\log\log(r(3+|\tau|))\bigr)$ applies, and
 \[ |s-\beta|\;\ge\;\operatorname{Re}(s)-\beta\;>\;1-\beta\;\ge\;c(\varepsilon)\,r^{-\varepsilon} \]
 by Siegel's theorem in zero--location form, so
-$|\log(s-\beta)|\le\varepsilon\log r+O_\varepsilon(1)\ll\varepsilon\log L+O_\varepsilon(1)$. In
-both cases $|S_\psi(\tau)|\ll\log L$, absolutely and ineffectively, uniformly in
+$|\log(s-\beta)|\le\log\bigl(1/(1-\beta)\bigr)+O(1)\le\varepsilon\log r+O_\varepsilon(1)
+\ll\varepsilon\log L+O_\varepsilon(1)$; the decomposition is \emph{not} asserted beyond $|\tau|\le1$,
+where $|s-\beta|$ can be as large as $\log N$ and $\log|s-\beta|$ as large as $L$. For $|\tau|>1$
+the zero $\beta$ lies at distance greater than $1$ from $s$, outside the local zero--density disc,
+and the unconditional bound $|\log L(s,\psi)|\ll\log\log(r(3+|\tau|))$ applies with no exceptional
+case. In both regimes $|S_\psi(\tau)|\ll\log L$, absolutely and ineffectively, uniformly in
 $|\tau|\le\log N$.
 
 \emph{Assembly.} By Cauchy--Schwarz on the coefficients,
@@ -4832,8 +4843,8 @@ contribution to the distance is $\ll L^{1-\delta/2}\log L=o(L)$, and
 The constant $1-\sqrt r/\varphi(r)$ does \emph{not} tend to $1$ over the whole range: it is
 $0.133\ldots$ at $r=3$ and $0.441\ldots$ at $r=5$, and exceeds $1/2$ for every odd squarefree
 $r\ge7$: the minimum over that range is $1-\sqrt{15}/8=0.515\ldots$ at $r=15$, since each local
-factor satisfies $(p-1)/\sqrt p\ge2/\sqrt3$ and only $r=3,5$ fall below
-\textup{(\texttt{code/uniform\_constants\_check.gp})}. Hal\'asz
+factor satisfies $(p-1)/\sqrt p\ge2/\sqrt3$ and only $r=3,5$ fall below; swept directly over all odd squarefree $r\le20001$
+\textup{(\texttt{code/uniform\_min\_sweep.gp})}. Hal\'asz
 (Montgomery's form; the constants are absolute and the function enters only through $|h_t|\le1$)
 then gives $\max_t|S_t(N)|\ll N(1+M)e^{-M}+N(\log N)^{-1/2}\ll N(\log N)^{-1/2+o(1)}$ for
 $r\ge7$, and the expansion loss $r^{1/2}\le L$ leaves
@@ -4846,10 +4857,13 @@ through Siegel--Walfisz and through Siegel's theorem; no effective form is claim
 \end{proof}
 
 \begin{conjecture}[Two uniform deficit lemmas]\label{conj:deficit}
-Uniformly for primes $p\ne q$ in $(\tfrac12(\log\log N)^{1-\delta},(\log\log N)^{1-\delta}]$,
-with absolute implied constants,
-\[ \#\{m\le N:\ \mu^2(m)=1,\ \gcd(m,p)=1,\ \sigma_p(m)\equiv2\ (p)\}\ \ll\ N/p, \qquad
-   \#\{m\le N:\ \ldots\equiv2\ (p)\ \text{and}\ (q)\}\ \ll\ N/(pq). \]
+Let $\delta\in(0,1)$ and $c\in\{2,-2\}$. Uniformly for primes $p\ne q$ in
+$(\tfrac12(\log\log N)^{1-\delta},(\log\log N)^{1-\delta}]$, with absolute implied constants,
+\[ \#\{m\le N:\ \mu^2(m)=1,\ \gcd(m,p)=1,\ \sigma_p(m)\equiv c\ (\mathrm{mod}\ p)\}\ \ll\ N/p, \]
+\[ \#\{m\le N:\ \mu^2(m)=1,\ \gcd(m,pq)=1,\ \sigma_p(m)\equiv c\ (\mathrm{mod}\ p)\ \text{and}\
+   \sigma_q(m)\equiv c\ (\mathrm{mod}\ q)\}\ \ll\ N/(pq). \]
+The residue enters the sketched route only through the phase $e_p(-ct)$, so the two values of $c$
+are on the same footing.
 The natural route is the additive--character analogue of Lemma~\ref{lem:charcancelunif}: the
 detector $e_p(t\sigma_p(m))$ makes the summand multiplicative in $m$, the principal Fourier
 coefficient of $a\mapsto e_p(ta^{-1})$ is a Ramanujan sum, $-1/(p-1)$, so the distance constant is
@@ -4871,15 +4885,17 @@ P/\log P$, and $a_m=m'-2m$. First, $a_m\ne0$ for every squarefree $m$: $a_m=0$ f
 $\sigma(m)=2$ exactly, impossible for $m>1$ since $\gcd(D(m),m)=1$ (Theorem~\ref{K-thm:structure})
 and $a_1=-2$. If $a_m$ is a positive square then $(a_m\mid p)\ne-1$ for every $p$, and
 $(a_m\mid p)=0$ exactly when $p\mid a_m$, so
-$\sum_{p\in\mathcal P}(a_m\mid p)\ \ge\ \Pi-\#\{p\in\mathcal P:p\mid a_m\}$. Squaring and summing
-over all squarefree $m\le N$,
+$\sum_{p\in\mathcal P}(a_m\mid p)\ \ge\ \Pi-\#\{p\in\mathcal P:p\mid a_m\}$. Hence
+$\Pi^2\,\#\{\text{squares}\}\le\sum_m\bigl(\sum_p(a_m\mid p)+\#\{p\in\mathcal P:p\mid a_m\}\bigr)^2$,
+the sum over all squarefree $m\le N$; expanding the square, the cross term is bounded through
+$\bigl|\sum_p(a_m\mid p)\bigr|\le\Pi$, which gives
 \[ \Pi^2\,\#\{\text{squares}\}\ \le\ \sum_{p\ne q}\bigl(T_{pq}(N)+E_{pq}\bigr)\;+\;\Pi N
    \;+\;2\Pi\sum_{p}\#\{m:p\mid a_m\}\;+\;\sum_{p\ne q}\#\{m:\ p\mid a_m,\ q\mid a_m\}
    \;+\;\sum_p\#\{m:p\mid a_m\}, \]
-where $E_{pq}\le2N/P$ collects the $m$ with $\gcd(m,pq)>1$, dropped from $T_{pq}$'s summation
+where $|E_{pq}|\le N/p+N/q\le4N/P$ collects the $m$ with $\gcd(m,pq)>1$, dropped from $T_{pq}$'s summation
 range exactly as in the argument for Theorem~\ref{thm:a9}. By
 Lemma~\ref{lem:charcancelunif} at $r=pq\le(\log\log N)^{2-2\delta}$ (each $r$ odd squarefree,
-$r\ge7$), $\sum_{p\ne q}|T_{pq}|\le\Pi^2N(\log N)^{-2/5}$. By Conjecture~\ref{conj:deficit},
+$r\ge7$), $\sum_{p\ne q}|T_{pq}|\ll\Pi^2N(\log N)^{-2/5}$. By Conjecture~\ref{conj:deficit},
 $\sum_p\#\{m:p\mid a_m\}\ll N\Pi/P\ll N/\log P$ and the two--prime sum is $\ll\Pi^2N/P^2\ll
 N/(\log P)^2$. Dividing by $\Pi^2$: the diagonal $\Pi N$ gives the main term
 $N/\Pi\ll N\log P/P$, and every other term is smaller. Since $\log P\asymp\log\log\log N$, the
