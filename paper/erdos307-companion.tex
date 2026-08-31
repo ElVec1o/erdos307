@@ -4784,15 +4784,18 @@ mismatch recorded after Lemma~\ref{lem:reversal}, so it keeps the label \textsc{
 \end{remark}
 
 \begin{lemma}[Cancellation, uniform at polyloglog moduli]\label{lem:charcancelunif}
-\textup{(Label discipline, as for Theorem~\ref{thm:a9}: this proof has been through two rounds of
-adversarial review; each found defects that were repaired, so under the project's standard the
-statement does not yet carry \textsc{proved}, which requires a round that finds nothing.)}
+\textup{(Label discipline, as for Theorem~\ref{thm:a9}: this statement went through six rounds of
+adversarial review, each by a session that did not write the text under review. Rounds one to five
+each found defects --- twice in a repair made by the round before --- which were repaired; round
+six, auditing statement and proof line by line and recomputing every printed constant, found
+nothing, which is what the label records. Proposition~\ref{prop:condrate} passed clean at round
+three.)}
 Fix $\delta\in(0,1)$. For every odd squarefree $r$ with $7\le r\le(\log\log N)^{2-\delta}$,
 \[ T_r(N)\;\ll\;N\,(\log N)^{-2/5}, \]
-with an implied constant that depends only on $\delta$ and is ineffective; the same bound, by the same proof with
-$e_r(+2t)$ in place of $e_r(-2t)$, holds for the sum with $(m'+2m\mid r)$ in place of
-$(m'-2m\mid r)$. For $r\in\{3,5\}$ the same holds with
-exponents $c_3-\varepsilon=0.133\ldots$ and $c_5-\varepsilon=0.4409\ldots$ in place of $2/5$, as in
+with an implied constant that depends only on $\delta$ and is ineffective; the same bound, by the
+same proof with $e_r(+2t)$ in place of $e_r(-2t)$, holds for the sum with $(m'+2m\mid r)$ in place
+of $(m'-2m\mid r)$. The moduli $r=3,5$ are excluded: there $c_r<1/2$, and they are
+covered instead at fixed $r$ by Lemma~\ref{lem:charcancel} with the exponents of
 Remark~\ref{rem:charcancelsharp}.
 \end{lemma}
 \begin{proof}

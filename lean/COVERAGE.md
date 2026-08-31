@@ -65,10 +65,16 @@ that needed proving was the easy direction all along.
 
 | atom | formalised | blocked on | what unblocks it |
 |---|---|---|---|
+| `lem:charcancelunif` ⭐ | no | Halasz's theorem, Siegel--Walfisz, Siegel's theorem, and the zero--free region -- none in Mathlib | a formal analytic number theory library at the level of `L`--function zero--free regions; genuinely a research contribution, not an oversight here |
+
+One atom is starred again, and honestly so: `lem:charcancelunif` is the first result in this project
+whose proof rests on deep analytic inputs. The lesson recorded above -- that "Mathlib does not carry
+it" is not the same as "it is hard" -- was tested here and, this once, does not apply: Halasz and
+Siegel are not elementary in disguise.
 
 A6 moved furthest this release: its divisor sums, their logarithmic form, and the range count are
 all formal, leaving the CRT root bound as the single remaining lemma. A7 moved in the previous
-release, to Weil alone -- and then past it. No atom remains starred. The recurring error was
+release, to Weil alone -- and then past it. One atom is starred (see the table above); it is the only one, and it is analytic, not algebraic. The recurring error was
 treating "Mathlib does not carry the named theorem" as evidence that the step needs that theorem;
 in three of four cases the step did not.
 
