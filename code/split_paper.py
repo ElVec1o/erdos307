@@ -26,8 +26,44 @@ from pathlib import Path
 
 SRC = Path("erdos307.tex")
 
+CORE_ABSTRACT = r"""\begin{abstract}
+Erd\H{o}s Problem~\#307 (Barbeau 1976; Erd\H{o}s--Graham 1980) asks whether there are finite sets
+$P,Q$ of primes with $\bigl(\sum_{p\in P}\tfrac1p\bigr)\bigl(\sum_{q\in Q}\tfrac1q\bigr)=1$.
+Writing $a=\prod P$ and $b=\prod Q$, a solution exists exactly when the arithmetic derivative has a
+two--cycle $a'=b$, $b'=a$ with $a\neq b$. The reformulation is due to Ufnarovski and \AA hlander,
+whose Conjecture~4 states \#307 in these terms; the identification of the two problems is recorded
+in neither literature.
+
+We prove a rigidity lemma, that each prime--reciprocal sum is already in lowest terms and hence
+$P\cap Q=\varnothing$, and a barrier: any solution has $|P\cup Q|\ge60$ and
+$\min(\prod P,\prod Q)>3.50\times10^{57}$, for both members and without hypotheses. This is the
+first valid unconditional bound of its kind; the only prior candidate rests on an invalid step, for
+which we give an explicit model. The barrier is uniform in the period, so it bounds the whole
+Ufnarovski--\AA hlander cycle conjecture and not only its period--two case, and a parity dichotomy
+shows that an all--odd cycle would need at least $1412$ primes.
+
+Each level of the problem is finite and effectively decidable: for every pair of cardinalities there
+are only finitely many solutions, so the infinitude of admissible supports above level $59$ bounds
+the search space and not the solution set. At level $61$, the first open one,
+$\prod(P\cup Q)<10^{567}$. No fixed--shape family of any growth rate can produce a solution, which
+closes the Th\=abit--Euler programme that is the classical technique for problems of this kind.
+
+For the coprime relaxation recorded with the problem we show that the solutions containing the
+element $1$ are exactly the primary pseudoperfect numbers, so that case is equivalent to Erd\H{o}s
+Problem~\#313; the $1$--free case needs $1414$ members and carries an obstruction \#313 does not.
+
+The results are formalised in Lean~4, with every declaration depending only on the standard axioms
+and no appeal to kernel--external evaluation. A companion note records the exploratory and negative
+material: the certificate programme, the function--field lens, the breeder form and the square
+sieve. The problem remains open.
+\end{abstract}"""
+
+
+
 CORE_SECS = ["sec:intro", "sec:rigidity", "sec:bridge", "sec:barrier", "sec:frame",
              "sec:computations", "sec:lean", "sec:coprime", "sec:status", "sec:prior"]
+# sec:certificate carries the level-by-level exclusion programme and its anatomy; it is
+# exploratory and travels with the companion.
 
 def main():
     src = SRC.read_text()
@@ -81,7 +117,7 @@ def main():
     core = (preamble.replace("\\usepackage[expansion=false]{microtype}",
                              "\\usepackage[expansion=false]{microtype}\n" + xr)
             + "\\externaldocument[C-]{erdos307-companion}\n"
-            + head + abstract + "\n" + core_body + "\n" + bib + "\n\\end{document}\n")
+            + head + CORE_ABSTRACT + "\n" + core_body + "\n" + bib + "\n\\end{document}\n")
     core = core.replace("\\title{On the equation", "\\title{On the equation")
 
     comp_body = "".join(t for _, t in comp_blocks)

@@ -459,6 +459,369 @@ verbatim. The product bound transfers because $\prod_e e\ge\prod_e\ell(e)$ and
 $T(U)\le\sum_e1/\ell(e)$, so the extremal ratio bound at the first $60$ primes still applies.
 \end{proof}
 
+\begin{proposition}[The Pythagorean tail prime is bounded]\label{prop:tailbound}
+Let $S$ be a finite set of primes, $D=\prod S$, $N=\sum_{p\in S}D/p$, $A=N+2D$, $B=N-2D$, and suppose
+$D<N$. Let $q$ be a prime with $q\nmid 2D$ for which $Aq+D$ and $Bq+D$ are both perfect squares. Then
+there are integers $m,c$ with $mc=4D$ and
+\[ q^2m^2-4Nq+c^2-4D=0, \qquad \bigl(qm^2-2N\bigr)^2=4\bigl(AB+Dm^2\bigr), \]
+so that $q=2(N\pm k)/m^2$ with $k^2=AB+Dm^2$ and $m\mid 4D$. Moreover $m$ is \emph{even}, say
+$m=2\alpha$ with $\alpha\mid D$ and $\beta=D/\alpha$, and then $q$ is a root of
+\[ \alpha^2q^2-Nq+(\beta^2-D)=0, \qquad\text{so}\qquad
+   q=\frac{N+\sqrt{N^2-4D^2+4\alpha^2D}}{2\alpha^2}, \]
+a quantity strictly decreasing in $\alpha$. Hence the maximum is at $\alpha=1$ and
+\[ q\ \le\ \tfrac12\Bigl(N+\sqrt{N^{2}-4D^{2}+4D}\Bigr)\ =\ tD+O(1),
+   \qquad t=\tfrac12\bigl(\sigma+\sqrt{\sigma^{2}-4}\bigr),\ \ \sigma=\sigma(S)=N/D. \]
+The largest admissible tail is therefore the base times the very ratio $b/a$ that the mass forces.
+At level $59$ this is $9.207\times10^{112}=1.0497\,D$, a factor $7.63$ below $4N$.
+\end{proposition}
+
+\begin{proof}
+Write $x^2=Aq+D$ and $y^2=Bq+D$ with $x,y\ge0$. Since $A-B=4D$ \emph{exactly},
+$x^2-y^2=(A-B)q=4Dq$, that is $(x+y)(x-y)=4Dq$. The prime $q$ divides exactly one of the two factors:
+were it to divide both it would divide $2x$ and $2y$, hence $x$ and $y$ as $q$ is odd, hence
+$q^2\mid 4Dq$ and $q\mid 4D$, against $q\nmid2D$. Write the factor divisible by $q$ as $qm$ and the
+other as $c$, so that $mc=4D$ and, in either case, $2x=qm+c$. Multiplying by $m$,
+\[ 2xm\;=\;qm^2+mc\;=\;qm^2+4D, \]
+and squaring against $x^2=(N+2D)q+D$ gives
+$4m^2\bigl((N+2D)q+D\bigr)=q^2m^4+8Dqm^2+16D^2$. Substituting $16D^2=m^2c^2$ and cancelling $m^2>0$
+leaves $q^2m^2-4Nq+c^2-4D=0$; completing the square and using $AB=N^2-4D^2$ gives the second display.
+For the parity, $x+y$ and $x-y$ differ by $2y$ and so have equal parity; were both odd their
+product would be odd, whereas it is $4Dq$. Hence both are even, and as $q$ is odd, $m$ is even.
+Finally $m^2\ge4$ and $c^2\ge0$ give $4Nq=q^2m^2+c^2-4D\ge 4q^2-4D$, that is $Nq\ge q^2-D$; if
+$q\ge N+1$ then $q^2-Nq-D\ge q-D>0$ because $D<N<q$, a contradiction, so $q\le N$. (Using only
+$m\ge1$ here gives $q\le4N$; the parity removes the factor four.) For the sharp form, $m=2\alpha$ and
+$c=2\beta$ with $\alpha\beta=D$ turn $q^2m^2-4Nq+c^2-4D=0$ into $\alpha^2q^2-Nq+\beta^2-D=0$, whose
+larger root is $\bigl(N+g(u)\bigr)/(2u)$ with $u=\alpha^2$ and $g(u)^2=N^2-4D^2+4uD$. Its derivative
+in $u$ has the sign of $2uD-g(N+g)$, and $4uD=g^2-N^2+4D^2$ turns that into
+$-\bigl((g+N)^2-4D^2\bigr)/2$, negative since $N>2D$. So the root decreases in $\alpha$ and is
+largest at $\alpha=1$.
+\end{proof}
+
+\begin{proposition}[The level--by--level programme terminates at $60$]\label{prop:levelbarrier}
+Let $U$ be a finite set of primes with $\sum_{p\in U}1/p>2$ and let $B$ be arbitrary. Then there is a
+prime $q>B$ with $q\notin U$ such that $U\cup\{q\}$ again has $\sum 1/p>2$. Consequently, for every
+$n>59$ there are infinitely many $n$--element prime supports of mass exceeding $2$.
+\end{proposition}
+
+\begin{proof}
+The primes are infinite, so choose a prime $q$ exceeding both $B$ and $\max U$; then $q\notin U$ and
+$\sum_{p\in U\cup\{q\}}1/p=\sum_{p\in U}1/p+1/q>2$. Iterating from the first $59$ primes, whose
+reciprocal sum is $N_{59}/P_{59}=2.00235\ldots>2$, produces admissible supports of every cardinality
+above $59$, each containing a prime beyond any prescribed bound.
+\end{proof}
+
+\begin{remark}[What the level barrier costs, and what it does not]\label{rem:levelbarrier}
+Proposition~\ref{prop:close59} closes level $59$ by enumerating its $49{,}961$ admissible supports,
+and Proposition~\ref{prop:tailkill} together with the search of Remark~\ref{rem:notlehmer} closes
+level $60$ by adjoining one prime to each. The obvious continuation is to enumerate the admissible
+$60$--element supports and repeat. Proposition~\ref{prop:levelbarrier} says there is no such
+enumeration \emph{of supports}.
+
+The finiteness at level $59$ is an accident of one inequality being tight: $59$ primes reach mass $2$
+only just, at $2.00235\ldots$, so demanding mass $>2$ from exactly $59$ primes pins them near the
+smallest $59$. Allow a sixtieth and the first $59$ already carry the mass alone, leaving the sixtieth
+entirely free. The mass condition, having been met, constrains nothing further. The next proposition
+shows that the \emph{solutions} are nevertheless finite at every level: the haystack is infinite, the
+needles are not.
+
+\begin{proposition}[Each level carries only finitely many solutions]\label{prop:levelfinite}
+Fix cardinalities $m,n\ge0$ and rationals $c_1,c_2\ge0$. The equation
+\[ \Bigl(c_1+\sum_{a\in A}\frac1a\Bigr)\Bigl(c_2+\sum_{b\in B}\frac1b\Bigr)=1 \]
+has only finitely many solutions in sets $A,B$ of integers $\ge2$ with $|A|=m$, $|B|=n$; in
+particular, for every $(m,n)$ there are only finitely many pairs of prime sets with
+$\sigma(P)\sigma(Q)=1$, $|P|=m$, $|Q|=n$, and the bound is effective. $0$ \texttt{sorry}
+\textup{(\texttt{Erdos307.sols\_finite}, \texttt{erdos307\_level\_finite})}.
+\end{proposition}
+\begin{proof}
+Induct on $m+n$; the constants absorb removed elements. Write $u,v$ for the two sums and
+$\varepsilon=1-c_1c_2$. Expanding, any solution satisfies $c_1v+u(c_2+v)=\varepsilon$, and the left
+side is strictly positive for $m+n\ge1$ (if $m\ge1$ then $u>0$ and $c_2+v>0$, else the product is
+$0$; if $m=0$ then $c_1(c_2+v)=1$ forces $c_1>0$, $v>0$), so $\varepsilon>0$ is fixed by
+$(c_1,c_2)$ alone. One of the two terms is at least $\varepsilon/2$.
+
+If $u(c_2+v)\ge\varepsilon/2$: every $b\in B$ has $1/b\le1/2$, so $v\le n/2$, whence
+$u\ge\varepsilon/(2c_2+n)$; since $u$ is a sum of $m$ terms, some $a_0\in A$ has
+$1/a_0\ge u/m$, that is
+\[ a_0\;\le\;\frac{m\,(2c_2+n)}{\varepsilon}. \]
+Moving $a_0$ into the constant, $(A\setminus\{a_0\},B)$ solves the equation with
+$(m-1,n,c_1+1/a_0,c_2)$, and the map is injective for fixed $a_0$. If instead
+$c_1v\ge\varepsilon/2$, then symmetrically some $b_0\le2c_1n/\varepsilon$ moves into $c_2$. Either
+way the solution set injects into finitely many strictly smaller problems, and the induction closes.
+The bounds compound: each step divides by an $\varepsilon$ whose denominator is at most the product
+of the elements already fixed, so the resulting height bound is doubly exponential in $m+n$; crude,
+but effective.
+\end{proof}
+
+\begin{corollary}[The largest element of a support is explicitly bounded]\label{cor:maxbound}
+Let $U$ be the support of a two--cycle, $q=\max U$, $S=U\setminus\{q\}$, $D=\prod S$ and
+$N=\sum_{p\in S}D/p$. Then
+\[ N<2D\ \Longrightarrow\ q\le\frac{D}{2D-N},
+   \qquad\qquad N\ge2D\ \Longrightarrow\ q\le\tfrac12\Bigl(N+\sqrt{N^{2}-4D^{2}+4D}\Bigr). \]
+In both regimes $q$ is bounded by an explicit function of $S$ alone, so the enumeration at each
+level is a finite tree whose branching is known in advance. $0$ \texttt{sorry} for the mass regime
+\textup{(\texttt{Erdos307.max\_le\_of\_mass\_deficit}, \texttt{max\_le\_of\_mass\_deficit'})}.
+\end{corollary}
+\begin{proof}
+The mass of a two--cycle support is $\ge2$ \textup{(}$\sigma(P)+\sigma(Q)\ge2\sqrt{\sigma(P)\sigma(Q)}=2$\textup{)},
+so $N/D+1/q\ge2$. If $N<2D$ then $1/q\ge2-N/D>0$ and the first bound follows. If $N\ge2D$ then
+$D<N$ and $q\nmid2D$, and both $Aq+D$ and $Bq+D$ are squares, being $D(U)+2\prod U=(\prod P+\prod
+Q)^2$ and $D(U)-2\prod U=(\prod P-\prod Q)^2$ under $\prod U=qD$ and $D(U)=D+qN$; the second bound
+is then Proposition~\ref{prop:tailbound} at $\alpha=1$, the discriminant being nonnegative because
+$N\ge2D$.
+\end{proof}
+
+\begin{proposition}[The mass ladder: the $59$ smallest elements are bounded at every level]\label{prop:massladder}
+Let $U$ be a set of $k$ primes with $\sum_{p\in U}1/p\ge2$, written $u_1<\dots<u_k$. Then for every
+$j$ with $\sum_{i<j}1/u_i<2$,
+\[ u_j\;\le\;\frac{k-j+1}{\,2-\sum_{i<j}1/u_i\,}\;\le\;\frac{k-j+1}{2-T_{j-1}} . \]
+The hypothesis holds for all $j\le59$, since $T_{58}=1.99874\ldots<2$. In particular, at every level
+$k\ge59$,
+\[ u_{59}\;\le\;\frac{k-58}{2-T_{58}}\;=\;793.67\ldots\times(k-58), \]
+so $u_1,\dots,u_{59}$ are bounded by a quantity linear in $k$; only $u_{60},\dots,u_k$ escape the
+mass, and those are covered by Corollary~\ref{cor:maxbound}. $0$ \texttt{sorry}
+\textup{(\texttt{Erdos307.mass\_ladder\_step}, \texttt{mass\_ladder\_step'})}.
+\end{proposition}
+\begin{proof}
+The $k-j+1$ elements $u_j,\dots,u_k$ carry reciprocal mass at least $r_j=2-\sum_{i<j}1/u_i$, and
+each is at least $u_j$, so $r_j\le(k-j+1)/u_j$, which is the first bound. For the second,
+$u_i\ge p_i$ gives $\sum_{i<j}1/u_i\le T_{j-1}$, and $r_j>0$ exactly when $\sum_{i<j}1/u_i<2$,
+which $T_{j-1}\le T_{58}<2$ guarantees for $j\le59$.
+\end{proof}
+
+\begin{remark}[What this gives at the first open level]\label{rem:level61}
+At level $61$ the ladder reads $u_1\le30.5$, $u_{10}\le103.7$, $u_{30}\le201.1$, $u_{58}\le808.0$,
+$u_{59}\le2381.0$: the $59$ smallest elements of any level--$61$ support lie among the first $353$
+primes, so positions $1,\dots,59$ range over at most $\binom{353}{59}\approx10^{67.9}$
+configurations, with $u_{60}$ and $u_{61}$ then confined by
+Corollary~\ref{cor:maxbound}. This replaces the doubly exponential height of
+Proposition~\ref{prop:levelfinite} at this level by an explicit and much smaller count. It is of
+course still far beyond enumeration; the point is that the first open level now has a stated size
+rather than an abstract finiteness.
+
+Two consistency checks. At level $59$ the ladder gives $u_{59}\le793.67\ldots$, and
+\texttt{Erdos307.elt\_le\_795} bounds the elements of a $59$--element support by $795$ by an
+unrelated argument; the same value appears again as the mass regime of
+Corollary~\ref{cor:maxbound} at the base of the first $58$ primes. Falsification: over $5{,}781$
+supports of mass $\ge2$ generated by perturbing initial segments, $0$ violations of the ladder, and
+over $5{,}885$ supports $0$ violations of $u_{59}\le(k-58)/(2-T_{58})$
+\textup{(\texttt{code/mass\_ladder.gp})}.
+\end{remark}
+
+\begin{corollary}[An explicit height at the first open level]\label{cor:level61height}
+Every solution of \#307 at level $61$ has $\prod(P\cup Q)<10^{567}$.
+\end{corollary}
+\begin{proof}
+Write $U=S\cup\{u_{60},u_{61}\}$ with $S$ the $59$ smallest elements, $D=\prod S$.
+
+If $\sigma(S)\ge2$ then $S$ is one of the $49{,}961$ admissible $59$--element supports of
+Corollary~\ref{cor:count59}, whose products satisfy $\log_{10}D\le113.397$
+\textup{(\texttt{code/maxprod59.rs})}. Splitting $S=P_0\sqcup Q_0$ and writing $M=\prod P_0$,
+$N=\prod Q_0$, $M'=D(P_0)$, $N'=D(Q_0)$, Theorem~\ref{thm:frame} determines the two remaining primes:
+$u=(MN'+N^2)/\Delta$ and $v=(M'N+M^2)/\Delta$ with $\Delta=MN-M'N'$. Here
+$\Delta=D\bigl(1-\sigma(P_0)\sigma(Q_0)\bigr)$ is a positive integer, since
+$\sigma(P_0)\sigma(Q_0)<\sigma(P)\sigma(Q)=1$, so $\Delta\ge1$; and $MN=D$ exactly, so
+$MN'=D\,\sigma(Q_0)\le tD$ with $t=1.10200\ldots$ the window root at $T_{61}$. Hence
+$u,v\le D^2+tD$, giving $\log_{10}u,\log_{10}v\le226.79$ and
+$\log_{10}\prod U\le113.397+2(226.79)=566.98$.
+
+If $\sigma(S)<2$ then Proposition~\ref{prop:massladder} bounds every element of $S$ and a
+branch--and--bound over the admissible chains gives $\log_{10}D\le113.526$
+\textup{(\texttt{code/ladder\_maxprod.rs})}. The ladder extends one step, $u_{60}\le2/(2-\sigma(S))\le2D$
+since $2-\sigma(S)\ge1/D$, and Corollary~\ref{cor:maxbound} then gives $u_{61}\le tD\,u_{60}$, so
+$\log_{10}\prod U\le454.75$. The first case dominates.
+\end{proof}
+
+\begin{remark}[What the height means]\label{rem:heightmeaning}
+Proposition~\ref{prop:levelfinite} makes every level finite by an argument using only the two
+cardinalities, and its height compounds doubly exponentially: at level $61$ it is a tower, not a
+number one can write. Corollary~\ref{cor:level61height} replaces it by $10^{567}$, because it uses
+the two square conditions and the cycle equations rather than the sizes alone. Together with the
+barrier $\prod(P\cup Q)\ge(2.09\times10^{56})^2=10^{112.6}$ this confines level $61$ to the window
+\[ 10^{112.6}\;\le\;\prod(P\cup Q)\;<\;10^{567}. \]
+Two remarks on what this is and is not. It is not an enumeration: $10^{567}$ is far past any search,
+and the reduction that matters is not the height but Theorem~\ref{thm:frame}, which turns the two
+unknown primes into a \emph{computed} pair once the split of the bottom $59$ is fixed, so the free
+parameters at level $61$ are the support and the split, not the primes. And it is not a route to the
+problem, since the level index remains unbounded; it is a statement about one level.
+\end{remark}
+
+\begin{remark}[What the window does not do]\label{rem:windownotpin}
+It is worth recording what fails, since the natural guess is wrong. One might hope the mass window
+pins all but the top few elements of a support, leaving a bounded search. It does not, and the
+pinning weakens as the level rises: a prime $p$ is forced into a $k$--element support exactly when
+$1/p>T_{k+1}-2$, which forces $39$ primes at level $59$, $27$ at level $60$ and only $21$
+\textup{(}all $p\le73$\textup{)} at level $61$, leaving $40$ of the $61$ elements unconstrained by
+mass. The bound of Corollary~\ref{cor:maxbound} comes from the square conditions, not from the mass,
+and this is why: past level $59$ the mass condition, once met, constrains nothing further.
+Consistency check: at the base of the first $58$ primes the mass regime gives $q\le793.67\ldots$,
+while \texttt{Erdos307.elt\_le\_795} bounds the elements of a $59$--element support by $795$ through
+an unrelated argument \textup{(\texttt{code/level\_dichotomy.gp}; $400$ bases, $0$ failures)}.
+At level $61$ the second regime applies at the extremal base and gives $q\le1.1020\,D$ with
+$\log_{10}D=117.84$.
+\end{remark}
+
+\begin{remark}[The level--by--level programme survives its own barrier]\label{rem:levelrestored}
+Together with Proposition~\ref{prop:levelbarrier} this splits the situation cleanly: at every level
+above $59$ the admissible supports are infinite, and the solutions are finite with an effective
+height bound. Restricted to any fixed level, \#307 is therefore \emph{decidable}: a terminating
+computation either exhibits the finitely many solutions or certifies that the level is empty. What
+is genuinely unbounded in the problem is only the level itself, so \#307 is equivalent to the
+halting of one explicit search, which is the precise content of the problem page's
+\textup{VERIFIABLE} tag. We record the honest scale: the bound of
+Proposition~\ref{prop:levelfinite} at level $61$ is astronomically beyond enumeration, so
+decidability in principle does not yield a computation in practice; the value of the proposition is
+structural. Validated on the inhomogeneous case $c_1=1$, where solutions are the known
+$1$--containing coprime examples: the enumeration recovers $(\{5\},\{2,3\})$,
+$(\{41\},\{2,3,7\})$, $(\{1805\},\{2,3,7,43\})$ and their congeners, every one containing an
+element within the proven bound \textup{(\texttt{code/level\_finite\_check.gp})}.
+\end{remark}
+
+Two consequences, and the second is the one that matters. The searches of
+Remark~\ref{rem:notlehmer}, however far they are pushed in $\omega(m)$, bear on level $60$ alone;
+widening them is not a route upward. And any further progress on \#307 must be
+\emph{non--enumerative}: exhausting supports one level at a time is not merely expensive beyond
+level $60$, it is impossible, so the method behind every unconditional exclusion in this note is now
+spent. That is a no--go, not a resource limit.
+
+Formalised in \texttt{lean/Erdos307/LevelBarrier.lean} (\texttt{admissible\_extends},
+\texttt{admissible\_of\_card\_add}, \texttt{level\_enumeration\_terminates}) on the three standard
+axioms, with a non--vacuity witness exhibiting the first $59$ primes as a set the hypotheses apply
+to.
+\end{remark}
+\begin{theorem}[Parity dichotomy]\label{thm:parity}
+Let $a'=b,b'=a$ be a derivative two--cycle (so $a,b$ squarefree, $\gcd(a,b)=1$). Then exactly one of
+the following holds.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+\item \emph{Mixed parity.} Exactly one of $a,b$ is even; say $a=2k$ with $k$ odd. Then $b=a'$ is odd
+and $\omega(b)$ is even.
+\item \emph{All odd.} Both $a,b$ are odd. Then $P\cup Q$ avoids $2$, so reaching reciprocal sum $>2$
+needs $\ge 1412$ odd primes, and $\min(a,b)>10^{2519}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+They cannot both be even, as $\gcd(a,b)=\gcd(a,a')=1$. In case~(i), write $a=2k$, $k$ odd squarefree;
+$b=a'=k+2k'$ is odd. For odd squarefree $b=\prod_{i}q_i$ one has
+$b'=\sum_i b/q_i\equiv \omega(b)\pmod 2$ (each $b/q_i$ is odd). Since $b'=a$ is even,
+$\omega(b)\equiv0\pmod2$. In case~(ii) the union of supports omits $2$; the reciprocal sum of the
+first $1411$ odd primes is $<2$ while that of the first $1412$ exceeds $2$, so $|P\cup Q|\ge 1412$
+and $\prod_{p\in P\cup Q}p\ge 10^{5040}$ (product of the $1412$ smallest odd primes, by direct
+computation). Applying the same rigidity/ratio argument as in Theorem~\ref{thm:barrier}(b) (now
+with $2\notin U$) gives $\min(a,b)\ge\sqrt{R/T(U)}>10^{2519}$. The all--odd case is therefore
+vastly more constrained than the mixed case and, heuristically, empty.
+\end{proof}
+
+\begin{proposition}[Longer cycles are harder; two--cycles are extremal]\label{prop:kcycles}
+Every member of a $k$--cycle of the arithmetic derivative is squarefree, and for $k\le3$ the members
+are pairwise coprime (each pair is consecutive). Their masses $s(a_i)=a_{i+1}/a_i$ multiply to $1$,
+so by AM--GM $\sum_i s(a_i)\ge k$; for $k\le3$ this is the union's reciprocal sum, whence the support
+contains at least $m_k$ primes, where $m_k$ is least with $\sum_{i\le m_k}1/p_i\ge k$. Now $m_2=59$
+and $m_3=361{,}139$ (last prime $5{,}195{,}977$), so a three--cycle has at least $361{,}139$ primes in
+its support and product exceeding $10^{2.26\times10^{6}}$ (hence its largest member exceeds
+$10^{752{,}194}$); by Mertens $m_k$ grows doubly exponentially. Two--cycles are thus the extremal,
+and only practically relevant; case for that measure. For $k\ge4$ non--consecutive members may share
+primes, so the displayed bound is one on the \emph{multiset} reciprocal sum; the union's own sum is
+bounded in Proposition~\textup{\ref{prop:kuniform}}.
+\end{proposition}
+
+\begin{proposition}[The barrier is uniform in the period]\label{prop:kuniform}
+Let $a_1\to a_2\to\dots\to a_k\to a_1$ be a cycle of the arithmetic derivative with $k\ge2$ and
+$a_i\neq a_{i+1}$, and let $U=\bigcup_i\operatorname{supp}(a_i)$. Then
+\[ \sum_{p\in U}\frac1p\ \ge\ \frac{k}{\lfloor k/2\rfloor}, \]
+so $|U|\ge m(k)$, the least $n$ with $T_n\ge k/\lfloor k/2\rfloor$, and $\prod_{p\in U}p\ge\Pi_{m(k)}$.
+Since $k/\lfloor k/2\rfloor\ge2$ always, with equality exactly for even $k$,
+\[ |U|\ \ge\ 59\quad\text{and}\quad \prod_{p\in U}p\ >\ 8.77\times10^{112} \]
+for a cycle of \emph{every} period.
+\end{proposition}
+\begin{proof}
+Rigidity gives $\gcd(a_i,a_i')=1$, and $a_{i+1}=a_i'$, so $a_i$ and $a_{i+1}$ are coprime. Hence for
+each prime $p$ the set $S_p=\{i:p\mid a_i\}$ contains no two cyclically consecutive indices, i.e.\ it
+is an independent set in the cycle graph $C_k$, and therefore $|S_p|\le\lfloor k/2\rfloor$.
+Consequently
+\[ \sum_{i}\sigma(a_i)\;=\;\sum_{p\in U}\frac{|S_p|}{p}\;\le\;\Bigl\lfloor\tfrac k2\Bigr\rfloor
+   \sum_{p\in U}\frac1p . \]
+The masses satisfy $\prod_i\sigma(a_i)=\prod_i a_{i+1}/a_i=1$, so $\sum_i\sigma(a_i)\ge k$ by AM--GM.
+Combining the two displays gives the claim, and $T$ is increasing.
+\end{proof}
+
+The bound is uniform rather than growing, and it is the union support that a search or a sieve sees.
+Odd periods are genuinely harder, even ones are not:
+\[
+\begin{array}{l|cccccccc}
+k & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\\hline
+k/\lfloor k/2\rfloor & 2 & 3 & 2 & 5/2 & 2 & 7/3 & 2 & 9/4\\
+m(k) & 59 & 361{,}139 & 59 & 1{,}413 & 59 & 400 & 59 & 231
+\end{array}
+\]
+so $m(9)<m(7)<m(5)$: the sequence is not monotone in $k$, and $m(k)=59$ \emph{exactly} for every
+even $k$, not merely in the limit. The consequence
+worth naming is that Theorem~\ref{thm:barrier} is not a statement about period two at all: every
+nontrivial cycle of the arithmetic derivative, of any length, carries at least $59$ primes and a
+product past $8.77\times10^{112}$. The barrier therefore bounds the whole of
+Ufnarovski--\AA hlander's Conjecture~3 and not merely its period--two case, which is \#307.
+
+\begin{corollary}[What a bounded sweep rules out, for every period at once]\label{cor:sweepperiod}
+Let $a_1\to\dots\to a_k\to a_1$ be a cycle with every member at most $X$. Then
+\[ k\ \ge\ \frac{\log_{10}\Pi_{59}}{\log_{10}X}\ =\ \frac{112.94\ldots}{\log_{10}X}. \]
+\end{corollary}
+\begin{proof}
+Proposition~\ref{prop:kuniform} gives $|U|\ge59$ for a cycle of any period, so
+$\prod_{p\in U}p\ge\Pi_{59}>8.77\times10^{112}$. Every prime of $U$ divides some member, so
+$\prod_{p\in U}p$ divides $\prod_i a_i\le X^{k}$.
+\end{proof}
+
+\[
+\begin{array}{l|cccccc}
+X & 10^{6} & 10^{7} & 10^{9} & 10^{12} & 10^{18} & 10^{30}\\\hline
+\text{rules out every }k\le & 18 & 16 & 12 & 9 & 6 & 3
+\end{array}
+\]
+The sweep of Proposition~\ref{prop:nearmiss}, now carried to $10^{8}$, therefore already excludes
+every cycle of period at most $14$ with all members in range, and not merely period two. This is the practical form
+of Proposition~\ref{prop:kuniform}: because the barrier does not weaken with the period, a single
+bounded search settles a whole initial segment of Ufnarovski--\AA hlander's Conjecture~3 at once,
+whereas the period--two reading of the same computation settles only $k=2$.
+
+\begin{proposition}[The barrier as a function of period and smallest prime]\label{prop:twoparam}
+Let $a_1\to\dots\to a_k\to a_1$ be a cycle with $k\ge2$, let $U$ be the union of the supports, and
+suppose $\min U\ge P$. With $c(k)=k/\lfloor k/2\rfloor$, let $M(k,P)$ be the least $m$ for which the
+$m$ smallest primes $\ge P$ have reciprocal sum at least $c(k)$. Then $|U|\ge M(k,P)$, and
+$\prod_{p\in U}p$ is at least the product of those $m$ primes.
+\end{proposition}
+\begin{proof}
+Proposition~\ref{prop:kuniform} gives $\sum_{p\in U}1/p\ge c(k)$, and among sets of $m$ primes all
+$\ge P$ the reciprocal sum is maximised by the $m$ smallest such primes.
+\end{proof}
+
+\[
+\begin{array}{l|ccccc}
+M(k,P) & k=2 & k=3 & k=5 & k=7 & k=9\\\hline
+P=2 & 59 & 361{,}139 & 1{,}413 & 400 & 231\\
+P=3 & 1{,}412 & \text{---} & 361{,}138 & 40{,}260 & 15{,}473\\
+P=5 & 40{,}259 & \text{---} & \text{---} & \text{---} & 1{,}266{,}094\\
+P=7 & 588{,}500 & \text{---} & \text{---} & \text{---} & \text{---}
+\end{array}
+\]
+(dashes exceed $\pi(4\times10^{7})$; \texttt{code/kcycle\_uniform.gp}). The family contains three
+results proved elsewhere in this note as special cases, and reproduces each of them exactly:
+$M(2,2)=59$ is Theorem~\ref{thm:barrier}; $M(2,3)=1412$, with product $10^{5040.1}$ and hence
+$\min(\prod P,\prod Q)>10^{2519}$, is the all--odd branch of Theorem~\ref{thm:parity}; and
+$M(3,2)=361{,}139$ is Proposition~\ref{prop:kcycles}. That three independent derivations land on the
+same integers is the check the family deserves.
+
+Two readings. The parity dichotomy is not special to period two: an all--odd cycle of \emph{any} even
+period needs $1{,}412$ primes and a product past $10^{5040}$, and of period $9$ still needs
+$15{,}473$. And the family supplies, in valid form, the conditional statements that
+Proposition~18 of \cite{Kovic2012} asserts but does not establish: for $\min U\ge3$ that proposition
+claims $r+s\ge57$ where the true bound is $M(2,3)=1{,}412$, and for $\min U\ge5$ it claims
+$r+s\ge110$ where the true bound is $M(2,5)=40{,}259$ --- larger by factors of $24.8$ and $366$.
+
+\section{The certificate programme and its anatomy}\label{sec:certificate}
+
+The barrier of Section~\ref{sec:barrier} bounds a solution; it does not exclude one. This section
+records the programme that attempted the exclusion level by level, its completeness, and the point
+at which it provably stops. Nothing here is used by the results of the core note.
+
 \begin{remark}[Verification tier, and why the ladder stops here]\label{rem:tier60}
 Theorem~\ref{thm:barrier} is machine--checked in Lean~4, and so is
 Proposition~\ref{prop:close59}: the theorem \texttt{erdos307\_sixty} formalises the entire
@@ -793,44 +1156,6 @@ $\ell\in\{3,5,7,101,277\}$; the Weil floor at every prime $281\le\ell\le600$; $A
 below $10^6$, consistent with the balanced--semiprime wall of Remark~\ref{rem:campaign}.)
 \end{proposition}
 
-\begin{proposition}[The Pythagorean tail prime is bounded]\label{prop:tailbound}
-Let $S$ be a finite set of primes, $D=\prod S$, $N=\sum_{p\in S}D/p$, $A=N+2D$, $B=N-2D$, and suppose
-$D<N$. Let $q$ be a prime with $q\nmid 2D$ for which $Aq+D$ and $Bq+D$ are both perfect squares. Then
-there are integers $m,c$ with $mc=4D$ and
-\[ q^2m^2-4Nq+c^2-4D=0, \qquad \bigl(qm^2-2N\bigr)^2=4\bigl(AB+Dm^2\bigr), \]
-so that $q=2(N\pm k)/m^2$ with $k^2=AB+Dm^2$ and $m\mid 4D$. Moreover $m$ is \emph{even}, say
-$m=2\alpha$ with $\alpha\mid D$ and $\beta=D/\alpha$, and then $q$ is a root of
-\[ \alpha^2q^2-Nq+(\beta^2-D)=0, \qquad\text{so}\qquad
-   q=\frac{N+\sqrt{N^2-4D^2+4\alpha^2D}}{2\alpha^2}, \]
-a quantity strictly decreasing in $\alpha$. Hence the maximum is at $\alpha=1$ and
-\[ q\ \le\ \tfrac12\Bigl(N+\sqrt{N^{2}-4D^{2}+4D}\Bigr)\ =\ tD+O(1),
-   \qquad t=\tfrac12\bigl(\sigma+\sqrt{\sigma^{2}-4}\bigr),\ \ \sigma=\sigma(S)=N/D. \]
-The largest admissible tail is therefore the base times the very ratio $b/a$ that the mass forces.
-At level $59$ this is $9.207\times10^{112}=1.0497\,D$, a factor $7.63$ below $4N$.
-\end{proposition}
-
-\begin{proof}
-Write $x^2=Aq+D$ and $y^2=Bq+D$ with $x,y\ge0$. Since $A-B=4D$ \emph{exactly},
-$x^2-y^2=(A-B)q=4Dq$, that is $(x+y)(x-y)=4Dq$. The prime $q$ divides exactly one of the two factors:
-were it to divide both it would divide $2x$ and $2y$, hence $x$ and $y$ as $q$ is odd, hence
-$q^2\mid 4Dq$ and $q\mid 4D$, against $q\nmid2D$. Write the factor divisible by $q$ as $qm$ and the
-other as $c$, so that $mc=4D$ and, in either case, $2x=qm+c$. Multiplying by $m$,
-\[ 2xm\;=\;qm^2+mc\;=\;qm^2+4D, \]
-and squaring against $x^2=(N+2D)q+D$ gives
-$4m^2\bigl((N+2D)q+D\bigr)=q^2m^4+8Dqm^2+16D^2$. Substituting $16D^2=m^2c^2$ and cancelling $m^2>0$
-leaves $q^2m^2-4Nq+c^2-4D=0$; completing the square and using $AB=N^2-4D^2$ gives the second display.
-For the parity, $x+y$ and $x-y$ differ by $2y$ and so have equal parity; were both odd their
-product would be odd, whereas it is $4Dq$. Hence both are even, and as $q$ is odd, $m$ is even.
-Finally $m^2\ge4$ and $c^2\ge0$ give $4Nq=q^2m^2+c^2-4D\ge 4q^2-4D$, that is $Nq\ge q^2-D$; if
-$q\ge N+1$ then $q^2-Nq-D\ge q-D>0$ because $D<N<q$, a contradiction, so $q\le N$. (Using only
-$m\ge1$ here gives $q\le4N$; the parity removes the factor four.) For the sharp form, $m=2\alpha$ and
-$c=2\beta$ with $\alpha\beta=D$ turn $q^2m^2-4Nq+c^2-4D=0$ into $\alpha^2q^2-Nq+\beta^2-D=0$, whose
-larger root is $\bigl(N+g(u)\bigr)/(2u)$ with $u=\alpha^2$ and $g(u)^2=N^2-4D^2+4uD$. Its derivative
-in $u$ has the sign of $2uD-g(N+g)$, and $4uD=g^2-N^2+4D^2$ turns that into
-$-\bigl((g+N)^2-4D^2\bigr)/2$, negative since $N>2D$. So the root decreases in $\alpha$ and is
-largest at $\alpha=1$.
-\end{proof}
-
 \begin{proposition}[What a barrier improvement must supply]\label{prop:barthreshold}
 Let $(a,b)$ be a solution with $a<b$ and put $t=b/a$, so that $t=\sigma(a)$ and, by
 $\sigma(a)\sigma(b)=1$,
@@ -961,197 +1286,6 @@ Formalised in \texttt{lean/Erdos307/TailBound.lean} (\texttt{tail\_factor}, \tex
 axioms, with a non--vacuity witness at the base above.
 \end{remark}
 
-\begin{proposition}[The level--by--level programme terminates at $60$]\label{prop:levelbarrier}
-Let $U$ be a finite set of primes with $\sum_{p\in U}1/p>2$ and let $B$ be arbitrary. Then there is a
-prime $q>B$ with $q\notin U$ such that $U\cup\{q\}$ again has $\sum 1/p>2$. Consequently, for every
-$n>59$ there are infinitely many $n$--element prime supports of mass exceeding $2$.
-\end{proposition}
-
-\begin{proof}
-The primes are infinite, so choose a prime $q$ exceeding both $B$ and $\max U$; then $q\notin U$ and
-$\sum_{p\in U\cup\{q\}}1/p=\sum_{p\in U}1/p+1/q>2$. Iterating from the first $59$ primes, whose
-reciprocal sum is $N_{59}/P_{59}=2.00235\ldots>2$, produces admissible supports of every cardinality
-above $59$, each containing a prime beyond any prescribed bound.
-\end{proof}
-
-\begin{remark}[What the level barrier costs, and what it does not]\label{rem:levelbarrier}
-Proposition~\ref{prop:close59} closes level $59$ by enumerating its $49{,}961$ admissible supports,
-and Proposition~\ref{prop:tailkill} together with the search of Remark~\ref{rem:notlehmer} closes
-level $60$ by adjoining one prime to each. The obvious continuation is to enumerate the admissible
-$60$--element supports and repeat. Proposition~\ref{prop:levelbarrier} says there is no such
-enumeration \emph{of supports}.
-
-The finiteness at level $59$ is an accident of one inequality being tight: $59$ primes reach mass $2$
-only just, at $2.00235\ldots$, so demanding mass $>2$ from exactly $59$ primes pins them near the
-smallest $59$. Allow a sixtieth and the first $59$ already carry the mass alone, leaving the sixtieth
-entirely free. The mass condition, having been met, constrains nothing further. The next proposition
-shows that the \emph{solutions} are nevertheless finite at every level: the haystack is infinite, the
-needles are not.
-
-\begin{proposition}[Each level carries only finitely many solutions]\label{prop:levelfinite}
-Fix cardinalities $m,n\ge0$ and rationals $c_1,c_2\ge0$. The equation
-\[ \Bigl(c_1+\sum_{a\in A}\frac1a\Bigr)\Bigl(c_2+\sum_{b\in B}\frac1b\Bigr)=1 \]
-has only finitely many solutions in sets $A,B$ of integers $\ge2$ with $|A|=m$, $|B|=n$; in
-particular, for every $(m,n)$ there are only finitely many pairs of prime sets with
-$\sigma(P)\sigma(Q)=1$, $|P|=m$, $|Q|=n$, and the bound is effective. $0$ \texttt{sorry}
-\textup{(\texttt{Erdos307.sols\_finite}, \texttt{erdos307\_level\_finite})}.
-\end{proposition}
-\begin{proof}
-Induct on $m+n$; the constants absorb removed elements. Write $u,v$ for the two sums and
-$\varepsilon=1-c_1c_2$. Expanding, any solution satisfies $c_1v+u(c_2+v)=\varepsilon$, and the left
-side is strictly positive for $m+n\ge1$ (if $m\ge1$ then $u>0$ and $c_2+v>0$, else the product is
-$0$; if $m=0$ then $c_1(c_2+v)=1$ forces $c_1>0$, $v>0$), so $\varepsilon>0$ is fixed by
-$(c_1,c_2)$ alone. One of the two terms is at least $\varepsilon/2$.
-
-If $u(c_2+v)\ge\varepsilon/2$: every $b\in B$ has $1/b\le1/2$, so $v\le n/2$, whence
-$u\ge\varepsilon/(2c_2+n)$; since $u$ is a sum of $m$ terms, some $a_0\in A$ has
-$1/a_0\ge u/m$, that is
-\[ a_0\;\le\;\frac{m\,(2c_2+n)}{\varepsilon}. \]
-Moving $a_0$ into the constant, $(A\setminus\{a_0\},B)$ solves the equation with
-$(m-1,n,c_1+1/a_0,c_2)$, and the map is injective for fixed $a_0$. If instead
-$c_1v\ge\varepsilon/2$, then symmetrically some $b_0\le2c_1n/\varepsilon$ moves into $c_2$. Either
-way the solution set injects into finitely many strictly smaller problems, and the induction closes.
-The bounds compound: each step divides by an $\varepsilon$ whose denominator is at most the product
-of the elements already fixed, so the resulting height bound is doubly exponential in $m+n$; crude,
-but effective.
-\end{proof}
-
-\begin{corollary}[The largest element of a support is explicitly bounded]\label{cor:maxbound}
-Let $U$ be the support of a two--cycle, $q=\max U$, $S=U\setminus\{q\}$, $D=\prod S$ and
-$N=\sum_{p\in S}D/p$. Then
-\[ N<2D\ \Longrightarrow\ q\le\frac{D}{2D-N},
-   \qquad\qquad N\ge2D\ \Longrightarrow\ q\le\tfrac12\Bigl(N+\sqrt{N^{2}-4D^{2}+4D}\Bigr). \]
-In both regimes $q$ is bounded by an explicit function of $S$ alone, so the enumeration at each
-level is a finite tree whose branching is known in advance. $0$ \texttt{sorry} for the mass regime
-\textup{(\texttt{Erdos307.max\_le\_of\_mass\_deficit}, \texttt{max\_le\_of\_mass\_deficit'})}.
-\end{corollary}
-\begin{proof}
-The mass of a two--cycle support is $\ge2$ \textup{(}$\sigma(P)+\sigma(Q)\ge2\sqrt{\sigma(P)\sigma(Q)}=2$\textup{)},
-so $N/D+1/q\ge2$. If $N<2D$ then $1/q\ge2-N/D>0$ and the first bound follows. If $N\ge2D$ then
-$D<N$ and $q\nmid2D$, and both $Aq+D$ and $Bq+D$ are squares, being $D(U)+2\prod U=(\prod P+\prod
-Q)^2$ and $D(U)-2\prod U=(\prod P-\prod Q)^2$ under $\prod U=qD$ and $D(U)=D+qN$; the second bound
-is then Proposition~\ref{prop:tailbound} at $\alpha=1$, the discriminant being nonnegative because
-$N\ge2D$.
-\end{proof}
-
-\begin{proposition}[The mass ladder: the $59$ smallest elements are bounded at every level]\label{prop:massladder}
-Let $U$ be a set of $k$ primes with $\sum_{p\in U}1/p\ge2$, written $u_1<\dots<u_k$. Then for every
-$j$ with $\sum_{i<j}1/u_i<2$,
-\[ u_j\;\le\;\frac{k-j+1}{\,2-\sum_{i<j}1/u_i\,}\;\le\;\frac{k-j+1}{2-T_{j-1}} . \]
-The hypothesis holds for all $j\le59$, since $T_{58}=1.99874\ldots<2$. In particular, at every level
-$k\ge59$,
-\[ u_{59}\;\le\;\frac{k-58}{2-T_{58}}\;=\;793.67\ldots\times(k-58), \]
-so $u_1,\dots,u_{59}$ are bounded by a quantity linear in $k$; only $u_{60},\dots,u_k$ escape the
-mass, and those are covered by Corollary~\ref{cor:maxbound}. $0$ \texttt{sorry}
-\textup{(\texttt{Erdos307.mass\_ladder\_step}, \texttt{mass\_ladder\_step'})}.
-\end{proposition}
-\begin{proof}
-The $k-j+1$ elements $u_j,\dots,u_k$ carry reciprocal mass at least $r_j=2-\sum_{i<j}1/u_i$, and
-each is at least $u_j$, so $r_j\le(k-j+1)/u_j$, which is the first bound. For the second,
-$u_i\ge p_i$ gives $\sum_{i<j}1/u_i\le T_{j-1}$, and $r_j>0$ exactly when $\sum_{i<j}1/u_i<2$,
-which $T_{j-1}\le T_{58}<2$ guarantees for $j\le59$.
-\end{proof}
-
-\begin{remark}[What this gives at the first open level]\label{rem:level61}
-At level $61$ the ladder reads $u_1\le30.5$, $u_{10}\le103.7$, $u_{30}\le201.1$, $u_{58}\le808.0$,
-$u_{59}\le2381.0$: the $59$ smallest elements of any level--$61$ support lie among the first $353$
-primes, so positions $1,\dots,59$ range over at most $\binom{353}{59}\approx10^{67.9}$
-configurations, with $u_{60}$ and $u_{61}$ then confined by
-Corollary~\ref{cor:maxbound}. This replaces the doubly exponential height of
-Proposition~\ref{prop:levelfinite} at this level by an explicit and much smaller count. It is of
-course still far beyond enumeration; the point is that the first open level now has a stated size
-rather than an abstract finiteness.
-
-Two consistency checks. At level $59$ the ladder gives $u_{59}\le793.67\ldots$, and
-\texttt{Erdos307.elt\_le\_795} bounds the elements of a $59$--element support by $795$ by an
-unrelated argument; the same value appears again as the mass regime of
-Corollary~\ref{cor:maxbound} at the base of the first $58$ primes. Falsification: over $5{,}781$
-supports of mass $\ge2$ generated by perturbing initial segments, $0$ violations of the ladder, and
-over $5{,}885$ supports $0$ violations of $u_{59}\le(k-58)/(2-T_{58})$
-\textup{(\texttt{code/mass\_ladder.gp})}.
-\end{remark}
-
-\begin{corollary}[An explicit height at the first open level]\label{cor:level61height}
-Every solution of \#307 at level $61$ has $\prod(P\cup Q)<10^{567}$.
-\end{corollary}
-\begin{proof}
-Write $U=S\cup\{u_{60},u_{61}\}$ with $S$ the $59$ smallest elements, $D=\prod S$.
-
-If $\sigma(S)\ge2$ then $S$ is one of the $49{,}961$ admissible $59$--element supports of
-Corollary~\ref{cor:count59}, whose products satisfy $\log_{10}D\le113.397$
-\textup{(\texttt{code/maxprod59.rs})}. Splitting $S=P_0\sqcup Q_0$ and writing $M=\prod P_0$,
-$N=\prod Q_0$, $M'=D(P_0)$, $N'=D(Q_0)$, Theorem~\ref{thm:frame} determines the two remaining primes:
-$u=(MN'+N^2)/\Delta$ and $v=(M'N+M^2)/\Delta$ with $\Delta=MN-M'N'$. Here
-$\Delta=D\bigl(1-\sigma(P_0)\sigma(Q_0)\bigr)$ is a positive integer, since
-$\sigma(P_0)\sigma(Q_0)<\sigma(P)\sigma(Q)=1$, so $\Delta\ge1$; and $MN=D$ exactly, so
-$MN'=D\,\sigma(Q_0)\le tD$ with $t=1.10200\ldots$ the window root at $T_{61}$. Hence
-$u,v\le D^2+tD$, giving $\log_{10}u,\log_{10}v\le226.79$ and
-$\log_{10}\prod U\le113.397+2(226.79)=566.98$.
-
-If $\sigma(S)<2$ then Proposition~\ref{prop:massladder} bounds every element of $S$ and a
-branch--and--bound over the admissible chains gives $\log_{10}D\le113.526$
-\textup{(\texttt{code/ladder\_maxprod.rs})}. The ladder extends one step, $u_{60}\le2/(2-\sigma(S))\le2D$
-since $2-\sigma(S)\ge1/D$, and Corollary~\ref{cor:maxbound} then gives $u_{61}\le tD\,u_{60}$, so
-$\log_{10}\prod U\le454.75$. The first case dominates.
-\end{proof}
-
-\begin{remark}[What the height means]\label{rem:heightmeaning}
-Proposition~\ref{prop:levelfinite} makes every level finite by an argument using only the two
-cardinalities, and its height compounds doubly exponentially: at level $61$ it is a tower, not a
-number one can write. Corollary~\ref{cor:level61height} replaces it by $10^{567}$, because it uses
-the two square conditions and the cycle equations rather than the sizes alone. Together with the
-barrier $\prod(P\cup Q)\ge(2.09\times10^{56})^2=10^{112.6}$ this confines level $61$ to the window
-\[ 10^{112.6}\;\le\;\prod(P\cup Q)\;<\;10^{567}. \]
-Two remarks on what this is and is not. It is not an enumeration: $10^{567}$ is far past any search,
-and the reduction that matters is not the height but Theorem~\ref{thm:frame}, which turns the two
-unknown primes into a \emph{computed} pair once the split of the bottom $59$ is fixed, so the free
-parameters at level $61$ are the support and the split, not the primes. And it is not a route to the
-problem, since the level index remains unbounded; it is a statement about one level.
-\end{remark}
-
-\begin{remark}[What the window does not do]\label{rem:windownotpin}
-It is worth recording what fails, since the natural guess is wrong. One might hope the mass window
-pins all but the top few elements of a support, leaving a bounded search. It does not, and the
-pinning weakens as the level rises: a prime $p$ is forced into a $k$--element support exactly when
-$1/p>T_{k+1}-2$, which forces $39$ primes at level $59$, $27$ at level $60$ and only $21$
-\textup{(}all $p\le73$\textup{)} at level $61$, leaving $40$ of the $61$ elements unconstrained by
-mass. The bound of Corollary~\ref{cor:maxbound} comes from the square conditions, not from the mass,
-and this is why: past level $59$ the mass condition, once met, constrains nothing further.
-Consistency check: at the base of the first $58$ primes the mass regime gives $q\le793.67\ldots$,
-while \texttt{Erdos307.elt\_le\_795} bounds the elements of a $59$--element support by $795$ through
-an unrelated argument \textup{(\texttt{code/level\_dichotomy.gp}; $400$ bases, $0$ failures)}.
-At level $61$ the second regime applies at the extremal base and gives $q\le1.1020\,D$ with
-$\log_{10}D=117.84$.
-\end{remark}
-
-\begin{remark}[The level--by--level programme survives its own barrier]\label{rem:levelrestored}
-Together with Proposition~\ref{prop:levelbarrier} this splits the situation cleanly: at every level
-above $59$ the admissible supports are infinite, and the solutions are finite with an effective
-height bound. Restricted to any fixed level, \#307 is therefore \emph{decidable}: a terminating
-computation either exhibits the finitely many solutions or certifies that the level is empty. What
-is genuinely unbounded in the problem is only the level itself, so \#307 is equivalent to the
-halting of one explicit search, which is the precise content of the problem page's
-\textup{VERIFIABLE} tag. We record the honest scale: the bound of
-Proposition~\ref{prop:levelfinite} at level $61$ is astronomically beyond enumeration, so
-decidability in principle does not yield a computation in practice; the value of the proposition is
-structural. Validated on the inhomogeneous case $c_1=1$, where solutions are the known
-$1$--containing coprime examples: the enumeration recovers $(\{5\},\{2,3\})$,
-$(\{41\},\{2,3,7\})$, $(\{1805\},\{2,3,7,43\})$ and their congeners, every one containing an
-element within the proven bound \textup{(\texttt{code/level\_finite\_check.gp})}.
-\end{remark}
-
-Two consequences, and the second is the one that matters. The searches of
-Remark~\ref{rem:notlehmer}, however far they are pushed in $\omega(m)$, bear on level $60$ alone;
-widening them is not a route upward. And any further progress on \#307 must be
-\emph{non--enumerative}: exhausting supports one level at a time is not merely expensive beyond
-level $60$, it is impossible, so the method behind every unconditional exclusion in this note is now
-spent. That is a no--go, not a resource limit.
-
-Formalised in \texttt{lean/Erdos307/LevelBarrier.lean} (\texttt{admissible\_extends},
-\texttt{admissible\_of\_card\_add}, \texttt{level\_enumeration\_terminates}) on the three standard
-axioms, with a non--vacuity witness exhibiting the first $59$ primes as a set the hypotheses apply
-to.
-\end{remark}
 \begin{remark}[The immune signal, and where its Lehmer reading broke]\label{rem:lehmer}
 Superseded by Proposition~\ref{prop:tailbound} and Remark~\ref{rem:notlehmer}: the orbit described
 here is real, but the inference that primality along it is the residual question is not, because the
@@ -1352,134 +1486,6 @@ squarefree $q$ with several prime factors is useless there, so even the dream le
 would leave \#307 exactly where it stands. Of the four atoms this is the easiest, and it is also the
 only one whose resolution would not advance the problem.
 \end{remark}
-
-\begin{theorem}[Parity dichotomy]\label{thm:parity}
-Let $a'=b,b'=a$ be a derivative two--cycle (so $a,b$ squarefree, $\gcd(a,b)=1$). Then exactly one of
-the following holds.
-\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
-\item \emph{Mixed parity.} Exactly one of $a,b$ is even; say $a=2k$ with $k$ odd. Then $b=a'$ is odd
-and $\omega(b)$ is even.
-\item \emph{All odd.} Both $a,b$ are odd. Then $P\cup Q$ avoids $2$, so reaching reciprocal sum $>2$
-needs $\ge 1412$ odd primes, and $\min(a,b)>10^{2519}$.
-\end{enumerate}
-\end{theorem}
-
-\begin{proof}
-They cannot both be even, as $\gcd(a,b)=\gcd(a,a')=1$. In case~(i), write $a=2k$, $k$ odd squarefree;
-$b=a'=k+2k'$ is odd. For odd squarefree $b=\prod_{i}q_i$ one has
-$b'=\sum_i b/q_i\equiv \omega(b)\pmod 2$ (each $b/q_i$ is odd). Since $b'=a$ is even,
-$\omega(b)\equiv0\pmod2$. In case~(ii) the union of supports omits $2$; the reciprocal sum of the
-first $1411$ odd primes is $<2$ while that of the first $1412$ exceeds $2$, so $|P\cup Q|\ge 1412$
-and $\prod_{p\in P\cup Q}p\ge 10^{5040}$ (product of the $1412$ smallest odd primes, by direct
-computation). Applying the same rigidity/ratio argument as in Theorem~\ref{thm:barrier}(b) (now
-with $2\notin U$) gives $\min(a,b)\ge\sqrt{R/T(U)}>10^{2519}$. The all--odd case is therefore
-vastly more constrained than the mixed case and, heuristically, empty.
-\end{proof}
-
-\begin{proposition}[Longer cycles are harder; two--cycles are extremal]\label{prop:kcycles}
-Every member of a $k$--cycle of the arithmetic derivative is squarefree, and for $k\le3$ the members
-are pairwise coprime (each pair is consecutive). Their masses $s(a_i)=a_{i+1}/a_i$ multiply to $1$,
-so by AM--GM $\sum_i s(a_i)\ge k$; for $k\le3$ this is the union's reciprocal sum, whence the support
-contains at least $m_k$ primes, where $m_k$ is least with $\sum_{i\le m_k}1/p_i\ge k$. Now $m_2=59$
-and $m_3=361{,}139$ (last prime $5{,}195{,}977$), so a three--cycle has at least $361{,}139$ primes in
-its support and product exceeding $10^{2.26\times10^{6}}$ (hence its largest member exceeds
-$10^{752{,}194}$); by Mertens $m_k$ grows doubly exponentially. Two--cycles are thus the extremal,
-and only practically relevant; case for that measure. For $k\ge4$ non--consecutive members may share
-primes, so the displayed bound is one on the \emph{multiset} reciprocal sum; the union's own sum is
-bounded in Proposition~\textup{\ref{prop:kuniform}}.
-\end{proposition}
-
-\begin{proposition}[The barrier is uniform in the period]\label{prop:kuniform}
-Let $a_1\to a_2\to\dots\to a_k\to a_1$ be a cycle of the arithmetic derivative with $k\ge2$ and
-$a_i\neq a_{i+1}$, and let $U=\bigcup_i\operatorname{supp}(a_i)$. Then
-\[ \sum_{p\in U}\frac1p\ \ge\ \frac{k}{\lfloor k/2\rfloor}, \]
-so $|U|\ge m(k)$, the least $n$ with $T_n\ge k/\lfloor k/2\rfloor$, and $\prod_{p\in U}p\ge\Pi_{m(k)}$.
-Since $k/\lfloor k/2\rfloor\ge2$ always, with equality exactly for even $k$,
-\[ |U|\ \ge\ 59\quad\text{and}\quad \prod_{p\in U}p\ >\ 8.77\times10^{112} \]
-for a cycle of \emph{every} period.
-\end{proposition}
-\begin{proof}
-Rigidity gives $\gcd(a_i,a_i')=1$, and $a_{i+1}=a_i'$, so $a_i$ and $a_{i+1}$ are coprime. Hence for
-each prime $p$ the set $S_p=\{i:p\mid a_i\}$ contains no two cyclically consecutive indices, i.e.\ it
-is an independent set in the cycle graph $C_k$, and therefore $|S_p|\le\lfloor k/2\rfloor$.
-Consequently
-\[ \sum_{i}\sigma(a_i)\;=\;\sum_{p\in U}\frac{|S_p|}{p}\;\le\;\Bigl\lfloor\tfrac k2\Bigr\rfloor
-   \sum_{p\in U}\frac1p . \]
-The masses satisfy $\prod_i\sigma(a_i)=\prod_i a_{i+1}/a_i=1$, so $\sum_i\sigma(a_i)\ge k$ by AM--GM.
-Combining the two displays gives the claim, and $T$ is increasing.
-\end{proof}
-
-The bound is uniform rather than growing, and it is the union support that a search or a sieve sees.
-Odd periods are genuinely harder, even ones are not:
-\[
-\begin{array}{l|cccccccc}
-k & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\\hline
-k/\lfloor k/2\rfloor & 2 & 3 & 2 & 5/2 & 2 & 7/3 & 2 & 9/4\\
-m(k) & 59 & 361{,}139 & 59 & 1{,}413 & 59 & 400 & 59 & 231
-\end{array}
-\]
-so $m(9)<m(7)<m(5)$: the sequence is not monotone in $k$, and $m(k)=59$ \emph{exactly} for every
-even $k$, not merely in the limit. The consequence
-worth naming is that Theorem~\ref{thm:barrier} is not a statement about period two at all: every
-nontrivial cycle of the arithmetic derivative, of any length, carries at least $59$ primes and a
-product past $8.77\times10^{112}$. The barrier therefore bounds the whole of
-Ufnarovski--\AA hlander's Conjecture~3 and not merely its period--two case, which is \#307.
-
-\begin{corollary}[What a bounded sweep rules out, for every period at once]\label{cor:sweepperiod}
-Let $a_1\to\dots\to a_k\to a_1$ be a cycle with every member at most $X$. Then
-\[ k\ \ge\ \frac{\log_{10}\Pi_{59}}{\log_{10}X}\ =\ \frac{112.94\ldots}{\log_{10}X}. \]
-\end{corollary}
-\begin{proof}
-Proposition~\ref{prop:kuniform} gives $|U|\ge59$ for a cycle of any period, so
-$\prod_{p\in U}p\ge\Pi_{59}>8.77\times10^{112}$. Every prime of $U$ divides some member, so
-$\prod_{p\in U}p$ divides $\prod_i a_i\le X^{k}$.
-\end{proof}
-
-\[
-\begin{array}{l|cccccc}
-X & 10^{6} & 10^{7} & 10^{9} & 10^{12} & 10^{18} & 10^{30}\\\hline
-\text{rules out every }k\le & 18 & 16 & 12 & 9 & 6 & 3
-\end{array}
-\]
-The sweep of Proposition~\ref{prop:nearmiss}, now carried to $10^{8}$, therefore already excludes
-every cycle of period at most $14$ with all members in range, and not merely period two. This is the practical form
-of Proposition~\ref{prop:kuniform}: because the barrier does not weaken with the period, a single
-bounded search settles a whole initial segment of Ufnarovski--\AA hlander's Conjecture~3 at once,
-whereas the period--two reading of the same computation settles only $k=2$.
-
-\begin{proposition}[The barrier as a function of period and smallest prime]\label{prop:twoparam}
-Let $a_1\to\dots\to a_k\to a_1$ be a cycle with $k\ge2$, let $U$ be the union of the supports, and
-suppose $\min U\ge P$. With $c(k)=k/\lfloor k/2\rfloor$, let $M(k,P)$ be the least $m$ for which the
-$m$ smallest primes $\ge P$ have reciprocal sum at least $c(k)$. Then $|U|\ge M(k,P)$, and
-$\prod_{p\in U}p$ is at least the product of those $m$ primes.
-\end{proposition}
-\begin{proof}
-Proposition~\ref{prop:kuniform} gives $\sum_{p\in U}1/p\ge c(k)$, and among sets of $m$ primes all
-$\ge P$ the reciprocal sum is maximised by the $m$ smallest such primes.
-\end{proof}
-
-\[
-\begin{array}{l|ccccc}
-M(k,P) & k=2 & k=3 & k=5 & k=7 & k=9\\\hline
-P=2 & 59 & 361{,}139 & 1{,}413 & 400 & 231\\
-P=3 & 1{,}412 & \text{---} & 361{,}138 & 40{,}260 & 15{,}473\\
-P=5 & 40{,}259 & \text{---} & \text{---} & \text{---} & 1{,}266{,}094\\
-P=7 & 588{,}500 & \text{---} & \text{---} & \text{---} & \text{---}
-\end{array}
-\]
-(dashes exceed $\pi(4\times10^{7})$; \texttt{code/kcycle\_uniform.gp}). The family contains three
-results proved elsewhere in this note as special cases, and reproduces each of them exactly:
-$M(2,2)=59$ is Theorem~\ref{thm:barrier}; $M(2,3)=1412$, with product $10^{5040.1}$ and hence
-$\min(\prod P,\prod Q)>10^{2519}$, is the all--odd branch of Theorem~\ref{thm:parity}; and
-$M(3,2)=361{,}139$ is Proposition~\ref{prop:kcycles}. That three independent derivations land on the
-same integers is the check the family deserves.
-
-Two readings. The parity dichotomy is not special to period two: an all--odd cycle of \emph{any} even
-period needs $1{,}412$ primes and a product past $10^{5040}$, and of period $9$ still needs
-$15{,}473$. And the family supplies, in valid form, the conditional statements that
-Proposition~18 of \cite{Kovic2012} asserts but does not establish: for $\min U\ge3$ that proposition
-claims $r+s\ge57$ where the true bound is $M(2,3)=1{,}412$, and for $\min U\ge5$ it claims
-$r+s\ge110$ where the true bound is $M(2,5)=40{,}259$ --- larger by factors of $24.8$ and $366$.
 
 \section{Local anatomy and a heuristic model}\label{sec:anatomy}
 
@@ -2246,6 +2252,33 @@ obstruction we have now identified precisely; not a pathway that lowers the diff
 evidence that a solution is within reach.
 \end{remark}
 
+\begin{proposition}[No polynomial families]\label{prop:nopoly}
+Let $p_1(t),\dots,p_k(t)$, $q_1(t),\dots,q_l(t)$ be integer polynomials, each taking \emph{positive}
+prime values on a common infinite branch $t\to+\infty$ (a fixed--shape Schinzel--type family), such
+that
+$\bigl(\sum_i1/p_i(t)\bigr)\bigl(\sum_j1/q_j(t)\bigr)=1$ for infinitely many $t$. Then every $p_i$ and
+$q_j$ is constant: the family is a single fixed solution. Consequently no polynomial parametrisation can
+reduce \#307 to Bunyakovsky, Schinzel's Hypothesis~H, or Bateman--Horn.
+
+\textup{Formalised.} \texttt{Erdos307.const\_prod\_eq\_one\_of\_tendsto} is the limit step,
+\texttt{eps\_eq\_zero\_of\_identity} the vanishing step, and \texttt{nonconstant\_empty} the
+conclusion that both index sets of nonconstant members are empty; \texttt{nopoly} chains them. The
+polynomial input enters only as the two hypotheses it supplies, that each nonconstant member
+contributes a strictly positive reciprocal and that the remainders tend to $0$, so what is imported
+is visible. $0$ \texttt{sorry}, three standard axioms
+\textup{(\texttt{lean/Erdos307/NoPoly.lean})}.
+\end{proposition}
+\begin{proof}
+Holding at infinitely many $t$, the relation holds identically as rational functions. A nonconstant
+$p_i$ taking infinitely many prime (hence positive) values has positive leading coefficient on an
+infinite branch, so $p_i(t)\to+\infty$ there; split each side into constants and nonconstant members,
+$\sum_i1/p_i=A_P+\varepsilon_P(t)$ with $\varepsilon_P(t)\to0^+$. Letting $t\to\infty$ in the identity
+gives $A_PA_Q=1$ (in particular both sides contain constants), and subtracting,
+$A_P\varepsilon_Q(t)+A_Q\varepsilon_P(t)+\varepsilon_P(t)\varepsilon_Q(t)=0$ for all large $t$. Every
+term on the left is nonnegative, and strictly positive as soon as one nonconstant member exists; hence
+there are none.
+\end{proof}
+
 \section{A breeder form and the feasibility of certificate search}\label{sec:breeder}
 
 Allowing \emph{two} free primes on one side turns the divisor trick into a cleaner bilinear form,
@@ -2316,33 +2349,6 @@ Granting these, \#307 reduces to a single prime--density statement,
 and $(\mathrm{H})\Rightarrow$ \#307 is \textsc{yes}. This $(\mathrm{H})$ is a
 Hardy--Littlewood/Bateman--Horn--type assertion for an explicit, computable, \emph{non--polynomial}
 family; we know of no named conjecture implying it. That is not an accident of our construction:
-
-\begin{proposition}[No polynomial families]\label{prop:nopoly}
-Let $p_1(t),\dots,p_k(t)$, $q_1(t),\dots,q_l(t)$ be integer polynomials, each taking \emph{positive}
-prime values on a common infinite branch $t\to+\infty$ (a fixed--shape Schinzel--type family), such
-that
-$\bigl(\sum_i1/p_i(t)\bigr)\bigl(\sum_j1/q_j(t)\bigr)=1$ for infinitely many $t$. Then every $p_i$ and
-$q_j$ is constant: the family is a single fixed solution. Consequently no polynomial parametrisation can
-reduce \#307 to Bunyakovsky, Schinzel's Hypothesis~H, or Bateman--Horn.
-
-\textup{Formalised.} \texttt{Erdos307.const\_prod\_eq\_one\_of\_tendsto} is the limit step,
-\texttt{eps\_eq\_zero\_of\_identity} the vanishing step, and \texttt{nonconstant\_empty} the
-conclusion that both index sets of nonconstant members are empty; \texttt{nopoly} chains them. The
-polynomial input enters only as the two hypotheses it supplies, that each nonconstant member
-contributes a strictly positive reciprocal and that the remainders tend to $0$, so what is imported
-is visible. $0$ \texttt{sorry}, three standard axioms
-\textup{(\texttt{lean/Erdos307/NoPoly.lean})}.
-\end{proposition}
-\begin{proof}
-Holding at infinitely many $t$, the relation holds identically as rational functions. A nonconstant
-$p_i$ taking infinitely many prime (hence positive) values has positive leading coefficient on an
-infinite branch, so $p_i(t)\to+\infty$ there; split each side into constants and nonconstant members,
-$\sum_i1/p_i=A_P+\varepsilon_P(t)$ with $\varepsilon_P(t)\to0^+$. Letting $t\to\infty$ in the identity
-gives $A_PA_Q=1$ (in particular both sides contain constants), and subtracting,
-$A_P\varepsilon_Q(t)+A_Q\varepsilon_P(t)+\varepsilon_P(t)\varepsilon_Q(t)=0$ for all large $t$. Every
-term on the left is nonnegative, and strictly positive as soon as one nonconstant member exists; hence
-there are none.
-\end{proof}
 
 \begin{proposition}[No fixed--shape family, of any growth rate]\label{prop:nofamily}
 Let $P(t)=\{p_1(t),\dots,p_k(t)\}$ and $Q(t)=\{q_1(t),\dots,q_l(t)\}$ be families of integers of
