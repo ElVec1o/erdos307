@@ -6442,16 +6442,19 @@ with $\chi(-1)=(-1)^{(r-1)/2}$, the Gauss sum is purely imaginary for $r\equiv3\
 the true $M$ has constant $1$ rather than $c_r$. For $\chi(t)=-1$ the main term has the wrong sign, and no
 admissible $\tau$ rotates it back, since $|\sum_{p\le X}p^{-1-i\tau}|$ collapses to
 $O(\log\log(3+|\tau|))$ away from $\tau=0$; there the constant is $1+\sqrt r/\varphi(r)$. Measured
-at $r=5$: the growth rate $\Delta M/\Delta\sum_p1/p$ tends to $0.440885\to1-\sqrt5/4=0.440983$ for
-$t\equiv\pm1$, and to $1.558919\to1+\sqrt5/4=1.559017$ for the other two residues, whose $M(10^7)$
+at $r=5$: the growth rate $\Delta M/\Delta\sum_p1/p$ tends to $0.440887\to1-\sqrt5/4=0.440983$ for
+$t\equiv\pm1$, and to $1.558921\to1+\sqrt5/4=1.559017$ for the other two residues, whose $M(10^7)$
 is $4.378$ against the leading term $1.341$. So the constant is attained for
 $r\equiv1\pmod4$ and $\chi(t)=+1$, and is not sharp otherwise.
 
 \emph{The finite-$X$ deficit is a constant, though the proved error term is not.} The bound carries
 $-O_r(\log\log\log N)$, which is what the $L$--bound gives at the top of the $\tau$--range; what is
-\emph{measured} at a single modulus is smaller and flat. At $r=5$, $t=1$ the deficit between
-$M$ and $c_r\sum_{p\le X}1/p$ is $0.1407,0.1407,0.1405,0.1405$ at $X=10^4,\dots,10^7$, flat to four
-places, while $\log\log\log X$ rises by $28\%$ over the same range. The $\log\log\log$ enters only
+\emph{measured} at a single modulus is smaller and flat. At $r=5$, $t=1$ the deficit
+$c_r\sum_{p\le X}1/p-M$ is $0.1399,0.1401,0.1402,0.1402$ at $X=10^4,\dots,10^7$, flat to three
+places and still rising in the fourth, while $\log\log\log X$ rises by $28\%$ over the same range.
+Both sums here run over \emph{all} $p\le X$: $h_t$ is extended by $h_t(p)=0$ at $p\mid r$, so those
+primes contribute $1/p$ to $M$, and omitting them shifts every number in this remark
+\textup{(\texttt{code/deficit\_check.gp})}. The $\log\log\log$ enters only
 through uniformity in $\tau$.
 
 \emph{The rate that follows, and the one that does not.} Hal\'asz gives
