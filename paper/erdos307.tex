@@ -2973,6 +2973,34 @@ being $2.7\times10^{6}$, while the products outrun any bound long before $1412$ 
 \textup{(\texttt{code/two\_side\_descent.gp})}.
 \end{remark}
 
+\begin{remark}[Where the neighbouring literature stands, and what it supplies]\label{rem:neighbours}
+Three recent items bear on the problem without deciding it, and it is worth saying exactly what each
+does and does not give.
+
+\cite{FewPrimes2025} studies $\sum_i1/x_i=1$ with the prime factors of the $x_i$ confined to a fixed
+finite set $S$, motivated by the classification of integral fusion categories, and supplies
+algorithms for that restricted search. This is the computational problem a level of \#307 presents,
+and the paper records the same obstruction Proposition~\ref{prop:levelfinite} meets from the other
+side: the general bound on the solutions is doubly exponential in the number of terms. Its
+``low--rank'' refers to the number of terms, not to the rank--one product structure that
+distinguishes \#307 from the unrestricted problem; the two senses should not be conflated.
+
+\cite{Steinerberger2025} treats an iterated arithmetic function of Erd\H{o}s and Graham,
+$g(n)=n+\varphi(n)$, and settles the two--step case by reducing it to the single equation
+$\varphi(n)+\varphi(n+\varphi(n))=n$, enumerating the solutions, and leaving a residue that requires
+a prime $p\ge10^{10}$ with $\varphi((3p-1)/4)=(p+1)/2$, apparently absent. The shape is the shape of
+\#307: a two--cycle for an iterated arithmetic function, reduced by an exact identity to one
+equation, with a residue that is a rarity condition. Theorem~\ref{thm:frame} performs the same
+reduction here. The difference is the scale of the residue, which the barrier places above
+$10^{56}$ rather than $10^{10}$, and that difference is the whole of why the same method finishes
+there and not here.
+
+\cite{StretchedEG2026} bounds the distance from $1$ to the best reciprocal subsum of a multiset of
+reciprocal mass $K$ by $\exp(-c\sqrt{K\log K})$, improving $\ll K^{-2}$. It concerns how well $1$
+can be approached, which is the direction Proposition~\ref{prop:effapprox} occupies, and says
+nothing about exact representation, which is what \#307 asks.
+\end{remark}
+
 \section{Status and questions}\label{sec:status}
 
 Erd\H{o}s~\#307 remains \textbf{open}. It is Conjecture~4 of Ufnarovski--\AA hlander
@@ -6797,6 +6825,11 @@ Oxford (2) \textbf{32} (1981), 349--370; R.~C.~Mason, \emph{Diophantine Equation
 Fields}, Cambridge Univ.\ Press, 1984.
 \bibitem{Seva323194} Seva (\texttt{mathoverflow.net} user), \emph{A recursion with a number--theoretic
 function}, MathOverflow question 323194 (2019). \url{https://mathoverflow.net/questions/323194}.
+\bibitem{FewPrimes2025} \emph{Egyptian fractions for few primes}, arXiv:2507.03727 (July 2025).
+\bibitem{Steinerberger2025} S.~Steinerberger, \emph{On an iterated arithmetic function problem of
+Erd\H{o}s and Graham}, arXiv:2504.08023 (April 2025).
+\bibitem{StretchedEG2026} \emph{A stretched--exponential bound for an Erd\H{o}s--Graham
+unit--fraction problem}, arXiv:2607.04157 (July 2026).
 \bibitem{PortFillings2026} \emph{Port fillings for primary pseudoperfect numbers}, arXiv:2605.21518
 (May 2026).
 \bibitem{Semiprime2026} \emph{Every natural number is a sum of distinct semiprime unit fractions},
