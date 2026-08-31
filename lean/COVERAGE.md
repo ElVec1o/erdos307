@@ -30,11 +30,14 @@ replace `Nat.sqrt` on a 130-digit number by an eleven-modulus residue certificat
 (`NonSquare.lean`); and carry the product and cofactor sum down the recursion instead of rebuilding
 them at each of the 49,961 leaves. The kernel runs the search in about a minute.
 
-## Formalisation debt (Rule 5): none
+## Formalisation debt (Rule 5): three analytic atoms
 
 Rule 5 requires every atom sitting at PROVED to carry either an active formalisation or a recorded
-blocker, and forbids "not yet attempted". **No atom is blocked.** All four are discharged, and three of the four fell because the blocker had
-been mis-stated rather than because the mathematics was hard. **A7 is discharged**: its regime (2)
+blocker, and forbids "not yet attempted". **The four algebraic atoms are all discharged**, and three
+of the four fell because the blocker had been mis-stated rather than because the mathematics was
+hard. **Three analytic atoms are blocked**, and are recorded in the table below: the minus--layer
+density theorem and the two uniform estimates it rests on. They are the first atoms here whose
+blocker is a genuine absence in Mathlib rather than a mis-stated one. **A7 is discharged**: its regime (2)
 cited Hasse-Weil for a point count, but the statement needs only *existence* of one point, and
 counting the pairs directly gives a double character sum whose inner sums are the two complete
 evaluations proved for A3. `pairlocal_inner_sum` and `pairlocal_count_pos`

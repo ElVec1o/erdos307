@@ -103,13 +103,16 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
   `n₀'' > n₀`: the ratio `r = σ(n)σ(n')`, whose value `1` *is* a solution, takes values on both sides
   of `1`, so no inequality on `r` can settle #307.
 
-- **Both Pythagorean layers have density zero, unconditionally.** The minus layer `m′ − 2m = d²` is
-  exactly the set where the arithmetic derivative takes square values, so Heath-Brown's *square sieve*
-  applies once the symbol is factorised as `((m′−2m)/r) = (m/r)·((σ_r(m)−2)/r)` — verified
-  exhaustively, 54,514,790 checks, 0 violations. Halász then supplies the cancellation, because
-  `u ↦ e_r(t/u)` is not multiplicative and the pretentious distance is governed by a Salié sum. This
-  gives `thm:a9`, and keeping the sieve parameter a function of `N` upgrades it to an explicit rate,
-  `≪ N log log N / (log N)^{1/4}` (`cor:a9rate`).
+- **Both Pythagorean layers have density zero on the squarefree stratum, with a rate.** The minus
+  layer `m′ − 2m = d²` is exactly the set where the arithmetic derivative takes square values, so a
+  square sieve applies once the symbol is factorised as `((m′−2m)/r) = (m/r)·((σ_r(m)−2)/r)` —
+  verified exhaustively, 54,514,790 checks, 0 violations. The sieve closes at
+  `P = (log log N)^{1−δ}`, where two uniform estimates are available: `lem:charcancelunif` for the
+  character sums and `lem:deficit` for the local deficits. That is `prop:condrate`, which gives
+  `thm:a9` with the rate `≪ N log log log N / (log log N)^{1−δ}`. The squarefree restriction is not
+  cosmetic — every tool is squarefree-only, and the unrestricted statement is **not** proved.
+  The far stronger `≪ N log log N / (log N)^{1/4}` (`cor:a9rate`) needs uniformity at a much larger
+  range, remains **conjectural**, and is independently blocked.
 - **The 34 immune families are now unconditional.** Their primality was graded `[C]` because
   Baillie-PSW is rigorous only in its *composite* verdicts. APR-CL proves all 68 integers prime, and
   `certs/immune_ecpp.txt` archives **independently checkable ECPP certificates** for every one
@@ -130,7 +133,7 @@ heuristic has no empirical support and cannot acquire any. **No proof either way
 
 ```
 paper/   erdos307-core.pdf       — the paper (31 pp; the results)
-         erdos307-companion.pdf  — the companion (94 pp; explorations, closures, the square sieve)
+         erdos307-companion.pdf  — the companion (94 pp; explorations, closures, the square sieve and the density theorem)
          erdos307.tex            — the single source both are generated from
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md

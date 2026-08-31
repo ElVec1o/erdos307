@@ -78,13 +78,11 @@ holding infinitely often forces every member constant, which closes the Th\=abit
 $(\mathrm{H})\Rightarrow$\textsc{yes} to an explicit prime--density hypothesis, which a quantitative
 ledger shows is not a feasible finite search. On the counting side we prove that both Pythagorean layers have density zero
 unconditionally \emph{on the squarefree stratum}, which is where every tool in the proof lives and
-where a \#307 solution lies by rigidity; the unrestricted statement is not proved. The minus layer $m'-2m=d^2$ is the set on which the arithmetic derivative takes
-square values, so Heath-Brown's square sieve applies once the symbol is factorised as
-$\bigl(\tfrac{m'-2m}{r}\bigr)=\bigl(\tfrac mr\bigr)\bigl(\tfrac{\sigma_r(m)-2}{r}\bigr)$, after
-which the additivity of $\sigma_r$ makes the relevant sums multiplicative and Hal\'asz supplies the
-cancellation. Keeping the sieve parameter a function of $N$ would give the rate
-$\ll N\log\log N(\log N)^{-1/4}$, but that is stated as a \textsc{conjecture} and not proved here:
-it needs a form of the cancellation lemma uniform in the modulus, which we do not establish. The
+where a \#307 solution lies by rigidity; the unrestricted statement is not proved. This comes with a rate,
+$\ll N\log\log\log N(\log\log N)^{-1+\delta}$ for every $\delta>0$, which rests on a cancellation
+estimate uniform for moduli up to $(\log\log N)^{2-\delta}$; the far stronger
+$\ll N\log\log N(\log N)^{-1/4}$ needs uniformity at a much larger range and is stated as a
+\textsc{conjecture}, not proved. The
 sharp exponent $N^{1/2}$ is not reached either, and we record three distinct reasons: the multiplicative decomposition scatters the cancellation across frequencies, a
 bilinear decomposition is unavailable for a signed non-multiplicative summand, and the natural
 large-sieve reformulation is circular at its principal term. The $34$ reciprocity-immune families at
@@ -5543,9 +5541,11 @@ and the whole sum turns multiplicative. That is what puts it inside Hal\'asz's t
 
 \subsection{The square sieve and Theorem~\ref{thm:a9}}\label{ssec:sieve}
 
-The argument recorded in this section is a square sieve whose analytic input does not close, which
-is why the theorem stands at \textsc{conjecture} and why Remark~\ref{rem:whatisleft} keeps it off
-the critical path. It occupied eight pages in the main line, ahead of results that are proved. It is
+The argument recorded in this section is a square sieve at $P\asymp(\log N)^{1/4}$ whose analytic
+input does not close, which is why the \emph{rate} Corollary~\ref{cor:a9rate} stands at
+\textsc{conjecture} and why Remark~\ref{rem:whatisleft} keeps this material off the critical path.
+The density statement itself, Theorem~\ref{thm:a9}, is proved, by a different sieve at a far smaller
+range (Proposition~\ref{prop:condrate}). The section occupied eight pages in the main line. It is
 moved verbatim to Appendix~\ref{app:sieve}; nothing is omitted and every label is unchanged, so the
 cross-references from \S\ref{ssec:pairavg} still resolve. What the argument establishes, what it
 assumes, and exactly where the gap sits are stated there.
@@ -6349,7 +6349,7 @@ statement, which speaks only to the typical integer, not to existence.
 
 \appendix
 
-\section{The square sieve: the argument for the minus-layer density theorem, and where it fails}\label{app:sieve}
+\section{The minus--layer density theorem, and the square sieve that does not reach its rate}\label{app:sieve}
 
 Relegated from \S\ref{ssec:sieve}. This appendix is the historical route to
 Theorem~\ref{thm:a9}: a square sieve at $P\asymp(\log N)^{1/4}$ whose analytic input was never
@@ -6755,14 +6755,16 @@ $0.566$, $0.562$, $0.604$, approaching $6/\pi^2=0.6079$; an earlier revision pri
 while describing it as the second.
 
 \begin{theorem}[The minus layer has density zero on the squarefree stratum]\label{thm:a9}
-\textup{Label: \textsc{proved}, and by a different route than the one that carried this statement
-at \textsc{conjecture} through several releases. That earlier argument diagonalised over $r$ and
-needed a $\#\{p^2\mid a_m\}$ input; its mathematics survived four rounds of review but its
-\emph{text} failed three, a load-bearing display silently shedding a hypothesis each time. It is
-superseded, not repaired: Proposition~\textup{\ref{prop:condrate}} proves the statement with a rate,
-using no diagonalisation and no local square count, from
-Lemma~\textup{\ref{lem:charcancelunif}} and Lemma~\textup{\ref{lem:deficit}}, each of which earned
-its own label under the same standard --- a review that did not write it finding nothing.}
+\textup{Label: \textsc{proved}. Two independent routes reach this statement, and the label rests on
+the second. The first is the square sieve at fixed $r$ recorded in
+Remark~\textup{\ref{rem:a9original}} below: it needs no uniformity, since it sends $P\to\infty$ only
+after $N$, and it is why the statement was believed through several releases --- but it yields no
+rate, and its \emph{text} failed three consecutive reviews, a load--bearing display silently shedding
+a hypothesis each time, so it has never had a clean round and the label does not rest on it. The
+second is Proposition~\textup{\ref{prop:condrate}}, which proves the statement \emph{with a rate}
+from Lemma~\textup{\ref{lem:charcancelunif}} and Lemma~\textup{\ref{lem:deficit}}; each of those, and
+the proposition itself, earned its label under this project's standard --- a review by a session that
+did not write it, finding nothing.}
 
 $\#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}=o(N)$; indeed, by
 Proposition~\ref{prop:condrate}, the count is
@@ -6781,6 +6783,20 @@ a \#307 solution is squarefree by Rigidity, the restriction costs nothing for th
 the unrestricted statement is not proved here.
 \end{theorem}
 \begin{proof}
+Immediate from Proposition~\ref{prop:condrate}, which gives the minus--layer count
+$\ll_\delta N\log\log\log N/(\log\log N)^{1-\delta}=o(N)$ on the squarefree stratum for any fixed
+$\delta\in(0,1)$, and the plus--layer count by the same statement. Remark~\ref{rem:a9original}
+records an independent route to the qualitative form.
+\end{remark}
+
+\begin{remark}[The original route, and what it does and does not give]\label{rem:a9original}
+This is the argument that carried Theorem~\ref{thm:a9} before
+Proposition~\ref{prop:condrate} existed. It is recorded because it is independent of that
+proposition, because it needs no uniformity in $r$ whatsoever, and because the errata inside it are
+the ones that cost the most to find. It is \emph{not} what the label rests on: its text failed three
+consecutive reviews and has never had a clean one, and it yields no rate, since $P\to\infty$ only
+after $N$.
+
 Write $a_m=m'-2m$ and fix $P$, letting $\mathcal{P}$ be the primes in $(P,2P]$ and
 $\Pi=|\mathcal{P}|\sim P/\log P$. If $a_m$ is a perfect square coprime to every $p\in\mathcal{P}$
 then $(a_m/p)=1$ for all such $p$, so $\sum_{p\in\mathcal{P}}(a_m/p)=\Pi$. Hence

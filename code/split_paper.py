@@ -54,8 +54,9 @@ Problem~\#313; the $1$--free case needs $1414$ members and carries an obstructio
 
 The results are formalised in Lean~4, with every declaration depending only on the standard axioms
 and no appeal to kernel--external evaluation. A companion note records the exploratory and negative
-material: the certificate programme, the function--field lens, the breeder form and the square
-sieve. The problem remains open.
+material -- the certificate programme, the function--field lens, the breeder form, the square sieve
+-- and one positive result: both Pythagorean layers have density zero on the squarefree stratum,
+with a rate. The problem remains open.
 \end{abstract}"""
 
 
@@ -144,11 +145,13 @@ def main():
 This companion collects the exploratory and negative material of the note
 \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau on products of
 prime--reciprocal sums}, cited below as the core note. Nothing here is needed for the results
-stated there; what is here is the record of which routes were tried and where each fails. It
-contains the local heuristic model, the function--field lens locating the obstruction as
-archimedean, the breeder form, the deviation ladder and the plus layer, two closures on the
-existence route, and the square sieve at the mass--two wall together with the point at which its
-analytic input does not close.
+stated there, with one exception: the minus--layer density theorem, that both Pythagorean layers
+have density zero on the squarefree stratum, is proved here. What is otherwise here is the record of
+which routes were tried and where each fails. It contains the local heuristic model, the
+function--field lens locating the obstruction as archimedean, the breeder form, the deviation ladder
+and the plus layer, two closures on the existence route, and the square sieve at the mass--two wall
+--- both the range at which its analytic input does not close, and the far smaller one at which it
+does.
 \end{abstract}""")
     comp = (comp_pre + "\\externaldocument[K-]{erdos307-core}\n"
             + head + comp_abs + "\n" + comp_body + "\n" + bib + "\n\\end{document}\n")
