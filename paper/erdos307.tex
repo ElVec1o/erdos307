@@ -79,8 +79,8 @@ $(\mathrm{H})\Rightarrow$\textsc{yes} to an explicit prime--density hypothesis, 
 ledger shows is not a feasible finite search. On the counting side we prove that both Pythagorean layers have density zero
 unconditionally \emph{on the squarefree stratum}, which is where every tool in the proof lives and
 where a \#307 solution lies by rigidity; the unrestricted statement is not proved. This comes with a rate,
-$\ll N\log\log\log N(\log\log N)^{-1+\delta}$ for every $\delta>0$, which rests on a cancellation
-estimate uniform for moduli up to $(\log\log N)^{2-\delta}$; the far stronger
+$\ll N(\log\log\log N)^{2+\varepsilon}(\log\log N)^{-1}$ for every $\varepsilon>0$, which rests on a
+cancellation estimate uniform for moduli up to $(\log\log N)^2/(\log\log\log N)^{2+\varepsilon}$; the far stronger
 $\ll N\log\log N(\log N)^{-1/4}$ needs uniformity at a much larger range and is stated as a
 \textsc{conjecture}, not proved. The
 sharp exponent $N^{1/2}$ is not reached either, and we record three distinct reasons: the multiplicative decomposition scatters the cancellation across frequencies, a
@@ -3041,11 +3041,11 @@ squarefree minus layer $\{m:m'-2m=\square\}$ has density zero, with a rate
 squarefree Pythagorean layer has density zero unconditionally. The route is not the square sieve of
 Appendix~\ref{app:sieve}, whose analytic input is foreclosed at its range by
 Remark~\ref{rem:charcancelerratum}; it is a sieve at the far smaller
-$P=(\log\log N)^{1-\delta}$, where two uniform estimates \emph{are} available ---
+$P=\log\log N/(\log\log\log N)^{1+\varepsilon}$, where two uniform estimates \emph{are} available ---
 Lemma~\ref{lem:charcancelunif} for the character sums and Lemma~\ref{lem:deficit} for the local
 deficits. The obstruction the erratum records turned out to be range--dependent rather than
 absolute, and that is the whole of the opening. The rate obtained,
-$N\log\log\log N/(\log\log N)^{1-\delta}$, is very weak; the far stronger
+$N(\log\log\log N)^{2+\varepsilon}/\log\log N$, is very weak; the far stronger
 Corollary~\ref{cor:a9rate} remains conjectural and independently blocked. Nothing else in this paper
 depends on any of it, and the barrier is untouched.
 
@@ -6356,7 +6356,7 @@ Relegated from \S\ref{ssec:sieve}. This appendix is the historical route to
 Theorem~\ref{thm:a9}: a square sieve at $P\asymp(\log N)^{1/4}$ whose analytic input was never
 supplied, since the uniformity it needs is exactly what Remark~\ref{rem:charcancelerratum}
 forecloses at that range. The theorem is now proved instead by
-Proposition~\ref{prop:condrate}, at the much smaller $P=(\log\log N)^{1-\delta}$, where the same
+Proposition~\ref{prop:condrate}, at the much smaller $P=\log\log N/(\log\log\log N)^{1+\varepsilon}$, where the same
 uniformity \emph{is} available (Lemma~\ref{lem:charcancelunif}) --- at the cost of a far weaker rate.
 The sieve is kept in full because its algebraic layer is correct and reusable, because the located
 gap is what identified the workable range, and because Corollary~\ref{cor:a9rate}, still
@@ -6510,7 +6510,7 @@ above is the $r$--\emph{uniform form of one input}, the $\log L$ bound, whose lo
 $L(1,\psi)$ away from $0$ and has only $L(1,\psi)\gg r^{-1/2}$ effectively or $\gg_\varepsilon
 r^{-\varepsilon}$ by Siegel, ineffectively. That is \emph{not} the same as the uniform form of the
 lemma being false, and the distinction turned out to be the whole opening: the obstruction is
-\emph{range--dependent}. At $r\le(\log\log N)^{2-\delta}$ one has $\log r\asymp\log\log\log\log N$,
+\emph{range--dependent}. At $r\le(\log\log N)^2$ one has $\log r\asymp\log\log\log\log N$,
 so even a Siegel--worst--case $|\log L(1,\psi)|$ costs $\varepsilon\log r+O_\varepsilon(1)$, which is
 negligible against the main term $\log\log N$; that is Lemma~\ref{lem:charcancelunif}, and with
 Lemma~\ref{lem:deficit} it proves Theorem~\ref{thm:a9} with a rate. What the erratum forecloses is
@@ -6526,9 +6526,10 @@ each found defects --- twice in a repair made by the round before --- which were
 six, auditing statement and proof line by line and recomputing every printed constant, found
 nothing, which is what the label records. Proposition~\ref{prop:condrate} passed clean at round
 three.)}
-Fix $\delta\in(0,1)$. For every odd squarefree $r$ with $7\le r\le(\log\log N)^{2-\delta}$,
+Fix $\varepsilon>0$ and write $L=\log\log N$. For every odd squarefree $r$ with
+$7\le r\le L^2/(\log L)^{2+\varepsilon}$,
 \[ T_r(N)\;\ll\;N\,(\log N)^{-2/5}, \]
-with an implied constant that depends only on $\delta$ and is ineffective; the same bound, by the
+with an implied constant that depends only on $\varepsilon$ and is ineffective; the same bound, by the
 same proof with $e_r(+2t)$ in place of $e_r(-2t)$, holds for the sum with $(m'+2m\mid r)$ in place
 of $(m'-2m\mid r)$. The moduli $r=3,5$ are excluded: there $c_r<1/2$, and they are
 covered instead at fixed $r$ by Lemma~\ref{lem:charcancel} with the exponents of
@@ -6536,8 +6537,11 @@ Remark~\ref{rem:charcancelsharp}.
 \end{lemma}
 \begin{proof}
 The proof of Lemma~\ref{lem:charcancel} is followed step by step; what is new is that every
-implied constant is tracked in $r$, and each is absolute in the stated range. Write
-$L=\log\log N$, so $r\le L^{2-\delta}$ and $\log r\le(2-\delta)\log L$.
+implied constant is tracked in $r$, and each is absolute in the stated range. Here
+$r\le L^2/(\log L)^{2+\varepsilon}\le L^2$, so $\log r\le2\log L$. The range is exactly the one
+the argument supports: the binding requirement below is $\sqrt r\,\log L=o(L)$, that is
+$r=o\bigl((L/\log L)^2\bigr)$. Every earlier version of this lemma stated the strictly smaller
+$r\le L^{2-\delta}$ --- weaker than its own proof gives.
 
 \emph{Expansion.} Unchanged: $|T_r(N)|\le r^{-1/2}\sum_{t}|S_t(N)|\le r^{1/2}\max_t|S_t(N)|$,
 the sum over the $\varphi(r)$ values of $t$ with $\gcd(t,r)=1$, since $\chi(t)=0$ otherwise; the
@@ -6564,10 +6568,11 @@ zero, the classical zero--free region gives
 $|\log L(s,\psi)|\ll\log\log\bigl(r(3+|\tau|)\bigr)\ll\log L$ with an absolute constant. If
 $\psi$ is real with an exceptional zero $\beta$, split the $\tau$--range. For $|\tau|\le1$ the local
 decomposition $\log L(s,\psi)=\log(s-\beta)+O\bigl(\log\log(r(3+|\tau|))\bigr)$ applies, and
-\[ |s-\beta|\;\ge\;\operatorname{Re}(s)-\beta\;>\;1-\beta\;\ge\;c(\varepsilon)\,r^{-\varepsilon} \]
-by Siegel's theorem in zero--location form, so
-$|\log(s-\beta)|\le\log\bigl(1/(1-\beta)\bigr)+O(1)\le\varepsilon\log r+O_\varepsilon(1)
-\ll\varepsilon\log L+O_\varepsilon(1)$; the decomposition is \emph{not} asserted beyond $|\tau|\le1$,
+\[ |s-\beta|\;\ge\;\operatorname{Re}(s)-\beta\;>\;1-\beta\;\ge\;c(\eta)\,r^{-\eta} \]
+by Siegel's theorem in zero--location form, applied with any fixed $\eta>0$ --- a parameter
+unrelated to the $\varepsilon$ of the range --- so
+$|\log(s-\beta)|\le\log\bigl(1/(1-\beta)\bigr)+O(1)\le\eta\log r+O_\eta(1)
+\ll\eta\log L+O_\eta(1)$; the decomposition is \emph{not} asserted beyond $|\tau|\le1$,
 where $|s-\beta|$ can be as large as $\log N$ and $\log|s-\beta|$ as large as $L$. For $|\tau|>1$
 the zero $\beta$ lies at distance greater than $1$ from $s$, outside the local zero--density disc,
 and the unconditional bound $|\log L(s,\psi)|\ll\log\log(r(3+|\tau|))$ applies with no exceptional
@@ -6575,9 +6580,9 @@ case. In both regimes $|S_\psi(\tau)|\ll\log L$, absolutely and ineffectively, u
 $|\tau|\le\log N$.
 
 \emph{Assembly.} By Cauchy--Schwarz on the coefficients,
-$\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt{\varphi(r)}\le L^{1-\delta/2}$, so the non--principal
-contribution to the distance is $\ll L^{1-\delta/2}\log L=o(L)$, and
-\[ M\;\ge\;\Bigl(1-\frac{\sqrt r}{\varphi(r)}\Bigr)L\;-\;O\bigl(L^{1-\delta/2}\log L\bigr)
+$\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt{\varphi(r)}\le\sqrt r\le L/(\log L)^{1+\varepsilon/2}$, so the
+non--principal contribution to the distance is $\ll L(\log L)^{-\varepsilon/2}=o(L)$, and
+\[ M\;\ge\;\Bigl(1-\frac{\sqrt r}{\varphi(r)}\Bigr)L\;-\;O\bigl(L(\log L)^{-\varepsilon/2}\bigr)
    \;\ge\;\Bigl(1-\frac{\sqrt r}{\varphi(r)}-o(1)\Bigr)L . \]
 The constant $1-\sqrt r/\varphi(r)$ does \emph{not} tend to $1$ over the whole range: it is
 $0.133\ldots$ at $r=3$ and $0.441\ldots$ at $r=5$, and exceeds $1/2$ for every odd squarefree
@@ -6593,8 +6598,9 @@ $r\ge7$, and the expansion loss $r^{1/2}\le L$ leaves
 $T_r(N)\ll N(\log N)^{-1/2+o(1)}\ll N(\log N)^{-2/5}$.
 
 Two honesty notes, as in Remark~\ref{rem:charcancelsharp}. The $o(1)$ terms above are vacuous at
-every computable $N$: the crux inequality $L^{1-\delta/2}\log L\ll L$ first bites, at
-$\delta=0.2$, around $\log\log N\approx e^{36}$. And the constant is ineffective twice over,
+every computable $N$: the crux inequality $\sqrt r\,\log L\ll L$ first bites at the top of the
+range around $\log\log N\approx e^{36}$, and the widening over the earlier $r\le L^{2-\delta}$ is
+asymptotic only, $L^{\delta}$ overtaking $(\log L)^{2+\varepsilon}$ far beyond even that. And the constant is ineffective twice over,
 through Siegel--Walfisz and through Siegel's theorem; no effective form is claimed.
 \end{proof}
 
@@ -6604,15 +6610,16 @@ each by a session that did not write the text. The first two found five defects 
 principal--coefficient value false in one of three cases, and a numerical certificate that tested the
 wrong congruence with a silently inoperative coprimality filter --- all repaired; the third found
 nothing, which is what the label records.)}
-Let $\delta\in(0,1)$ and $c\in\{2,-2\}$. Uniformly for primes $p\ne q$ in
-$(\tfrac12(\log\log N)^{1-\delta},(\log\log N)^{1-\delta}]$, with implied constants that depend only
-on $\delta$ and are ineffective,
+Let $\varepsilon>0$, $c\in\{2,-2\}$, $L=\log\log N$ and $P=L/(\log L)^{1+\varepsilon}$. Uniformly
+for primes $p\ne q$ in $(\tfrac12P,P]$, with implied constants that depend only on $\varepsilon$ and
+are ineffective,
 \[ \#\{m\le N:\ \mu^2(m)=1,\ \gcd(m,p)=1,\ \sigma_p(m)\equiv c\ (\mathrm{mod}\ p)\}\ \ll\ N/p, \]
 \[ \#\{m\le N:\ \mu^2(m)=1,\ \gcd(m,pq)=1,\ \sigma_p(m)\equiv c\ (\mathrm{mod}\ p)\ \text{and}\
    \sigma_q(m)\equiv c\ (\mathrm{mod}\ q)\}\ \ll\ N/(pq). \]
 \end{lemma}
 \begin{proof}
-Write $L=\log\log N$ and $P=L^{1-\delta}$, so $p,q\in(P/2,P]$ and $pq\le P^2=L^{2-2\delta}$. Recall
+Here $p,q\in(P/2,P]$ and $pq\le P^2=L^2/(\log L)^{2+2\varepsilon}$, inside
+Lemma~\ref{lem:charcancelunif}'s range. Recall
 $\sigma_p(m)=\sum_{\ell\mid m}\ell^{-1}\bmod p$, so that $e_p\bigl(t\sigma_p(m)\bigr)
 =\prod_{\ell\mid m}e_p(t\ell^{-1})$ is multiplicative in squarefree $m$.
 
@@ -6644,31 +6651,32 @@ $s,t\ne0$; $s\ne0,t=0$; $s=0,t\ne0$ give $|c_{\psi_0}|$ equal to $1/((p-1)(q-1))
 $1/(q-1)$ respectively, so in every case, both $p$ and $q$ exceeding $P/2$,
 \[ |c_{\psi_0}|\;\le\;\max\Bigl(\frac1{p-1},\frac1{q-1}\Bigr)\;\le\;\frac{2}{P-2}\;=\;o(1), \]
 whereas Parseval $\sum_\psi|c_\psi|^2=1$ gives, by Cauchy--Schwarz,
-$\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt{\varphi(pq)}\le\sqrt{pq}\le L^{1-\delta}$.
+$\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt{\varphi(pq)}\le\sqrt{pq}\le L/(\log L)^{1+\varepsilon}$.
 
 \emph{The non--principal sums.} This is verbatim the corresponding step of
-Lemma~\ref{lem:charcancelunif}, at modulus $pq\le L^{2-2\delta}$ in place of $r\le L^{2-\delta}$:
+Lemma~\ref{lem:charcancelunif}, at modulus $pq\le L^2/(\log L)^{2+2\varepsilon}$:
 for $\psi\ne\psi_0$ and $|\tau|\le\log N$, partial summation against Siegel--Walfisz (legitimate
 since $pq\le L^2\le(\log N)^3$) replaces the truncated sum by $\log L(s,\psi^*)+O(1)$ at the
 inducing character, and the classical zero--free region gives
 $|\log L(s,\psi^*)|\ll\log\log(pq(3+|\tau|))\ll\log L$; in the exceptional case the same
 $\tau$--split applies, the branch $|\tau|\le1$ using
-$|s-\beta|>1-\beta\ge c(\varepsilon)(pq)^{-\varepsilon}$ and hence
-$|\log(s-\beta)|\le\varepsilon\log(pq)+O_\varepsilon(1)\ll\varepsilon\log L+O_\varepsilon(1)$, and
+$|s-\beta|>1-\beta\ge c(\eta)(pq)^{-\eta}$ for any fixed $\eta>0$, unrelated to the
+$\varepsilon$ of the range, and hence
+$|\log(s-\beta)|\le\eta\log(pq)+O_\eta(1)\ll\eta\log L+O_\eta(1)$, and
 the branch $|\tau|>1$ needing no exceptional case. So $|S_\psi(\tau)|\ll\log L$ uniformly.
 
 \emph{Assembly and Hal\'asz.} Therefore
 \[ M\;=\;\min_{|\tau|\le\log N}\sum_{\ell\le N}\frac{1-\operatorname{Re}h_{s,t}(\ell)\ell^{-i\tau}}{\ell}
-   \;\ge\;\bigl(1-o(1)\bigr)L\;-\;O\bigl(L^{1-\delta}\log L\bigr)\;=\;\bigl(1-o(1)\bigr)L, \]
+   \;\ge\;\bigl(1-o(1)\bigr)L\;-\;O\bigl(L(\log L)^{-\varepsilon}\bigr)\;=\;\bigl(1-o(1)\bigr)L, \]
 the principal part costing at most $|c_{\psi_0}|L=o(L)$ and the non--principal part
-$O(L^{1-\delta}\log L)=o(L)$. Hal\'asz's theorem (Montgomery's form; absolute constants, and
+$O\bigl(L(\log L)^{-\varepsilon}\bigr)=o(L)$. Hal\'asz's theorem (Montgomery's form; absolute constants, and
 $h_{s,t}$ enters only through $|h_{s,t}|\le1$) with $T=\log N$ gives
 \[ |S_{s,t}(N)|\;\ll\;N(1+M)e^{-M}+N(\log N)^{-1/2}\;\ll\;N(\log N)^{-1/2}, \]
 the floor dominating since $(1+M)e^{-M}\ll(\log N)^{-1+o(1)}$. Finally
-$pq\le L^{2-2\delta}$, so $pq=o\bigl((\log N)^{1/2}\bigr)$ and hence
+$pq\le L^2$, so $pq=o\bigl((\log N)^{1/2}\bigr)$ and hence
 $N(\log N)^{-1/2}=o\bigl(N/(pq)\bigr)$, which is $(\ast)$. The
 one--prime bound is the same computation with the single detector $p^{-1}\sum_s e_p(-sc)S_s$,
-principal coefficient $-1/(p-1)$, $\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt p\le L^{(1-\delta)/2}$, and
+principal coefficient $-1/(p-1)$, $\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt p\le\sqrt P$, and
 the requirement $\max_{s\ne0}|S_s|\ll N/p$, which is weaker than $(\ast)$.
 
 Two notes, as for Lemma~\ref{lem:charcancelunif}. The constants are ineffective, through
@@ -6686,14 +6694,14 @@ and silently dropped its coprimality filter.
 \end{proof}
 
 \begin{proposition}[A rate on the minus layer]\label{prop:condrate}
-For every $\delta\in(0,1)$,
+For every $\varepsilon>0$,
 \[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{a positive perfect square}\}
-   \;\ll\;N\,\frac{\log\log\log N}{(\log\log N)^{1-\delta}} , \]
+   \;\ll_\varepsilon\;N\,\frac{(\log\log\log N)^{2+\varepsilon}}{\log\log N} , \]
 and the same for $m'+2m$. In particular Theorem~\ref{thm:a9} follows with a rate, by an
 argument with no diagonalisation over $r$.
 \end{proposition}
 \begin{proof}
-Let $P=(\log\log N)^{1-\delta}$, $\mathcal P$ the primes in $(P/2,P]$, $\Pi=|\mathcal P|\gg
+Let $L=\log\log N$, $P=L/(\log L)^{1+\varepsilon}$, $\mathcal P$ the primes in $(P/2,P]$, $\Pi=|\mathcal P|\gg
 P/\log P$, and $a_m=m'-2m$. First, $a_m\ne0$ for every squarefree $m$: $a_m=0$ forces
 $\sigma(m)=2$ exactly, impossible for $m>1$ since $\gcd(D(m),m)=1$ (Theorem~\ref{thm:structure})
 and $a_1=-2$. If $a_m$ is a positive square then $(a_m\mid p)\ne-1$ for every $p$, and
@@ -6707,14 +6715,15 @@ $\bigl|\sum_p(a_m\mid p)\bigr|\le\Pi$, which gives
    \;+\;\sum_p\#\{m:p\mid a_m\}, \]
 where $|E_{pq}|\le N/p+N/q\le4N/P$ collects the $m$ with $\gcd(m,pq)>1$, dropped from $T_{pq}$'s summation
 range exactly as in the argument for Theorem~\ref{thm:a9}. By
-Lemma~\ref{lem:charcancelunif} at $r=pq\le(\log\log N)^{2-2\delta}$ (each $r$ odd squarefree,
+Lemma~\ref{lem:charcancelunif} at $r=pq\le L^2/(\log L)^{2+2\varepsilon}$ (each $r$ odd squarefree,
 $r\ge7$), $\sum_{p\ne q}|T_{pq}|\ll\Pi^2N(\log N)^{-2/5}$. By Lemma~\ref{lem:deficit} --- applicable because $p\mid m$ forces
 $a_m\equiv m'\equiv m/p\not\equiv0\pmod p$ for squarefree $m$, so the $m$ counted here are
 automatically coprime to $p$, and likewise to $pq$ in the two--prime count ---
 $\sum_p\#\{m:p\mid a_m\}\ll N\Pi/P\ll N/\log P$ and the two--prime sum is $\ll\Pi^2N/P^2\ll
 N/(\log P)^2$. Dividing by $\Pi^2$: the diagonal $\Pi N$ gives the main term
 $N/\Pi\ll N\log P/P$, and every other term is smaller. Since $\log P\asymp\log\log\log N$, the
-bound follows. Note $\mu^2(m)$ and the coprimality conditions are carried inside every count;
+bound follows, $\log P\asymp\log L$ giving the numerator $(\log L)^{2+\varepsilon}$ after the
+$P$ in the denominator is written out. Note $\mu^2(m)$ and the coprimality conditions are carried inside every count;
 no M\"obius expansion is performed.
 \end{proof}
 
@@ -6771,7 +6780,7 @@ did not write it, finding nothing.}
 
 $\#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}=o(N)$; indeed, by
 Proposition~\ref{prop:condrate}, the count is
-$\ll_\delta N\log\log\log N/(\log\log N)^{1-\delta}$ for every $\delta\in(0,1)$. Equivalently, atom
+$\ll_\varepsilon N(\log\log\log N)^{2+\varepsilon}/\log\log N$ for every $\varepsilon>0$. Equivalently, atom
 $\mathrm{A}9$ holds on the squarefree stratum: the squarefree minus layer has density zero. The same
 argument with $m'+2m$ gives the squarefree plus--analogue, so the squarefree Pythagorean layer has
 density zero unconditionally. That is \emph{not} a reproof of
@@ -6787,8 +6796,8 @@ the unrestricted statement is not proved here.
 \end{theorem}
 \begin{proof}
 Immediate from Proposition~\ref{prop:condrate}, which gives the minus--layer count
-$\ll_\delta N\log\log\log N/(\log\log N)^{1-\delta}=o(N)$ on the squarefree stratum for any fixed
-$\delta\in(0,1)$, and the plus--layer count by the same statement. Remark~\ref{rem:a9original}
+$\ll_\varepsilon N(\log\log\log N)^{2+\varepsilon}/\log\log N=o(N)$ on the squarefree stratum for
+any fixed $\varepsilon>0$, and the plus--layer count by the same statement. Remark~\ref{rem:a9original}
 records an independent route to the qualitative form.
 \end{proof}
 
@@ -6857,7 +6866,8 @@ not a proof.
 \begin{corollary}[A rate for $\mathrm{A}9$: \textsc{conjecture}]\label{cor:a9rate}
 This rate is far stronger than the unconditional
 Proposition~\ref{prop:condrate}, and remains conjectural. The uniformity in $r$ that it needs is now
-available --- that is Lemma~\ref{lem:charcancelunif} --- but only for $r\le(\log\log N)^{2-\delta}$,
+available --- that is Lemma~\ref{lem:charcancelunif} --- but only for
+$r\le(\log\log N)^2/(\log\log\log N)^{2+\varepsilon}$,
 whereas the balancing below sits at $P\asymp(\log N)^{1/4}$, incomparably larger; so the new lemma
 does not reach it. The second blocker is untouched: Lemma~\ref{lem:localsq} at $P=P(N)$ would have to
 be uniform in $p$ and is not, its $o(1)$ being driven by non--principal $L$--functions modulo $p^2$
@@ -7024,7 +7034,7 @@ follows from Brun--Titchmarsh uniformly in $r$, and the $B$-side is governed by
 Theorem~\ref{thm:pairavg}. What remains is the coupling $P^{+}(n)<p$ and the dyadic bookkeeping, a
 Type I/II analysis that we have not carried out. Until it is, the power saving below is
 \textbf{CONJECTURAL}. The best unconditional rate proved here is
-Proposition~\ref{prop:condrate}'s $N\log\log\log N/(\log\log N)^{1-\delta}$; Corollary~\ref{cor:a9rate}
+Proposition~\ref{prop:condrate}'s $N(\log\log\log N)^{2+\varepsilon}/\log\log N$; Corollary~\ref{cor:a9rate}
 would be far stronger and remains conjectural.
 \end{remark}
 

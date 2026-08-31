@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**77 of 144** labelled results are named by a Lean file in `Erdos307/` (53 files, **0 `sorry`**).
+**80 of 144** labelled results are named by a Lean file in `Erdos307/` (54 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **386 declarations across all 53 modules**. Everything is on the
+`lake env lean Check.lean` probes **386 declarations across all 54 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
 closes level 60, was the last site off that footing; it and the `erdos307_sixty` that consumes it are
 now kernel-`decide`, as is the numeral bridge behind `card_ge_59` and `erdos307_barrier_closed`.
@@ -70,10 +70,17 @@ that needed proving was the easy direction all along.
 | atom | formalised | blocked on | what unblocks it |
 |---|---|---|---|
 | `lem:charcancelunif` ⭐ | no | Halasz's theorem, Siegel--Walfisz, Siegel's theorem, and the zero--free region -- none in Mathlib | a formal analytic number theory library at the level of `L`--function zero--free regions; genuinely a research contribution, not an oversight here |
-| `lem:deficit` ⭐ | no | the same four analytic inputs | as above; the two star together or not at all |
+| `lem:deficit` ⭐ | algebraic layer only (`Deficit.lean`: `sigmaP_add_of_coprime`, `detector_mul_of_coprime`, `detector`, `ramanujan`, `principal_coeff`) | the same four analytic inputs | as above; the two star together or not at all |
 | `prop:condrate` / `thm:a9` ⭐ | no | the two lemmas above | as above |
 
-Three atoms are starred, and honestly so. `lem:charcancelunif` is the first result in this project
+Three atoms are starred, and honestly so. One of the three is now partly formalised:
+`Deficit.lean` carries three lemmas from the algebraic layer of `lem:deficit` --- the additivity of
+`σ_p` that makes the detector multiplicative (and so admissible for Halász), the orthogonality that
+supplies the main term, and the Ramanujan sum with its reindexing and normalisation, giving the
+principal Fourier coefficient `-1/(p-1)` and hence the distance constant. It is **not** the whole
+algebraic layer: the Gauss-sum modulus for the non-principal coefficients, the CRT factorisation
+and the Parseval/Cauchy--Schwarz bound are algebraic too and are not formalised. The star stays,
+and what remains under it is more than the analytic half alone. `lem:charcancelunif` is the first result in this project
 whose proof rests on deep analytic inputs. The lesson recorded above -- that "Mathlib does not carry
 it" is not the same as "it is hard" -- was tested here and, this once, does not apply: Halasz and
 Siegel are not elementary in disguise.

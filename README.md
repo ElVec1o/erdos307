@@ -108,9 +108,11 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
   layer `m′ − 2m = d²` is exactly the set where the arithmetic derivative takes square values, so a
   square sieve applies once the symbol is factorised as `((m′−2m)/r) = (m/r)·((σ_r(m)−2)/r)` —
   verified exhaustively, 54,514,790 checks, 0 violations. The sieve closes at
-  `P = (log log N)^{1−δ}`, where two uniform estimates are available: `lem:charcancelunif` for the
-  character sums and `lem:deficit` for the local deficits. That is `prop:condrate`, which gives
-  `thm:a9` with the rate `≪ N log log log N / (log log N)^{1−δ}`. The squarefree restriction is not
+  `P = log log N / (log log log N)^{1+ε}`, where two uniform estimates are available:
+  `lem:charcancelunif` for the character sums (uniform for odd squarefree
+  `r ≤ (log log N)² / (log log log N)^{2+ε}`) and `lem:deficit` for the local deficits. That is
+  `prop:condrate`, which gives `thm:a9` with the rate
+  `≪ N (log log log N)^{2+ε} / log log N`. The squarefree restriction is not
   cosmetic — every tool is squarefree-only, and the unrestricted statement is **not** proved.
   The far stronger `≪ N log log N / (log N)^{1/4}` (`cor:a9rate`) needs uniformity at a much larger
   range, remains **conjectural**, and is independently blocked.
@@ -150,7 +152,7 @@ hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, w
   core with `pdflatex` (twice each, for the `xr` cross-references). No BibTeX run needed. The two
   documents are derived from `erdos307.tex`, never hand-edited, so they cannot drift.
 - **Lean:** `cd lean && lake exe cache get && lake build` (Lean / mathlib `v4.30.0`). Then
-  `lake env lean Check.lean` prints the axiom dependencies of 386 declarations across all 53 modules
+  `lake env lean Check.lean` prints the axiom dependencies of 386 declarations across all 54 modules
   — everything depends only on `propext, Classical.choice, Quot.sound` (no `sorryAx`), with exactly
   no exceptions: there is no `native_decide` anywhere in the development.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)
