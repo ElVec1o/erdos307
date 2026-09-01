@@ -142,7 +142,9 @@ The barrier is carried in Google DeepMind's
 [`formal-conjectures`](https://github.com/google-deepmind/formal-conjectures) as
 [`FormalConjectures/ErdosProblems/307.lean`](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/307.lean),
 where `erdos_307.barrier` is tagged `@[category research solved]` and carries
-`formal_proof using lean4` pointing at `Closed.lean` in this repository at a pinned commit.
+`formal_proof using lean4` pointing at this repository at a pinned commit.
+[PR #5236](https://github.com/google-deepmind/formal-conjectures/pull/5236) offers the strengthened
+cardinality bound upstream.
 
 That upstream copy is a snapshot of an earlier state of this work: it states `59 ≤ #(P ∪ Q)` and
 `4·10¹¹² ≤ (∏P)²`, i.e. `∏P ≥ 2.09×10⁵⁶`. The results here are now stronger — `|P ∪ Q| ≥ 60`
