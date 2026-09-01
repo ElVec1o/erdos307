@@ -415,6 +415,50 @@ equations forbids $a'-a=1$. A barrier past $60$ must therefore come from a mecha
 $\sigma(a)$ away from $1$ without appealing to the size of $U$ --- which is what
 Theorem~\ref{K-thm:barrier} does in the opposite direction --- and we know of none.
 
+\begin{remark}[The threshold in largest--prime coordinates, and which sectors it leaves alive]\label{rem:sectorlive}
+Bado \cite{Bado2026} removes the largest prime exactly: with $q=P^{+}(ab)$ and $q\mid a$, write
+$a=qd$, $b=e$; then $e=d+qd'$, $e'=qd$, and $q=(e-d)/d'$. In these coordinates
+$\sigma(a)=1/q+\sigma(d)$, and since $q$ is astronomically large (Proposition~\ref{K-prop:close59}),
+the $t$ of Proposition~\ref{prop:barthreshold} is $\sigma(d)$ to many places: the threshold is a
+statement about the \emph{sector} $d$ alone, and it is very uneven.
+
+\smallskip
+\begin{center}
+\begin{tabular}{lccc}
+$d$ & $\sigma(d)$ & $t+1/t$ & $|U|\ge$\\ \hline
+$2$ & $0.500000$ & $2.500000$ & $1413$\\
+$2\cdot3$ & $0.833333$ & $2.033333$ & $69$\\
+$2\cdot3\cdot7$ & $0.976190$ & $2.000581$ & $59$\\
+$2\cdot3\cdot7\cdot43$ & $0.999446$ & $2.000000$ & $59$\\
+$2\cdot3\cdot11\cdot23\cdot31$ & $0.999979$ & $2.000000$ & $59$\\
+$3$ & $0.333333$ & $3.333333$ & $>148933$\\
+\end{tabular}
+\end{center}
+\smallskip
+
+Inverting $t+1/t\le T_K$: $|U|\le68$ forces $\sigma(d)\in[0.8372,1.1945]$, and $|U|\le60$ forces
+$\sigma(d)\in[0.9527,1.0497]$, the upper end being the $t_{59}$ of the table above
+\textup{(\texttt{code/sector\_window.gp})}. The integers with $\sigma(n)=1-1/n$ \emph{exactly} are
+the primary pseudoperfect numbers, the objects of Erd\H{o}s~\#313, and by
+Corollary~\ref{K-cor:threethirteen} those are the $u=1$ solutions of \#307's coprime relaxation: the
+extremal sectors of the two--cycle problem and the exact solutions of its relaxation are the same
+integers, reached from opposite directions.
+
+Two further things follow, one of them a closure. First, the largest--prime reduction \emph{is} the
+tail parametrisation of Proposition~\ref{K-prop:tailbound}: substituting $e=d+qd'$ and $e'=qd$ into
+$\alpha^2q^2-Nq+(\beta^2-D)$ at $\alpha=d$, $\beta=e$ gives $0$ identically, and
+$(2qd^2-N)^2=N^2-4D^2+4d^2D$ likewise \textup{(\texttt{code/alpha\_is\_d.gp})}. So the split
+$(d,e)$ is the divisor $\alpha\mid D$ over which the tail search runs, and everything proved about
+tail families --- the reciprocity kill of Proposition~\ref{prop:tailkill}, and the factoring wall
+behind the $3{,}478$ families it leaves open --- is a statement about sectors, with nothing gained
+or lost in translation. In particular the sector $d=2$ is $\alpha=2$, and the table puts it at
+$|U|\ge1413$: it is empty at every level below that, so the level--$60$ programme never meets it.
+Second, and negatively: the reduction does not shorten the level--$60$ residual. What blocks those
+families is a balanced semiprime $A_S$ or $B_S$, and in the $(d,e)$ coordinates that obstacle is
+unchanged --- the split is the unknown, there are $\sim3\cdot2^{58}$ of them per base, and the only
+split--independent certificate is the one already used.
+\end{remark}
+
 The same reduction locates the extreme case. Writing $c=b-a$, the identity
 $\sigma(U)-2=(t-1)^2/t=c^2/D$ is the minus layer $D'-2D=c^2$, and $\gcd(c,D)=\gcd(b-a,ab)=1$ because
 $\gcd(a,b)=1$. Since an admissible support contains every prime $\le167$

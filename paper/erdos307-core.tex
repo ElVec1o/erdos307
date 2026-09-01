@@ -389,50 +389,6 @@ verified numerically that $\min_U R(U)/T(U)$ is attained exactly at the first $5
 minimising configuration is unique), so the constant $2.09\times10^{56}$ is sharp for this method.
 \end{remark}
 
-\begin{proposition}[The barrier stratified by the mass of one side]\label{prop:sectormass}
-Let $(a,b)$ be a two--cycle, $U=P\cup Q$ its support, and write $T_K=\sum_{i\le K}1/p_i$ for the sum
-of the first $K$ prime reciprocals. Then
-\[ |U|\;\ge\;\min\Bigl\{K:\ T_K\ \ge\ \sigma(a)+\frac1{\sigma(a)}\Bigr\}. \]
-The right side is minimised exactly at $\sigma(a)=1$, where it returns the barrier of
-Section~\textup{\ref{sec:barrier}}; it grows without bound as $\sigma(a)$ leaves $1$ in either
-direction.
-\end{proposition}
-\begin{proof}
-The supports are disjoint (Theorem~\ref{thm:structure}), so
-$\sum_{p\in U}1/p=\sigma(a)+\sigma(b)$, and $\sigma(a)\sigma(b)=1$ gives
-$\sum_{p\in U}1/p=\sigma(a)+1/\sigma(a)$. Any set of $k$ distinct primes has reciprocal sum at most
-$T_k$, so $T_{|U|}\ge\sigma(a)+1/\sigma(a)$, which is the claim. The function $s\mapsto s+1/s$ has
-its minimum $2$ at $s=1$, and $T_K$ is increasing, whence the final sentence.
-\end{proof}
-
-\begin{remark}[What the sector barrier says, and which sectors it leaves alive]\label{rem:sectorlive}
-Write a cycle as $a=qd$ with $q=P^{+}(ab)$, so that $\sigma(a)=1/q+\sigma(d)$ and, $q$ being
-astronomically large by Proposition~\ref{prop:close59}, $\sigma(a)$ is $\sigma(d)$ to many places. Then
-Proposition~\ref{prop:sectormass} is a statement about the sector $d$ alone, and it is very uneven:
-
-\smallskip
-\begin{center}
-\begin{tabular}{lccc}
-$d$ & $\sigma(d)$ & $\sigma+1/\sigma$ & $|U|\ge$\\ \hline
-$2$ & $0.500000$ & $2.500000$ & $1413$\\
-$2\cdot3$ & $0.833333$ & $2.033333$ & $69$\\
-$2\cdot3\cdot7$ & $0.976190$ & $2.000581$ & $59$\\
-$2\cdot3\cdot7\cdot43$ & $0.999446$ & $2.000000$ & $59$\\
-$2\cdot3\cdot11\cdot23\cdot31$ & $0.999979$ & $2.000000$ & $59$\\
-$3$ & $0.333333$ & $3.333333$ & $>148933$\\
-\end{tabular}
-\end{center}
-\smallskip
-
-Inverting $s+1/s\le T_{K}$ gives the window explicitly: $|U|\le68$ forces
-$\sigma(d)\in[0.8372,1.1945]$, and $|U|\le60$ forces $\sigma(d)\in[0.9527,1.0497]$
-\textup{(\texttt{code/sector\_window.gp})}. So the sectors that can be cheap are exactly those whose
-$\sigma(d)$ sits within a few per cent of $1$ --- and by
-Corollary~\ref{cor:threethirteen} the integers with $\sigma(n)=1-1/n$ \emph{exactly} are the primary
-pseudoperfect numbers, the objects of Erd\H{o}s~\#313. The extremal sectors of the two--cycle problem
-and the solutions of \#307's relaxation are the same integers, reached from opposite directions.
-\end{remark}
-
 \begin{proposition}[Closing the $59$--prime level]\label{prop:close59}
 No solution of \#307 has $|P\cup Q|=59$. Hence $|P\cup Q|\ge60$,
 $\prod_{p\in U}p\ \ge\ \Pi_{60}>2.46\times10^{115}$, and
