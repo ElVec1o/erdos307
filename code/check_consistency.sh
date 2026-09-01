@@ -45,6 +45,10 @@ chk "COVERAGE declarations"   "$decls" "$(grep -oE '\*\*[0-9]+ declarations' lea
 chk "COVERAGE module count"   "$mods"  "$(grep -oE 'across all [0-9]+ modules' lean/COVERAGE.md | grep -oE '[0-9]+')"
 chk "COVERAGE file count"     "$mods"  "$(grep -oE '\([0-9]+ files' lean/COVERAGE.md | grep -oE '[0-9]+')"
 
+# paper/erdos307.pdf is tracked and shipped; it went stale once while the split PDFs were current.
+stale=$([ paper/erdos307.tex -nt paper/erdos307.pdf ] && echo 1 || echo 0)
+chk "full pdf freshness" "0" "$stale"
+
 codeN=$(git ls-files code | wc -l | tr -d ' ')
 chk "code/README file count" "$codeN" "$(grep -oE 'holds [0-9]+ tracked files' code/README.md | grep -oE '[0-9]+')"
 
