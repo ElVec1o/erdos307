@@ -117,7 +117,12 @@ attainable on $59$ primes and the stated hypotheses yield $|P\cup Q|\ge59$, whic
 Reaching $60$ requires excluding the $49{,}961$ admissible $59$--element supports one at a time,
 which is what Proposition~\ref{prop:close59} does and what \texttt{erdos307\_sixty} machine-checks.
 We therefore claim no priority for the \emph{statement} $|P\cup Q|\ge60$, which predates this work on
-the problem page, and we do claim the proof. The known
+the problem page, and we do claim the proof. The barrier in the form current at the time is carried
+upstream in Google DeepMind's \texttt{formal-conjectures} as
+\texttt{FormalConjectures/ErdosProblems/307.lean}, where it appears as \texttt{erdos\_307.barrier}
+with a \texttt{formal\_proof using lean4} attribution to \texttt{Closed.lean} of this development at
+a pinned commit; that snapshot states $59\le|P\cup Q|$ and $(\prod P)^2\ge4\times10^{112}$, and the
+bounds here are since stronger. The known
 ``solutions'' of Cambie and others solve only the \emph{weakened} version in which $1$ is permitted
 as an element, e.g.\ $(1+\tfrac15)(\tfrac12+\tfrac13)=1$; these do not bear on the prime version.
 

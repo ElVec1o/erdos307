@@ -136,6 +136,24 @@ looks. The expected count is `f(1)·log X` with `f` the density of `σ(a)σ(a′
 the largest value observed below `10⁷` is `0.5535`. Unlike Bateman–Horn or Hardy–Littlewood, this
 heuristic has no empirical support and cannot acquire any. **No proof either way is claimed.**
 
+## Upstream
+
+The barrier is carried in Google DeepMind's
+[`formal-conjectures`](https://github.com/google-deepmind/formal-conjectures) as
+[`FormalConjectures/ErdosProblems/307.lean`](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/307.lean),
+where `erdos_307.barrier` is tagged `@[category research solved]` and carries
+`formal_proof using lean4` pointing at `Closed.lean` in this repository at a pinned commit.
+
+That upstream copy is a snapshot of an earlier state of this work: it states `59 ≤ #(P ∪ Q)` and
+`4·10¹¹² ≤ (∏P)²`, i.e. `∏P ≥ 2.09×10⁵⁶`. The results here are now stronger — `|P ∪ Q| ≥ 60`
+(`prop:close59`, `erdos307_sixty`) and `min(∏P, ∏Q) > 3.50×10⁵⁷` — so the pinned statement should be
+read as the version that was current when it was merged, not as the present state.
+
+The problem page ([erdosproblems.com/307](https://www.erdosproblems.com/307)) still asserts
+`|P ∪ Q| ≥ 60` from "P, Q disjoint and ∑1/p ≥ 2". As of 2026-09-01 that justification is unchanged
+on the page; why it does not hold as displayed is set out in the introduction of the paper, and the
+bound itself is proved here by a different route.
+
 ## Layout
 
 ```
