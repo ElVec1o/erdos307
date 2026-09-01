@@ -4803,7 +4803,8 @@ proves Theorem~\ref{thm:a9} with a rate. One caveat on how much this explains: a
 moduli of Corollary~\ref{cor:a9rate} the $L$--function bound does also fail, but it is not what
 binds there. Even an $O(1)$ per--character bound would leave the requirement
 $\sqrt{\varphi(r)}=o(\log\log N)$, from the \emph{coefficient mass} rather than from any
-$L$--function; see the blocker recorded at that corollary. What the erratum forecloses is
+$L$--function --- a limitation of the character expansion, not of the arithmetic; see the blocker
+recorded at that corollary and the question posed in Remark~\ref{rem:a9ceiling}. What the erratum forecloses is
 uniformity at the far larger $r$ that Corollary~\ref{cor:a9rate} needs, where $\log r$ is comparable
 to the main term. That corollary keeps the label \textsc{conjecture}, but for the single reason
 recorded there, which is neither this one nor the regime mismatch after
@@ -5171,8 +5172,9 @@ ceiling by $L^{\delta}$. Taking $P=L/(\log L\,w(L))$ for any $w\to\infty$ gives
 so the true ceiling of the method is $N(\log\log\log N)^{2+o(1)}/\log\log N$ with the $o(1)$
 positive, unremovable, and arbitrarily slow. We state the proposition with a fixed $\varepsilon$
 because it is the usable form; the sharpening is asymptotic and worth nothing numerically. What
-matters is the shape: \emph{no} choice of $P$ puts a power of $\log N$ in the denominator, so this
-method cannot reach Corollary~\ref{cor:a9rate} however it is tuned.
+matters is the shape: no choice of $P$ puts a power of $\log N$ in the denominator \emph{so long as
+the distance is estimated through the character expansion}. That proviso is not decoration --- see
+the next paragraph, where it is exactly what is in question.
 
 \emph{Where the loss actually is, and what it is not.} Both walls --- this one and the corollary's
 --- are the same $\sqrt{\varphi(r)}$ paid when the phase $\ell\mapsto e_r(t\ell^{-1})$ is expanded
@@ -5235,9 +5237,11 @@ $r$, $|c_\psi|=\sqrt{\operatorname{cond}(\chi\psi)}/(r-1)$, so all but one of th
 equal $\sqrt r/(r-1)$; the exception is $\psi=\chi$, where $\chi\psi=\chi_0$ has conductor $1$ and
 $|c_\psi|=1/(r-1)$. Hence
 $\sum_{\psi\ne\psi_0}|c_\psi|=\bigl((r-3)\sqrt r+1\bigr)/(r-1)=\sqrt r\,(1+O(1/r))$: the mass really
-is of order $\sqrt r$, and Cauchy--Schwarz is losing nothing. Nor would a better $L$--function input help --- an $O(1)$ per--character bound
-still leaves $\sqrt{\varphi(r)}=o(\log\log N)$, hence $P=o(\log\log N)$, short of
-$(\log N)^{1/4}$ by the same exponential. Nothing in this paper depends on the statement, and what
+is of order $\sqrt r$, and Cauchy--Schwarz is losing nothing. Nor would a better $L$--function input help \emph{within this route}: an $O(1)$
+per--character bound still leaves $\sqrt{\varphi(r)}=o(\log\log N)$, hence $P=o(\log\log N)$, short of
+$(\log N)^{1/4}$ by the same exponential. Whether the route itself can be replaced --- estimating the
+distance without expanding at all --- is the open question of Remark~\ref{rem:a9ceiling}, and we do
+not assert that it cannot be. Nothing in this paper depends on the statement, and what
 follows is the original sketch rather than a proof.
 \[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}
     \;\ll\;\frac{N\log\log N}{(\log N)^{1/4}}. \]
