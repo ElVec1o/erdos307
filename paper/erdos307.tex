@@ -1196,49 +1196,7 @@ equations forbids $a'-a=1$. A barrier past $60$ must therefore come from a mecha
 $\sigma(a)$ away from $1$ without appealing to the size of $U$ --- which is what
 Theorem~\ref{thm:barrier} does in the opposite direction --- and we know of none.
 
-\begin{remark}[The threshold in largest--prime coordinates, and which sectors it leaves alive]\label{rem:sectorlive}
-Bado \cite{Bado2026} removes the largest prime exactly: with $q=P^{+}(ab)$ and $q\mid a$, write
-$a=qd$, $b=e$; then $e=d+qd'$, $e'=qd$, and $q=(e-d)/d'$. In these coordinates
-$\sigma(a)=1/q+\sigma(d)$, and since $q$ is astronomically large (Proposition~\ref{prop:close59}),
-the $t$ of Proposition~\ref{prop:barthreshold} is $\sigma(d)$ to many places: the threshold is a
-statement about the \emph{sector} $d$ alone, and it is very uneven.
 
-\smallskip
-\begin{center}
-\begin{tabular}{lccc}
-$d$ & $\sigma(d)$ & $t+1/t$ & $|U|\ge$\\ \hline
-$2$ & $0.500000$ & $2.500000$ & $1413$\\
-$2\cdot3$ & $0.833333$ & $2.033333$ & $69$\\
-$2\cdot3\cdot7$ & $0.976190$ & $2.000581$ & $59$\\
-$2\cdot3\cdot7\cdot43$ & $0.999446$ & $2.000000$ & $59$\\
-$2\cdot3\cdot11\cdot23\cdot31$ & $0.999979$ & $2.000000$ & $59$\\
-$3$ & $0.333333$ & $3.333333$ & $>148933$\\
-\end{tabular}
-\end{center}
-\smallskip
-
-Inverting $t+1/t\le T_K$: $|U|\le68$ forces $\sigma(d)\in[0.8372,1.1945]$, and $|U|\le60$ forces
-$\sigma(d)\in[0.9527,1.0497]$, the upper end being the $t_{59}$ of the table above
-\textup{(\texttt{code/sector\_window.gp})}. The integers with $\sigma(n)=1-1/n$ \emph{exactly} are
-the primary pseudoperfect numbers, the objects of Erd\H{o}s~\#313, and by
-Corollary~\ref{cor:threethirteen} those are the $u=1$ solutions of \#307's coprime relaxation: the
-extremal sectors of the two--cycle problem and the exact solutions of its relaxation are the same
-integers, reached from opposite directions.
-
-Two further things follow, one of them a closure. First, the largest--prime reduction \emph{is} the
-tail parametrisation of Proposition~\ref{prop:tailbound}: substituting $e=d+qd'$ and $e'=qd$ into
-$\alpha^2q^2-Nq+(\beta^2-D)$ at $\alpha=d$, $\beta=e$ gives $0$ identically, and
-$(2qd^2-N)^2=N^2-4D^2+4d^2D$ likewise \textup{(\texttt{code/alpha\_is\_d.gp})}. So the split
-$(d,e)$ is the divisor $\alpha\mid D$ over which the tail search runs, and everything proved about
-tail families --- the reciprocity kill of Proposition~\ref{prop:tailkill}, and the factoring wall
-behind the $3{,}478$ families it leaves open --- is a statement about sectors, with nothing gained
-or lost in translation. In particular the sector $d=2$ is $\alpha=2$, and the table puts it at
-$|U|\ge1413$: it is empty at every level below that, so the level--$60$ programme never meets it.
-Second, and negatively: the reduction does not shorten the level--$60$ residual. What blocks those
-families is a balanced semiprime $A_S$ or $B_S$, and in the $(d,e)$ coordinates that obstacle is
-unchanged --- the split is the unknown, there are $\sim3\cdot2^{58}$ of them per base, and the only
-split--independent certificate is the one already used.
-\end{remark}
 
 The same reduction locates the extreme case. Writing $c=b-a$, the identity
 $\sigma(U)-2=(t-1)^2/t=c^2/D$ is the minus layer $D'-2D=c^2$, and $\gcd(c,D)=\gcd(b-a,ab)=1$ because
@@ -1261,6 +1219,54 @@ branch. Proposition~\ref{prop:tailbound} withdraws the reading. The orbit is gen
 both square conditions do hold along all of it; what fails is that no term past $N$ can be prime.
 The single identity responsible is $A-B=4D$, which the earlier treatment used only to form the Pell
 system and never to factor $4Dq$.
+\begin{remark}[The threshold in largest--prime coordinates, and which sectors it leaves alive]\label{rem:sectorlive}
+Remark~\ref{rem:tier60} already writes a cycle as $a=qm$ with $q$ the largest prime; Bado
+\cite{Bado2026} makes the same reduction exact and independent of the level. With $q=P^{+}(ab)$,
+$q\mid a$, write $a=qd$, $b=e$: then $e=d+qd'$, $e'=qd$, and $q=(e-d)/d'$. Here
+$\sigma(a)=1/q+\sigma(d)$, so $t$ --- or $1/t$, according to which side carries $q$; $t+1/t$ is
+symmetric and the reading below is unaffected --- is $\sigma(d)$ up to $1/q$, and
+Proposition~\ref{prop:barthreshold} becomes a statement about the \emph{sector} $d$. It is very
+uneven. \textup{(}The rows below take $q$ astronomically large, which
+Proposition~\ref{prop:close59} supplies once $d$ is small: at $q=281$ the first row would read
+$1295$.\textup{)}
+
+\smallskip
+\begin{center}
+\begin{tabular}{lccc}
+$d$ & $\sigma(d)$ & $\sigma+1/\sigma$ & $|U|\ge$\\ \hline
+$2$ & $0.500000$ & $2.500000$ & $1413$\\
+$2\cdot3$ & $0.833333$ & $2.033333$ & $69$\\
+$2\cdot3\cdot7$ & $0.976190$ & $2.000581$ & $59$\\
+$2\cdot3\cdot7\cdot43$ & $0.999446$ & $2.000000$ & $59$\\
+$2\cdot3\cdot11\cdot23\cdot31$ & $0.999979$ & $2.000000$ & $59$\\
+$3$ & $0.333333$ & $3.333333$ & ${\sim}1.1\times10^{8}$\\
+\end{tabular}
+\end{center}
+\smallskip
+
+The last row is a Mertens estimate, the exact $K$ being past $\pi(10^6)$. Inverting
+$t+1/t\le T_K$ in the same convention gives the windows: $|U|\le60$ forces
+$\sigma(d)\in[0.9260,1.0799]$ --- the $t_{60}$ of the table above --- and $|U|\le68$ forces
+$\sigma(d)\in[0.8372,1.1945]$ \textup{(\texttt{code/sector\_window.gp})}. So a sector can be cheap
+only if $\sigma(d)$ sits within a few per cent of $1$. The primary pseudoperfect numbers, having
+$\sigma(n)=1-1/n$ exactly, are among those extremal sectors --- they are not the only ones, the
+Sylvester--type $\{2,3,7,41\}$ above being another --- and by
+Corollary~\ref{cor:threethirteen} they are the $u=1$ solutions of \#307's coprime relaxation, so
+Erd\H{o}s~\#313 sits at the floor of this barrier as well.
+
+The reduction is not new to the tail theory: it \emph{is} the parametrisation of
+Proposition~\ref{prop:tailbound}, with $\alpha=d$ and $\beta=e$. Substituting $e=d+qd'$ and $e'=qd$
+into $\alpha^2q^2-Nq+(\beta^2-D)$ at $\alpha=d$ gives $e(e-d-qd')=0$ identically
+\textup{(\texttt{code/alpha\_is\_d.gp}; the discriminant identity is $4d^2$ times the same
+vanishing, not a second fact)}. Two things follow. Everything proved about tail families is
+a statement about sectors: the reciprocity kill of Proposition~\ref{prop:tailkill}, and the
+factoring wall behind the families it leaves open. And the sector $d=2$ is $\alpha=2$, which the
+table puts at $|U|\ge1413$, so the level--$60$ programme never meets it. Negatively, the reduction
+does not shorten that residual: the unknown is the divisor $\alpha\mid D$, of which there are
+$2^{59}$, and the only $\alpha$--independent certificate is the Jacobi one already used.
+\end{remark}
+
+
 
 Three consequences, in increasing order of what they cost.
 
