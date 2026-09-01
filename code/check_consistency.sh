@@ -11,7 +11,7 @@ cd "$(dirname "$0")/.."
 fail=0
 chk() { # name  expected  actual
   if [ "$2" = "$3" ]; then printf "  ok    %-28s %s\n" "$1" "$3"
-  else printf "  FAIL  %-28s stated %s, actual %s\n" "$1" "$2" "$3"; fail=1; fi
+  else printf "  FAIL  %-28s computed %s, but the file says %s\n" "$1" "$2" "$3"; fail=1; fi
 }
 
 core_pdf=$(pdfinfo paper/erdos307-core.pdf 2>/dev/null | awk '/Pages/{print $2}')
