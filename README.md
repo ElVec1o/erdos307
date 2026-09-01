@@ -114,10 +114,12 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
   `prop:condrate`, which gives `thm:a9` with the rate
   `≪ N (log log log N)^{2+ε} / log log N`. The squarefree restriction is not
   cosmetic — every tool is squarefree-only, and the unrestricted statement is **not** proved.
-  The far stronger `≪ N log log N / (log N)^{1/4}` (`cor:a9rate`) needs uniformity at a much larger
-  range and remains **conjectural**, blocked by one thing only: the pretentious distance at moduli
-  `r ≤ (log N)^{1/2}`, where the coefficient mass `√φ(r)` overwhelms `log log N`. Two further
-  blockers recorded for it in earlier revisions are retracted in the paper.
+  The far stronger `≪ N (log log N)^{1/2+δ} / (log N)^{1/4}` (`cor:a9rate`) also holds. It needs the
+  pretentious distance uniformly at moduli `r ≤ (log N)^{1/2} log log N`, where the coefficient mass `√φ(r)`
+  swamps `log log N` — so `lem:swdirect` estimates the distance *without expanding in characters*,
+  applying Siegel–Walfisz to the residue classes directly and paying a factor `r` against
+  `exp(-c√log x)` instead of `√r` against a bound on `log L`. That is free up to any fixed power of
+  `log N`. The `√φ(r)` wall was a cost of the expansion, not of the arithmetic.
 - **The 34 immune families are now unconditional.** Their primality was graded `[C]` because
   Baillie-PSW is rigorous only in its *composite* verdicts. APR-CL proves all 68 integers prime, and
   `certs/immune_ecpp.txt` archives **independently checkable ECPP certificates** for every one
@@ -138,7 +140,7 @@ heuristic has no empirical support and cannot acquire any. **No proof either way
 
 ```
 paper/   erdos307-core.pdf       — the paper (32 pp; the results)
-         erdos307-companion.pdf  — the companion (96 pp; explorations, closures, the square sieve and the density theorem)
+         erdos307-companion.pdf  — the companion (98 pp; explorations, closures, the square sieve and the density theorem)
          erdos307.tex            — the single source both are generated from
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md

@@ -1,6 +1,6 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**80 of 144** labelled results are named by a Lean file in `Erdos307/` (54 files, **0 `sorry`**).
+**80 of 145** labelled results are named by a Lean file in `Erdos307/` (54 files, **0 `sorry`**).
 
 `lake env lean Check.lean` probes **395 declarations across all 54 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
@@ -72,8 +72,10 @@ that needed proving was the easy direction all along.
 | `lem:charcancelunif` ⭐ | no | Halasz's theorem, Siegel--Walfisz, Siegel's theorem, and the zero--free region -- none in Mathlib | a formal analytic number theory library at the level of `L`--function zero--free regions; genuinely a research contribution, not an oversight here |
 | `lem:deficit` ⭐ | algebraic layer only (`Deficit.lean`, 10 declarations: the algebraic core, enumerated in its docstring) | the same four analytic inputs | as above; the two star together or not at all |
 | `prop:condrate` / `thm:a9` ⭐ | no | the two lemmas above | as above |
+| `lem:swdirect` ⭐ | no | Siegel--Walfisz (hence Siegel), and Hal\'asz downstream | as above; it needs strictly *fewer* analytic inputs than `lem:charcancelunif` --- no zero--free region, no `L`--function bound, no exceptional--zero split --- but Siegel--Walfisz alone is already far outside Mathlib |
+| `cor:a9rate` ⭐ | no | `lem:swdirect` plus the sieve | as above |
 
-Three atoms are starred, and honestly so. One of the three is now partly formalised:
+Five atoms are starred, and honestly so. One of the five is now partly formalised:
 `Deficit.lean` carries the algebraic **core** of `lem:deficit` --- ten declarations covering the
 additivity of `σ_p` that makes the detector multiplicative, the orthogonality that supplies the main
 term, the Ramanujan sum with its reindexing and normalisation giving the principal Fourier
@@ -92,7 +94,7 @@ Siegel are not elementary in disguise.
 
 A6 moved furthest this release: its divisor sums, their logarithmic form, and the range count are
 all formal, leaving the CRT root bound as the single remaining lemma. A7 moved in the previous
-release, to Weil alone -- and then past it. Three atoms are starred (see the table above); all three are analytic, not algebraic, and they stand or fall together. The recurring error was
+release, to Weil alone -- and then past it. Five atoms are starred (see the table above); all five are analytic, not algebraic, and they stand or fall together. The recurring error was
 treating "Mathlib does not carry the named theorem" as evidence that the step needs that theorem;
 in three of four cases the step did not.
 

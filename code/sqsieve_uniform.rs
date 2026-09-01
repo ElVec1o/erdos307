@@ -1,6 +1,7 @@
 // sqsieve_uniform.rs -- how does the square-sieve character sum scale in the modulus r?
 //
-// cor:a9rate reaches only N loglog N (log N)^{-1/4}, and rem:rateexponent identifies why: the
+// When this was written cor:a9rate reached only N loglog N (log N)^{-1/4}; it is now proved at
+// N (loglog N)^{1/2+d} (log N)^{-1/4} via lem:swdirect.  rem:rateexponent identifies why the
 // exponent is set by the floor N (log N)^{-1/2} in Montgomery's form of Halasz, which holds however
 // large the pretentious distance grows. The measured sums are of size sqrt(N), incomparably
 // stronger. What the SIEVE can deliver depends entirely on how T_r(N) grows with r, so measure it:

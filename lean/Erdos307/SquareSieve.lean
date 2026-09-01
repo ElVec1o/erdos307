@@ -5,7 +5,8 @@ import Mathlib.Tactic.Positivity
 /-!
 # The square sieve, counting skeleton
 
-`thm:a9` and `cor:a9rate` rest on Heath-Brown's square sieve. Its analytic content is the estimation
+`thm:a9` and `cor:a9rate` are proved by square sieves -- the appendix's Heath-Brown sieve is the
+historical route, superseded for both by sieves at smaller `P` (`prop:condrate`, `cor:a9rate`). Its analytic content is the estimation
 of the character sums; its *combinatorial* content is elementary and is what this file records.
 
 If `a` is a perfect square coprime to every `p` in a set `P`, then every symbol `(a/p)` equals `1`,
@@ -15,7 +16,7 @@ where the character sums enter. Formally the argument is: a subset on which a re
 is constantly `c` contributes `c² · card` to a sum of squares, and sums of squares only grow when
 the index set grows.
 
-Paper: Theorem `thm:a9`, Corollary `cor:a9rate`.
+Paper: Theorem `thm:a9`, Theorem `cor:a9rate` (a corollary when this file was written).
 -/
 
 namespace Erdos307

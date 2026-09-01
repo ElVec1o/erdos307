@@ -81,8 +81,8 @@ unconditionally \emph{on the squarefree stratum}, which is where every tool in t
 where a \#307 solution lies by rigidity; the unrestricted statement is not proved. This comes with a rate,
 $\ll N(\log\log\log N)^{2+\varepsilon}(\log\log N)^{-1}$ for every $\varepsilon>0$, which rests on a
 cancellation estimate uniform for moduli up to $(\log\log N)^2/(\log\log\log N)^{2+\varepsilon}$; the far stronger
-$\ll N\log\log N(\log N)^{-1/4}$ needs uniformity at a much larger range and is stated as a
-\textsc{conjecture}, not proved. The
+$\ll N(\log\log N)^{1/2+\delta}(\log N)^{-1/4}$ also holds, by estimating the pretentious distance
+without expanding in characters, which is uniform to power--of--log moduli. The
 sharp exponent $N^{1/2}$ is not reached either, and we record three distinct reasons: the multiplicative decomposition scatters the cancellation across frequencies, a
 bilinear decomposition is unavailable for a signed non-multiplicative summand, and the natural
 large-sieve reformulation is circular at its principal term. The $34$ reciprocity-immune families at
@@ -3046,10 +3046,13 @@ Lemma~\ref{lem:charcancelunif} for the character sums and Lemma~\ref{lem:deficit
 deficits. The obstruction the erratum records turned out to be range--dependent rather than
 absolute, and that is the whole of the opening. The rate obtained,
 $N(\log\log\log N)^{2+\varepsilon}/\log\log N$, is very weak; the far stronger
-Corollary~\ref{cor:a9rate} remains conjectural, blocked by one thing only --- the pretentious
-distance at moduli $r\le(\log N)^{1/2}$, where the coefficient mass $\sqrt{\varphi(r)}$ overwhelms
-$\log\log N$; two blockers recorded for it in earlier revisions are retracted in
-Remark~\ref{rem:a9ceiling} and at the corollary. Nothing else in this paper
+Theorem~\ref{cor:a9rate} sharpens it to
+$N(\log\log N)^{1/2+\delta}(\log N)^{-1/4}$, a full quarter--power of $\log N$ better. What made that
+possible is Lemma~\ref{lem:swdirect}: the pretentious distance can be estimated by applying
+Siegel--Walfisz to the residue classes directly, never expanding in multiplicative characters, and
+the $\sqrt{\varphi(r)}$ coefficient mass that capped everything at polyloglog moduli is a cost of the
+expansion rather than of the arithmetic. Two further blockers recorded for the rate in earlier
+revisions are retracted after Lemma~\ref{lem:reversal} and at the theorem itself. Nothing else in this paper
 depends on any of it, and the barrier is untouched.
 
 On the constructive side we give a Th\=abit/Euler--type calculus and a bilinear breeder whose
@@ -5546,8 +5549,9 @@ and the whole sum turns multiplicative. That is what puts it inside Hal\'asz's t
 \subsection{The square sieve and Theorem~\ref{thm:a9}}\label{ssec:sieve}
 
 The argument recorded in this section is a square sieve at $P\asymp(\log N)^{1/4}$ whose analytic
-input does not close, which is why the \emph{rate} Corollary~\ref{cor:a9rate} stands at
-\textsc{conjecture} and why Remark~\ref{rem:whatisleft} keeps this material off the critical path.
+input does not close in the form attempted there, and why Remark~\ref{rem:whatisleft} keeps this
+material off the critical path; the rate is nonetheless proved, by a different route, in
+Theorem~\ref{cor:a9rate}.
 The density statement itself, Theorem~\ref{thm:a9}, is proved, by a different sieve at a far smaller
 range (Proposition~\ref{prop:condrate}). The section occupied eight pages in the main line. It is
 moved verbatim to Appendix~\ref{app:sieve}; nothing is omitted and every label is unchanged, so the
@@ -5612,11 +5616,12 @@ with $N$; the citation is withdrawn and the error term is not controlled at this
 
 \emph{Regime caveat, and its retraction.} That $O(1)$ holds only at $p\asymp N^{1/2}$; at
 $P\asymp(\log N)^{1/4}$ the same estimate gives only $N/p^2\asymp N/(\log N)^{1/2}$. Two earlier
-revisions read that as a second, independent reason for the \textsc{conjecture} label on
-Corollary~\ref{cor:a9rate}. It is not, for two reasons. The comparison there was made against $N$,
-whereas the benchmark is that corollary's own target $N\log\log N(\log N)^{-1/4}$, against which
+revisions read that as a second, independent reason for the \textsc{conjecture} label then carried by
+Theorem~\ref{cor:a9rate}. It is not, for two reasons. The comparison there was made against $N$,
+whereas the benchmark is that statement's own target, now
+$N(\log\log N)^{1/2+\delta}(\log N)^{-1/4}$ \textup{(}Theorem~\ref{cor:a9rate}\textup{)}, against which
 $N(\log N)^{-1/2}$ is \emph{smaller} --- an error term below the claimed rate cannot obstruct it.
-And the corollary does not travel this route at all: re--derived as in
+And Theorem~\ref{cor:a9rate} does not travel this route at all: re--derived as in
 Proposition~\ref{prop:condrate} it needs no kernel reversal, and Proposition~\ref{prop:circular}
 shows the reversal is no reduction in any case. The operative blocker is recorded at the corollary
 itself.
@@ -6367,8 +6372,8 @@ forecloses at that range. The theorem is now proved instead by
 Proposition~\ref{prop:condrate}, at the much smaller $P=\log\log N/(\log\log\log N)^{1+\varepsilon}$, where the same
 uniformity \emph{is} available (Lemma~\ref{lem:charcancelunif}) --- at the cost of a far weaker rate.
 The sieve is kept in full because its algebraic layer is correct and reusable, because the located
-gap is what identified the workable range, and because Corollary~\ref{cor:a9rate}, still
-conjectural, is what this route would give if its input were ever supplied.
+gap is what identified the workable range, and because Theorem~\ref{cor:a9rate} --- now proved, via
+Lemma~\ref{lem:swdirect} --- is what this route gives once its input is supplied.
 
 
 \begin{lemma}[Cancellation in the character sums]\label{lem:charcancel}
@@ -6522,15 +6527,16 @@ lemma being false, and the distinction turned out to be the whole opening: the o
 Siegel--worst--case $|\log L(1,\psi)|$ costs $\eta\log r+O_\eta(1)$, which is negligible against the
 main term $\log\log N$; that is Lemma~\ref{lem:charcancelunif}, and with Lemma~\ref{lem:deficit} it
 proves Theorem~\ref{thm:a9} with a rate. One caveat on how much this explains: at the far larger
-moduli of Corollary~\ref{cor:a9rate} the $L$--function bound does also fail, but it is not what
+moduli of Theorem~\ref{cor:a9rate} the $L$--function bound does also fail, but it is not what
 binds there. Even an $O(1)$ per--character bound would leave the requirement
 $\sqrt{\varphi(r)}=o(\log\log N)$, from the \emph{coefficient mass} rather than from any
 $L$--function --- a limitation of the character expansion, not of the arithmetic; see the blocker
 recorded at that corollary and the question posed in Remark~\ref{rem:a9ceiling}. What the erratum forecloses is
-uniformity at the far larger $r$ that Corollary~\ref{cor:a9rate} needs, where $\log r$ is comparable
-to the main term. That corollary keeps the label \textsc{conjecture}, but for the single reason
-recorded there, which is neither this one nor the regime mismatch after
-Lemma~\ref{lem:reversal}: both of those were retracted.
+uniformity at the far larger $r$ that Theorem~\ref{cor:a9rate} needs, where $\log r$ is comparable
+to the main term --- and that foreclosure binds only the route that expands in characters. The
+rate is proved in Theorem~\ref{cor:a9rate} by a route that does not expand
+\textup{(}Lemma~\ref{lem:swdirect}\textup{)}; two further blockers recorded in earlier revisions,
+this one and the regime mismatch after Lemma~\ref{lem:reversal}, were retracted before that.
 \end{remark}
 
 \begin{lemma}[Cancellation, uniform at polyloglog moduli]\label{lem:charcancelunif}
@@ -6617,6 +6623,107 @@ range around $\log\log N\approx e^{36}$, and the widening over the earlier $r\le
 asymptotic only, $L^{\delta}$ overtaking $(\log L)^{2+\varepsilon}$ far beyond even that. And the constant is ineffective twice over,
 through Siegel--Walfisz and through Siegel's theorem; no effective form is claimed.
 \end{proof}
+
+\begin{lemma}[The distance, without expanding: uniform to power-of-log moduli]\label{lem:swdirect}
+Fix $A>0$ and write $L=\log\log N$. Let $r>1$, let $g:(\mathbb Z/r)^\times\to\mathbb C$ satisfy
+$|g|\le1$, and let $h$ be the multiplicative function with $h(\ell)=g(\ell\bmod r)$ for primes
+$\ell\nmid r$, $h(\ell)=0$ for $\ell\mid r$, and $h(\ell^k)=0$ for $k\ge2$. Put
+$\widehat g_0=\varphi(r)^{-1}\sum_{a}g(a)$, the mean of $g$, and let
+\[ M\;=\;\min_{|\tau|\le\log N}\ \sum_{\ell\le N}\frac{1-\operatorname{Re}h(\ell)\ell^{-i\tau}}{\ell} \]
+be Hal\'asz's distance for $h$. Then
+\[ M\;\ge\;\bigl(1-|\widehat g_0|\bigr)\log\log N\;-\;o(\log\log N), \]
+uniformly for $r\le(\log N)^A$ and for all such $g$, the $o(\cdot)$ being ineffective and of
+unspecified rate.
+\end{lemma}
+\begin{proof}
+Only the values of $h$ at primes are used. Fix $\varepsilon\in(0,1)$ and put
+$T_0=\exp\bigl((\log N)^{\varepsilon}\bigr)$; $\varepsilon$ is an auxiliary of the proof and is
+removed at the end. Since $\sum_{\ell\le N}1/\ell=L+O(1)$, it suffices to bound
+$\bigl|\sum_{\ell\le N}h(\ell)\ell^{-1-i\tau}\bigr|$ uniformly in $|\tau|\le\log N$.
+
+\emph{Small primes.} Trivially
+$\bigl|\sum_{\ell\le T_0}h(\ell)\ell^{-1-i\tau}\bigr|\le\sum_{\ell\le T_0}1/\ell
+=\log\log T_0+O(1)=\varepsilon L+O(1)$, with no $\tau$--dependence.
+
+\emph{Large primes.} Every $\ell>T_0$ is coprime to $r\le(\log N)^A$, so $h(\ell)=g(\ell\bmod r)$
+there. For $a\in(\mathbb Z/r)^\times$ write $E_a(x)=\pi(x;r,a)-\operatorname{li}x/\varphi(r)$ and
+$E(x)=\sum_a g(a)E_a(x)$, and set
+\[ S(x)=\!\!\sum_{T_0<\ell\le x}\!\!h(\ell)
+      =\widehat g_0\bigl(\operatorname{li}x-\operatorname{li}T_0\bigr)+R(x),\qquad
+   R(x)=E(x)-E(T_0), \]
+using $\sum_a g(a)=\varphi(r)\widehat g_0$; in particular $R(T_0)=0$ identically. Siegel--Walfisz
+with the exponent $B=A/\varepsilon$ gives $|E_a(x)|\ll_B x\exp(-c_B\sqrt{\log x})$ uniformly in $a$,
+legitimately for every $x\ge T_0$, since then
+$(\log x)^{A/\varepsilon}\ge(\log T_0)^{A/\varepsilon}=(\log N)^{A}\ge r$. Summing over the
+$\varphi(r)\le r$ classes with $|g|\le1$,
+\[ |R(x)|\;\ll\;r\Bigl(x\,e^{-c\sqrt{\log x}}+T_0\,e^{-c\sqrt{\log T_0}}\Bigr)\;\ll\;r\,x\,e^{-c\sqrt{\log x}}, \]
+the second term being dominated because $y\mapsto y\,e^{-c\sqrt{\log y}}$ increases once
+$\log y>c^2/4$. The factor $r$ comes from that class sum, not from Siegel--Walfisz, whose error
+carries no modulus.
+
+Now integrate. Writing the large--prime sum as a Stieltjes integral against $dS$,
+\[ \sum_{T_0<\ell\le N}\!\!h(\ell)\ell^{-1-i\tau}
+   =\widehat g_0\!\int_{T_0}^{N}\!\frac{x^{-i\tau}}{x\log x}\,dx
+    +\Bigl[x^{-1-i\tau}R(x)\Bigr]_{T_0}^{N}+(1+i\tau)\!\int_{T_0}^{N}\!\!R(x)\,x^{-2-i\tau}dx. \]
+The first term has modulus at most
+$|\widehat g_0|\int_{T_0}^N dx/(x\log x)=|\widehat g_0|(1-\varepsilon)L$. The bracket vanishes at
+$T_0$ and is $\ll r\,e^{-c\sqrt{\log N}}=o(1)$ at $N$. For the last, substituting $u=\log x$ and
+using $\int_U^\infty e^{-c\sqrt u}\,du=2c^{-2}(1+c\sqrt U)e^{-c\sqrt U}$,
+\[ (1+|\tau|)\!\int_{T_0}^{N}\!|R(x)|x^{-2}dx
+   \;\ll\;(1+\log N)\,r\!\int_{(\log N)^{\varepsilon}}^{\log N}\!\!e^{-c\sqrt u}du
+   \;\ll\;(1+\log N)(\log N)^{A}(\log N)^{\varepsilon/2}e^{-c(\log N)^{\varepsilon/2}}, \]
+which is $o(1)$ uniformly in $|\tau|\le\log N$, since
+$c(\log N)^{\varepsilon/2}$ eventually exceeds $(A+1+\tfrac\varepsilon2)\log\log N$. Collecting,
+\[ \Bigl|\sum_{\ell\le N}h(\ell)\ell^{-1-i\tau}\Bigr|
+   \;\le\;\varepsilon L+|\widehat g_0|(1-\varepsilon)L+O(1) \]
+uniformly in $|\tau|\le\log N$, whence
+$M\ge L-\varepsilon L-|\widehat g_0|(1-\varepsilon)L-O(1)=(1-\varepsilon)\bigl(1-|\widehat g_0|\bigr)L-O(1)$.
+
+\emph{Removing $\varepsilon$.} For each $j\ge1$ take $\varepsilon_j=1/(2j)$ and $B_j=2Aj$, both
+\emph{fixed}, so that $c_{B_j}$ and the implied constant $C_j$ of Siegel--Walfisz are constants
+(ineffective, but constants). The display above then holds beyond a threshold $N_j$ depending only
+on $(A,j)$, and
+\[ \Bigl(1-\tfrac1{2j}\Bigr)\bigl(1-|\widehat g_0|\bigr)L-C_j
+   \;\ge\;\bigl(1-|\widehat g_0|\bigr)L-\tfrac1jL
+   \iff \tfrac{L}{2j}\bigl(1+|\widehat g_0|\bigr)\ge C_j, \]
+which holds once $L\ge2jC_j$; enlarge $N_j$ so that it does, and so that $N_j$ increases. Setting
+$j(N)=\max\{j:N\ge N_j\}\to\infty$ gives
+$M\ge(1-|\widehat g_0|)L-L/j(N)=(1-|\widehat g_0|)L-o(L)$, uniformly in $r$ and $g$ as claimed.
+The ineffectivity is exactly Siegel's, entering through Siegel--Walfisz; no exceptional--zero case
+split is needed, because no $L$--function is bounded anywhere above.
+\end{proof}
+
+\begin{remark}[What this changes, and what it does not]\label{rem:swdirectscope}
+The constant is \emph{not} an improvement: at $g_t(a)=\chi(a)e_r(ta^{-1})$ one has
+$\widehat g_0=\chi(t)\tau(\chi)/\varphi(r)$, so $|\widehat g_0|=\sqrt r/\varphi(r)$ and
+Lemma~\ref{lem:swdirect} returns the same $1-\sqrt r/\varphi(r)$ that
+Lemma~\ref{lem:charcancelunif} already gives; and in the error term it is worse, an $o(L)$ of
+unspecified rate against that lemma's explicit $O\bigl(L(\log L)^{-\varepsilon/2}\bigr)$. Both are
+ineffective, so ineffectivity is not the difference; the rate is.
+
+What changes is the \emph{range}, and by an exponential. Lemma~\ref{lem:charcancelunif} is capped at
+$r\le L^2/(\log L)^{2+\varepsilon}$ because expanding $g$ in multiplicative characters pays
+$\sum_{\psi\ne\psi_0}|c_\psi|\asymp\sqrt r$ against a per--character bound $O(\log L)$. The proof
+above never expands, so never pays it; the price is instead a factor $r$ against
+$\exp(-c\sqrt{\log x})$, which is free at $r\le(\log N)^A$. Remark~\ref{rem:a9ceiling} posed exactly
+this substitution as its open question, and the measurement recorded there --- that
+$\max_s|\sum_{\ell\le10^6}e_p(s\ell^{-1})/\ell|$ stays near $1.3$ while $\sqrt p$ grows from $3.6$
+to $44.8$ --- is the numerical shadow of the same fact.
+
+Two honesty notes. The $o(L)$ is ineffective and of unspecified rate, so nothing here is
+quantitative at any particular $N$; and the error estimate is vacuous at every computable $N$, the
+bound $(1+\log N)(\log N)^{A}(\log N)^{\varepsilon/2}e^{-c(\log N)^{\varepsilon/2}}$, at
+$A=1,\varepsilon=0.2,c=\tfrac12$, \emph{peaking} at $\log N=10^{16.23}$ with value
+$9.29\times10^{24}$, and falling below $1$ only past $\log N=10^{23.58}$
+\textup{(\texttt{code/swdirect\_check.gp})}. An earlier revision of this sentence said ``turning over
+near $10^{18}$'', which its own certificate contradicts in both directions. The uniform Mertens estimate underlying the untwisted
+case is classical --- Norton, \emph{Illinois J. Math.} \textbf{20} (1976), Lemma 6.3, gives
+$\sum_{p\le x,\,p\equiv\ell\,(k)}1/p=\log\log x/\varphi(k)+\delta_\ell/\ell+O(\log 3k/\varphi(k))$
+with an absolute but ineffective constant --- but we are not aware of a reference carrying the
+$\tau$--uniformity used here, and deduce it from Siegel--Walfisz \textup{(}Montgomery--Vaughan,
+\emph{Multiplicative Number Theory I}, \S11.3\textup{)} by the partial summation above.
+\end{remark}
+
 
 \begin{lemma}[Two uniform deficit bounds]\label{lem:deficit}
 \textup{(Label discipline, as for Lemma~\ref{lem:charcancelunif}: three rounds of adversarial review,
@@ -6877,9 +6984,10 @@ $M\ge\bigl(1-\sqrt r/\varphi(r)\bigr)\log\log N-O_r(\log\log\log N)$, with the e
 $r$ through the non--principal $L$--functions, and its statement and the erratum following it both
 say so. The constant is $\sqrt r/\varphi(r)$, not the $3/\sqrt r$ printed here previously; the two
 are not interchangeable, since $\varphi(r)\ge r/3$ fails for odd squarefree $r$, first at
-$r=3\cdot5\cdots23=111{,}546{,}435$ with $\varphi(r)/r=0.3272$. The corollary below is therefore
-stated as a \textsc{conjecture} and its argument is a sketch of what a uniform version would give,
-not a proof.
+$r=3\cdot5\cdots23=111{,}546{,}435$ with $\varphi(r)/r=0.3272$. The statement below was therefore
+stated as a \textsc{conjecture} when this remark was written, and its argument here is a sketch
+rather than a proof. The uniform input it wanted is Lemma~\ref{lem:swdirect}, and the rate itself is
+Theorem~\ref{cor:a9rate}, proved by a different route.
 
 \begin{remark}[The ceiling of the method, and the one input that would break it]\label{rem:a9ceiling}
 Two things are worth recording about how far Proposition~\ref{prop:condrate} can be pushed, since
@@ -6920,65 +7028,74 @@ What the same computation does show is that the \emph{accounting} is lossy: meas
 $\max_s|\sum_{\ell\le10^6}e_p(s\ell^{-1})/\ell|$ is $1.04,1.17,1.35,1.32,1.33$ at
 $p=13,101,503,1009,2003$ --- flat, while $\sqrt p$ grows from $3.6$ to $44.8$. So the triangle
 inequality over characters discards almost everything, and the wall above is an artefact of that
-step rather than an arithmetic obstruction. Whether it can be avoided --- by applying
-Siegel--Walfisz to the residue classes directly, paying a factor $r$ against an error
-$\exp(-c\sqrt{\log t})$ rather than $\sqrt r$ against a bound on $\log L$ --- is open here, and is
-the single question whose answer would most improve everything in this section.
+step rather than an arithmetic obstruction. It can be avoided, and that is
+Lemma~\ref{lem:swdirect}: applying Siegel--Walfisz to the residue classes directly pays a factor $r$
+against an error $\exp(-c\sqrt{\log x})$ rather than $\sqrt r$ against a bound on $\log L$, which is
+free at $r\le(\log N)^A$. The ceiling computed in this remark is therefore the ceiling of the
+\emph{character--expansion} route only; Theorem~\ref{cor:a9rate} passes it by a quarter--power of
+$\log N$. The measurement above --- $\max_s|\cdot|$ flat near $1.3$ while $\sqrt p$ grows to $44.8$
+--- was the numerical shadow of exactly this.
 \end{remark}
 
-\begin{corollary}[A rate for $\mathrm{A}9$: \textsc{conjecture}]\label{cor:a9rate}
-This rate is far stronger than the unconditional
-Proposition~\ref{prop:condrate} and remains conjectural, but the reason has been restated: two
-earlier revisions recorded two blockers, and neither was the operative one.
-
-\emph{What does not block it.} It was said to be blocked by Lemma~\ref{lem:localsq}, non--uniform in
-$p$. That is true of the sketch below, which inherits its $p^2$--count from
-Remark~\ref{rem:a9original}; it is not true of the corollary. Re--derived along the lines of
-Proposition~\ref{prop:condrate} --- which bounds $\sum_p(a_m\mid p)\ge\Pi-\#\{p\mid a_m\}$ and so
-needs only \emph{first}--power divisibility --- Lemma~\ref{lem:localsq} never enters;
-Theorem~\ref{thm:condpower} avoids it a third way, by a divisor bound. It was also said to be
-blocked by the regime mismatch after Lemma~\ref{lem:reversal}. That belongs to the kernel
-reformulation, which this corollary does not use --- and which Proposition~\ref{prop:circular} shows
-is no reduction at all --- and in any case that mismatch's error $N(\log N)^{-1/2}$ is
-\emph{smaller} than the rate claimed here, so it could not block it: the comparison there was made
-against $N$, which no term in a rate argument need beat.
-
-\emph{What does block it.} One thing only, and it is the pretentious distance --- in particular
-\emph{not} the deficit inputs, which is worth recording since Lemma~\ref{lem:deficit} is stated only
-for $p\asymp\log\log N$ and its closing step fails at exactly this $P$. That failure is irrelevant:
-what the sieve needs here is not $\#\{m:p\mid a_m\}\ll N/p$ but only $\ll N/\Pi\asymp N\log P/P$,
-weaker by the whole factor $\log P$; and the two--prime count needs nothing at all, since
-$\#\{m:p\mid a_m,\,q\mid a_m\}\le\#\{m:p\mid a_m\}$ makes
-$\sum_{p\ne q}\#\{\cdots\}\le\Pi\sum_p\#\{\cdots\}\ll\Pi N$ automatically. The detector also costs
-nothing extra here: its $1/(pq)$ prefactor exactly cancels the $pq-1$ non--principal terms, with no
-$\sqrt r$ amplification of the kind $|T_r|\le\sqrt r\max_t|S_t|$ carries --- which is why the deficit
-side is the easier of the two. At
-$P\asymp(\log N)^{1/4}$ every other term clears from the bare Hal\'asz floor $N(\log N)^{-1/2}$,
-which is already smaller than the target $N\log\log N(\log N)^{-1/4}$. What is required is
-$M\ge(\tfrac12+\delta)\log\log N$, uniformly for $r\le(\log N)^{1/2}$ and $|\tau|\le\log N$: the
-sketch below carries the expansion loss $\sqrt r\le2P$, so Hal\'asz must supply
-$\sqrt r\,e^{-M}\lesssim(\log N)^{-1/4}$ and not merely $e^{-M}\lesssim(\log N)^{-1/4}$ --- and that
-factor is the very reason $P$ balances at $(\log N)^{1/4}$, so it cannot be dropped. What is
-available is $M\ge\log\log N-\sqrt{\varphi(r)}\cdot O(\log\log\log N)$, vacuous once
-$\sqrt r\log\log\log N\gtrsim\log\log N$. The shortfall, measured by $\sqrt r\log L/L$ with
-$L=\log\log N$, is
-$1.12$, $6.24$, $130.5$, $1.9\times10^6$ at $\log\log N=5,14,28,69$
-\textup{(\texttt{code/wall\_check.gp})}. And it is not an artefact of Cauchy--Schwarz. For prime
-$r$, $|c_\psi|=\sqrt{\operatorname{cond}(\chi\psi)}/(r-1)$, so all but one of the $r-1$ coefficients
-equal $\sqrt r/(r-1)$; the exception is $\psi=\chi$, where $\chi\psi=\chi_0$ has conductor $1$ and
-$|c_\psi|=1/(r-1)$. Hence
-$\sum_{\psi\ne\psi_0}|c_\psi|=\bigl((r-3)\sqrt r+1\bigr)/(r-1)=\sqrt r\,(1+O(1/r))$: the mass really
-is of order $\sqrt r$, and Cauchy--Schwarz is losing nothing. Nor would a better $L$--function input help \emph{within this route}: an $O(1)$
-per--character bound still leaves $\sqrt{\varphi(r)}=o(\log\log N)$, hence $P=o(\log\log N)$, short of
-$(\log N)^{1/4}$ by the same exponential. Whether the route itself can be replaced --- estimating the
-distance without expanding at all --- is the open question of Remark~\ref{rem:a9ceiling}, and we do
-not assert that it cannot be. Nothing in this paper depends on the statement, and what
-follows is the original sketch rather than a proof.
+\begin{theorem}[A rate for $\mathrm{A}9$]\label{cor:a9rate}
+\textup{(Label: \textsc{proved}. This statement stood at \textsc{conjecture} through many releases,
+with two blockers recorded for it that were both later retracted --- Lemma~\ref{lem:localsq}'s
+non--uniformity, an artefact of a superseded route that needs a $p^2$ count where
+Proposition~\ref{prop:condrate} needs only first--power divisibility; and the regime mismatch after
+Lemma~\ref{lem:reversal}, which was measured against $N$ rather than against this statement's own
+target, and is smaller than it. The operative blocker was the pretentious distance, and
+Lemma~\ref{lem:swdirect} supplies it.)}
+For every $\delta>0$,
 \[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}
-    \;\ll\;\frac{N\log\log N}{(\log N)^{1/4}}. \]
-The squarefree restriction is inherited from Theorem~\ref{thm:a9} and from
-Lemma~\ref{lem:charcancel}; an earlier revision stated this unrestricted.
-\end{corollary}
+    \;\ll_\delta\;N\,\frac{(\log\log N)^{1/2+\delta}}{(\log N)^{1/4}}, \]
+and the same for $m'+2m$. The squarefree restriction is inherited from Theorem~\ref{thm:a9} and from
+Lemma~\ref{lem:charcancel}; an earlier revision stated this unrestricted. The implied constant is
+ineffective, through Siegel.
+\end{theorem}
+\begin{proof}
+Run the sieve of Proposition~\ref{prop:condrate} at
+$P=(\log N)^{1/4}(\log\log N)^{1/2}$, with $\mathcal P$ the primes in $(P/2,P]$ and
+$\Pi=|\mathcal P|\gg P/\log P$; here $\log P\asymp\log\log N$. The expanded square and its five
+terms are exactly as there, and we bound each after dividing by $\Pi^2$.
+
+\emph{The distance, at these moduli.} Every modulus arising is $r=pq\le P^2\ll(\log N)^{1/2}\log\log N$,
+so Lemma~\ref{lem:swdirect} applies with $A=1$. For the character sums it gives, at
+$g_t(a)=\chi(a)e_r(ta^{-1})$ and hence $|\widehat g_0|=\sqrt r/\varphi(r)=o(1)$,
+$M\ge(1-o(1))\log\log N$; for the deficit sums, at $g_{s,t}(a)=e_p(sa^{-1})e_q(ta^{-1})$ and hence
+$|\widehat g_0|\le\max\bigl(\tfrac1{p-1},\tfrac1{q-1}\bigr)\le2/(P-2)=o(1)$, the same. In both cases
+Hal\'asz (Montgomery's form, $T=\log N$) gives
+$N(1+M)e^{-M}+N(\log N)^{-1/2}\ll N(\log N)^{-1+o(1)}+N(\log N)^{-1/2}\ll N(\log N)^{-1/2}$: the
+floor binds.
+
+\emph{The five terms.} The diagonal contributes the main term $N/\Pi\asymp N\log P/P\asymp
+N(\log\log N)^{1/2}(\log N)^{-1/4}$, which is the stated bound. The character term is
+$\Pi^{-2}\sum_{p\ne q}|T_{pq}|\le\max_{p\ne q}\sqrt{pq}\cdot\max_t|S_t|\ll 2P\cdot N(\log N)^{-1/2}
+\asymp N(\log\log N)^{1/2}(\log N)^{-1/4}$, the same order --- this is what fixes $P$, the balance
+$N\log P/P\asymp PN(\log N)^{-1/2}$ giving $P\asymp(\log N)^{1/4}(\log\log N)^{1/2}$. The correction
+$|E_{pq}|\le4N/P$ contributes $\ll N(\log N)^{-1/4}(\log\log N)^{-1/2}$, smaller by $\log\log N$. For
+the two divisibility terms, note first that no $p^2$--count is needed and Lemma~\ref{lem:localsq}
+does not enter: what the sieve requires is $\#\{m:p\mid a_m\}\ll N/\Pi$, weaker than $N/p$ by the
+factor $\log P$, and the two--prime count needs nothing at all, since
+$\#\{m:p\mid a_m,\ q\mid a_m\}\le\#\{m:p\mid a_m\}$ makes
+$\sum_{p\ne q}\#\{\cdots\}\le\Pi\sum_p\#\{\cdots\}$. By the detector identity of
+Lemma~\ref{lem:deficit} --- whose $1/(pq)$ prefactor cancels the $pq-1$ non--principal terms exactly,
+with no $\sqrt r$ amplification --- and the distance bound above,
+$\#\{m:p\mid a_m\}\le N/p+\max_{s\ne0}|S_s|\ll N/p+N(\log N)^{-1/2}\ll N/\Pi$, as required. Every
+non--diagonal term is therefore at most the main term, and dividing by $\Pi^2$ gives the bound.
+The proof in fact delivers the sharper exponent $\tfrac12$ on $\log\log N$; the $\delta$ in the
+statement is a deliberate weakening, so that no reader has to track which constants are absolute.
+The plus case is identical with $c=-2$.
+\end{proof}
+
+\begin{remark}[Why this is stronger than the rate it replaces]\label{rem:a9rateimproved}
+Earlier revisions stated this corollary as $\ll N\log\log N(\log N)^{-1/4}$, balancing at
+$P\asymp(\log N)^{1/4}$. Carrying the balance properly against the Hal\'asz floor gives
+$P\asymp(\log N)^{1/4}(\log\log N)^{1/2}$ and a bound better by $(\log\log N)^{1/2}$. Compared with
+Proposition~\ref{prop:condrate}, which remains the statement proved without
+Lemma~\ref{lem:swdirect}, the gain is a full quarter--power of $\log N$: that proposition's ceiling
+is $N(\log\log\log N)^{2+o(1)}/\log\log N$, and no choice of $P$ improves it while the distance is
+estimated through the character expansion.
+\end{remark}
 \begin{proof}[Sketch, conditional on a uniform-in-$r$ form of Lemma~\ref{lem:charcancel}]
 Take $\mathcal{P}$ to be the primes in $(P,2P]$ with $P=P(N)$ to be chosen, so
 $\Pi\sim P/\log P$. The three terms of Theorem~\ref{thm:a9} are then
@@ -7134,8 +7251,8 @@ follows from Brun--Titchmarsh uniformly in $r$, and the $B$-side is governed by
 Theorem~\ref{thm:pairavg}. What remains is the coupling $P^{+}(n)<p$ and the dyadic bookkeeping, a
 Type I/II analysis that we have not carried out. Until it is, the power saving below is
 \textbf{CONJECTURAL}. The best unconditional rate proved here is
-Proposition~\ref{prop:condrate}'s $N(\log\log\log N)^{2+\varepsilon}/\log\log N$; Corollary~\ref{cor:a9rate}
-would be far stronger and remains conjectural.
+Theorem~\ref{cor:a9rate}'s $N(\log\log N)^{1/2+\delta}(\log N)^{-1/4}$; Proposition~\ref{prop:condrate}
+is what the character--expansion route gives without Lemma~\ref{lem:swdirect}.
 \end{remark}
 
 \begin{conjecture}[Power saving, pending the decomposition]\label{conj:power34}
