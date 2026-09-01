@@ -70,17 +70,22 @@ that needed proving was the easy direction all along.
 | atom | formalised | blocked on | what unblocks it |
 |---|---|---|---|
 | `lem:charcancelunif` ⭐ | no | Halasz's theorem, Siegel--Walfisz, Siegel's theorem, and the zero--free region -- none in Mathlib | a formal analytic number theory library at the level of `L`--function zero--free regions; genuinely a research contribution, not an oversight here |
-| `lem:deficit` ⭐ | algebraic layer only (`Deficit.lean`: `sigmaP_add_of_coprime`, `detector_mul_of_coprime`, `detector`, `ramanujan`, `principal_coeff`) | the same four analytic inputs | as above; the two star together or not at all |
+| `lem:deficit` ⭐ | algebraic layer only (`Deficit.lean`, 10 declarations: the algebraic core, enumerated in its docstring) | the same four analytic inputs | as above; the two star together or not at all |
 | `prop:condrate` / `thm:a9` ⭐ | no | the two lemmas above | as above |
 
 Three atoms are starred, and honestly so. One of the three is now partly formalised:
-`Deficit.lean` carries three lemmas from the algebraic layer of `lem:deficit` --- the additivity of
-`σ_p` that makes the detector multiplicative (and so admissible for Halász), the orthogonality that
-supplies the main term, and the Ramanujan sum with its reindexing and normalisation, giving the
-principal Fourier coefficient `-1/(p-1)` and hence the distance constant. It is **not** the whole
-algebraic layer: the Gauss-sum modulus for the non-principal coefficients, the CRT factorisation
-and the Parseval/Cauchy--Schwarz bound are algebraic too and are not formalised. The star stays,
-and what remains under it is more than the analytic half alone. `lem:charcancelunif` is the first result in this project
+`Deficit.lean` carries the algebraic **core** of `lem:deficit` --- ten declarations covering the
+additivity of `σ_p` that makes the detector multiplicative, the orthogonality that supplies the main
+term, the Ramanujan sum with its reindexing and normalisation giving the principal Fourier
+coefficient `-1/(p-1)`, the Gauss-sum identity, the generic sum-splitting behind the CRT step, and
+Cauchy--Schwarz. That last is where `√r · log L = o(L)`, and hence the range `r ≤ L²/(log L)^{2+ε}`
+of both uniform lemmas, comes from.
+
+It is **not** the whole algebraic layer, and this paragraph has now claimed that it was three times.
+Still unformalised and still not analytic: the detection identity in the form the proof uses, the
+term-by-term bookkeeping, `|τ(χ)| = √p` and the coefficient value it gives, the CRT step proper, the
+three-case bound on `|c_{ψ₀}|`, Parseval, and the closing size comparison. The star therefore covers
+more than the four analytic inputs, and the file's own docstring enumerates exactly what. `lem:charcancelunif` is the first result in this project
 whose proof rests on deep analytic inputs. The lesson recorded above -- that "Mathlib does not carry
 it" is not the same as "it is hard" -- was tested here and, this once, does not apply: Halasz and
 Siegel are not elementary in disguise.

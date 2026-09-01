@@ -135,8 +135,8 @@ heuristic has no empirical support and cannot acquire any. **No proof either way
 ## Layout
 
 ```
-paper/   erdos307-core.pdf       — the paper (31 pp; the results)
-         erdos307-companion.pdf  — the companion (95 pp; explorations, closures, the square sieve and the density theorem)
+paper/   erdos307-core.pdf       — the paper (32 pp; the results)
+         erdos307-companion.pdf  — the companion (96 pp; explorations, closures, the square sieve and the density theorem)
          erdos307.tex            — the single source both are generated from
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md

@@ -3888,11 +3888,16 @@ cited Lemma~\textup{\ref{lem:localsq}} in the form $\#\{m\le N:p^2\mid a_m\}\ll 
 the one that lemma explicitly disowns, since its implied constant depends on $p$ while $p$ here grows
 with $N$; the citation is withdrawn and the error term is not controlled at this range.
 
-\emph{Regime caveat.} That $O(1)$ holds only at $p\asymp N^{1/2}$. The application in
-Corollary~\ref{cor:a9rate} balances at $P\asymp(\log N)^{1/4}$, where the same estimate gives
-$N/p^2\asymp N/(\log N)^{1/2}$, which is not $O(1)$ and is not $o(N)$ either. The two regimes are
-disjoint, so this lemma does not supply the error control that corollary needs. This is a second,
-independent reason for the label \textsc{conjecture} carried there.
+\emph{Regime caveat, and its retraction.} That $O(1)$ holds only at $p\asymp N^{1/2}$; at
+$P\asymp(\log N)^{1/4}$ the same estimate gives only $N/p^2\asymp N/(\log N)^{1/2}$. Two earlier
+revisions read that as a second, independent reason for the \textsc{conjecture} label on
+Corollary~\ref{cor:a9rate}. It is not, for two reasons. The comparison there was made against $N$,
+whereas the benchmark is that corollary's own target $N\log\log N(\log N)^{-1/4}$, against which
+$N(\log N)^{-1/2}$ is \emph{smaller} --- an error term below the claimed rate cannot obstruct it.
+And the corollary does not travel this route at all: re--derived as in
+Proposition~\ref{prop:condrate} it needs no kernel reversal, and Proposition~\ref{prop:circular}
+shows the reversal is no reduction in any case. The operative blocker is recorded at the corollary
+itself.
 \end{lemma}
 \begin{proof}
 If $\gcd(a_m,r)=1$ then $(a_m/r)=(\pm1/r)(k_m/r)(s_m/r)^2=(\pm1/r)(k_m/r)$. The two sides can differ
@@ -4791,13 +4796,18 @@ above is the $r$--\emph{uniform form of one input}, the $\log L$ bound, whose lo
 $L(1,\psi)$ away from $0$ and has only $L(1,\psi)\gg r^{-1/2}$ effectively or $\gg_\varepsilon
 r^{-\varepsilon}$ by Siegel, ineffectively. That is \emph{not} the same as the uniform form of the
 lemma being false, and the distinction turned out to be the whole opening: the obstruction is
-\emph{range--dependent}. At $r\le(\log\log N)^2$ one has $\log r\asymp\log\log\log\log N$,
-so even a Siegel--worst--case $|\log L(1,\psi)|$ costs $\varepsilon\log r+O_\varepsilon(1)$, which is
-negligible against the main term $\log\log N$; that is Lemma~\ref{lem:charcancelunif}, and with
-Lemma~\ref{lem:deficit} it proves Theorem~\ref{thm:a9} with a rate. What the erratum forecloses is
+\emph{range--dependent}. At $r\le(\log\log N)^2$ one has $\log r\le2\log\log\log N$, so even a
+Siegel--worst--case $|\log L(1,\psi)|$ costs $\eta\log r+O_\eta(1)$, which is negligible against the
+main term $\log\log N$; that is Lemma~\ref{lem:charcancelunif}, and with Lemma~\ref{lem:deficit} it
+proves Theorem~\ref{thm:a9} with a rate. One caveat on how much this explains: at the far larger
+moduli of Corollary~\ref{cor:a9rate} the $L$--function bound does also fail, but it is not what
+binds there. Even an $O(1)$ per--character bound would leave the requirement
+$\sqrt{\varphi(r)}=o(\log\log N)$, from the \emph{coefficient mass} rather than from any
+$L$--function; see the blocker recorded at that corollary. What the erratum forecloses is
 uniformity at the far larger $r$ that Corollary~\ref{cor:a9rate} needs, where $\log r$ is comparable
-to the main term; that corollary is also independently blocked by the regime mismatch recorded after
-Lemma~\ref{lem:reversal}, so it keeps the label \textsc{conjecture}.
+to the main term. That corollary keeps the label \textsc{conjecture}, but for the single reason
+recorded there, which is neither this one nor the regime mismatch after
+Lemma~\ref{lem:reversal}: both of those were retracted.
 \end{remark}
 
 \begin{lemma}[Cancellation, uniform at polyloglog moduli]\label{lem:charcancelunif}
@@ -5144,17 +5154,71 @@ $r=3\cdot5\cdots23=111{,}546{,}435$ with $\varphi(r)/r=0.3272$. The corollary be
 stated as a \textsc{conjecture} and its argument is a sketch of what a uniform version would give,
 not a proof.
 
+\begin{remark}[The ceiling of the method, and the one input that would break it]\label{rem:a9ceiling}
+Two things are worth recording about how far Proposition~\ref{prop:condrate} can be pushed, since
+the same accounting error was made twice in this paper's history.
+
+\emph{The ceiling.} The binding constraint there is again the coefficient mass:
+$\sqrt{pq}\cdot O(\log\log\log N)=o(\log\log N)$, that is $P=o(L/\log L)$ with $L=\log\log N$. The
+proposition takes $P=L/(\log L)^{1+\varepsilon}$, which is short of that ceiling by $(\log L)^{\varepsilon}$
+--- exactly as the earlier edition of Lemma~\ref{lem:charcancelunif} was short of \emph{its}
+ceiling by $L^{\delta}$. Taking $P=L/(\log L\,w(L))$ for any $w\to\infty$ gives
+\[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m=\square>0\}\;\ll\;N\,\frac{(\log\log\log N)^2\,w(\log\log N)}{\log\log N}, \]
+so the true ceiling of the method is $N(\log\log\log N)^{2+o(1)}/\log\log N$ with the $o(1)$
+positive, unremovable, and arbitrarily slow. We state the proposition with a fixed $\varepsilon$
+because it is the usable form; the sharpening is asymptotic and worth nothing numerically. What
+matters is the shape: \emph{no} choice of $P$ puts a power of $\log N$ in the denominator, so this
+method cannot reach Corollary~\ref{cor:a9rate} however it is tuned.
+
+\emph{The one input that would.} Both walls --- this one and the corollary's --- are the same
+$\sqrt{\varphi(r)}$ paid when the phase $\ell\mapsto e_r(t\ell^{-1})$ is expanded in multiplicative
+characters. A direct estimate would remove it outright:
+\[ \sum_{\ell\le X}e_p(s\ell^{-1})\,\ell^{-1-i\tau}\;=\;o(\log\log X), \qquad
+   \text{uniformly for } s\not\equiv0\ (p),\ |\tau|\le\log X,\ p\le(\log X)^{A}. \]
+This is a Weil--type bound for a phase over \emph{primes} whose argument is an inverse rather than a
+polynomial. With it, $M\ge(1-o(1))\log\log N$ holds at $p\asymp(\log N)^{1/4}$ and
+Corollary~\ref{cor:a9rate} follows as stated. It is the additive form of the same deficit
+Remark~\ref{rem:Ameasured} records for Hypothesis~\ref{hyp:sq}, and stating it as one question rather than
+two is the only consolidation this section offers.
+\end{remark}
+
 \begin{corollary}[A rate for $\mathrm{A}9$: \textsc{conjecture}]\label{cor:a9rate}
 This rate is far stronger than the unconditional
-Proposition~\ref{prop:condrate}, and remains conjectural. The uniformity in $r$ that it needs is now
-available --- that is Lemma~\ref{lem:charcancelunif} --- but only for
-$r\le(\log\log N)^2/(\log\log\log N)^{2+\varepsilon}$,
-whereas the balancing below sits at $P\asymp(\log N)^{1/4}$, incomparably larger; so the new lemma
-does not reach it. The second blocker is untouched: Lemma~\ref{lem:localsq} at $P=P(N)$ would have to
-be uniform in $p$ and is not, its $o(1)$ being driven by non--principal $L$--functions modulo $p^2$
-and ineffective in $p$. Theorem~\ref{thm:condpower} meets the same obstruction and sidesteps it with
-a divisor bound instead. Nothing in this paper depends on the statement, and what follows is a sketch
-of the balancing a uniform version at that range would permit rather than a proof.
+Proposition~\ref{prop:condrate} and remains conjectural, but the reason has been restated: two
+earlier revisions recorded two blockers, and neither was the operative one.
+
+\emph{What does not block it.} It was said to be blocked by Lemma~\ref{lem:localsq}, non--uniform in
+$p$. That is true of the sketch below, which inherits its $p^2$--count from
+Remark~\ref{rem:a9original}; it is not true of the corollary. Re--derived along the lines of
+Proposition~\ref{prop:condrate} --- which bounds $\sum_p(a_m\mid p)\ge\Pi-\#\{p\mid a_m\}$ and so
+needs only \emph{first}--power divisibility --- Lemma~\ref{lem:localsq} never enters;
+Theorem~\ref{thm:condpower} avoids it a third way, by a divisor bound. It was also said to be
+blocked by the regime mismatch after Lemma~\ref{lem:reversal}. That belongs to the kernel
+reformulation, which this corollary does not use --- and which Proposition~\ref{prop:circular} shows
+is no reduction at all --- and in any case that mismatch's error $N(\log N)^{-1/2}$ is
+\emph{smaller} than the rate claimed here, so it could not block it: the comparison there was made
+against $N$, which no term in a rate argument need beat.
+
+\emph{What does block it.} One thing only, and it is the pretentious distance. At
+$P\asymp(\log N)^{1/4}$ every other term clears from the bare Hal\'asz floor $N(\log N)^{-1/2}$,
+which is already smaller than the target $N\log\log N(\log N)^{-1/4}$. What is required is
+$M\ge(\tfrac12+\delta)\log\log N$, uniformly for $r\le(\log N)^{1/2}$ and $|\tau|\le\log N$: the
+sketch below carries the expansion loss $\sqrt r\le2P$, so Hal\'asz must supply
+$\sqrt r\,e^{-M}\lesssim(\log N)^{-1/4}$ and not merely $e^{-M}\lesssim(\log N)^{-1/4}$ --- and that
+factor is the very reason $P$ balances at $(\log N)^{1/4}$, so it cannot be dropped. What is
+available is $M\ge\log\log N-\sqrt{\varphi(r)}\cdot O(\log\log\log N)$, vacuous once
+$\sqrt r\log\log\log N\gtrsim\log\log N$. The shortfall, measured by $\sqrt r\log L/L$ with
+$L=\log\log N$, is
+$1.12$, $6.24$, $130.5$, $1.9\times10^6$ at $\log\log N=5,14,28,69$
+\textup{(\texttt{code/wall\_check.gp})}. And it is not an artefact of Cauchy--Schwarz. For prime
+$r$, $|c_\psi|=\sqrt{\operatorname{cond}(\chi\psi)}/(r-1)$, so all but one of the $r-1$ coefficients
+equal $\sqrt r/(r-1)$; the exception is $\psi=\chi$, where $\chi\psi=\chi_0$ has conductor $1$ and
+$|c_\psi|=1/(r-1)$. Hence
+$\sum_{\psi\ne\psi_0}|c_\psi|=\bigl((r-3)\sqrt r+1\bigr)/(r-1)=\sqrt r\,(1+O(1/r))$: the mass really
+is of order $\sqrt r$, and Cauchy--Schwarz is losing nothing. Nor would a better $L$--function input help --- an $O(1)$ per--character bound
+still leaves $\sqrt{\varphi(r)}=o(\log\log N)$, hence $P=o(\log\log N)$, short of
+$(\log N)^{1/4}$ by the same exponential. Nothing in this paper depends on the statement, and what
+follows is the original sketch rather than a proof.
 \[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}
     \;\ll\;\frac{N\log\log N}{(\log N)^{1/4}}. \]
 The squarefree restriction is inherited from Theorem~\ref{thm:a9} and from
