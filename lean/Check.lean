@@ -1,4 +1,5 @@
 import Erdos307.Barrier
+import Erdos307.Deficit
 import Erdos307.Breeder
 import Erdos307.Bridge
 import Erdos307.Campaign
@@ -454,3 +455,14 @@ open Erdos307
 #print axioms Erdos307.split_outside_window
 #print axioms Erdos307.mass_prod_ge_one_of_le
 #print axioms Erdos307.mass_from_divisibility
+
+-- Deficit.lean: the algebraic core of `lem:deficit`
+#print axioms Erdos307.sigmaP_one
+#print axioms Erdos307.sigmaP_add_of_coprime
+#print axioms Erdos307.detector_mul_of_coprime
+#print axioms Erdos307.detector
+#print axioms Erdos307.ramanujan
+#print axioms Erdos307.principal_coeff
+#print axioms Erdos307.gaussSum_modulus
+#print axioms Erdos307.coeff_factor
+#print axioms Erdos307.sum_nonprincipal_le

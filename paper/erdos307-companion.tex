@@ -4901,15 +4901,15 @@ each by a session that did not write the text. The first two found five defects 
 principal--coefficient value false in one of three cases, and a numerical certificate that tested the
 wrong congruence with a silently inoperative coprimality filter --- all repaired; the third found
 nothing, which is what the label records.)}
-Let $\varepsilon>0$, $c\in\{2,-2\}$, $L=\log\log N$ and $P=L/(\log L)^{1+\varepsilon}$. Uniformly
-for primes $p\ne q$ in $(\tfrac12P,P]$, with implied constants that depend only on $\varepsilon$ and
-are ineffective,
+Let $c\in\{2,-2\}$, $L=\log\log N$, and $P=L/(\log L\,w(L))$ with $w(L)\to\infty$. Uniformly
+for primes $p\ne q$ in $(\tfrac12P,P]$, with implied constants that depend only on $w$ and are
+ineffective,
 \[ \#\{m\le N:\ \mu^2(m)=1,\ \gcd(m,p)=1,\ \sigma_p(m)\equiv c\ (\mathrm{mod}\ p)\}\ \ll\ N/p, \]
 \[ \#\{m\le N:\ \mu^2(m)=1,\ \gcd(m,pq)=1,\ \sigma_p(m)\equiv c\ (\mathrm{mod}\ p)\ \text{and}\
    \sigma_q(m)\equiv c\ (\mathrm{mod}\ q)\}\ \ll\ N/(pq). \]
 \end{lemma}
 \begin{proof}
-Here $p,q\in(P/2,P]$ and $pq\le P^2=L^2/(\log L)^{2+2\varepsilon}$, inside
+Here $p,q\in(P/2,P]$ and $pq\le P^2=L^2/(\log L\,w(L))^2$, inside
 Lemma~\ref{lem:charcancelunif}'s range. Recall
 $\sigma_p(m)=\sum_{\ell\mid m}\ell^{-1}\bmod p$, so that $e_p\bigl(t\sigma_p(m)\bigr)
 =\prod_{\ell\mid m}e_p(t\ell^{-1})$ is multiplicative in squarefree $m$.
@@ -4942,25 +4942,25 @@ $s,t\ne0$; $s\ne0,t=0$; $s=0,t\ne0$ give $|c_{\psi_0}|$ equal to $1/((p-1)(q-1))
 $1/(q-1)$ respectively, so in every case, both $p$ and $q$ exceeding $P/2$,
 \[ |c_{\psi_0}|\;\le\;\max\Bigl(\frac1{p-1},\frac1{q-1}\Bigr)\;\le\;\frac{2}{P-2}\;=\;o(1), \]
 whereas Parseval $\sum_\psi|c_\psi|^2=1$ gives, by Cauchy--Schwarz,
-$\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt{\varphi(pq)}\le\sqrt{pq}\le L/(\log L)^{1+\varepsilon}$.
+$\sum_{\psi\ne\psi_0}|c_\psi|\le\sqrt{\varphi(pq)}\le\sqrt{pq}\le L/(\log L\,w(L))$.
 
 \emph{The non--principal sums.} This is verbatim the corresponding step of
-Lemma~\ref{lem:charcancelunif}, at modulus $pq\le L^2/(\log L)^{2+2\varepsilon}$:
+Lemma~\ref{lem:charcancelunif}, at modulus $pq\le L^2/(\log L\,w(L))^2$:
 for $\psi\ne\psi_0$ and $|\tau|\le\log N$, partial summation against Siegel--Walfisz (legitimate
 since $pq\le L^2\le(\log N)^3$) replaces the truncated sum by $\log L(s,\psi^*)+O(1)$ at the
 inducing character, and the classical zero--free region gives
 $|\log L(s,\psi^*)|\ll\log\log(pq(3+|\tau|))\ll\log L$; in the exceptional case the same
 $\tau$--split applies, the branch $|\tau|\le1$ using
 $|s-\beta|>1-\beta\ge c(\eta)(pq)^{-\eta}$ for any fixed $\eta>0$, unrelated to the
-$\varepsilon$ of the range, and hence
+$w$ of the range, and hence
 $|\log(s-\beta)|\le\eta\log(pq)+O_\eta(1)\ll\eta\log L+O_\eta(1)$, and
 the branch $|\tau|>1$ needing no exceptional case. So $|S_\psi(\tau)|\ll\log L$ uniformly.
 
 \emph{Assembly and Hal\'asz.} Therefore
 \[ M\;=\;\min_{|\tau|\le\log N}\sum_{\ell\le N}\frac{1-\operatorname{Re}h_{s,t}(\ell)\ell^{-i\tau}}{\ell}
-   \;\ge\;\bigl(1-o(1)\bigr)L\;-\;O\bigl(L(\log L)^{-\varepsilon}\bigr)\;=\;\bigl(1-o(1)\bigr)L, \]
+   \;\ge\;\bigl(1-o(1)\bigr)L\;-\;O\bigl(L/w(L)\bigr)\;=\;\bigl(1-o(1)\bigr)L, \]
 the principal part costing at most $|c_{\psi_0}|L=o(L)$ and the non--principal part
-$O\bigl(L(\log L)^{-\varepsilon}\bigr)=o(L)$. Hal\'asz's theorem (Montgomery's form; absolute constants, and
+$O\bigl(L/w(L)\bigr)=o(L)$. Hal\'asz's theorem (Montgomery's form; absolute constants, and
 $h_{s,t}$ enters only through $|h_{s,t}|\le1$) with $T=\log N$ gives
 \[ |S_{s,t}(N)|\;\ll\;N(1+M)e^{-M}+N(\log N)^{-1/2}\;\ll\;N(\log N)^{-1/2}, \]
 the floor dominating since $(1+M)e^{-M}\ll(\log N)^{-1+o(1)}$. Finally
@@ -4985,14 +4985,17 @@ and silently dropped its coprimality filter.
 \end{proof}
 
 \begin{proposition}[A rate on the minus layer]\label{prop:condrate}
-For every $\varepsilon>0$,
+Write $L=\log\log N$. For every function $w$ with $w(L)\to\infty$, however slowly,
 \[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{a positive perfect square}\}
-   \;\ll_\varepsilon\;N\,\frac{(\log\log\log N)^{2+\varepsilon}}{\log\log N} , \]
+   \;\ll_w\;N\,\frac{(\log\log\log N)^2\,w(L)}{\log\log N} , \]
+which is the ceiling of the method \textup{(}Remark~\textup{\ref{rem:a9ceiling}}\textup{)}; in
+particular the bound $\ll_\varepsilon N(\log\log\log N)^{2+\varepsilon}/\log\log N$ holds for every
+fixed $\varepsilon>0$,
 and the same for $m'+2m$. In particular Theorem~\ref{thm:a9} follows with a rate, by an
 argument with no diagonalisation over $r$.
 \end{proposition}
 \begin{proof}
-Let $L=\log\log N$, $P=L/(\log L)^{1+\varepsilon}$, $\mathcal P$ the primes in $(P/2,P]$, $\Pi=|\mathcal P|\gg
+Let $P=L/(\log L\,w(L))$, $\mathcal P$ the primes in $(P/2,P]$, $\Pi=|\mathcal P|\gg
 P/\log P$, and $a_m=m'-2m$. First, $a_m\ne0$ for every squarefree $m$: $a_m=0$ forces
 $\sigma(m)=2$ exactly, impossible for $m>1$ since $\gcd(D(m),m)=1$ (Theorem~\ref{K-thm:structure})
 and $a_1=-2$. If $a_m$ is a positive square then $(a_m\mid p)\ne-1$ for every $p$, and
@@ -5006,15 +5009,16 @@ $\bigl|\sum_p(a_m\mid p)\bigr|\le\Pi$, which gives
    \;+\;\sum_p\#\{m:p\mid a_m\}, \]
 where $|E_{pq}|\le N/p+N/q\le4N/P$ collects the $m$ with $\gcd(m,pq)>1$, dropped from $T_{pq}$'s summation
 range exactly as in the argument for Theorem~\ref{thm:a9}. By
-Lemma~\ref{lem:charcancelunif} at $r=pq\le L^2/(\log L)^{2+2\varepsilon}$ (each $r$ odd squarefree,
+Lemma~\ref{lem:charcancelunif} at $r=pq\le L^2/(\log L\,w(L))^2$, inside its range once
+$w(L)\ge(\log L)^{\varepsilon/2}$ or by enlarging $w$ (each $r$ odd squarefree,
 $r\ge7$), $\sum_{p\ne q}|T_{pq}|\ll\Pi^2N(\log N)^{-2/5}$. By Lemma~\ref{lem:deficit} --- applicable because $p\mid m$ forces
 $a_m\equiv m'\equiv m/p\not\equiv0\pmod p$ for squarefree $m$, so the $m$ counted here are
 automatically coprime to $p$, and likewise to $pq$ in the two--prime count ---
 $\sum_p\#\{m:p\mid a_m\}\ll N\Pi/P\ll N/\log P$ and the two--prime sum is $\ll\Pi^2N/P^2\ll
 N/(\log P)^2$. Dividing by $\Pi^2$: the diagonal $\Pi N$ gives the main term
 $N/\Pi\ll N\log P/P$, and every other term is smaller. Since $\log P\asymp\log\log\log N$, the
-bound follows, $\log P\asymp\log L$ giving the numerator $(\log L)^{2+\varepsilon}$ after the
-$P$ in the denominator is written out. Note $\mu^2(m)$ and the coprimality conditions are carried inside every count;
+bound follows: $\log P\asymp\log L$, so $N\log P/P\asymp N(\log L)^2w(L)/L$. The fixed--$\varepsilon$
+form is the case $w=(\log L)^{\varepsilon}$. Note $\mu^2(m)$ and the coprimality conditions are carried inside every count;
 no M\"obius expansion is performed.
 \end{proof}
 
@@ -5170,16 +5174,32 @@ because it is the usable form; the sharpening is asymptotic and worth nothing nu
 matters is the shape: \emph{no} choice of $P$ puts a power of $\log N$ in the denominator, so this
 method cannot reach Corollary~\ref{cor:a9rate} however it is tuned.
 
-\emph{The one input that would.} Both walls --- this one and the corollary's --- are the same
-$\sqrt{\varphi(r)}$ paid when the phase $\ell\mapsto e_r(t\ell^{-1})$ is expanded in multiplicative
-characters. A direct estimate would remove it outright:
-\[ \sum_{\ell\le X}e_p(s\ell^{-1})\,\ell^{-1-i\tau}\;=\;o(\log\log X), \qquad
-   \text{uniformly for } s\not\equiv0\ (p),\ |\tau|\le\log X,\ p\le(\log X)^{A}. \]
-This is a Weil--type bound for a phase over \emph{primes} whose argument is an inverse rather than a
-polynomial. With it, $M\ge(1-o(1))\log\log N$ holds at $p\asymp(\log N)^{1/4}$ and
-Corollary~\ref{cor:a9rate} follows as stated. It is the additive form of the same deficit
-Remark~\ref{rem:Ameasured} records for Hypothesis~\ref{hyp:sq}, and stating it as one question rather than
-two is the only consolidation this section offers.
+\emph{Where the loss actually is, and what it is not.} Both walls --- this one and the corollary's
+--- are the same $\sqrt{\varphi(r)}$ paid when the phase $\ell\mapsto e_r(t\ell^{-1})$ is expanded
+in multiplicative characters. It is tempting to ask for a Weil--type bound for that phase over
+primes, and an earlier draft of this remark did. That framing is \emph{wrong}, and the error is
+worth recording. The phase depends only on $\ell\bmod p$, so
+\[ \sum_{\ell\le X}e_p(s\ell^{-1})\ell^{-1-i\tau}
+   \;=\;\sum_{a\not\equiv0}e_p(sa^{-1})\!\!\sum_{\substack{\ell\le X\\ \ell\equiv a\,(p)}}\!\!\ell^{-1-i\tau}, \]
+an exact reorganisation with no loss; its discrete Fourier transform is a Gauss sum, so a ``direct''
+estimate is the character expansion restated rather than an independent route. The Kloosterman
+literature over primes --- Fouvry--Michel, Fouvry--Kowalski--Michel, Garaev, Korolev, Irving --- is
+\emph{not} the relevant technology: every bound there is nontrivial only for modulus at least a fixed
+power of $X$, and ours is at most a power of $\log X$. Note also that the sum is not $o(\log\log X)$
+at fixed $p$: since $\sum_{a\not\equiv0}e_p(sa^{-1})=-1$, Mertens in progressions gives
+$-\log\log X/(p-1)+O(1)$, measured as $-0.2502$, $-0.1667$, $-0.0830$, $-0.0105$ at
+$p=5,7,13,101$ against $-1/(p-1)$
+\textup{(\texttt{code/inverse\_phase\_check.gp})}. That failure is confined to bounded $p$ and is
+harmless, $1/(p-1)$ being itself $o(1)$.
+
+What the same computation does show is that the \emph{accounting} is lossy: measured,
+$\max_s|\sum_{\ell\le10^6}e_p(s\ell^{-1})/\ell|$ is $1.04,1.17,1.35,1.32,1.33$ at
+$p=13,101,503,1009,2003$ --- flat, while $\sqrt p$ grows from $3.6$ to $44.8$. So the triangle
+inequality over characters discards almost everything, and the wall above is an artefact of that
+step rather than an arithmetic obstruction. Whether it can be avoided --- by applying
+Siegel--Walfisz to the residue classes directly, paying a factor $r$ against an error
+$\exp(-c\sqrt{\log t})$ rather than $\sqrt r$ against a bound on $\log L$ --- is open here, and is
+the single question whose answer would most improve everything in this section.
 \end{remark}
 
 \begin{corollary}[A rate for $\mathrm{A}9$: \textsc{conjecture}]\label{cor:a9rate}

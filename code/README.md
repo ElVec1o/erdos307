@@ -1,12 +1,13 @@
 # Computational scripts
 
-Python 3 with `sympy` and `numpy`. Every script is standalone (`python3 <name>.py`). All *verdicts*
-use exact integer/rational arithmetic; floating point is used only for pre-screening. Runtimes are
-approximate (a laptop).
+Rust and PARI/GP, with a few legacy Python scripts from the earliest sessions. Every script is
+standalone. All *verdicts* use exact integer/rational arithmetic; floating point is used only for
+pre-screening, and where a float appears in a printed constant the exact form is given beside it.
+Runtimes are approximate (a laptop).
 
-This table documents the 24 scripts the paper cites by name. `code/` holds 102 tracked files in
-total; the remainder are supporting Rust and GP sources reachable from those, and are not individually
-documented here.
+This table documents the scripts the paper cites by name. `code/` holds 162 tracked files in total;
+the remainder are supporting Rust and GP sources reachable from those, or superseded working
+scripts, and are not individually documented here.
 
 | Script | What it computes | Expected output | Time |
 |---|---|---|---|
@@ -49,3 +50,8 @@ arithmetic; floating point appears only in printed summaries.
 `region_shape.rs` (Rust, `rustc -O -o region_shape region_shape.rs`) measures the achievable region
 `{(σ(n),σ(n'))}` over squarefree `n ≤ N` with `n'` squarefree: reproduces `max r = 0.5535` and the
 danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
+| `uniform_min_sweep.gp` | The minimum of `1 − √r/φ(r)` over odd squarefree `r ≥ 7` (`lem:charcancelunif`). | `0.515877` at `r = 15`; `c₃ = 0.133975`, `c₅ = 0.440983`. | ~1 s |
+| `deficit_check.gp` | The finite-`X` deficit of `rem:charcancelsharp` at `r = 5`, under the correct normalisation (both sums over **all** `p ≤ X`). | `0.1399, 0.1401, 0.1402, 0.1402`; growth `0.440887 → c₅`. | ~30 s |
+| `deficit_numeric.gp` | `lem:deficit` measured: density of `σ_p(m) ≡ 2` over squarefree `m ≤ 2×10⁶`, one prime and two. | ratios in `[0.988, 1.023]` and `[0.997, 1.057]`. | ~2 min |
+| `wall_check.gp` | The wall blocking `cor:a9rate`: `√r log L / L` at `r ≍ (log N)^{1/2}`. | `1.12, 6.24, 130.5, 1.9×10⁶` at `L = 5, 14, 28, 69`. | ~1 s |
+| `inverse_phase_check.gp` | The inverse-phase prime sum of `rem:a9ceiling`: drift at fixed `p`, and `max_s|S|` against `√p`. | drift matches `−1/(p−1)`; `max_s|S| ≈ 1.0–1.35` flat while `√p` grows `3.6 → 44.8`. | ~4 min |

@@ -45,6 +45,9 @@ chk "COVERAGE declarations"   "$decls" "$(grep -oE '\*\*[0-9]+ declarations' lea
 chk "COVERAGE module count"   "$mods"  "$(grep -oE 'across all [0-9]+ modules' lean/COVERAGE.md | grep -oE '[0-9]+')"
 chk "COVERAGE file count"     "$mods"  "$(grep -oE '\([0-9]+ files' lean/COVERAGE.md | grep -oE '[0-9]+')"
 
+codeN=$(git ls-files code | wc -l | tr -d ' ')
+chk "code/README file count" "$codeN" "$(grep -oE 'holds [0-9]+ tracked files' code/README.md | grep -oE '[0-9]+')"
+
 err=$(grep -c '^! ' paper/erdos307-core.log paper/erdos307-companion.log 2>/dev/null | awk -F: '{s+=$2} END{print s+0}')
 chk "latex errors" "0" "$err"
 
