@@ -485,6 +485,40 @@ does not shorten that residual: the unknown is the divisor $\alpha\mid D$, of wh
 $2^{59}$, and the only $\alpha$--independent certificate is the Jacobi one already used.
 \end{remark}
 
+\begin{remark}[The sector barrier sharpened by $d'$, and a second derivation of $60$]\label{rem:sectordprime}
+The sector reading above uses only the mass. It can be sharpened, and the sharpening is what
+Bado \cite{Bado2026b} exploits at $d=42$. Since $e=d+qd'$, one has $\gcd(e,d)=\gcd(qd',d)=1$ and
+$\gcd(e,d')=\gcd(d,d')=1$, so
+\[ \operatorname{supp}(e)\ \text{avoids}\ \operatorname{supp}(d)\cup\operatorname{supp}(d')
+   \qquad\text{in every sector,} \]
+and the mass $\sigma(e)$, which is $1/\sigma(d)$ to many places, must be carried by primes drawn
+from a thinned set. Two further identities come with it, both immediate from $e'=qd$:
+$de-d'e'=d^2$ and $\sum_{r\mid e}1/r=d/d'-d^2/(d'e)$; and the associated defect
+$\Delta_d(R)=dR-d'R'$ satisfies $\Delta_d(Rr)=r\Delta_d(R)-d'R$ with terminal value
+$\Delta_d(e)=d^2$ \textup{(\texttt{code/sector\_general.gp}, symbolic in $d,d',q,R,R'$)}. When $d$
+is primary pseudoperfect, $d'=d-1$; that is the only reason those sectors look distinguished.
+
+Running the resulting bound sector by sector --- mass $d/d'$ from primes avoiding
+$\operatorname{supp}(d)\cup\operatorname{supp}(d')$, together with the parity constraint that $d$
+even forces $e$ odd and $\omega(e)$ even --- gives
+\[ \min_{d}\ \bigl(1+\omega(d)+\omega(e)\bigr)\ =\ 60, \]
+over all sectors $d$ built from primes up to $47$, attained at $d=15470=2\cdot5\cdot7\cdot13\cdot17$
+and at many others, among them the primary pseudoperfect $47058=2\cdot3\cdot11\cdot23\cdot31$
+\textup{(\texttt{code/sector\_dprime.gp})}. This is Theorem~\ref{K-thm:barrier}'s constant recovered
+by a route sharing nothing with its proof: that one is an exhaustive computation over the $49{,}961$
+admissible $59$--prime supports, this one a largest--prime descent and a reciprocal--mass count. It
+does not improve the barrier --- it bottoms out at exactly $60$ --- but two independent derivations
+of the same constant are worth recording, and the sectors where it is tight are where any
+improvement must act.
+
+At $d=42$ the mass bound alone gives $\omega(e)\ge62$ and $|U|\ge66$; \cite{Bado2026b} obtains
+$\omega(e)\ge64$ and $|U|\ge68$ by adjoining the residue conditions
+$\sum_{r\mid e}r^{-1}\equiv0\pmod 3$ and $\pmod 7$ and $\prod_{r\mid e}r\equiv1\pmod{41}$ and
+maximising over admissible supports. We have re-run that certificate independently, obtaining the
+same maximum and the same $51{,}281$ reachable states. The two primes it gains over the mass count
+are the part of the method that is doing new work.
+\end{remark}
+
 
 
 Three consequences, in increasing order of what they cost.
@@ -5603,6 +5637,8 @@ Combinatorial Number Theory}, Monogr.\ Enseign.\ Math.\ \textbf{28}, Geneva, 198
 Centennial}, Bolyai Soc.\ Math.\ Stud.\ \textbf{25}, Springer, 2013, pp.~289--309.
 \bibitem{Watanabe2020} T.~Watanabe, \emph{New examples of the representation of $1$ by the sum of
 reciprocals of semiprime numbers}, arXiv:2009.03275 (2020).
+\bibitem{Bado2026b} I.-O.~Bado, \emph{Primary-pseudoperfect sectors in two-cycles of the
+arithmetic derivative}, preprint (2026), communicated to the author.
 \bibitem{BloomShifted} T.~F.~Bloom, \emph{Unit fractions with shifted prime denominators}, Proc.\
 Roy.\ Soc.\ Edinburgh Sect.\ A (2024); arXiv:2305.02689.
 \bibitem{UfnarovskiAhlander2003} V.~Ufnarovski and B.~\AA hlander, \emph{How to differentiate a
