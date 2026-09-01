@@ -115,7 +115,9 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
   `≪ N (log log log N)^{2+ε} / log log N`. The squarefree restriction is not
   cosmetic — every tool is squarefree-only, and the unrestricted statement is **not** proved.
   The far stronger `≪ N log log N / (log N)^{1/4}` (`cor:a9rate`) needs uniformity at a much larger
-  range, remains **conjectural**, and is independently blocked.
+  range and remains **conjectural**, blocked by one thing only: the pretentious distance at moduli
+  `r ≤ (log N)^{1/2}`, where the coefficient mass `√φ(r)` overwhelms `log log N`. Two further
+  blockers recorded for it in earlier revisions are retracted in the paper.
 - **The 34 immune families are now unconditional.** Their primality was graded `[C]` because
   Baillie-PSW is rigorous only in its *composite* verdicts. APR-CL proves all 68 integers prime, and
   `certs/immune_ecpp.txt` archives **independently checkable ECPP certificates** for every one

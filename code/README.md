@@ -55,3 +55,4 @@ danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
 | `deficit_numeric.gp` | `lem:deficit` measured: density of `σ_p(m) ≡ 2` over squarefree `m ≤ 2×10⁶`, one prime and two. | ratios in `[0.988, 1.023]` and `[0.997, 1.057]`. | ~2 min |
 | `wall_check.gp` | The wall blocking `cor:a9rate`: `√r log L / L` at `r ≍ (log N)^{1/2}`. | `1.12, 6.24, 130.5, 1.9×10⁶` at `L = 5, 14, 28, 69`. | ~1 s |
 | `inverse_phase_check.gp` | The inverse-phase prime sum of `rem:a9ceiling`: drift at fixed `p`, and `max_s|S|` against `√p`. | drift matches `−1/(p−1)`; `max_s|S| ≈ 1.0–1.35` flat while `√p` grows `3.6 → 44.8`. | ~4 min |
+| `a9rate_consequences.sh` | Every place in the paper and README that would need revisiting if `cor:a9rate` stopped being conjectural. Mechanical, because hand-maintaining the list failed four review rounds. | ~1 s |
