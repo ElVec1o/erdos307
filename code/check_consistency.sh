@@ -32,8 +32,8 @@ for f in glob.glob('lean/Erdos307/*.lean'):
 print(len(labels & lean), len(labels))")
 stated=$(grep -o '\*\*[0-9]* of [0-9]*\*\*' lean/COVERAGE.md | head -1 | grep -o '[0-9]*' | head -1)
 stated_tot=$(grep -o '\*\*[0-9]* of [0-9]*\*\*' lean/COVERAGE.md | head -1 | grep -o '[0-9]*' | tail -1)
-chk "coverage covered" "$stated" "$cov"
-chk "coverage total" "$stated_tot" "$tot"
+chk "coverage covered" "$cov" "$stated"
+chk "coverage total" "$tot" "$stated_tot"
 
 # README and COVERAGE.md each carry their own copy of the declaration/module counts. Both drifted
 # once (README sat at 159/30 while the build was at 304/36), so both are recomputed here.
