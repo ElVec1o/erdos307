@@ -6943,7 +6943,16 @@ is no reduction at all --- and in any case that mismatch's error $N(\log N)^{-1/
 \emph{smaller} than the rate claimed here, so it could not block it: the comparison there was made
 against $N$, which no term in a rate argument need beat.
 
-\emph{What does block it.} One thing only, and it is the pretentious distance. At
+\emph{What does block it.} One thing only, and it is the pretentious distance --- in particular
+\emph{not} the deficit inputs, which is worth recording since Lemma~\ref{lem:deficit} is stated only
+for $p\asymp\log\log N$ and its closing step fails at exactly this $P$. That failure is irrelevant:
+what the sieve needs here is not $\#\{m:p\mid a_m\}\ll N/p$ but only $\ll N/\Pi\asymp N\log P/P$,
+weaker by the whole factor $\log P$; and the two--prime count needs nothing at all, since
+$\#\{m:p\mid a_m,\,q\mid a_m\}\le\#\{m:p\mid a_m\}$ makes
+$\sum_{p\ne q}\#\{\cdots\}\le\Pi\sum_p\#\{\cdots\}\ll\Pi N$ automatically. The detector also costs
+nothing extra here: its $1/(pq)$ prefactor exactly cancels the $pq-1$ non--principal terms, with no
+$\sqrt r$ amplification of the kind $|T_r|\le\sqrt r\max_t|S_t|$ carries --- which is why the deficit
+side is the easier of the two. At
 $P\asymp(\log N)^{1/4}$ every other term clears from the bare Hal\'asz floor $N(\log N)^{-1/2}$,
 which is already smaller than the target $N\log\log N(\log N)^{-1/4}$. What is required is
 $M\ge(\tfrac12+\delta)\log\log N$, uniformly for $r\le(\log N)^{1/2}$ and $|\tau|\le\log N$: the
