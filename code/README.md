@@ -5,7 +5,7 @@ standalone. All *verdicts* use exact integer/rational arithmetic; floating point
 pre-screening, and where a float appears in a printed constant the exact form is given beside it.
 Runtimes are approximate (a laptop).
 
-This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 248 tracked files in total;
+This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 250 tracked files in total;
 the remainder are supporting Rust and GP sources reachable from those, or superseded working
 scripts, and are not individually documented here.
 
@@ -67,6 +67,8 @@ danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
 | `sector_kexclude.rs` | `prop:ppnsectors`: decides `ω(e) = k` in ANY sector `d` by the generalised forced-prime identity (`rustc -O`). Regression: reproduces the `d=42`, `k=64` phase-2 figures exactly. | `d=42,k=62`: `175`, `0`; `d=47058,k=54`: `41,654`, `0`; `d=2214502422,k=70`: `11,646`, `0`. | < 1 s each |
 | `sector_at60.gp` | The sectors whose mass floor is exactly `\|P∪Q\| = 60`, with run parameters. | `250` at primes `≤ 47`/`ω ≤ 8`, all phase-1 decidable. | ~4 min |
 | `sector_at60_list.rs` | Emits the at-60 sectors with run parameters at any prime and `ω` cap; the `47`/`8` family is a proper subset of the `59`/`10` one. | `250` and `1,533`; sweep clears all `1,533`, `0` survivors. | ~2 min + ~40 min sweep |
+| `sector_floorlist.rs` | Emits sectors of a prescribed mass floor, with run parameters; used for the out-of-sample test of `conj:floorgap`. | target `60` at `47`/`8` gives `250` (regression); floors `61`–`68` give `271,132,168,120,140,118,123,86`. | ~1 min |
+| `sector_minfloor.rs` | The minimum mass floor over sectors. | `60`, at `d = 2·3·7·23·41`, over `109,293` sectors. | ~2 min |
 | `sector_at60_count.rs` | How many sectors can reach `\|P∪Q\| = 60` at their mass floor (`rustc -O`); the finiteness bound is `d ⊂` the `138` primes `≤ 787`. | `250` at primes `≤ 47`/`ω ≤ 8` (matching `sector_at60.gp`); `1,533` at `≤ 59`/`ω ≤ 10`. | seconds to minutes |
 | `sector_kexclude.gp` | The generalised identity `ℓ(dR − d'R') = d'R + d²`, symbolic and exact-rational. | `0` symbolically; `0` violations at each sector. | ~2 s |
 | `sector_size.rs` | How many prime sets the sector enumerator would test, by a counting DP over binned mass (`rustc -O`); calibrated on the real `k=64` run. | predicts `3.49e10` vs `3.69e10` actual; `k=66` needs `8.0e15` (~16 years). | ~1 min |

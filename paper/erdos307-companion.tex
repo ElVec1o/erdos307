@@ -30,7 +30,7 @@
 \title{Companion to \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau}:\\ explorations, closures and the square sieve}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.55.0\quad 2 September 2026}
+\date{Version 1.56.0\quad 2 September 2026}
 
 \externaldocument[K-]{erdos307-core}
 \begin{document}
@@ -667,6 +667,26 @@ behaves like a binomial $\binom{\pi(B)}{\omega}$. With the true bounds $B=787$ a
 family is finite but of order $\binom{138}{58}$, and enumerating it is not possible. Clearing sectors
 one at a time therefore strengthens the statement at each step and cannot reach the barrier. Finiteness here converts the sector programme into a
 computation of the same order as the one it was meant to replace.
+
+Across every sector enumerated so far the floor value of $\omega(e)$ is not attained, and that is a
+falsifiable statement in its own right.
+
+\begin{conjecture}[The floor gap]\label{conj:floorgap}
+For every squarefree $d$, no two--cycle in the sector $d$ has $\omega(e)$ equal to the mass floor
+$K(d)$, the least $k$ with $S_k(d)\ge d/d'$.
+\end{conjecture}
+
+The evidence is $5{,}680$ sectors with no attained floor: the $1{,}533$ of mass floor $60$ over primes
+at most $59$, a further $3{,}600$ of the family over primes at most $71$, the three sectors of
+Proposition~\ref{prop:ppnsectors}, and $480$ sectors of mass floor $61$ through $68$ over primes at
+most $47$, the last of these a range disjoint from all the others and tested after the statement was
+fixed. Its consequence is that the barrier would move: the minimum of $1+\omega(d)+K(d)$ over sectors
+is $60$, attained at $d=2\cdot3\cdot7\cdot23\cdot41$ and checked over $109{,}293$ sectors, so with the
+conjecture and the parity of Proposition~\ref{prop:ppnsectors} every sector would give
+$|P\cup Q|\ge62$. We record that the obvious heuristic does not explain it: the integrality
+$\Delta_d(R)\mid d'R+d^2$ has probability of order $1/\Delta_d(R)$, which is negligible at every
+$\omega(e)$ and not only at the floor, so a proof would have to use something the floor has and the
+rungs above it do not.
 
 The ladder does not continue cheaply. In every sector the first rung above the mass floor is small
 --- the three counts above --- and the next requires the two-phase machinery of
