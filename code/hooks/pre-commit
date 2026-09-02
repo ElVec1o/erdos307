@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# pre-commit -- refuse any commit that leaves the repository internally inconsistent (V4 Rule 11).
+#
+# This exists because a shell chain of the form
+#     out=$(bash code/check_consistency.sh); ... ; git commit ... && git push
+# runs the commit regardless of the gate's exit status, and did: v1.46.0 was pushed with a stale PDF.
+# release.sh refuses on a failing gate, but release.sh is not what makes the commit.  The gate has to
+# sit where it cannot be stepped over.
+#
+# Install: bash code/install_hooks.sh      Bypass (deliberate, e.g. a WIP branch): git commit --no-verify
+set -uo pipefail
+root="$(git rev-parse --show-toplevel)"
+cd "$root" || exit 1
+[ -x code/check_consistency.sh ] || [ -f code/check_consistency.sh ] || exit 0
+printf 'pre-commit: running the consistency gate\n'
+if out=$(bash code/check_consistency.sh 2>&1); then
+  printf 'pre-commit: CONSISTENT\n'
+  exit 0
+fi
+printf '%s\n' "$out" | grep -iE '^ *FAIL|MISSING' || true
+cat <<'MSG'
+
+pre-commit: REFUSED. The gate reports drift, so this commit would leave the repository
+internally inconsistent. Fix the failing checks above, or commit with --no-verify if the
+inconsistency is deliberate and recorded.
+MSG
+exit 1
