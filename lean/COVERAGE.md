@@ -1,6 +1,6 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**83 of 147** labelled results are named by a Lean file in `Erdos307/` (63 files, **0 `sorry`**).
+**83 of 148** labelled results are named by a Lean file in `Erdos307/` (63 files, **0 `sorry`**).
 
 `lake env lean Check.lean` probes **432 declarations across all 63 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
@@ -182,6 +182,7 @@ The result *is* a number a program produces.
 | `prop:mod72` | A difference--36 congruence modulo 72 |
 | `prop:multiplier` | Gaussian multiplier form of the ladder |
 | `prop:novanish` | No vanishing derivatives, no transport, and the price of exactness |
+| `prop:oddsector` | Odd sectors keep the prime 2 only when omega(d) is odd |
 | `prop:oddthr` | Even--gap plus lines are empty below 3.23times10^9 |
 | `prop:pairform` | Pair form; the one--equation relaxation |
 | `prop:plusinf` | Infinitely many gaps carry a nonempty plus line |

@@ -30,7 +30,7 @@
 \title{Companion to \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau}:\\ explorations, closures and the square sieve}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.57.0\quad 2 September 2026}
+\date{Version 1.58.0\quad 2 September 2026}
 
 \externaldocument[K-]{erdos307-core}
 \begin{document}
@@ -670,6 +670,27 @@ computation of the same order as the one it was meant to replace.
 
 Across every sector enumerated so far the floor value of $\omega(e)$ is not attained, and that is a
 falsifiable statement in its own right.
+
+\begin{proposition}[Odd sectors keep the prime $2$ only when $\omega(d)$ is odd]\label{prop:oddsector}
+Let $d$ be odd and squarefree. Then $d'\equiv\omega(d)\pmod2$. Consequently, if $\omega(d)$ is even
+then $2\mid d'$, so $2\mid dd'$ and $2\notin\operatorname{supp}(e)$ by
+Remark~\ref{rem:sectordprime}; the mass $d/d'$ must then be carried entirely by odd primes dividing
+neither $d$ nor $d'$.
+\end{proposition}
+\begin{proof}
+For odd squarefree $d$ each cofactor $d/p$ is a product of odd primes, hence odd, so
+$d'=\sum_{p\mid d}d/p$ is a sum of $\omega(d)$ odd terms and has the parity of $\omega(d)$. Verified
+with no violation on the $81{,}053$ odd squarefree $d<2\times10^5$.
+\end{proof}
+
+The cost of losing $2$ is not marginal, because $\tfrac12$ is the largest single contribution
+available: at $d=15015=3\cdot5\cdot7\cdot11\cdot13$, where $\omega(d)=5$ is odd and $2$ survives,
+$K(d)=127$, while at $d=255255=3\cdot5\cdot7\cdot11\cdot13\cdot17$, where $\omega(d)=6$ is even and
+$2$ is lost, $K(d)=1535$. Hence a sector with $d$ odd and $\omega(d)$ even has mass floor far above
+$60$, and every sector of mass floor $60$ with $d$ odd has $\omega(d)$ odd. That is what the
+enumeration shows: of the $16{,}234$ sectors of mass floor $60$ over primes at most $71$, the
+$4{,}846$ with $d$ odd have $\omega(d)\in\{9,11\}$ and none has $\omega(d)$ even, although nothing in
+the enumeration imposes it.
 
 \begin{conjecture}[The floor gap]\label{conj:floorgap}
 For every squarefree $d$, no two--cycle in the sector $d$ has $\omega(e)$ equal to the mass floor
