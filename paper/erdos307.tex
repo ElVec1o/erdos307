@@ -985,6 +985,19 @@ Proposition~\ref{prop:pairlocal} below, corroborated by a direct scan over all $
 unlike the single--tail family, the pair sector admits \emph{no} congruence obstruction at all. It
 is a genuine two--parameter surface per base, $\#307$ in miniature (Remark~\ref{rem:oneside});
 reciprocity cannot touch it, and only a direct both--squares search or a descent argument can.
+
+The sector is nevertheless an explicit finite object, and small. A level--$60$ support $U$ is covered
+by the one--new--prime campaign exactly when $T(U\setminus\{\max U\})>2$, the bases of
+Proposition~\ref{prop:close59} being the $59$--prime sets of mass exceeding $2$; the complement is
+$U=R\cup\{m\}$ with $|R|=59$, $m=\max U$ and $T(R)\le2<T(R)+1/m$. The mass ladder at $k=60$ puts
+every element of $R$ below $793.67\times2=1587.4$, so the complement is a search over $59$--subsets
+of the $250$ primes under $1588$ with $T(R)\in(2-1/\max R,\,2]$. There are exactly
+$18{,}234{,}653$ of them, the largest $\max R$ being $1583$ \textup{(\texttt{code/pairsector\_count.rs},
+corroborated by an independent binned counting DP in \texttt{code/pairsector\_countdp.rs})}. Each is
+an arity--\emph{one} tail family in $m$: Proposition~\ref{prop:pairlocal} denies a congruence kill to
+the family with both new primes free, not to these, so the $q$--independent certificate does apply to
+each of the $18.2$ million bases. Whether it kills them is not settled here; the point is that the
+pair sector is a finite target of measured size against which the existing weapon is admissible.
 \end{remark}
 
 \begin{proposition}[The pair sector admits no congruence kill]\label{prop:pairlocal}
@@ -1191,7 +1204,12 @@ level demands a definite gap: $|U|\ge61$ needs $\sigma(a)>1.0799$, a full $8\%$ 
 That is why the mass mechanism is exhausted here rather than merely difficult. The only
 unconditional lower bound on the gap is $\sigma(a)-1=(a'-a)/a\ge1/a$, which is worthless at
 $a>10^{56}$; and $\sigma$ genuinely comes close to $1$ from above on very few primes, the
-Sylvester-type set $\{2,3,7,41\}$ giving $\sigma=1.00058\ldots$ with four. Nothing in the cycle
+Sylvester-type set $\{2,3,7,41\}$ giving $\sigma=1.00058\ldots$ with four. Indeed no bound in
+$\omega(a)$ alone can exist: the greedy Sylvester construction gives, for each $k$, squarefree $a$
+with $\omega(a)=k$ and $0<|\sigma(a)-1|$ doubly exponentially small in $k$ --- from below
+$1-\sigma=7.8\times10^{-592}$ at $k=12$, and from above $\sigma-1=4.6\times10^{-591}$ at the same
+$k$ \textup{(\texttt{code/sigma\_gap.gp})}. So $|\sigma(a)-1|\ge f(\omega(a))$ is false for every
+positive $f$, and the unconditional $1/a$ is of the right shape. Nothing in the cycle
 equations forbids $a'-a=1$. A barrier past $60$ must therefore come from a mechanism that bounds
 $\sigma(a)$ away from $1$ without appealing to the size of $U$ --- which is what
 Theorem~\ref{thm:barrier} does in the opposite direction --- and we know of none.

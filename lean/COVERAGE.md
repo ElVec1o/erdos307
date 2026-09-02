@@ -69,7 +69,7 @@ that needed proving was the easy direction all along.
 
 | atom | formalised | blocked on | what unblocks it |
 |---|---|---|---|
-| `lem:charcancelunif` ⭐ | no | Halasz's theorem, Siegel--Walfisz, Siegel's theorem, and the zero--free region -- none in Mathlib | a formal analytic number theory library at the level of `L`--function zero--free regions; genuinely a research contribution, not an oversight here |
+| `lem:charcancelunif` ⭐ | no | Halasz's theorem, Siegel--Walfisz, Siegel's theorem, and the zero--free region -- none in Mathlib | a formal analytic number theory library at the level of `L`--function zero--free regions; genuinely a research contribution, not an oversight here. Re-checked against mathlib `c5ea003` (2026-09-02): `LSeries/PrimesInAP` gives Dirichlet qualitatively and `NumberTheory/Chebyshev` some upstreamed pieces, but there is no prime number theorem, no zero--free region, no Siegel--Walfisz, and no Halász or pretentious theory anywhere in mathlib. The blockers stand unchanged |
 | `lem:deficit` ⭐ | algebraic layer only (`Deficit.lean`, 10 declarations: the algebraic core, enumerated in its docstring) | the same four analytic inputs | as above; the two star together or not at all |
 | `prop:condrate` / `thm:a9` ⭐ | no | the two lemmas above | as above |
 | `lem:swdirect` ⭐ | no | Siegel--Walfisz (hence Siegel), and Hal\'asz downstream | as above; it needs strictly *fewer* analytic inputs than `lem:charcancelunif` --- no zero--free region, no `L`--function bound, no exceptional--zero split --- but Siegel--Walfisz alone is already far outside Mathlib |

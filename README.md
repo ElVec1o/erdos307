@@ -160,7 +160,7 @@ bound itself is proved here by a different route.
 
 ```
 paper/   erdos307-core.pdf       — the paper (32 pp; the results)
-         erdos307-companion.pdf  — the companion (100 pp; explorations, closures, the square sieve and the density theorem)
+         erdos307-companion.pdf  — the companion (101 pp; explorations, closures, the square sieve and the density theorem)
          erdos307.tex            — the single source both are generated from
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md
