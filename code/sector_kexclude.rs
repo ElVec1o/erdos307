@@ -30,7 +30,7 @@ fn is_prime(n: u64) -> bool { // deterministic Miller-Rabin, valid for all n < 2
     let mut d = n - 1; let mut s = 0; while d % 2 == 0 { d /= 2; s += 1; }
     'w: for &a in &[2u64, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37] { let mut x = powmod(a, d, n); if x == 1 || x == n - 1 { continue; }
         for _ in 1..s { x = mulmod(x, x, n); if x == n - 1 { continue 'w; } } return false; } true }
-struct Ctx { d: u64, dp: u64, d2: Big, allowed: Vec<u64>, inv: Vec<DD>, invf: Vec<f64>, pre_max: Vec<Vec<f64>>, suf_min: Vec<Vec<f64>>, t: DD,
+struct Ctx { d: u64, dp: u64, d2: Big, a_max: u64, allowed: Vec<u64>, inv: Vec<DD>, invf: Vec<f64>, pre_max: Vec<Vec<f64>>, suf_min: Vec<Vec<f64>>, t: DD,
     leaves: AtomicU64, in_window: AtomicU64, exact: AtomicU64, found: AtomicU64, min_delta: AtomicU64, max_hi2: AtomicU64, results: Mutex<std::fs::File> }
 #[derive(Clone, Copy, PartialEq, Eq)] struct Big([u64; 16]);
 impl Big {
@@ -92,7 +92,7 @@ fn dfs(ctx: &Ctx, i: usize, need: usize, mass: f64, sig: DD, s: &mut Vec<u64>, l
     dfs(ctx, i + 1, need, mass, sig, s, lo, hi, n, phase2);
 }
 fn phase2_leaf(ctx: &Ctx, s: &mut Vec<u64>, sig: DD) {
-    let allowed_max = *ctx.allowed.last().unwrap();
+    let allowed_max = ctx.a_max;
     let delta = dd_add(ctx.t, dd_neg(sig));
     // Soundness guard: delta = Delta(R)/(41 R) is an exact positive rational whenever the set is feasible, but it could in
     // principle be below double-double resolution.  Any set with delta.hi <= 1e-11 is resolved exactly and reported;
@@ -119,6 +119,7 @@ fn main() {
     let mut allowed = vec![]; let mut p = 2u64; while allowed.len() < 1500 { if is_prime_small(p) && d % p != 0 && dp % p != 0 { allowed.push(p); } p += 1; }
     let n = args.get(6).map(|s| s.parse().unwrap()).unwrap_or(197usize);
     let a_next = allowed[n];   // A_{N+1}, the first prime beyond the truncation
+    let a_max = allowed[n - 1]; // A_N, the largest allowed prime, read BEFORE the reordering below
     let a_kk = allowed[kk - 1]; // A_kk, the kk-th SMALLEST allowed prime, read BEFORE the reordering
                                 // below permutes `allowed`; using the permuted array here widened the
                                 // window at large N (inflating reported counts) and would narrow it,
@@ -139,7 +140,7 @@ fn main() {
     let fname = format!("k64_phase{}_results.txt", phase); let ckname = format!("k64_phase{}_done.txt", phase);
     let done: std::collections::HashSet<usize> = std::fs::read_to_string(&ckname).unwrap_or_default().lines().filter_map(|l| l.parse().ok()).collect();
     let mut d2 = Big::from_u64(d); d2 = d2.mul_small(d);
-    let ctx = Ctx { d, dp, d2, allowed, inv, invf, pre_max, suf_min, t, leaves: AtomicU64::new(0), in_window: AtomicU64::new(0), exact: AtomicU64::new(0), found: AtomicU64::new(0), min_delta: AtomicU64::new(f64::INFINITY.to_bits()), max_hi2: AtomicU64::new(0),
+    let ctx = Ctx { d, dp, d2, a_max, allowed, inv, invf, pre_max, suf_min, t, leaves: AtomicU64::new(0), in_window: AtomicU64::new(0), exact: AtomicU64::new(0), found: AtomicU64::new(0), min_delta: AtomicU64::new(f64::INFINITY.to_bits()), max_hi2: AtomicU64::new(0),
         results: Mutex::new(std::fs::OpenOptions::new().create(true).append(true).open(&fname).unwrap()) };
     eprintln!("phase {}: N={} A_N={} k={} window=[{:.9},{:.9}) threads={} resumed_items={}", phase, n, ctx.allowed[n - 1], k, lo, hi, nthreads, done.len());
     let items = 1usize << D; let done_ct = AtomicUsize::new(0); let next = AtomicUsize::new(0); let ck = Mutex::new(std::fs::OpenOptions::new().create(true).append(true).open(&ckname).unwrap());
