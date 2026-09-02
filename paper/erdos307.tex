@@ -29,7 +29,7 @@
        on products of prime--reciprocal sums}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.52.0\quad 2 September 2026}
+\date{Version 1.53.0\quad 2 September 2026}
 
 \begin{document}
 \maketitle
@@ -1427,12 +1427,12 @@ its proof: that one maximises mass over a $51{,}281$-state residue automaton, th
 $175$ prime sets and tests an integrality condition. Two independent derivations of the same bound.
 
 Running the same exclusion across sectors rather than up the ladder is what the identity really
-buys. Among all sectors $d$ that are squarefree with $\omega(d)\le8$ and every prime factor at most
-$47$, exactly $250$ have mass floor $|P\cup Q|=60$; in every one of them the floor value of
+buys. Among all sectors $d$ that are squarefree with $\omega(d)\le10$ and every prime factor at most
+$59$, exactly $1{,}533$ have mass floor $|P\cup Q|=60$; in every one of them the floor value of
 $\omega(e)$ is excluded, the largest enumeration being $41{,}654$ sets
 \textup{(\texttt{code/sector\_at60.gp}, \texttt{code/sector\_kexclude.rs})}. So
 \[ |P\cup Q|=60\ \text{is impossible in every such sector,} \]
-and any support of size $60$ must have $\omega(d)\ge9$ or a sector prime exceeding $47$. This does
+and any support of size $60$ must have $\omega(d)\ge11$ or a sector prime exceeding $59$. This does
 not move Theorem~\ref{thm:barrier}, whose $60$ is proved by a different route and over all supports;
 what it does is remove the entire low--$\omega$, small--prime part of the sector decomposition from
 the level--$60$ frontier.
@@ -1444,8 +1444,9 @@ $T_{58}+1/x\ge2$, so $x\le1/(2-T_{58})=793.6\ldots$; every prime up to $167$ lie
 $d$ is a subset of the $138$ primes at most $787$. So the question ``which sectors admit
 $|P\cup Q|=60$'' is a finite one. It is not, however, a small one: the count of sectors whose mass
 floor is exactly $60$ rises from $250$ over primes at most $47$ with $\omega(d)\le8$ to $1{,}533$
-over primes at most $59$ with $\omega(d)\le10$, and the full range carries the same $2^{58}$ split
-ambiguity as the tail families themselves. Finiteness here converts the sector programme into a
+over primes at most $59$ with $\omega(d)\le10$ (both now cleared, the smaller family being a subset
+of the larger), and the full range carries the same $2^{58}$ split ambiguity as the tail families
+themselves. Finiteness here converts the sector programme into a
 computation of the same order as the one it was meant to replace.
 
 The ladder does not continue cheaply. In every sector the first rung above the mass floor is small
@@ -5442,6 +5443,20 @@ exactly at a cycle. The content is therefore whether that range is non-empty.
 
 Below the barrier the criterion is not conjectural: it holds with the explicit value
 $\lambda=\tfrac12$, by an elementary inequality.
+
+\begin{remark}[The obstruction is to the shape of $\delta_\lambda$, not to $\lambda$]\label{rem:lyapshape}
+The closing of the admissible range of $\lambda$ is not special to a linear dependence on $\sigma$.
+Let $F(n)=\log n+G(\sigma(n))$ for an arbitrary $G$. Since $n'=n\,\sigma(n)$, one step gives
+\[ F(n')-F(n)\;=\;\log\sigma(n)+G\bigl(\sigma(n')\bigr)-G\bigl(\sigma(n)\bigr), \]
+so around a two--cycle $(a,b)$ the two $G$--terms telescope and the increments sum to
+$\log\bigl(\sigma(a)\sigma(b)\bigr)=0$ for \emph{every} $G$. A strictly decreasing $F$ of this shape
+would settle \#307, and none can be exhibited without already excluding cycles: the $G$--part
+cancels identically and only the mass identity survives. The relevant identity is
+$\sigma(n)\sigma(n')=n''/n$, so $\sigma(n)\sigma(n')=1$ holds exactly when $n''=n$: the configuration
+that defeats the class occurs at a cycle and nowhere else. Any Lyapunov argument must therefore use a
+potential that sees more of $n$ than $\sigma(n)$ alone.
+\end{remark}
+
 
 \begin{theorem}[The half-mass Lyapunov function]\label{thm:halflyap}
 Put $\delta(n)=\log n+\tfrac12\sigma(n)$. Let $n$ be squarefree with $n'$ squarefree. If
