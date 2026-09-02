@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**83 of 147** labelled results are named by a Lean file in `Erdos307/` (61 files, **0 `sorry`**).
+**83 of 147** labelled results are named by a Lean file in `Erdos307/` (62 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **425 declarations across all 61 modules**. Everything is on the
+`lake env lean Check.lean` probes **428 declarations across all 62 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
 closes level 60, was the last site off that footing; it and the `erdos307_sixty` that consumes it are
 now kernel-`decide`, as is the numeral bridge behind `card_ge_59` and `erdos307_barrier_closed`.
@@ -76,7 +76,7 @@ that needed proving was the easy direction all along.
 | `cor:a9rate` ⭐ | no | `lem:swdirect` plus the sieve | as above |
 | `prop:sector42` ⭐ | partly (`Sector42.lean`, 6 declarations: the forced-prime identity and its converse, the sign condition, the case-split inequality, the parity step, and the conclusion with the two finite computations as explicit hypotheses) | a certificate of `3.7e10` leaves has no Lean-checkable form; `native_decide` on the enumerator would need the search itself inside Lean | a verified checker for the pruned enumeration, on the pattern of `dfs_run` at level 60, but four orders of magnitude larger; not attempted |
 
-Six atoms are starred, and honestly so. One of the five is now partly formalised:
+Six atoms are starred, and honestly so. All six now have their non-analytic core formalised; what remains under each is analysis or a certificate too large to check, never algebra:
 `Deficit.lean` carries the algebraic **core** of `lem:deficit` --- ten declarations covering the
 additivity of `σ_p` that makes the detector multiplicative, the orthogonality that supplies the main
 term, the Ramanujan sum with its reindexing and normalisation giving the principal Fourier
@@ -95,7 +95,7 @@ Siegel are not elementary in disguise.
 
 A6 moved furthest this release: its divisor sums, their logarithmic form, and the range count are
 all formal, leaving the CRT root bound as the single remaining lemma. A7 moved in the previous
-release, to Weil alone -- and then past it. Six atoms are starred (see the table above); five are analytic, not algebraic, and stand or fall together; the sixth is a finite enumeration too large to certify.
+release, to Weil alone -- and then past it. Six atoms are starred (see the table above); five are analytic, not algebraic, and stand or fall together; the sixth is a finite enumeration too large to certify. Every one of the six now carries a machine-checked non-analytic core, so the star measures exactly the missing analysis and nothing else.
 
 ## Standing debt, and what has been carved off it
 
@@ -109,7 +109,7 @@ formalised as it is identified. What is machine-checked so far, per starred atom
 | `lem:deficit` ⭐ | `Deficit.lean` (10 declarations): the multiplicativity, orthogonality and Gauss-sum core | the four analytic inputs |
 | `prop:sector42` ⭐ | `Sector42.lean` (6 declarations): the forced-prime identity and its converse, the sign condition, the case split, the parity step | the `3.7 × 10¹⁰`-leaf enumeration |
 | `lem:charcancelunif` ⭐ | `CharCancel.lean` (6 declarations): the constant analysis. `√r/φ(r) = ∏ √p/(p-1)`; the factor `u ↦ u/(u²-1)` is antitone and below `1`, so only `ω(r) = 1` and `ω(r) = 2` need bounding; `√7/6 < 1/2` and `√15/8 < 1/2` settle them, and `√5/4 > 2/5`, `√3/2 > 1/2` show `r = 3, 5` are genuinely excluded. This is where the hypothesis `r ≥ 7` and the constant `1 - √15/8 = 0.515…` come from. | Halász and the zero-free region |
-| `prop:condrate` / `thm:a9` ⭐ | none yet | the two lemmas above |
+| `prop:condrate` / `thm:a9` ⭐ | `CondRate.lean` (3 declarations): the detector steps. That `a_m = m' - 2m` never vanishes on squarefree `m > 1` (it would force `m ∣ m'` against `gcd(m',m) = 1`); that a nonzero square has Legendre symbol `1` at every prime not dividing it; and the resulting lower bound `∑_p (a ∣ p) ≥ \|P\| - #{p ∣ a}` that the second moment is built on. | the two analytic lemmas above |
 | `cor:a9rate` ⭐ | `SieveBalance.lean` (3 declarations): that `P = (log N)^{1/4}(log log N)^{1/2}` is the exact balance point of the diagonal and character terms, and is optimal — so the exponent `1/4` is the true optimum of this sieve, not an artefact. | `lem:swdirect` plus Halász |
 
 Separately, one step that was never starred because it was never an atom — the soundness of the

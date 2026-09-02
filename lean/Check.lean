@@ -52,6 +52,7 @@ import Erdos307.Squarefree
 import Erdos307.StratumGeneral
 import Erdos307.StratumM30
 import Erdos307.CharCancel
+import Erdos307.CondRate
 import Erdos307.Certificate
 import Erdos307.PairSector
 import Erdos307.SieveBalance
@@ -503,3 +504,6 @@ open Erdos307
 #print axioms Erdos307.sieve_optimal
 #print axioms Erdos307.tail_root_antitone
 #print axioms Erdos307.tail_max_at_one
+#print axioms Erdos307.deriv_ne_two_mul
+#print axioms Erdos307.legendre_eq_one_of_sq
+#print axioms Erdos307.detector_sum_lower
