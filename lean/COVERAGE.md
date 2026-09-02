@@ -239,3 +239,21 @@ Someone else's theorem, used as an input.
 | `prop:gap` | Gap stratification: #307 as adjacency of mu--Sondow lines |
 | `prop:parityfloor` | Parity floor for odd line members |
 
+
+
+## Where the four analytic inputs actually stand (checked 2026-09-02)
+
+Not in Mathlib: `Mathlib.NumberTheory.LSeries.PrimesInAP` gives Dirichlet's theorem qualitatively and
+`Mathlib.NumberTheory.Chebyshev` gives partial Chebyshev bounds; there is no prime number theorem, no
+zero-free region, and no pretentious theory.
+
+Not in `PrimeNumberTheoremAnd` either, which is the frontier project for analytic number theory in
+Lean. A direct search of its source returns **zero** occurrences of `Siegel`, `Walfisz`, `Halasz`,
+`Halász` or `pretentious`. It does carry zero-free-region work, but for the Riemann zeta function
+(`ZetaBounds.lean`, `HoffsteinLockhart.lean`), not the uniform statement for Dirichlet `L`-functions
+that Siegel–Walfisz needs, and its `StrongPNT.lean` still carries `sorry`s.
+
+So none of the five analytic stars can be closed by importing existing work: the inputs do not exist
+in formalised form anywhere. Carving each proof down to precisely these four named theorems, which
+is what the table above records, is the furthest the debt can be reduced without formalising
+analytic number theory that has not been formalised by anyone.
