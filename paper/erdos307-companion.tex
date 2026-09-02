@@ -215,8 +215,22 @@ $18{,}234{,}653$ of them, the largest $\max R$ being $1583$ \textup{(\texttt{cod
 corroborated by an independent binned counting DP in \texttt{code/pairsector\_countdp.rs})}. Each is
 an arity--\emph{one} tail family in $m$: Proposition~\ref{prop:pairlocal} denies a congruence kill to
 the family with both new primes free, not to these, so the $q$--independent certificate does apply to
-each of the $18.2$ million bases. Whether it kills them is not settled here; the point is that the
-pair sector is a finite target of measured size against which the existing weapon is admissible.
+each of the $18.2$ million bases. The immunity of the pair sector is a consequence of its two free
+parameters, and fixing one of them buys the weapon back.
+
+That the sector is finite at all rests on $T(R)\ne2$: at $T(R)=2$ every $m$ would satisfy
+$T(R)+1/m>2$ and the tail would be unbounded. It cannot occur. If $2\notin R$ then $D$ is odd and each
+$D/p$ is odd, so $N=\sum_{p\mid D}D/p$ is a sum of $59$ odd terms and is odd; if $2\in R$ then $D/2$
+is odd and the other $58$ cofactors are even, so $N$ is again odd. Since $2D$ is even, $N\ne2D$
+\textup{(\texttt{Erdos307.mass\_ne\_two}; \texttt{code/pairsector\_parity.gp})}.
+
+Running the certificate over the sector kills $10{,}457{,}149$ of the $18{,}234{,}653$ bases
+($57.3\%$) by the Jacobi symbol alone, and trial division of $A_R$ and $B_R$ to $10^6$ closes a
+further $4{,}580{,}243$ of the survivors ($58.9\%$ of them): in total $15{,}037{,}392$, or $82.5\%$,
+with $3{,}197{,}261$ still open \textup{(\texttt{code/pairsector\_kill.rs}, \texttt{code/pairsector\_factor.rs}; the same
+code in campaign mode reproduces the $49{,}961$, $31{,}219$ and $18{,}742$ of the paragraph above
+exactly)}. The pair sector is therefore not a barrier of a different kind from the one--new--prime
+families: it is the same computation at $365$ times the scale, and it responds to the same weapon.
 \end{remark}
 
 \begin{proposition}[The pair sector admits no congruence kill]\label{prop:pairlocal}

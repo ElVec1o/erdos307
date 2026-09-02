@@ -51,6 +51,7 @@ import Erdos307.SquareSieve
 import Erdos307.Squarefree
 import Erdos307.StratumGeneral
 import Erdos307.StratumM30
+import Erdos307.PairSector
 import Erdos307.Sector42
 import Erdos307.TailBound
 
@@ -473,3 +474,8 @@ open Erdos307
 #print axioms Erdos307.case_split
 #print axioms Erdos307.parity_step
 #print axioms Erdos307.sector42_conclusion
+#print axioms Erdos307.pair_dichotomy
+#print axioms Erdos307.mass_ne_two
+#print axioms Erdos307.pair_tail_bounded
+#print axioms Erdos307.pair_elt_bound
+#print axioms Erdos307.pair_sector_finite

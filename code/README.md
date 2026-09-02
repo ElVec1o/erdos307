@@ -5,7 +5,7 @@ standalone. All *verdicts* use exact integer/rational arithmetic; floating point
 pre-screening, and where a float appears in a printed constant the exact form is given beside it.
 Runtimes are approximate (a laptop).
 
-This table documents the scripts the paper cites by name. `code/` holds 179 tracked files in total;
+This table documents the scripts the paper cites by name. `code/` holds 182 tracked files in total;
 the remainder are supporting Rust and GP sources reachable from those, or superseded working
 scripts, and are not individually documented here.
 
@@ -66,6 +66,9 @@ danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
 | `sector42_k64.rs` | `prop:sector42`: exhaustive, exact enumeration deciding `ω(e) = 64` in the `d = 42` sector; phase 1 (`≤ 1` prime `> 1229`), phase 2 (two). Dependency-free; checkpointed; `rustc -O`. | phase 1: `36,901,596,763` sets, `0`; phase 2: `166,213` sets, min `δ = 1.539e-6`, `0`. | 22 min / 5 s |
 | `sector_size.rs` | How many prime sets the sector enumerator would test, by a counting DP over binned mass (`rustc -O`); calibrated on the real `k=64` run. | predicts `3.49e10` vs `3.69e10` actual; `k=66` needs `8.0e15` (~16 years). | ~1 min |
 | `pairsector_count.rs` | The level-60 pair sector enumerated exactly: 59-subsets of the primes `< 1588` with `T(R) ∈ (2 − 1/max R, 2]` (`rustc -O`). | `18,234,653` bases, largest `max(R) = 1583`; stable over prune margins `0`–`1e-6`. | ~2 s |
+| `pairsector_kill.rs` | The reciprocity certificate over level-60 bases (`rug`/GMP for the Jacobi symbol). Campaign mode is the regression. | campaign: `49,961`/`31,219`/`18,742`, matching the paper; pair: `18,234,653` bases, `10,457,149` killed (57.3%). | 50 s |
+| `pairsector_factor.rs` | Trial-division stage over the pair-sector survivors: an odd-multiplicity `ℓ \| A` or `B` with `(D\|ℓ) = −1`. | to `10^6`: `4,580,243` of `7,777,504` killed; `3,197,261` open. | ~10 min |
+| `pairsector_parity.gp` | That `T(R) ≠ 2` for an odd-size squarefree base, so the tail is always bounded. | `N` odd in `30,000`/`30,000`. | ~5 s |
 | `pairsector_countdp.rs` | Independent binned counting DP corroborating the above (`rustc -O`). | `1.8e7` at bin `3e-7`. | ~20 s |
 | `sigma_gap.gp` | How close `σ(a)` comes to `1`, both sides, by the greedy Sylvester construction. | `1 − σ = 7.8e-592`, `σ − 1 = 4.6e-591` at `ω = 12`. | ~2 s |
 | `sector_tight.gp` | The sectors where the `d'`-bound is tight, and how their number grows with the prime bound. | `149` sectors with `\|U\| ≤ 61` from primes `≤ 47`, `409` from `≤ 61`; min `60` throughout. | ~10 min |
