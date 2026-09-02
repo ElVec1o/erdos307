@@ -35,6 +35,7 @@ import Erdos307.CharSum
 import Erdos307.Deficit
 import Erdos307.CharCancel
 import Erdos307.CondRate
+import Erdos307.Exclusions
 import Erdos307.Certificate
 import Erdos307.PairSector
 import Erdos307.SieveBalance

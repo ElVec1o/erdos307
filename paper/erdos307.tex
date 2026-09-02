@@ -29,7 +29,7 @@
        on products of prime--reciprocal sums}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.54.0\quad 2 September 2026}
+\date{Version 1.55.0\quad 2 September 2026}
 
 \begin{document}
 \maketitle
@@ -544,6 +544,14 @@ has only finitely many solutions in sets $A,B$ of integers $\ge2$ with $|A|=m$, 
 particular, for every $(m,n)$ there are only finitely many pairs of prime sets with
 $\sigma(P)\sigma(Q)=1$, $|P|=m$, $|Q|=n$, and the bound is effective. $0$ \texttt{sorry}
 \textup{(\texttt{Erdos307.sols\_finite}, \texttt{erdos307\_level\_finite})}.
+
+The statement is the analogue, for this pair of equations, of the finiteness known for relatively
+prime amicable pairs: Artjuhov and Borho proved that for each fixed $K$ there are only finitely many
+coprime amicable pairs $(M,N)$ with $\omega(MN)=K$, and Pollack \cite{Pollack2018} gives the
+explicit $MN<(2K)^{2^{K^2}}$. The two settings share their shape, a coprime pair each of which is a
+divisor sum of the other, and both bounds are of tower type: at $K=60$ Pollack's is
+$(120)^{2^{3600}}$, so neither side of the analogy yields an enumeration. The proof below is
+independent of that literature and is included because it is effective and short.
 \end{proposition}
 \begin{proof}
 Induct on $m+n$; the constants absorb removed elements. Write $u,v$ for the two sums and
@@ -7567,6 +7575,10 @@ question 320838 (comments by R.~Israel and J.~Rosen, answer by ``Woett''), 2019.
 \url{https://www.erdosproblems.com/307}.
 \bibitem{OEIS_A003415} OEIS Foundation, \emph{Sequence A003415 (arithmetic derivative)},
 \url{https://oeis.org/A003415}.
+\bibitem{Pollack2018} P.~Pollack, \emph{On amicable tuples}, Illinois J. Math. \textbf{62} (2018),
+  no.~1--4, 225--240; arXiv:1711.06847. (Explicit bounds for relatively prime amicable pairs,
+  refining the finiteness of Artjuhov and Borho.)
+
 \bibitem{teRiele1984} H.~J.~J.~te~Riele, \emph{Computation of all the amicable pairs below
 $10^{10}$}, Math.\ Comp.\ \textbf{47} (1986), 361--368.
 \bibitem{BHP2001} R.~C.~Baker, G.~Harman, and J.~Pintz, \emph{The difference between consecutive

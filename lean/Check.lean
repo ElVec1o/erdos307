@@ -53,6 +53,7 @@ import Erdos307.StratumGeneral
 import Erdos307.StratumM30
 import Erdos307.CharCancel
 import Erdos307.CondRate
+import Erdos307.Exclusions
 import Erdos307.Certificate
 import Erdos307.PairSector
 import Erdos307.SieveBalance
@@ -507,3 +508,7 @@ open Erdos307
 #print axioms Erdos307.deriv_ne_two_mul
 #print axioms Erdos307.legendre_eq_one_of_sq
 #print axioms Erdos307.detector_sum_lower
+#print axioms Erdos307.lyap_increments_sum
+#print axioms Erdos307.lyap_not_both_neg
+#print axioms Erdos307.ppn_gap
+#print axioms Erdos307.ppn_gap_lt
