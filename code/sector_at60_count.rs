@@ -27,7 +27,13 @@ fn dprime_support(s: &[u64]) -> Vec<u64> {
     let mut dp: u128 = 0; for &p in s { dp += d / p as u128; }
     let mut out = vec![]; let mut x = dp; let mut f = 2u128;
     while f * f <= x && f < 1_000_000 { if x % f == 0 { out.push(f as u64); while x % f == 0 { x /= f; } } f += 1; }
-    if x > 1 && x < u64::MAX as u128 { out.push(x as u64); }
+    // A leftover x > 1 is prime exactly when trial division ran to completion (f*f > x).  Pushing a
+    // COMPOSITE leftover would be unsound in the wrong direction: it never matches a prime in `kof`,
+    // so the exclusion set would be too small, K(d) too small, and the floor too low.  Refuse instead.
+    if x > 1 {
+        if f * f > x && x < u64::MAX as u128 { out.push(x as u64); }
+        else { panic!("d' has a factor beyond the trial-division bound; exclusion set would be incomplete"); }
+    }
     out
 }
 fn dfs(c: &Ctx, i: usize, cur: &mut Vec<u64>) {

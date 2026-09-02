@@ -118,7 +118,11 @@ fn main() {
     let nthreads: usize = args.get(5).map(|s| s.parse().unwrap()).unwrap_or(8);
     let mut allowed = vec![]; let mut p = 2u64; while allowed.len() < 1500 { if is_prime_small(p) && d % p != 0 && dp % p != 0 { allowed.push(p); } p += 1; }
     let n = args.get(6).map(|s| s.parse().unwrap()).unwrap_or(197usize);
-    let a_next = allowed[n]; // A_{N+1}, the first prime beyond the truncation
+    let a_next = allowed[n];   // A_{N+1}, the first prime beyond the truncation
+    let a_kk = allowed[kk - 1]; // A_kk, the kk-th SMALLEST allowed prime, read BEFORE the reordering
+                                // below permutes `allowed`; using the permuted array here widened the
+                                // window at large N (inflating reported counts) and would narrow it,
+                                // losing sets, for kk <= 16.
     allowed.truncate(n);
     let invf: Vec<f64> = allowed.iter().map(|&q| 1.0 / q as f64).collect(); let inv: Vec<DD> = allowed.iter().map(|&q| dd_recip(q)).collect();
     // reorder: split primes (original indices SPLIT0..SPLIT0+D) first, then the rest in increasing order
@@ -131,7 +135,7 @@ fn main() {
     for i in 0..n { let mut rem: Vec<f64> = invf[i..].to_vec(); rem.sort_by(|a, b| b.partial_cmp(a).unwrap());
         for c in 1..kmax { if c <= rem.len() { pre_max[i][c] = rem[..c].iter().sum(); suf_min[i][c] = rem[rem.len() - c..].iter().sum(); } else { pre_max[i][c] = f64::INFINITY; suf_min[i][c] = f64::INFINITY; } } }
     let t = dd_ratio(d as f64, dp as f64);
-    let (k, lo, hi, phase2) = if phase == 1 { (kk - 1, t.hi - 1.0 / allowed[kk - 1] as f64, t.hi, false) } else { (kk - 2, t.hi - 2.0 / a_next as f64, t.hi, true) };
+    let (k, lo, hi, phase2) = if phase == 1 { (kk - 1, t.hi - 1.0 / a_kk as f64, t.hi, false) } else { (kk - 2, t.hi - 2.0 / a_next as f64, t.hi, true) };
     let fname = format!("k64_phase{}_results.txt", phase); let ckname = format!("k64_phase{}_done.txt", phase);
     let done: std::collections::HashSet<usize> = std::fs::read_to_string(&ckname).unwrap_or_default().lines().filter_map(|l| l.parse().ok()).collect();
     let mut d2 = Big::from_u64(d); d2 = d2.mul_small(d);
