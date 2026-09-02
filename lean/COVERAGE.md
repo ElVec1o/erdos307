@@ -1,6 +1,6 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**80 of 145** labelled results are named by a Lean file in `Erdos307/` (54 files, **0 `sorry`**).
+**80 of 146** labelled results are named by a Lean file in `Erdos307/` (54 files, **0 `sorry`**).
 
 `lake env lean Check.lean` probes **395 declarations across all 54 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
@@ -74,8 +74,9 @@ that needed proving was the easy direction all along.
 | `prop:condrate` / `thm:a9` ⭐ | no | the two lemmas above | as above |
 | `lem:swdirect` ⭐ | no | Siegel--Walfisz (hence Siegel), and Hal\'asz downstream | as above; it needs strictly *fewer* analytic inputs than `lem:charcancelunif` --- no zero--free region, no `L`--function bound, no exceptional--zero split --- but Siegel--Walfisz alone is already far outside Mathlib |
 | `cor:a9rate` ⭐ | no | `lem:swdirect` plus the sieve | as above |
+| `prop:sector42` ⭐ | no (computer-assisted: the case split and the forced-prime identity are formalisable; the enumeration is not) | a certificate of `3.7e10` leaves has no Lean-checkable form; `native_decide` on the enumerator would need the search itself inside Lean | a verified checker for the pruned enumeration, on the pattern of `dfs_run` at level 60, but four orders of magnitude larger; not attempted |
 
-Five atoms are starred, and honestly so. One of the five is now partly formalised:
+Six atoms are starred, and honestly so. One of the five is now partly formalised:
 `Deficit.lean` carries the algebraic **core** of `lem:deficit` --- ten declarations covering the
 additivity of `σ_p` that makes the detector multiplicative, the orthogonality that supplies the main
 term, the Ramanujan sum with its reindexing and normalisation giving the principal Fourier
@@ -94,7 +95,7 @@ Siegel are not elementary in disguise.
 
 A6 moved furthest this release: its divisor sums, their logarithmic form, and the range count are
 all formal, leaving the CRT root bound as the single remaining lemma. A7 moved in the previous
-release, to Weil alone -- and then past it. Five atoms are starred (see the table above); all five are analytic, not algebraic, and they stand or fall together. The recurring error was
+release, to Weil alone -- and then past it. Six atoms are starred (see the table above); five are analytic, not algebraic, and stand or fall together; the sixth is a finite enumeration too large to certify. The recurring error was
 treating "Mathlib does not carry the named theorem" as evidence that the step needs that theorem;
 in three of four cases the step did not.
 
@@ -161,6 +162,7 @@ The result *is* a number a program produces.
 | `prop:oddthr` | Even--gap plus lines are empty below 3.23times10^9 |
 | `prop:pairform` | Pair form; the one--equation relaxation |
 | `prop:plusinf` | Infinitely many gaps carry a nonempty plus line |
+| `prop:sector42` | The d=42 sector at 64 primes |
 | `prop:sectorbarrier` | The barrier is a function of the split |
 | `prop:sectors` | Sector decomposition of level 60 |
 | `prop:slotstrat` | Slot stratification of the divisibility set |

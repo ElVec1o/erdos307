@@ -5,7 +5,7 @@ standalone. All *verdicts* use exact integer/rational arithmetic; floating point
 pre-screening, and where a float appears in a printed constant the exact form is given beside it.
 Runtimes are approximate (a laptop).
 
-This table documents the scripts the paper cites by name. `code/` holds 170 tracked files in total;
+This table documents the scripts the paper cites by name. `code/` holds 174 tracked files in total;
 the remainder are supporting Rust and GP sources reachable from those, or superseded working
 scripts, and are not individually documented here.
 
@@ -60,3 +60,7 @@ danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
 | `alpha_is_d.gp` | That the largest-prime reduction `a=qd, b=e` is `prop:tailbound`'s parametrisation at `α=d, β=e`: both defining relations vanish symbolically. | two `0`s. | ~1 s |
 | `sector_general.gp` | That Bado's primary-pseudoperfect apparatus is general with `d-1 → d'`: the sector identity `de − d'e' = d²`, the defect recurrence, its terminal value, and the mass identity, symbolically. | four `0`s. | ~1 s |
 | `sector_dprime.gp` | The sector barrier sharpened by the `d'`-exclusion, and its minimum over sectors. | min `= 60`, at `d = 15470` and others. | ~3 min |
+| `sector42_znam_violations.gp` | The per-prime Znám conditions `∏_{s≠r} s ≡ −d²/d' (mod r)` in the `d=42` sector, tested on Bado's certifying maximiser. | violated at `r = 5, 13, 17, 19, 23`. | ~1 s |
+| `sector42_znam_dp.rs` | Bado's residue dynamic programme with the Znám conditions at `5, 11, 13` adjoined (`rustc -O`). | `M_64`: `1.03032 → 1.02853`, still `≥ 42/41`. | ~6 s |
+| `sector42_k64.gp` | Exact rational facts behind `prop:sector42`: at most two primes `> 1229` in a `64`-set, the phase windows, the terminal formula as an identity. | `S_61 + 3/1231 < 42/41` (margin `1.09e-5`); `0`. | ~1 s |
+| `sector42_k64.rs` | `prop:sector42`: exhaustive, exact enumeration deciding `ω(e) = 64` in the `d = 42` sector; phase 1 (`≤ 1` prime `> 1229`), phase 2 (two). Dependency-free; checkpointed; `rustc -O`. | phase 1: `36,901,596,763` sets, `0`; phase 2: `166,213` sets, min `δ = 1.539e-6`, `0`. | 22 min / 5 s |

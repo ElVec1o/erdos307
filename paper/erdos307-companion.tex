@@ -515,8 +515,62 @@ At $d=42$ the mass bound alone gives $\omega(e)\ge62$ and $|U|\ge66$; \cite{Bado
 $\omega(e)\ge64$ and $|U|\ge68$ by adjoining the residue conditions
 $\sum_{r\mid e}r^{-1}\equiv0\pmod 3$ and $\pmod 7$ and $\prod_{r\mid e}r\equiv1\pmod{41}$ and
 maximising over admissible supports. We have re-run that certificate independently, obtaining the
-same maximum and the same $51{,}281$ reachable states. The two primes it gains over the mass count
-are the part of the method that is doing new work.
+same maximum and the same $51{,}281$ reachable states. The residue sieve cannot be pushed further as
+a sieve: the complete system of local conditions is the sector equation itself. For each $r\mid e$,
+reducing $e'=qd$ modulo $r$ gives $\prod_{s\mid e,\,s\ne r}s\equiv-d^2/d'\pmod r$, one condition
+per prime of $e$; conversely these, with $e\equiv d\pmod{d'}$ and $1<\sigma(e)<2$, force $e'=qd$
+exactly, both sides lying in $(e,2e)$. Bado's conditions modulo $3$ and $7$ are the sums of these;
+the maximiser certifying his bound violates them at five of its six smallest primes, and adjoining
+the three at $5,11,13$ to the dynamic programme lowers the $64$--prime maximum from $1.03032$ to
+$1.02853$, still above $42/41$ \textup{(\texttt{code/sector42\_znam\_violations.gp},
+\texttt{code/sector42\_znam\_dp.rs})}. The next step is therefore not a sieve but an exact
+enumeration, and it goes through.
+\end{remark}
+
+\begin{proposition}[The $d=42$ sector at $64$ primes]\label{prop:sector42}
+No solution of \#307 has $a=42q$ with $q$ prime and $\omega(b)=64$. Hence in that sector
+$\omega(b)\ge66$ and $|P\cup Q|\ge70$.
+\end{proposition}
+
+\begin{proof}[Proof (finite verification)]
+Write $e=b$, $T=42/41$, and let $A_1<A_2<\cdots$ be the primes other than $2,3,7,41$, $S_j=\sum_{i\le j}1/A_i$.
+By the sector identity, $\sigma(e)=T-1764/(41e)$, and $e>3.5\times10^{57}$ by Theorem~\ref{K-thm:barrier},
+so $T-10^{-55}<\sigma(e)<T$. Exactly, $A_{64}=337$, $A_{197}=1229$, $A_{198}=1231$, and
+$S_{61}+3/1231<T$ \textup{(\texttt{code/sector42\_k64.gp})}. If $m$ of the $64$ primes of $e$ exceed
+$1229$ then $\sigma(e)\le S_{64-m}+m/1231$, which for $m\ge3$ is below $S_{61}+3/1231<T-10^{-55}$; so
+$m\le2$. Next, if $\operatorname{supp}(e)=S\cup\{\ell\}$ with $R=\prod S$, the identity
+$42e-41e'=1764$ reads $\ell\,\Delta_{42}(R)=41R+1764$, so $\Delta_{42}(R)>0$ and $\ell$ is the integer
+$(41R+1764)/\Delta_{42}(R)$: the last prime is determined by the others.
+
+\emph{Case $m\le1$.} Take $\ell$ the prime exceeding $1229$ if $m=1$, else the largest prime of $e$, so
+$\ell\ge A_{64}$. The other $63$ primes $S$ lie among $A_1,\dots,A_{197}$ with
+$\sigma(S)=\sigma(e)-1/\ell\in[T-1/A_{64}-10^{-55},T)$. The enumeration tests $36{,}901{,}596{,}763$ sets, every
+such $S$ among them; for none is $(41R+1764)/\Delta_{42}(R)$ an integer.
+
+\emph{Case $m=2$.} Let $\ell_2\le\ell_1$ be the two primes exceeding $1229$, $S$ the other $62$, and
+$\delta=T-\sigma(S)$. Then $1/\ell_1+1/\ell_2\in(\delta-10^{-55},\delta)$, so $\delta<2/1231$ and
+$\ell_2\in(1/\delta,\,2/\delta+1)$. The enumeration tests $166{,}213$ sets, every such $S$ among them; the least $\delta$ among them is
+$1.539\times10^{-6}$, so every $\ell_2$ range is finite (largest upper bound $1{,}299{,}387$). For each
+$S$ and each prime $\ell_2$ in its range, $S\cup\{\ell_2\}$ determines $\ell_1$ as above; it is never
+an integer.
+
+The enumeration prunes on the mass in floating point with a margin of $10^{-9}$ on both ends of each
+window, so no set in a window is lost; the integrality test is a double--double prefilter with a
+conservative band followed by exact integer arithmetic ($7{,}454{,}365$ and $2{,}495$ exact tests
+respectively), the integer layer checked against PARI to the digit
+\textup{(\texttt{code/sector42\_k64.rs}, two runs with independent big--integer implementations)}.
+So $\omega(e)\ne64$. By \cite{Bado2026b}, $\omega(e)\ge64$ and $\omega(e)$ is even ($e$ is odd and
+$e'=42q$ is even); hence $\omega(e)\ge66$, and $|P\cup Q|=|\{2,3,7,q\}|+\omega(e)\ge70$.
+\end{proof}
+
+\begin{remark}
+The same argument decides $\omega(e)=66$ in principle, but with up to four primes beyond the
+truncation the nested ranges multiply, and the enumeration is no longer a twenty--minute job; we
+have not run it. What the proposition shows is where the sector programme actually stops: not at
+the residue sieve, whose limit is $68$, but at the cost of an exact enumeration in which the last
+one or two primes are forced by the rest. The two--large--prime case, a factoring problem in general
+($(\Delta\ell_1-41R)(\Delta\ell_2-41R)=1681R^2+1764\Delta$), is finite here only because the smaller
+of the two is trapped in $(1/\delta,2/\delta)$ and $\delta$ is bounded below over a finite list.
 \end{remark}
 
 

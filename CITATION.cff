@@ -32,8 +32,8 @@ authors:
   - family-names: Bonfioli
     given-names: Vico
     email: vicobonfioli@gmail.com
-version: 1.35.0
-date-released: '2026-09-01'
+version: 1.36.0
+date-released: '2026-09-02'
 type: software
 license: MIT
 repository-code: "https://github.com/ElVec1o/erdos307"
