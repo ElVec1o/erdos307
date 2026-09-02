@@ -29,7 +29,7 @@
        on products of prime--reciprocal sums}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.53.0\quad 2 September 2026}
+\date{Version 1.54.0\quad 2 September 2026}
 
 \begin{document}
 \maketitle
@@ -1444,9 +1444,14 @@ $T_{58}+1/x\ge2$, so $x\le1/(2-T_{58})=793.6\ldots$; every prime up to $167$ lie
 $d$ is a subset of the $138$ primes at most $787$. So the question ``which sectors admit
 $|P\cup Q|=60$'' is a finite one. It is not, however, a small one: the count of sectors whose mass
 floor is exactly $60$ rises from $250$ over primes at most $47$ with $\omega(d)\le8$ to $1{,}533$
-over primes at most $59$ with $\omega(d)\le10$ (both now cleared, the smaller family being a subset
-of the larger), and the full range carries the same $2^{58}$ split ambiguity as the tail families
-themselves. Finiteness here converts the sector programme into a
+over primes at most $59$ with $\omega(d)\le10$ (both cleared, the smaller family being a subset of the
+larger), and it does not saturate. Holding $\omega(d)\le8$ and letting the prime bound $B$ grow, the
+count runs $26,\,83,\,250,\,588,\,1762,\,5172$ at $B=31,41,47,59,71,89$; holding $\omega(d)\le6$ it
+runs $19,\,34,\,53,\,77,\,107,\,166,\,217$ at $B=31,41,47,59,71,89,107$. Against $\pi(B)$ the fitted
+exponent grows with $\omega$, from about $2.7$ at $\omega=6$ to about $6.8$ at $\omega=8$, so the count
+behaves like a binomial $\binom{\pi(B)}{\omega}$. With the true bounds $B=787$ and $\omega(d)\le58$ the
+family is finite but of order $\binom{138}{58}$, and enumerating it is not possible. Clearing sectors
+one at a time therefore strengthens the statement at each step and cannot reach the barrier. Finiteness here converts the sector programme into a
 computation of the same order as the one it was meant to replace.
 
 The ladder does not continue cheaply. In every sector the first rung above the mass floor is small

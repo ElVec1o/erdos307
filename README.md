@@ -1,6 +1,6 @@
 # On the equation n″ = n and Erdős Problem #307
 
-**Version 1.53.0 · 2 September 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
+**Version 1.54.0 · 2 September 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
 
 **Author:** Vico Bonfioli — <vicobonfioli@gmail.com>
 
