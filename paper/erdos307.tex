@@ -29,7 +29,7 @@
        on products of prime--reciprocal sums}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.50.0\quad 2 September 2026}
+\date{Version 1.51.0\quad 2 September 2026}
 
 \begin{document}
 \maketitle
@@ -1130,6 +1130,20 @@ the $(2\mid A)$ classes). The blend $\tfrac12\cdot\tfrac{24975}{49961}+\tfrac34\
 =0.62503$ against the exact $31{,}219/49{,}961=0.62487$ is the whole of the ``coincidence''. The
 correlation is an ensemble property, a random--subset proxy gives ${\approx}0.45/0.55$; and
 the functional yields no second certificate: it recomputes the same symbol.
+\end{remark}
+
+\begin{remark}[Why a one--sided mass argument cannot reach the barrier]\label{rem:twosided}
+The threshold $\sigma(U)=t+1/t$ of Proposition~\ref{prop:barthreshold} makes the barrier equivalent to a
+lower bound $|\sigma(a)-1|>c$ with $c$ absolute, and it is worth recording what such a bound cannot
+be proved from. The primary pseudoperfect numbers satisfy the one--sided equation $n'=n-1$ exactly,
+so along them $|\sigma(n)-1|=1/n$ tends to $0$: the eight known members give
+$1/n$ from $\tfrac12$ down to $1.18\times10^{-31}$. They are solutions of the coprime relaxation
+(Corollary~\ref{cor:threethirteen}, the case $u=1$). Hence no argument that uses only $a'=b$ with $b$
+squarefree and coprime to $a$ can bound $|\sigma(a)-1|$ below by an absolute constant, since the same
+argument would prove the corresponding statement for the relaxation, which is false. Any such bound must
+consume the second equation $b'=a$. This is why the mass arguments of Section~\ref{sec:barrier}, and the
+Sylvester--type extremal bounds, reproduce $60$ and stop: they are one--sided, and $1/a$ is the most a
+one--sided argument can give.
 \end{remark}
 
 \begin{remark}[The kill--program is one--sided]\label{rem:oneside}
