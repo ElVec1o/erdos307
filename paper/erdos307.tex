@@ -29,7 +29,7 @@
        on products of prime--reciprocal sums}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.56.0\quad 2 September 2026}
+\date{Version 1.57.0\quad 2 September 2026}
 
 \begin{document}
 \maketitle
@@ -1477,10 +1477,17 @@ most $47$, the last of these a range disjoint from all the others and tested aft
 fixed. Its consequence is that the barrier would move: the minimum of $1+\omega(d)+K(d)$ over sectors
 is $60$, attained at $d=2\cdot3\cdot7\cdot23\cdot41$ and checked over $109{,}293$ sectors, so with the
 conjecture and the parity of Proposition~\ref{prop:ppnsectors} every sector would give
-$|P\cup Q|\ge62$. We record that the obvious heuristic does not explain it: the integrality
-$\Delta_d(R)\mid d'R+d^2$ has probability of order $1/\Delta_d(R)$, which is negligible at every
-$\omega(e)$ and not only at the floor, so a proof would have to use something the floor has and the
-rungs above it do not.
+$|P\cup Q|\ge62$. The evidence must be read with its power, which is negligible. The integrality
+$\Delta_d(R)\mid d'R+d^2$ has probability of order $1/\Delta_d(R)$, and $\Delta_d(R)$ is of the size
+of a product of some sixty primes; over the $5{,}680$ sectors and their some $10^4$ candidate sets
+each, the expected number of attained floors is of order $10^{-92}$ whether the conjecture is true or
+false. An enumeration of this kind therefore cannot support it, and no feasible enlargement would.
+Nor is the floor structurally distinguished: the rate at which candidates reach the exact divisibility
+test matches the width of the numerical prefilter at the floor and above it alike, the ratios of
+observed to expected being $0.72$ and $0.86$ at the floor for $d=47058$ and $d=2214502422$ and $1.01$
+at $\omega(e)=64$ for $d=42$, so the deficit at the floor is the small number of candidate sets and
+nothing else. The conjecture is recorded because it is what every enumeration performed here
+verifies and because its consequence is sharp, not because the enumerations are evidence for it.
 
 The ladder does not continue cheaply. In every sector the first rung above the mass floor is small
 --- the three counts above --- and the next requires the two-phase machinery of
