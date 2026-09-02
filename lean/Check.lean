@@ -51,7 +51,9 @@ import Erdos307.SquareSieve
 import Erdos307.Squarefree
 import Erdos307.StratumGeneral
 import Erdos307.StratumM30
+import Erdos307.Certificate
 import Erdos307.PairSector
+import Erdos307.SWDirect
 import Erdos307.Sector42
 import Erdos307.TailBound
 
@@ -479,3 +481,11 @@ open Erdos307
 #print axioms Erdos307.pair_tail_bounded
 #print axioms Erdos307.pair_elt_bound
 #print axioms Erdos307.pair_sector_finite
+#print axioms Erdos307.certificate_sound
+#print axioms Erdos307.certificate_sound_pow
+#print axioms Erdos307.jacobi_neg_one_of_legendre
+#print axioms Erdos307.no_witness_of_jacobi_one
+#print axioms Erdos307.diagonalisation_iff
+#print axioms Erdos307.diagonalisation_sufficient
+#print axioms Erdos307.diagonalisation_step
+#print axioms Erdos307.diagonalisation_limit

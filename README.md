@@ -176,7 +176,7 @@ hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, w
   core with `pdflatex` (twice each, for the `xr` cross-references). No BibTeX run needed. The two
   documents are derived from `erdos307.tex`, never hand-edited, so they cannot drift.
 - **Lean:** `cd lean && lake exe cache get && lake build` (Lean / mathlib `v4.30.0`). Then
-  `lake env lean Check.lean` prints the axiom dependencies of 406 declarations across all 56 modules
+  `lake env lean Check.lean` prints the axiom dependencies of 414 declarations across all 58 modules
   — everything depends only on `propext, Classical.choice, Quot.sound` (no `sorryAx`), with exactly
   no exceptions: there is no `native_decide` anywhere in the development.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)

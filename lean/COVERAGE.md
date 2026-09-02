@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**82 of 146** labelled results are named by a Lean file in `Erdos307/` (56 files, **0 `sorry`**).
+**83 of 146** labelled results are named by a Lean file in `Erdos307/` (58 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **406 declarations across all 56 modules**. Everything is on the
+`lake env lean Check.lean` probes **414 declarations across all 58 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
 closes level 60, was the last site off that footing; it and the `erdos307_sixty` that consumes it are
 now kernel-`decide`, as is the numeral bridge behind `card_ge_59` and `erdos307_barrier_closed`.
@@ -95,7 +95,29 @@ Siegel are not elementary in disguise.
 
 A6 moved furthest this release: its divisor sums, their logarithmic form, and the range count are
 all formal, leaving the CRT root bound as the single remaining lemma. A7 moved in the previous
-release, to Weil alone -- and then past it. Six atoms are starred (see the table above); five are analytic, not algebraic, and stand or fall together; the sixth is a finite enumeration too large to certify, whose algebraic half is now formalised. The recurring error was
+release, to Weil alone -- and then past it. Six atoms are starred (see the table above); five are analytic, not algebraic, and stand or fall together; the sixth is a finite enumeration too large to certify.
+
+## Standing debt, and what has been carved off it
+
+The policy on the star is that an atom keeps it until it is `VERIFIED` outright, but the debt is not
+one undifferentiated block, and the part of each proof that is *not* the missing analysis is being
+formalised as it is identified. What is machine-checked so far, per starred atom:
+
+| atom | formalised core | what is left |
+|---|---|---|
+| `lem:swdirect` ⭐ | `SWDirect.lean` (4 declarations): the *Removing ε* diagonalisation — the exchange `(1-1/2j)(1-G)L - C ≥ (1-G)L - L/j` as an equivalence, its sufficient condition `L ≥ 2jC`, and the passage to `o(L)`. This is the whole of the proof that is not the analytic estimate. | Siegel–Walfisz itself |
+| `lem:deficit` ⭐ | `Deficit.lean` (10 declarations): the multiplicativity, orthogonality and Gauss-sum core | the four analytic inputs |
+| `prop:sector42` ⭐ | `Sector42.lean` (6 declarations): the forced-prime identity and its converse, the sign condition, the case split, the parity step | the `3.7 × 10¹⁰`-leaf enumeration |
+| `lem:charcancelunif` ⭐ | none yet | Halász and the zero-free region |
+| `prop:condrate` / `thm:a9` ⭐ | none yet | the two lemmas above |
+| `cor:a9rate` ⭐ | none yet | `lem:swdirect` plus the sieve |
+
+Separately, one step that was never starred because it was never an atom — the soundness of the
+reciprocity certificate, carried in prose through `prop:close59` and the whole level-60 campaign —
+is now `Certificate.lean` (4 declarations). It is the deduction the campaign and the pair-sector
+computation both consume: a prime `ℓ ∣ A` with `(D∣ℓ) = -1` empties the family for every `q`.
+Formalising it turned up nothing wrong, but it was the largest unformalised load-bearing step in the
+computational half of the paper. The recurring error was
 treating "Mathlib does not carry the named theorem" as evidence that the step needs that theorem;
 in three of four cases the step did not.
 
