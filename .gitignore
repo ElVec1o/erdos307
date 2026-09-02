@@ -69,3 +69,6 @@ code/live_slot_census3
 code/tailsearch
 code/tailsearch_cfg_all.txt
 code/tailsearch_all.log
+
+# scratch left by code/sector_kexclude.rs if run from the repo root
+k64_phase*

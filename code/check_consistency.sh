@@ -39,8 +39,8 @@ chk "coverage total" "$tot" "$stated_tot"
 # once (README sat at 159/30 while the build was at 304/36), so both are recomputed here.
 mods=$(ls lean/Erdos307/*.lean | wc -l | tr -d ' ')
 decls=$(grep -c '^#print axioms' lean/Check.lean | tr -d ' ')
-chk "Check.lean declarations" "$decls" "$(grep -oE '[0-9]+ declarations' README.md | grep -oE '[0-9]+')"
-chk "README module count"     "$mods"  "$(grep -oE 'across all [0-9]+ modules' README.md | grep -oE '[0-9]+')"
+chk "Check.lean declarations" "$decls" "$(grep -oE '[0-9]+ declarations' README.md | grep -oE '[0-9]+' | sort -u | paste -sd, -)"
+chk "README module count"     "$mods"  "$(grep -oE 'across all [0-9]+ modules' README.md | grep -oE '[0-9]+' | sort -u | paste -sd, -)"
 chk "COVERAGE declarations"   "$decls" "$(grep -oE '\*\*[0-9]+ declarations' lean/COVERAGE.md | grep -oE '[0-9]+')"
 chk "COVERAGE module count"   "$mods"  "$(grep -oE 'across all [0-9]+ modules' lean/COVERAGE.md | grep -oE '[0-9]+')"
 chk "COVERAGE file count"     "$mods"  "$(grep -oE '\([0-9]+ files' lean/COVERAGE.md | grep -oE '[0-9]+')"
@@ -83,6 +83,20 @@ if (cd lean && lake env lean Vacuity.lean) >/dev/null 2>&1; then
 else
   printf "  FAIL  %-28s %s\n" "non-vacuity witnesses" "lean/Vacuity.lean does not compile"; fail=1
 fi
+
+# --- V4 Rule 11: README contract checks -------------------------------------------------
+# The README is a derived document; a stale one blocks the push exactly like a wrong theorem number.
+pver=$(grep -oE 'Version [0-9]+\.[0-9]+\.[0-9]+' paper/erdos307.tex | head -1 | grep -oE '[0-9.]+')
+rver=$(grep -oE 'Version [0-9]+\.[0-9]+\.[0-9]+' README.md | head -1 | grep -oE '[0-9.]+')
+cver=$(grep -oE '^version: [0-9.]+' CITATION.cff | grep -oE '[0-9.]+')
+chk "README version = paper"   "$pver" "$rver"
+chk "CITATION version = paper" "$pver" "$cver"
+missing=0
+for f in $(grep -oE '\((code|lean|paper|data|certs|hunt)/[A-Za-z0-9_./-]+\)' README.md | tr -d '()' | sort -u); do
+  [ -e "$f" ] || { echo "  MISSING path in README: $f"; missing=$((missing+1)); }
+done
+chk "README paths exist"  "0" "$missing"
+chk "reproduce.sh present" "1" "$([ -x code/reproduce.sh ] && echo 1 || echo 0)"
 
 echo
 [ "$fail" -eq 0 ] && echo "CONSISTENT" || echo "DRIFT DETECTED -- fix before releasing"

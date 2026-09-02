@@ -1,5 +1,7 @@
 # On the equation n″ = n and Erdős Problem #307
 
+**Version 1.45.0 · 2 September 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
+
 **Author:** Vico Bonfioli — <vicobonfioli@gmail.com>
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20684626.svg)](https://doi.org/10.5281/zenodo.20684626)
@@ -159,6 +161,11 @@ bound itself is proved here by a different route.
 ## Layout
 
 ```
+README.md      this file (a derived index of the paper's current state)
+CITATION.cff   citation metadata; its version field is the released version
+LICENSE        licence for the repository
+.gitignore     excludes private/, which never ships
+
 paper/   erdos307-core.pdf       — the paper (32 pp; the results)
          erdos307-companion.pdf  — the companion (102 pp; explorations, closures, the square sieve and the density theorem)
          erdos307.tex            — the single source both are generated from
@@ -208,6 +215,39 @@ is already met going forward. Recording the discrepancy is the honest resolution
   Verify it with `gp -q -f code/immune_cert_verify.gp`, which re-proves all 68 subjects by ECPP in
   about 1.3 s. Last run: 68/68 prime, 0 failures.
 - **Hunt:** `rustc -O -o NAME NAME.rs` then run; each program self-tests and prints progress.
+
+## Formalization status
+
+`lean/COVERAGE.md` is the full paper-number-to-declaration map and is the authority; it is checked
+against the build by `code/check_consistency.sh` at every push. Summary:
+
+| paper result | Lean | status |
+|---|---|---|
+| `thm:barrier`, `prop:close59` (the barrier `\|P∪Q\| ≥ 60`) | `Erdos307.Barrier`, `Erdos307.Closed` | VERIFIED |
+| `prop:pairlocal` (no congruence kill on the pair sector) | `Erdos307.PairLocal`, `PairLocalCount` | VERIFIED |
+| reciprocity certificate soundness | `Erdos307.Certificate` | VERIFIED |
+| pair-sector finiteness, `T(R) ≠ 2` | `Erdos307.PairSector` | VERIFIED |
+| `prop:sector42` (algebraic half) | `Erdos307.Sector42` | PROVED ⭐ (enumeration not formalizable at 3.7×10¹⁰ leaves) |
+| `lem:swdirect` (diagonalisation core) | `Erdos307.SWDirect` | PROVED ⭐ (Siegel–Walfisz absent from Mathlib) |
+| `lem:charcancelunif` (constant analysis) | `Erdos307.CharCancel` | PROVED ⭐ (Halász, zero-free region) |
+| `cor:a9rate` (sieve optimum) | `Erdos307.SieveBalance` | PROVED ⭐ (as above) |
+| `lem:deficit` (algebraic core) | `Erdos307.Deficit` | PROVED ⭐ (four analytic inputs) |
+| `prop:condrate` / `thm:a9` | none | PROVED ⭐ (downstream of the two lemmas above) |
+
+`lake env lean Check.lean` probes 423 declarations across 60 modules; all depend only on
+`propext, Classical.choice, Quot.sound`, with zero `sorry`. Six atoms carry formalization debt (⭐);
+five of the six have their non-analytic core machine-checked, and what remains under all of them is
+four classical theorems (Siegel–Walfisz, Siegel, the zero-free region for Dirichlet `L`-functions,
+Halász) which are formalized neither in Mathlib nor in `PrimeNumberTheoremAnd`.
+
+## Reproduction
+
+`bash code/reproduce.sh` regenerates everything the paper cites, in order, and exits nonzero on any
+mismatch. Toolchain: PARI/GP, `rustc` (release, `-O`), Python 3, Lean/mathlib `v4.30.0`.
+Expected runtime about 12 minutes in the default `quick` mode. `bash code/reproduce.sh full` adds the
+22-minute `d = 42` phase-1 enumeration. Two computations are deliberately not in either mode and are
+stated as not-run in the paper: the pair-sector rho stage, and `ω(e) = 56` at `d = 47058`
+(4.4 × 10¹¹ sets).
 
 ## Status and citation
 
