@@ -5,7 +5,7 @@ standalone. All *verdicts* use exact integer/rational arithmetic; floating point
 pre-screening, and where a float appears in a printed constant the exact form is given beside it.
 Runtimes are approximate (a laptop).
 
-This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 246 tracked files in total;
+This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 247 tracked files in total;
 the remainder are supporting Rust and GP sources reachable from those, or superseded working
 scripts, and are not individually documented here.
 
@@ -78,5 +78,6 @@ danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
 | `sector_tight.gp` | The sectors where the `d'`-bound is tight. An earlier version filtered to `σ(d) < 1` and undercounted; corrected. | `877` sectors with `\|U\| ≤ 61` from primes `≤ 47` (`475` of them with `σ(d) > 1`); min `60`. | ~10 min |
 
 | `reproduce.sh` | Single entry point (Rule 9): regenerates everything the paper cites. | see the script. | ~12 min |
+| `close59_minus.rs` | Independent confirmation of `prop:close59` via the minus square `(a−b)² = N′−2N`, split-free by CRT; the paper's own verification uses the plus square. | `49,961` supports, `0` perfect squares, 1.8 s. | ~2 s |
 | `install_hooks.sh` | Installs the tracked git hooks into `.git/hooks`. | `installed .git/hooks/pre-commit`. | instant |
 | `hooks/pre-commit` | Refuses any commit that leaves the repo inconsistent (Rule 11). Exists because a shell chain runs `git commit` regardless of the gate's exit status, and did: `v1.46.0` was pushed with a stale PDF. Bypass with `--no-verify`. | refuses a deliberately broken README. | ~2 min per commit |

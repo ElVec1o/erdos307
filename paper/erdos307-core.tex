@@ -31,7 +31,7 @@
        on products of prime--reciprocal sums}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.49.0\quad 2 September 2026}
+\date{Version 1.50.0\quad 2 September 2026}
 
 \externaldocument[C-]{erdos307-companion}
 \begin{document}
@@ -409,7 +409,12 @@ $N'=a^2+b^2$ (rigidity; the $k=0$ case of Proposition~\ref{prop:pairform}); one 
 simultaneously excludes all $2^{58}$ splits of $U$. Exact--integer verification shows $N'+2N$ is a
 non--square for \emph{every} one of the $49{,}961$ candidates, by two independent implementations
 with different enumeration orders and prunings (\texttt{code/close59.py} and
-\texttt{code/hunt/close59.rs} in the repository). Hence no $59$--element support closes, and
+\texttt{code/hunt/close59.rs} in the repository). The companion condition is checked separately and
+agrees: $N'-2N$ is a non--square for every one of the same $49{,}961$ supports
+\textup{(\texttt{code/close59\_minus.rs})}. That check is split--free in a second way, since
+$N'-2N$ is the CRT combination of the residues $N/\ell\bmod\ell$: reducing $N'=\sum_{\ell\mid N}N/\ell$
+modulo $\ell$ leaves $N/\ell$, and $2N\equiv0$, so $N'-2N\equiv N/\ell\pmod\ell$ at every $\ell\mid N$,
+and $0\le N'-2N<N$ here because $T(U)<3$. Hence no $59$--element support closes, and
 $|U|\ge60$. The bound on the minimal side repeats the proof of Theorem~\ref{thm:barrier}(b) with the
 minimum of $R/T$ now over $|U|\ge60$, attained at the first $60$ primes:
 $D_P^2\ge\Pi_{60}/T_{60}=\Pi_{60}^2/N_{60}$, where $N_{60}$ is the cofactor sum of the first $60$
