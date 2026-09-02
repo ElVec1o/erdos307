@@ -8,7 +8,7 @@
     for(i = 1, #P, if(bittest(mask, i-1), S = concat(S, P[i])));
     if(#S < 3 || #S > 6, next);
     d = vecprod(S); dp = d * sum(i = 1, #S, 1/S[i]);
-    if(dp == 0, next); T = d/dp; if(T <= 1 || T > 1.35, next);
+    if(dp == 0, next); T = d/dp;  \\ NO restriction on T: sigma(d) > 1 sectors are tight too (an earlier filter wrongly dropped them)
     \\ mass bound: fewest primes avoiding supp(d) u supp(d') summing past T
     A = []; p = 2; while(#A < 3000, if(isprime(p) && d % p != 0 && dp % p != 0, A = concat(A, p)); p++);
     k = 1; s = 1.0/A[1]; while(s < T && k < #A, k++; s += 1.0/A[k]); if(s < T, next);

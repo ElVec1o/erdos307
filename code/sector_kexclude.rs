@@ -116,7 +116,7 @@ fn main() {
     let d: u64 = args[1].parse().unwrap(); let dp: u64 = args[2].parse().unwrap();
     let kk: usize = args[3].parse().unwrap(); let phase: u32 = args[4].parse().unwrap();
     let nthreads: usize = args.get(5).map(|s| s.parse().unwrap()).unwrap_or(8);
-    let mut allowed = vec![]; let mut p = 2u64; while allowed.len() < 400 { if is_prime_small(p) && d % p != 0 && dp % p != 0 { allowed.push(p); } p += 1; }
+    let mut allowed = vec![]; let mut p = 2u64; while allowed.len() < 1500 { if is_prime_small(p) && d % p != 0 && dp % p != 0 { allowed.push(p); } p += 1; }
     let n = args.get(6).map(|s| s.parse().unwrap()).unwrap_or(197usize);
     let a_next = allowed[n]; // A_{N+1}, the first prime beyond the truncation
     allowed.truncate(n);

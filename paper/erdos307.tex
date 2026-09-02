@@ -1406,6 +1406,17 @@ The $d=42$ row recovers \cite{Bado2026b}'s $\omega(e)\ge64$ by a route with noth
 its proof: that one maximises mass over a $51{,}281$-state residue automaton, this one enumerates
 $175$ prime sets and tests an integrality condition. Two independent derivations of the same bound.
 
+Running the same exclusion across sectors rather than up the ladder is what the identity really
+buys. Among all sectors $d$ that are squarefree with $\omega(d)\le8$ and every prime factor at most
+$47$, exactly $250$ have mass floor $|P\cup Q|=60$; in every one of them the floor value of
+$\omega(e)$ is excluded, the largest enumeration being $41{,}654$ sets
+\textup{(\texttt{code/sector\_at60.gp}, \texttt{code/sector\_kexclude.rs})}. So
+\[ |P\cup Q|=60\ \text{is impossible in every such sector,} \]
+and any support of size $60$ must have $\omega(d)\ge9$ or a sector prime exceeding $47$. This does
+not move Theorem~\ref{thm:barrier}, whose $60$ is proved by a different route and over all supports;
+what it does is remove the entire low--$\omega$, small--prime part of the sector decomposition from
+the level--$60$ frontier.
+
 The ladder does not continue cheaply. In every sector the first rung above the mass floor is small
 --- the three counts above --- and the next requires the two-phase machinery of
 Proposition~\ref{prop:sector42}, because the truncation bound no longer excludes primes beyond
