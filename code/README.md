@@ -5,7 +5,7 @@ standalone. All *verdicts* use exact integer/rational arithmetic; floating point
 pre-screening, and where a float appears in a printed constant the exact form is given beside it.
 Runtimes are approximate (a laptop).
 
-This table documents the scripts the paper cites by name. `code/` holds 186 tracked files in total;
+This table documents the scripts the paper cites by name. `code/` holds 187 tracked files in total;
 the remainder are supporting Rust and GP sources reachable from those, or superseded working
 scripts, and are not individually documented here.
 
@@ -76,3 +76,5 @@ danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
 | `pairsector_countdp.rs` | Independent binned counting DP corroborating the above (`rustc -O`). | `1.8e7` at bin `3e-7`. | ~20 s |
 | `sigma_gap.gp` | How close `σ(a)` comes to `1`, both sides, by the greedy Sylvester construction. | `1 − σ = 7.8e-592`, `σ − 1 = 4.6e-591` at `ω = 12`. | ~2 s |
 | `sector_tight.gp` | The sectors where the `d'`-bound is tight. An earlier version filtered to `σ(d) < 1` and undercounted; corrected. | `877` sectors with `\|U\| ≤ 61` from primes `≤ 47` (`475` of them with `σ(d) > 1`); min `60`. | ~10 min |
+
+| `reproduce.sh` | Single entry point (Rule 9): regenerates everything the paper cites. | see the script. | ~12 min |
