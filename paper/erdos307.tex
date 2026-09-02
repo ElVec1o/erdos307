@@ -1380,6 +1380,40 @@ So $\omega(e)\ne64$. By \cite{Bado2026b}, $\omega(e)\ge64$ and $\omega(e)$ is ev
 $e'=42q$ is even); hence $\omega(e)\ge66$, and $|P\cup Q|=|\{2,3,7,q\}|+\omega(e)\ge70$.
 \end{proof}
 
+\begin{proposition}[The primary pseudoperfect sectors]\label{prop:ppnsectors}
+Let $d$ be squarefree and $\operatorname{supp}(e)=S\cup\{\ell\}$ with $R=\prod S$. The sector
+equation $de-d'e'=d^2$ reads
+\[ \ell\bigl(dR-d'R'\bigr)\;=\;d'R+d^2, \]
+so the last prime is determined by the others in every sector, not only at $d=42$. Running the
+resulting enumeration at the first admissible $\omega(e)$ above the mass floor gives, in each case,
+no solution:
+\[\begin{array}{lrrrl}
+d & \omega(e) & \text{sets} & |P\cup Q|\ \text{before} & \text{after}\\[2pt]
+42 & 62 & 175 & 66 & 68\\
+47058 & 54 & 2{,}850{,}564 & 60 & 62\\
+2214502422 & 70 & 11{,}646 & 77 & 79
+\end{array}\]
+\textup{(\texttt{code/sector\_kexclude.rs}; the identity is checked symbolically and in exact
+rationals in \texttt{code/sector\_kexclude.gp})}. In each case the mass bound
+$S_{\omega-1}+1/A_{N+1}<d/d'$ excludes even one prime beyond the truncation, so a single phase is a
+complete argument. At $d=47058$ this raises a primary pseudoperfect sector off the global barrier:
+that sector sat at exactly $60$, and $|P\cup Q|\ge62$ there. With
+Proposition~\ref{prop:sector42} the $d=42$ sector stands at $|P\cup Q|\ge70$.
+\end{proposition}
+
+\begin{remark}
+The $d=42$ row recovers \cite{Bado2026b}'s $\omega(e)\ge64$ by a route with nothing in common with
+its proof: that one maximises mass over a $51{,}281$-state residue automaton, this one enumerates
+$175$ prime sets and tests an integrality condition. Two independent derivations of the same bound.
+
+The ladder does not continue cheaply. In every sector the first rung above the mass floor is small
+--- the three counts above --- and the next requires the two-phase machinery of
+Proposition~\ref{prop:sector42}, because the truncation bound no longer excludes primes beyond
+$A_N$: at $d=42$ that step cost $3.7\times10^{10}$ sets, and at $d=47058$ the analogous
+$\omega(e)=56$ is $4.4\times10^{11}$, not run. The cheapness of the first rung and the cost of the
+second is the shape of the method, not an accident of $d=42$.
+\end{remark}
+
 \begin{remark}
 The same argument decides $\omega(e)=66$ in principle, but with up to four primes beyond the
 truncation the nested ranges multiply, and the enumeration is no longer a twenty--minute job; we

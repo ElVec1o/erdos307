@@ -5,7 +5,7 @@ standalone. All *verdicts* use exact integer/rational arithmetic; floating point
 pre-screening, and where a float appears in a printed constant the exact form is given beside it.
 Runtimes are approximate (a laptop).
 
-This table documents the scripts the paper cites by name. `code/` holds 182 tracked files in total;
+This table documents the scripts the paper cites by name. `code/` holds 184 tracked files in total;
 the remainder are supporting Rust and GP sources reachable from those, or superseded working
 scripts, and are not individually documented here.
 
@@ -64,6 +64,8 @@ danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
 | `sector42_znam_dp.rs` | Bado's residue dynamic programme with the Znám conditions at `5, 11, 13` adjoined (`rustc -O`). | `M_64`: `1.03032 → 1.02853`, still `≥ 42/41`. | ~6 s |
 | `sector42_k64.gp` | Exact rational facts behind `prop:sector42`: at most two primes `> 1229` in a `64`-set, the phase windows, the terminal formula as an identity. | `S_61 + 3/1231 < 42/41` (margin `1.09e-5`); `0`. | ~1 s |
 | `sector42_k64.rs` | `prop:sector42`: exhaustive, exact enumeration deciding `ω(e) = 64` in the `d = 42` sector; phase 1 (`≤ 1` prime `> 1229`), phase 2 (two). Dependency-free; checkpointed; `rustc -O`. | phase 1: `36,901,596,763` sets, `0`; phase 2: `166,213` sets, min `δ = 1.539e-6`, `0`. | 22 min / 5 s |
+| `sector_kexclude.rs` | `prop:ppnsectors`: decides `ω(e) = k` in ANY sector `d` by the generalised forced-prime identity (`rustc -O`). Regression: reproduces the `d=42`, `k=64` phase-2 figures exactly. | `d=42,k=62`: `175`, `0`; `d=47058,k=54`: `2,850,564`, `0`; `d=2214502422,k=70`: `11,646`, `0`. | < 1 s each |
+| `sector_kexclude.gp` | The generalised identity `ℓ(dR − d'R') = d'R + d²`, symbolic and exact-rational. | `0` symbolically; `0` violations at each sector. | ~2 s |
 | `sector_size.rs` | How many prime sets the sector enumerator would test, by a counting DP over binned mass (`rustc -O`); calibrated on the real `k=64` run. | predicts `3.49e10` vs `3.69e10` actual; `k=66` needs `8.0e15` (~16 years). | ~1 min |
 | `pairsector_count.rs` | The level-60 pair sector enumerated exactly: 59-subsets of the primes `< 1588` with `T(R) ∈ (2 − 1/max R, 2]` (`rustc -O`). | `18,234,653` bases, largest `max(R) = 1583`; stable over prune margins `0`–`1e-6`. | ~2 s |
 | `pairsector_kill.rs` | The reciprocity certificate over level-60 bases (`rug`/GMP for the Jacobi symbol). Campaign mode is the regression. | campaign: `49,961`/`31,219`/`18,742`, matching the paper; pair: `18,234,653` bases, `10,457,149` killed (57.3%). | 50 s |

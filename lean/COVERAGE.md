@@ -1,6 +1,6 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**83 of 146** labelled results are named by a Lean file in `Erdos307/` (60 files, **0 `sorry`**).
+**83 of 147** labelled results are named by a Lean file in `Erdos307/` (60 files, **0 `sorry`**).
 
 `lake env lean Check.lean` probes **423 declarations across all 60 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
@@ -184,6 +184,7 @@ The result *is* a number a program produces.
 | `prop:oddthr` | Even--gap plus lines are empty below 3.23times10^9 |
 | `prop:pairform` | Pair form; the one--equation relaxation |
 | `prop:plusinf` | Infinitely many gaps carry a nonempty plus line |
+| `prop:ppnsectors` | The primary pseudoperfect sectors: the forced-prime identity in general |
 | `prop:sector42` | The d=42 sector at 64 primes |
 | `prop:sectorbarrier` | The barrier is a function of the split |
 | `prop:sectors` | Sector decomposition of level 60 |
