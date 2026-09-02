@@ -56,6 +56,7 @@ import Erdos307.Certificate
 import Erdos307.PairSector
 import Erdos307.SieveBalance
 import Erdos307.SWDirect
+import Erdos307.TailQuadratic
 import Erdos307.Sector42
 import Erdos307.TailBound
 
@@ -500,3 +501,5 @@ open Erdos307
 #print axioms Erdos307.sieve_terms_equal_iff
 #print axioms Erdos307.sieve_balance
 #print axioms Erdos307.sieve_optimal
+#print axioms Erdos307.tail_root_antitone
+#print axioms Erdos307.tail_max_at_one

@@ -38,6 +38,7 @@ import Erdos307.Certificate
 import Erdos307.PairSector
 import Erdos307.SieveBalance
 import Erdos307.SWDirect
+import Erdos307.TailQuadratic
 import Erdos307.Sector42
 import Erdos307.Distinctness
 import Erdos307.TailBound

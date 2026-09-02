@@ -1,6 +1,6 @@
 # On the equation n″ = n and Erdős Problem #307
 
-**Version 1.45.0 · 2 September 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
+**Version 1.46.0 · 2 September 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
 
 **Author:** Vico Bonfioli — <vicobonfioli@gmail.com>
 
@@ -183,7 +183,7 @@ hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, w
   core with `pdflatex` (twice each, for the `xr` cross-references). No BibTeX run needed. The two
   documents are derived from `erdos307.tex`, never hand-edited, so they cannot drift.
 - **Lean:** `cd lean && lake exe cache get && lake build` (Lean / mathlib `v4.30.0`). Then
-  `lake env lean Check.lean` prints the axiom dependencies of 423 declarations across all 60 modules
+  `lake env lean Check.lean` prints the axiom dependencies of 425 declarations across all 61 modules
   — everything depends only on `propext, Classical.choice, Quot.sound` (no `sorryAx`), with exactly
   no exceptions: there is no `native_decide` anywhere in the development.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)
@@ -227,6 +227,7 @@ against the build by `code/check_consistency.sh` at every push. Summary:
 | `prop:pairlocal` (no congruence kill on the pair sector) | `Erdos307.PairLocal`, `PairLocalCount` | VERIFIED |
 | reciprocity certificate soundness | `Erdos307.Certificate` | VERIFIED |
 | pair-sector finiteness, `T(R) ≠ 2` | `Erdos307.PairSector` | VERIFIED |
+| `prop:tailbound` (quadratic, discriminant, bounds; and the `α = 1` maximum) | `Erdos307.TailBound`, `Erdos307.TailQuadratic` | VERIFIED |
 | `prop:sector42` (algebraic half) | `Erdos307.Sector42` | PROVED ⭐ (enumeration not formalizable at 3.7×10¹⁰ leaves) |
 | `lem:swdirect` (diagonalisation core) | `Erdos307.SWDirect` | PROVED ⭐ (Siegel–Walfisz absent from Mathlib) |
 | `lem:charcancelunif` (constant analysis) | `Erdos307.CharCancel` | PROVED ⭐ (Halász, zero-free region) |
@@ -234,7 +235,7 @@ against the build by `code/check_consistency.sh` at every push. Summary:
 | `lem:deficit` (algebraic core) | `Erdos307.Deficit` | PROVED ⭐ (four analytic inputs) |
 | `prop:condrate` / `thm:a9` | none | PROVED ⭐ (downstream of the two lemmas above) |
 
-`lake env lean Check.lean` probes 423 declarations across 60 modules; all depend only on
+`lake env lean Check.lean` probes 425 declarations across 60 modules; all depend only on
 `propext, Classical.choice, Quot.sound`, with zero `sorry`. Six atoms carry formalization debt (⭐);
 five of the six have their non-analytic core machine-checked, and what remains under all of them is
 four classical theorems (Siegel–Walfisz, Siegel, the zero-free region for Dirichlet `L`-functions,
