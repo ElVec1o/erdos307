@@ -22,7 +22,7 @@ values of `sign (σ(n) - σ(n'))` therefore exclude every `λ` between them:
 As in `Erdos307.HalfLyap`, the arithmetic enters only through the values of `σ`, and those are
 recorded here as explicit numerals and checked by `norm_num`. That `n₀'` is squarefree with
 `σ(n₀') = 31/30` rests on the complete factorisation `n₀' = 2·3·5·C` together with the primality of
-`C`, which carries an Atkin-Morain certificate (`certs/lyap_refute_cofactor_ecpp.txt`); that step is
+`C`, which carries an Atkin-Morain certificate (`data/certs/lyap_refute_cofactor_ecpp.txt`); that step is
 outside Lean and is the only input taken on trust, exactly as the coprimality of `n` and `n'` is in
 `HalfLyap`.
 
@@ -30,7 +30,7 @@ Trust boundary. `sigmaN0` is the mass of the witness as an explicit rational num
 development proves the criterion fails for that numeral. It does **not** prove that the numeral is
 the mass of the integer `n₀` of the paper: the factorisation of `n₀` and the primality of the
 141-digit cofactor are external, resting on the ECPP certificate in
-`certs/lyap_refute_cofactor_ecpp.txt`. So the refutation is Lean-checked modulo that identification,
+`data/certs/lyap_refute_cofactor_ecpp.txt`. So the refutation is Lean-checked modulo that identification,
 which is stated here rather than left implicit.
 
 Paper: Theorem `thm:lyapfalse`, Corollary `cor:halfsharp`.

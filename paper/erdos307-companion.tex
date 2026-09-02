@@ -30,7 +30,7 @@
 \title{Companion to \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau}:\\ explorations, closures and the square sieve}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.46.0\quad 2 September 2026}
+\date{Version 1.47.0\quad 2 September 2026}
 
 \externaldocument[K-]{erdos307-core}
 \begin{document}
@@ -70,7 +70,7 @@ $\ell\nmid\Pi_{59}$ to about a quarter, but never to zero), consistent with the 
 theme of Section~\ref{sec:anatomy}. The obstruction, however, lives at the primes \emph{of} $A$
 and $B$, and it is detectable \emph{without factoring}: Proposition~\ref{prop:tailkill} below
 closes this family for \emph{every} $q$ by a single Jacobi--symbol computation. (An exact sweep to
-$q\le10^{12}$, \texttt{hunt/tail\_sweep.rs}, $1.25\times10^{11}$ candidates, none with
+$q\le10^{12}$, \texttt{code/hunt/tail\_sweep.rs}, $1.25\times10^{11}$ candidates, none with
 $Aq+\Pi_{59}$ even a single square, which corroborates it independently.) The tail family also exposes the self--similarity of the ladder:
 writing $a=qm$, so that $m\,b=\Pi_{59}$ partitions the first $59$ primes, its two closing
 conditions collapse to the exact equation
@@ -84,7 +84,7 @@ type as \#307 itself (expected count ${\sim}2^{58}/\Pi_{59}\approx10^{-95}$): ea
 ladder past $60$ contains the whole problem. The one case with \emph{no} free large prime (a
 $60$--set drawn entirely from small primes) is instead a finite search, and empty in the
 minimal range: a direct both--squares enumeration of all $60$--prime sets with $T>2$ supported in
-the first $70$ primes ($4{,}011{,}289$ sets; \texttt{hunt/close60.rs}) finds none passing even the
+the first $70$ primes ($4{,}011{,}289$ sets; \texttt{code/hunt/close60.rs}) finds none passing even the
 plus--square, so no level--$60$ solution has all its primes $\le349$. (The first $68$ primes give
 $1{,}258{,}448$ sets, also empty, and reproduce independently.) By
 Corollary~\ref{cor:kdetermined} this verdict is decisive rather than provisional: at these masses a
@@ -118,7 +118,7 @@ Proposition~\ref{K-prop:close59} proves $31{,}219$ of the one--new--prime famili
 empty ($62.5\%$, curiously near $5/8$); the remaining $18{,}742$ are Jacobi--inconclusive: their
 $-1$--Legendre primes, if any, occur to an even count, visible only through a factorisation of
 $A_S$. A factoring attack on those (trial division and Brent--Pollard $\rho$ over a Montgomery
-core, \texttt{hunt/survivor\_kill.rs}; the found factors are kept as a pairwise--coprime basis, so
+core, \texttt{code/hunt/survivor\_kill.rs}; the found factors are kept as a pairwise--coprime basis, so
 a kill certificate (an odd--multiplicity basis piece $P$ with $(D_S\mid P)=-1$) needs no
 primality testing at all), pushed to $\rho$--budget $10^6$ with a Pollard $p-1$ stage, closes a
 further $15{,}264$: in total $46{,}483$ of the $49{,}961$ one--new--prime families at level $60$
@@ -149,7 +149,7 @@ prime, exactly the $34$ with $(D_S\mid A_S)=+1$; the other $47$ carry $(D_S\mid 
 already killed. The primality is moreover backed by
 \emph{independently checkable} evidence rather than a verdict: \texttt{code/immune\_certify.gp}
 emits Atkin--Morain \textup{ECPP} certificates for all $68$ integers, archived at
-\texttt{certs/immune\_ecpp.txt} ($512$\,KB) so a third
+\texttt{data/certs/immune\_ecpp.txt} ($512$\,KB) so a third
 party can check them without trusting the prover. That file is a \texttt{primecertexport} dump and
 is not machine--readable: PARI's \texttt{read} parses its header as a polynomial, so
 \texttt{primecertisvalid} cannot consume it, and earlier versions of this paper and of the
@@ -191,7 +191,7 @@ conics in $(x,q)$ or $(y,q)$ with $\sim\ell$ points, deleting at most half of th
 of $q$ and never all (the $2$--adic layer pins $q\equiv5\bmod8$ without emptiness); by CRT and
 Dirichlet, admissible $q$ survive any finite set of such conditions. Hence a tail family admits a
 congruence kill iff $(D_S\mid\ell)=-1$ for some $\ell\mid A_SB_S$, which the Jacobi symbol
-detects for $31{,}219$ bases, and partial factorisation (\texttt{hunt/survivor\_kill.rs}) for a
+detects for $31{,}219$ bases, and partial factorisation (\texttt{code/hunt/survivor\_kill.rs}) for a
 further $15{,}264$: in total $46{,}483$ of the $49{,}961$ single--tail families at level $60$ are
 proven empty ($93.0\%$), $3{,}478$ remaining open (each a balanced ${\sim}57$--digit semiprime, factoring--hard). The weapon is intrinsically \emph{arity--one}, and provably fails on the pair sector. With
 $s=p+q$, $t=pq$, a pair--sector member requires the two simultaneous squares $x^2=A_Wt+D_Ws$ and
@@ -1266,7 +1266,7 @@ $[10^{10},10^{11}]$. Both tiers are exhaustive over their $5{,}778$ prime pairs 
 $10{,}004{,}024$ members and $6.94\times10^8$ closure tests on the first, $22{,}218{,}430$ members
 and $1.82\times10^9$ closure tests on the second, so $3.22\times10^7$ members and
 $2.52\times10^9$ closure tests in all, with no two--cycle at any point
-\textup{(\texttt{hunt/descended\_hunt2.rs}, \texttt{hunt/run\_tier2\_par.sh})}. The tier boxes are
+\textup{(\texttt{code/hunt/descended\_hunt2.rs}, \texttt{code/hunt/run\_tier2\_par.sh})}. The tier boxes are
 not nested in the one above, being narrower in $\omega$ and in the prime range while wider in $m$,
 so the two counts complement rather than supersede one another; and the tiers test closure only, not
 the fixed--point and vanishing conditions recorded above. We claim no
@@ -1333,7 +1333,7 @@ $\mathbb{Z}[i]^{\times}$ in the single point $\mu=i$. That the anti--holomorphic
 uniform across the ladder: over $\mathbb{Z}[\sqrt{-2}]$ the cycle above is still the \emph{only} one
 after widening the census simultaneously in all three directions; prime--norm $\le2\times10^4$,
 $\omega\le8$, product--norm $\le10^{10}$ (a factor $700$ past the cycle itself), $8.09\times10^8$
-supports, \texttt{hunt/antiholo\_hunt.rs}, and over
+supports, \texttt{code/hunt/antiholo\_hunt.rs}, and over
 $\mathbb{Z}$ the sector is empty below $10^{112}$ by Corollary~\ref{K-cor:emptytest}. We record the
 plateau as consistent with genuine finiteness, not as evidence for it: a random model for
 $a'=-\bar a$ predicts a count growing like $\log X$, which the tested range cannot separate from a
@@ -2069,7 +2069,7 @@ $D(a)=t\,(t^2-t-1)+1\cdot(t-1)=t^3-t^2-1=b$ and $D(b)=t\,(t^2+t-1)+1\cdot(t+1)=t
 exact in $\mathbb{F}_3[t]$; the factorisations are as displayed and share no factor. The values
 $t$ and $1$ are units of $\mathbb{F}_q[t,t^{-1}]$, so this is a unit--valued Leibniz derivative in
 the sense used throughout Section~\ref{sec:ff}. Verified independently by exhaustive search and by
-direct recomputation (\texttt{hunt/ff\_twist.rs}).
+direct recomputation (\texttt{code/hunt/ff\_twist.rs}).
 \end{proof}
 
 \begin{remark}[What the function--field theorem is really about]\label{rem:ffplaces}
@@ -3849,7 +3849,7 @@ Both statements are finite verifications in exact rational arithmetic. For $n_0$
 $\sigma(n_0')$ are computed as rationals, $\gcd(n_0,n_0')=1$ and $\sigma(n_0)=n_0'/n_0$ confirm
 Theorem~\ref{K-thm:structure}, the factorisation $n_0'=2\cdot3\cdot5\cdot C$ multiplies back to $n_0'$
 and has all exponents $1$, and $C$ carries an Atkin--Morain certificate, generated and validated
-\textup{(\texttt{certs/lyap\_refute\_cofactor\_ecpp.txt})}. The comparisons $\sigma(n_0)>1$ and
+\textup{(\texttt{data/certs/lyap\_refute\_cofactor\_ecpp.txt})}. The comparisons $\sigma(n_0)>1$ and
 $\sigma(n_0')>\sigma(n_0)$ are exact, and $\sigma(n_0')=\sigma(n_0)$ is impossible in any case by
 Lemma~\ref{lem:sigmainj}. The case $n=30$ is arithmetic
 \textup{(\texttt{code/lyap\_refute\_verify.gp})}.

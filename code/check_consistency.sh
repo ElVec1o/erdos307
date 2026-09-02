@@ -64,7 +64,7 @@ chk "native_decide sites" "0" "$nd"
 sry=$(grep -rn 'sorry' lean/Erdos307/*.lean | grep -v 'sorry`-free\|sorryAx' | wc -l | tr -d ' ')
 chk "sorry count" "0" "$sry"
 
-orph=$(git ls-files | grep -v '^\(paper\|lean\|code\|data\|certs\|hunt\)/' \
+orph=$(git ls-files | grep -v '^\(paper\|lean\|code\|data\)/' \
        | grep -v '^\(README.md\|LICENSE\|.gitignore\|CLAUDE.md\|RULES.md\|CITATION.cff\)$' | wc -l | tr -d ' ')
 chk "orphan files" "0" "$orph"
 

@@ -1,6 +1,6 @@
 # On the equation n″ = n and Erdős Problem #307
 
-**Version 1.46.0 · 2 September 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
+**Version 1.47.0 · 2 September 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
 
 **Author:** Vico Bonfioli — <vicobonfioli@gmail.com>
 
@@ -68,7 +68,7 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
   already sum to 2.00235, so those hypotheses give Rosen's `≥ 59`; reaching 60 needs the 49,961
   supports excluded one at a time. We claim the proof, not the statement. Any solution also has
   `min(∏P, ∏Q) > 3.50 × 10⁵⁷`
-  — verified by two independent exact-integer programs (`code/close59.py`, `hunt/close59.rs`) **and
+  — verified by two independent exact-integer programs (`code/close59.py`, `code/hunt/close59.rs`) **and
   machine-checked in Lean 4** (`erdos307_sixty`: the search's completeness is proved, not assumed;
   the enumeration's `dfs_run` step runs under the kernel's own `decide`, with no `native_decide`).
   The product
@@ -124,7 +124,7 @@ the Ufnarovski–Åhlander / Kovič `n″ = n` literature in both directions.
   `log N`. The `√φ(r)` wall was a cost of the expansion, not of the arithmetic.
 - **The 34 immune families are now unconditional.** Their primality was graded `[C]` because
   Baillie-PSW is rigorous only in its *composite* verdicts. APR-CL proves all 68 integers prime, and
-  `certs/immune_ecpp.txt` archives **independently checkable ECPP certificates** for every one
+  `data/certs/immune_ecpp.txt` archives **independently checkable ECPP certificates** for every one
   (68 verified, 0 invalid). The structural half is formal: `Erdos307.jacobiSym_A_eq_B` proves
   `(D_S|A_S) = (D_S|B_S)` in Lean 4 on the three standard axioms, with no `native_decide`.
 - **Four independent blocks on the existence route**, no two the same obstruction: the construction
@@ -171,10 +171,10 @@ paper/   erdos307-core.pdf       — the paper (32 pp; the results)
          erdos307.tex            — the single source both are generated from
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md
-certs/   independently checkable ECPP primality certificates: the immune families, and the
+code/hunt/    Rust enumerators for derivative cycles over ℤ and the number rings — see code/hunt/README.md
+data/    small final data the paper cites
+data/certs/   independently checkable ECPP primality certificates: the immune families, and the
          141-digit cofactor behind the refutation of the Lyapunov criterion
-hunt/    Rust enumerators for derivative cycles over ℤ and the number rings, with the verified
-         certificates cited in the note — see hunt/README.md
 ```
 
 ## Building
@@ -208,13 +208,24 @@ is already met going forward. Recording the discrepancy is the honest resolution
   models: `#print axioms` cannot see unsatisfiable hypotheses, and a theorem with contradictory
   ones passes the axiom check cleanly while proving nothing. One did, and was caught by adversarial
   review rather than by any check here.
-- **Certificates:** `certs/lyap_refute_cofactor_ecpp.txt` is machine-readable and verifies under
-  PARI with `primecertisvalid(read("certs/lyap_refute_cofactor_ecpp.txt"))`.
-  `certs/immune_ecpp.txt` is a human-readable `primecertexport` dump and **cannot** be consumed that
+- **Certificates:** `data/certs/lyap_refute_cofactor_ecpp.txt` is machine-readable and verifies under
+  PARI with `primecertisvalid(read("data/certs/lyap_refute_cofactor_ecpp.txt"))`.
+  `data/certs/immune_ecpp.txt` is a human-readable `primecertexport` dump and **cannot** be consumed that
   way; earlier versions of this README and of the file's own header said otherwise, which was wrong.
   Verify it with `gp -q -f code/immune_cert_verify.gp`, which re-proves all 68 subjects by ECPP in
   about 1.3 s. Last run: 68/68 prime, 0 failures.
 - **Hunt:** `rustc -O -o NAME NAME.rs` then run; each program self-tests and prints progress.
+
+## Data provenance
+
+`data/` holds only what the paper cites directly.
+
+| path | what it is | produced by |
+|---|---|---|
+| `data/b396915.txt` | the 251-term b-file for OEIS A396915 (plus-hits below `10^6`) | `code/plus_hits.gp`, seedless enumeration |
+| `data/nearmiss_tune_best.txt` | best near-miss parameters from the tuning sweep | `code/a10_nearmiss.rs`, fixed seed recorded in the file header |
+| `data/certs/immune_ecpp.txt` | ECPP certificates for the 68 immune subjects, human-readable `primecertexport` dump; verify with `gp -q -f code/immune_cert_verify.gp`, not with `primecertisvalid` | PARI/GP ECPP |
+| `data/certs/lyap_refute_cofactor_ecpp.txt` | machine-readable ECPP certificate for the 141-digit cofactor refuting the Lyapunov criterion; `primecertisvalid(read(...))` consumes it | PARI/GP ECPP |
 
 ## Formalization status
 
