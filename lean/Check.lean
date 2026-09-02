@@ -51,8 +51,10 @@ import Erdos307.SquareSieve
 import Erdos307.Squarefree
 import Erdos307.StratumGeneral
 import Erdos307.StratumM30
+import Erdos307.CharCancel
 import Erdos307.Certificate
 import Erdos307.PairSector
+import Erdos307.SieveBalance
 import Erdos307.SWDirect
 import Erdos307.Sector42
 import Erdos307.TailBound
@@ -489,3 +491,12 @@ open Erdos307
 #print axioms Erdos307.diagonalisation_sufficient
 #print axioms Erdos307.diagonalisation_step
 #print axioms Erdos307.diagonalisation_limit
+#print axioms Erdos307.ratio_antitone
+#print axioms Erdos307.ratio_lt_one
+#print axioms Erdos307.ratio_seven
+#print axioms Erdos307.ratio_three_five
+#print axioms Erdos307.ratio_five_gt
+#print axioms Erdos307.ratio_three_gt
+#print axioms Erdos307.sieve_terms_equal_iff
+#print axioms Erdos307.sieve_balance
+#print axioms Erdos307.sieve_optimal

@@ -32,7 +32,7 @@ authors:
   - family-names: Bonfioli
     given-names: Vico
     email: vicobonfioli@gmail.com
-version: 1.40.0
+version: 1.41.0
 date-released: '2026-09-02'
 type: software
 license: MIT

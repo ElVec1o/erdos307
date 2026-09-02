@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**83 of 146** labelled results are named by a Lean file in `Erdos307/` (58 files, **0 `sorry`**).
+**83 of 146** labelled results are named by a Lean file in `Erdos307/` (60 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **414 declarations across all 58 modules**. Everything is on the
+`lake env lean Check.lean` probes **423 declarations across all 60 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
 closes level 60, was the last site off that footing; it and the `erdos307_sixty` that consumes it are
 now kernel-`decide`, as is the numeral bridge behind `card_ge_59` and `erdos307_barrier_closed`.
@@ -108,9 +108,9 @@ formalised as it is identified. What is machine-checked so far, per starred atom
 | `lem:swdirect` ⭐ | `SWDirect.lean` (4 declarations): the *Removing ε* diagonalisation — the exchange `(1-1/2j)(1-G)L - C ≥ (1-G)L - L/j` as an equivalence, its sufficient condition `L ≥ 2jC`, and the passage to `o(L)`. This is the whole of the proof that is not the analytic estimate. | Siegel–Walfisz itself |
 | `lem:deficit` ⭐ | `Deficit.lean` (10 declarations): the multiplicativity, orthogonality and Gauss-sum core | the four analytic inputs |
 | `prop:sector42` ⭐ | `Sector42.lean` (6 declarations): the forced-prime identity and its converse, the sign condition, the case split, the parity step | the `3.7 × 10¹⁰`-leaf enumeration |
-| `lem:charcancelunif` ⭐ | none yet | Halász and the zero-free region |
+| `lem:charcancelunif` ⭐ | `CharCancel.lean` (6 declarations): the constant analysis. `√r/φ(r) = ∏ √p/(p-1)`; the factor `u ↦ u/(u²-1)` is antitone and below `1`, so only `ω(r) = 1` and `ω(r) = 2` need bounding; `√7/6 < 1/2` and `√15/8 < 1/2` settle them, and `√5/4 > 2/5`, `√3/2 > 1/2` show `r = 3, 5` are genuinely excluded. This is where the hypothesis `r ≥ 7` and the constant `1 - √15/8 = 0.515…` come from. | Halász and the zero-free region |
 | `prop:condrate` / `thm:a9` ⭐ | none yet | the two lemmas above |
-| `cor:a9rate` ⭐ | none yet | `lem:swdirect` plus the sieve |
+| `cor:a9rate` ⭐ | `SieveBalance.lean` (3 declarations): that `P = (log N)^{1/4}(log log N)^{1/2}` is the exact balance point of the diagonal and character terms, and is optimal — so the exponent `1/4` is the true optimum of this sieve, not an artefact. | `lem:swdirect` plus Halász |
 
 Separately, one step that was never starred because it was never an atom — the soundness of the
 reciprocity certificate, carried in prose through `prop:close59` and the whole level-60 campaign —
