@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**80 of 146** labelled results are named by a Lean file in `Erdos307/` (54 files, **0 `sorry`**).
+**81 of 146** labelled results are named by a Lean file in `Erdos307/` (55 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **395 declarations across all 54 modules**. Everything is on the
+`lake env lean Check.lean` probes **401 declarations across all 55 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
 closes level 60, was the last site off that footing; it and the `erdos307_sixty` that consumes it are
 now kernel-`decide`, as is the numeral bridge behind `card_ge_59` and `erdos307_barrier_closed`.
@@ -74,7 +74,7 @@ that needed proving was the easy direction all along.
 | `prop:condrate` / `thm:a9` ⭐ | no | the two lemmas above | as above |
 | `lem:swdirect` ⭐ | no | Siegel--Walfisz (hence Siegel), and Hal\'asz downstream | as above; it needs strictly *fewer* analytic inputs than `lem:charcancelunif` --- no zero--free region, no `L`--function bound, no exceptional--zero split --- but Siegel--Walfisz alone is already far outside Mathlib |
 | `cor:a9rate` ⭐ | no | `lem:swdirect` plus the sieve | as above |
-| `prop:sector42` ⭐ | no (computer-assisted: the case split and the forced-prime identity are formalisable; the enumeration is not) | a certificate of `3.7e10` leaves has no Lean-checkable form; `native_decide` on the enumerator would need the search itself inside Lean | a verified checker for the pruned enumeration, on the pattern of `dfs_run` at level 60, but four orders of magnitude larger; not attempted |
+| `prop:sector42` ⭐ | partly (`Sector42.lean`, 6 declarations: the forced-prime identity and its converse, the sign condition, the case-split inequality, the parity step, and the conclusion with the two finite computations as explicit hypotheses) | a certificate of `3.7e10` leaves has no Lean-checkable form; `native_decide` on the enumerator would need the search itself inside Lean | a verified checker for the pruned enumeration, on the pattern of `dfs_run` at level 60, but four orders of magnitude larger; not attempted |
 
 Six atoms are starred, and honestly so. One of the five is now partly formalised:
 `Deficit.lean` carries the algebraic **core** of `lem:deficit` --- ten declarations covering the
@@ -95,7 +95,7 @@ Siegel are not elementary in disguise.
 
 A6 moved furthest this release: its divisor sums, their logarithmic form, and the range count are
 all formal, leaving the CRT root bound as the single remaining lemma. A7 moved in the previous
-release, to Weil alone -- and then past it. Six atoms are starred (see the table above); five are analytic, not algebraic, and stand or fall together; the sixth is a finite enumeration too large to certify. The recurring error was
+release, to Weil alone -- and then past it. Six atoms are starred (see the table above); five are analytic, not algebraic, and stand or fall together; the sixth is a finite enumeration too large to certify, whose algebraic half is now formalised. The recurring error was
 treating "Mathlib does not carry the named theorem" as evidence that the step needs that theorem;
 in three of four cases the step did not.
 

@@ -558,7 +558,11 @@ The enumeration prunes on the mass in floating point with a margin of $10^{-9}$ 
 window, so no set in a window is lost; the integrality test is a double--double prefilter with a
 conservative band followed by exact integer arithmetic ($7{,}454{,}365$ and $2{,}495$ exact tests
 respectively), the integer layer checked against PARI to the digit
-\textup{(\texttt{code/sector42\_k64.rs}, two runs with independent big--integer implementations)}.
+\textup{(\texttt{code/sector42\_k64.rs}, two runs with independent big--integer implementations)}. The
+non--enumerative half of the argument --- the forced--prime identity and its converse, the sign
+condition, the case--split inequality and the parity step --- is formalised in
+\texttt{lean/Erdos307/Sector42.lean}, with the two finite computations appearing as explicit
+hypotheses of the concluding statement.
 So $\omega(e)\ne64$. By \cite{Bado2026b}, $\omega(e)\ge64$ and $\omega(e)$ is even ($e$ is odd and
 $e'=42q$ is even); hence $\omega(e)\ge66$, and $|P\cup Q|=|\{2,3,7,q\}|+\omega(e)\ge70$.
 \end{proof}

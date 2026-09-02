@@ -51,6 +51,7 @@ import Erdos307.SquareSieve
 import Erdos307.Squarefree
 import Erdos307.StratumGeneral
 import Erdos307.StratumM30
+import Erdos307.Sector42
 import Erdos307.TailBound
 
 /-! # Axiom audit for the whole development
@@ -466,3 +467,9 @@ open Erdos307
 #print axioms Erdos307.gaussSum_modulus
 #print axioms Erdos307.coeff_factor
 #print axioms Erdos307.sum_nonprincipal_le
+#print axioms Erdos307.terminal_prime
+#print axioms Erdos307.terminal_prime'
+#print axioms Erdos307.terminal_denom_pos
+#print axioms Erdos307.case_split
+#print axioms Erdos307.parity_step
+#print axioms Erdos307.sector42_conclusion
