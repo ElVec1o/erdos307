@@ -30,7 +30,7 @@
 \title{Companion to \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau}:\\ explorations, closures and the square sieve}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.65.0\quad 2 September 2026}
+\date{Version 1.66.0\quad 2 September 2026}
 
 \externaldocument[K-]{erdos307-core}
 \begin{document}
@@ -194,16 +194,34 @@ congruence kill iff $(D_S\mid\ell)=-1$ for some $\ell\mid A_SB_S$, which the Jac
 detects for $31{,}219$ bases, and partial factorisation (\texttt{code/hunt/survivor\_kill.rs}) for a
 further $15{,}264$: in total $46{,}483$ of the $49{,}961$ single--tail families at level $60$ are
 proven empty ($93.0\%$), $3{,}478$ remaining open (each a balanced ${\sim}57$--digit semiprime, factoring--hard).
-Level $60$ is decidable, and it is worth pricing the two routes, because they identify the obstruction
-as a much smaller object than the residual. By Proposition~\ref{K-prop:tailbound} the tail prime is a
-root of a quadratic indexed by a divisor $\alpha\mid D_S$, so a family is decided by $2^{58}$
-perfect--square tests on integers of some $230$ digits: about $3.2\times10^7$ core--years over the
-$3{,}478$, and about $3.1\times10^5$ over the $34$ immune ones alone. Factoring the balanced semiprime
-instead costs on the order of twenty core--years for all $3{,}478$, which is feasible, but it is
-incomplete by a theorem: for $A=pq$ with $(D_S\mid A)=+1$ either both Legendre symbols are $+1$, when
-no kill exists, or both are $-1$, when one does, so factoring decides at best half; and the $34$
-immune families carry no inert factor at all, so no congruence kills them however far the factoring is
-pushed. The bottleneck at level $60$ is therefore those $34$ families and not the $3{,}478$.
+The $34$ immune families are not a bottleneck; they are the tractable ones, and they are empty.
+Immunity means $A_S$ is prime, and that is exactly what makes the family decidable directly.
+
+\begin{proposition}[Immune families are decided in polynomial time]\label{prop:immunedecide}
+Let $S$ be a level--$60$ base with $A_S=N_S+2D_S$ prime and $(D_S\mid A_S)=+1$. Then a solution in the
+tail family $S\cup\{q\}$ forces $x^2=A_Sq+D_S$ with $x$ one of the two square roots of $D_S$ modulo
+$A_S$, so the family has at most two candidate tail primes, computable by Tonelli--Shanks. All $34$
+immune families at level $60$ are empty.
+\end{proposition}
+\begin{proof}
+Write $\sigma=N_S/D_S$, so $A_S=(\sigma+2)D_S$. Proposition~\ref{K-prop:tailbound} bounds
+$q\le tD_S$ with $t=\tfrac12(\sigma+\sqrt{\sigma^2-4})$, whence
+$x^2=A_Sq+D_S\le\bigl((\sigma+2)t+1\bigr)D_S^2$. At level $60$ one has $\sigma>2$ and $\sigma$ close
+to $2$, so $(\sigma+2)t+1<5.07$ and $x<2.26\,D_S<(\sigma+2)D_S=A_S$. Hence $x$ lies in $[0,A_S)$ and,
+$A_S$ being prime, is one of the two roots of $X^2\equiv D_S$. Each root gives one candidate
+$q=(x^2-D_S)/A_S$, to be tested for integrality, primality and the companion condition that
+$B_Sq+D_S$ be a square. Carrying this out on the $34$ families with $A_S,B_S$ both Baillie--PSW
+probable prime, every candidate fails \textup{(\texttt{code/immune\_decide.gp})}: at
+\texttt{base\#64}, for instance, $\sigma=2.000253$, $A_S/D_S=4.000253$ and $x\le2.2504\,D_S$, and both
+roots give a composite $q$. The conclusion is conditional on the primality of $A_S$ exactly as the
+immunity itself was.
+\end{proof}
+
+What remains at level $60$ is therefore the $3{,}444$ families whose $A_S$ is composite and not split,
+where the argument above needs the factorisation it does not have. Factoring the balanced semiprime
+costs on the order of twenty core--years for all of them and decides at best half, since for $A=pq$
+with $(D_S\mid A)=+1$ either both Legendre symbols are $+1$, when no kill exists, or both are $-1$,
+when one does.
 
 Those $3{,}478$ are expected to be empty, and by a wide margin: evaluating the expected count of
 Remark~\ref{rem:killcount} over them, with $\kappa_S\le1$ and the tail sum bounded by
