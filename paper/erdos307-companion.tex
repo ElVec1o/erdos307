@@ -30,7 +30,7 @@
 \title{Companion to \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau}:\\ explorations, closures and the square sieve}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.70.0\quad 2 September 2026}
+\date{Version 1.71.0\quad 2 September 2026}
 
 \externaldocument[K-]{erdos307-core}
 \begin{document}
@@ -725,11 +725,25 @@ d & \omega(e) & \text{sets} & |P\cup Q|\ \text{before} & \text{after}\\[2pt]
 2214502422 & 70 & 11{,}646 & 77 & 79
 \end{array}\]
 \textup{(\texttt{code/sector\_kexclude.rs}; the identity is checked symbolically and in exact
-rationals in \texttt{code/sector\_kexclude.gp})}. In each case the mass bound
-$S_{\omega-1}+1/A_{N+1}<d/d'$ excludes even one prime beyond the truncation, so a single phase is a
-complete argument. At $d=47058$ this raises a primary pseudoperfect sector off the global barrier:
-that sector sat at exactly $60$, and $|P\cup Q|\ge62$ there. With
+rationals in \texttt{code/sector\_kexclude.gp})}. At each $\omega(e)$ in the table the mass bound
+$S_{\omega-1}+1/A_{N+1}<d/d'$ excludes even one prime beyond the truncation, so there a single phase
+is a complete argument. At $d=47058$ this raises a primary pseudoperfect sector off the global
+barrier: that sector sat at exactly $60$, and $|P\cup Q|\ge62$ there. With
 Proposition~\ref{prop:sector42} the $d=42$ sector stands at $|P\cup Q|\ge70$.
+
+The next step at $d=47058$ costs more, because the single--phase condition fails there. With
+$N=400$ and $A_{N+1}=2791$ one has $S_{55}+1/A_{N+1}=1.00629$ and $S_{54}+2/A_{N+1}=1.00309$, both
+above $d/d'=1.0000213$, so one and two primes beyond the truncation must each be enumerated; but
+$S_{53}+3/A_{N+1}=0.99984<d/d'$, so three or more cannot occur and the two phases together are
+complete. Both are empty: phase~$1$ enumerates $4.387\times10^{11}$ leaves and $88{,}472{,}925$ exact
+checks, phase~$2$ a further $373{,}644$ leaves and $59{,}276$ exact checks, and neither yields an
+admissible forced prime \textup{(\texttt{code/sector\_kexclude.rs}, $12{,}658$\,s on nine cores)}.
+Hence $\omega(e)\ne56$. Since $d$ is even, $e=d+qd'$ is odd and $e'=dq$ is even, so
+Proposition~\ref{prop:oddsector} forces $\omega(e)$ even; with $\omega(e)\ge56$ already in hand this
+gives $\omega(e)\ge58$ and
+\[ |P\cup Q|\;=\;1+\omega(d)+\omega(e)\;\ge\;1+5+58\;=\;64 \]
+at $d=47058$. The truncation is what stops the ladder here: at $\omega(e)=57$ even four primes beyond
+$A_N$ remain possible, so the next rung needs a larger $N$ rather than more time at this one.
 \end{proposition}
 
 \begin{remark}
