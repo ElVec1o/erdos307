@@ -1,6 +1,6 @@
 // sector_kexclude.rs -- decide whether omega(e) = k is possible in a GIVEN sector d of the two-cycle.
 // Generalises sector42_k64.rs: the forced-prime identity is l*(dR - d'R') = d'R + d^2 for any squarefree d.
-// Build: rustc -O -o sector_kexclude sector_kexclude.rs   Run: ./sector_kexclude <d> <d'> <k> <phase> [threads] [N]
+// Build: rustc -O -o sector_kexclude sector_kexclude.rs   Run: ./sector_kexclude <d> <d'> <k> <phase> [threads] [N] [split depth]
 // Sector d = 42:  e = 42 + 41 q,  e' = 42 q,  supp(e) avoids {2,3,7,41},  equivalently  42 e - 41 e' = 1764.
 // Facts (checked exactly in sector42_k64.gp): with A_j the allowed primes, S_61 + 3/1231 < 42/41, so a
 // 64-set has at most two primes > A_197 = 1229.
@@ -127,8 +127,14 @@ fn main() {
     allowed.truncate(n);
     let invf: Vec<f64> = allowed.iter().map(|&q| 1.0 / q as f64).collect(); let inv: Vec<DD> = allowed.iter().map(|&q| dd_recip(q)).collect();
     // reorder: split primes (original indices SPLIT0..SPLIT0+D) first, then the rest in increasing order
-    const D: usize = 16; let split0: usize = (n / 5).min(n.saturating_sub(D));
-    let order: Vec<usize> = (split0..split0 + D).chain((0..n).filter(|&j| j < split0 || j >= split0 + D)).collect();
+    // Split depth: the enumeration is cut into 2^D independent items, taken by threads from an atomic
+    // counter.  16 is the default, but at large k a single item can run for hours, which both starves
+    // the other threads and hides all progress (the counter prints every 512 COMPLETIONS).  Raising D
+    // makes the items finer.  It only permutes the order in which primes enter the DFS, so the
+    // enumeration it performs is unchanged.
+    let dsplit: usize = args.get(7).map(|s| s.parse().unwrap()).unwrap_or(16usize);
+    let d_dyn = dsplit; let split0: usize = (n / 5).min(n.saturating_sub(d_dyn));
+    let order: Vec<usize> = (split0..split0 + d_dyn).chain((0..n).filter(|&j| j < split0 || j >= split0 + d_dyn)).collect();
     let allowed: Vec<u64> = order.iter().map(|&j| allowed[j]).collect();
     let invf: Vec<f64> = order.iter().map(|&j| invf[j]).collect(); let inv: Vec<DD> = order.iter().map(|&j| inv[j]).collect();
     let kmax = kk + 2; // pruning tables must cover every count actually requested
@@ -143,14 +149,14 @@ fn main() {
     let ctx = Ctx { d, dp, d2, a_max, allowed, inv, invf, pre_max, suf_min, t, leaves: AtomicU64::new(0), in_window: AtomicU64::new(0), exact: AtomicU64::new(0), found: AtomicU64::new(0), min_delta: AtomicU64::new(f64::INFINITY.to_bits()), max_hi2: AtomicU64::new(0),
         results: Mutex::new(std::fs::OpenOptions::new().create(true).append(true).open(&fname).unwrap()) };
     eprintln!("phase {}: N={} A_N={} k={} window=[{:.9},{:.9}) threads={} resumed_items={}", phase, n, ctx.allowed[n - 1], k, lo, hi, nthreads, done.len());
-    let items = 1usize << D; let done_ct = AtomicUsize::new(0); let next = AtomicUsize::new(0); let ck = Mutex::new(std::fs::OpenOptions::new().create(true).append(true).open(&ckname).unwrap());
+    let items = 1usize << d_dyn; let done_ct = AtomicUsize::new(0); let next = AtomicUsize::new(0); let ck = Mutex::new(std::fs::OpenOptions::new().create(true).append(true).open(&ckname).unwrap());
     let t0 = std::time::Instant::now();
     std::thread::scope(|sc| {
         for _ in 0..nthreads { sc.spawn(|| { let mut s = Vec::with_capacity(64); loop {
             let it = next.fetch_add(1, Ordering::Relaxed); if it >= items { break; } if done.contains(&it) { continue; }
             s.clear(); let mut mass = 0.0; let mut sig = DD { hi: 0.0, lo: 0.0 };
-            for j in 0..D { if it >> j & 1 == 1 { s.push(ctx.allowed[j]); mass += ctx.invf[j]; sig = dd_add(sig, ctx.inv[j]); } }
-            if s.len() <= k { dfs(&ctx, D, k - s.len(), mass, sig, &mut s, lo, hi, n, phase2); }
+            for j in 0..d_dyn { if it >> j & 1 == 1 { s.push(ctx.allowed[j]); mass += ctx.invf[j]; sig = dd_add(sig, ctx.inv[j]); } }
+            if s.len() <= k { dfs(&ctx, d_dyn, k - s.len(), mass, sig, &mut s, lo, hi, n, phase2); }
             writeln!(ck.lock().unwrap(), "{}", it).unwrap(); let dc = done_ct.fetch_add(1, Ordering::Relaxed) + 1;
             if dc % 512 == 0 { let el = t0.elapsed().as_secs_f64(); eprintln!("  done {}/{}  leaves {:.3e}  exact {}  found {}  {:.0}s  ETA {:.0}s", dc, items - done.len(), ctx.leaves.load(Ordering::Relaxed) as f64, ctx.exact.load(Ordering::Relaxed), ctx.found.load(Ordering::Relaxed), el, el * (items - done.len() - dc) as f64 / dc as f64); }
         } }); }

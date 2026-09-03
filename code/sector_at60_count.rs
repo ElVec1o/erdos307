@@ -33,13 +33,18 @@ fn dprime_support(s: &[u64]) -> Vec<u64> {
     // two residues).  d' passes that near omega(d)=13 with primes <= 107, so refuse rather than
     // silently return a wrong factorisation: a missing factor shrinks the exclusion set and lowers
     // the computed floor, which is the unsound direction.
-    if dp >= (1u128 << 64) { panic!("d' = {} exceeds 2^64; mulmod would overflow -- widen it before raising omega or the prime cap", dp); }
+    if dp >= (1u128 << 127) { panic!("d' = {} exceeds 2^127; mulmod would overflow -- widen it before raising omega or the prime cap", dp); }
     let mut out = vec![]; factor_u128(dp, &mut out); out.sort_unstable(); out.dedup(); out
 }
 fn mulmod(a: u128, b: u128, m: u128) -> u128 {
-    // Callers guarantee m < 2^64 (checked in dprime_support), so the u128 product is exact.
-    debug_assert!(m < (1u128 << 64));
-    (a % m) * (b % m) % m
+    // Below 2^64 the u128 product is exact and this is one multiply.  Above it the product would
+    // overflow, so fall back to shift-and-add, which needs only m < 2^127 for r + a to fit.  That is
+    // what lets the prime cap pass 71: at primes <= 89 with omega(d) = 12, d' is already about
+    // 5 x 10^19, over 2^64 = 1.8 x 10^19.
+    if m < (1u128 << 64) { return (a % m) * (b % m) % m; }
+    let (mut a, mut b, mut r) = (a % m, b % m, 0u128);
+    while b > 0 { if b & 1 == 1 { r = (r + a) % m; } a = (a + a) % m; b >>= 1; }
+    r
 }
 fn powmod(mut a: u128, mut e: u128, m: u128) -> u128 {
     let mut r: u128 = 1; a %= m;

@@ -29,7 +29,7 @@
        on products of prime--reciprocal sums}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.73.0\quad 2 September 2026}
+\date{Version 1.74.0\quad 2 September 2026}
 
 \begin{document}
 \maketitle
@@ -1562,7 +1562,10 @@ d & \omega(d) & K(d) & k & J & |P\cup Q|\ \text{if excluded}\\[2pt]
 2214502422 & 6 & 70 & 70 & 1 & 79\\
 2214502422 & 6 & 70 & 72 & 3 & 81
 \end{array}\]
-at $N=400$ \textup{(\texttt{code/sector\_phasecount.gp})}. The value of $J$ grows quickly with $k$, and
+at $N=400$ \textup{(\texttt{code/sector\_phasecount.gp})}. The truncation is worth minimising rather
+than maximising: $J$ is what must stay small, and at $d=2214502422$ with $k=72$ it equals $3$ for every
+$N\ge300$ and $4$ below that, so $N=300$ is the smallest complete choice and the one that leaves the
+fewest subsets to enumerate. The value of $J$ grows quickly with $k$, and
 raising the truncation barely helps, since $j/A_{N+1}$ falls only as fast as $A_{N+1}$ grows: at
 $d=42$ the rung $k=66$ needs $J=5$ at every $N$ from $400$ to $3000$. That is what stops the $d=42$
 sector at $|P\cup Q|\ge70$, and it is a limitation of the implemented phases rather than of the
@@ -1615,7 +1618,10 @@ $d$ is a subset of the $138$ primes at most $787$. So the question ``which secto
 $|P\cup Q|=60$'' is a finite one. It is not, however, a small one: the count of sectors whose mass
 floor is exactly $60$ rises from $250$ over primes at most $47$ with $\omega(d)\le8$ to $1{,}533$
 over primes at most $59$ with $\omega(d)\le10$ and $16{,}234$ over primes at most $71$ with
-$\omega(d)\le12$ (all cleared, each family a subset of the next), and it does not saturate. Holding $\omega(d)\le8$ and letting the prime bound $B$ grow, the
+$\omega(d)\le12$ (all cleared, each family a subset of the next), and it does not saturate: raising the
+cap one step further, to primes at most $89$ at the same $\omega(d)\le12$, gives $125{,}813$, a factor
+of $7.75$ for one more prime in the pool. Those are counted, not cleared, and are recorded here only as
+the next term of the growth. Holding $\omega(d)\le8$ and letting the prime bound $B$ grow, the
 count runs $26,\,83,\,250,\,588,\,1762,\,5172$ at $B=31,41,47,59,71,89$; holding $\omega(d)\le6$ it
 runs $19,\,34,\,53,\,77,\,107,\,166,\,217$ at $B=31,41,47,59,71,89,107$. Against $\pi(B)$ the fitted
 exponent grows with $\omega$, from about $2.7$ at $\omega=6$ to about $6.8$ at $\omega=8$, so the count
