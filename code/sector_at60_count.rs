@@ -21,20 +21,65 @@ fn kof(all: &[u64], excl: &[u64], t: f64) -> usize {
 fn sigma(s: &[u64]) -> f64 { s.iter().map(|&p| 1.0 / p as f64).sum() }
 // arithmetic derivative support of a squarefree product, as primes
 fn dprime_support(s: &[u64]) -> Vec<u64> {
-    // d' = sum d/p ; we need its prime factors.  Compute d' exactly in u128 when possible.
+    // d' = sum d/p ; we need ALL its prime factors.  A missing factor is unsound in the wrong
+    // direction: it never matches a prime in `kof`, so the exclusion set is too small, K(d) too
+    // small, and the floor too low -- a sector at 60 could be misread as below 60 and skipped.
+    // Trial division alone tops out well before omega(d)=10, where d' exceeds 10^14 and routinely
+    // carries a large prime factor, so this factors d' completely with Pollard rho.
     let mut d: u128 = 1; for &p in s { d = d.saturating_mul(p as u128); }
-    if d == u128::MAX { return vec![]; }
+    if d == u128::MAX { panic!("d overflowed u128"); }
     let mut dp: u128 = 0; for &p in s { dp += d / p as u128; }
-    let mut out = vec![]; let mut x = dp; let mut f = 2u128;
-    while f * f <= x && f < 1_000_000 { if x % f == 0 { out.push(f as u64); while x % f == 0 { x /= f; } } f += 1; }
-    // A leftover x > 1 is prime exactly when trial division ran to completion (f*f > x).  Pushing a
-    // COMPOSITE leftover would be unsound in the wrong direction: it never matches a prime in `kof`,
-    // so the exclusion set would be too small, K(d) too small, and the floor too low.  Refuse instead.
-    if x > 1 {
-        if f * f > x && x < u64::MAX as u128 { out.push(x as u64); }
-        else { panic!("d' has a factor beyond the trial-division bound; exclusion set would be incomplete"); }
+    // mulmod below is exact only while the modulus stays under 2^64 (it reduces a u128 product of
+    // two residues).  d' passes that near omega(d)=13 with primes <= 107, so refuse rather than
+    // silently return a wrong factorisation: a missing factor shrinks the exclusion set and lowers
+    // the computed floor, which is the unsound direction.
+    if dp >= (1u128 << 64) { panic!("d' = {} exceeds 2^64; mulmod would overflow -- widen it before raising omega or the prime cap", dp); }
+    let mut out = vec![]; factor_u128(dp, &mut out); out.sort_unstable(); out.dedup(); out
+}
+fn mulmod(a: u128, b: u128, m: u128) -> u128 {
+    // Callers guarantee m < 2^64 (checked in dprime_support), so the u128 product is exact.
+    debug_assert!(m < (1u128 << 64));
+    (a % m) * (b % m) % m
+}
+fn powmod(mut a: u128, mut e: u128, m: u128) -> u128 {
+    let mut r: u128 = 1; a %= m;
+    while e > 0 { if e & 1 == 1 { r = mulmod(r, a, m); } a = mulmod(a, a, m); e >>= 1; }
+    r
+}
+fn is_prime_u128(n: u128) -> bool {
+    if n < 2 { return false; }
+    for p in [2u128,3,5,7,11,13,17,19,23,29,31,37] { if n % p == 0 { return n == p; } }
+    let mut d = n - 1; let mut r = 0; while d % 2 == 0 { d /= 2; r += 1; }
+    // deterministic for n < 3.3e24 with this witness set
+    'w: for a in [2u128,3,5,7,11,13,17,19,23,29,31,37] {
+        let mut x = powmod(a, d, n);
+        if x == 1 || x == n - 1 { continue; }
+        for _ in 1..r { x = mulmod(x, x, n); if x == n - 1 { continue 'w; } }
+        return false;
     }
-    out
+    true
+}
+fn pollard_rho(n: u128) -> u128 {
+    if n % 2 == 0 { return 2; }
+    let mut c: u128 = 1;
+    loop {
+        let (mut x, mut y, mut d) = (2u128, 2u128, 1u128);
+        while d == 1 {
+            x = (mulmod(x, x, n) + c) % n;
+            y = (mulmod(y, y, n) + c) % n; y = (mulmod(y, y, n) + c) % n;
+            let diff = if x > y { x - y } else { y - x };
+            d = gcd_u128(diff, n);
+        }
+        if d != n { return d; }
+        c += 1;
+    }
+}
+fn gcd_u128(mut a: u128, mut b: u128) -> u128 { while b != 0 { let t = a % b; a = b; b = t; } a }
+fn factor_u128(n: u128, out: &mut Vec<u64>) {
+    if n <= 1 { return; }
+    if is_prime_u128(n) { out.push(n as u64); return; }
+    let d = pollard_rho(n);
+    factor_u128(d, out); factor_u128(n / d, out);
 }
 fn dfs(c: &Ctx, i: usize, cur: &mut Vec<u64>) {
     c.nodes.set(c.nodes.get() + 1);

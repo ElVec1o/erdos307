@@ -30,7 +30,7 @@
 \title{Companion to \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau}:\\ explorations, closures and the square sieve}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.71.0\quad 2 September 2026}
+\date{Version 1.72.0\quad 2 September 2026}
 
 \externaldocument[K-]{erdos307-core}
 \begin{document}
@@ -755,7 +755,15 @@ Running the same exclusion across sectors rather than up the ladder is what the 
 buys. Among all sectors $d$ that are squarefree with $\omega(d)\le12$ and every prime factor at most
 $71$, exactly $16{,}234$ have mass floor $|P\cup Q|=60$; in every one of them the floor value of
 $\omega(e)$ is excluded, the largest enumeration being $41{,}654$ sets
-\textup{(\texttt{code/sector\_at60.gp}, \texttt{code/sector\_kexclude.rs})}. So
+\textup{(\texttt{code/sector\_at60.gp}, \texttt{code/sector\_kexclude.rs})}. The counts $250$, $1{,}533$
+and $16{,}234$ are reproduced from scratch by \texttt{code/sector\_at60\_count.rs}. Determining them
+requires the complete factorisation of $d'$, not merely its small factors: a prime of $d'$ that goes
+unfound is never matched in the exclusion set, so the primes available to $e$ are overcounted, $K(d)$
+comes out too small and the floor too low, which is the direction in which a sector at $60$ could be
+misread as lying below $60$ and skipped. Since $d'$ passes $10^{14}$ already at $\omega(d)=10$ and
+routinely carries a large prime factor, the enumerator factors it with Pollard rho under a
+Miller--Rabin test, and refuses outright when $d'$ would exceed the width its modular arithmetic is
+exact to. So
 \[ |P\cup Q|=60\ \text{is impossible in every such sector,} \]
 and any support of size $60$ must have $\omega(d)\ge13$ or a sector prime exceeding $71$. This does
 not move Theorem~\ref{K-thm:barrier}, whose $60$ is proved by a different route and over all supports;
