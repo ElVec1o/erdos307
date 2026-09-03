@@ -30,7 +30,7 @@
 \title{Companion to \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau}:\\ explorations, closures and the square sieve}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.64.0\quad 2 September 2026}
+\date{Version 1.65.0\quad 2 September 2026}
 
 \externaldocument[K-]{erdos307-core}
 \begin{document}
@@ -194,6 +194,17 @@ congruence kill iff $(D_S\mid\ell)=-1$ for some $\ell\mid A_SB_S$, which the Jac
 detects for $31{,}219$ bases, and partial factorisation (\texttt{code/hunt/survivor\_kill.rs}) for a
 further $15{,}264$: in total $46{,}483$ of the $49{,}961$ single--tail families at level $60$ are
 proven empty ($93.0\%$), $3{,}478$ remaining open (each a balanced ${\sim}57$--digit semiprime, factoring--hard).
+Level $60$ is decidable, and it is worth pricing the two routes, because they identify the obstruction
+as a much smaller object than the residual. By Proposition~\ref{K-prop:tailbound} the tail prime is a
+root of a quadratic indexed by a divisor $\alpha\mid D_S$, so a family is decided by $2^{58}$
+perfect--square tests on integers of some $230$ digits: about $3.2\times10^7$ core--years over the
+$3{,}478$, and about $3.1\times10^5$ over the $34$ immune ones alone. Factoring the balanced semiprime
+instead costs on the order of twenty core--years for all $3{,}478$, which is feasible, but it is
+incomplete by a theorem: for $A=pq$ with $(D_S\mid A)=+1$ either both Legendre symbols are $+1$, when
+no kill exists, or both are $-1$, when one does, so factoring decides at best half; and the $34$
+immune families carry no inert factor at all, so no congruence kills them however far the factoring is
+pushed. The bottleneck at level $60$ is therefore those $34$ families and not the $3{,}478$.
+
 Those $3{,}478$ are expected to be empty, and by a wide margin: evaluating the expected count of
 Remark~\ref{rem:killcount} over them, with $\kappa_S\le1$ and the tail sum bounded by
 $\log\log(tD_S)$, gives at most $5.5\times10^{-108}$, the bases having $D_S$ of $113$ digits. The
