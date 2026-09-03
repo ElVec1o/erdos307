@@ -54,6 +54,7 @@ import Erdos307.StratumM30
 import Erdos307.CharCancel
 import Erdos307.CondRate
 import Erdos307.Exclusions
+import Erdos307.OddSector
 import Erdos307.Certificate
 import Erdos307.PairSector
 import Erdos307.SieveBalance
@@ -512,3 +513,6 @@ open Erdos307
 #print axioms Erdos307.lyap_not_both_neg
 #print axioms Erdos307.ppn_gap
 #print axioms Erdos307.ppn_gap_lt
+#print axioms Erdos307.sum_odd_parity
+#print axioms Erdos307.deriv_parity_of_odd
+#print axioms Erdos307.two_dvd_deriv_of_even_omega
