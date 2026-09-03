@@ -29,7 +29,7 @@
        on products of prime--reciprocal sums}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.61.0\quad 2 September 2026}
+\date{Version 1.62.0\quad 2 September 2026}
 
 \begin{document}
 \maketitle
@@ -1441,12 +1441,12 @@ its proof: that one maximises mass over a $51{,}281$-state residue automaton, th
 $175$ prime sets and tests an integrality condition. Two independent derivations of the same bound.
 
 Running the same exclusion across sectors rather than up the ladder is what the identity really
-buys. Among all sectors $d$ that are squarefree with $\omega(d)\le10$ and every prime factor at most
-$59$, exactly $1{,}533$ have mass floor $|P\cup Q|=60$; in every one of them the floor value of
+buys. Among all sectors $d$ that are squarefree with $\omega(d)\le12$ and every prime factor at most
+$71$, exactly $16{,}234$ have mass floor $|P\cup Q|=60$; in every one of them the floor value of
 $\omega(e)$ is excluded, the largest enumeration being $41{,}654$ sets
 \textup{(\texttt{code/sector\_at60.gp}, \texttt{code/sector\_kexclude.rs})}. So
 \[ |P\cup Q|=60\ \text{is impossible in every such sector,} \]
-and any support of size $60$ must have $\omega(d)\ge11$ or a sector prime exceeding $59$. This does
+and any support of size $60$ must have $\omega(d)\ge13$ or a sector prime exceeding $71$. This does
 not move Theorem~\ref{thm:barrier}, whose $60$ is proved by a different route and over all supports;
 what it does is remove the entire low--$\omega$, small--prime part of the sector decomposition from
 the level--$60$ frontier.
@@ -1458,8 +1458,8 @@ $T_{58}+1/x\ge2$, so $x\le1/(2-T_{58})=793.6\ldots$; every prime up to $167$ lie
 $d$ is a subset of the $138$ primes at most $787$. So the question ``which sectors admit
 $|P\cup Q|=60$'' is a finite one. It is not, however, a small one: the count of sectors whose mass
 floor is exactly $60$ rises from $250$ over primes at most $47$ with $\omega(d)\le8$ to $1{,}533$
-over primes at most $59$ with $\omega(d)\le10$ (both cleared, the smaller family being a subset of the
-larger), and it does not saturate. Holding $\omega(d)\le8$ and letting the prime bound $B$ grow, the
+over primes at most $59$ with $\omega(d)\le10$ and $16{,}234$ over primes at most $71$ with
+$\omega(d)\le12$ (all cleared, each family a subset of the next), and it does not saturate. Holding $\omega(d)\le8$ and letting the prime bound $B$ grow, the
 count runs $26,\,83,\,250,\,588,\,1762,\,5172$ at $B=31,41,47,59,71,89$; holding $\omega(d)\le6$ it
 runs $19,\,34,\,53,\,77,\,107,\,166,\,217$ at $B=31,41,47,59,71,89,107$. Against $\pi(B)$ the fitted
 exponent grows with $\omega$, from about $2.7$ at $\omega=6$ to about $6.8$ at $\omega=8$, so the count
@@ -4038,19 +4038,18 @@ the semiprime $p\equiv q\equiv1\pmod4$ theorem of~\textup{(i)} is its $\omega=2$
 reciprocity.
 \end{proposition}
 
-\begin{conjecture}[Odd plus--hits have an even number of prime factors]\label{conj:plusomega}
-Every odd squarefree $v$ with $\omega(v)\ge2$ and $v'+2v$ a perfect square has $\omega(v)$ even.
-\end{conjecture}
-
-The evidence is $598$ odd plus--hits to $2\times10^7$, all with $\omega$ even, and the parity of
-$\omega$ is not otherwise constrained here, so the statement carries real weight rather than the
-vacuous confirmation an event of negligible probability would give. The joint shape is narrower still:
-writing $t=\#\{p\mid v:p\equiv3\bmod4\}$, the pairs $(\omega,t)$ observed are $(2,0)$ with $522$
-instances, $(4,1)$ with $75$, and $(6,4)$ with one. The known congruences do not force it. Since
-$\gcd(v,v')=1$ one has $\gcd(v,r)=1$ for $r^2=v'+2v$, and $r\equiv\omega(v)\bmod2$; if $r$ is even then
-$\sum_{p\mid v}p\equiv2\pmod4$, which is what the three observed shapes satisfy, but $r$ odd requires
-only $\sum_{p\mid v}p\equiv v-2\pmod8$, and that is satisfiable, for instance at $v=105$. So the
-obstruction, if there is one, is not congruential at these moduli.
+\textup{(vi)} \emph{Parity of $\omega$ on odd plus--hits, and its single failure.} Among the odd
+plus--hits the number of prime factors is almost always even: to $2\times10^7$ all $598$ have
+$\omega$ even, and to $10^8$ all but one of $1{,}252$ do. The exception is
+\[ v=30735705=3\cdot5\cdot7\cdot11\cdot13\cdot23\cdot89,\qquad \omega(v)=7,\qquad
+   v'+2v=89094721=9439^2, \]
+the least odd plus--hit with $\omega$ odd, and there is no other below $10^8$
+\textup{(\texttt{code/plushit\_omega.rs})}. So the parity is a bias of about $99.9\%$ and not a law,
+which is worth recording because the bias is strong enough to look like one over any range short of
+$3\times10^7$. What does hold without exception is the genus constraint: writing
+$t=\#\{p\mid v:p\equiv3\bmod4\}$, every one of the $1{,}252$ has $t\equiv0$ or $1\pmod4$, as the
+identity $\prod_{p\mid v}\bigl(\tfrac{v/p}p\bigr)=(-1)^{\binom t2}$ requires, the counterexample
+included with $t=4$. The observed pairs $(\omega,t)$ are $(2,0)$, $(4,1)$, $(6,4)$ and $(7,4)$.
 
 The empirical $\tfrac14\sqrt X$ law of part (ii) can be proved, up to logarithms, on the stratum that
 dominates the small--scale census.
