@@ -29,7 +29,7 @@
        on products of prime--reciprocal sums}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.67.0\quad 2 September 2026}
+\date{Version 1.68.0\quad 2 September 2026}
 
 \begin{document}
 \maketitle
@@ -1056,7 +1056,7 @@ A $114$--digit general number field sieve is routine, costing core--days apiece 
 $3.2\times10^7$ core--years the divisor search of Proposition~\ref{prop:tailbound} would demand, a
 reduction by six orders of magnitude. It should be said plainly that this does not by itself deliver
 $|P\cup Q|\ge61$. The single--tail sector is only one of the two cases of
-Proposition~\ref{prop:sectors}, and the pair sector contributes a further $3{,}197{,}261$ surviving
+Proposition~\ref{prop:sectors}, and the pair sector contributes a further $3{,}013{,}379$ surviving
 bases, each an arity--one tail family to which Proposition~\ref{prop:lvl60factor} applies equally.
 Factoring those as well is a computation some three orders of magnitude larger --- tens of thousands of
 core--years --- which is beyond what has been carried out here and is quoted as the honest price, not
@@ -1105,7 +1105,10 @@ Running the certificate over the sector kills $10{,}457{,}149$ of the $18{,}234{
 further $4{,}580{,}243$ of the survivors ($58.9\%$ of them): in total $15{,}037{,}392$, or $82.5\%$,
 with $3{,}197{,}261$ still open \textup{(\texttt{code/pairsector\_kill.rs}, \texttt{code/pairsector\_factor.rs}; the same
 code in campaign mode reproduces the $49{,}961$, $31{,}219$ and $18{,}742$ of the paragraph above
-exactly)}. The pair sector is therefore not a barrier of a different kind from the one--new--prime
+exactly)}. A Pollard rho pass with a budget of $5\times10^4$ iterations per base then kills a further
+$183{,}882$, leaving $3{,}013{,}379$ open ($83.5\%$ of the sector eliminated); the marginal return has
+fallen to $5.7\%$, which is what one expects once the small factors are gone and what remains is a
+balanced semiprime. The pair sector is therefore not a barrier of a different kind from the one--new--prime
 families: it is the same computation at $365$ times the scale, and it responds to the same weapon.
 \end{remark}
 
