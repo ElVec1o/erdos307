@@ -5,7 +5,7 @@ standalone. All *verdicts* use exact integer/rational arithmetic; floating point
 pre-screening, and where a float appears in a printed constant the exact form is given beside it.
 Runtimes are approximate (a laptop).
 
-This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 256 tracked files in total;
+This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 257 tracked files in total;
 the remainder are supporting Rust and GP sources reachable from those, or superseded working
 scripts, and are not individually documented here.
 
@@ -81,6 +81,7 @@ danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
 | `pairsector_verify.rs` | Integrity check on a survivor file: duplicate-free subset of its input, so a resume overlap can never drop an unkilled family. | rho output `3,013,379` open, clean subset of `3,197,261`. | ~10 s |
 | `immune_decide.gp` | Decides the `34` level-60 immune families outright (`prop:immunedecide`): `A_S` prime gives two candidate tail primes by Tonelli–Shanks. Self-contained. | all `34` EMPTY [P]. | ~20 min |
 | `lvl60check.gp` | Verifies every arithmetic claim of `prop:lvl60factor` over all `49,961` admissible level-60 bases, enumerated from scratch. | `A` odd, `gcd(A,D)=1`, `114` digits, `sigma` in `(2, 2.00235]`, `max x/A = 0.569815 < 1`. | ~6 min |
+| `batchgcd.gp` | Bernstein batch GCD over the hard cofactors of `A_S` across the level-60 residual: do any two share a factor? | `2` of `6,972`, both 7-digit. The residual is pairwise coprime at the wall. | ~7 min |
 | `pairsector_parity.gp` | That `T(R) ≠ 2` for an odd-size squarefree base, so the tail is always bounded. | `N` odd in `30,000`/`30,000`. | ~5 s |
 | `pairsector_countdp.rs` | Independent binned counting DP corroborating the above (`rustc -O`). | `1.8e7` at bin `3e-7`. | ~20 s |
 | `sigma_gap.gp` | How close `σ(a)` comes to `1`, both sides, by the greedy Sylvester construction. | `1 − σ = 7.8e-592`, `σ − 1 = 4.6e-591` at `ω = 12`. | ~2 s |

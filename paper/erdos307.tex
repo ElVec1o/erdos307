@@ -29,7 +29,7 @@
        on products of prime--reciprocal sums}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.69.0\quad 2 September 2026}
+\date{Version 1.70.0\quad 2 September 2026}
 
 \begin{document}
 \maketitle
@@ -1050,7 +1050,19 @@ $A_S\approx4D_S$, of $114$ decimal digits, not the $230$--digit product the divi
 It also supersedes the reciprocity route rather than extending it: a congruence kill decides at best
 half of the split families, since for $A=pq$ with $(D_S\mid A)=+1$ the two Legendre symbols are either
 both $+1$, when no kill exists, or both $-1$, when one does, whereas the root enumeration decides every
-family whose $A_S$ is factored. Level $60$ is therefore not an exponential obstruction but a factoring
+family whose $A_S$ is factored. One cheap idea deserves to be recorded as closed, because the level--$60$ bases are far from random:
+all $49{,}961$ share the $39$ forced primes below $167$, so one may hope that two of the $A_S$ share a
+prime factor and split each other for free. A batch \textsc{gcd} in the sense of Bernstein --- one
+product tree over the hard cofactors, then a remainder tree --- tests this for every pair at once in
+seconds. Over the $7{,}713$ families that survive the Jacobi certificate and trial division to $10^6$,
+a superset of the $3{,}478$, exactly two of the $6{,}972$ composite cofactors of $A_S$ share a factor,
+and both shared factors have seven digits, so they lie barely past the trial--division bound and are
+found instantly by any factoring method. The structure the bases share is in $D_S$ and does not
+propagate to $A_S=N_S+2D_S$: at the wall the residual behaves as a set of pairwise coprime balanced
+semiprimes, and no amount of shared structure among the bases is going to split them.
+\textup{(\texttt{code/batchgcd.gp})}
+
+Level $60$ is therefore not an exponential obstruction but a factoring
 project: the $34$ with $A_S$ prime are already done, and $3{,}444$ integers of $114$ digits remain.
 A $114$--digit general number field sieve is routine, costing core--days apiece rather than the
 $3.2\times10^7$ core--years the divisor search of Proposition~\ref{prop:tailbound} would demand, a
