@@ -30,7 +30,7 @@
 \title{Companion to \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau}:\\ explorations, closures and the square sieve}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.68.0\quad 2 September 2026}
+\date{Version 1.69.0\quad 2 September 2026}
 
 \externaldocument[K-]{erdos307-core}
 \begin{document}
@@ -1093,7 +1093,7 @@ implication. All carry $0$ \texttt{sorry} and the three standard axioms
 Two further points fix the standing of this atom, and both are negative. First, on the immune bases
 the argument is blocked at its \emph{lowest} rung as well as its highest. The density attached to a
 single small $p$ is $\#\{n\bmod\pi(p^2):p^2\mid q_n\}/\pi(p^2)$, read off the Pell orbit modulo
-$p^2$, and that needs the fundamental solution, the object Proposition~\ref{prop:untestable} places
+$p^2$, and that needs the fundamental solution, the object Remark~\ref{rem:untestable}\,(i) places
 at $10^{24.7}$ operations. For a Lucas sequence with a known fundamental unit the small-prime rung is
 a finite computation; here it is not. The ladder is therefore blocked at both ends, by
 non-computability below and by Wall--Sun--Sun above. Second, and more to the point, squarefreeness is
@@ -2901,47 +2901,40 @@ a sharper statement of the obstruction than Remark~\ref{rem:lehmer} gives, and i
 present work does not resolve the existence direction.
 \end{remark}
 
-There is a third closure, and it removes the one concrete attack that survives the other two.
-The $34$ immune families of Remark~\textup{\ref{rem:campaign}} are precisely the tail families the
-congruence campaign cannot kill, so each is a live candidate and the obvious move is to test them
-one at a time. That move is not available, and the reason is quantitative rather than a want of
-effort.
+A third closure was claimed here in place of what follows, and it was wrong. The $34$ immune
+families of Remark~\textup{\ref{rem:campaign}} are precisely the tail families the congruence
+campaign cannot kill, so each is a live candidate and the obvious move is to test them one at a
+time. That move \emph{is} available, and the argument that said otherwise is worth setting out,
+because its error is a natural one.
 
-\begin{proposition}[The immune families cannot be tested]\label{prop:untestable}
-Let $S$ be one of the $34$ immune bases. Deciding whether the tail family $S\cup\{q\}$ contains a
-Pythagorean pair is, by Remark~\textup{\ref{rem:lehmer}}, deciding whether
-$B_Sx^2-A_Sy^2=-4D_S^2$ has an integral solution with $q=(x^2-D_S)/A_S$ prime. Neither of the two
-routes to that decision is within reach.
+\begin{remark}[Why the immune families looked untestable, and why they are not]\label{rem:untestable}
+Deciding whether the tail family $S\cup\{q\}$ contains a Pythagorean pair is, by
+Remark~\textup{\ref{rem:lehmer}}, deciding whether $B_Sx^2-A_Sy^2=-4D_S^2$ has an integral solution
+with $q=(x^2-D_S)/A_S$ prime, and two routes to that decision present themselves.
 \begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
-\item \emph{Global route.} Producing a solution requires the fundamental unit, equivalently the
-class group, of the real quadratic order of discriminant $4A_SB_S$. On the first immune base that
-discriminant has $225$ digits and is a nonsquare, so the subexponential index-calculus cost
+\item \emph{Global route.} Enumerating \emph{all} integral points on the conic requires the
+fundamental unit, equivalently the class group, of the real quadratic order of discriminant
+$4A_SB_S$. On the first immune base that discriminant has $225$ digits and is a nonsquare, so the
+subexponential index-calculus cost
 $L_\Delta(1/2)=\exp\bigl(\sqrt{\log\Delta\,\log\log\Delta}\bigr)$ evaluates to $10^{24.7}$
-operations.
+operations. This remains true, and it is what blocks the squarefree--density argument discussed
+above, which genuinely needs the Pell orbit modulo $p^2$.
 \item \emph{Parametric route.} Since $A_S$ is prime and $(D_S\mid A_S)=+1$, a square root
-$x_0^2\equiv D_S\pmod{A_S}$ exists and the family is genuinely parametrised by $x=x_0+tA_S$, with
-$q(t)=\bigl((x_0+tA_S)^2-D_S\bigr)/A_S$. But a solution additionally needs $B_Sq(t)+D_S$ to be a
-square, and that quantity has $223$ digits already at $t=0$, so the heuristic hit rate is
-$10^{-112}$ per trial. Checked at $t=0,1,2,3$: not a square
-\textup{(\texttt{code/a10\_pell\_feasibility.gp})}.
+$x_0^2\equiv D_S\pmod{A_S}$ exists and the solutions are parametrised by $x=x_0+tA_S$ with
+$q(t)=\bigl((x_0+tA_S)^2-D_S\bigr)/A_S$. A solution additionally needs $B_Sq(t)+D_S$ to be a square,
+a quantity of $223$ digits already at $t=0$, so the heuristic hit rate is $10^{-112}$ per trial and
+the parameter $t$ appears to range without bound.
 \end{enumerate}
-There is a third route, which is to decline the computation rather than perform it, and it is worth
-costing because it is the natural thing to try next and because nothing structural forbids it. The
-size of the first candidate is governed by the regulator: $q_1\approx\varepsilon^2/A_S$ with
-$R=\log\varepsilon$, so a base whose regulator happens to be near its minimum
-$R_{\min}\approx\tfrac12\log\Delta$ would give $q_1$ of about $10^{113}$, which an Atkin--Morain
-test settles in minutes. The obstruction is not that such bases are useless but that they are rare.
-Near-minimal regulator means the fundamental solution has $v=1$, that is $\Delta=u^2-4$, and the
-$\Delta\le X$ of that shape number about $\sqrt X$; so the fraction of discriminants with a testable
-regulator is about $\Delta^{-1/2}=10^{-112.5}$, against a typical $R\approx\sqrt\Delta\approx
-10^{113}$ which puts $q_1$ at $\exp(10^{112})$ and out of reach of notation, let alone computation.
-Since $\Delta=4A_SB_S$ is determined by the base and not chosen, one may only sample: the $34$
-immune bases give an expected $10^{-111}$ hits and all $49{,}961$ give $10^{-108}$, against the
-$10^{112.5}$ bases one expected hit would need. The shortfall against the immune family is
-$10^{111}$. So base selection does not circumvent the two routes above; the construction is one
-fortunate discriminant away from being decidable, and the fortune required is $10^{112.5}$. The
-estimate is \textup{HEURISTIC}, being a density count for the regulator.
-\end{proposition}
+It does not. The earlier reading of (ii) overlooked the bound this paper had already proved:
+Proposition~\ref{K-prop:tailbound} forces $q\le tD_S$ and hence $x<A_S$
+(Proposition~\ref{prop:lvl60factor}), so $t=0$ and the two square roots $x_0$ and $A_S-x_0$ exhaust
+the parametrisation. The decision is therefore a pair of primality tests, not an unbounded sweep,
+and Proposition~\ref{prop:immunedecide} carries it out: all $34$ immune families are empty. The
+global route (i) is not needed because the decision never asks for all integral points on the conic,
+only for those in a box the tail bound has already made small. The error was to treat a
+parametrisation as a search space without asking what the accompanying inequality did to it, and it
+cost the paper a false impossibility claim.
+\end{remark}
 
 One hope survives all of this on its face: a lower bound for \emph{some term of some sequence in a
 family} is formally weaker than one for a single sequence, and Proposition~\ref{K-prop:close59}
@@ -3039,16 +3032,16 @@ disjointness were an assumption one could relax. It is not: $P\cap Q=\varnothing
 \emph{derived} in Theorem~\ref{K-thm:structure} by the Israel mechanism, $r\in P\cap Q$ forcing
 $v_r(st)=-2\neq0$. There is nothing to relax.
 
-\textup{(ii) Against Proposition~\ref{prop:untestable}.} Homogenised, $B_Sx^2-A_Sy^2=-4D_S^2$ is the
-ternary form $B_Sx^2-A_Sy^2+4D_S^2z^2$, a \emph{conic}, and conics obey Hasse--Minkowski. Since
-Remark~\ref{rem:tier60} already gives local solubility everywhere, \emph{rational} solubility
-follows unconditionally, with no class group anywhere in the argument. This sharpens the block
-rather than removing it: what is missing is not solubility but \emph{integrality}, and extracting
-integral points from the rational parametrisation returns the fundamental unit. Worse, the
-constructive step is itself blocked, since Simon's algorithm must factor the determinant
-$-4A_SB_SD_S^2$, whose cofactor after removing the known primes of $D_S$ is the $224$-digit balanced
-semiprime $A_SB_S$: the same cryptographic wall as Remark~\ref{rem:campaign}, reached from a new
-direction.
+\textup{(ii) The block that fell.} A block was claimed here on the ground that deciding an immune
+family needs integral points on the conic $B_Sx^2-A_Sy^2=-4D_S^2$, hence the fundamental unit of a
+$225$--digit discriminant. The objection to it was that conics obey Hasse--Minkowski, so with the
+local solubility of Remark~\ref{rem:tier60} rational solubility is unconditional; the reply was that
+what is missing is integrality, not solubility. Both sides of that exchange were beside the point.
+Integral points are not needed either, because Proposition~\ref{K-prop:tailbound} confines the solution
+to a box containing at most two candidates, and Proposition~\ref{prop:immunedecide} simply tests
+them. Remark~\ref{rem:untestable} records the error. The lesson is worth more than the block was: an
+obstruction stated in terms of a general algorithmic problem is only as good as the argument that the
+problem instance is general, and here it was not.
 
 \textup{(iii) Against Proposition~\ref{prop:multiplicityfail}.} The template that exploits a family
 without density is Heath-Brown's: Artin's conjecture holds for all but at most two primes, with no
@@ -4197,15 +4190,17 @@ and is the residue of the whole construction, is Theorem~\ref{thm:halflyap} toge
 Corollary~\ref{cor:lyapbarrier}: an elementary Lyapunov proof of the barrier, valid exactly up to
 mass $2$ and, by Corollary~\ref{cor:halfsharp}, not one step further.
 
-\begin{remark}[Four independent blocks on $\mathrm{A}10$]\label{rem:threeblocks}
-The existence route is therefore obstructed at four separate levels, and no two of them are the
+\begin{remark}[Three independent blocks on $\mathrm{A}10$]\label{rem:threeblocks}
+The existence route is therefore obstructed at three separate levels, and no two of them are the
 same obstruction. Proposition~\ref{prop:nofreeslot} removes the freedom: the construction carries
 one parameter and cannot be relaxed into a denser family. Theorem~\ref{thm:ff} removes the
 method: no argument that survives the passage to $K[t]$ can prove existence, because there the
-statement is false. Proposition~\ref{prop:untestable} removes the computation: even the $34$ most
-reduced objects in the whole problem, the ones every sieve has failed to kill, cannot be examined.
-Proposition~\ref{prop:multiplicityfail} removes the last refuge, the hope that a large family of
-sequences is easier than one: the union stays logarithmically thin however many sequences it has.
+statement is false. Proposition~\ref{prop:multiplicityfail} removes the last refuge, the hope that a
+large family of sequences is easier than one: the union stays logarithmically thin however many
+sequences it has. A fourth block was claimed here and does not stand: it held that the $34$ immune
+families could not be examined, and Proposition~\ref{prop:immunedecide} examines them and finds them
+empty (Remark~\ref{rem:untestable}). Removing it strengthens nothing and is recorded because the
+count of independent obstructions is exactly the kind of claim that should not drift.
 What is left is a lower bound for primes in a sparse exponential sequence, which exists for no
 non-degenerate linear recurrence at all. We state plainly that the present work does not decide the
 existence direction and does not contain a route to deciding it.

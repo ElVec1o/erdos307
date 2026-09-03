@@ -28,8 +28,10 @@ are forced rather than guessed: any `p, q` satisfying the cycle equations satisf
 and `Δq = M'N + M²`.
 
 Nothing here produces a solution. It says exactly what a frame must satisfy, and the primality of
-the two quotients is the part no algebra reaches; `prop:untestable` costs that part on the immune
-families, and `rem:campaign` kills `93.0%` of the level-60 frames by reciprocity.
+the two quotients is the part no algebra reaches. On the immune families the paper supplies it
+arithmetically rather than formally: the tail bound leaves only two candidate quotients, and testing
+them empties all 34. That decision is not formalised here. `rem:campaign` kills `93.0%` of the
+level-60 frames by reciprocity.
 
 ## Local anatomy
 
