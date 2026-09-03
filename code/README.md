@@ -5,7 +5,7 @@ standalone. All *verdicts* use exact integer/rational arithmetic; floating point
 pre-screening, and where a float appears in a printed constant the exact form is given beside it.
 Runtimes are approximate (a laptop).
 
-This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 257 tracked files in total;
+This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 258 tracked files in total;
 the remainder are supporting Rust and GP sources reachable from those, or superseded working
 scripts, and are not individually documented here.
 
@@ -72,6 +72,7 @@ danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
 | `plushit_omega.rs` | Odd plus-hits with their `ω` and `t = #{p ≡ 3 mod 4}`; the evidence for `conj:plusomega`. | `137` below `10^6` (regression vs the b-file); `598` to `2×10^7`, `ω` even in all, `(ω,t) ∈ {(2,0),(4,1),(6,4)}`. | ~3 min |
 | `plushit_inverted.rs` | `ω=2` plus-hits by inverting the search through `2(v′+2v)+1 = (2p+1)(2q+1)` and sieving `2r²+1` in `r`; cost `O(√N)` rather than `O(N)`. | reproduces the `1,787` below `3×10^8` exactly; `243,129` to `10^13` in 80 s, `0` violations of `p ≡ q ≡ 1 mod 4`. | 0.2 s at `3e8`, 80 s at `1e13` |
 | `sector_at60_count.rs` | Counts the sectors whose mass floor is exactly `|P u Q| = 60`, for a prime cap and an `omega` cap. Factors `d'` completely (Pollard rho + Miller–Rabin); refuses if `d'` exceeds `2^64`. | `250` at `B=47, w<=8`; `1,533` at `59,10`; `16,234` at `71,12` — all three paper counts. | secs to ~1 h |
+| `sector_phasecount.gp` | Prices every rung of the sector ladder (`prop:phasecount`): how many phases each `omega(e)` needs at a given truncation. | `d=2214502422`, `k=72` needs 2 phases; `d=42`, `k=66` needs 4. | ~1 min |
 | `sector_kexclude.gp` | The generalised identity `ℓ(dR − d'R') = d'R + d²`, symbolic and exact-rational. | `0` symbolically; `0` violations at each sector. | ~2 s |
 | `sector_size.rs` | How many prime sets the sector enumerator would test, by a counting DP over binned mass (`rustc -O`); calibrated on the real `k=64` run. | predicts `3.49e10` vs `3.69e10` actual; `k=66` needs `8.0e15` (~16 years). | ~1 min |
 | `pairsector_count.rs` | The level-60 pair sector enumerated exactly: 59-subsets of the primes `< 1588` with `T(R) ∈ (2 − 1/max R, 2]` (`rustc -O`). | `18,234,653` bases, largest `max(R) = 1583`; stable over prune margins `0`–`1e-6`. | ~2 s |

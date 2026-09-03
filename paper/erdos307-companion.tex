@@ -30,7 +30,7 @@
 \title{Companion to \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau}:\\ explorations, closures and the square sieve}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.72.0\quad 2 September 2026}
+\date{Version 1.73.0\quad 2 September 2026}
 
 \externaldocument[K-]{erdos307-core}
 \begin{document}
@@ -730,6 +730,49 @@ $S_{\omega-1}+1/A_{N+1}<d/d'$ excludes even one prime beyond the truncation, so 
 is a complete argument. At $d=47058$ this raises a primary pseudoperfect sector off the global
 barrier: that sector sat at exactly $60$, and $|P\cup Q|\ge62$ there. With
 Proposition~\ref{prop:sector42} the $d=42$ sector stands at $|P\cup Q|\ge70$.
+
+The condition that makes a phase count sufficient is worth isolating, because it prices every rung of
+the ladder in advance and because a phase--$1$ enumeration that returns nothing proves nothing without
+it.
+
+\begin{proposition}[When the sector enumeration is complete]\label{prop:phasecount}
+Let $d$ be squarefree, $d'=\sum_{p\mid d}d/p$, $t=d/d'$, and let $A_1<A_2<\cdots$ be the primes
+dividing neither $d$ nor $d'$, with $S_m=\sum_{i\le m}1/A_i$. Fix a truncation $N$ and a target
+$\omega(e)=k$. If $j$ of the primes of $e$ exceed $A_N$ then
+\[ \sigma(e)\;\le\;S_{k-j}+\frac{j}{A_{N+1}} , \]
+so whenever $S_{k-j}+j/A_{N+1}<t$ no admissible $e$ has exactly $j$ primes beyond the truncation.
+Writing $J=J(k,N)$ for the least such $j$, every admissible $e$ has at most $J-1$ primes beyond
+$A_N$, and the phases $1,\dots,J-1$ exhaust the possibilities: the enumeration is complete.
+\end{proposition}
+\begin{proof}
+The $k-j$ primes of $e$ not exceeding $A_N$ lie among $A_1,\dots,A_N$, so their reciprocals sum to at
+most that of the $k-j$ smallest, namely $S_{k-j}$; each of the remaining $j$ is at least $A_{N+1}$
+and contributes at most $1/A_{N+1}$. A sector solution requires $\sigma(e)\ge t$, which the displayed
+bound then contradicts. Since the bound is decreasing in $j$ once $S_{k-j}$ falls below $t$, the
+values $j\ge J$ are all excluded together.
+\end{proof}
+
+At the floor $k=K(d)$ one has $J=1$, and there phase~$1$ alone is a complete argument, which is the
+case the table above uses; at $k=K(d)+2$ one has $J=3$, and there phases~$1$ and~$2$ together are
+complete. Both correspondences are verified directly at $d=47058$, at $k=54$ and $k=56$ respectively.
+Since only those two phases are implemented, the reachable rungs are those with $J\le3$, and $J$ is
+what prices the ladder:
+\[\begin{array}{lrrrrr}
+d & \omega(d) & K(d) & k & J & |P\cup Q|\ \text{if excluded}\\[2pt]
+42 & 3 & 62 & 62 & 1 & 68\\
+42 & 3 & 62 & 64 & 3 & 70\\
+42 & 3 & 62 & 66 & 5 & 72\\
+47058 & 5 & 54 & 54 & 1 & 62\\
+47058 & 5 & 54 & 56 & 3 & 64\\
+47058 & 5 & 54 & 58 & 6 & 66\\
+2214502422 & 6 & 70 & 70 & 1 & 79\\
+2214502422 & 6 & 70 & 72 & 3 & 81
+\end{array}\]
+at $N=400$ \textup{(\texttt{code/sector\_phasecount.gp})}. The value of $J$ grows quickly with $k$, and
+raising the truncation barely helps, since $j/A_{N+1}$ falls only as fast as $A_{N+1}$ grows: at
+$d=42$ the rung $k=66$ needs $J=5$ at every $N$ from $400$ to $3000$. That is what stops the $d=42$
+sector at $|P\cup Q|\ge70$, and it is a limitation of the implemented phases rather than of the
+method.
 
 The next step at $d=47058$ costs more, because the single--phase condition fails there. With
 $N=400$ and $A_{N+1}=2791$ one has $S_{55}+1/A_{N+1}=1.00629$ and $S_{54}+2/A_{N+1}=1.00309$, both

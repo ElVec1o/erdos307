@@ -1,6 +1,6 @@
 # On the equation n″ = n and Erdős Problem #307
 
-**Version 1.72.0 · 2 September 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
+**Version 1.73.0 · 2 September 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
 
 **Author:** Vico Bonfioli — <vicobonfioli@gmail.com>
 
@@ -167,7 +167,7 @@ LICENSE        licence for the repository
 .gitignore     excludes private/, which never ships
 
 paper/   erdos307-core.pdf       — the paper (32 pp; the results)
-         erdos307-companion.pdf  — the companion (106 pp; explorations, closures, the square sieve and the density theorem)
+         erdos307-companion.pdf  — the companion (107 pp; explorations, closures, the square sieve and the density theorem)
          erdos307.tex            — the single source both are generated from
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md
