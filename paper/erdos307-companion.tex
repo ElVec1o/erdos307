@@ -30,7 +30,7 @@
 \title{Companion to \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau}:\\ explorations, closures and the square sieve}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.63.0\quad 2 September 2026}
+\date{Version 1.64.0\quad 2 September 2026}
 
 \externaldocument[K-]{erdos307-core}
 \begin{document}
@@ -2272,8 +2272,13 @@ Call squarefree $N$ with $\omega(N)\ge2$ a \emph{plus--hit} if $N'+2N$ is a perf
 are $130,145,305,689,1745,1870,1970,2353,\dots$ \textup{(}$114$ below $2\times10^5$; OEIS~\cite{OEIS_A396915}\textup{)}.
 \textup{(i)} For a semiprime $N=pq$, $2(N'+2N)+1=(2p+1)(2q+1)$, so a plus--hit forces
 $(2s)^2\equiv-2\pmod\ell$ for every prime $\ell\mid(2p+1)(2q+1)$, whence $\ell\equiv1,3\pmod8$ and
-$p\equiv q\equiv1\pmod4$ (verified on all $59$ semiprime instances; this explains the dominance of $5$
-and $13$). \textup{(ii)} \textup{[}empirical\textup{]} $\#\{\text{plus--hits}\le X\}\approx0.25\sqrt X$
+$p\equiv q\equiv1\pmod4$ (this explains the dominance of $5$ and $13$).
+The identity inverts the search: a semiprime plus--hit is exactly a factorisation
+$2r^2+1=(2p+1)(2q+1)$, so one scans $r\le\sqrt{7N/3}$ and sieves $2r^2+1$ in $r$, at cost
+$O(\sqrt N)$ in place of $O(N)$. This gives $243{,}129$ semiprime plus--hits with $v\le10^{13}$ in
+eighty seconds, and $p\equiv q\equiv1\pmod4$ holds for every one of them
+\textup{(\texttt{code/plushit\_inverted.rs}, which reproduces the $1{,}787$ below $3\times10^8$
+exactly, with no miss and no extra)}. \textup{(ii)} \textup{[}empirical\textup{]} $\#\{\text{plus--hits}\le X\}\approx0.25\sqrt X$
 (ratios $0.250,0.253,0.255$ at $X=5\!\times\!10^4,10^5,2\!\times\!10^5$): the plus factor behaves like
 a random integer of its size, so (with Proposition~\ref{prop:splitdisc}) the whole integer
 obstruction sits in the minus factor. \textup{(iii)} Fixing $p=5$, $q=(s^2-5)/11$ with $s$ even and

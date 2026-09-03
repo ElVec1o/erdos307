@@ -5,7 +5,7 @@ standalone. All *verdicts* use exact integer/rational arithmetic; floating point
 pre-screening, and where a float appears in a printed constant the exact form is given beside it.
 Runtimes are approximate (a laptop).
 
-This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 252 tracked files in total;
+This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 253 tracked files in total;
 the remainder are supporting Rust and GP sources reachable from those, or superseded working
 scripts, and are not individually documented here.
 
@@ -70,6 +70,7 @@ danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
 | `sector_floorlist.rs` | Emits sectors of a prescribed mass floor, with run parameters; used for the out-of-sample test of `conj:floorgap`. | target `60` at `47`/`8` gives `250` (regression); floors `61`–`68` give `271,132,168,120,140,118,123,86`. | ~1 min |
 | `sector_minfloor.rs` | The minimum mass floor over sectors. | `60`, at `d = 2·3·7·23·41`, over `109,293` sectors. | ~2 min |
 | `plushit_omega.rs` | Odd plus-hits with their `ω` and `t = #{p ≡ 3 mod 4}`; the evidence for `conj:plusomega`. | `137` below `10^6` (regression vs the b-file); `598` to `2×10^7`, `ω` even in all, `(ω,t) ∈ {(2,0),(4,1),(6,4)}`. | ~3 min |
+| `plushit_inverted.rs` | `ω=2` plus-hits by inverting the search through `2(v′+2v)+1 = (2p+1)(2q+1)` and sieving `2r²+1` in `r`; cost `O(√N)` rather than `O(N)`. | reproduces the `1,787` below `3×10^8` exactly; `243,129` to `10^13` in 80 s, `0` violations of `p ≡ q ≡ 1 mod 4`. | 0.2 s at `3e8`, 80 s at `1e13` |
 | `sector_at60_count.rs` | How many sectors can reach `\|P∪Q\| = 60` at their mass floor (`rustc -O`); the finiteness bound is `d ⊂` the `138` primes `≤ 787`. | `250` at primes `≤ 47`/`ω ≤ 8` (matching `sector_at60.gp`); `1,533` at `≤ 59`/`ω ≤ 10`. | seconds to minutes |
 | `sector_kexclude.gp` | The generalised identity `ℓ(dR − d'R') = d'R + d²`, symbolic and exact-rational. | `0` symbolically; `0` violations at each sector. | ~2 s |
 | `sector_size.rs` | How many prime sets the sector enumerator would test, by a counting DP over binned mass (`rustc -O`); calibrated on the real `k=64` run. | predicts `3.49e10` vs `3.69e10` actual; `k=66` needs `8.0e15` (~16 years). | ~1 min |
