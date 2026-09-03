@@ -61,6 +61,7 @@ import Erdos307.SieveBalance
 import Erdos307.SWDirect
 import Erdos307.TailQuadratic
 import Erdos307.Sector42
+import Erdos307.SectorGeneral
 import Erdos307.TailBound
 
 /-! # Axiom audit for the whole development
@@ -516,3 +517,7 @@ open Erdos307
 #print axioms Erdos307.sum_odd_parity
 #print axioms Erdos307.deriv_parity_of_odd
 #print axioms Erdos307.two_dvd_deriv_of_even_omega
+#print axioms Erdos307.terminal_prime_general
+#print axioms Erdos307.terminal_prime_general'
+#print axioms Erdos307.terminal_denom_pos_general
+#print axioms Erdos307.terminal_prime_fortytwo

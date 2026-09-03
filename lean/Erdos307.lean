@@ -43,6 +43,7 @@ import Erdos307.SieveBalance
 import Erdos307.SWDirect
 import Erdos307.TailQuadratic
 import Erdos307.Sector42
+import Erdos307.SectorGeneral
 import Erdos307.Distinctness
 import Erdos307.TailBound
 import Erdos307.LevelBarrier

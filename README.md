@@ -1,6 +1,6 @@
 # On the equation n″ = n and Erdős Problem #307
 
-**Version 1.62.0 · 2 September 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
+**Version 1.63.0 · 2 September 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
 
 **Author:** Vico Bonfioli — <vicobonfioli@gmail.com>
 
@@ -183,7 +183,7 @@ data/certs/   independently checkable ECPP primality certificates: the immune fa
   core with `pdflatex` (twice each, for the `xr` cross-references). No BibTeX run needed. The two
   documents are derived from `erdos307.tex`, never hand-edited, so they cannot drift.
 - **Lean:** `cd lean && lake exe cache get && lake build` (Lean / mathlib `v4.30.0`). Then
-  `lake env lean Check.lean` prints the axiom dependencies of 435 declarations across all 64 modules
+  `lake env lean Check.lean` prints the axiom dependencies of 439 declarations across all 65 modules
   — everything depends only on `propext, Classical.choice, Quot.sound` (no `sorryAx`), with exactly
   no exceptions: there is no `native_decide` anywhere in the development.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)
@@ -248,7 +248,7 @@ against the build by `code/check_consistency.sh` at every push. Summary:
 | `lem:deficit` (algebraic core) | `Erdos307.Deficit` | PROVED ⭐ (four analytic inputs) |
 | `prop:condrate` / `thm:a9` (detector steps) | `Erdos307.CondRate` | PROVED ⭐ (Halász, Siegel–Walfisz) |
 
-`lake env lean Check.lean` probes 435 declarations across 60 modules; all depend only on
+`lake env lean Check.lean` probes 439 declarations across 60 modules; all depend only on
 `propext, Classical.choice, Quot.sound`, with zero `sorry`. Six atoms carry formalization debt (⭐);
 five of the six have their non-analytic core machine-checked, and what remains under all of them is
 four classical theorems (Siegel–Walfisz, Siegel, the zero-free region for Dirichlet `L`-functions,

@@ -30,7 +30,7 @@
 \title{Companion to \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau}:\\ explorations, closures and the square sieve}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.62.0\quad 2 September 2026}
+\date{Version 1.63.0\quad 2 September 2026}
 
 \externaldocument[K-]{erdos307-core}
 \begin{document}
@@ -2300,13 +2300,16 @@ plus--hits the number of prime factors is almost always even: to $2\times10^7$ a
 $\omega$ even, and to $10^8$ all but one of $1{,}252$ do. The exception is
 \[ v=30735705=3\cdot5\cdot7\cdot11\cdot13\cdot23\cdot89,\qquad \omega(v)=7,\qquad
    v'+2v=89094721=9439^2, \]
-the least odd plus--hit with $\omega$ odd, and there is no other below $10^8$
-\textup{(\texttt{code/plushit\_omega.rs})}. So the parity is a bias of about $99.9\%$ and not a law,
+the least odd plus--hit with $\omega$ odd. It is not isolated: to $3\times10^8$ there are three,
+$30735705$, $165064305$ and $230839455$, all with $\omega=7$ and with $t=4,4,5$, against $2{,}143$
+with $\omega$ even, a rate of $0.14\%$ \textup{(\texttt{code/plushit\_omega.rs})}. So the parity is a
+bias of about $99.9\%$ and not a law,
 which is worth recording because the bias is strong enough to look like one over any range short of
 $3\times10^7$. What does hold without exception is the genus constraint: writing
-$t=\#\{p\mid v:p\equiv3\bmod4\}$, every one of the $1{,}252$ has $t\equiv0$ or $1\pmod4$, as the
+$t=\#\{p\mid v:p\equiv3\bmod4\}$, every one of the $2{,}146$ to $3\times10^8$ has $t\equiv0$ or $1\pmod4$, as the
 identity $\prod_{p\mid v}\bigl(\tfrac{v/p}p\bigr)=(-1)^{\binom t2}$ requires, the counterexample
-included with $t=4$. The observed pairs $(\omega,t)$ are $(2,0)$, $(4,1)$, $(6,4)$ and $(7,4)$.
+included with $t=4$. The observed pairs $(\omega,t)$ are $(2,0)$ with $1{,}787$ instances, $(4,1)$ with $339$, $(6,4)$
+with $17$, $(7,4)$ with two and $(7,5)$ with one.
 
 The empirical $\tfrac14\sqrt X$ law of part (ii) can be proved, up to logarithms, on the stratum that
 dominates the small--scale census.
