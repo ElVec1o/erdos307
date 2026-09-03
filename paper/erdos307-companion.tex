@@ -30,7 +30,7 @@
 \title{Companion to \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau}:\\ explorations, closures and the square sieve}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.60.0\quad 2 September 2026}
+\date{Version 1.61.0\quad 2 September 2026}
 
 \externaldocument[K-]{erdos307-core}
 \begin{document}
@@ -2294,6 +2294,20 @@ with zero violations on all $114$ plus--hits below $2\times10^5$ and all $251$ t
 the semiprime $p\equiv q\equiv1\pmod4$ theorem of~\textup{(i)} is its $\omega=2$ shadow via quadratic
 reciprocity.
 \end{proposition}
+
+\begin{conjecture}[Odd plus--hits have an even number of prime factors]\label{conj:plusomega}
+Every odd squarefree $v$ with $\omega(v)\ge2$ and $v'+2v$ a perfect square has $\omega(v)$ even.
+\end{conjecture}
+
+The evidence is $598$ odd plus--hits to $2\times10^7$, all with $\omega$ even, and the parity of
+$\omega$ is not otherwise constrained here, so the statement carries real weight rather than the
+vacuous confirmation an event of negligible probability would give. The joint shape is narrower still:
+writing $t=\#\{p\mid v:p\equiv3\bmod4\}$, the pairs $(\omega,t)$ observed are $(2,0)$ with $522$
+instances, $(4,1)$ with $75$, and $(6,4)$ with one. The known congruences do not force it. Since
+$\gcd(v,v')=1$ one has $\gcd(v,r)=1$ for $r^2=v'+2v$, and $r\equiv\omega(v)\bmod2$; if $r$ is even then
+$\sum_{p\mid v}p\equiv2\pmod4$, which is what the three observed shapes satisfy, but $r$ odd requires
+only $\sum_{p\mid v}p\equiv v-2\pmod8$, and that is satisfiable, for instance at $v=105$. So the
+obstruction, if there is one, is not congruential at these moduli.
 
 The empirical $\tfrac14\sqrt X$ law of part (ii) can be proved, up to logarithms, on the stratum that
 dominates the small--scale census.
