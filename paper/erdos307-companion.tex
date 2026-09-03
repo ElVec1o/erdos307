@@ -30,7 +30,7 @@
 \title{Companion to \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau}:\\ explorations, closures and the square sieve}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.66.0\quad 2 September 2026}
+\date{Version 1.67.0\quad 2 September 2026}
 
 \externaldocument[K-]{erdos307-core}
 \begin{document}
@@ -122,7 +122,9 @@ core, \texttt{code/hunt/survivor\_kill.rs}; the found factors are kept as a pair
 a kill certificate (an odd--multiplicity basis piece $P$ with $(D_S\mid P)=-1$) needs no
 primality testing at all), pushed to $\rho$--budget $10^6$ with a Pollard $p-1$ stage, closes a
 further $15{,}264$: in total $46{,}483$ of the $49{,}961$ one--new--prime families at level $60$
-are proven empty ($93.0\%$). The $3{,}478$ still open resist all of this for a structural reason,
+are proven empty ($93.0\%$). The $3{,}478$ still open --- $3{,}444$ of them once
+Proposition~\ref{prop:immunedecide} has emptied the $34$ immune ones --- resist all of this for a
+structural reason,
 not a want of effort: each is Baillie--PSW \emph{composite} yet has no prime factor below ${\sim}
 10^{12}$, so its $A_S$ (or $B_S$) is a \emph{balanced} semiprime of two ${\sim}57$--digit primes,
 splitting one is factoring at cryptographic scale. Two cheap tests confirm no shortcut survives:
@@ -165,8 +167,9 @@ route to a large prime is \texttt{lucas\_primality}, which needs a complete fact
 $n-1$, and that is precisely what the $0$ of $34$ above rules out. Note the two counts answer different questions and both are correct: $81$ is the
 number of prime pairs, $34$ the number of \emph{immune} families among them. A complete kill/immune split of the residual is in any case beyond feasible
 computation, and the honest state of the single--tail sector is \emph{$46{,}483$ empty
-\textup{[P]}, $34$ immune and now unconditionally \textup{[P]} by the \textup{APRCL} run above,
-$3{,}478$ factoring--hard}.
+\textup{[P]} and $3{,}478$ open}, the latter including the $34$ immune ones, whose primality the
+\textup{APRCL} run above makes unconditional \textup{[P]}; Proposition~\ref{prop:immunedecide} then
+empties those $34$, leaving $3{,}444$.
 \end{proof}
 
 \begin{proposition}[Sector decomposition of level $60$]\label{prop:sectors}
@@ -193,7 +196,9 @@ Dirichlet, admissible $q$ survive any finite set of such conditions. Hence a tai
 congruence kill iff $(D_S\mid\ell)=-1$ for some $\ell\mid A_SB_S$, which the Jacobi symbol
 detects for $31{,}219$ bases, and partial factorisation (\texttt{code/hunt/survivor\_kill.rs}) for a
 further $15{,}264$: in total $46{,}483$ of the $49{,}961$ single--tail families at level $60$ are
-proven empty ($93.0\%$), $3{,}478$ remaining open (each a balanced ${\sim}57$--digit semiprime, factoring--hard).
+proven empty ($93.0\%$) and $3{,}478$ remaining open. Of the latter, $34$ have $A_S$ and $B_S$ both
+prime and are emptied by Proposition~\ref{prop:immunedecide}; the other $3{,}444$ carry a balanced
+${\sim}57$--digit semiprime and are factoring--hard.
 The $34$ immune families are not a bottleneck; they are the tractable ones, and they are empty.
 Immunity means $A_S$ is prime, and that is exactly what makes the family decidable directly.
 
@@ -207,21 +212,63 @@ immune families at level $60$ are empty.
 Write $\sigma=N_S/D_S$, so $A_S=(\sigma+2)D_S$. Proposition~\ref{K-prop:tailbound} bounds
 $q\le tD_S$ with $t=\tfrac12(\sigma+\sqrt{\sigma^2-4})$, whence
 $x^2=A_Sq+D_S\le\bigl((\sigma+2)t+1\bigr)D_S^2$. At level $60$ one has $\sigma>2$ and $\sigma$ close
-to $2$, so $(\sigma+2)t+1<5.07$ and $x<2.26\,D_S<(\sigma+2)D_S=A_S$. Hence $x$ lies in $[0,A_S)$ and,
-$A_S$ being prime, is one of the two roots of $X^2\equiv D_S$. Each root gives one candidate
+to $2$, so $(\sigma+2)t+1<5.202$ and $x<2.281\,D_S<(\sigma+2)D_S=A_S$; over all $49{,}961$ admissible
+bases the ratio $x/A_S$ is at most $0.56982$. Hence $x$ lies in $[0,A_S)$ and, $A_S$ being prime, is one
+of the two roots of $X^2\equiv D_S$. Each root gives one candidate
 $q=(x^2-D_S)/A_S$, to be tested for integrality, primality and the companion condition that
-$B_Sq+D_S$ be a square. Carrying this out on the $34$ families with $A_S,B_S$ both Baillie--PSW
-probable prime, every candidate fails \textup{(\texttt{code/immune\_decide.gp})}: at
-\texttt{base\#64}, for instance, $\sigma=2.000253$, $A_S/D_S=4.000253$ and $x\le2.2504\,D_S$, and both
-roots give a composite $q$. The conclusion is conditional on the primality of $A_S$ exactly as the
-immunity itself was.
+$B_Sq+D_S$ be a square. Carrying this out on the $34$ families, whose $A_S$ and $B_S$ are
+unconditionally prime by the \textup{APRCL} and \textup{ECPP} runs recorded above, every candidate
+fails \textup{(\texttt{code/immune\_decide.gp})}, either because
+$q=(x^2-D_S)/A_S$ is not a prime exceeding $787$ or because $B_Sq+D_S$ is not a square; the conclusion
+is therefore \textup{[P]}, not \textup{[C]}. The script re--derives the $49{,}961$ bases, the $31{,}219$
+Jacobi kills and the $34$ immune families from scratch before deciding them.
 \end{proof}
 
-What remains at level $60$ is therefore the $3{,}444$ families whose $A_S$ is composite and not split,
-where the argument above needs the factorisation it does not have. Factoring the balanced semiprime
-costs on the order of twenty core--years for all of them and decides at best half, since for $A=pq$
-with $(D_S\mid A)=+1$ either both Legendre symbols are $+1$, when no kill exists, or both are $-1$,
-when one does.
+Primality of $A_S$ plays no role in the bound $x<A_S$, only in the ease of extracting the roots, so
+the argument is general.
+
+\begin{proposition}[Single--tail families are decided by factoring]\label{prop:lvl60factor}
+Let $S$ be a set of primes containing $2$, with $D_S=\prod S$ squarefree, and let $q$ be a prime
+completing $S$ to a solution support. Then $A_S$ is odd and coprime to $D_S$, and $x=a+b$ satisfies
+$x^2=A_Sq+D_S$ with $0<x<A_S$. Hence $x$ is one of the $2^{\omega(A_S)}$ square roots of $D_S$ modulo
+$A_S$, each giving a single candidate $q=(x^2-D_S)/A_S$, and the family is decided by one
+factorisation of $A_S$ together with $O(2^{\omega(A_S)})$ primality tests.
+\end{proposition}
+\begin{proof}
+Since $2\in S$ and $D_S$ is squarefree, exactly one term of $N_S=\sum_{p\in S}D_S/p$ is odd, so $N_S$ is
+odd and $A_S=N_S+2D_S$ is odd. If $p\in S$ divided $A_S$ it would divide $N_S$, but $N_S\equiv D_S/p
+\not\equiv0\pmod p$; as the primes of $D_S$ are exactly $S$, $\gcd(A_S,D_S)=1$. For the bound, write
+$\sigma=N_S/D_S$ and $A_S=(\sigma+2)D_S$. Proposition~\ref{K-prop:tailbound} gives $q\le tD_S$ with
+$t=\tfrac12(\sigma+\sqrt{\sigma^2-4})$, so $x^2\le\bigl((\sigma+2)t+1\bigr)D_S^2$. Across all
+$49{,}961$ admissible level--$60$ bases $\sigma\in(2,2.00236]$, whence $(\sigma+2)t+1<5.202$ and
+$x<2.281\,D_S$, while $A_S=(\sigma+2)D_S>4\,D_S$; the ratio $x/A_S$ is at most $0.56982$ over the whole
+set \textup{(\texttt{code/lvl60check.gp})}. Thus $x<A_S$. When instead $\sigma\le2$, as for the
+pair--sector bases of Proposition~\ref{prop:sectors}(ii), Corollary~\ref{K-cor:maxbound} bounds the tail
+by $q\le D_S/(2D_S-N_S)=D_S/|B_S|$, so $x^2=A_Sq+D_S\le A_SD_S/|B_S|+D_S<A_S^2$ because $|B_S|\ge1$ and
+$A_S>D_S$; the conclusion $x<A_S$ therefore holds in both regimes. Being odd and coprime to $D_S$,
+$A_S$ admits exactly $2^{\omega(A_S)}$ square roots of $D_S$ when $D_S$ is a residue modulo every prime
+power dividing it, and none otherwise; these are computed from the factorisation by Tonelli--Shanks,
+Hensel lifting at any repeated factor, and the Chinese remainder theorem.
+\end{proof}
+
+This replaces a $2^{58}$ search per family by a single factorisation, and the integer to be factored is
+$A_S\approx4D_S$, of $114$ decimal digits, not the $230$--digit product the divisor search ranges over.
+It also supersedes the reciprocity route rather than extending it: a congruence kill decides at best
+half of the split families, since for $A=pq$ with $(D_S\mid A)=+1$ the two Legendre symbols are either
+both $+1$, when no kill exists, or both $-1$, when one does, whereas the root enumeration decides every
+family whose $A_S$ is factored. Level $60$ is therefore not an exponential obstruction but a factoring
+project: the $34$ with $A_S$ prime are already done, and $3{,}444$ integers of $114$ digits remain.
+A $114$--digit general number field sieve is routine, costing core--days apiece rather than the
+$3.2\times10^7$ core--years the divisor search of Proposition~\ref{K-prop:tailbound} would demand, a
+reduction by six orders of magnitude. It should be said plainly that this does not by itself deliver
+$|P\cup Q|\ge61$. The single--tail sector is only one of the two cases of
+Proposition~\ref{prop:sectors}, and the pair sector contributes a further $3{,}197{,}261$ surviving
+bases, each an arity--one tail family to which Proposition~\ref{prop:lvl60factor} applies equally.
+Factoring those as well is a computation some three orders of magnitude larger --- tens of thousands of
+core--years --- which is beyond what has been carried out here and is quoted as the honest price, not
+as a claim of feasibility. What has changed is the character of the obstruction: level $60$ is no
+longer exponential in $|S|$, but linear in the number of families, each at the cost of one
+factorisation.
 
 Those $3{,}478$ are expected to be empty, and by a wide margin: evaluating the expected count of
 Remark~\ref{rem:killcount} over them, with $\kappa_S\le1$ and the tail sum bounded by

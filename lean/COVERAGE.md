@@ -1,6 +1,6 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**85 of 149** labelled results are named by a Lean file in `Erdos307/` (65 files, **0 `sorry`**).
+**85 of 150** labelled results are named by a Lean file in `Erdos307/` (65 files, **0 `sorry`**).
 
 `lake env lean Check.lean` probes **439 declarations across all 65 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
@@ -180,6 +180,7 @@ The result *is* a number a program produces.
 | `prop:groupoid` | The peeling groupoid |
 | `prop:halfplane` | The deviation half--plane |
 | `prop:immunedecide` | Immune level-60 families are decided in polynomial time, and are empty |
+| `prop:lvl60factor` | Level 60 is decided by factoring: x < A_S forces x to be a square root of D_S mod A_S |
 | `prop:lineanatomy` | Line anatomy: pinning, coupling, caps |
 | `prop:massbound` | Mass--defect bound on the second prime |
 | `prop:mod72` | A difference--36 congruence modulo 72 |
