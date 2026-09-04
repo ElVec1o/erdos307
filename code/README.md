@@ -5,7 +5,7 @@ standalone. All *verdicts* use exact integer/rational arithmetic; floating point
 pre-screening, and where a float appears in a printed constant the exact form is given beside it.
 Runtimes are approximate (a laptop).
 
-This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 259 tracked files in total;
+This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 260 tracked files in total;
 the remainder are supporting Rust and GP sources reachable from those, or superseded working
 scripts, and are not individually documented here.
 
@@ -66,6 +66,7 @@ danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
 | `sector42_k64.rs` | `prop:sector42`: exhaustive, exact enumeration deciding `ω(e) = 64` in the `d = 42` sector; phase 1 (`≤ 1` prime `> 1229`), phase 2 (two). Dependency-free; checkpointed; `rustc -O`. | phase 1: `36,901,596,763` sets, `0`; phase 2: `166,213` sets, min `δ = 1.539e-6`, `0`. | 22 min / 5 s |
 | `sector_kexclude.rs` | `prop:ppnsectors`: decides `ω(e) = k` in ANY sector `d` by the generalised forced-prime identity (`rustc -O`). Regression: reproduces the `d=42`, `k=64` phase-2 figures exactly. | `d=42,k=62`: `175`, `0`; `d=47058,k=54`: `41,654`, `0`; `d=2214502422,k=70`: `11,646`, `0`. | < 1 s each |
 | `split_sieve.rs` | The split sieve for level-60 single-tail families: enumerates subsets `T` of the base with `|T| <= kmax`, applies the congruences of `prop:splitsieve` (ii), and runs the exact `q`-free criterion on every survivor. Progress, ETA, atomic checkpoints, resume. |
+| `gen_bases.rs` | Generates the level-60 base list `bases.txt` that `split_sieve.rs` consumes: the 39 forced primes below 167 plus 20 from `(167, 787]`, kept when `T(S) > 2`. Pruning is on `f64` with a conservative slack, every surviving leaf is then tested exactly as `csum S > 2 * dprod S`, and the two Jacobi symbols `(D|A)`, `(D|B)` are computed in 512-bit integer arithmetic. 49,961 bases, 18,742 with both symbols not `-1`. Replaces a sympy script; the reproduction path is now Python-free. |
 | `sector_at60.gp` | The sectors whose mass floor is exactly `\|P∪Q\| = 60`, with run parameters. | `250` at primes `≤ 47`/`ω ≤ 8`, all phase-1 decidable. | ~4 min |
 | `sector_at60_list.rs` | Emits the at-60 sectors with run parameters at any prime and `ω` cap; the `47`/`8` family is a proper subset of the `59`/`10` one. | `250` and `1,533`; sweep clears all `1,533`, `0` survivors. | ~2 min + ~40 min sweep |
 | `sector_floorlist.rs` | Emits sectors of a prescribed mass floor, with run parameters; used for the out-of-sample test of `conj:floorgap`. | target `60` at `47`/`8` gives `250` (regression); floors `61`–`68` give `271,132,168,120,140,118,123,86`. | ~1 min |
