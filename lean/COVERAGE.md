@@ -275,3 +275,10 @@ analytic number theory that has not been formalised by anyone.
 - `split_criterion`: the `q`-free criterion `dprod T ^ 2 + csum T * csum (S \ T) = dprod S`.
 - `no_cycle_of_no_split`: contrapositive, the form `code/split_sieve.rs` computes.
 - `csum_odd_card`: parity law, `csum X` and `|X|` agree mod 2 for `X` all odd; gives `2 in T -> |T| odd`.
+- `split_snd_of_criterion`: (ii) is implied by (i) -- the sieve is the mod-alpha shadow of the criterion.
+- `split_criterion_gen`, `split_snd_gen`: arbitrary tail multiplier `M`. The criterion becomes
+  `dprod T ^ 2 * csum M + csum T * csum (S \ T) = dprod S`, giving arity one (`csum M = 1`) and the
+  pair sector (`M = {p,q}`, `csum M = p + q`) at once. The sieve `dprod T | csum (S \ T)` carries no
+  arity assumption, so it reaches the pair families the arity-one weapon of prop:immunedecide cannot.
+- `recip_sum_bound`, `pair_tail_deficit`: the mixed pair-sector case admits no sieve, but 58 primes
+  never reach mass 2, so the smaller tail prime is confined to a finite range.
