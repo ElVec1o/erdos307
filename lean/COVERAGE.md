@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**84 of 150** labelled results are named by a Lean file in `Erdos307/` (65 files, **0 `sorry`**).
+**85 of 150** labelled results are named by a Lean file in `Erdos307/` (66 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **439 declarations across all 65 modules**. Everything is on the
+`lake env lean Check.lean` probes **439 declarations across all 66 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
 closes level 60, was the last site off that footing; it and the `erdos307_sixty` that consumes it are
 now kernel-`decide`, as is the numeral bridge behind `card_ge_59` and `erdos307_barrier_closed`.
@@ -264,3 +264,14 @@ So none of the five analytic stars can be closed by importing existing work: the
 in formalised form anywhere. Carving each proof down to precisely these four named theorems, which
 is what the table above records, is the furthest the debt can be reduced without formalising
 analytic number theory that has not been formalised by anyone.
+
+## prop:splitsieve (split sieve for single-tail families)
+
+`Erdos307.SplitSieve` -- VERIFIED, 0 sorry, axioms [propext, Classical.choice, Quot.sound].
+
+- `dprod_split`: `dprod T * dprod (S \ T) = dprod S` for `T ⊆ S`.
+- `split_fst`: Leibniz half, `dprod (S \ T) = q * csum T + dprod T`.
+- `split_snd`: the sieve, `dprod T ∣ csum (S \ T)`.
+- `split_criterion`: the `q`-free criterion `dprod T ^ 2 + csum T * csum (S \ T) = dprod S`.
+- `no_cycle_of_no_split`: contrapositive, the form `code/split_sieve.rs` computes.
+- `csum_odd_card`: parity law, `csum X` and `|X|` agree mod 2 for `X` all odd; gives `2 in T -> |T| odd`.

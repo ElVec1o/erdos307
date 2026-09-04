@@ -1,6 +1,6 @@
 # On the equation n″ = n and Erdős Problem #307
 
-**Version 1.74.0 · 2 September 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
+**Version 1.75.0 · 2 September 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
 
 **Author:** Vico Bonfioli — <vicobonfioli@gmail.com>
 
@@ -183,7 +183,7 @@ data/certs/   independently checkable ECPP primality certificates: the immune fa
   core with `pdflatex` (twice each, for the `xr` cross-references). No BibTeX run needed. The two
   documents are derived from `erdos307.tex`, never hand-edited, so they cannot drift.
 - **Lean:** `cd lean && lake exe cache get && lake build` (Lean / mathlib `v4.30.0`). Then
-  `lake env lean Check.lean` prints the axiom dependencies of 439 declarations across all 65 modules
+  `lake env lean Check.lean` prints the axiom dependencies of 439 declarations across all 66 modules
   — everything depends only on `propext, Classical.choice, Quot.sound` (no `sorryAx`), with exactly
   no exceptions: there is no `native_decide` anywhere in the development.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)
@@ -241,6 +241,7 @@ against the build by `code/check_consistency.sh` at every push. Summary:
 | `prop:tailbound` (quadratic, discriminant, bounds; and the `α = 1` maximum) | `Erdos307.TailBound`, `Erdos307.TailQuadratic` | VERIFIED |
 | `rem:twosided`, `rem:lyapshape` (exclusion of one-sided and `σ`-only arguments) | `Erdos307.Exclusions` | VERIFIED |
 | `prop:oddsector` (odd sectors keep 2 only when `ω(d)` is odd) | `Erdos307.OddSector` | VERIFIED |
+| `prop:splitsieve` (split sieve for single-tail families; the `q`-free criterion and the parity law) | `Erdos307.SplitSieve` | VERIFIED |
 | `prop:sector42` (algebraic half) | `Erdos307.Sector42` | PROVED ⭐ (enumeration not formalizable at 3.7×10¹⁰ leaves) |
 | `lem:swdirect` (diagonalisation core) | `Erdos307.SWDirect` | PROVED ⭐ (Siegel–Walfisz absent from Mathlib) |
 | `lem:charcancelunif` (constant analysis) | `Erdos307.CharCancel` | PROVED ⭐ (Halász, zero-free region) |
