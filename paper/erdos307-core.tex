@@ -33,7 +33,9 @@
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
 \date{Version 1.75.0\quad 2 September 2026}
 
-\externaldocument[C-]{erdos307-companion}
+\externaldocument[A-]{erdos307-computational}
+\externaldocument[B-]{erdos307-obstructions}
+\externaldocument[C-]{erdos307-analytic}
 \begin{document}
 \maketitle
 
@@ -165,13 +167,13 @@ identities $N_P=D_Q$, $N_Q=D_P$, disjointness $P\cap Q=\varnothing$, and $D_Q=s\
 $s=\sum_{p\in P}1/p$. The disjointness core was anticipated by R.~Israel \cite{MO320838}; the full
 rigidity is what powers everything later. Section~\ref{sec:bridge} establishes the bridge.
 Section~\ref{sec:barrier} proves the barrier, the parity dichotomy, and that longer cycles are
-strictly harder (so two--cycles are extremal). Section~\ref{C-sec:anatomy} of the companion gives a local congruence
+strictly harder (so two--cycles are extremal). Section~\ref{A-sec:anatomy} of the computational companion gives a local congruence
 anatomy, a heuristic model, and a proof (via Erd\H{o}s--Wintner) that the relevant abundance density
-is a genuine constant. Section~\ref{C-sec:ff} of the companion adds a function--field lens: over $\mathbb{F}_q[t]$ the
+is a genuine constant. Section~\ref{B-sec:ff} of the obstructions companion adds a function--field lens: over $\mathbb{F}_q[t]$ the
 derivative has \emph{no} cycles, so the obstruction in $\mathbb{Z}$ is purely archimedean.
 Section~\ref{sec:frame} develops the Frame Rule and divisor--trick,
 and, crucially, records the exact identity that renders the natural constructive objective
-circular. Section~\ref{C-sec:breeder} of the companion recasts the rule as a bilinear breeder, records a conditional
+circular. Section~\ref{A-sec:breeder} of the computational companion recasts the rule as a bilinear breeder, records a conditional
 reduction $(\mathrm{H})\Rightarrow$ \textsc{yes} to an explicit prime--density hypothesis, and shows
 quantitatively why $(\mathrm{H})$ does not amount to a feasible finite search.
 Section~\ref{sec:computations} documents the computations, and Section~\ref{sec:lean} the
@@ -500,7 +502,7 @@ above $59$, each containing a prime beyond any prescribed bound.
 
 \begin{remark}[What the level barrier costs, and what it does not]\label{rem:levelbarrier}
 Proposition~\ref{prop:close59} closes level $59$ by enumerating its $49{,}961$ admissible supports,
-and Proposition~\ref{C-prop:tailkill} together with the search of Remark~\ref{C-rem:notlehmer} closes
+and Proposition~\ref{A-prop:tailkill} together with the search of Remark~\ref{A-rem:notlehmer} closes
 level $60$ by adjoining one prime to each. The obvious continuation is to enumerate the admissible
 $60$--element supports and repeat. Proposition~\ref{prop:levelbarrier} says there is no such
 enumeration \emph{of supports}.
@@ -610,7 +612,7 @@ Every solution of \#307 at level $61$ has $\prod(P\cup Q)<10^{567}$.
 Write $U=S\cup\{u_{60},u_{61}\}$ with $S$ the $59$ smallest elements, $D=\prod S$.
 
 If $\sigma(S)\ge2$ then $S$ is one of the $49{,}961$ admissible $59$--element supports of
-Corollary~\ref{C-cor:count59}, whose products satisfy $\log_{10}D\le113.397$
+Corollary~\ref{B-cor:count59}, whose products satisfy $\log_{10}D\le113.397$
 \textup{(\texttt{code/maxprod59.rs})}. Splitting $S=P_0\sqcup Q_0$ and writing $M=\prod P_0$,
 $N=\prod Q_0$, $M'=D(P_0)$, $N'=D(Q_0)$, Theorem~\ref{thm:frame} determines the two remaining primes:
 $u=(MN'+N^2)/\Delta$ and $v=(M'N+M^2)/\Delta$ with $\Delta=MN-M'N'$. Here
@@ -673,7 +675,7 @@ element within the proven bound \textup{(\texttt{code/level\_finite\_check.gp})}
 \end{remark}
 
 Two consequences, and the second is the one that matters. The searches of
-Remark~\ref{C-rem:notlehmer}, however far they are pushed in $\omega(m)$, bear on level $60$ alone;
+Remark~\ref{A-rem:notlehmer}, however far they are pushed in $\omega(m)$, bear on level $60$ alone;
 widening them is not a route upward. And any further progress on \#307 must be
 \emph{non--enumerative}: exhausting supports one level at a time is not merely expensive beyond
 level $60$, it is impossible, so the method behind every unconditional exclusion in this note is now
@@ -777,7 +779,7 @@ X & 10^{6} & 10^{7} & 10^{9} & 10^{12} & 10^{18} & 10^{30}\\\hline
 \text{rules out every }k\le & 18 & 16 & 12 & 9 & 6 & 3
 \end{array}
 \]
-The sweep of Proposition~\ref{C-prop:nearmiss}, now carried to $10^{8}$, therefore already excludes
+The sweep of Proposition~\ref{B-prop:nearmiss}, now carried to $10^{8}$, therefore already excludes
 every cycle of period at most $14$ with all members in range, and not merely period two. This is the practical form
 of Proposition~\ref{prop:kuniform}: because the barrier does not weaken with the period, a single
 bounded search settles a whole initial segment of Ufnarovski--\AA hlander's Conjecture~3 at once,
@@ -1000,10 +1002,10 @@ independent sanity check.
 2\times10^7$ (smallest--prime--factor sieve of the derivative).
 \item \emph{Function field.} The arithmetic derivative on $\mathbb{F}_q[t]$ has no two--cycles and no
 nonzero fixed points, verified exhaustively over $\mathbb{F}_2$ (degree $\le7$), $\mathbb{F}_3$
-($\le5$), $\mathbb{F}_5$ ($\le4$), confirming Theorem~\ref{C-thm:ff}.
+($\le5$), $\mathbb{F}_5$ ($\le4$), confirming Theorem~\ref{B-thm:ff}.
 \item \emph{Density.} The sieve gives density $0.042029$ to $2\times10^7$ ($0.017623$ among
 squarefree); the independent Erd\H{o}s--Wintner convolution over primes $\le10^5$ gives
-$\delta=0.04202$, agreeing to four places (Proposition~\ref{C-prop:density}).
+$\delta=0.04202$, agreeing to four places (Proposition~\ref{A-prop:density}).
 \item \emph{Conditional mass.} Of $43{,}087$ qualifying squarefree $a$ sampled, $b=a'$ is squarefree
 $95.0\%$ of the time; on the resulting $40{,}920$ squarefree $b$ the mean reciprocal mass is $0.047$
 vs.\ the required $1/s\approx0.934$, with empirical tail probability $\Pr[\sum_{q\mid b}1/q\ge1/s]=
@@ -1035,18 +1037,18 @@ $\sum_{\text{first }58}1/p<2<\sum_{\text{first }59}1/p$ grounding $|U|\ge59$
 (\texttt{recipSum58\_lt\_two}, \texttt{recipSum59\_gt\_two}); the numeric core
 $\Pi_{59}^2\ge(4\times10^{112})N_{59}$ (\texttt{barrier\_numeric}), and the algebraic core of the
 barrier (\texttt{barrier}), giving $D_P^2\ge4\times10^{112}$;
-\item Theorem~\ref{C-thm:halflyap} (\texttt{log\_lt\_half\_sub}, \texttt{delta\_decreasing},
-\texttt{two\_le\_add\_of\_mul\_eq\_one}) and Theorem~\ref{C-thm:lyapfalse}
+\item Theorem~\ref{B-thm:halflyap} (\texttt{log\_lt\_half\_sub}, \texttt{delta\_decreasing},
+\texttt{two\_le\_add\_of\_mul\_eq\_one}) and Theorem~\ref{B-thm:lyapfalse}
 (\texttt{criterion\_fails\_of\_pos}, \texttt{criterion\_fails\_of\_nonpos},
 \texttt{no\_lambda\_works}, \texttt{lyapunov\_criterion\_false}), neither of which uses
 \texttt{native\_decide};
-\item Proposition~\ref{C-prop:masssumthreshold} (\texttt{half\_works}, \texttt{no\_f\_above\_two},
-\texttt{mass\_sum\_threshold}) and Proposition~\ref{C-prop:lyapuniversal}
+\item Proposition~\ref{B-prop:masssumthreshold} (\texttt{half\_works}, \texttt{no\_f\_above\_two},
+\texttt{mass\_sum\_threshold}) and Proposition~\ref{B-prop:lyapuniversal}
 (\texttt{exists\_f\_of\_injective}, \texttt{increment\_iff},
 \texttt{no\_two\_cycle\_of\_decreasing}), which together machine-check the closure of the sign
-branch in Theorem~\ref{C-thm:noinvariant};
-\item Proposition~\ref{C-prop:infzero} (\texttt{exists\_block\_sum\_near}, \texttt{infimum\_zero});
-\item Theorem~\ref{C-thm:noinvariant}(1) in its mechanism (\texttt{Erdos307.Congruential}) and
+branch in Theorem~\ref{B-thm:noinvariant};
+\item Proposition~\ref{B-prop:infzero} (\texttt{exists\_block\_sum\_near}, \texttt{infimum\_zero});
+\item Theorem~\ref{B-thm:noinvariant}(1) in its mechanism (\texttt{Erdos307.Congruential}) and
 Proposition~\ref{C-prop:liveslot} (\texttt{live\_slot\_threshold}, \texttt{threshold\_bracket}).
 \end{itemize}
 The single non--elementary ingredient, that the $k$ smallest primes minimise $\prod$ and maximise
@@ -1362,7 +1364,7 @@ $z^2-\sigma(S)z+1$ and is maximal at the midpoint.
 \end{proof}
 
 \begin{remark}[Why level $61$ is still not enumerable]\label{rem:level61search}
-This is the complement of Proposition~\ref{C-prop:window}, which places the mass of a \emph{solution}
+This is the complement of Proposition~\ref{B-prop:window}, which places the mass of a \emph{solution}
 inside the window of the full support; here the split of the \emph{base} must sit outside its own.
 It is a genuine constraint and it points a search away from where one would naturally begin, but it
 does not make level $61$ enumerable, and it is worth recording the arithmetic rather than leaving the
@@ -1462,7 +1464,7 @@ transfer is one necessary condition, recorded in Theorem~\ref{thm:parity}.
 
 \cite{StretchedEG2026} bounds the distance from $1$ to the best reciprocal subsum of a multiset of
 reciprocal mass $K$ by $\exp(-c\sqrt{K\log K})$, improving $\ll K^{-2}$. It concerns how well $1$
-can be approached, which is the direction Proposition~\ref{C-prop:effapprox} occupies, and says
+can be approached, which is the direction Proposition~\ref{B-prop:effapprox} occupies, and says
 nothing about exact representation, which is what \#307 asks.
 \end{remark}
 
@@ -1478,17 +1480,17 @@ and the barrier are Lean--verified, extremality proved rather than assumed.
 
 The barrier is one instance of a single inequality. Writing $n(c)=\min\{n:T_n\ge c\}$,
 \[ \sum_{p\in U}1/p\ \ge\ c\ \Longrightarrow\ |U|\ge n(c),\qquad \prod_{p\in U}p\ \ge\ \Pi_{n(c)}, \]
-and the arithmetic of each result enters only in producing its $c$ (Remark~\ref{C-rem:dictionary}).
+and the arithmetic of each result enters only in producing its $c$ (Remark~\ref{B-rem:dictionary}).
 Read in the size it gives the double--logarithmic frontier law
-(Proposition~\ref{C-prop:frontier}); in the near--miss ratio, the cost family
-(Corollary~\ref{C-cor:cost}), whose endpoint at $r=1$ is the barrier and which shows $a''\ge2a$ needs
+(Proposition~\ref{B-prop:frontier}); in the near--miss ratio, the cost family
+(Corollary~\ref{B-cor:cost}), whose endpoint at $r=1$ is the barrier and which shows $a''\ge2a$ needs
 $37{,}963$ primes; in the period, that the barrier is uniform in $k$, so it bounds the whole of
 Ufnarovski--\AA hlander's Conjecture~3 and not only \#307 (Proposition~\ref{prop:kuniform}); in the
 orbit length, that the derivative cannot outgrow its own support
-(Proposition~\ref{C-prop:growth}); in the split, that $\min(\omega(a),\omega(b))\ge3$ whenever
-$|U|\le68$ (Proposition~\ref{C-prop:split}); and in the level, the forced core and the ceiling that
+(Proposition~\ref{B-prop:growth}); in the split, that $\min(\omega(a),\omega(b))\ge3$ whenever
+$|U|\le68$ (Proposition~\ref{B-prop:split}); and in the level, the forced core and the ceiling that
 pin level $59$ from both sides and yield its admissible count $49{,}961$ in closed characterisation
-(Propositions~\ref{C-prop:window},~\ref{C-prop:band}, Corollary~\ref{C-cor:count59}). The algebraic cores
+(Propositions~\ref{B-prop:window},~\ref{B-prop:band}, Corollary~\ref{B-cor:count59}). The algebraic cores
 of these are Lean--verified (\texttt{Dictionary.lean}).
 
 One analytic statement is settled here that was open through several revisions of this paper. The
@@ -1511,37 +1513,37 @@ revisions are retracted after Lemma~\ref{C-lem:reversal} and at the theorem itse
 depends on any of it, and the barrier is untouched.
 
 On the constructive side we give a Th\=abit/Euler--type calculus and a bilinear breeder whose
-candidate $q$ is always integral (Proposition~\ref{C-prop:bdeint}), a conditional reduction
+candidate $q$ is always integral (Proposition~\ref{A-prop:bdeint}), a conditional reduction
 $(\mathrm{H})\Rightarrow$\textsc{yes}, and a quantitative ledger showing $(\mathrm{H})$ is not a
 feasible finite search. No fixed--shape family of any growth rate can parametrise \#307
-(Proposition~\ref{C-prop:nofamily}), which closes the Th\=abit/Euler programme rather than only its
+(Proposition~\ref{A-prop:nofamily}), which closes the Th\=abit/Euler programme rather than only its
 polynomial shadow. We also give a parity dichotomy, an Erd\H{o}s--Wintner density theorem, and a
 function--field theorem localising the obstruction to the archimedean place. The heuristics favour
 \textsc{yes}, and the model behind them survives a second--moment test
-(Proposition~\ref{C-prop:anticorr}); we claim no proof in either direction.
+(Proposition~\ref{B-prop:anticorr}); we claim no proof in either direction.
 
 Open problems: (i) close the residual $3{,}478$ single--tail families at level $60$, and close the
-pair sector of Proposition~\ref{C-prop:sectors}. What this buys should be read with
-Proposition~\ref{C-prop:nottree}: the admissible supports do not form a tree under adjunction, so
-completing every one--new--prime family at level $60$ would still not close level $60$; for which Proposition~\ref{C-prop:pairlocal} rules
+pair sector of Proposition~\ref{A-prop:sectors}. What this buys should be read with
+Proposition~\ref{B-prop:nottree}: the admissible supports do not form a tree under adjunction, so
+completing every one--new--prime family at level $60$ would still not close level $60$; for which Proposition~\ref{A-prop:pairlocal} rules
 out every congruence kill, so only global, per--family input (factorisation or direct search) can
 serve (the canonical tail family
-is closed, Proposition~\ref{C-prop:tailkill}; the finite verification of
+is closed, Proposition~\ref{A-prop:tailkill}; the finite verification of
 Proposition~\ref{prop:close59} is Lean--checked, \texttt{erdos307\_sixty}; the conditional $3/4$
-law is explained; it is the reciprocity switch of Remark~\ref{C-rem:fiveeighths}, made exact by
+law is explained; it is the reciprocity switch of Remark~\ref{A-rem:fiveeighths}, made exact by
 the class--vector functional there); (ii) decide
 the parity dichotomy's all--odd case (we expect it empty); (iii) sharpen the certified enclosure
-$0.04202\le\delta\le0.04223$ of Proposition~\ref{C-prop:density}, whose width is carried almost
+$0.04202\le\delta\le0.04223$ of Proposition~\ref{A-prop:density}, whose width is carried almost
 entirely by the tail window $a$; three digits are certified, and a longer envelope convolution
 with a smaller window certifies more; (iv) settle the density hypothesis $(\mathrm{H})$ of
-Section~\ref{C-sec:breeder} of the companion, or exhibit a non--circular frame family escaping the $\tau(K)/G$ ceiling;
+Section~\ref{A-sec:breeder} of the computational companion, or exhibit a non--circular frame family escaping the $\tau(K)/G$ ceiling;
 (v) find a $\mathbb{Z}$--side structure detecting the archimedean obstruction of
-Section~\ref{C-sec:ff} of the companion; one that must be non--local, since by Proposition~\ref{C-prop:nolocal} no single
+Section~\ref{B-sec:ff} of the obstructions companion; one that must be non--local, since by Proposition~\ref{A-prop:nolocal} no single
 modulus obstructs; (vi) settle \#307.
 
 \begin{remark}[The place of the problem: a local--global dictionary]\label{rem:place}
 The pieces above assemble into a dictionary. \textup{(i)} For a fixed support $U$, the subset form of
-Proposition~\ref{C-prop:subset}, $A(\Sigma-A)=D^2$, satisfies the \emph{Hasse principle as an equation}:
+Proposition~\ref{A-prop:subset}, $A(\Sigma-A)=D^2$, satisfies the \emph{Hasse principle as an equation}:
 an integer solution $A$ exists iff one exists over $\mathbb{R}$ and over every $\mathbb{Z}_\ell$ (the
 discriminant $\Sigma^2-4D^2$ must be a nonnegative square, and squares obey local--global). Its
 real--place condition is $\Sigma\ge2D$, i.e.\ $\sigma(U)\ge2$: \emph{the barrier is precisely the
@@ -1551,7 +1553,7 @@ $\sum 1/a_i\le\sum1/p_i$, and \emph{any} pairwise--coprime support of mass $\ge2
 elements and product at least $\Pi_{59}$. Coprimality and the ordering of $\mathbb{R}$ carry the wall;
 primality enters only through rigidity. \textup{(iii)} What remains unsolved is the \emph{realization}
 of the root $A^*=\bigl(\Sigma+\sqrt{\Sigma^2-4D^2}\bigr)/2$ as a sub--multiset sum of the cofactors
-$D/p$. Its local conditions are exactly the local anatomy of Lemma~\ref{C-lem:anatomy}: modulo $\ell^2$
+$D/p$. Its local conditions are exactly the local anatomy of Lemma~\ref{A-lem:anatomy}: modulo $\ell^2$
 for $\ell\in U$ the subset sums occupy precisely the two cosets
 $\ell\mathbb{Z}\cup(D/\ell+\ell\mathbb{Z})$ ($2\ell$ residues, observed exactly ($6$ of $9$, $10$ of
 $25$, $14$ of $49$, $22$ of $121$)) and these are the same constraints the equation itself forces:
@@ -1591,16 +1593,16 @@ the responsibility of the author. The author thanks the contributors to the Math
 Four results of this note combine into a single statement about the shape any negative proof must
 take, and it is worth assembling because each of the four is easy to read as an isolated obstruction.
 
-Proposition~\ref{C-prop:localcomplete} shows the cycle system is soluble modulo every $m$, so it has
+Proposition~\ref{A-prop:localcomplete} shows the cycle system is soluble modulo every $m$, so it has
 solutions in $\widehat{\mathbb{Z}}$ and there is no congruence obstruction to find, at any modulus or
-any finite combination of moduli. Theorem~\ref{C-thm:ff} shows the analogue over $\mathbb{F}_q[t]$ is
+any finite combination of moduli. Theorem~\ref{B-thm:ff} shows the analogue over $\mathbb{F}_q[t]$ is
 false, having no cycles at all, so no argument that survives the passage to function fields can
 decide \#307 negatively: whatever a proof uses, $\mathbb{F}_q[t]$ must lack it.
 Proposition~\ref{C-prop:noplace} shows no place carries a descent. Together these localise the
 obstruction at the archimedean place, which is the reading already recorded.
 
 The fourth is the constraint. The only archimedean tool in play is the mass, and
-Proposition~\ref{C-prop:barthreshold} shows it is exactly tight: raising the barrier one level requires
+Proposition~\ref{A-prop:barthreshold} shows it is exactly tight: raising the barrier one level requires
 $\sigma(a)>t_n$, the only unconditional bound available is $\sigma(a)-1\ge1/a$, and
 $\{2,3,7,41\}$ realises $\sigma=1.00058\ldots$ on four primes, so nothing forbids $a'-a=1$. So a
 proof of \textsc{no} needs an archimedean argument that is not the mass, and we know of none. This is
@@ -1674,7 +1676,7 @@ Working with $A(S)=\sum_{p\in S}M(S)/p$ and $M(S)=\prod_{p\in S}p$ (our $N_S,D_S
 obtains: the lowest--terms lemma (his Lemma~3.1, our Lemma~\ref{thm:rigidity}); the forcing identities
 $A(P)=M(Q)$, $A(Q)=M(P)$ with $P\cap Q=\varnothing$ (his Thm.~A, our Theorem~\ref{thm:structure}); the
 two--cycle reformulation $T(T(P))=P$ (his Thm.~B); the valuation signature (his Thm.~6.1, = Israel's);
-the local zero--sum congruences (his Prop.~8.1, our Lemma~\ref{C-lem:anatomy}); the parity restrictions
+the local zero--sum congruences (his Prop.~8.1, our Lemma~\ref{A-lem:anatomy}); the parity restrictions
 (his Prop.~8.2, the parity part of Theorem~\ref{thm:parity}); an exact one--sided test (his Thm.~9.1); the deviation parameter, i.e.\ the integer $t$ with
 $A(P)=n+tm$, $A(Q)=m-tn$ and solubility exactly at $t=0$ (his Thm.~7.6, our rung $k$ of
 Proposition~\ref{C-prop:ladder}); the intrinsic union criterion (his Thm.~7.3, our

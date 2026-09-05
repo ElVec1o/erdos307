@@ -1,0 +1,1768 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage[expansion=false]{microtype}
+\usepackage{xr}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\der}{{}'}
+\newcommand{\dd}{\,\mathrm{d}}
+
+\title{The level--$60$ computation for Erd\H{o}s Problem~\#307:\\ a certificate, a split sieve, and the pair sector}
+\author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
+  See the acknowledgments for a candid note on the use of AI assistance in this work.}}
+\date{Version 1.75.0\quad 2 September 2026}
+
+\externaldocument[K-]{erdos307-core}
+\externaldocument[B-]{erdos307-obstructions}
+\externaldocument[C-]{erdos307-analytic}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A solution of Erd\H{o}s Problem~\#307 is a two--cycle of the arithmetic derivative, and any solution
+has $|P\cup Q|\ge60$. This note records the computation that decides the level--$60$ families.
+The certificate of Proposition~\ref{prop:tailkill} empties $31{,}219$ of the $49{,}961$ admissible
+bases by a Jacobi symbol, and trial division to $10^{6}$ leaves $7{,}713$. For the rest we give the
+split sieve: writing a cycle on a family $S\cup M$ as $a=\prod(T\cup M)$, $b=\prod(S\setminus T)$,
+the two cycle equations give $\prod T\mid\partial(\prod(S\setminus T))$ together with an identity
+free of the tail. The divisibility is the identity read modulo $\prod T$, so it is a consequence
+rather than a hypothesis, and by the anatomy lemma it is a congruence at each prime of $T$, costing
+a factor $1/r$ each; $\prod_{p\in S}(1+1/p)$ subsets survive out of $2^{|S|}$. Neither statement
+mentions the cofactor $A_S$, so the criterion reaches the families whose $A_S$ is composite and, the
+tail being arbitrary, the pair sector, both of which the arity--one method cannot. Every level--$60$
+base surviving the certificate is decided over all $T$ with $|T|\le6$: about $9\times10^{11}$ splits,
+no factorisation, and no two--cycle. The heuristic model and a breeder form for certificate search
+are included. The range $|T|\ge7$ is not decided and its price is stated.
+\end{abstract}
+\section{The certificate programme and its anatomy}\label{sec:certificate}
+
+The barrier of Section~\ref{K-sec:barrier} of the core note bounds a solution; it does not exclude one. This section
+records the programme that attempted the exclusion level by level, its completeness, and the point
+at which it provably stops. Nothing here is used by the results of the core note.
+
+\begin{remark}[Verification tier, and why the ladder stops here]\label{rem:tier60}
+Theorem~\ref{K-thm:barrier} is machine--checked in Lean~4, and so is
+Proposition~\ref{K-prop:close59}: the theorem \texttt{erdos307\_sixty} formalises the entire
+argument; the forced--primes and element bounds, the Pythagorean plus--square, and a pruned
+depth--first search over the pool whose \emph{completeness is proved, not assumed}
+(\texttt{dfs\_sound}), the search itself running under the kernel; on top of the
+two independent unverified programs. The level cannot be climbed further by finite means: already at $|U|=60$ the family
+$U=\{p_1,\dots,p_{59}\}\cup\{q\}$ qualifies for \emph{every} prime $q>277$, and on it the two square
+conditions read $x^2=Aq+\Pi_{59}$, $y^2=Bq+\Pi_{59}$ with $A,B=N_{59}\pm2\Pi_{59}$, i.e.\ the
+Pell--type system $Bx^2-Ay^2=-4\Pi_{59}^2$ with $113$--digit coefficients. We verified that no
+accessible modulus obstructs it (mod $32$, and all odd $\ell<4000$: the conditions pin
+$q\equiv5\pmod 8$ and thin each $\ell\mid\Pi_{59}$ to about half of its residue classes and each
+$\ell\nmid\Pi_{59}$ to about a quarter, but never to zero), consistent with the local--solubility
+theme of Section~\ref{sec:anatomy}. The obstruction, however, lives at the primes \emph{of} $A$
+and $B$, and it is detectable \emph{without factoring}: Proposition~\ref{prop:tailkill} below
+closes this family for \emph{every} $q$ by a single Jacobi--symbol computation. (An exact sweep to
+$q\le10^{12}$, \texttt{code/hunt/tail\_sweep.rs}, $1.25\times10^{11}$ candidates, none with
+$Aq+\Pi_{59}$ even a single square, which corroborates it independently.) The tail family also exposes the self--similarity of the ladder:
+writing $a=qm$, so that $m\,b=\Pi_{59}$ partitions the first $59$ primes, its two closing
+conditions collapse to the exact equation
+\[ D(m)\,D(b)+m^2\;=\;\Pi_{59} \]
+together with the divisibility $m\mid D(b)$ (then $q=D(b)/m$, required prime); verified
+exhaustively on a $12$--prime toy universe. Equivalently, the deficit $1-\sigma(m)\sigma(b)$ must
+equal $m^2/\Pi_{59}$ \emph{exactly}: the circularity $\Delta_0=M_0N(1-s_{M_0}s_N)$ of
+Section~\ref{K-sec:frame} of the core note in its purest form, with the deviation forced to be the perfect square
+$m^2$. Closing even this one family is thus a $2^{58}$--fold exact--coincidence search of the same
+type as \#307 itself (expected count ${\sim}2^{58}/\Pi_{59}\approx10^{-95}$): each rung of the
+ladder past $60$ contains the whole problem. The one case with \emph{no} free large prime (a
+$60$--set drawn entirely from small primes) is instead a finite search, and empty in the
+minimal range: a direct both--squares enumeration of all $60$--prime sets with $T>2$ supported in
+the first $70$ primes ($4{,}011{,}289$ sets; \texttt{code/hunt/close60.rs}) finds none passing even the
+plus--square, so no level--$60$ solution has all its primes $\le349$. (The first $68$ primes give
+$1{,}258{,}448$ sets, also empty, and reproduce independently.) By
+Corollary~\ref{C-cor:kdetermined} this verdict is decisive rather than provisional: at these masses a
+support passing the plus-- and minus--squares, with the parity of Proposition~\ref{C-prop:ladder}(2),
+\emph{is} a two--cycle, so a survivor would have been a solution and not a candidate. The
+enumeration extends with compute.
+\end{remark}
+
+\begin{proposition}[The canonical tail family is empty: a reciprocity kill]\label{prop:tailkill}
+No solution of \#307 has support $U=\{p_1,\dots,p_{59}\}\cup\{q\}$, for any prime $q$.
+\end{proposition}
+\begin{proof}
+A solution supported on $U$ forces $x^2=Aq+\Pi_{59}$ with $x=a+b$ and $A=N_{59}+2\Pi_{59}$
+(Remark~\ref{rem:tier60}). Every prime $\ell\mid A$ exceeds $277$: for $\ell\le277$ one has
+$\ell\mid\Pi_{59}$, so $\ell\mid A$ would force $\ell\mid N_{59}$, contradicting
+$\gcd(N_{59},\Pi_{59})=1$ (rigidity). Hence $\ell\nmid\Pi_{59}$, and reduction mod $\ell$ gives
+$x^2\equiv\Pi_{59}\pmod\ell$, requiring the Legendre symbol $(\Pi_{59}\mid\ell)\neq-1$. But the
+Jacobi symbol satisfies
+\[ \left(\tfrac{\Pi_{59}}{A}\right)\;=\;-1 \]
+(a finite gcd--speed computation, script \texttt{code/tailkill.py}; no factorisation of the
+$114$--digit $A$ is needed), so some $\ell\mid A$ of odd multiplicity has $(\Pi_{59}\mid\ell)=-1$.
+The family is empty, for every $q$.
+
+The companion symbol at $B=N_{59}-2\Pi_{59}$ equals $-1$ as well; necessarily: for any
+admissible base $S$ (writing $D=D_S$, $N=N_S$, $A_S,B_S=N\pm2D$) one has $A_S\equiv B_S\pmod 8$
+(as $4D\equiv8\bmod{16}$) and $A_S\equiv B_S\equiv N\pmod p$ for every odd $p\mid D$, while the
+quadratic--reciprocity sign difference carries the exponent $\tfrac{p-1}{2}\cdot\tfrac{A_S-B_S}{2}$
+with $\tfrac{A_S-B_S}{2}=2D$ even; hence $(D\mid A_S)=(D\mid B_S)$ always; one binary
+certificate per tail family. Running it over all $49{,}961$ admissible bases of
+Proposition~\ref{K-prop:close59} proves $31{,}219$ of the one--new--prime families at level $60$
+empty ($62.5\%$, curiously near $5/8$); the remaining $18{,}742$ are Jacobi--inconclusive: their
+$-1$--Legendre primes, if any, occur to an even count, visible only through a factorisation of
+$A_S$. A factoring attack on those (trial division and Brent--Pollard $\rho$ over a Montgomery
+core, \texttt{code/hunt/survivor\_kill.rs}; the found factors are kept as a pairwise--coprime basis, so
+a kill certificate (an odd--multiplicity basis piece $P$ with $(D_S\mid P)=-1$) needs no
+primality testing at all), pushed to $\rho$--budget $10^6$ with a Pollard $p-1$ stage, closes a
+further $15{,}264$: in total $46{,}483$ of the $49{,}961$ one--new--prime families at level $60$
+are proven empty ($93.0\%$). The $3{,}478$ still open ($3{,}444$ of them once
+Proposition~\ref{prop:immunedecide} has emptied the $34$ immune ones) resist all of this for a
+structural reason,
+not a want of effort: each is Baillie--PSW \emph{composite} yet has no prime factor below ${\sim}
+10^{12}$, so its $A_S$ (or $B_S$) is a \emph{balanced} semiprime of two ${\sim}57$--digit primes,
+splitting one is factoring at cryptographic scale. Two cheap tests confirm no shortcut survives:
+a product--tree batch--GCD over all $37{,}484$ values $A_S,B_S$ finds only shared primes below
+$10^9$ (already found by $\rho$, so \emph{no} free kills), and Baillie--PSW leaves exactly
+$34$ families in which $A_S$ and $B_S$ are both \emph{probable} primes; these are immune
+\emph{conditionally on that primality} (a prime $A_S$ with $(D_S\mid A_S)=+1$ has no inert factor,
+hence no congruence obstruction for any $q$). The conditionality is not pedantry and not
+removable by more of the same computation: Baillie--PSW is rigorous only in its \emph{composite}
+verdicts, so the $46{,}483$ kills are unconditional while the $34$ immunities are not. Upgrading them
+would require primality \emph{certificates} for thirty-four $114$--digit integers (ECPP or a
+Pocklington factorisation of $A_S-1$). The elementary route does not reach: immunity needs
+\emph{both} $A_S$ and $B_S$ prime, and partial factorisation of $n-1$ (trial division to
+$3\times10^6$ together with the fully split part) leaves $\log F/\log n$ below $1/3$ on at least one
+side of every one of the $34$, so neither Pocklington ($F>\sqrt n$) nor
+Brillhart--Lehmer--Selfridge ($F>n^{1/3}$) applies to any family: $0$ of $34$ are certifiable this
+way (\texttt{code/immune\_certify.py}). This is now settled. Running the Adleman--Pomerance--Rumely
+--Cohen--Lenstra test on all $68$ integers proves every one of them prime in $8$ seconds of
+wall clock, so the $34$ immunities upgrade from \textup{[C]} to \textup{[P]} and are
+\emph{unconditional} (\texttt{code/immune\_prove.gp}, PARI/GP $2.17.4$, whose \texttt{isprime} is a
+proof and not a probable--prime test). The run reproduces the whole chain independently: $49{,}961$
+admissible bases, $31{,}219$ Jacobi kills, and, among the $81$ bases whose $A_S$ and $B_S$ are both
+prime, exactly the $34$ with $(D_S\mid A_S)=+1$; the other $47$ carry $(D_S\mid A_S)=-1$ and were
+already killed. The primality is moreover backed by
+\emph{independently checkable} evidence rather than a verdict: \texttt{code/immune\_certify.gp}
+emits Atkin--Morain \textup{ECPP} certificates for all $68$ integers, archived at
+\texttt{data/certs/immune\_ecpp.txt} ($512$\,KB) so a third
+party can check them without trusting the prover. That file is a \texttt{primecertexport} dump and
+is not machine--readable: PARI's \texttt{read} parses its header as a polynomial, so
+\texttt{primecertisvalid} cannot consume it. The working check is
+\texttt{code/immune\_cert\_verify.gp}, which extracts the $68$ asserted subjects and re--proves each
+by \textup{ECPP} in $1.3$ seconds: $68/68$ prime, $0$ failures. The structural half of the campaign is now
+formal: the identity $(D_S\mid A_S)=(D_S\mid B_S)$, which is what makes one binary test decide a
+family rather than two, is proved in Lean~4 as \texttt{Erdos307.jacobiSym\_A\_eq\_B}
+\textup{(\texttt{lean/Erdos307/Campaign.lean})}, on the three standard axioms and with no
+\texttt{native\_decide}; it follows from periodicity, $A_S-B_S=4D_S$ being exactly the period of
+$J(a\mid\cdot)$. The primality itself is not formalised and cannot presently be: mathlib's only
+route to a large prime is \texttt{lucas\_primality}, which needs a complete factorisation of
+$n-1$, and that is precisely what the $0$ of $34$ above rules out. Note the two counts answer different questions and both are correct: $81$ is the
+number of prime pairs, $34$ the number of \emph{immune} families among them. A complete kill/immune split of the residual is in any case beyond feasible
+computation, and the honest state of the single--tail sector is \emph{$46{,}483$ empty
+\textup{[P]} and $3{,}478$ open}, the latter including the $34$ immune ones, whose primality the
+\textup{APRCL} run above makes unconditional \textup{[P]}; Proposition~\ref{prop:immunedecide} then
+empties those $34$, leaving $3{,}444$.
+\end{proof}
+
+\begin{proposition}[Sector decomposition of level $60$]\label{prop:sectors}
+Let $U$ be a $60$--element prime support with $T(U)>2$. Then exactly one of the following holds:
+\textup{(i)} $T(U)-2\ge 1/\max U$, and $U=S\cup\{q\}$ for an admissible base $S$
+\textup{(}one of the $49{,}961$ of Proposition~\ref{K-prop:close59}\textup{)}; the
+\emph{single--tail sector}, or \textup{(ii)} $T(U)-2<1/\max U$, and, writing $p>q$ for the two
+largest elements and $W$ for the rest, $T(W\cup\{p\})<2$ and $T(W\cup\{q\})<2$; the
+\emph{pair sector}, whose members escape every single--tail family.
+\end{proposition}
+\begin{proof}
+$U$ lies in the tail family of $U\setminus\{r\}$ iff $T(U)-1/r\ge2$, which is easiest for
+$r=\max U$; (i) is that case ($T=2$ being impossible by rigidity, the base is admissible). In
+case (ii) no removal reaches $2$, and a fortiori the two stated $59$--subsets stay below $2$.
+\end{proof}
+
+\begin{remark}[The campaign; completeness of the certificate; the arity barrier]\label{rem:campaign}
+The reciprocity certificate captures \emph{every} $q$--independent congruence obstruction of a
+tail family: at a prime $\ell\mid A_SB_S$ the system degenerates to the rank--one congruences
+$x^2\equiv D_S$ or $y^2\equiv D_S\pmod\ell$, while at $\ell\nmid 2A_SB_S$ the conditions define
+conics in $(x,q)$ or $(y,q)$ with $\sim\ell$ points, deleting at most half of the residue classes
+of $q$ and never all (the $2$--adic layer pins $q\equiv5\bmod8$ without emptiness); by CRT and
+Dirichlet, admissible $q$ survive any finite set of such conditions. Hence a tail family admits a
+congruence kill iff $(D_S\mid\ell)=-1$ for some $\ell\mid A_SB_S$, which the Jacobi symbol
+detects for $31{,}219$ bases, and partial factorisation (\texttt{code/hunt/survivor\_kill.rs}) for a
+further $15{,}264$: in total $46{,}483$ of the $49{,}961$ single--tail families at level $60$ are
+proven empty ($93.0\%$) and $3{,}478$ remaining open. Of the latter, $34$ have $A_S$ and $B_S$ both
+prime and are emptied by Proposition~\ref{prop:immunedecide}; the other $3{,}444$ carry a balanced
+${\sim}57$--digit semiprime and are factoring--hard.
+The $34$ immune families are not a bottleneck; they are the tractable ones, and they are empty.
+Immunity means $A_S$ is prime, and that is exactly what makes the family decidable directly.
+
+\begin{proposition}[Immune families are decided in polynomial time]\label{prop:immunedecide}
+Let $S$ be a level--$60$ base with $A_S=N_S+2D_S$ prime and $(D_S\mid A_S)=+1$. Then a solution in the
+tail family $S\cup\{q\}$ forces $x^2=A_Sq+D_S$ with $x$ one of the two square roots of $D_S$ modulo
+$A_S$, so the family has at most two candidate tail primes, computable by Tonelli--Shanks. All $34$
+immune families at level $60$ are empty.
+\end{proposition}
+\begin{proof}
+Write $\sigma=N_S/D_S$, so $A_S=(\sigma+2)D_S$. Proposition~\ref{K-prop:tailbound} bounds
+$q\le tD_S$ with $t=\tfrac12(\sigma+\sqrt{\sigma^2-4})$, whence
+$x^2=A_Sq+D_S\le\bigl((\sigma+2)t+1\bigr)D_S^2$. At level $60$ one has $\sigma>2$ and $\sigma$ close
+to $2$, so $(\sigma+2)t+1<5.202$ and $x<2.281\,D_S<(\sigma+2)D_S=A_S$; over all $49{,}961$ admissible
+bases the ratio $x/A_S$ is at most $0.56982$. Hence $x$ lies in $[0,A_S)$ and, $A_S$ being prime, is one
+of the two roots of $X^2\equiv D_S$. Each root gives one candidate
+$q=(x^2-D_S)/A_S$, to be tested for integrality, primality and the companion condition that
+$B_Sq+D_S$ be a square. Carrying this out on the $34$ families, whose $A_S$ and $B_S$ are
+unconditionally prime by the \textup{APRCL} and \textup{ECPP} runs recorded above, every candidate
+fails \textup{(\texttt{code/immune\_decide.gp})}, either because
+$q=(x^2-D_S)/A_S$ is not a prime exceeding $787$ or because $B_Sq+D_S$ is not a square; the conclusion
+is therefore \textup{[P]}, not \textup{[C]}. The script re--derives the $49{,}961$ bases, the $31{,}219$
+Jacobi kills and the $34$ immune families from scratch before deciding them.
+\end{proof}
+
+Primality of $A_S$ plays no role in the bound $x<A_S$, only in the ease of extracting the roots, so
+the argument is general.
+
+\begin{proposition}[The split sieve]\label{prop:splitsieve}
+Let $S$ be a finite set of primes, $D=\prod S$, and let $M$ be a finite set of primes disjoint from
+$S$. Suppose the pair $a=\prod(T\cup M)$, $b=\prod(S\setminus T)$ with $T\subseteq S$ is a
+derivative two--cycle. Then
+\[ \prod T\ \Bigm|\ \partial\bigl(\textstyle\prod(S\setminus T)\bigr),
+   \qquad
+   \Bigl(\textstyle\prod T\Bigr)^{2}\partial(\textstyle\prod M)
+   +\partial\bigl(\textstyle\prod T\bigr)\,\partial\bigl(\textstyle\prod(S\setminus T)\bigr)=D . \]
+The second identity carries no reference to the tail; the first is its reduction modulo $\prod T$,
+Theorem~\ref{K-thm:structure} removing the factor $\partial(\prod T)$, and is therefore a consequence
+of it rather than an additional hypothesis. Writing $\alpha=\prod T$ and $\beta=\prod(S\setminus T)$,
+the divisibility is by Lemma~\ref{lem:anatomy} the system of congruences
+$\sum_{p\in S\setminus T}p^{-1}\equiv0\pmod r$, one for each $r\in T$, so the expected number of
+surviving $T$ is $\prod_{p\in S}(1+1/p)$ out of $2^{|S|}$. Neither statement involves $A_S$, so the
+criterion applies to the families whose $A_S$ is composite, which
+Proposition~\ref{prop:immunedecide} cannot reach, and to the pair sector of
+Proposition~\ref{prop:sectors}(ii), where $|M|=2$ and $\partial(\prod M)=p+q$. Two consequences are
+recorded. Since $\partial(\alpha)\partial(\beta)>0$ for $T$ and $S\setminus T$ both nonempty, the
+identity forces $\alpha^{2}<D$. And for $X$ a set of odd primes $\partial(\prod X)\equiv|X|\pmod2$,
+so $2\in T$ forces $|T|$ odd. $0$ \texttt{sorry}
+\textup{(\texttt{Erdos307.split\_criterion\_gen}, \texttt{split\_snd\_gen},
+\texttt{split\_snd\_of\_criterion}, \texttt{csum\_odd\_card};
+\texttt{lean/Erdos307/SplitSieve.lean})}.
+\end{proposition}
+\begin{proof}
+Leibniz on the disjoint union gives $\partial(\prod(T\cup M))=\prod M\cdot\partial(\prod T)
++\prod T\cdot\partial(\prod M)$. The equation $\partial(b)=a$ reads
+$\partial(\beta)=\alpha\prod M$, which is the divisibility. The equation $\partial(a)=b$ reads
+$\beta=\prod M\cdot\partial(\alpha)+\alpha\,\partial(\prod M)$; multiplying by $\alpha$, replacing
+$\alpha\prod M$ by $\partial(\beta)$ and using $\alpha\beta=D$ gives the identity. For the converse
+direction of the first claim, reduce the identity modulo $\alpha$: both $\alpha^{2}\partial(\prod M)$
+and $D$ vanish, so $\alpha\mid\partial(\alpha)\partial(\beta)$, and
+$\gcd(\alpha,\partial(\alpha))=1$ by Theorem~\ref{K-thm:structure}.
+\end{proof}
+
+\begin{remark}[What the sieve decides]\label{rem:splitsieverun}
+The criterion was applied to every level--$60$ single--tail base surviving the certificate of
+Proposition~\ref{prop:tailkill}, $18{,}742$ of them, a superset of the $3{,}444$ open families, over
+all $T$ with $|T|\le6$: about $9\times10^{11}$ splits, no factorisation, and no two--cycle. The
+observed survivor count is $5.20$ per base against the predicted $5.17$
+\textup{(\texttt{code/split\_sieve.rs}, \texttt{code/gen\_bases.rs})}. The range $|T|\ge7$ is not
+decided. Its expected survivor count over $7\le|T|\le34$ is about $28$, and deciding it by
+enumeration costs at least $7\times10^{2}$ core--years, so the sieve reduces the level--$60$
+single--tail question without closing it.
+\end{remark}
+
+\begin{proposition}[Single--tail families are decided by factoring]\label{prop:lvl60factor}
+Let $S$ be a set of primes containing $2$, with $D_S=\prod S$ squarefree, and let $q$ be a prime
+completing $S$ to a solution support. Then $A_S$ is odd and coprime to $D_S$, and $x=a+b$ satisfies
+$x^2=A_Sq+D_S$ with $0<x<A_S$. Hence $x$ is one of the $2^{\omega(A_S)}$ square roots of $D_S$ modulo
+$A_S$, each giving a single candidate $q=(x^2-D_S)/A_S$, and the family is decided by one
+factorisation of $A_S$ together with $O(2^{\omega(A_S)})$ primality tests.
+\end{proposition}
+\begin{proof}
+Since $2\in S$ and $D_S$ is squarefree, exactly one term of $N_S=\sum_{p\in S}D_S/p$ is odd, so $N_S$ is
+odd and $A_S=N_S+2D_S$ is odd. If $p\in S$ divided $A_S$ it would divide $N_S$, but $N_S\equiv D_S/p
+\not\equiv0\pmod p$; as the primes of $D_S$ are exactly $S$, $\gcd(A_S,D_S)=1$. For the bound, write
+$\sigma=N_S/D_S$ and $A_S=(\sigma+2)D_S$. Proposition~\ref{K-prop:tailbound} gives $q\le tD_S$ with
+$t=\tfrac12(\sigma+\sqrt{\sigma^2-4})$, so $x^2\le\bigl((\sigma+2)t+1\bigr)D_S^2$. Across all
+$49{,}961$ admissible level--$60$ bases $\sigma\in(2,2.00236]$, whence $(\sigma+2)t+1<5.202$ and
+$x<2.281\,D_S$, while $A_S=(\sigma+2)D_S>4\,D_S$; the ratio $x/A_S$ is at most $0.56982$ over the whole
+set \textup{(\texttt{code/lvl60check.gp})}. Thus $x<A_S$. When instead $\sigma\le2$, as for the
+pair--sector bases of Proposition~\ref{prop:sectors}(ii), Corollary~\ref{K-cor:maxbound} bounds the tail
+by $q\le D_S/(2D_S-N_S)=D_S/|B_S|$, so $x^2=A_Sq+D_S\le A_SD_S/|B_S|+D_S<A_S^2$ because $|B_S|\ge1$ and
+$A_S>D_S$; the conclusion $x<A_S$ therefore holds in both regimes. Being odd and coprime to $D_S$,
+$A_S$ admits exactly $2^{\omega(A_S)}$ square roots of $D_S$ when $D_S$ is a residue modulo every prime
+power dividing it, and none otherwise; these are computed from the factorisation by Tonelli--Shanks,
+Hensel lifting at any repeated factor, and the Chinese remainder theorem.
+\end{proof}
+
+This replaces a $2^{58}$ search per family by a single factorisation, and the integer to be factored is
+$A_S\approx4D_S$, of $114$ decimal digits, not the $230$--digit product the divisor search ranges over.
+It also supersedes the reciprocity route rather than extending it: a congruence kill decides at best
+half of the split families, since for $A=pq$ with $(D_S\mid A)=+1$ the two Legendre symbols are either
+both $+1$, when no kill exists, or both $-1$, when one does, whereas the root enumeration decides every
+family whose $A_S$ is factored. One cheap idea deserves to be recorded as closed, because the level--$60$ bases are far from random:
+all $49{,}961$ share the $39$ forced primes below $167$, so one may hope that two of the $A_S$ share a
+prime factor and split each other for free. A batch \textsc{gcd} in the sense of Bernstein (one
+product tree over the hard cofactors, then a remainder tree) tests this for every pair at once in
+seconds. Over the $7{,}713$ families that survive the Jacobi certificate and trial division to $10^6$,
+a superset of the $3{,}478$, exactly two of the $6{,}972$ composite cofactors of $A_S$ share a factor,
+and both shared factors have seven digits, so they lie barely past the trial--division bound and are
+found instantly by any factoring method. The structure the bases share is in $D_S$ and does not
+propagate to $A_S=N_S+2D_S$: at the wall the residual behaves as a set of pairwise coprime balanced
+semiprimes, and no amount of shared structure among the bases is going to split them.
+\textup{(\texttt{code/batchgcd.gp})}
+
+Level $60$ is therefore not an exponential obstruction but a factoring
+project: the $34$ with $A_S$ prime are already done, and $3{,}444$ integers of $114$ digits remain.
+A $114$--digit general number field sieve is routine, costing core--days apiece rather than the
+$3.2\times10^7$ core--years the divisor search of Proposition~\ref{K-prop:tailbound} would demand, a
+reduction by six orders of magnitude. It should be said plainly that this does not by itself deliver
+$|P\cup Q|\ge61$. The single--tail sector is only one of the two cases of
+Proposition~\ref{prop:sectors}, and the pair sector contributes a further $3{,}013{,}379$ surviving
+bases, each an arity--one tail family to which Proposition~\ref{prop:lvl60factor} applies equally.
+Factoring those as well is a computation some three orders of magnitude larger, tens of thousands of
+core--years, which is beyond what has been carried out here and is quoted as the honest price, not
+as a claim of feasibility. What has changed is the character of the obstruction: level $60$ is no
+longer exponential in $|S|$, but linear in the number of families, each at the cost of one
+factorisation.
+
+Those $3{,}478$ are expected to be empty, and by a wide margin: evaluating the expected count of
+Remark~\ref{rem:killcount} over them, with $\kappa_S\le1$ and the tail sum bounded by
+$\log\log(tD_S)$, gives at most $5.5\times10^{-108}$, the bases having $D_S$ of $113$ digits. The
+divergence of the global count comes from large $a$ and not from this level, and the first solution
+the heuristic locates sits at $10^{116.7}$ or beyond. So the factoring wall guards the verification of
+something the heuristic already asserts, rather than a plausible solution. The weapon is intrinsically \emph{arity--one}, and provably fails on the pair sector. With
+$s=p+q$, $t=pq$, a pair--sector member requires the two simultaneous squares $x^2=A_Wt+D_Ws$ and
+$y^2=B_Wt+D_Ws$ (the would--be third condition $s^2-4t=\square$ is automatic, being $(p-q)^2$),
+together with the reciprocity--linked constraints $(D_Wp\mid q)=(D_Wq\mid p)=1$ (mod $q$, a
+solution with $q\mid a$ has $N_U\equiv D_Wp$, forcing $D_Wp$ to be a square). At a prime
+$\ell\mid A_W$ the condition $x^2\equiv D_Ws\pmod\ell$ constrains only $s$, which the free second
+prime absorbs; the pair system is in fact locally soluble at \emph{every} modulus (a theorem,
+Proposition~\ref{prop:pairlocal} below, corroborated by a direct scan over all $\ell\le600$) so,
+unlike the single--tail family, the pair sector admits \emph{no} congruence obstruction at all. It
+is a genuine two--parameter surface per base, $\#307$ in miniature (Remark~\ref{rem:oneside});
+reciprocity cannot touch it, and only a direct both--squares search or a descent argument can.
+
+The sector is nevertheless an explicit finite object, and small. A level--$60$ support $U$ is covered
+by the one--new--prime campaign exactly when $T(U\setminus\{\max U\})>2$, the bases of
+Proposition~\ref{K-prop:close59} being the $59$--prime sets of mass exceeding $2$; the complement is
+$U=R\cup\{m\}$ with $|R|=59$, $m=\max U$ and $T(R)\le2<T(R)+1/m$. The mass ladder at $k=60$ puts
+every element of $R$ below $793.67\times2=1587.4$, so the complement is a search over $59$--subsets
+of the $250$ primes under $1588$ with $T(R)\in(2-1/\max R,\,2]$. There are exactly
+$18{,}234{,}653$ of them, the largest $\max R$ being $1583$ \textup{(\texttt{code/pairsector\_count.rs},
+corroborated by an independent binned counting DP in \texttt{code/pairsector\_countdp.rs})}. Each is
+an arity--\emph{one} tail family in $m$: Proposition~\ref{prop:pairlocal} denies a congruence kill to
+the family with both new primes free, not to these, so the $q$--independent certificate does apply to
+each of the $18.2$ million bases. The immunity of the pair sector is a consequence of its two free
+parameters, and fixing one of them buys the weapon back.
+
+That the sector is finite at all rests on $T(R)\ne2$: at $T(R)=2$ every $m$ would satisfy
+$T(R)+1/m>2$ and the tail would be unbounded. It cannot occur. If $2\notin R$ then $D$ is odd and each
+$D/p$ is odd, so $N=\sum_{p\mid D}D/p$ is a sum of $59$ odd terms and is odd; if $2\in R$ then $D/2$
+is odd and the other $58$ cofactors are even, so $N$ is again odd. Since $2D$ is even, $N\ne2D$
+\textup{(\texttt{Erdos307.mass\_ne\_two}; \texttt{code/pairsector\_parity.gp})}.
+
+Running the certificate over the sector kills $10{,}457{,}149$ of the $18{,}234{,}653$ bases
+($57.3\%$) by the Jacobi symbol alone, and trial division of $A_R$ and $B_R$ to $10^6$ closes a
+further $4{,}580{,}243$ of the survivors ($58.9\%$ of them): in total $15{,}037{,}392$, or $82.5\%$,
+with $3{,}197{,}261$ still open \textup{(\texttt{code/pairsector\_kill.rs}, \texttt{code/pairsector\_factor.rs}; the same
+code in campaign mode reproduces the $49{,}961$, $31{,}219$ and $18{,}742$ of the paragraph above
+exactly)}. A Pollard rho pass with a budget of $5\times10^4$ iterations per base then kills a further
+$183{,}882$, leaving $3{,}013{,}379$ open ($83.5\%$ of the sector eliminated); the marginal return has
+fallen to $5.7\%$, which is what one expects once the small factors are gone and what remains is a
+balanced semiprime. The pair sector is therefore not a barrier of a different kind from the one--new--prime
+families: it is the same computation at $365$ times the scale, and it responds to the same weapon.
+\end{remark}
+
+\begin{proposition}[The pair sector admits no congruence kill]\label{prop:pairlocal}
+Let $W$ be any pair--sector base and $A=A_W$, $B=B_W$, $D=D_W$, so that a pair--sector solution
+requires $x^2=A\,\alpha\beta+D(\alpha+\beta)$ and $y^2=B\,\alpha\beta+D(\alpha+\beta)$ with
+$\alpha,\beta$ the two new primes. For every prime power $\ell^j$ this system has a solution in
+units $\alpha,\beta$ and integers $x,y$ at a nonsingular point. Consequently, by CRT and Dirichlet,
+no finite system of congruence conditions empties any pair--sector family: the arity barrier of
+Remark~\ref{rem:campaign} is a theorem, and the certificate programme provably ends at arity one.
+
+\textup{Formalised, in part.} \texttt{Erdos307.no\_pinning\_isUnit} is the step that makes the
+tail--kill mechanism unavailable, \texttt{collapse\_identity} is regime~\textup{(2)}'s
+observation that the two square conditions are one, \texttt{regime\_one\_first} and
+\texttt{regime\_one\_second} are the explicit unit of regime~\textup{(1)}, and
+\texttt{targets\_agree\_mod\_eight} is the mod--$8$ collapse of regime~\textup{(3)}. The lift from
+$\ell$ to $\ell^j$ that regime~\textup{(1)} needs is \texttt{square\_lifts\_to\_prime\_powers},
+proved from \texttt{hensel\_all\_powers}: if $\ell$ is an odd prime not dividing $c$ and $c$ is a
+square modulo $\ell$, it is a square modulo every power of $\ell$. Regime~\textup{(2)} carried a citation to Weil's
+bound in earlier revisions; it does not need one. Its two steps are
+\texttt{Erdos307.pairlocal\_inner\_sum}, the evaluation of the inner sum of $S_{fg}$ as
+$-\chi\bigl((A\alpha+D)(B\alpha+D)\bigr)$ by the quadratic complete sum of
+Proposition~\ref{prop:localcomplete}, with its side condition discharged as $4D^2\alpha^2\ne0$; and
+\texttt{pairlocal\_count\_pos}, the arithmetic turning the resulting $O(\ell)$ bounds into a positive
+count from $\ell\ge17$. $0$ \texttt{sorry} \textup{(\texttt{lean/Erdos307/PairLocal.lean},
+\texttt{lean/Erdos307/PairLocalCount.lean})}. Checked directly: over $872$ random bases with
+$A-B=4D$ and every odd $\ell\le400$, the count of admissible $(\alpha,\beta)$ was positive in every
+case and tracks $(\ell-1)^2/4$; the crude bounds $|S_f|,|S_g|\le2\ell$, $|S_{fg}|\le3\ell$ held in
+all $409$ cases tested \textup{(\texttt{code/pairlocal\_count.gp})}.
+\end{proposition}
+\begin{proof}
+First, no $\ell$ pins either target to a constant: that needs $\ell\mid A$ (or $B$) \emph{and}
+$\ell\mid D$, whence $\ell\mid N$, contradicting $\gcd(N,D)=1$ (rigidity); so the tail--kill
+mechanism is unavailable, and solubility is decided in three regimes.
+
+\emph{(1) $\ell$ odd, $\ell\mid D$.} This covers every odd $\ell\le103$: at level $60$, omitting a
+prime $p$ caps $T(U)$ at $T_{61}-1/p$, and $1/p>T_{61}-2=0.00944\ldots$ exactly for $p\le103$, so
+all such primes lie in $U$, hence in $W$ (the two adjoined primes are the largest). Take $\beta=1$,
+$x=1$, $\alpha=(1-D)/(A+D)\bmod\ell^j$, a unit since $A+D\equiv N\not\equiv0\pmod\ell$: the first
+equation holds by construction, and the second target $(B+D)\alpha+D\equiv N\cdot N^{-1}=1\pmod\ell$
+is a unit congruent to a square, so $y$ exists modulo $\ell^j$.
+
+\emph{(2) $\ell$ odd, $\ell\nmid2D$} (in particular every $\ell\ge107$ outside $W$). The two
+conditions are secretly \emph{one}: setting $m=(x^2-y^2)/4D$ and $u=(x^2-Am)/D$, the relation
+$A-B=4D$ gives the polynomial identity $Bm+Du=y^2$. Only \emph{existence} is wanted, and counting the
+pairs $(\alpha,\beta)$ directly settles it with no curve and no Weil bound. Write $\chi$ for the
+quadratic character, $f=A\alpha\beta+D(\alpha+\beta)$ and $g=B\alpha\beta+D(\alpha+\beta)$. Summing
+$\tfrac14(1+\chi(f))(1+\chi(g))$ over $\alpha,\beta\in\mathbb F_\ell^{\times}$ and discarding the at
+most $2(\ell-1)$ pairs with $fg=0$,
+\[ 4\,\#\{\text{both nonzero squares}\}\;\ge\;(\ell-1)^2+S_f+S_g+S_{fg}-8(\ell-1). \]
+For fixed $\alpha$ each target is \emph{linear} in $\beta$, so the inner sums of $S_f$ and $S_g$
+vanish by the linear evaluation above, leaving $|S_f|,|S_g|\le2\ell$. And $fg$ is a \emph{product of
+two linear forms} in $\beta$, so its inner sum is the quadratic evaluation, whose side condition
+$ad\ne bc$ is here $D\alpha(A-B)\alpha=4D^2\alpha^2\ne0$, exactly the hypotheses
+$\ell\nmid2D$ and $\alpha\ne0$; summing the resulting $-\chi\bigl((A\alpha+D)(B\alpha+D)\bigr)$ over
+$\alpha$ is that same evaluation again, so $|S_{fg}|\le3\ell$. Hence the count is positive as soon as
+$(\ell-1)^2-7\ell-8(\ell-1)>0$, i.e.\ from $\ell\ge17$, far below the $\ell\ge107$ in play. The point
+is nonsingular ($\alpha\beta\ne0$; the Jacobian contains $\operatorname{diag}(2x,2y)$), so it lifts
+to every $\ell^j$.
+
+\emph{(3) $\ell=2$.} Both targets are odd and agree modulo $8$ (as $\alpha\beta$ is odd,
+$D(\alpha+\beta)\equiv0\bmod4$, and $(A-B)\alpha\beta=4D\alpha\beta\equiv0\bmod8$), and a finite
+table over $(A\bmod8,\,D\bmod8)$ shows that for every base some achievable pair
+$(\alpha\beta,\alpha+\beta)\bmod8$ makes the common target $\equiv1\pmod8$; a $2$--adic square,
+soluble modulo $2^j$ for every $j$.
+
+All three regimes, the collapse identity, the threshold $1/103>T_{61}-2>1/107$, and the mod--$32$
+layer were verified computationally on three bases and every $\ell\le600$
+(\texttt{code/pairlocal.py}; the measured density of admissible $(x,y)$ in regime~(2) is
+$0.497$--$0.503$ against the predicted $\tfrac12$).
+\end{proof}
+
+\begin{remark}[Anatomy of the certificate; the empirical $5/8$ law]\label{rem:fiveeighths}
+Writing $D=2D_1$, the reciprocity signs in the certificate cancel
+\textup{(}$\tfrac{A-1}2+\tfrac{N-1}2=N-1+2D_1$ is even\textup{)}, leaving the clean product
+\[ \left(\tfrac{D}{A}\right)\;=\;\left(\tfrac{2}{A}\right)\left(\tfrac{D_1}{N}\right),\qquad
+\left(\tfrac{2}{A}\right)=+1\iff N\equiv3,5\ (\mathrm{mod}\ 8), \]
+and one layer down $(N\mid D_1)=\prod_{p\mid D_1}\bigl(\tfrac{D/p}{p}\bigr)$, since
+$N\equiv D/p\pmod p$: the cofactor structure of rigidity recurs inside its own certificate. This product evaluates in closed form: with $D/p=2D_1/p$ and quadratic
+reciprocity,
+\[ (N\mid D_1)=(2\mid D_1)\!\!\prod_{\{p,q\}\subset D_1}\!\!(-1)^{\frac{p-1}2\frac{q-1}2}
+=(-1)^{\,s+\binom{t}{2}},\quad s=\#\{p\mid D_1:p\equiv3,5\ (8)\},\ \ t=\#\{p\mid D_1:p\equiv3\ (4)\}, \]
+a R\'edei genus character of $D_1$, \emph{independent of $N$}. This is forced, not merely observed:
+$(N\mid D_1)=\prod_{p\mid D_1}(N\mid p)$, and cofactor survival gives $N\equiv D/p=2D_1/p\pmod p$, so
+$(N\mid p)=(2\mid p)\,(D_1/p\mid p)$. The first factors multiply to $(-1)^{s}$ since $(2\mid p)=-1$
+exactly for $p\equiv3,5\pmod 8$; and, each unordered pair $\{p,q\}$ occurring once in each of the two
+cofactors,
+\[ \prod_{p\mid D_1}\Bigl(\tfrac{D_1/p}{p}\Bigr)=\prod_{\{p,q\}\subset D_1}\Bigl(\tfrac qp\Bigr)
+\Bigl(\tfrac pq\Bigr)=\prod_{\{p,q\}\subset D_1}(-1)^{\frac{p-1}2\frac{q-1}2}=(-1)^{\binom t2}, \]
+by quadratic reciprocity, since $\tfrac{p-1}2$ is odd exactly for $p\equiv3\pmod4$. (Checked
+independently, prime by prime, on $20{,}000$ bases: $0$ violations.) The inner symbol is thus not a coin but a genus invariant; its empirical fairness
+($49.9\%$, $50.0\%$ over the $49{,}961$ bases) is that character's equidistribution; and
+$(D_1\mid N)$ follows by the reciprocity sign $(-1)^{\frac{D_1-1}2\frac{N-1}2}$, hence depends on $N$
+only through $N\bmod4$. In fact the entire certificate closes into a finite functional. Let
+$v(S)=(n_1,n_3,n_5,n_7)\bmod4$ count the odd primes of $S$ in the residue classes $1,3,5,7$ modulo
+$8$. Every factor above is a function of $v$ alone: $s\equiv n_3+n_5$, $t=n_3+n_7$ (with
+$\binom t2$ needing only $t\bmod4$), $D_1\equiv3^{n_3}5^{n_5}7^{n_7}\pmod8$,
+$S(D_1)\equiv(n_1+n_5)-(n_3+n_7)\pmod4$, and (by the mod--$8$ law of
+Proposition~\ref{C-prop:mod8}, $D_1'\equiv D_1S(D_1)\pmod8$) also
+$N=D_1+2D_1'\equiv D_1+2\bigl(D_1S(D_1)\bmod4\bigr)\pmod8$. Hence
+\[ (D\mid A)\;=\;K\bigl(v(S)\bigr): \]
+\emph{the kill is decided by sixteen residue counts modulo $4$.} The realized vectors are exactly
+the coset $n_1+n_3+n_5+n_7\equiv58\equiv2\pmod4$ (all $64$ of its classes occur), $K$ is constant
+on each, and the functional reproduces the direct $113$--digit Jacobi computation on every one of
+the $49{,}961$ bases (\texttt{code/kill\_classvector.py}). The five--eighths law is then an exact
+finite statement, and its mechanism is the \emph{reciprocity switch}: for $N\equiv1\pmod4$ the
+reciprocity sign is inert and the kill reduces to the genus coin; exact conditional rate
+$12{,}699/24{,}975=0.5085$; while for $N\equiv3\pmod4$ the sign couples the parity of $t$ into
+the product and the rate jumps to $18{,}520/24{,}986=0.7412$ (by class modulo $8$:
+$0.509,\,0.741,\,0.508,\,0.741$ at $N\equiv1,3,5,7$; the $3/4$ classes are $N\equiv3\pmod4$, not
+the $(2\mid A)$ classes). The blend $\tfrac12\cdot\tfrac{24975}{49961}+\tfrac34\cdot\tfrac{24986}{49961}
+=0.62503$ against the exact $31{,}219/49{,}961=0.62487$ is the whole of the ``coincidence''. The
+correlation is an ensemble property, a random--subset proxy gives ${\approx}0.45/0.55$; and
+the functional yields no second certificate: it recomputes the same symbol.
+\end{remark}
+
+\begin{remark}[Why a one--sided mass argument cannot reach the barrier]\label{rem:twosided}
+The threshold $\sigma(U)=t+1/t$ of Proposition~\ref{prop:barthreshold} makes the barrier equivalent to a
+lower bound $|\sigma(a)-1|>c$ with $c$ absolute, and it is worth recording what such a bound cannot
+be proved from. The primary pseudoperfect numbers satisfy the one--sided equation $n'=n-1$ exactly,
+so along them $|\sigma(n)-1|=1/n$ tends to $0$: the eight known members give
+$1/n$ from $\tfrac12$ down to $1.18\times10^{-31}$. They are solutions of the coprime relaxation
+(Corollary~\ref{K-cor:threethirteen}, the case $u=1$). Hence no argument that uses only $a'=b$ with $b$
+squarefree and coprime to $a$ can bound $|\sigma(a)-1|$ below by an absolute constant, since the same
+argument would prove the corresponding statement for the relaxation, which is false. Any such bound must
+consume the second equation $b'=a$. This is why the mass arguments of Section~\ref{K-sec:barrier} of the core note, and the
+Sylvester--type extremal bounds, reproduce $60$ and stop: they are one--sided, and $1/a$ is the most a
+one--sided argument can give.
+\end{remark}
+
+\begin{remark}[The kill--program is one--sided]\label{rem:oneside}
+Every kill is a proof that no solution hides in that family, but if \#307 has a solution, the
+solution's own family is unkillable, so no accumulation of kills can overshoot the truth: the
+program's asymptote \emph{is} the existence question. Together with the self--similarity of
+Remark~\ref{rem:tier60} (each rung past $60$ contains the whole problem), this locates the
+campaign precisely: it corners where a solution could live, one certified region at a time, and
+can terminate only if \#307 has answer \textsc{no}, which the heuristics disfavour.
+\end{remark}
+
+\begin{remark}[The reciprocity kills are the local factors of the expected count]\label{rem:killcount}
+The divergent naive count of Section~\ref{sec:anatomy} and the reciprocity sieve of
+Proposition~\ref{prop:tailkill} are the \emph{same} computation. Decompose the expected number of
+solutions over tail families $S\cup\{q\}$: the summand for a base $S$ is
+$\kappa_S\,\bigl(D_S\sqrt{\mathrm{mass}^2-4}\bigr)^{-1}\sum_q q^{-1}$, where
+$\kappa_S=\prod_\ell(\text{local solubility density at }\ell)$ is exactly the reciprocity data.
+A reciprocity--killed base carries an inert $\ell\mid A_S$ with $(D_S\mid\ell)=-1$, so
+$N_S+2D_S\equiv D_S\pmod\ell$ is a non--residue for \emph{every} $q$, forcing $\kappa_S=0$; the
+family drops from the count entirely. An immune base ($A_S,B_S$ both prime, both residues) has no
+inert prime, so $\kappa_S>0$ and, treating $q$ as ranging freely with density $1/q$, the summand
+\emph{looks} like a divergent $\sum_q q^{-1}$ (verified on an explicit $114$--digit immune base: local
+density $1$ at every tested prime, partial sums growing without bound). That model overstates the
+space: Proposition~\ref{K-prop:tailbound} bounds $q$ itself, so the true sum is finite, and
+Proposition~\ref{prop:lvl60factor} identifies it exactly with the roots of $D_S$ modulo $A_S$, of which
+there are only two once $A_S$ is prime. The immune part of the divergence was therefore never genuine,
+only an artifact of summing a local density over an unbounded range that
+Proposition~\ref{K-prop:tailbound} had already closed; the kills remove ${\sim}93\%$ of the count's mass,
+and Proposition~\ref{prop:immunedecide} removes the rest of the $34$ conditionally immune families'
+contribution unconditionally, both candidate values of $q$ failing outright. What
+Remark~\ref{rem:killcount} originally located as the entire ``weakly favours \textsc{yes}'' signal at
+level $60$ is now zero there. What remains is the pair sector, and there the picture does not simplify
+the same way: the object Proposition~\ref{prop:pairlocal} proves permanently immune to any finite
+congruence condition is the one with \emph{both} new tail primes free, which the campaign never
+enumerates as such, fixing one of the two, as Remark~\ref{rem:campaign} does to get a finite, countable
+search, buys the congruence weapon back for the resulting $18{,}234{,}653$ bases, and their $83.5\%$
+elimination is a plain factoring--budget shortfall, the same story as the single--tail sector's, not an
+instance of Proposition~\ref{prop:pairlocal}'s theorem. Proposition~\ref{prop:lvl60factor} applies to
+that computed population exactly as it does to the single--tail residual (its proof addresses the
+$\sigma\le2$ case via Corollary~\ref{K-cor:maxbound}), so the residual open question there is, again, the
+single task of factoring a $\sim\!114$--digit integer per family. Proposition~\ref{prop:pairlocal}'s
+genuinely uncomputed object is a separate matter: it is why the campaign stops at fixing one tail prime
+rather than a limitation discovered by trying and failing to go further. This does not touch the
+reliability of the count (which ignores the $N(r)\le1$ rigidity), but it retires the level--$60$
+half of what it once pinned down as the heuristic's \textsc{yes}.
+\end{remark}
+
+\begin{proposition}[Local completeness of the reciprocity sieve]\label{prop:localcomplete}
+For an admissible base $S$ and an odd prime $\ell$, the admissible tail residues
+$Q_\ell=\{q\bmod\ell:(A_Sq+D_S\mid\ell)\ne-1\text{ and }(B_Sq+D_S\mid\ell)\ne-1\}$ fall into exactly three
+regimes. \textup{(i)} $\ell\mid D_S$, which covers every $\ell\le167$ uniformly over the $49{,}961$
+admissible bases, since $1/p\ge(T_{59}-2)+\tfrac1{281}$ forces every prime $p\le167$ into every base:
+then $A_S\equiv B_S\equiv N_S\not\equiv0\pmod\ell$, the two conditions collapse to the single condition
+$(N_Sq\mid\ell)\ne-1$, and $|Q_\ell|=(\ell+1)/2\ni0$. \textup{(ii)} $\ell\mid A_SB_S$: one condition is
+the constant $(D_S\mid\ell)$, so $Q_\ell=\emptyset$ iff $(D_S\mid\ell)=-1$ (exactly the certificate of
+Proposition~\ref{prop:tailkill}) and otherwise $|Q_\ell|\ge(\ell-1)/2$. \textup{(iii)}
+$\ell\nmid A_SB_SD_S$ (hence $\ell\ge173$): the complete character sums give
+$|Q_\ell|\ge(\ell-3)/4-2\ge40$ (the linear sums vanish, the quadratic sum is $-\chi(A_SB_S)$, boundary
+terms $\le2$). \textup{(}Regimes~\textup{(i)} and~\textup{(ii)} are formalised:
+\texttt{Erdos307.regime\_one\_collapse}, \texttt{regime\_one\_same\_argument} and
+\texttt{regime\_two\_constant} \textup{(}\texttt{lean/Erdos307/LocalComplete.lean}\textup{)}.
+Regime~\textup{(iii)}'s counting step is \texttt{regime\_three\_count}, and its two complete
+character--sum hypotheses are now theorems rather than citations:
+$\sum_q\chi(aq+b)=0$ for $a\ne0$ is \texttt{Erdos307.sum\_quadraticChar\_affine}, the reindexing
+$q\mapsto aq+b$ followed by \texttt{quadraticChar\_sum\_zero}; and
+$\sum_q\chi((aq+b)(cq+d))=-\chi(ac)$ for $ad\ne bc$ is
+\texttt{Erdos307.sum\_quadraticChar\_quadratic}, proved by factoring out $\chi(ac)$, translating to
+$\sum_u\chi\bigl(u(u+e)\bigr)$ with $e\ne0$, writing $u(u+e)=u^2(1+e/u)$ for $u\ne0$ so that the
+character value is $\chi(1+e/u)$, and reindexing by the involution $u\mapsto e/u$ of the nonzero
+elements to reach $\sum_{t\ne0}\chi(1+t)=0-\chi(1)=-1$. Both hold over any finite field of odd
+characteristic. $0$ \texttt{sorry}
+\textup{(\texttt{lean/Erdos307/CompleteSums.lean})}. Checked against direct evaluation for all odd
+primes $\ell\le59$: the linear sum over every $(a,b)$ with $a\ne0$, and the quadratic sum over all
+$33{,}008{,}952$ quadruples with $ad\ne bc$, $0$ violations
+\textup{(\texttt{code/complete\_sums\_check.gp})}.\textup{)}
+Consequently $Q_\ell\ne\emptyset$ forces $|Q_\ell|\ge2$ at every modulus, the surviving
+local density is positive (e.g.\ $\prod_{\ell\le300}|Q_\ell|/\ell\approx2.2\times10^{-19}>0$ on the
+canonical base), and by CRT \emph{no finite system of congruences (no covering) can annihilate an
+unkilled family}: the binary certificate of Proposition~\ref{prop:tailkill} is the complete local theory
+of the tail sector, there is no ``second kill layer,'' and the one--sidedness of
+Remark~\ref{rem:oneside} is structural rather than an artefact of method. (All three regimes verified
+exhaustively on the canonical base: collapse and $|Q_\ell|=(\ell+1)/2$ at
+$\ell\in\{3,5,7,101,277\}$; the Weil floor at every prime $281\le\ell\le600$; $A_S,B_S$ carry no factor
+below $10^6$, consistent with the balanced--semiprime wall of Remark~\ref{rem:campaign}.)
+\end{proposition}
+
+\begin{proposition}[What a barrier improvement must supply]\label{prop:barthreshold}
+Let $(a,b)$ be a solution with $a<b$ and put $t=b/a$, so that $t=\sigma(a)$ and, by
+$\sigma(a)\sigma(b)=1$,
+\[ \sigma(U)\;=\;\sigma(a)+\sigma(b)\;=\;t+\tfrac1t. \]
+For $n$ with $T_n>2$ let $t_n>1$ be the root of $t+1/t=T_n$. Since $\sigma(U)\le T_{|U|}$,
+\[ \sigma(a)>t_n\ \Longrightarrow\ |U|\ \ge\ n+1, \]
+and this is the only route by which a mass argument can raise the barrier. Numerically
+\[
+\begin{array}{l|cccccc}
+n & 59 & 60 & 61 & 62 & 63 & 64\\\hline
+T_n & 2.0023502 & 2.0059089 & 2.0094424 & 2.0128554 & 2.0161127 & 2.0193282\\
+t_n & 1.0496677 & 1.0798804 & 1.1020081 & 1.1199914 & 1.1352477 & 1.1490254
+\end{array}
+\]
+\end{proposition}
+
+So the barrier level is decided entirely by how close $\sigma(a)$ may lie to $1$, and each further
+level demands a definite gap: $|U|\ge61$ needs $\sigma(a)>1.0799$, a full $8\%$ above $1$.
+
+That is why the mass mechanism is exhausted here rather than merely difficult. The only
+unconditional lower bound on the gap is $\sigma(a)-1=(a'-a)/a\ge1/a$, which is worthless at
+$a>10^{56}$; and $\sigma$ genuinely comes close to $1$ from above on very few primes, the
+Sylvester-type set $\{2,3,7,41\}$ giving $\sigma=1.00058\ldots$ with four. Indeed no bound in
+$\omega(a)$ alone can exist: the greedy Sylvester construction gives, for each $k$, squarefree $a$
+with $\omega(a)=k$ and $0<|\sigma(a)-1|$ doubly exponentially small in $k$, from below
+$1-\sigma=7.8\times10^{-592}$ at $k=12$, and from above $\sigma-1=4.6\times10^{-591}$ at the same
+$k$ \textup{(\texttt{code/sigma\_gap.gp})}. So $|\sigma(a)-1|\ge f(\omega(a))$ is false for every
+positive $f$, and the unconditional $1/a$ is of the right shape. Nothing in the cycle
+equations forbids $a'-a=1$. A barrier past $60$ must therefore come from a mechanism that bounds
+$\sigma(a)$ away from $1$ without appealing to the size of $U$, which is what
+Theorem~\ref{K-thm:barrier} does in the opposite direction, and we know of none.
+
+The same reduction locates the extreme case. Writing $c=b-a$, the identity
+$\sigma(U)-2=(t-1)^2/t=c^2/D$ is the minus layer $D'-2D=c^2$, and $\gcd(c,D)=\gcd(b-a,ab)=1$ because
+$\gcd(a,b)=1$. Since an admissible support contains every prime $\le167$
+\textup{(}Remark~\ref{rem:tier60}\textup{)}, $c$ is divisible by none of them, so $c=1$ or
+$c\ge173$. The branch $c=1$ is $D'=2D+1$, equivalently $a'=a+1$ and $(a+1)'=a$; it is the closest a
+solution could come to $\sigma(a)=1$, and it is exactly the configuration a mass argument cannot
+reach. Below $3\times10^{6}$ the equation $a'=a+1$ has only the solutions $30$, $858$, $1722$ and
+$66{,}198$, and none extends: for the first three $a+1$ is prime, so $(a+1)'=1$, and for the last
+$a+1$ is not squarefree. The branch is not excluded, only unsearched, since the barrier puts it above
+$10^{56}$. The level--$59$
+computation that gives $|U|\ge60$ is, in these terms, an exhaustive verification that
+$\sigma(a)>t_{59}$, and Proposition~\ref{K-prop:levelbarrier} says the same verification is unavailable
+one level up.
+
+\begin{remark}[The tail is not a Lehmer question]\label{rem:notlehmer}
+Remark~\ref{rem:lehmer} below reads the surviving question as the primality of a term $q_n$ of the
+\emph{exponential} Pell orbit, and Remark~\ref{B-rem:whatisleft} names that orbit as the only live
+branch. Proposition~\ref{K-prop:tailbound} withdraws the reading. The orbit is genuinely infinite and
+both square conditions do hold along all of it; what fails is that no term past $N$ can be prime.
+The single identity responsible is $A-B=4D$, which the earlier treatment used only to form the Pell
+system and never to factor $4Dq$.
+\begin{remark}[The threshold in largest--prime coordinates, and which sectors it leaves alive]\label{rem:sectorlive}
+Remark~\ref{rem:tier60} already writes a cycle as $a=qm$ with $q$ the largest prime; Bado
+\cite{Bado2026} makes the same reduction exact and independent of the level. With $q=P^{+}(ab)$,
+$q\mid a$, write $a=qd$, $b=e$: then $e=d+qd'$, $e'=qd$, and $q=(e-d)/d'$. Here
+$\sigma(a)=1/q+\sigma(d)$, so $t$ (or $1/t$, according to which side carries $q$; $t+1/t$ is
+symmetric and the reading below is unaffected) is $\sigma(d)$ up to $1/q$, and
+Proposition~\ref{prop:barthreshold} becomes a statement about the \emph{sector} $d$. It is very
+uneven. \textup{(}The rows below take $q$ astronomically large, which
+Proposition~\ref{K-prop:close59} supplies once $d$ is small: at $q=281$ the first row would read
+$1295$.\textup{)}
+
+\smallskip
+\begin{center}
+\begin{tabular}{lccc}
+$d$ & $\sigma(d)$ & $\sigma+1/\sigma$ & $|U|\ge$\\ \hline
+$2$ & $0.500000$ & $2.500000$ & $1413$\\
+$2\cdot3$ & $0.833333$ & $2.033333$ & $69$\\
+$2\cdot3\cdot7$ & $0.976190$ & $2.000581$ & $59$\\
+$2\cdot3\cdot7\cdot43$ & $0.999446$ & $2.000000$ & $59$\\
+$2\cdot3\cdot11\cdot23\cdot31$ & $0.999979$ & $2.000000$ & $59$\\
+$3$ & $0.333333$ & $3.333333$ & ${\sim}1.1\times10^{8}$\\
+\end{tabular}
+\end{center}
+\smallskip
+
+The last row is a Mertens estimate, the exact $K$ being past $\pi(10^6)$. Inverting
+$t+1/t\le T_K$ in the same convention gives the windows: $|U|\le60$ forces
+$\sigma(d)\in[0.9260,1.0799]$, the $t_{60}$ of the table above, and $|U|\le68$ forces
+$\sigma(d)\in[0.8372,1.1945]$ \textup{(\texttt{code/sector\_window.gp})}. So a sector can be cheap
+only if $\sigma(d)$ sits within a few per cent of $1$. The primary pseudoperfect numbers, having
+$\sigma(n)=1-1/n$ exactly, are among those extremal sectors (they are not the only ones, the
+Sylvester--type $\{2,3,7,41\}$ above being another) and by
+Corollary~\ref{K-cor:threethirteen} they are the $u=1$ solutions of \#307's coprime relaxation, so
+Erd\H{o}s~\#313 sits at the floor of this barrier as well.
+
+The reduction is not new to the tail theory: it \emph{is} the parametrisation of
+Proposition~\ref{K-prop:tailbound}, with $\alpha=d$ and $\beta=e$. Substituting $e=d+qd'$ and $e'=qd$
+into $\alpha^2q^2-Nq+(\beta^2-D)$ at $\alpha=d$ gives $e(e-d-qd')=0$ identically
+\textup{(\texttt{code/alpha\_is\_d.gp}; the discriminant identity is $4d^2$ times the same
+vanishing, not a second fact)}. Two things follow. Everything proved about tail families is
+a statement about sectors: the reciprocity kill of Proposition~\ref{prop:tailkill}, and the
+factoring wall behind the families it leaves open. And the sector $d=2$ is $\alpha=2$, which the
+table puts at $|U|\ge1413$, so the level--$60$ programme never meets it. Negatively, the reduction
+does not shorten that residual: the unknown is the divisor $\alpha\mid D$, of which there are
+$2^{59}$, and the only $\alpha$--independent certificate is the Jacobi one already used.
+\end{remark}
+
+\begin{remark}[The sector barrier sharpened by $d'$, and a second derivation of $60$]\label{rem:sectordprime}
+The sector reading above uses only the mass. It can be sharpened, and the sharpening is what
+Bado \cite{Bado2026b} exploits at $d=42$. Since $e=d+qd'$, one has $\gcd(e,d)=\gcd(qd',d)=1$ and
+$\gcd(e,d')=\gcd(d,d')=1$, so
+\[ \operatorname{supp}(e)\ \text{avoids}\ \operatorname{supp}(d)\cup\operatorname{supp}(d')
+   \qquad\text{in every sector,} \]
+and the mass $\sigma(e)$, which is $1/\sigma(d)$ to many places, must be carried by primes drawn
+from a thinned set. Two further identities come with it, both immediate from $e'=qd$:
+$de-d'e'=d^2$ and $\sum_{r\mid e}1/r=d/d'-d^2/(d'e)$; and the associated defect
+$\Delta_d(R)=dR-d'R'$ satisfies $\Delta_d(Rr)=r\Delta_d(R)-d'R$ with terminal value
+$\Delta_d(e)=d^2$ \textup{(\texttt{code/sector\_general.gp}, symbolic in $d,d',q,R,R'$)}. When $d$
+is primary pseudoperfect, $d'=d-1$; that is the only reason those sectors look distinguished.
+
+Running the resulting bound sector by sector (mass $d/d'$ from primes avoiding
+$\operatorname{supp}(d)\cup\operatorname{supp}(d')$, together with the parity constraint that $d$
+even forces $e$ odd and $\omega(e)$ even) gives
+\[ \min_{d}\ \bigl(1+\omega(d)+\omega(e)\bigr)\ =\ 60, \]
+over all sectors $d$ built from primes up to $47$, attained at $d=15470=2\cdot5\cdot7\cdot13\cdot17$
+and at many others, among them the primary pseudoperfect $47058=2\cdot3\cdot11\cdot23\cdot31$
+\textup{(\texttt{code/sector\_dprime.gp})}. This is Theorem~\ref{K-thm:barrier}'s constant recovered
+by a route sharing nothing with its proof: that one is an exhaustive computation over the $49{,}961$
+admissible $59$--prime supports, this one a largest--prime descent and a reciprocal--mass count. It
+does not improve the barrier, it bottoms out at exactly $60$, but two independent derivations
+of the same constant are worth recording, and the sectors where it is tight are where any
+improvement must act.
+
+At $d=42$ the mass bound alone gives $\omega(e)\ge62$ and $|U|\ge66$; \cite{Bado2026b} obtains
+$\omega(e)\ge64$ and $|U|\ge68$ by adjoining the residue conditions
+$\sum_{r\mid e}r^{-1}\equiv0\pmod 3$ and $\pmod 7$ and $\prod_{r\mid e}r\equiv1\pmod{41}$ and
+maximising over admissible supports. We have re-run that certificate independently, obtaining the
+same maximum and the same $51{,}281$ reachable states. The residue sieve cannot be pushed further as
+a sieve: the complete system of local conditions is the sector equation itself. For each $r\mid e$,
+reducing $e'=qd$ modulo $r$ gives $\prod_{s\mid e,\,s\ne r}s\equiv-d^2/d'\pmod r$, one condition
+per prime of $e$; conversely these, with $e\equiv d\pmod{d'}$ and $1<\sigma(e)<2$, force $e'=qd$
+exactly, both sides lying in $(e,2e)$. Bado's conditions modulo $3$ and $7$ are the sums of these;
+the maximiser certifying his bound violates them at five of its six smallest primes, and adjoining
+the three at $5,11,13$ to the dynamic programme lowers the $64$--prime maximum from $1.03032$ to
+$1.02853$, still above $42/41$ \textup{(\texttt{code/sector42\_znam\_violations.gp},
+\texttt{code/sector42\_znam\_dp.rs})}. The next step is therefore not a sieve but an exact
+enumeration, and it goes through.
+\end{remark}
+
+\begin{proposition}[The $d=42$ sector at $64$ primes]\label{prop:sector42}
+No solution of \#307 has $a=42q$ with $q$ prime and $\omega(b)=64$. Hence in that sector
+$\omega(b)\ge66$ and $|P\cup Q|\ge70$.
+\end{proposition}
+
+\begin{proof}[Proof (finite verification)]
+Write $e=b$, $T=42/41$, and let $A_1<A_2<\cdots$ be the primes other than $2,3,7,41$, $S_j=\sum_{i\le j}1/A_i$.
+By the sector identity, $\sigma(e)=T-1764/(41e)$, and $e>3.5\times10^{57}$ by Theorem~\ref{K-thm:barrier},
+so $T-10^{-55}<\sigma(e)<T$. Exactly, $A_{64}=337$, $A_{197}=1229$, $A_{198}=1231$, and
+$S_{61}+3/1231<T$ \textup{(\texttt{code/sector42\_k64.gp})}. If $m$ of the $64$ primes of $e$ exceed
+$1229$ then $\sigma(e)\le S_{64-m}+m/1231$, which for $m\ge3$ is below $S_{61}+3/1231<T-10^{-55}$; so
+$m\le2$. Next, if $\operatorname{supp}(e)=S\cup\{\ell\}$ with $R=\prod S$, the identity
+$42e-41e'=1764$ reads $\ell\,\Delta_{42}(R)=41R+1764$, so $\Delta_{42}(R)>0$ and $\ell$ is the integer
+$(41R+1764)/\Delta_{42}(R)$: the last prime is determined by the others.
+
+\emph{Case $m\le1$.} Take $\ell$ the prime exceeding $1229$ if $m=1$, else the largest prime of $e$, so
+$\ell\ge A_{64}$. The other $63$ primes $S$ lie among $A_1,\dots,A_{197}$ with
+$\sigma(S)=\sigma(e)-1/\ell\in[T-1/A_{64}-10^{-55},T)$. The enumeration tests $36{,}901{,}596{,}763$ sets, every
+such $S$ among them; for none is $(41R+1764)/\Delta_{42}(R)$ an integer.
+
+\emph{Case $m=2$.} Let $\ell_2\le\ell_1$ be the two primes exceeding $1229$, $S$ the other $62$, and
+$\delta=T-\sigma(S)$. Then $1/\ell_1+1/\ell_2\in(\delta-10^{-55},\delta)$, so $\delta<2/1231$ and
+$\ell_2\in(1/\delta,\,2/\delta+1)$. The enumeration tests $166{,}213$ sets, every such $S$ among them; the least $\delta$ among them is
+$1.539\times10^{-6}$, so every $\ell_2$ range is finite (largest upper bound $1{,}299{,}387$). For each
+$S$ and each prime $\ell_2$ in its range, $S\cup\{\ell_2\}$ determines $\ell_1$ as above; it is never
+an integer.
+
+The enumeration prunes on the mass in floating point with a margin of $10^{-9}$ on both ends of each
+window, so no set in a window is lost; the integrality test is a double--double prefilter with a
+conservative band followed by exact integer arithmetic ($7{,}454{,}365$ and $2{,}495$ exact tests
+respectively), the integer layer checked against PARI to the digit
+\textup{(\texttt{code/sector42\_k64.rs}, two runs with independent big--integer implementations)}. The
+non--enumerative half of the argument (the forced--prime identity and its converse, the sign
+condition, the case--split inequality and the parity step) is formalised in
+\texttt{lean/Erdos307/Sector42.lean}, with the two finite computations appearing as explicit
+hypotheses of the concluding statement.
+So $\omega(e)\ne64$. By \cite{Bado2026b}, $\omega(e)\ge64$ and $\omega(e)$ is even ($e$ is odd and
+$e'=42q$ is even); hence $\omega(e)\ge66$. Finally $q\notin\{2,3,7\}$ and $q\nmid e$, since $\gcd(a,b)=1$ and
+$a=42q$, so the four listed primes are distinct and $|P\cup Q|=|\{2,3,7,q\}|+\omega(e)\ge70$.
+\end{proof}
+
+\begin{proposition}[The primary pseudoperfect sectors]\label{prop:ppnsectors}
+Let $d$ be squarefree and $\operatorname{supp}(e)=S\cup\{\ell\}$ with $R=\prod S$. The sector
+equation $de-d'e'=d^2$ reads
+\[ \ell\bigl(dR-d'R'\bigr)\;=\;d'R+d^2, \]
+so the last prime is determined by the others in every sector, not only at $d=42$. Running the
+resulting enumeration at the first admissible $\omega(e)$ above the mass floor gives, in each case,
+no solution:
+\[\begin{array}{lrrrl}
+d & \omega(e) & \text{sets} & |P\cup Q|\ \text{before} & \text{after}\\[2pt]
+42 & 62 & 175 & 66 & 68\\
+47058 & 54 & 41{,}654 & 60 & 62\\
+2214502422 & 70 & 11{,}646 & 77 & 79
+\end{array}\]
+\textup{(\texttt{code/sector\_kexclude.rs}; the identity is checked symbolically and in exact
+rationals in \texttt{code/sector\_kexclude.gp})}. At each $\omega(e)$ in the table the mass bound
+$S_{\omega-1}+1/A_{N+1}<d/d'$ excludes even one prime beyond the truncation, so there a single phase
+is a complete argument. At $d=47058$ this raises a primary pseudoperfect sector off the global
+barrier: that sector sat at exactly $60$, and $|P\cup Q|\ge62$ there. With
+Proposition~\ref{prop:sector42} the $d=42$ sector stands at $|P\cup Q|\ge70$.
+
+The condition that makes a phase count sufficient is worth isolating, because it prices every rung of
+the ladder in advance and because a phase--$1$ enumeration that returns nothing proves nothing without
+it.
+
+\begin{proposition}[When the sector enumeration is complete]\label{prop:phasecount}
+Let $d$ be squarefree, $d'=\sum_{p\mid d}d/p$, $t=d/d'$, and let $A_1<A_2<\cdots$ be the primes
+dividing neither $d$ nor $d'$, with $S_m=\sum_{i\le m}1/A_i$. Fix a truncation $N$ and a target
+$\omega(e)=k$. If $j$ of the primes of $e$ exceed $A_N$ then
+\[ \sigma(e)\;\le\;S_{k-j}+\frac{j}{A_{N+1}}, \]
+so whenever $S_{k-j}+j/A_{N+1}<t$ no admissible $e$ has exactly $j$ primes beyond the truncation.
+Writing $J=J(k,N)$ for the least such $j$, every admissible $e$ has at most $J-1$ primes beyond
+$A_N$, and the phases $1,\dots,J-1$ exhaust the possibilities: the enumeration is complete.
+\end{proposition}
+\begin{proof}
+The $k-j$ primes of $e$ not exceeding $A_N$ lie among $A_1,\dots,A_N$, so their reciprocals sum to at
+most that of the $k-j$ smallest, namely $S_{k-j}$; each of the remaining $j$ is at least $A_{N+1}$
+and contributes at most $1/A_{N+1}$. A sector solution requires $\sigma(e)\ge t$, which the displayed
+bound then contradicts. Since the bound is decreasing in $j$ once $S_{k-j}$ falls below $t$, the
+values $j\ge J$ are all excluded together.
+\end{proof}
+
+At the floor $k=K(d)$ one has $J=1$, and there phase~$1$ alone is a complete argument, which is the
+case the table above uses; at $k=K(d)+2$ one has $J=3$, and there phases~$1$ and~$2$ together are
+complete. Both correspondences are verified directly at $d=47058$, at $k=54$ and $k=56$ respectively.
+Since only those two phases are implemented, the reachable rungs are those with $J\le3$, and $J$ is
+what prices the ladder:
+\[\begin{array}{lrrrrr}
+d & \omega(d) & K(d) & k & J & |P\cup Q|\ \text{if excluded}\\[2pt]
+42 & 3 & 62 & 62 & 1 & 68\\
+42 & 3 & 62 & 64 & 3 & 70\\
+42 & 3 & 62 & 66 & 5 & 72\\
+47058 & 5 & 54 & 54 & 1 & 62\\
+47058 & 5 & 54 & 56 & 3 & 64\\
+47058 & 5 & 54 & 58 & 6 & 66\\
+2214502422 & 6 & 70 & 70 & 1 & 79\\
+2214502422 & 6 & 70 & 72 & 3 & 81
+\end{array}\]
+at $N=400$ \textup{(\texttt{code/sector\_phasecount.gp})}. The truncation is worth minimising rather
+than maximising: $J$ is what must stay small, and at $d=2214502422$ with $k=72$ it equals $3$ for every
+$N\ge300$ and $4$ below that, so $N=300$ is the smallest complete choice and the one that leaves the
+fewest subsets to enumerate. The value of $J$ grows quickly with $k$, and
+raising the truncation barely helps, since $j/A_{N+1}$ falls only as fast as $A_{N+1}$ grows: at
+$d=42$ the rung $k=66$ needs $J=5$ at every $N$ from $400$ to $3000$. That is what stops the $d=42$
+sector at $|P\cup Q|\ge70$, and it is a limitation of the implemented phases rather than of the
+method.
+
+The next step at $d=47058$ costs more, because the single--phase condition fails there. With
+$N=400$ and $A_{N+1}=2791$ one has $S_{55}+1/A_{N+1}=1.00629$ and $S_{54}+2/A_{N+1}=1.00309$, both
+above $d/d'=1.0000213$, so one and two primes beyond the truncation must each be enumerated; but
+$S_{53}+3/A_{N+1}=0.99984<d/d'$, so three or more cannot occur and the two phases together are
+complete. Both are empty: phase~$1$ enumerates $4.387\times10^{11}$ leaves and $88{,}472{,}925$ exact
+checks, phase~$2$ a further $373{,}644$ leaves and $59{,}276$ exact checks, and neither yields an
+admissible forced prime \textup{(\texttt{code/sector\_kexclude.rs}, $12{,}658$\,s on nine cores)}.
+Hence $\omega(e)\ne56$. Since $d$ is even, $e=d+qd'$ is odd and $e'=dq$ is even, so
+Proposition~\ref{prop:oddsector} forces $\omega(e)$ even; with $\omega(e)\ge56$ already in hand this
+gives $\omega(e)\ge58$ and
+\[ |P\cup Q|\;=\;1+\omega(d)+\omega(e)\;\ge\;1+5+58\;=\;64 \]
+at $d=47058$. The truncation is what stops the ladder here: at $\omega(e)=57$ even four primes beyond
+$A_N$ remain possible, so the next rung needs a larger $N$ rather than more time at this one.
+\end{proposition}
+
+\begin{remark}
+The $d=42$ row recovers \cite{Bado2026b}'s $\omega(e)\ge64$ by a route with nothing in common with
+its proof: that one maximises mass over a $51{,}281$-state residue automaton, this one enumerates
+$175$ prime sets and tests an integrality condition. Two independent derivations of the same bound.
+
+Running the same exclusion across sectors rather than up the ladder is what the identity really
+buys. Among all sectors $d$ that are squarefree with $\omega(d)\le12$ and every prime factor at most
+$71$, exactly $16{,}234$ have mass floor $|P\cup Q|=60$; in every one of them the floor value of
+$\omega(e)$ is excluded, the largest enumeration being $41{,}654$ sets
+\textup{(\texttt{code/sector\_at60.gp}, \texttt{code/sector\_kexclude.rs})}. The counts $250$, $1{,}533$
+and $16{,}234$ are reproduced from scratch by \texttt{code/sector\_at60\_count.rs}. Determining them
+requires the complete factorisation of $d'$, not merely its small factors: a prime of $d'$ that goes
+unfound is never matched in the exclusion set, so the primes available to $e$ are overcounted, $K(d)$
+comes out too small and the floor too low, which is the direction in which a sector at $60$ could be
+misread as lying below $60$ and skipped. Since $d'$ passes $10^{14}$ already at $\omega(d)=10$ and
+routinely carries a large prime factor, the enumerator factors it with Pollard rho under a
+Miller--Rabin test, and refuses outright when $d'$ would exceed the width its modular arithmetic is
+exact to. So
+\[ |P\cup Q|=60\ \text{is impossible in every such sector,} \]
+and any support of size $60$ must have $\omega(d)\ge13$ or a sector prime exceeding $71$. This does
+not move Theorem~\ref{K-thm:barrier}, whose $60$ is proved by a different route and over all supports;
+what it does is remove the entire low--$\omega$, small--prime part of the sector decomposition from
+the level--$60$ frontier.
+
+The sectors that could reach $60$ form a \emph{finite} set, which is worth recording because the sector decomposition appears to range over unboundedly many $d$. At level $60$ the
+support is a $59$--prime base together with one tail prime, and a base element $x$ satisfies
+$T_{58}+1/x\ge2$, so $x\le1/(2-T_{58})=793.6\ldots$; every prime up to $167$ lies in the base, and
+$d$ is a subset of the $138$ primes at most $787$. So the question ``which sectors admit
+$|P\cup Q|=60$'' is a finite one. It is not, however, a small one: the count of sectors whose mass
+floor is exactly $60$ rises from $250$ over primes at most $47$ with $\omega(d)\le8$ to $1{,}533$
+over primes at most $59$ with $\omega(d)\le10$ and $16{,}234$ over primes at most $71$ with
+$\omega(d)\le12$ (all cleared, each family a subset of the next), and it does not saturate: raising the
+cap one step further, to primes at most $89$ at the same $\omega(d)\le12$, gives $125{,}813$, a factor
+of $7.75$ for one more prime in the pool. Those are counted, not cleared, and are recorded here only as
+the next term of the growth. Holding $\omega(d)\le8$ and letting the prime bound $B$ grow, the
+count runs $26,\,83,\,250,\,588,\,1762,\,5172$ at $B=31,41,47,59,71,89$; holding $\omega(d)\le6$ it
+runs $19,\,34,\,53,\,77,\,107,\,166,\,217$ at $B=31,41,47,59,71,89,107$. Against $\pi(B)$ the fitted
+exponent grows with $\omega$, from about $2.7$ at $\omega=6$ to about $6.8$ at $\omega=8$, so the count
+behaves like a binomial $\binom{\pi(B)}{\omega}$. With the true bounds $B=787$ and $\omega(d)\le58$ the
+family is finite but of order $\binom{138}{58}$, and enumerating it is not possible. Clearing sectors
+one at a time therefore strengthens the statement at each step and cannot reach the barrier. Finiteness here converts the sector programme into a
+computation of the same order as the one it was meant to replace.
+
+Across every sector enumerated so far the floor value of $\omega(e)$ is not attained, and that is a
+falsifiable statement in its own right.
+
+\begin{proposition}[Odd sectors keep the prime $2$ only when $\omega(d)$ is odd]\label{prop:oddsector}
+Let $d$ be odd and squarefree. Then $d'\equiv\omega(d)\pmod2$. Consequently, if $\omega(d)$ is even
+then $2\mid d'$, so $2\mid dd'$ and $2\notin\operatorname{supp}(e)$ by
+Remark~\ref{rem:sectordprime}; the mass $d/d'$ must then be carried entirely by odd primes dividing
+neither $d$ nor $d'$.
+\end{proposition}
+\begin{proof}
+For odd squarefree $d$ each cofactor $d/p$ is a product of odd primes, hence odd, so
+$d'=\sum_{p\mid d}d/p$ is a sum of $\omega(d)$ odd terms and has the parity of $\omega(d)$. Verified
+with no violation on the $81{,}053$ odd squarefree $d<2\times10^5$.
+\end{proof}
+
+The cost of losing $2$ is not marginal, because $\tfrac12$ is the largest single contribution
+available: at $d=15015=3\cdot5\cdot7\cdot11\cdot13$, where $\omega(d)=5$ is odd and $2$ survives,
+$K(d)=127$, while at $d=255255=3\cdot5\cdot7\cdot11\cdot13\cdot17$, where $\omega(d)=6$ is even and
+$2$ is lost, $K(d)=1535$. Hence a sector with $d$ odd and $\omega(d)$ even has mass floor far above
+$60$, and every sector of mass floor $60$ with $d$ odd has $\omega(d)$ odd. That is what the
+enumeration shows: of the $16{,}234$ sectors of mass floor $60$ over primes at most $71$, the
+$4{,}846$ with $d$ odd have $\omega(d)\in\{9,11\}$ and none has $\omega(d)$ even, although nothing in
+the enumeration imposes it.
+
+\begin{conjecture}[The floor gap]\label{conj:floorgap}
+For every squarefree $d$, no two--cycle in the sector $d$ has $\omega(e)$ equal to the mass floor
+$K(d)$, the least $k$ with $S_k(d)\ge d/d'$.
+\end{conjecture}
+
+The evidence is $5{,}680$ sectors with no attained floor: the $1{,}533$ of mass floor $60$ over primes
+at most $59$, a further $3{,}600$ of the family over primes at most $71$, the three sectors of
+Proposition~\ref{prop:ppnsectors}, and $480$ sectors of mass floor $61$ through $68$ over primes at
+most $47$, the last of these a range disjoint from all the others and tested after the statement was
+fixed. Its consequence is that the barrier would move: the minimum of $1+\omega(d)+K(d)$ over sectors
+is $60$, attained at $d=2\cdot3\cdot7\cdot23\cdot41$ and checked over $109{,}293$ sectors, so with the
+conjecture and the parity of Proposition~\ref{prop:ppnsectors} every sector would give
+$|P\cup Q|\ge62$. The evidence must be read with its power, which is negligible. The integrality
+$\Delta_d(R)\mid d'R+d^2$ has probability of order $1/\Delta_d(R)$, and $\Delta_d(R)$ is of the size
+of a product of some sixty primes; over the $5{,}680$ sectors and their some $10^4$ candidate sets
+each, the expected number of attained floors is of order $10^{-92}$ whether the conjecture is true or
+false. An enumeration of this kind therefore cannot support it, and no feasible enlargement would.
+Nor is the floor structurally distinguished: the rate at which candidates reach the exact divisibility
+test matches the width of the numerical prefilter at the floor and above it alike, the ratios of
+observed to expected being $0.72$ and $0.86$ at the floor for $d=47058$ and $d=2214502422$ and $1.01$
+at $\omega(e)=64$ for $d=42$, so the deficit at the floor is the small number of candidate sets and
+nothing else. The conjecture is recorded because it is what every enumeration performed here
+verifies and because its consequence is sharp, not because the enumerations are evidence for it.
+
+The ladder does not continue cheaply. In every sector the first rung above the mass floor is small, the three counts above, and the next requires the two-phase machinery of
+Proposition~\ref{prop:sector42}, because the truncation bound no longer excludes primes beyond
+$A_N$: at $d=42$ that step cost $3.7\times10^{10}$ sets, and at $d=47058$ the analogous
+$\omega(e)=56$ is $4.4\times10^{11}$, not run. The cheapness of the first rung and the cost of the
+second is the shape of the method, not an accident of $d=42$.
+\end{remark}
+
+\begin{remark}
+The same argument decides $\omega(e)=66$ in principle, but with up to four primes beyond the
+truncation the nested ranges multiply, and the enumeration is no longer a twenty--minute job; we
+have not run it. What the proposition shows is where the sector programme actually stops: not at
+the residue sieve, whose limit is $68$, but at the cost of an exact enumeration in which the last
+one or two primes are forced by the rest. The two--large--prime case, a factoring problem in general
+($(\Delta\ell_1-41R)(\Delta\ell_2-41R)=1681R^2+1764\Delta$), is finite here only because the smaller
+of the two is trapped in $(1/\delta,2/\delta)$ and $\delta$ is bounded below over a finite list.
+\end{remark}
+
+Three consequences, in increasing order of what they cost.
+
+\emph{The gate is finite, not Lehmer.} The tail primes of a base lie in the explicit finite set
+$\{2(N\pm k)/m^2: m\mid 4D,\ k^2=AB+Dm^2\}$. So the second of the three gates is a search over the
+divisors of $4D$, not a primality question along an exponential sequence, and the classification of
+the residual difficulty as Lehmer--class rather than Schinzel--class does not survive. Checked sound
+\emph{and complete} against exhaustive search on $1200$ bases with zero mismatches, and stepped out
+along a real orbit, in \texttt{code/tailbound.gp}: on the base $D=1$, $N=7$ (bound $N=7$) the orbit
+gives $q_1=7$ prime, then $q_2=741895$, $q_3=76921173511$, and every later term composite, with both
+square conditions holding throughout.
+
+\emph{The count reverses sign, and the search has now been run.} The expected number of admissible
+$m$ is $\sum_{m\mid 4D}(AB+Dm^2)^{-1/2}\approx D^{-1/2}\sum_{m\mid4D}m^{-1}$, which on the first
+immune base is $2.4\times10^{-56}$ and below $10^{-38}$ summed over all $34$ immune families, the
+opposite of the ``weakly favours \textsc{yes}'' of Remark~\ref{rem:killcount} on exactly the families
+that reading was about. That prediction is now checked. The full divisor space is
+$4\cdot2^{58}\approx1.15\times10^{18}$ per family and is not enumerable, but because the hit
+probability falls like $1/(m\sqrt D)$ the expected count is carried by small $m$: restricting to
+$\omega(m)\le8$ leaves $99.9998\%$ of the expected count. Over all $34$ families that slice is
+$3.0777\times10^{11}$ candidates, and
+\[ \textup{it contains no }m\textup{ with }AB+Dm^2\textup{ a perfect square} \]
+($4{,}933$ survive the modular cascade, exact \texttt{issquare} kills all of them; the earlier
+$\omega(m)\le7$ pass, $4.7081\times10^{10}$ candidates and $771$ survivors, agrees).
+
+The same search has been run over \emph{every} admissible base, which matters because
+Proposition~\ref{K-prop:tailbound} requires no primality of $A_S$ or $B_S$, only the algebra. The $34$
+immune families are the ones left after the Jacobi kill and the factoring attack, and their immunity
+is conditional on a Baillie--PSW verdict; the other $3{,}444$ of the $3{,}478$ open families are open
+precisely because $A_S$ or $B_S$ is a balanced semiprime nobody can split. The tail search does not
+care. Over all $49{,}961$ admissible bases at $\omega(m)\le4$, which is $99.2\%$ of the expected count
+per base, the run is $9.1296\times10^{10}$ candidates, $1{,}469$ survive the modular cascade, and
+exact \texttt{issquare} kills all $1{,}469$. Every survivor was additionally checked to satisfy
+$m\mid 4D$, the hypothesis the proposition needs. So
+\[ \textup{no admissible base admits a Pythagorean tail prime with }\omega(m)\le4, \]
+unconditionally and with no primality input. Where Proposition~\ref{prop:tailkill} leaves $3{,}478$
+of the one--new--prime families at level $60$ open, of which $34$ only conditionally immune, this
+leaves none open on the stated slice. It is a slice result and not a proof: the untested remainder is
+$0.8\%$ of the expected count per base, and $\omega(m)\ge5$ is untested.
+The run is \texttt{code/tailsearch.rs} (a cascade of quadratic--residue filters modulo primes coprime
+to $2D$, $771$ survivors) with every survivor then tested exactly by \texttt{issquare} in
+\texttt{code/tailsearch\_verify.gp} ($0$ squares). A positive control recovers the known solutions of
+the toy base $D=1$, $N=7$, and an exhaustive exact run at $\omega(m)\le2$ agrees with the filter, so
+the cascade is not silently over--rejecting.
+
+It is worth recording what the slice covers in the other measure, since the two are thirteen orders
+apart. The parametrisation runs over $m\mid4D$ with $m$ even, so $m=2\alpha$ with $\alpha\mid D$, and
+at level $59$ that is $2^{59}=5.7646\times10^{17}$ divisors. Splitting on the parity of $\alpha$, the
+divisors with $\omega(m)\le4$ number $2\sum_{j\le3}\binom{58}{j}=65{,}136$, and those with
+$\omega(m)\le8$ number $2\sum_{j\le7}\binom{58}{j}=692{,}376{,}800$. As fractions of the space the
+bound $q\le N$ actually proves finite, these are
+\[ 1.130\times10^{-13}\qquad\text{and}\qquad 1.201\times10^{-9}, \]
+against the $99.2\%$ and $99.9998\%$ of the \emph{expected count} quoted above. Both figures are
+correct and they measure different things: the expected count concentrates on small $\omega$, the hit
+probability falling like $1/(m\sqrt D)$, so a slice can carry almost all of the expectation while
+carrying almost none of the space. Only the second pair of numbers is a statement about what has
+been checked. This is \textsc{verified} on the stated slice, not on the
+full divisor set: the residual $0.0018\%$ of the expected count is untested.
+
+The filter primes must be coprime to $2D$, which is itself a structural fact rather than a
+convenience. Since $D$ contains every prime up to $167$, for any $\ell\mid D$
+\[ AB+Dm^2-N^2=D\bigl(m^2-4D\bigr)\equiv0 \pmod{\ell}, \]
+so the value is the square $N^2$ modulo $\ell$ for \emph{every} $m$, and as $\gcd(D,N)=1$ Hensel
+lifts that root to every power of $\ell$. The tail search therefore has no local obstruction at any
+prime dividing $D$, the analogue of Proposition~\ref{prop:localcomplete} for this formulation; the
+classical $64/63/65/11$ pre--filter for squares rejects nothing here, measured at a $75\%$ pass rate
+modulo $64$ and $100\%$ modulo $63$. Formalised as \texttt{tail\_value\_mod\_dvd} and
+\texttt{hensel\_lift\_identity}; the induction from the step to all powers is routine and is not
+formalised.
+
+\emph{The paper's own height estimate now says the same thing.} Remark~\ref{rem:lehmer} puts the
+least point of a nonempty fiber at height $\exp\bigl(10^{112}\bigr)$ on regulator grounds, so its
+$q\approx x^2/A$ carries some $10^{112}$ digits, against a bound of $115$. Two independent estimates,
+one from divisor counting and one from the class--number formula, agree that no immune family admits
+a Pythagorean tail prime. Neither is a proof: the bound $q\le N$ is proved, the emptiness is
+\textsc{heuristic}.
+
+Formalised in \texttt{lean/Erdos307/TailBound.lean} (\texttt{tail\_factor}, \texttt{tail\_quadratic},
+\texttt{tail\_discriminant}, \texttt{tail\_bound}, \texttt{tail\_finite}) on the three standard
+axioms, with a non--vacuity witness at the base above.
+\end{remark}
+
+\begin{remark}[The immune signal, and where its Lehmer reading broke]\label{rem:lehmer}
+Superseded by Proposition~\ref{K-prop:tailbound} and Remark~\ref{rem:notlehmer}: the orbit described
+here is real, but the inference that primality along it is the residual question is not, because the
+tail prime is bounded by $N$. What follows is the orbit, the three gates, and the structural points
+that survive.
+
+For a reciprocity--immune base the Pell system of Remark~\ref{rem:tier60},
+$B_Sx^2-A_Sy^2=-4D_S^2$, is locally soluble everywhere ($\kappa_S>0$), and a Pythagorean pair in the
+tail family $S\cup\{q\}$ is \emph{exactly} a solution with $q=(x^2-D_S)/A_S=(y^2-D_S)/B_S$ a
+positive prime. Its solutions grow like $\varepsilon^n$ in the fundamental unit of the order of
+discriminant $4A_SB_S$ ($224$ digits, $A_SB_S$ a nonsquare, on an explicit immune base). Writing
+$x_{n+1}=tx_n-x_{n-1}$ with $x_n=(\alpha^n+\beta^n)/2$ and $\alpha\beta=1$, the squares $x_n^2$ have
+characteristic roots $\alpha^2,\beta^2,1$ and the constant shift is absorbed by the root $1$, so
+\[ q_n=\frac{x_n^2-D_S}{A_S}\qquad\text{satisfies}\qquad q_{n+3}=(t^2-1)q_{n+2}-(t^2-1)q_{n+1}+q_n, \]
+a non--degenerate ternary linear recurrence (verified on four Pell parameters). A
+reciprocity--killed base is the complementary degeneration: there the same system is locally
+\emph{insoluble} ($\kappa_S=0$), so no candidate exists at all, and the dichotomy of
+Proposition~\ref{prop:tailkill} is Pell--solubility versus Pell--insolubility.
+
+The return is milder than ``$k=0$'' suggests: on the Pythagorean locus the deviation $k=(a'-b)/a$ is
+an \emph{integer} (the identity $v(D(u)-v)=u(u-D(v))$ with $\gcd(u,v)=1$), forced into $\{0,-1\}$ by
+the near--balanced immune ratio, so $k=0$ is a sign choice rather than a measure--zero coincidence,
+and the naive Wieferich shortcut that would pin $q$ is vacuous, since $x^2\equiv D_S\pmod q$ holds
+identically from $x^2=A_Sq+D_S$.
+
+Neither square condition carries the difficulty alone. Imposing only the minus--square,
+$d^2=B_Sq+D_S$, the admissible $d$ satisfy $d^2\equiv D_S\pmod{B_S}$, and along such a class
+$d=d_0+tB_S$ one has
+\[ q(t)\;=\;\frac{d_0^2-D_S}{B_S}\;+\;2d_0\,t\;+\;B_S\,t^2, \]
+a quadratic in $t$ (toy bases: $3+54t+173t^2$, $7+238t+1693t^2$, $2+446t+17357t^2$): a Bunyakovsky
+question, of the same class as the $p=5$ family of Proposition~\ref{C-prop:plus}\textup{(iii)}, and
+conjecturally routine. It is the \emph{conjunction} of the two squares that replaces the quadratic
+parameter by a fundamental unit and turns the orbit exponential.
+
+\emph{Where the reading broke.} That exponential growth was taken to place the question in the
+Lehmer class, on two grounds: no algebraic factorisation is available, $D_S$ being squarefree so
+that $x^2-D_S$ is irreducible, and no covering congruence can kill the family, by
+Proposition~\ref{prop:localcomplete}. Both observations are correct, and neither is the relevant
+one. The factorisation that does exist is not of $x^2-D_S$ but of $x^2-y^2=4D_Sq$, available because
+$A_S-B_S=4D_S$ \emph{exactly}: the identity was used here only to build the Pell system, never
+multiplicatively. Proposition~\ref{K-prop:tailbound} draws it, and the ternary recurrence above then
+supplies no prime term past $q\le N$.
+
+Three nested gates separate an immune family from a solution: fiber nonemptiness, a tail prime, and
+the $k=0$ return. The first is a class--group condition, since Hasse supplies only rational points,
+and it is quantitative: immunity makes $A_SB_S$ a product of two distinct primes, hence squarefree,
+so the conic lives in the near--maximal order of $\mathbb{Q}(\sqrt{A_SB_S})$ of discriminant
+${\sim}A_SB_S\approx10^{224}$, and the class--number formula puts the expected regulator at
+$R=\sqrt\Delta\,L(1,\chi)/(2h)\approx10^{112}$; barring an anomalously large class number, the
+\emph{least} point of a nonempty fiber sits at height $\exp\bigl(10^{112}\bigr)$. That estimate is
+used in Remark~\ref{rem:notlehmer} as independent corroboration that the second gate is empty. A
+direct sweep to $q\le10^{12}$ was structurally incapable of reaching even the first gate.
+\end{remark}
+
+\begin{remark}[The affine sieve does not reach a rank--one orbit]\label{rem:affinesieve}
+The modern instrument for primes in orbits is the affine sieve of Bourgain, Gamburd and Sarnak
+\cite{BGS2010}, which produces $r$--almost--primes in orbits of thin groups. It is the one method
+designed for exactly the shape of question Remark~\ref{rem:lehmer} isolates, so its failure here is
+worth recording precisely rather than left implicit.
+
+The affine sieve needs a spectral gap: the congruence quotients of the acting group must form an
+expander family, and that is what supplies the level of distribution the sieve consumes. Here the
+$q_n$ run along a Pell orbit, so the acting group is the cyclic group generated by the fundamental
+unit of the order of discriminant $4A_SB_S$. Cyclic groups are abelian, hence amenable, and have no
+spectral gap; expansion is precisely the property an abelian group lacks. The sieve therefore
+returns nothing, and it returns nothing on $2^n-1$ for the same reason. The obstruction is rank, not
+thinness as such: non--elementary thin orbits, Apollonian packings among them, do yield
+almost--primes.
+
+The natural repair fails for a reason worth stating too. One may embed the rank--one orbit in a
+larger thin group whose orbit does expand, and sieve there. What the affine sieve then delivers is
+infinitely many almost--primes in the \emph{larger} orbit, inside which our sequence has relative
+density zero; the sieve does not localise to a prescribed sub--orbit. Expansion is bought at the
+cost of losing the sequence.
+
+This meets the unit--rank trichotomy of Remark~\ref{B-rem:dichotomy} from a second direction. There,
+rank zero gave a classical gate and denied a continuous family, positive rank the reverse. Here,
+rank one is exactly the cell in which the affine sieve has no traction. Stated as a single missing
+property: what is wanted is a substitute for expansion at rank one, and that is the Mersenne problem
+itself, not a lemma about \#307.
+\end{remark}
+
+\begin{remark}[The gap to the record, measured]\label{rem:sparserecord}
+It is worth stating how far the required statement is from the best that is known, because the
+distance is not one of degree.
+
+Write a sequence's \emph{density exponent} $\theta$ for $\#\{n\le X\}\asymp X^{\theta+o(1)}$. The
+sparsest sets currently proved to contain infinitely many primes are the values of binary forms:
+$a^2+b^4$ at $\theta=3/4$, by Friedlander and Iwaniec \cite{FI1998}, and $a^3+2b^3$ at $\theta=2/3$,
+by Heath-Brown \cite{HB2001}, the latter being the sparsest polynomial form known to capture its
+primes. Our $q_n$ grow like $\varepsilon^{2n}$, so $\#\{n:q_n\le X\}\asymp\log X$ and
+\[ \theta=0. \]
+
+The distance from $2/3$ to $0$ is categorical rather than quantitative. Both records are bilinear
+arguments: they run a sieve of dimension one and close it with a Type~II estimate obtained by
+averaging over a set of size a positive power of $X$. Every gain in such an argument is a gain of a
+power of $X$, and against $\log X$ terms a power of $X$ gains nothing; below $\theta=1/2$ the
+standard sieve axioms already fail, and at $\theta=0$ there is no set left to average over. This is
+the same wall as Remark~\ref{rem:affinesieve} approached from the analytic rather than the spectral
+side, and it is why every sequence of exponent zero, Mersenne, Fibonacci, Lucas and ours alike, is
+open together.
+
+The structure our sequence does carry is the standard one and confers nothing. From
+$A_Sq_n=x_n^2-D_S$ one gets $x_n^2\equiv D_S$ for every prime $p\mid q_n$ not dividing $D_S$, so all
+prime factors of $q_n$ lie in the density--$\tfrac12$ set where $D_S$ is a quadratic residue. That
+constrains the factorisations without excluding any, which is exactly the position the primitive
+divisor theorems already left us in: divisors, never primality.
+\end{remark}
+
+\begin{remark}[The residue, atomised, and where its difficulty comes from]\label{rem:atomised}
+Decomposing the question into independently known statements locates the obstruction on a single
+atom and identifies its source.
+
+Two atoms carry theorems. Every $q_n$ beyond the thirtieth has a primitive prime divisor
+\cite{BHV2001}; and the greatest prime factor satisfies
+$P^+(q_n)>n\exp\bigl(\log n/(104\log\log n)\bigr)$, by Stewart \cite{Stewart2013}, which settled
+questions of Schinzel and Erd\H{o}s and was the first general advance on Bang and Carmichael. Every
+other atom, that $q_n$ be squarefree infinitely often, that $\omega(q_n)$ be bounded infinitely
+often, that $q_n$ be a $P_k$, and primality itself, is open.
+
+The chain that would close the crux is $P^+$ large, hence $\omega$ small, hence prime. It breaks at
+the first link, and by a measurable amount. Stewart's bound certifies
+$\log P^+\ge(1+o(1))\log n$ against $\log q_n\approx2n\log\varepsilon$, so the fraction of the
+term's size that is certified is of order $\log n/n$: $10.6\%$ at $n=10$, $0.32\%$ at $n=10^3$,
+$4\times10^{-4}\%$ at $n=10^6$. Primality is the fraction $1$. No sharpening of the constant $104$
+changes this, since $n^{1+o(1)}$ is the shape linear forms in logarithms produce. The Subspace
+Theorem is the other available instrument and does not help: it is stronger under weaker hypotheses
+but ineffective \cite{BCZ2003}, and an ineffective statement cannot exhibit the single prime term a
+construction needs.
+
+The source is visible in the comparison with the polynomial case. For $n^2+1$ the greatest prime
+factor exceeds $n^{1.3}$ infinitely often \cite{Merikoski2019}, that is $q^{0.65}$, a \emph{positive
+proportion} of the term's size, and on such sequences almost-primality is available too. For an
+exponentially parametrised sequence only $(\log q)^{1+o(1)}$ is available, a vanishing proportion.
+The gap between the two regimes is exactly the gap between polynomial and exponential
+parametrisation, and Proposition~\ref{K-prop:nopoly} proves \#307 admits no polynomial one. So the
+obstruction recorded in Remark~\ref{rem:affinesieve} as a question of rank, in
+Remark~\ref{rem:sparserecord} as one of density exponent, and here as one of $P^+$, is a single
+obstruction with three faces, and its source is Proposition~\ref{K-prop:nopoly}: forced exponentiality
+is what places the residue in the class where nothing of the required strength is known.
+
+Two things sharpen that attribution, and both make the obstruction less incidental rather than more.
+First, the boundary is exactly where Proposition~\ref{K-prop:nopoly} sits. The fraction of a term's
+size that Stewart's bound certifies is $\log P^+/\log q_n\approx\log n/\log q_n$, so it stays bounded
+below precisely when $\log q_n\ll\log n$, that is when $q_n$ grows polynomially: degree $d$ gives the
+constant $1/d$. Every super-polynomial rate sends it to $0$, and not only the exponential one:
+$\exp(\sqrt n)$ and $n^{\log n}$ do as well. So polynomial growth is not one convenient case among
+several, it is the whole of the favourable region, and it is exactly what
+Proposition~\ref{K-prop:nopoly} excludes.
+
+Second, the hypotheses of Proposition~\ref{K-prop:nopoly} are worth testing, since a gap there would
+dissolve everything above. It assumes a \emph{fixed} number of polynomials, and its proof uses that
+finiteness when it splits $\sum_i1/p_i$ into constants plus a remainder tending to $0$. A family
+whose support grows with the parameter is therefore not covered. That gap is real and useless: a
+growing support means a growing number of simultaneous primality conditions, which is a harder
+demand than one, not an easier one, and it does not return the family to the polynomial regime. The
+proposition forbids the case that would help and leaves uncovered only cases that would not.
+\end{remark}
+
+\begin{remark}[The squarefree atom, and what it reduces to]\label{rem:squarefree}
+Among the four open atoms one is structurally easier, and it is worth saying why and how far it
+gets. Squarefreeness of $q_n$ asks only for an \emph{upper} bound on a count of bad events, never
+for the production of a prime, so it is the one atom not subject to the parity obstruction that
+blocks bounded $\omega$, $P_k$, and primality.
+
+The argument it wants is a union bound. For a prime $p\nmid2A_SD_S$, $p^2\mid q_n$ forces
+$x_n^2\equiv D_S\pmod{p^2}$; the Pell orbit is purely periodic modulo $p^2$ with period
+$\pi(p^2)$, there are at most two square roots of $D_S$, and each is met a bounded number of times
+per period, so the density of bad $n$ attached to $p$ is at most $C/\pi(p^2)$. Where
+$\pi(p^2)=p\,\pi(p)$, which is the generic behaviour, and $\pi(p)\asymp p$, this is $\asymp C/p^2$,
+and the union bound closes as soon as $C\sum_pp^{-2}<1$. The constant is comfortable:
+$\sum_pp^{-2}=0.4522474\ldots$, so any $C<2.21$ suffices, and a positive proportion of the $q_n$
+would be squarefree, hence infinitely many.
+
+What is missing is the hypothesis $\pi(p^2)=p\,\pi(p)$. Its failure is precisely a
+Wall--Sun--Sun prime for the sequence, and there the density is $\asymp1/p$ rather than
+$\asymp1/p^2$, whose sum diverges and destroys the bound. No such prime is known for any classical
+sequence and their finiteness is unproved, so the atom does not close: it \emph{reduces} to a
+Wall--Sun--Sun statement. That is a sharper position than ``open'', since it names the obstruction
+and shows it is a single hypothesis rather than a programme, but it is a reduction and not a proof.
+
+The unconditional pieces are formalised. \texttt{Erdos307.primeSquareSum\_certificate} gives
+$\sum_pp^{-2}<\tfrac12$ in the finite form used above, the first six primes together with the bound
+$\tfrac12\sum_{m\ge16}m^{-2}<\tfrac1{30}$ for the odd primes beyond; \texttt{good\_density\_pos} and
+\texttt{squarefree\_positive\_density\_of\_bound} are the union bound and the conditional
+implication. All carry $0$ \texttt{sorry} and the three standard axioms
+\textup{(\texttt{lean/Erdos307/Squarefree.lean})}.
+
+Two further points fix the standing of this atom, and both are negative. First, on the immune bases
+the argument is blocked at its \emph{lowest} rung as well as its highest. The density attached to a
+single small $p$ is $\#\{n\bmod\pi(p^2):p^2\mid q_n\}/\pi(p^2)$, read off the Pell orbit modulo
+$p^2$, and that needs the fundamental solution, the object Remark~\ref{B-rem:untestable}\,(i) places
+at $10^{24.7}$ operations. For a Lucas sequence with a known fundamental unit the small-prime rung is
+a finite computation; here it is not. The ladder is therefore blocked at both ends, by
+non-computability below and by Wall--Sun--Sun above. Second, and more to the point, squarefreeness is
+not what the construction needs: Remark~\ref{rem:lehmer} requires $q$ to be \emph{prime}, and a
+squarefree $q$ with several prime factors is useless there, so even the dream lemma of this atom
+would leave \#307 exactly where it stands. Of the four atoms this is the easiest, and it is also the
+only one whose resolution would not advance the problem.
+\end{remark}
+
+\section{Local anatomy and a heuristic model}\label{sec:anatomy}
+
+\begin{lemma}[Local anatomy]\label{lem:anatomy}
+Let $a$ be squarefree and $q$ a prime with $q\nmid a$. Then $q\mid a'$ if and only if
+$\sum_{p\mid a}p^{-1}\equiv 0\pmod q$, where $p^{-1}$ is the inverse of $p$ modulo $q$. If $q\mid a$,
+then $q\nmid a'$.
+
+\textup{Formalised.} \texttt{Erdos307.anatomy\_iff}, with the factorisation
+$a'\equiv a\sum_{p\mid a}p^{-1}$ proved as \texttt{csum\_eq\_mul\_recipSum} rather than assumed; the
+second half is \texttt{anatomy\_on\_support} and is Rigidity
+\textup{(\texttt{lean/Erdos307/Frame.lean})}.
+\end{lemma}
+\begin{proof}
+$a'=a\sum_{p\mid a}1/p$. If $q\nmid a$ then $q\mid a'$ iff $q\mid a\sum_{p\mid a}p^{-1}$ iff
+$\sum_{p\mid a}p^{-1}\equiv0\pmod q$. If $q\mid a$, then by Lemma~\ref{K-thm:rigidity}
+applied to the prime set of $a$, $q\nmid a'$.
+\end{proof}
+
+Thus the cycle equation $a'=b$, $b'=a$ factors, prime by prime, into
+$\omega(a)+\omega(b)$ local congruences of exactly the shape that governs amicable--pair heuristics:
+for each $q\mid b$ one needs $\sum_{p\mid a}p^{-1}\equiv0\pmod q$, and symmetrically. These local
+conditions, however, are individually \emph{empty of obstruction}:
+
+\begin{proposition}[No single--modulus congruence obstruction]\label{prop:nolocal}
+For every modulus $m$ with $2\le m\le210$, the reduced cross--match system $N_P\equiv D_Q$,
+$N_Q\equiv D_P\pmod m$ is realisable by disjoint squarefree prime sets $P,Q$, in both structural
+branches: $\gcd(m,D_PD_Q)=1$, and the branch in which a prime divisor of $m$ lies in $P\cup Q$. Hence
+no individual modulus in this range can rule out a solution of \#307.
+\end{proposition}
+\begin{proof}[Construction]
+Write $\Sigma_S\equiv\sum_{p\in S}p^{-1}\pmod m$, so $N_S\equiv D_S\Sigma_S$. The reduced system is
+$\Sigma_P\equiv D_Q D_P^{-1}$, $\Sigma_Q\equiv D_P D_Q^{-1}\pmod m$; its only coupling is
+$\Sigma_P\Sigma_Q\equiv1$, automatic, with $D_P,D_Q$ otherwise free. By Dirichlet each unit class mod
+$m$ contains primes, fixing $D_P,D_Q$; appending a prime $r\equiv1\pmod m$ leaves $D_S$ fixed while
+sending $N_S\mapsto rN_S+D_S\equiv N_S+D_S$, i.e.\ incrementing $\Sigma_S$ by $1$, so (when
+$\gcd(D_S,m)=1$) every target class is reached with disjoint sets. In the branch $\ell\mid m$,
+$\ell\in P$, reduction mod $\ell$ collapses the system to $N_Q\equiv D_P\equiv0\pmod\ell$, met by
+inverse--paired residues in $Q$; composite $m$ needs no separate gluing, the increment acting directly
+mod $m$. We verified both branches for all $2\le m\le210$ (for prime and prime--power moduli the
+inside branch requires the directed construction above; seeding a prime divisor of $m$ into $P$,
+a blind search missing these as a search--power artefact, not an arithmetic obstruction).
+\end{proof}
+\begin{remark}[Precise scope]
+This excludes only a \emph{single fixed--modulus} congruence disproof. The witnesses are
+$m$--dependent (the modulus--$6$ witness already fails modulo $210$), and a single $(P,Q)$ solving the
+system for \emph{all} $m$ simultaneously is, for bounded integers, equivalent to the integer identities
+$N_P=D_Q$, $N_Q=D_P$ (that is, to \#307 itself) so per--modulus solvability is \emph{no} evidence
+for existence. Nor does it exclude other finite or local negative arguments (size/Mertens bounds,
+density, magnitude--congruence hybrids, or a Hasse--type failure across infinitely many moduli);
+indeed our own $|U|\ge59$ and $2.09\times10^{56}$ barriers are finite--data results fully consistent
+with it. Together with Theorem~\ref{B-thm:ff} (every non--archimedean shadow trivially negative for
+degree reasons) it brackets the problem: no single--modulus obstruction over $\mathbb{Z}$, fatal
+non--archimedean analogues over $\mathbb{F}_q[t]$, the difficulty living at the archimedean place.
+\end{remark}
+
+\paragraph{A first--order count.}
+Model a candidate squarefree $a$ as ``$P$--abundant'' ($\sum_{p\mid a}1/p>1$) and ask for
+$b=a'$ to itself be $Q$--abundant with $\sum_{q\mid b}1/q=1/s$. Two empirical inputs (Section
+\ref{K-sec:computations}) calibrate this:
+\begin{itemize}[leftmargin=1.4em]
+\item the density of $P$--abundant $n$ is $\delta=0.0420$ (and $\approx0.0176$ among squarefree
+$n$); a theorem, not merely an observation (Proposition~\ref{prop:density});
+\item for a qualifying squarefree $a$, $b=a'$ is squarefree about $95\%$ of the time, but its mass
+$\sum_{q\mid b}1/q$ has mean $\approx0.047$ against the required $\approx0.934$; the empirical tail
+probability $\Pr[\sum_{q\mid b}1/q\ge 1/s]$ is $0$ in $40{,}920$ samples at these scales
+(Section~\ref{K-sec:computations} of the core note).
+\end{itemize}
+The gap is structural: at small scale a $P$--abundant $a$ hogs the cheap mass--carrying small primes,
+and $b=a'$, being coprime to $a$, is both too small and too coprime to assemble reciprocal mass
+$1/s$. The extremal case is stark: for the primorial $a=\prod_{i\le k}p_i$, though $\sum_{p\mid a}1/p$
+rises through $2$ at $k=59$, the cofactor sum $a'$ is essentially prime, with $\sum_{q\mid a'}1/q<0.2$
+for every $k<100$ (and only $0.0014$ at $k=59$): the family that \emph{maximises} the forward mass is
+the most starved on the return. Equivalently, for squarefree $n$ with $n'$ squarefree,
+$n''=n\,\sigma(n)\,\sigma(n')$, so the two--step return ratio $n''/n=\sigma(n)\sigma(n')$ is the \#307
+product itself; over \emph{all} such $n<10^6$ it stays strictly below $1$, never exceeding $0.54$
+(maximal at $n=969969=3\cdot7\cdot11\cdot13\cdot17\cdot19$), so $D$ is two--step contracting throughout
+the tested range and must reverse to unit ratio for a solution to exist. The first scale at which $b$
+could plausibly carry the required mass is of the order of the
+barrier ($\sim10^{56}$); this dynamical mass--gap is \emph{consistent with} the proved barrier rather
+than an independent derivation of it (the empirical tail probability $0$ at small scale is equally
+consistent with \textsc{no} and with \textsc{yes}--beyond--the--barrier). A naive ``expected number
+of solutions'' built from the local congruences (one factor $\sim1/q$ per condition) diverges like a
+constant times $\log X$; this is a divergent naive count of exactly the type known to be unreliable,
+so we treat it only as very weak, non--rigorous suggestive evidence that solutions could exist at or
+beyond the barrier.
+
+\begin{remark}[Calibration]
+We present the count of the previous paragraph as a heuristic, not a theorem. Heuristics of
+amicable--pair type are known to be delicate; we report it as weak evidence, consistent with the
+divergence of the refined expected count, that the answer to \#307 is plausibly \textsc{yes}
+(and hence that the period--one form of the Ufnarovski--\AA hlander conjecture is plausibly false).
+\end{remark}
+
+\begin{remark}[A cautionary refinement]\label{rem:refined}
+One can try to sharpen this into a quantitative rate using a Kubilius/Erd\H{o}s--Wintner model,
+stratified over which small primes lie in the support of $a$ versus remain available to $b$. Two
+lessons emerge, both methodological. First, a plain Monte--Carlo estimate \emph{undercounts} the rate
+by some $10^{61}$: the expectation is dominated by rare, balanced splits of the small primes that
+sampling almost never sees, so a naive estimate of this kind is misleadingly small and only an
+explicit stratified sum corrects it. Second, and this is why we record no numerical prediction,
+the stratified estimate is itself unstable: refining the stratification from the first $8$ to the
+first $14$ primes drops the rate by some $17$ orders of magnitude and pushes the implied first
+occurrence from $\sim10^{10^{38}}$ out past $\sim10^{10^{55}}$, with no sign of convergence. The only
+robust conclusion is negative: every version places a hypothetical first solution \emph{doubly
+exponentially} beyond any conceivable search, consistent with the constructive deficit of
+Section~\ref{sec:breeder}; the model does not reliably decide existence in either direction.
+\end{remark}
+
+\begin{proposition}[The abundance density is a theorem]\label{prop:density}
+The additive function $f(n)=\sum_{p\mid n}1/p$ satisfies the Erd\H{o}s--Wintner three--series
+criterion \cite{Tenenbaum} (here $\sum 1/p^2$ and $\sum 1/p^3$ converge), so $f$ has a limiting
+distribution and the
+density $\delta=\lim_{x\to\infty}\tfrac1x\#\{n\le x:f(n)>1\}$ exists, equal to $\Pr\bigl[\sum_p
+X_p/p>1\bigr]$ for independent $X_p\sim\mathrm{Bernoulli}(1/p)$. Moreover the constant carries a
+\emph{certified} enclosure:
+\[ 0.04202\;\le\;\delta\;\le\;0.04223. \]
+Writing $S_1=\sum_{p\le P_1}X_p/p$, $P_1=3\times10^4$, and $T\ge0$ for the tail, monotone upper and
+lower cdf envelopes of $S_1$ are propagated through the Bernoulli convolution on a grid of step
+$10^{-7}$ with the shift $1/p$ rounded down for the upper and up for the lower envelope (which
+preserves them, cdfs being nondecreasing) so $\delta\ge1-U(1)$ costs nothing (the tail is
+nonnegative), while $\delta\le1-L(1-a)+\Pr[T\ge a]$ with the explicit Chernoff bound
+$\Pr[T\ge a]\le\exp(1.36-P_1a)$, $a=10^{-3}$ (from
+$\log\mathbb{E}\,e^{\lambda T}\le\lambda s_2+0.72\lambda^2s_3$ at $\lambda=P_1$, using
+$s_2<1/P_1$, $s_3<1/(2P_1^2)$ and $e^x-1\le x+0.72x^2$ on $[0,1]$); float slack $10^{-9}$ exceeds
+the accumulated rounding by nine orders, and the machinery reproduces an exact four--prime
+reference to $2\times10^{-16}$ (\texttt{code/delta\_cert.py}). The point value $0.0420$, at the
+bottom of the enclosure, agrees to four places with the sieve to $2\times10^7$; the upper edge is
+conservative, carried almost entirely by the $a$--window. As for the density of abundant integers,
+no closed form is expected.
+\end{proposition}
+
+\begin{remark}[Two dynamical probes: no second obstruction]\label{rem:dynamical}
+Two measurements sharpen the picture beyond the first--order mass count, and both cut towards rather
+than against a solution. \emph{(i) Image density.} A two--cycle needs \emph{both} members in the image
+$D(\mathbb{N})$ (each is the other's derivative), so one might fear a second obstruction; that the
+high--mass numbers a cycle requires are seldom derivatives. The opposite holds: of the integers below
+$10^7$, $68.3\%$ lie in $D(\mathbb{N})$, and the fraction \emph{rises} with mass, from $61.7\%$ at
+$\sum_{p\mid n}1/p<0.2$ to $78.2\%$ at $\sum_{p\mid n}1/p>1$ and $80\%$ beyond. The high--mass numbers
+are thus over--represented among derivatives; the second cycle condition is comfortably met.
+\emph{(ii) The barrier is where the balanced mass--product reaches $1$.} Set
+$r(n)=\bigl(\sum_{p\mid n}1/p\bigr)\bigl(\sum_{q\mid n'}1/q\bigr)=D^2(n)/n$, so $r=1$ is exactly the
+cycle condition. Exhaustively over $n\le X$ the maximum of $r$ climbs $0.50\to0.62$ as $X$ runs
+$10^3\to10^9$ (with no exact cycle, as the barrier demands), with no ceiling; the climb follows the
+balanced split $r\approx(S(k)/2)^2$, $S(k)=\sum_{i\le k}1/p_i$, which reaches $1$ precisely when
+$S(k)=2$, i.e.\ $k\approx59$. The dynamical trajectory thus reproduces the $|U|\ge59$ barrier from the
+opposite direction. Neither probe decides existence; both \emph{remove} hypothetical obstructions,
+leaving the exact archimedean closure as the sole gate.
+\end{remark}
+
+\begin{remark}[Why the analytic method is starved: $N(r)\le1$]\label{rem:nostructure}
+The rank--one rigidity (Section~\ref{K-sec:status} of the core note) has a sharp consequence for the circle--method
+machinery that resolves the \emph{unrestricted} Egyptian--fraction problem. For a rational $r$ let
+$N(r)=\#\{\,P:\sum_{p\in P}1/p=r\,\}$ count the finite prime sets with reciprocal sum $r$. Then
+\[N(r)\le1:\]
+by the Rigidity Lemma (Theorem~\ref{K-thm:rigidity}) the sum $\sum_{p\in P}1/p=N_P/D_P$ is already in
+lowest terms, so the reduced denominator of $r$ equals $D_P=\prod P$ and $P$ is exactly its set of
+prime divisors; uniquely determined ($N(r)=1$ precisely when that denominator is squarefree and the
+numerator of $r$ is its cofactor sum). The circle method needs the opposite: a target hit by a positive
+proportion of subsets, so a main term dominates. This is exactly what Bloom's shift to $\{p-1\}$
+manufactures, $p-1$ being composite and divisor--rich, a rational is the reciprocal sum of
+\emph{many} subsets of $\{1/(p-1)\}$ (already among the first fourteen shifted primes the multiplicity
+reaches $3$ and grows), whence \cite{BloomShifted} represents every positive rational there. Over the
+primes themselves $N(r)\le1$ leaves nothing to average: the analytic engine that reaches $\{p-h\}$ is
+provably starved on $\{p\}$, and this is the method--level reason \#307 (the rank--one, exact--prime
+case) lies beyond it.
+\end{remark}
+
+\section{A breeder form and the feasibility of certificate search}\label{sec:breeder}
+
+Allowing \emph{two} free primes on one side turns the divisor trick into a cleaner bilinear form,
+Euler's amicable--pair method, in the shape used by te~Riele's breeding algorithms
+\cite{teRiele1984}, and lets us state precisely the strongest honest conclusion: a
+\emph{conditional} reduction, which nonetheless does not become a feasible finite search.
+
+\begin{proposition}[Bilinear breeder form]\label{prop:bde}
+Fix coprime squarefree $M_0,N$ and seek a two--cycle $a=M_0rp$, $b=Nq$ with $r,p,q$ distinct primes
+coprime to $M_0N$. Put $G:=NM_0-N'M_0'\ (=\Delta_0)$, $c:=M_0N'$, and $K:=GN^2+c^2$. Then the cycle
+equations $a'=b$, $b'=a$ are equivalent to
+\[
+(Gr-c)(Gp-c)=K, \qquad q=\frac{M_0rp-N}{N'}.
+\]
+\end{proposition}
+\begin{proof}
+Expanding, $(Gr-c)(Gp-c)-K=-N'G\,(a'-b)$ (verified symbolically), so the bilinear equation is
+equivalent to $a'=b$; the second cycle equation $b'=a$ then determines $q$ as stated.
+\end{proof}
+
+\begin{proposition}[The breeder is integral]\label{prop:bdeint}
+Keep the notation of Proposition~\textup{\ref{prop:bde}} and let $G\ne0$. Then
+\[ (Gr-c)(Gp-c)=K \iff G\,rp-c(r+p)=N^{2}, \]
+and every solution of that equation has
+\[ N\ \big|\ a', \qquad q=\frac{M_0rp-N}{N'}=\frac{a'}{N}\ \in\ \mathbb{Z}. \]
+\end{proposition}
+\begin{proof}
+Expanding, $(Gr-c)(Gp-c)-c^{2}=G\bigl(G\,rp-c(r+p)\bigr)$ while $K-c^{2}=GN^{2}$, so the two
+equations differ by the factor $G\ne0$. Substituting $G=NM_0-N'M_0'$, $c=M_0N'$, $a=M_0rp$ and
+$a'=M_0'rp+M_0(r+p)$ into $G\,rp-c(r+p)=N^{2}$ gives
+$NM_0rp-N'M_0'rp-M_0N'(r+p)=N^{2}$, that is
+\[ N\,(a-N)\;=\;N'\bigl(M_0'rp+M_0(r+p)\bigr)\;=\;N'a'. \]
+Hence $N\mid N'a'$, and $N$ squarefree gives $\gcd(N,N')=1$, so $N\mid a'$ and $q=a'/N$.
+\end{proof}
+
+This is worth isolating because the displayed $q=(M_0rp-N)/N'$ is a quotient by a quantity of the
+size of the barrier, and one might expect a candidate to be usable only when $N'$ happens to divide
+$M_0rp-N$, a further demand of probability about $1/N'$, which would leave the construction
+hopeless for reasons having nothing to do with primality. There is no such demand. The expectation
+$\mathbb{E}\approx\bigl(\tau(K)/G\bigr)(\ln r\ln p\ln q)^{-1}$ is therefore the correct count: the
+breeder loses candidates only to primality, never to integrality. A scan of $51{,}132$ frames
+(\texttt{code/breeder\_integral.gp}) produced $9$ admissible candidates, every one with integral $q$.
+Formalised in \texttt{lean/Erdos307/Breeder.lean}.
+
+Each factorisation $K=d\cdot(K/d)$ with $d\equiv-c\ (\mathrm{mod}\ G)$ proposes a candidate
+$(r,p)=\bigl((d+c)/G,(K/d+c)/G\bigr)$; a solution is any such candidate whose $r,p,q$ are all prime.
+A dual, partition--side form is occasionally useful:
+
+\begin{proposition}[Subset form]\label{prop:subset}
+For a support $U$ with $D=\prod_{p\in U}p$ and $\Sigma=\sum_{p\in U}D/p$, a partition $U=P\sqcup Q$
+solves \#307 iff $S=P$ satisfies $A(\Sigma-A)=D^2$, where $A:=\sum_{p\in S}D/p$. Moreover
+$A(\Sigma-A)-D^2=-(1-s_Ps_Q)\,D^2$.
+\end{proposition}
+
+(Both identities verified symbolically and on $2\times10^4$ random supports.) The last identity says
+the ``analytic'' residual $1-s_Ps_Q$ and the ``arithmetic'' residual $A(\Sigma-A)-D^2$ are one
+equation up to the factor $D^2$: the two obvious steering handles carry no independent information.
+
+\paragraph{A conditional reduction.} Several ingredients of a construction are unconditional. Greedy
+Egyptian--fraction choice gives disjoint $P,Q$ with $0<1-s_Ps_Q=O(1/T)$ (solvability to any
+precision); a prime $r$ nearest $M_0N'/\Delta_0$ gives $G\le\Delta_0^{0.475}(M_0N')^{0.525}$
+unconditionally (Baker--Harman--Pintz \cite{BHP2001}), and each small prime $\ell$ can be forced to
+divide $K$ by one congruence on a free prime slot of $N$ (Dirichlet then supplies the prime).
+Granting these, \#307 reduces to a single prime--density statement,
+\[
+(\mathrm{H})\qquad\text{among the admissible candidates so produced, some triple $(r,p,q)$ is prime,}
+\]
+and $(\mathrm{H})\Rightarrow$ \#307 is \textsc{yes}. This $(\mathrm{H})$ is a
+Hardy--Littlewood/Bateman--Horn--type assertion for an explicit, computable, \emph{non--polynomial}
+family; we know of no named conjecture implying it. That is not an accident of our construction:
+
+\begin{proposition}[No fixed--shape family, of any growth rate]\label{prop:nofamily}
+Let $P(t)=\{p_1(t),\dots,p_k(t)\}$ and $Q(t)=\{q_1(t),\dots,q_l(t)\}$ be families of integers of
+\emph{any} shape (no polynomial, algebraic or analytic hypothesis is imposed) indexed by
+$t\in\mathbb{N}$, with $k,l$ fixed. Suppose each member takes positive prime values, each nonconstant
+member tends to $+\infty$, and
+$\bigl(\sum_i1/p_i(t)\bigr)\bigl(\sum_j1/q_j(t)\bigr)=1$ for \emph{infinitely many} $t$. Then every
+member is constant.
+\end{proposition}
+\begin{proof}
+Let $\varphi$ enumerate, in increasing order, the $t$ at which the relation holds; $\varphi$ is
+strictly monotone, so $\varphi(n)\to\infty$. Split each side into its constant members, contributing
+$A_P$ and $A_Q$, and its nonconstant ones, contributing $\varepsilon_P(t),\varepsilon_Q(t)>0$ which
+tend to $0$ because each nonconstant member tends to $+\infty$ and there are finitely many. Along
+$\varphi$ the relation holds at every index and the remainders still tend to $0$, so
+Proposition~\ref{K-prop:nopoly}'s two steps apply verbatim: the limit gives $A_PA_Q=1$, and subtracting
+leaves $A_P\varepsilon_Q+A_Q\varepsilon_P+\varepsilon_P\varepsilon_Q=0$ with every term nonnegative
+and some term strictly positive if a nonconstant member exists.
+\end{proof}
+
+The proof of Proposition~\ref{K-prop:nopoly} uses polynomiality in exactly one place, to pass from
+``holding at infinitely many $t$'' to ``holding identically'', and restricting to the subsequence
+removes that need. What the argument actually consumes is three hypotheses (finitely many members,
+positive values, nonconstant members growing) and none of them is about shape.
+
+The strengthening is not cosmetic. Excluding polynomial families rules out a reduction of \#307 to
+Bunyakovsky, Schinzel or Bateman--Horn, but it says nothing about \emph{exponential} families, and
+those are what the classical technique for problems of this kind actually uses: Th\=abit's rule for
+amicable pairs runs on primes $3\cdot2^{n}-1$, $3\cdot2^{n-1}-1$, $9\cdot2^{2n-1}-1$, and Euler's
+generalisation is of the same shape. A member $3\cdot2^{n}-1$ is positive and tends to infinity, so
+it satisfies the hypotheses above and the family is excluded. Proposition~\ref{prop:nofamily}
+therefore closes the whole Th\=abit/Euler programme for \#307, not merely its polynomial shadow: no
+fixed--shape rule of any growth rate can generate solutions, and the constructive calculus of
+Section~\ref{K-sec:frame} of the core note is not failing for want of a cleverer ansatz.
+
+Two limits on the statement should be read with it. The hypothesis that the families have
+\emph{fixed} cardinality is used, in the splitting into constants plus a remainder tending to $0$, and
+a family whose support grows with $t$ is not covered; that gap is real, and harmless, since a growing
+support is a growing number of simultaneous primality demands rather than a weaker one. And
+positivity is a genuine hypothesis, not a consequence, for the reason recorded in
+Remark~\ref{rem:nopolyerratum}. Formalised as \texttt{Erdos307.no\_family\_of\_any\_shape} on three
+standard axioms, in the same shape as Proposition~\ref{K-prop:nopoly}: the abstract core is proved, and
+the two facts the family supplies, that each nonconstant member contributes a strictly positive
+reciprocal and that the remainders tend to $0$, enter as hypotheses rather than being derived, so
+what is imported stays visible. The theorem's statement quantifies over arbitrary index types and
+arbitrary $f_P:\mathbb{N}\to\iota\to\mathbb{R}$; no polynomial occurs anywhere in it.
+
+\begin{remark}[Positivity is a hypothesis, not a consequence]\label{rem:nopolyerratum}
+It is not enough to ask only that each polynomial take prime values for infinitely many integers $t$, without requiring the values to be positive on a common branch. As printed that statement is
+\emph{false}: take $P=(2,2,t,-t)$ and $Q=(2,2)$. Each member takes prime values for infinitely many
+integers, and
+\[ \Bigl(\tfrac12+\tfrac12+\tfrac1t-\tfrac1t\Bigr)\Bigl(\tfrac12+\tfrac12\Bigr)=1 \]
+identically, with two nonconstant members present. The proof's step ``every term on the left is
+nonnegative'' silently assumes positivity, which is exactly the missing hypothesis; with it, as now
+stated, the proof is correct and the counterexample is excluded.
+
+The formalisation carries the repaired statement, not the printed one:
+\texttt{Erdos307.nonconstant\_empty} takes $0<f_P(i)$ for every nonconstant member as an explicit
+hypothesis, so the Lean development was already stating the corrected proposition. This is the one
+place in the paper where formalisation caught a missing hypothesis before review did.
+\end{remark}
+
+\noindent This upgrades the earlier computational observation (that the breeder family is not
+polynomially parametrised) to a theorem for \emph{all} fixed--shape families: the prime--density
+hypothesis behind \#307 is irreducibly non--polynomial, which is why no standard conjecture applies.
+
+\begin{proposition}[Near--miss frames are extremal for $G$]\label{prop:nearframe}
+Let $a$ be squarefree with $a'$ squarefree, and take the frame $(M_0,N)=(a,a')$, so that
+$M_0'=a'$ and $N'=a''$. Then
+\[ G\;=\;NM_0-N'M_0'\;=\;a'\,(a-a''), \]
+and since $a''\ne a$ unless \#307 is solved, $|a-a''|\ge1$ and therefore $|G|\ge a'$.
+\end{proposition}
+\begin{proof}
+Direct substitution; the inequality is $|a-a''|\ge1$ for the nonzero integer $a-a''$.
+\end{proof}
+
+The point is not that the bound is large but that it runs the wrong way. Writing $r=a''/a$ for the
+near--miss ratio, $G=aa'(1-r)$, so a frame built from a good near--miss has $1-r$ small and $aa'$
+correspondingly large, and the two cancel \emph{exactly}, because $a(1-r)=a-a''$ is an integer and a
+nonzero one. Improving the near--miss therefore does not shrink $G$; it drives $a'$ up and $G$ with
+it. The witness of Proposition~\ref{B-prop:nearmiss}, with $|1-r|=1.65\times10^{-13}$, gives
+$|G|\ge a'>10^{112}$, against the $\log_{10}G\approx13$ that the Baker--Harman--Pintz route reaches
+at the barrier. So the natural reading of ``steer $\Delta_0$ small by steering $s_{M_0}s_N$ to $1$''
+is not merely circular in the sense of Section~\ref{K-sec:frame} of the core note: on near--miss frames it is inverted.
+
+Small $|G|$ does occur, but only on small frames: over $1{,}143{,}888$ coprime squarefree frames with
+$M_0,N\le2000$ the minimum is $|G|=5$, at $(M_0,N)=(2,3)$. That is the supply--demand conflict in raw
+form, and it can be measured. Binning by $|G|$ and taking the best frame in each bin
+(\texttt{code/breeder\_supply.gp}) gives
+\[
+\begin{array}{l|cccccc}
+\log_{10}|G| & 0.5 & 1.5 & 2.5 & 3.5 & 4.5 & 5.0\\\hline
+\max \tau(K)/|G| & 0.600 & 0.313 & 0.214 & 0.053 & 0.0065 & 0.0030
+\end{array}
+\]
+The ratio is largest on the smallest frames, where it is already below $1$, and decays monotonically
+from there. Since a productive frame needs $\tau(K)/|G|$ well above $1$, no frame in the range
+supplies one, and the trend is against scale rather than with it.
+
+\paragraph{The descent, and why it cannot be iterated.} Adjoining a prime $w$ to $M_0$ acts on
+$G$ \emph{linearly}: with $M_0\mapsto M_0w$ one has $M_0'\mapsto M_0'w+M_0$ and hence
+\[ G\ \longmapsto\ wG-M_0N', \qquad\text{so}\qquad |G_{\mathrm{new}}|=|G|\cdot|w-w^{*}|,
+   \qquad w^{*}:=\frac{M_0N'}{G}=\frac{\sigma(N)}{\varepsilon}, \]
+writing $\varepsilon=1-\sigma(M_0)\sigma(N)=G/(M_0N)$. Since $G=0$ is \#307, this is a descent
+towards a solution, and on the $\varepsilon$ scale it is quadratic: $\varepsilon_{\mathrm{new}}
+=\varepsilon^{2}\theta/\sigma(N)$ with $\theta=w-w^{*}$. It is a Newton iteration for \#307.
+
+Three facts close it. First, it cannot start below the barrier: $w^{*}=\sigma(N)/\varepsilon\ge2$
+needs $\varepsilon\le\sigma(N)/2$, i.e.\ $\sigma(M_0)\sigma(N)$ near $1$, which by AM--GM needs
+$\sigma(M_0N)\ge2$ and so $\omega(M_0N)\ge59$. Over $4{,}284{,}896$ coprime squarefree frames with
+$M_0\le5000$, $N\le3000$ the smallest $|\varepsilon|$ is $0.470$, and $w^{*}<2$ throughout.
+
+Second, only $w=\lfloor w^{*}\rfloor$ or $\lceil w^{*}\rceil$ can shrink $|G|$, since
+$|G_{\mathrm{new}}|<|G|$ demands $|w-w^{*}|<1$. So a step descends only when one of those two
+integers is prime, with probability $\approx2/\log w^{*}$.
+
+Third, and decisively, a successful step squares the difficulty. From $w^{*}=M_0N'/G$,
+\[ w^{*}_{\mathrm{new}}=\frac{M_0wN'}{G\theta}=w^{*}\cdot\frac{w}{\theta}\ \approx\
+   \frac{(w^{*})^{2}}{\theta}, \]
+so $\log w^{*}$ more than doubles at every step while $\log|G|$ falls by only $|\log\theta|\approx
+0.69$. The gain is linear in the number of steps $k$ and the cost is quadratic in the exponent:
+$|G|$ falls like $2^{-k}$, whereas the probability of surviving $k$ steps is
+$\prod_{j<k}2/\log w^{*}_j\asymp2^{-k^{2}/2}$. Starting from the greedy frame $N=30$,
+$M_0=\prod_{7\le p\le271}p$, where $\log|G|=249$ and $w^{*}=428.2$
+(\texttt{code/breeder\_descent.gp}):
+\[
+\begin{array}{l|cccccc}
+\text{paths available} & 10^{2} & 10^{4} & 10^{6} & 10^{8} & 10^{10} & 10^{12}\\\hline
+\text{reachable depth }k & 3 & 5 & 6 & 7 & 8 & 8\\
+|G|\text{ shrinks by} & 8 & 32 & 64 & 128 & 256 & 256
+\end{array}
+\]
+against the factor $10^{108}$ required to reach $G=0$. Even $10^{12}$ independent descent paths buy
+eight steps and a factor $256$. This is the quantitative form of the circularity of
+Section~\ref{K-sec:frame} of the core note: the Newton iteration for \#307 exists, is exact, and converges quadratically,
+and each step costs a prime whose size is the square of the last one's.
+
+\paragraph{Why $(\mathrm{H})$ is not a finite search.} It is tempting to read $(\mathrm{H})$ as
+``run a certificate hunt that is expected to succeed.'' It is not, for a quantitative reason. The
+expected number of certificates from one frame is $\mathbb{E}\approx
+\bigl(\tau(K)/G\bigr)\cdot(\ln r\,\ln p\,\ln q)^{-1}$, and \emph{both} factors are pinned by the
+geometry.
+\begin{itemize}[leftmargin=1.4em]
+\item \emph{Demand.} $G=\Delta_0=M_0N(1-s_{M_0}s_N)$ exactly, so $G$ is small only in the circular
+regime $s_{M_0}s_N\approx1$; over $2\times10^4$ random coprime squarefree frames the ratio
+$G/(M_0N)$ has median $1$ and best value $\approx10^{-0.23}$, and the honest Baker--Harman--Pintz
+reduction still leaves $\log_{10}G\approx13$ at the barrier.
+\item \emph{Supply.} $\tau(K)$ is bounded by the \emph{size} of $K=GN^2+c^2\ (\ge c^2)$, which is an
+\emph{output} of the frame, not a free dial. The maximal order of the divisor function
+\cite[Thm.~317]{HardyWright} caps $\log_2\tau(K)$ at $\approx36$ for $K\le10^{54}$ (the barrier
+geometry) and at $\approx112$ even for $K\le10^{240}$; reaching $\tau(K)=2^{120}$ needs
+$K\gtrsim10^{263}$, i.e.\ frame scale far beyond the barrier.
+\end{itemize}
+Enlarging a frame grows $K\propto N^2$ but gains divisors only at rate $\log2/\log\log K<1$ per
+log--unit of $K$, while it grows $G$ at rate $1$ per log--unit of $N$; so $\tau(K)/G$ cannot be
+driven up. Optimising $\mathbb{E}$ over all $(M_0,N)$ splits with geometry--consistent $K$ and the
+maximal--order $\tau$, and granting the most favourable demand and singular--series constants, yields
+$\log_{10}\mathbb{E}\le-4$ at the barrier and \emph{decreasing} with scale; empirically $385$
+factorable frames realise a median of $0$ and a maximum of $1$ admissible divisor, against the
+$\sim10^{5}$ a single productive frame would need. A self--consistent accounting; capping the
+number $w$ of forced prime factors of $K$ by the frame's own residue freedom (counted generously),
+sharpens this to $\log_{10}\mathbb{E}\le-8$ at $B=56$, falling to $\approx-260$ at $B=3000$: the
+deficit is \emph{scale--invariant}, so no choice of scale, slot count, or budget split reaches
+expectation $1$. (The construction is even self--similar: engineering $K$'s algebraic; e.g.\
+Gaussian--integer; factorisation to supply divisors reduces to prescribing $N$ and $N'$
+simultaneously, an arithmetic--antiderivative inverse problem of the same difficulty class as \#307.)
+The breeder thus makes \#307 conditional on $(\mathrm{H})$ but does \emph{not} render it a feasible
+finite computation: the supply--demand conflict through $K=GN^2+c^2$ is exactly the circularity of
+Section~\ref{K-sec:frame} of the core note in quantitative form. There is also a structural reason the analogy with
+amicable pairs was bound to fall short: te~Riele's breeding amplifies a \emph{known seed} pair into
+new ones, whereas the barrier (Theorem~\ref{K-thm:barrier}) forbids any seed below $2.09\times10^{56}$
+the method imports a precondition the problem cannot supply.
+
+
+\begin{thebibliography}{9}
+\bibitem{Barbeau1961} E.~J.~Barbeau, \emph{Remarks on an arithmetic derivative}, Canad.\ Math.\
+Bull.\ \textbf{4} (1961), 117--122.
+\bibitem{Barbeau1976} E.~J.~Barbeau, \emph{Computer challenge corner: Problem 477}, J.\ Recreational
+Math.\ \textbf{9} (1976/77), 30.
+\bibitem{ErdosGraham1980} P.~Erd\H{o}s and R.~L.~Graham, \emph{Old and New Problems and Results in
+Combinatorial Number Theory}, Monogr.\ Enseign.\ Math.\ \textbf{28}, Geneva, 1980, p.~38.
+\bibitem{GrahamEgyptian} R.~L.~Graham, \emph{Paul Erd\H{o}s and Egyptian fractions}, in \emph{Erd\H{o}s
+Centennial}, Bolyai Soc.\ Math.\ Stud.\ \textbf{25}, Springer, 2013, pp.~289--309.
+\bibitem{Watanabe2020} T.~Watanabe, \emph{New examples of the representation of $1$ by the sum of
+reciprocals of semiprime numbers}, arXiv:2009.03275 (2020).
+\bibitem{Bado2026b} I.-O.~Bado, \emph{Primary-pseudoperfect sectors in two-cycles of the
+arithmetic derivative}, preprint (2026), communicated to the author.
+\bibitem{BloomShifted} T.~F.~Bloom, \emph{Unit fractions with shifted prime denominators}, Proc.\
+Roy.\ Soc.\ Edinburgh Sect.\ A (2024); arXiv:2305.02689.
+\bibitem{UfnarovskiAhlander2003} V.~Ufnarovski and B.~\AA hlander, \emph{How to differentiate a
+number}, J.\ Integer Seq.\ \textbf{6} (2003), Article 03.3.4.
+\bibitem{Kovic2012} J.~Kovi\v{c}, \emph{The arithmetic derivative and antiderivative}, J.\ Integer
+Seq.\ \textbf{15} (2012), Article 12.3.8.
+\bibitem{MO320838} MathOverflow, \emph{Can the product of two sums of prime reciprocals be $1$?},
+question 320838 (comments by R.~Israel and J.~Rosen, answer by ``Woett''), 2019.
+\url{https://mathoverflow.net/questions/320838}.
+\bibitem{ErdosProblems307} T.~F.~Bloom, \emph{Erd\H{o}s problem \#307},
+\url{https://www.erdosproblems.com/307}.
+\bibitem{OEIS_A003415} OEIS Foundation, \emph{Sequence A003415 (arithmetic derivative)},
+\url{https://oeis.org/A003415}.
+\bibitem{Pollack2018} P.~Pollack, \emph{On amicable tuples}, Illinois J. Math. \textbf{62} (2018),
+  no.~1--4, 225--240; arXiv:1711.06847. (Explicit bounds for relatively prime amicable pairs,
+  refining the finiteness of Artjuhov and Borho.)
+
+\bibitem{teRiele1984} H.~J.~J.~te~Riele, \emph{Computation of all the amicable pairs below
+$10^{10}$}, Math.\ Comp.\ \textbf{47} (1986), 361--368.
+\bibitem{BHP2001} R.~C.~Baker, G.~Harman, and J.~Pintz, \emph{The difference between consecutive
+primes, II}, Proc.\ London Math.\ Soc.\ (3) \textbf{83} (2001), 532--562.
+\bibitem{Iwaniec1978} H.~Iwaniec, \emph{Almost-primes represented by quadratic polynomials},
+Invent.\ Math.\ \textbf{47} (1978), 171--188.
+\bibitem{LemkeOliver2012} R.~J.~Lemke Oliver, \emph{Almost-primes represented by quadratic
+polynomials}, Acta Arith.\ \textbf{151} (2012), 241--261.
+\bibitem{HardyWright} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of Numbers},
+6th ed., Oxford Univ.\ Press, 2008.
+\bibitem{Tenenbaum} G.~Tenenbaum, \emph{Introduction to Analytic and Probabilistic Number Theory},
+3rd ed., Grad.\ Stud.\ Math.\ \textbf{163}, Amer.\ Math.\ Soc., 2015 (Erd\H{o}s--Wintner theorem).
+\bibitem{Stothers} W.~W.~Stothers, \emph{Polynomial identities and Hauptmoduln}, Quart.\ J.\ Math.\
+Oxford (2) \textbf{32} (1981), 349--370; R.~C.~Mason, \emph{Diophantine Equations over Function
+Fields}, Cambridge Univ.\ Press, 1984.
+\bibitem{Seva323194} Seva (\texttt{mathoverflow.net} user), \emph{A recursion with a number--theoretic
+function}, MathOverflow question 323194 (2019). \url{https://mathoverflow.net/questions/323194}.
+\bibitem{FewPrimes2025} \emph{Egyptian fractions for few primes}, arXiv:2507.03727 (July 2025).
+\bibitem{Steinerberger2025} S.~Steinerberger, \emph{On an iterated arithmetic function problem of
+Erd\H{o}s and Graham}, arXiv:2504.08023 (April 2025).
+\bibitem{StretchedEG2026} \emph{A stretched--exponential bound for an Erd\H{o}s--Graham
+unit--fraction problem}, arXiv:2607.04157 (July 2026).
+\bibitem{PortFillings2026} \emph{Port fillings for primary pseudoperfect numbers}, arXiv:2605.21518
+(May 2026).
+\bibitem{Semiprime2026} \emph{Every natural number is a sum of distinct semiprime unit fractions},
+arXiv:2606.15159 (June 2026).
+\bibitem{ButskeJajeMayernik} W.~Butske, L.~M.~Jaje and D.~R.~Mayernik, \emph{On the equation
+$\sum_{p\mid N}1/p+1/N=1$, pseudoperfect numbers, and perfectly weighted graphs}, Math.\ Comp.\
+\textbf{69} (2000), 407--420.
+\bibitem{Bado2026} I.~O.~Bado, \emph{Structural constraints for an Erd\H{o}s unit--fraction problem
+over primes}, preprint, Aix--Marseille University (May 2026).
+\url{https://doi.org/10.13140/RG.2.2.32245.54245}.
+\bibitem{Giuga1950} G.~Giuga, \emph{Su una presumibile propriet\`a caratteristica dei numeri primi},
+Ist.\ Lombardo Sci.\ Lett.\ Rend.\ Cl.\ Sci.\ Mat.\ Nat.\ (3) \textbf{14} (1950), 511--528.
+\bibitem{BBBG1996} D.~Borwein, J.~M.~Borwein, P.~B.~Borwein, and R.~Girgensohn, \emph{Giuga's conjecture
+on primality}, Amer.\ Math.\ Monthly \textbf{103} (1996), no.~1, 40--50.
+\bibitem{BorweinWong1997} J.~M.~Borwein and E.~Wong, \emph{A survey of results relating to Giuga's
+conjecture on primality}, CRM Proc.\ Lecture Notes \textbf{11} (1997), 13--27.
+\bibitem{BJM2000} W.~Butske, L.~M.~Jaje, and D.~R.~Mayernik, \emph{On the equation
+$\sum_{p\mid N}1/p+1/N=1$, pseudoperfect numbers, and perfectly weighted graphs}, Math.\ Comp.\
+\textbf{69} (2000), no.~229, 407--420.
+\bibitem{GrauOllerMarcen2012} J.~M.~Grau and A.~M.~Oller-Marc\'en, \emph{Giuga numbers and the
+arithmetic derivative}, J.\ Integer Seq.\ \textbf{15} (2012), Article 12.4.1; arXiv:1103.2298.
+\bibitem{SondowMacMillan2017} J.~Sondow and K.~MacMillan, \emph{Primary pseudoperfect numbers,
+arithmetic progressions, and the Erd\H{o}s--Moser equation}, Amer.\ Math.\ Monthly \textbf{124} (2017),
+no.~3, 232--240; arXiv:1812.06566.
+\bibitem{GrauOllerMarcenSadornil2021} J.~M.~Grau, A.~M.~Oller-Marc\'en, and D.~Sadornil,
+\emph{On $\mu$-Sondow numbers}, arXiv:2111.14211 (2021); Acta Math.\ Hungar.\ (2022).
+\bibitem{Cox} D.~A.~Cox, \emph{Primes of the Form $x^2+ny^2$: Fermat, Class Field Theory, and Complex
+Multiplication}, 2nd ed., Wiley, 2013.
+\bibitem{OEIS_A054377} OEIS Foundation, \emph{Sequence A054377 (primary pseudoperfect numbers)},
+\url{https://oeis.org/A054377}.
+\bibitem{OEIS_A007850} OEIS Foundation, \emph{Sequence A007850 (Giuga numbers)},
+\url{https://oeis.org/A007850}.
+\bibitem{OEIS_A396915} OEIS Foundation, \emph{Sequence A396915 (composite squarefree $k$ with
+$k'+2k$ a perfect square)}, \url{https://oeis.org/A396915}.
+\bibitem{Evertse1984} J.-H.~Evertse, \emph{On sums of $S$-units and linear recurrences}, Compositio
+Math.\ \textbf{53} (1984), 225--244.
+\bibitem{FI1998} J.~Friedlander and H.~Iwaniec, \emph{The polynomial $X^2+Y^4$ captures its
+primes}, Ann. of Math. \textbf{148} (1998), 945--1040.
+\bibitem{HB2001} D.~R.~Heath-Brown, \emph{Primes represented by $x^3+2y^3$}, Acta Math.
+\textbf{186} (2001), 1--84.
+\bibitem{Stewart2013} C.~L.~Stewart, \emph{On divisors of Lucas and Lehmer numbers}, Acta Math.
+\textbf{211} (2013), 291--314.
+\bibitem{BCZ2003} Y.~Bugeaud, P.~Corvaja, and U.~Zannier, \emph{An upper bound for the G.C.D. of
+$a^n-1$ and $b^n-1$}, Math. Z. \textbf{243} (2003), 79--84.
+\bibitem{Merikoski2019} J.~Merikoski, \emph{On the largest prime factor of $n^2+1$}, J. Eur. Math.
+Soc. \textbf{25} (2023), 1253--1284.
+\bibitem{BGS2010} J.~Bourgain, A.~Gamburd, and P.~Sarnak, \emph{Affine linear sieve, expanders,
+and sundry applications}, Invent. Math. \textbf{179} (2010), 559--644.
+\bibitem{ESS2002} J.-H.~Evertse, H.~P.~Schlickewei, and W.~M.~Schmidt, \emph{Linear equations in
+variables which lie in a multiplicative group}, Ann.\ of Math.\ (2) \textbf{155} (2002), 807--836.
+\bibitem{Erdos1952} P.~Erd\H{o}s, \emph{On the sum $\sum_{k=1}^x d(f(k))$}, J.\ London Math.\ Soc.\
+\textbf{27} (1952), 7--15.
+\bibitem{BHV2001} Y.~Bilu, G.~Hanrot, and P.~M.~Voutier, \emph{Existence of primitive divisors of
+Lucas and Lehmer numbers} (with an appendix by M.~Mignotte), J.\ Reine Angew.\ Math.\ \textbf{539}
+(2001), 75--122.
+\end{thebibliography}
+\end{document}

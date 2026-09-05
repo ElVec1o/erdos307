@@ -62,8 +62,55 @@ stratum, with a rate. The problem remains open.
 
 CORE_SECS = ["sec:intro", "sec:rigidity", "sec:bridge", "sec:barrier", "sec:frame",
              "sec:computations", "sec:lean", "sec:coprime", "sec:status", "sec:prior"]
-# sec:certificate carries the level-by-level exclusion programme and its anatomy; it is
-# exploratory and travels with the companion.
+
+# The companion material divides by technique and by audience, so it is emitted as three
+# documents rather than one. A single 107-page companion carrying the level-60 computation,
+# the obstruction theorems and the analytic machinery is a record, not a paper.
+COMP_A_SECS = ["sec:certificate", "sec:anatomy", "sec:breeder"]   # the level-60 computation
+COMP_B_SECS = ["sec:ff", "sec:exclosure"]                          # why methods fail
+COMP_C_SECS = ["sec:ladderplus", "sec:sqsieve", "app:sieve"]       # the analytic route
+
+COMP_A_ABSTRACT = r"""\begin{abstract}
+A solution of Erd\H{o}s Problem~\#307 is a two--cycle of the arithmetic derivative, and any solution
+has $|P\cup Q|\ge60$. This note records the computation that decides the level--$60$ families.
+The certificate of Proposition~\ref{prop:tailkill} empties $31{,}219$ of the $49{,}961$ admissible
+bases by a Jacobi symbol, and trial division to $10^{6}$ leaves $7{,}713$. For the rest we give the
+split sieve: writing a cycle on a family $S\cup M$ as $a=\prod(T\cup M)$, $b=\prod(S\setminus T)$,
+the two cycle equations give $\prod T\mid\partial(\prod(S\setminus T))$ together with an identity
+free of the tail. The divisibility is the identity read modulo $\prod T$, so it is a consequence
+rather than a hypothesis, and by the anatomy lemma it is a congruence at each prime of $T$, costing
+a factor $1/r$ each; $\prod_{p\in S}(1+1/p)$ subsets survive out of $2^{|S|}$. Neither statement
+mentions the cofactor $A_S$, so the criterion reaches the families whose $A_S$ is composite and, the
+tail being arbitrary, the pair sector, both of which the arity--one method cannot. Every level--$60$
+base surviving the certificate is decided over all $T$ with $|T|\le6$: about $9\times10^{11}$ splits,
+no factorisation, and no two--cycle. The heuristic model and a breeder form for certificate search
+are included. The range $|T|\ge7$ is not decided and its price is stated.
+\end{abstract}"""
+
+COMP_B_ABSTRACT = r"""\begin{abstract}
+This note records what cannot be used on Erd\H{o}s Problem~\#307, in the form of theorems rather
+than of failed attempts. Over $\mathbb{F}_q[t]$ the derivative admits no two--cycle, by a degree
+argument with no integer counterpart, and no place of $\mathbb{Q}$ carries that argument: the
+archimedean absolute value is expanding on the relevant range, and each $p$--adic valuation, while
+lowered at the primes of $n$, is raised elsewhere. By Ostrowski these are all the places, so the
+function--field mechanism is unavailable as a classification statement and not as a failure of
+ingenuity. Twisted two--cycles do exist over $\mathbb{Z}[i]$, $\mathbb{Z}[\sqrt{-2}]$,
+$\mathbb{Z}[\omega]$ and $\mathbb{Z}[\sqrt2]$, so the obstruction is the orderability of
+$\mathbb{Q}$. Two closures on the existence route are proved: no certificate distinguishes the two
+branches, and no potential of the form $\log n+G(\sigma(n))$ can decrease around a cycle, for any
+$G$, since the $G$--terms telescope and only the mass identity survives.
+\end{abstract}"""
+
+COMP_C_ABSTRACT = r"""\begin{abstract}
+This note records the analytic route to Erd\H{o}s Problem~\#307 and how far it reaches. The
+deviation ladder gives a second derivation of the barrier from the frontier side rather than from
+the cycle. The main positive result is that both Pythagorean layers have density zero on the
+squarefree stratum, with a rate. The square sieve at the mass--two wall is developed and does not
+attain that rate: the loss is located in the character expansion, where the required uniformity in
+the modulus is shown to be unavailable, and not in the arithmetic. Statements whose proofs rest on
+inputs absent from the formalisation, Siegel--Walfisz and Hal\'asz among them, are labelled as such
+and carry no machine check.
+\end{abstract}"""
 
 def main():
     src = SRC.read_text()
@@ -92,73 +139,86 @@ def main():
         blocks.append((lab, matter[pos:end]))
     lead = matter[:marks[0][0]] if marks else matter
 
-    core_blocks = [(l, t) for l, t in blocks if l in CORE_SECS]
-    comp_blocks = [(l, t) for l, t in blocks if l not in CORE_SECS]
+    # Four documents. Each is defined by its section labels, a prefix used for the cross-document
+    # references that xr resolves, a file name, a title and an abstract.
+    DOCS = [
+        dict(key="K", secs=CORE_SECS,   file="erdos307-core",
+             name="the core note",
+             title=None, abstract=CORE_ABSTRACT),
+        dict(key="A", secs=COMP_A_SECS, file="erdos307-computational",
+             name="the computational companion",
+             title=("\\title{The level--$60$ computation for Erd\\H{o}s Problem~\\#307:\\\\ "
+                    "a certificate, a split sieve, and the pair sector}"),
+             abstract=COMP_A_ABSTRACT),
+        dict(key="B", secs=COMP_B_SECS, file="erdos307-obstructions",
+             name="the obstructions companion",
+             title=("\\title{Obstructions for Erd\\H{o}s Problem~\\#307:\\\\ "
+                    "places, potentials, and two closures on the existence route}"),
+             abstract=COMP_B_ABSTRACT),
+        dict(key="C", secs=COMP_C_SECS, file="erdos307-analytic",
+             name="the analytic companion",
+             title=("\\title{The Pythagorean layers of Erd\\H{o}s Problem~\\#307:\\\\ "
+                    "a density theorem and the square sieve at the mass--two wall}"),
+             abstract=COMP_C_ABSTRACT),
+    ]
 
-    core_labels = set()
-    comp_labels = set()
-    for l, t in core_blocks:
-        core_labels |= set(re.findall(r"\\label\{([^}]*)\}", t))
-    for l, t in comp_blocks:
-        comp_labels |= set(re.findall(r"\\label\{([^}]*)\}", t))
-    core_labels |= set(re.findall(r"\\label\{([^}]*)\}", lead))
+    by_key = {}
+    for d in DOCS:
+        d["blocks"] = [(l, b) for l, b in blocks if l in d["secs"]]
+        labs = set()
+        for _, b in d["blocks"]:
+            labs |= set(re.findall(r"\\label\{([^}]*)\}", b))
+        if d["key"] == "K":
+            labs |= set(re.findall(r"\\label\{([^}]*)\}", lead))
+        d["labels"] = labs
+        by_key[d["key"]] = d
 
-    def retarget(text, foreign, prefix):
-        """Point references that leave this document at the other one, via xr."""
+    unassigned = [l for l, _ in blocks if not any(l in d["secs"] for d in DOCS)]
+    if unassigned:
+        raise SystemExit("section assigned to no document: " + ", ".join(unassigned))
+
+    def retarget(text, me):
+        """Point a reference that leaves this document at the document that holds it."""
         def sub(m):
             lab = m.group(1)
-            return "\\ref{" + prefix + lab + "}" if lab in foreign else m.group(0)
+            for d in DOCS:
+                if d is not me and lab in d["labels"]:
+                    return "\\ref{" + d["key"] + "-" + lab + "}"
+            return m.group(0)
         return re.sub(r"\\ref\{([^}]*)\}", sub, text)
 
-
-    def name_companion(text):
-        """A pointer into the companion must read as one, not as a section of this paper."""
-        text = re.sub(r"Section~\\ref\{C-([^}]*)\}",
-                      r"Section~\\ref{C-\1} of the companion", text)
-        text = re.sub(r"Sections~\\ref\{C-([^}]*)\}",
-                      r"Sections~\\ref{C-\1} of the companion", text)
+    def name_foreign(text, me):
+        """A pointer into another document must read as one, not as a section of this paper."""
+        for d in DOCS:
+            if d is me: continue
+            for word in ("Section", "Sections"):
+                text = re.sub(word + r"~\\ref\{" + d["key"] + r"-([^}]*)\}",
+                              word + r"~\\ref{" + d["key"] + r"-\1} of " + d["name"], text)
         return text
 
     xr = "\\usepackage{xr}\n"
+    written = []
+    for d in DOCS:
+        body = ("".join(b for _, b in d["blocks"]))
+        if d["key"] == "K":
+            body = lead + body
+        # the appendix lives with the analytic companion
+        if d["key"] == "C" and "\\appendix" not in body:
+            body = body.replace("\\section{The minus--layer density theorem",
+                                "\\appendix\n\\section{The square sieve: the argument")
+        body = name_foreign(retarget(body, d), d)
+        pre = preamble.replace("\\usepackage[expansion=false]{microtype}",
+                               "\\usepackage[expansion=false]{microtype}\n" + xr)
+        if d["title"]:
+            pre = re.sub(r"\\title\{.*?\}\n", lambda _m: d["title"] + "\n", pre, flags=re.S)
+        ext = "".join("\\externaldocument[" + e["key"] + "-]{" + e["file"] + "}\n"
+                      for e in DOCS if e is not d)
+        doc = pre + ext + head + d["abstract"] + "\n" + body + "\n" + bib + "\n\\end{document}\n"
+        Path(d["file"] + ".tex").write_text(doc)
+        written.append((d["file"], len(d["blocks"]), body.count(chr(10))))
 
-    core_body = lead + "".join(t for _, t in core_blocks)
-    core_body = name_companion(retarget(core_body, comp_labels, "C-"))
-    core = (preamble.replace("\\usepackage[expansion=false]{microtype}",
-                             "\\usepackage[expansion=false]{microtype}\n" + xr)
-            + "\\externaldocument[C-]{erdos307-companion}\n"
-            + head + CORE_ABSTRACT + "\n" + core_body + "\n" + bib + "\n\\end{document}\n")
-    core = core.replace("\\title{On the equation", "\\title{On the equation")
-
-    comp_body = "".join(t for _, t in comp_blocks)
-    # the appendix marker travels with the companion, which is where the appendix lives
-    if app_at != -1 and "\\appendix" not in comp_body:
-        comp_body = comp_body.replace("\\section{The minus--layer density theorem",
-                                      "\\appendix\n\\section{The square sieve: the argument")
-    comp_body = retarget(comp_body, core_labels, "K-")
-    comp_title = ("\\title{Companion to \\emph{On the equation $n''=n$ and a problem of "
-                  "Erd\\H{o}s and Barbeau}:\\\\ explorations, closures and the square sieve}")
-    comp_pre = preamble.replace("\\usepackage[expansion=false]{microtype}",
-                                "\\usepackage[expansion=false]{microtype}\n" + xr)
-    comp_pre = re.sub(r"\\title\{.*?\}\n", lambda _m: comp_title + "\n", comp_pre, flags=re.S)
-    comp_abs = (r"""\begin{abstract}
-This companion collects the exploratory and negative material of the note
-\emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau on products of
-prime--reciprocal sums}, cited below as the core note. Nothing here is needed for the results
-stated there, with one exception: the minus--layer density theorem, that both Pythagorean layers
-have density zero on the squarefree stratum, is proved here. What is otherwise here is the record of
-which routes were tried and where each fails. It contains the local heuristic model, the
-function--field lens locating the obstruction as archimedean, the breeder form, the deviation ladder
-and the plus layer, two closures on the existence route, and the square sieve at the mass--two wall
---- both the range at which its analytic input does not close, and the far smaller one at which it
-does.
-\end{abstract}""")
-    comp = (comp_pre + "\\externaldocument[K-]{erdos307-core}\n"
-            + head + comp_abs + "\n" + comp_body + "\n" + bib + "\n\\end{document}\n")
-
-    Path("erdos307-core.tex").write_text(core)
-    Path("erdos307-companion.tex").write_text(comp)
-    print(f"core      : {len(core_blocks)} sections, {core_body.count(chr(10))} lines")
-    print(f"companion : {len(comp_blocks)} sections, {comp_body.count(chr(10))} lines")
+    for f, ns, nl in written:
+        print(f"{f:26s}: {ns} sections, {nl} lines")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,1990 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage[expansion=false]{microtype}
+\usepackage{xr}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\der}{{}'}
+\newcommand{\dd}{\,\mathrm{d}}
+
+\title{Obstructions for Erd\H{o}s Problem~\#307:\\ places, potentials, and two closures on the existence route}
+\author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
+  See the acknowledgments for a candid note on the use of AI assistance in this work.}}
+\date{Version 1.75.0\quad 2 September 2026}
+
+\externaldocument[K-]{erdos307-core}
+\externaldocument[A-]{erdos307-computational}
+\externaldocument[C-]{erdos307-analytic}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note records what cannot be used on Erd\H{o}s Problem~\#307, in the form of theorems rather
+than of failed attempts. Over $\mathbb{F}_q[t]$ the derivative admits no two--cycle, by a degree
+argument with no integer counterpart, and no place of $\mathbb{Q}$ carries that argument: the
+archimedean absolute value is expanding on the relevant range, and each $p$--adic valuation, while
+lowered at the primes of $n$, is raised elsewhere. By Ostrowski these are all the places, so the
+function--field mechanism is unavailable as a classification statement and not as a failure of
+ingenuity. Twisted two--cycles do exist over $\mathbb{Z}[i]$, $\mathbb{Z}[\sqrt{-2}]$,
+$\mathbb{Z}[\omega]$ and $\mathbb{Z}[\sqrt2]$, so the obstruction is the orderability of
+$\mathbb{Q}$. Two closures on the existence route are proved: no certificate distinguishes the two
+branches, and no potential of the form $\log n+G(\sigma(n))$ can decrease around a cycle, for any
+$G$, since the $G$--terms telescope and only the mass identity survives.
+\end{abstract}
+\section{A function--field lens: the obstruction is archimedean}\label{sec:ff}
+
+Define an arithmetic derivative on $\mathbb{F}_q[t]$ by $P'=1$ for monic irreducibles and the Leibniz
+rule, so $f'=\sum_i e_i\,f/P_i$ for $f=\prod_i P_i^{e_i}$ (the exponents $e_i$ read modulo the
+characteristic).
+
+\begin{theorem}\label{thm:ff}
+Over $\mathbb{F}_q[t]$ this derivative has no two--cycles and no nonzero fixed points. Indeed
+$\deg f'\le\deg f-1$ for every nonconstant $f$. The analogues of the integer fixed points $p^{p}$ also
+vanish: $(P^{p})'=p\,P^{p-1}P'=0$ in characteristic $p$. The same holds verbatim for every twisted
+variant ($P'=u_P\in\mathbb{F}_q^\times$, Leibniz).
+\end{theorem}
+\begin{proof}
+Each term $e_i\,f/P_i$ has degree $\deg f-\deg P_i\le\deg f-1$, so $\deg f'\le\deg f-1$. A two--cycle
+$f'=g$, $g'=f$ would force $\deg g\le\deg f-1$ and $\deg f\le\deg g-1$, hence $\deg f\le\deg f-2$;
+a fixed point $f'=f$ is excluded likewise. (Verified exhaustively over $\mathbb{F}_2$ to degree $7$,
+$\mathbb{F}_3$ to degree $5$, and $\mathbb{F}_5$ to degree $4$; twisted variants over $\mathbb{F}_2$ and
+$\mathbb{F}_5$ on small supports through $2.3\times10^{6}$ twist configurations, none closing.)
+\end{proof}
+
+\noindent\textup{Formalised.} \texttt{Erdos307.ff\_no\_cycle} is the theorem, on the single
+hypothesis $\deg f'+1\le\deg f$; \texttt{deg\_drop\_of\_terms} is that hypothesis from the term
+bound, and \texttt{no\_fixed\_point\_of\_drop} excludes fixed points. The argument is stated on the
+degrees alone, so it holds verbatim for every twisted variant, the twist multiplying each term by a
+unit \textup{(\texttt{lean/Erdos307/FunctionField.lean})}.
+
+\begin{corollary}[The function--field Erd\H{o}s--Barbeau equation is insoluble]\label{cor:ff307}
+For every finite field $\mathbb{F}_q$, all nonempty finite sets $P,Q$ of monic irreducibles, and all
+unit weights $u_\pi,v_\rho\in\mathbb{F}_q^\times$,
+\[
+\Bigl(\sum_{\pi\in P}\frac{u_\pi}{\pi}\Bigr)\Bigl(\sum_{\rho\in Q}\frac{v_\rho}{\rho}\Bigr)\ne1.
+\]
+\end{corollary}
+\begin{proof}
+Write $f=\prod P$, $g=\prod Q$, $D_u(f)=\sum_\pi u_\pi f/\pi$; the equation reads $D_u(f)\,D_v(g)=fg$.
+If some $\pi\in P\cap Q$, then $\pi^2\mid fg$ while $D_u(f)\equiv u_\pi f/\pi\not\equiv0$ and
+$D_v(g)\equiv v_\pi g/\pi\not\equiv0\pmod\pi$, so $\pi\nmid D_u(f)D_v(g)$; impossible; hence
+$\gcd(f,g)=1$. The same congruence gives $\gcd(f,D_u(f))=\gcd(g,D_v(g))=1$, so $g\mid D_u(f)$ and
+$f\mid D_v(g)$, forcing $D_u(f)=c\,g$, $D_v(g)=c^{-1}f$ with $c\in\mathbb{F}_q^\times$: a twisted
+two--cycle, excluded by the degree drop. The weighted product equation is thus insoluble over every
+$\mathbb{F}_q(t)$; it \emph{is} soluble over the unit--rich number rings of
+Theorem~\ref{thm:existence}, since any twisted cycle gives $(D_u(a)/a)(D_v(b)/b)=(b/a)(a/b)=1$, and over
+$\mathbb{Q}$, where the admissible weights are $\pm1$, it is \#307 itself with the signed barrier of
+Remark~\ref{rem:ordered}, open beyond $2.09\times10^{56}$. The three regimes (non--archimedean
+monotonicity (closed, negative), unit--broken monotonicity (closed, positive), ordered--archimedean
+(open, barred)) now have theorems on two of three doors.
+\end{proof}
+
+Over $\mathbb{Z}$, by contrast, $n'=n\sum_i e_i/p_i$ can exceed $n$ precisely because the archimedean
+absolute value lets a sum of strictly smaller terms outgrow the original; the ``mass $>1$''
+phenomenon $\sum 1/p>1$, which has no degree--theoretic analogue. Theorem~\ref{thm:ff} thus localises
+the entire existence question to the archimedean place: every non--archimedean shadow of \#307 is
+trivially negative. This is consistent with (and partly explains) both the census finding of
+Section~\ref{K-sec:computations} of the core note and Proposition~\ref{A-prop:nolocal} (no single modulus obstructs the
+cross--match system in the tested range); the difficulty is not local. Any eventual proof must therefore distinguish $\mathbb{Z}$ from $\mathbb{F}_q[t]$; over the
+latter the decisive tools are the degree and the Mason--Stothers/Wronskian inequality
+\cite{Stothers}, neither of which has a $\mathbb{Z}$--analogue. The conjectural analogue, $abc$,
+does not fill the gap, and quantifiably so. Every cycle inherits, from $N'=a^2+b^2$ with $N=ab$, the
+relation $(a-b)^2+4ab=(a+b)^2$ on coprime squarefree members, but this triple is $abc$--unexceptional,
+of quality $q=\log(a+b)^2/\log\operatorname{rad}\!\bigl((a-b)\cdot ab\cdot(a+b)\bigr)\approx\tfrac12$
+(median $0.543$, never above $0.74$ across $6\times10^4$ coprime squarefree pairs; the only $q>1$ cases
+are degenerate smooth--gap pairs such as $(5,3)$, vanishingly far below the $10^{56}$ scale a solution
+must occupy). Granting $abc$ in its strong explicit form would therefore yield no bound here: the
+function--field collapse rests on an inequality genuinely \emph{absent} over $\mathbb{Z}$, not merely
+unproven, and the size mismatch is by a factor of two in the exponent. \#307 lives in the
+$abc$--comfortable zone.
+
+\begin{remark}[The free grading, and what evaluation destroys]\label{rem:grading}
+Theorem~\ref{thm:ff} has a structural reading. In the free Leibniz world (the polynomial ring
+$\mathbb{Z}[x_p]$ with $x_p'=1$) the derivative of a squarefree monomial of degree $n$ is the
+elementary symmetric form $e_{n-1}$, homogeneous of degree $n-1$: the formal derivative strictly lowers
+the grading, cycles are impossible, and over $\mathbb{F}_q[t]$ the degree realises this grading
+faithfully. Over $\mathbb{Z}$ the evaluation $x_p\mapsto p$ destroys homogeneity, and the data show it
+destroys it completely: for random squarefree $a$ of fixed size, $\omega(a')$ is governed by the size of
+$a'$ alone (Erd\H{o}s--Kac), flat in $\omega(a)$ within each parity class (measured: mean
+$\omega(a')=2.7$--$3.0$ as $\omega(a)$ runs over $3,5,7$, and $3.6$--$4.0$ over $4,6,8$, the offset being
+the parity anatomy of Theorem~\ref{K-thm:parity}). A two--cycle is therefore a doubly anti--typical event:
+an additively assembled integer must carry multiplicative rank far in the Erd\H{o}s--Kac tail \emph{and}
+on an exactly prescribed support; the two independent prices whose product is the heuristic rarity of
+Section~\ref{A-sec:anatomy} of the computational companion. The deeper additive--multiplicative content collapses, on inspection, into
+the $S$--unit form of Proposition~\ref{prop:sunit}: dividing the cycle equation by $D_Q$ exhibits it as
+an $n$--term unit equation; one more coordinate system in which the same exactness reappears
+unchanged.
+\end{remark}
+
+\begin{remark}[The obstruction is \emph{ordered}--archimedean]\label{rem:ordered}
+The barrier is finer than ``archimedean'': its engine is AM--GM on real, \emph{positive} masses, i.e.\
+the ordering of $\mathbb{R}$. Over $\mathbb{Z}[i]$ (a PID, so the Rigidity Lemma and cross--matching
+survive verbatim, with cycles defined up to units), the masses $\sum1/\pi$ are \emph{complex}: phases can
+align so that $\bigl|\sum1/\pi\bigr|>1$ with as few as three Gaussian primes (e.g.\
+$\tfrac1{1+i}+\tfrac1{2+i}+\tfrac1{2-i}=1.3-0.5i$), and the $59$--prime bound has no analogue. The
+ordered--archimedean thesis thus predicts that small derivative two--cycles \emph{may} exist over
+$\mathbb{Z}[i]$ where they are barred over $\mathbb{Z}$, and the prediction is confirmed. Two facts
+make the contrast precise.
+\emph{First}, phases do not help over $\mathbb{Z}$: for any \emph{signed} derivative ($p'=\pm1$, Leibniz)
+a two--cycle still satisfies $|s||t|=1$ with $|s|\le\sigma(a)$, $|t|\le\sigma(b)$ and disjoint supports
+(the rigidity proof is unchanged), so $\sigma(a)+\sigma(b)\ge2$ and the full $59$--prime,
+$2.09\times10^{56}$ barrier applies to every choice of signs: real phases cannot cancel.
+\emph{Second}, fourth roots of unity suffice instantly: Leibniz derivatives on $\mathbb{Z}[i]$ with unit
+prime--values ($\pi'\in\{\pm1,\pm i\}$) possess genuine two--cycles at norm ${\sim}10^4$. The smallest:
+\[ a=(1+i)(2+7i)(6+11i)=-129-i,\qquad b=3\,(2+i)(1+2i)(6+5i)=-75+90i, \]
+with $a'=b$ under the \emph{standard} values $\pi'=1$ on the primes of $a$, and $b'=a$ exactly under
+$\pi'=i$ on $3$, $2+i$, $1+2i$ and $\pi'=1$ on $6+5i$; seven prime classes
+($N(a)=16{,}642$, $N(b)=13{,}725$) against the fifty--nine that $\mathbb{Z}$ demands. Exhaustive search
+finds exactly sixteen such cycles up to conjugation and direction having a member of norm
+$\le2\times10^7$ with $\omega\le5$ on the enumerated side ($\omega$--profiles $(3,4)$, $(4,4)$,
+$(5,4)$, and even $(4,6)$) and the population grows steadily ($4$ below $3\times10^5$, $16$ below
+$2\times10^7$), consistent with an infinite, slowly growing family; in six of the sixteen one side
+requires no twist at all. All sixteen were verified exactly, by independent recomputation; no twisted
+\emph{fixed} point ($a'=ua$) exists in the same range. The strict two--sided normalisation $\pi'=1$
+(first--quadrant representatives) has no cycle up to units (nor any fixed point, zero--derivative, or
+unit--derivative element) with $N(a)\le2\times10^9$ ($9.4\times10^8$ candidates, partners by full
+factorisation); this is the expected order rather than a separate rigidity, a single fixed phase system
+being heuristically $4^{\omega-1}$--fold rarer than the union of all systems. The contrast with
+$\mathbb{Z}$ survives this accounting: over $\mathbb{Z}$ \emph{every} one of the $2^{\omega-1}$ sign
+systems is barred by the theorem above, while over $\mathbb{Z}[i]$ the union of phase systems is
+demonstrably populated from norm $1.7\times10^4$ on. The barrier of \#307 is thus localised precisely: it is the impossibility of phase
+cancellation in the ordered field $\mathbb{R}$, where the only available phases $\pm1$ provably gain
+nothing; while the moment fourth roots of unity are admitted, the analogous existence problem closes
+at seven primes. The cycles found come in conjugate pairs (supports not conjugation--stable); a
+conjugation--\emph{stable} Gaussian cycle would descend to rational data through the norm form
+$a^2+b^2$, i.e.\ precisely the Pythagorean layer of Proposition~\ref{K-prop:pairform}; now a concrete
+target rather than a speculation.
+\end{remark}
+
+\begin{remark}[The descended operator; the symmetric sector]\label{rem:descent}
+Conjugation--stable supports admit an exact descent to $\mathbb{Z}$. Such a squarefree Gaussian integer
+is an associate of an odd squarefree rational $m$ (split primes entering as whole conjugate pairs; the
+$(1+i)$--sector is empty by a short parity argument), and a conjugation--equivariant unit assignment
+makes the twisted derivative rational:
+\[ D(m)\;=\;\sum_{\substack{p\mid m\\ p\equiv1\,(4)}} t_p\,\frac mp\;+\;\sum_{\substack{q\mid m\\
+q\equiv3\,(4)}}\varepsilon_q\,\frac mq, \qquad t_p\in\{\pm2x_p,\pm2y_p\},\quad \varepsilon_q=\pm1, \]
+where $p=x_p^2+y_p^2$; a Leibniz derivative on odd squarefree integers whose prime values have size
+$2\sqrt p$ rather than $1$, and whose masses ${\sim}2/\sqrt p$ reach $2$ with four primes, so no
+$59$--prime barrier exists for it. A two--cycle of $D$ is exactly a conjugation--stable Gaussian cycle
+and would plant the phenomenon on rational soil. Parity constrains the hunt: $D(m)$ is odd iff $m$
+carries an odd number of primes $\equiv3\pmod4$, so every member must contain such a prime.
+One level deeper, since $q^{-1}\equiv q\pmod 8$ for odd $q$, the descended operator obeys
+$D(m)\equiv m\,W(m)\pmod 8$ with $W(m)=\sum_{p\mid m}t_p\,p$, so a two--cycle forces
+$W(m)\equiv W(m')\equiv mm'\pmod 8$; a mod--$8$ constraint on the sign assignment that prunes
+the $4^{\#\mathrm{split}}2^{\#\mathrm{inert}}$ phase enumeration severalfold in future searches
+(verified on $2\times10^5$ random assignments; \texttt{code/peeling\_groupoid.py}). An
+exhaustive search over members $m\le10^9$ (Gaussian norm $10^{18}$, $\omega\le8$, $1.4\times10^9$
+closure tests) found no cycle, no fixed point $|D(m)|=m$, and no vanishing $D(m)=0$. The search
+has since been extended two decades further in $m$, on a box narrower in the other parameters:
+$\omega\in[4,6]$ and odd primes below $600$, with $m$ running over $[10^9,10^{10}]$ and then
+$[10^{10},10^{11}]$. Both tiers are exhaustive over their $5{,}778$ prime pairs and return nothing:
+$10{,}004{,}024$ members and $6.94\times10^8$ closure tests on the first, $22{,}218{,}430$ members
+and $1.82\times10^9$ closure tests on the second, so $3.22\times10^7$ members and
+$2.52\times10^9$ closure tests in all, with no two--cycle at any point
+\textup{(\texttt{code/hunt/descended\_hunt2.rs}, \texttt{code/hunt/run\_tier2\_par.sh})}. The tier boxes are
+not nested in the one above, being narrower in $\omega$ and in the prime range while wider in $m$,
+so the two counts complement rather than supersede one another; and the tiers test closure only, not
+the fixed--point and vanishing conditions recorded above. We claim no
+obstruction from this: equivariance prunes the available phases fourfold per split prime, and a phase
+count makes emptiness at this depth the expected order. The descent target remains open over
+$\mathbb{Z}[i]$, but not in the real--quadratic world, where the corresponding sector contains a fully
+rational pair (Remark~\ref{rem:orderable}). Finally, the
+descended coefficients are classical objects: at a split prime $p$ the four values
+$\{\pm2x_p,\pm2y_p\}$ are exactly the Frobenius traces of the congruent--number curve $y^2=x^3-x$
+(CM by $\mathbb{Z}[i]$) and of its twists ($a_p\in\{\pm2x_p,\pm2y_p\}$ verified by point counting
+for all $p<120$) so the conjugation--stable sector is the arithmetic derivative twisted by the
+Hecke eigensystem of $\mathbb{Q}(i)$, and its mass statistics are governed unconditionally by Hecke's
+equidistribution theorem: the first point of contact between \#307 and automorphic forms. Concretely:
+over random squarefree $m$ the three--series conditions converge (the variance term is $\sum 2/p^2$), so
+the descended mass $D(m)/m$ has an Erd\H{o}s--Wintner \emph{limiting distribution} whose prime components
+are arcsine laws scaled by $1/\sqrt p$; the required input, equidistribution of the Hecke angles, is
+visible exactly (Kolmogorov--Smirnov distance $0.0041$ from uniform over the $8{,}977$ split primes below
+$2\times10^5$, well inside the $95\%$ band $0.0144$).
+\end{remark}
+
+\begin{remark}[The wall is the orderability of $\mathbb{Q}$]\label{rem:orderable}
+The cycles over $\mathbb{Z}[i]$ permit a dissection of the barrier that no amount of theory over
+$\mathbb{Z}$ could provide. The entire structural chain of this note (rigidity, cross--matching, the
+Pythagorean identity, the split discriminant) transfers verbatim to twisted derivatives over
+$\mathbb{Z}[i]$: Leibniz holds for disjoint supports, so a cycle $(a,b)$ has $D(N)=a^2+b^2$ for $N=ab$,
+with $D(N)-2N=(a-b)^2$ and $2N-D(N)=\bigl(i(a-b)\bigr)^2$ (all verified exactly on the cycles found).
+The last equation exposes the wall: over $\mathbb{Z}[i]$, where $-1=i^2$ is a square, \emph{both}
+discriminant factors are squares automatically, and the plus/minus distinction of
+Proposition~\ref{C-prop:splitdisc} (which over $\mathbb{Z}$ carries the entire obstruction, via
+$(a-b)^2\ge0\Rightarrow\sigma(N)\ge2$) has no content. The unique non--transferring link is the
+sign--definiteness of squares: the barrier is, in the end, the \emph{formal reality} of $\mathbb{Q}$ in
+the sense of Artin--Schreier. (The two Artin--Schreier theorems thus bracket the problem: their
+characteristic--$2$ map builds the tower of Proposition~\ref{C-prop:ff-pyth}, their theory of orderable
+fields names the wall.) This classifies where the mechanism can operate at all: it needs an ordering
+making squares nonnegative (formal reality, hence a real embedding) \emph{and} bounded twisting phases
+(finite unit group); by Dirichlet's unit theorem, unit rank $r_1+r_2-1=0$ with $r_1\ge1$ forces degree
+one. \emph{$\mathbb{Q}$ is the only number field over which the mass barrier can operate}: over
+imaginary quadratic fields squares lose sign--definiteness (over $\mathbb{Z}[i]$ even $-1$ is a square),
+and over every other field the unit rank is positive and twisted masses are unbounded. This is a
+classification of the wall's habitat, not an existence claim elsewhere, but over $\mathbb{Z}[i]$
+existence is no longer a claim: it is a list of sixteen. The ladder of imaginary quadratic rings
+confirms the mechanism quantitatively. Over $\mathbb{Z}[\sqrt{-2}]$, whose only units are $\pm1$,
+precisely the twisting freedom that provably gains nothing over $\mathbb{Z}$; sign--twisted cycles
+nevertheless exist from norm $11{,}462$ on ($a=-90-41\sqrt{-2}$, $b=75-45\sqrt{-2}$, seven prime
+classes): the complex embedding alone carries the phenomenon. Over the Eisenstein ring
+$\mathbb{Z}[\omega]$, with six units, cycles appear at norm $2{,}964$ with \emph{six} prime classes
+($a=-40+22\omega$, $b=56-21\omega$); the smallest derivative two--cycle exhibited in any ring,
+and the population at fixed height grows with the unit group: at norm $\le2\times10^7$ the censuses
+read $14$, $56$, and $278$ twisted--cycle instances for unit groups of order $2$, $4$, $6$ (a factor
+${\sim}4$--$5$ per two extra units, as a phase count predicts) while the strict canonical systems of
+all three rings remain empty to norm $2\times10^9$ ($3\times10^9$ candidates in total, partners by full
+factorisation). Two further objects appeared over $\mathbb{Z}[\sqrt{-2}]$: a composite with \emph{unit}
+derivative ($a'\sim1$; impossible over $\mathbb{Z}$, where $n'=1$ characterises the primes), and an
+\emph{anti--holomorphic} cycle: $a=-3163-1474\sqrt{-2}$ satisfies $a'=-\bar a$ exactly, under a single
+conjugation--equivariant sign assignment closing both directions ($N(a)=N(b)=14{,}349{,}921$, five prime
+classes each side). The equation $a'=u\bar a$ is vacuous over $\mathbb{Z}$ only in its
+\emph{one--dimensional} reading, where it says $n'=\pm n$. In the reading that matches the problem it is
+not vacuous but central: by Proposition~\ref{C-prop:multiplier} the Pythagorean layer over $\mathbb{Z}$
+\emph{is} the anti--holomorphic equation $\mathcal{D}z=\mu\bar z$ for the coordinatewise derivative on
+$z=a+bi$, and \#307 is exactly its unit--multiplier case. The ring ladder and the main problem are
+therefore instances of one equation rather than analogues; what singles out $\mathbb{Z}$ is the extra
+constraint $\operatorname{Im}\mu=1$, which confines the multiplier to a line meeting
+$\mathbb{Z}[i]^{\times}$ in the single point $\mu=i$. That the anti--holomorphic sector is thin is
+uniform across the ladder: over $\mathbb{Z}[\sqrt{-2}]$ the cycle above is still the \emph{only} one
+after widening the census simultaneously in all three directions; prime--norm $\le2\times10^4$,
+$\omega\le8$, product--norm $\le10^{10}$ (a factor $700$ past the cycle itself), $8.09\times10^8$
+supports, \texttt{code/hunt/antiholo\_hunt.rs}, and over
+$\mathbb{Z}$ the sector is empty below $10^{112}$ by Corollary~\ref{K-cor:emptytest}. We record the
+plateau as consistent with genuine finiteness, not as evidence for it: a random model for
+$a'=-\bar a$ predicts a count growing like $\log X$, which the tested range cannot separate from a
+constant. All cycles were verified exactly by independent recomputation. Finally, the second pillar was tested in isolation: over
+$\mathbb{Z}[\sqrt2]$ (\emph{totally real}, so squares are sign--definite in both embeddings, but with
+infinite unit group $\pm(1+\sqrt2)^{\mathbb{Z}}$) twisted cycles appear already at norm $882$: with
+unit twists of height $\le2$, $a=21\sqrt2$ (classes $\sqrt2$, $-1+2\sqrt2$, $1+2\sqrt2$, $3$) cycles
+exactly with $b=51+13\sqrt2$, of norm $2263$ and only \emph{two} prime classes (against the
+fifty--nine that $\mathbb{Z}$ demands) and the composite $369-15\sqrt2$ has derivative exactly
+$\varepsilon^6=99+70\sqrt2$, a unit. Both pillars of the classification are thus load--bearing, and each
+is now confirmed by explicit counterexample on the soil where it alone fails: drop formal reality and
+cycles appear (imaginary quadratic rings, norms $10^3$--$10^4$); keep formal reality but drop unit
+finiteness and cycles appear (real quadratic, norm $882$, the smallest in any ring); over $\mathbb{Q}$,
+where both hold, the barrier stands at $10^{112}$ by theorem. The bracketing of $\mathbb{Q}$ is complete
+from both axes. The census sharpens it: at norm $\le2\times10^7$ the real--quadratic ring carries
+$30{,}204$ twisted--cycle instances against $14$, $56$, $278$ for the imaginary rings with $2,4,6$ units
+infinite unit rank dominates by two orders of magnitude, and contains both the \emph{minimal}
+architecture, $a=\sqrt2\,(5-\sqrt2)$ cycling with $b=7$ at norms $(46,49)$, two prime classes per member
+(the rational prime $7$ being composite in the ring), the smallest derivative cycle found in any ring;
+and a \emph{fully rational} pair:
+\[ D(3707)=1547,\qquad D(1547)=3707\qquad(3707=11\cdot337,\ \ 1547=7\cdot13\cdot17), \]
+exactly, with unit heights $\le2$ on both sides, verified independently: two ordinary integers in a
+derivative two--cycle. The descent phenomenon that is empty over $\mathbb{Z}[i]$ to norm $10^{18}$ is
+realised over $\mathbb{Z}[\sqrt2]$ at four digits. The canonical system of $\mathbb{Z}[\sqrt2]$ remains
+cycle--free to norm $2\times10^9$ ($7.7\times10^8$ candidates), now with seven unit--derivative
+composites.
+\end{remark}
+
+The cycle phenomenon over rings with units is governed by the theory of unit equations, which supplies
+its rigidity theorem.
+
+\begin{proposition}[$S$--unit rigidity of twisted cycles]\label{prop:sunit}
+Let $\mathcal{O}$ be the ring of integers of a number field and $S$ a finite set of primes of
+$\mathcal{O}$. If $(a,b)$ is a twisted two--cycle with $\operatorname{supp}(ab)\subseteq S$, then
+dividing $D(a)=b$ by $b$ exhibits a solution of
+\[ x_1+\dots+x_{\omega(a)}=1,\qquad x_i=u_i\,\frac{a/\pi_i}{b}, \]
+in the $S$--unit group of the field, and likewise for $b$. By the theorem of
+Evertse--Schlickewei--Schmidt \cite{ESS2002} (cf.\ \cite{Evertse1984}), such an equation has only
+finitely many nondegenerate solutions; hence \emph{every fixed support carries at most finitely many
+twisted cycles free of vanishing subsums}, and the species can be infinite only through growing
+supports; precisely the behaviour of every census above. (Vanishing subsums correspond to partial
+zero--derivative patterns; none occurred in any search. The relation was verified exactly on the
+$\mathbb{Z}[\sqrt2]$ specimen: the four $S$--unit terms of $a=21\sqrt2$ sum to $1$.)
+\end{proposition}
+
+\begin{remark}[Galois folding, and the thinness of symmetric sectors]\label{rem:folding}
+Over a quadratic field with automorphism $\sigma$, a $\sigma$--equivariant choice of unit values
+($u_{\pi^\sigma}=u_\pi^{\,\sigma}$) makes $D$ commute with conjugation, so the \emph{single} equation
+$D(a)=a^\sigma$ already implies that $(a,a^\sigma)$ is a twisted two--cycle (checked symbolically and on
+$1{,}988$ random instances). In the two--prime case the partner is forced:
+$\rho=-\bigl(\bar u v\,\pi+\bar v\,(\pi^\sigma)^2\bigr)/\bigl(N(u)-N(\pi)\bigr)$, with integrality a
+congruence and the entire residue of the problem the primality of $|N(\rho)|$ along Pell--exponentially
+growing sequences; Lehmer territory rather than Bunyakovsky. Whether a folded sector is starved or
+rich is decided by its degrees of freedom. When the fold leaves no slack the sector is thin: the folded
+\emph{two}--prime family over $\mathbb{Z}[\sqrt2]$ is empty in the tested box ($36{,}000$ parameter
+triples, none even integral), the conjugation--stable sector over $\mathbb{Z}[i]$ is empty to Gaussian
+norm $10^{18}$, and the anti--holomorphic cycle over $\mathbb{Z}[\sqrt{-2}]$ is unique in its census.
+But with \emph{three} primes the folded equation
+$u_1\pi_2\pi_3+u_2\pi_1\pi_3+u_3\pi_1\pi_2=(\pi_1\pi_2\pi_3)^\sigma$ carries three unit unknowns against
+two real equations, and this underdetermined system is \emph{populated}: an exhaustive box ($p_i\le137$,
+unit heights $\le4$) contains twenty--four solutions over eleven prime triples, the smallest being
+\[ a=(3+\sqrt2)(5-2\sqrt2)(5-\sqrt2)=57-16\sqrt2,\qquad D(a)=a^\sigma=57+16\sqrt2, \]
+with unit values $\varepsilon^2$, $\varepsilon$, $-\varepsilon^{-1}$: \emph{the derivative conjugates the
+element}, at norm $2737$ on both sides, the equivariant return being automatic (verified exactly).
+Existence of twisted cycles over the four rings tested is a theorem by exhibition; for \emph{every} ring
+with infinite unit group it is now reduced to the abundance of lattice points on these underdetermined
+unit systems (measured plentiful already at $k=3$) a geometry--of--numbers question rather than a
+primality one.
+\end{remark}
+
+\begin{remark}[{The forced third prime: a Schinzel--type reduction over $\mathbb{Z}[\sqrt2]$, unblocked}]
+\label{rem:forced}
+Within that abundance the arithmetic is sharper than free lattice--counting. Fixing $\pi_1,\pi_2$ and the
+units $u_1,u_2,u_3$, the folded equation rearranges to
+$\pi_3\,(u_1\pi_2+u_2\pi_1)-(\pi_1\pi_2)^\sigma\pi_3^\sigma=-u_3\pi_1\pi_2$, a $2\times2$ integer linear
+system for $\pi_3=(x,y)$ whose determinant is $N(u_1\pi_2+u_2\pi_1)-N(\pi_1\pi_2)$ (an identity, verified
+on all $168$ solutions of the box). So $\pi_3$ is \emph{forced} by $(\pi_1,\pi_2,u_1,u_2,u_3)$, and
+infinitude of twisted cycles is exactly the primality of this forced $\pi_3$ for infinitely many such data
+a Schinzel/Bunyakovsky--type condition over $\mathbb{Z}[\sqrt2]$. Crucially it is \emph{not} the regime
+of Proposition~\ref{K-prop:nopoly}: the exponential unit freedom $u_i=\pm\varepsilon^{k_i}$ keeps the family
+non--polynomial yet populated, so the polynomial--rigidity that forbids reducing the \emph{rational} \#307
+to such a hypothesis does not apply here. A Schinzel--type theorem over $\mathbb{Z}[\sqrt2]$ would render
+twisted infinitude unconditional, whereas none touches \#307 itself; the twisted problem sits strictly
+closer to the reach of current sieve theory than its rational shadow. Concretely the twisted solution set
+is \emph{abundant} at accessible scale; thousands of cycles at modest norm (Proposition~\ref{prop:geometry}),
+and the count of distinct prime--norm signatures grows roughly in proportion to the norm bound in our census
+(e.g.\ $6,12,20$ at bounds $40,80,160$, unit heights saturating); whereas the rational Pythagorean layer
+is \emph{empty} below $10^{112}$ (Corollary~\ref{K-cor:emptytest}). The twisted and rational problems thus differ
+not in the difficulty of the search but in whether solutions exist to be found at all: for the twist they are
+plentiful and the only question is their primality, exactly the Schinzel--shaped residue above. That residue is a
+\emph{pair}, not a triple or a Lehmer sequence: fixing $\pi_1$ and bounding the units, the cycle count still
+grows with $N(\pi_2)$ (verified: $33,48,60$ for $\pi_1=3+\sqrt2$ at $N(\pi_2)\le60,120,240$), so $\pi_1$'s
+primality is free and only the \emph{simultaneous} primality of $\pi_2$ and the forced $\pi_3$ remains. Setting up
+the sieve pins the difficulty precisely. Writing $C=u_1\pi_2+u_2\pi_1$, $E'=(\pi_1\pi_2)^\sigma$,
+$F=-u_3\pi_1\pi_2$, the forced third prime is $\pi_3=(\bar CF+E'\bar F)/\det$ with $\det=N(C)-N(E')$ a binary
+quadratic form in $(c,d)=\pi_2$. The first condition is the clean form $N(\pi_2)=c^2-2d^2$; the second, however,
+is \emph{not} a second form but the rational condition $N(\pi_3)=N(G)/\det^2$ ($G=\bar CF+E'\bar F$ quadratic,
+$N(G)$ quartic, $\gcd(N(G),\det)=1$), evaluated on the integral locus $\det\mid G$, and $N(\pi_3)$ is unbounded,
+spiking as $\det\to0$ (values to ${\sim}10^{11}$ already at $N(\pi_2)\le2\times10^4$). On this \emph{frozen}
+$(\pi_1,\text{units})$ slice the question is primality along the folded conic bundle, and the slice is thin: its
+unimodular fibres $\det=\pm1$ are \emph{empty} by a genus obstruction (there $\det=\pm1$ would need
+$x^2-2y^2\in\{-55,-43\}$, both non--residues). But the thinness is an artefact of freezing exactly the parameters
+that carry the abundance. The \emph{full} twisted variety $D(a)=a^\sigma$ ($\pi_1,\pi_2,\pi_3$ and their units all
+free) is a cubic threefold whose solution count grows with positive exponent; a positive--density attack must run
+there, not on a fixed fibre, so the fixed--fibre conic sieve is a closed dead end. The honest placement is then: the
+reachable object is the full threefold at the Heath--Brown $x^3+2y^3$ frontier, compounded by a \emph{coupled} second
+primality ($N(\pi_2)$ and $N(\pi_3)$ simultaneously prime); the two--sparse--conditions/parity barrier where the
+circle method loses minor--arc cancellation. This is strictly below the exponential/Lehmer tier of the immune
+families (Remark~\ref{A-rem:lehmer}, where no sieve reaches at all), but a generation beyond present technology; it is
+where genuinely new analytic input for the twist would first have to bite.
+\end{remark}
+
+The natural attempt to \emph{prove} that infinitude (forcing one prime to be the conjugate of another
+so that a single free prime remains, whence Dirichlet would suffice) is blocked, and the block is a
+clean structural law.
+
+\begin{proposition}[No conjugate prime pair in a twisted cycle]\label{prop:noconj}
+Let $D$ be a Leibniz derivative with unit prime--values over a quadratic ring with automorphism $\sigma$,
+and $a$ a squarefree twisted cycle $D(a)=a^\sigma$. Then no two prime factors of $a$ are
+$\sigma$--conjugate. Equivalently a twisted cycle's support is disjoint from its conjugate; it is never
+conjugation--stable, which is exactly why the exhibited $\mathbb{Z}[i]$ cycles are asymmetric, coming in
+conjugate pairs of \emph{distinct} supports rather than on one symmetric support. This \emph{separates}
+two problems easily conflated: the twisted equality $D(a)=a^\sigma$ treated here, and the symmetric
+target of Remark~\ref{rem:descent}, which is a genuine two--cycle $D(m)=m'$ ($m\ne m'$, both
+conjugation--fixed) of the \emph{descended} rational operator; not a twisted equality. The present
+proposition bars the first from the symmetric locus; it does not bear on the second, which remains
+genuinely open (the exhaustive emptiness there, Remark~\ref{rem:descent}, is unexplained by it).
+\end{proposition}
+\begin{proof}
+Suppose a split prime $\pi$ and its distinct conjugate $\pi^\sigma$ both divide $a$. Reducing
+$D(a)=\sum_i u_i\,(a/\pi_i)$ modulo $\pi$ kills every term but the one at $\pi_i=\pi$, so
+$D(a)\equiv u_\pi\,(a/\pi)\not\equiv0\pmod\pi$ ($u_\pi$ a unit and $\pi\nmid a/\pi$ by squarefreeness).
+Yet $a^\sigma=\prod_i\pi_i^\sigma$ carries the factor $(\pi^\sigma)^\sigma=\pi$, so
+$a^\sigma\equiv0\pmod\pi$; hence $D(a)\ne a^\sigma$. An exhaustive $\mathbb{Z}[\sqrt2]$ search confirms
+no cycle carries a conjugate pair.
+\end{proof}
+
+We codify what is theorem and what remains open in this circle.
+
+\begin{theorem}[Existence of twisted derivative two--cycles]\label{thm:existence}
+Leibniz derivatives with unit prime--values admit genuine two--cycles over $\mathbb{Z}[i]$,
+$\mathbb{Z}[\sqrt{-2}]$, $\mathbb{Z}[\omega]$, and $\mathbb{Z}[\sqrt2]$. The proof is by exhibited
+certificate, each verified exactly by independent recomputation: the smallest instances are, in order of
+norm, $\bigl(\sqrt2(5-\sqrt2),\,7\bigr)$ over $\mathbb{Z}[\sqrt2]$ at norms $(46,49)$; the Eisenstein
+cycle at norm $2{,}964$; the sign--twisted cycle over $\mathbb{Z}[\sqrt{-2}]$ at norm $11{,}462$, and the
+cycle over $\mathbb{Z}[i]$ at norm $16{,}642$; together with the rational pair
+$D(3707)=1547$, $D(1547)=3707$ over $\mathbb{Z}[\sqrt2]$.
+\end{theorem}
+
+\begin{proposition}[Geometry of the solution set]\label{prop:geometry}
+Over $\mathbb{Z}[\sqrt2]$, consider the Galois--folded system
+$u_1\pi_2\pi_3+u_2\pi_1\pi_3+u_3\pi_1\pi_2=(\pi_1\pi_2\pi_3)^\sigma$ of
+Remark~\textup{\ref{rem:folding}}. \textup{(i)} For \emph{every} triple of split primes the system is
+solvable with the $u_i$ on the real unit hyperbola $\{|st|=1\}$: solving the second embedding for $u_2$
+and letting the third coordinate tend to zero, the first--embedding residual sweeps $\pm\infty$ while the
+remaining terms stay bounded, so a root exists by continuity; the real solution set is a nonempty curve
+\textup(verified numerically on $200$ random triples, all solvable\textup). The volume of the solution
+variety never vanishes. \textup{(ii)} By Proposition~\textup{\ref{prop:sunit}} each fixed support carries
+finitely many integral solutions, so infinitude can only come from growing supports. \textup{(iii)} The
+measured integral hit rates are $11$ of $455$ prime triples in the smallest box, and $30{,}204$ cycles of
+norm $\le2\times10^7$ at twist height $\le2$. \textup{(iv)} What remains open is precisely whether the
+discrete unit lattice meets the real curve in integer points for infinitely many supports,
+inhomogeneous Diophantine approximation on exponentially parametrised curves. Two shortcuts are closed:
+bounded--unit polynomial families are obstructed (the rational component of the return forces unit
+coefficients to track growing prime coordinates, which bounded units cannot), and even the cleanest
+forward family ($D\bigl(\sqrt2(x-\sqrt2)\bigr)=x+2$ \emph{identically in} $x$, supplying a candidate
+cycle whenever $x^2-2$ and $x+2$ are prime) has sporadic returns: the closing two--term unit equation,
+effectively finite for each $x$, is solvable at $x=5$ and provably insolvable at $x=15$ and $x=21$.
+Those failures are, however, exactly the rigid case: a \emph{prime} return $x\pm2$ leaves the closing
+system no slack. The identity has four unit branches $D\bigl(\sqrt2(x\pm\sqrt2)\bigr)=x\pm2$ (independent
+signs, twists $1$ and $\pm\varepsilon^{\pm1}$), and when $x\pm2$ is composite squarefree the closing
+system gains one unit unknown per prime class against the same two equations, and does close:
+$x=107,121,387,1693$ yield cycles with rational partners $b=105,119,385,1695$, each verified exactly.
+Infinitude along this family is thereby reduced to Bunyakovsky for $x^2-2$ together with recurring
+composite--return closure: the softest form the gap takes anywhere in this paper. Even the primality
+half of that reduction can be removed. By the half--dimensional sieve
+\cite{Iwaniec1978,LemkeOliver2012} (applied to $(2y+1)^2-2=4y^2+4y-1$ to keep $x$ odd), $x^2-2$ is a
+$P_2$ infinitely often; every prime factor of $x^2-2$ has $2$ as a quadratic residue and therefore
+splits in $\mathbb{Z}[\sqrt2]$, so $\sqrt2(x-\sqrt2)$ is infinitely often squarefree and all--split
+with $\omega\in\{2,3\}$. The candidate supports thus exist \emph{unconditionally}; all that remains
+open on this route is whether the unit gates open along that supply infinitely often.
+Exactness migrates; it does not disappear.
+\end{proposition}
+
+\begin{proposition}[No vanishing derivatives, no transport, and the price of exactness]\label{prop:novanish}
+\textup{(i)} No squarefree $z$ with $\omega(z)\ge1$ has $D(z)=0$, for any twisted derivative over any of
+the rings considered (indeed over any UFD): modulo a prime $\pi\mid z$ every cofactor term but one
+vanishes, leaving $D(z)\equiv u_\pi\,z/\pi\not\equiv0\pmod\pi$. The zero--derivative counters of every
+census above are therefore theorems, not observations. \textup{(ii)} Consequently cycles cannot be
+transported multiplicatively: for squarefree $c$ coprime to $ab$, Leibniz gives $D(ca)=D(c)\,a+c\,D(a)$,
+so $(ca,cb)$ is a cycle exactly when $D(c)=0$; impossible. Cycles do not breed; each one requires
+fresh exactness. \textup{(iii)} The two cycle equations can be bought by construction, at a conserved
+price. Buying \emph{neither} leaves the generic stratum: two exact unit conditions ($30{,}204$
+specimens). Buying \emph{one} is free in two dual ways; forward, $\pi\coloneqq q-\varepsilon^m\sqrt2$
+makes $D(\sqrt2\,\pi)=q$ an identity (the four--branch family above is the case $m=\pm1$); return,
+$\pi\coloneqq(\rho+\varepsilon^{-1}\rho^\sigma)/\sqrt2=(c+2d)-d\sqrt2$ for $\rho=c+d\sqrt2$ closes
+$D(b)=\sqrt2\,\pi$ identically for every associate $b$ of $\rho\rho^\sigma$, and the residue is one
+primality, $|N(\pi)|$, plus one exact unit gate, measured at $2$ of $50$ pairs with both primalities in
+the smallest box. The two hits re--derive, with no search, precisely the two census minimal--shape cycles
+with prime rational partner: norms $(46,49)$ and $(206,49)$. Buying \emph{both} collapses the parameters
+to unit--indexed quadratics in $q$ with a square--discriminant condition; the resulting $q=7$ line
+carries the known cycles at $m=1$ and $m=-2$ (discriminants $25$ and $81$) together with one Galois
+image, and every other prime--norm rung out to $|m|\le14$ fails its return, verified exactly. Each
+purchased identity is repaid as a sparser arithmetic condition elsewhere: the hardness of exactness is
+conserved, never destroyed.
+\end{proposition}
+
+\begin{remark}[The two faces of the gap: unit rank dichotomises the obstruction]\label{rem:dichotomy}
+The invariant that governs abundance in Remark~\ref{rem:orderable} (the unit rank
+$r=r_1+r_2-1$ of Dirichlet) also governs the \emph{type} of the residual open problem, and the two
+types are mutually exclusive. When $r=0$ (the rings $\mathbb{Z}$, $\mathbb{Z}[i]$,
+$\mathbb{Z}[\sqrt{-2}]$, $\mathbb{Z}[\omega]$) the unit group is finite, so a given pair of supports
+admits only $|\mathcal{O}^\times|$ twist assignments and hence finitely many candidate cycles: the
+solution locus is a set of \emph{isolated points}, zero--dimensional, and infinitude can arise only from
+infinitely many \emph{distinct} supports independently passing a closing test; a
+Bateman--Horn/Schinzel--type recurrence over prime tuples, with no continuous family to deform along.
+The constituent primalities are individually classical (each support prime is a value of a binary
+norm--form, so by Fermat--Dirichlet (and, for $\mathbb{Z}[i]$, by the Green--Sawhney theorem with
+\emph{both} coordinates prime) there is no shortage of supports); it is their \emph{simultaneous}
+closure that is not classical. This was tested directly: the minimal shape $a=(1+i)\pi$ over
+$\mathbb{Z}[i]$ yields \emph{no} cycle for any Gaussian prime $\pi$ of norm $\le4000$ under any of the
+sixteen twists, and the sixteen genuine cycles are irregular mixtures of inert and split classes
+($\omega=3,4,5$) with no one--parameter family among them; the signature of isolated points, not a
+curve. When $r\ge1$ (every real quadratic ring, e.g.\ $\mathbb{Z}[\sqrt2]$),
+Proposition~\ref{prop:geometry} makes the real solution locus a positive--dimensional curve in each
+support, but the unit lattice is an infinite rank--$r$ discrete set, and infinitude requires it to meet
+that curve in \emph{integer} points infinitely often; inhomogeneous Diophantine approximation on an
+exponentially parametrised curve. No unit rank delivers both a classical gate and a continuous family:
+rank zero gives the former and denies the latter, positive rank the reverse. This is why no single ring
+lets the infinitude be \emph{finished} by present methods; a structural account of the obstruction's
+universality, not a barrier theorem. It also locates $\mathbb{Z}$ exactly: the unique ring carrying
+\emph{both} the rank--zero sporadicity \emph{and}, by formal reality, the mass barrier; the worst
+cell of the trichotomy of Corollary~\ref{cor:ff307}, which is precisely why \#307 is the hard
+representative of its family.
+\end{remark}
+
+\section{Two closures on the existence route}\label{sec:exclosure}
+
+Atom $\mathrm{A}10$ asks for a prime term of the ternary recurrence of
+Remark~\textup{\ref{A-rem:lehmer}}. Before attacking it, two families of approach can be removed:
+the relaxations that would give the construction more freedom, and the algebraic methods that
+would avoid the archimedean place. Both are closed outright.
+
+\begin{proposition}[No free slot]\label{prop:nofreeslot}
+Let $P,Q$ be finite sets of primes with $\sigma(P)\sigma(Q)=1$, and put $a=\prod P$, $b=\prod Q$.
+Then $b=a'$ and $a=b'$ exactly. In particular $Q$ is \emph{determined} by $P$: it is the set of
+prime factors of $a'$, and the existence route carries exactly one parameter, the set $P$.
+
+\textup{Formalised.} \texttt{Erdos307.Q\_determined}: given $a'=b$, the set $Q$ is exactly the set of
+prime factors of $a'$. The one--prime normal form of Proposition~\ref{K-prop:oneprime} is
+\texttt{oneprime\_forced}, \texttt{oneprime\_cycle}, \texttt{oneprime\_converse}
+\textup{(}which closes the equivalence\textup{)},
+\texttt{oneprime\_mass\_identity} and \texttt{oneprime\_mass\_bound}, the last two giving
+part~\textup{(b)}: the mass identity holds for
+\emph{every} witness, prime or composite, so the exactness layer alone carries the barrier. The slot
+calculus of Proposition~\ref{C-prop:slot} is \texttt{slot\_layers} and \texttt{slot\_recovery}, the
+filter of Corollary~\ref{C-cor:qr} is \texttt{qr\_filter}, resting on \texttt{cofactor\_survival},
+the congruence $N'+2N\equiv N/\ell\pmod\ell$, which is proved rather than assumed (stating \texttt{qr\_filter} with that arithmetic as a hypothesis on abstract residues would leave it contentless); Lemma~\ref{C-lem:symbolfact} is \texttt{Frame.csum\_eq\_mul\_recipSum} for its first half
+and \texttt{symbolfact} for the Jacobi factorisation; and the reduction mechanism behind
+Proposition~\ref{prop:noconj}, Rigidity and Lemma~\ref{A-lem:anatomy} alike is isolated once as
+\texttt{dvd\_sum\_erase\_iff} \textup{(\texttt{lean/Erdos307/NormalForm.lean})}.
+\end{proposition}
+\begin{proof}
+$\sigma(a)=a'/a$ and $\sigma(b)=b'/b$, both in lowest terms since $\gcd(m,m')=1$ for squarefree
+$m$. Then $\sigma(a)\sigma(b)=1$ reads $a'b'=ab$. From $\gcd(a',a)=1$ and $a'\mid ab$ we get
+$a'\mid b$, say $b=a'k$; symmetrically $b'\mid a$, say $a=b'j$. Substituting,
+$a'b'=ab=b'j\cdot a'k$, so $jk=1$ and $j=k=1$.
+\end{proof}
+
+\begin{corollary}[The multi-slot relaxations are vacuous]\label{cor:noslack}
+There is no version of the construction in which two or more primes of $Q$ may be chosen freely.
+In particular one cannot fix a base $B\subset Q$ and solve $1/q_1+1/q_2=r/s$ for the remaining two
+primes by ranging over the $\tau(s^2)$ factorisations $(rq_1-s)(rq_2-s)=s^2$: by
+Proposition~\ref{prop:nofreeslot} the pair $(q_1,q_2)$ is already forced to be the corresponding
+part of the factorisation of $a'$. The exponential parametrisation of
+Remark~\textup{\ref{A-rem:lehmer}} is therefore intrinsic, not an artefact of the one-free-prime
+ansatz, and no amount of extra slots converts it into a Bunyakovsky one. What does dispose of the
+exponential growth is not extra slots but Proposition~\ref{K-prop:tailbound}, which bounds the tail
+prime outright and so replaces the orbit by a finite divisor search.
+\end{corollary}
+
+The second closure is not new here, but it belongs in this list because it is what forces the whole
+existence route to be analytic. Theorem~\ref{thm:ff} of Section~\ref{sec:ff} shows that over
+$\mathbb{F}_q[t]$ the arithmetic derivative satisfies $\deg f'\le\deg f-1$, hence has no two--cycles
+and no nonzero fixed points, and Corollary~\ref{cor:ff307} concludes that the function--field
+Erd\H{o}s--Barbeau equation is insoluble outright. \textup{(An independent brute-force recheck,
+$8192$ squarefree monics over $\mathbb{F}_2$ to degree $13$ and $6561$ over $\mathbb{F}_3$ to
+degree $8$, $0$ violations and $0$ two--cycles: \texttt{code/ff\_nocycle.rs}.)} What is added here
+is not that statement but its consequence for \emph{method}, recorded next.
+
+\begin{remark}[Why the existence route cannot be algebraic]\label{rem:archimedean}
+The mechanism of Theorem~\ref{thm:ff} is the ultrametric inequality. The cycle equation is
+$\sigma(a)\sigma(b)=1$, so one of the two masses must reach $1$; over $K[t]$ the mass satisfies
+$|\sigma(f)|=\max_i|1/\pi_i|<1$ by ultrametricity and can never do so, whereas over $\mathbb{Z}$ the
+archimedean absolute value permits $\sum_{p\mid n}1/p>1$. So \#307 is possible at all only because
+$|\cdot|_\infty$ is not ultrametric.
+
+This has a consequence for method. Any argument for \emph{existence} that is purely algebraic, in
+the sense that it applies verbatim with $\mathbb{Z}$ replaced by $K[t]$, would prove a statement
+that Theorem~\ref{thm:ff} refutes; hence no such argument exists. Together with
+Proposition~\ref{K-prop:nopoly} (no polynomial parametrisation) and Proposition~\ref{C-prop:noplace}
+(no place of $\mathbb{Q}$ carries the descent) this closes the algebraic and geometric toolkit on
+\emph{both} routes: the negative route has no place to descend at, and the positive route has no
+place to construct at. What remains for $\mathrm{A}10$ is archimedean and analytic, which is
+precisely the regime in which lower bounds for primes in sparse sequences are unavailable. That is
+a sharper statement of the obstruction than Remark~\ref{A-rem:lehmer} gives, and it is the reason the
+present work does not resolve the existence direction.
+\end{remark}
+
+A third closure was claimed here in place of what follows, and it was wrong. The $34$ immune
+families of Remark~\textup{\ref{A-rem:campaign}} are precisely the tail families the congruence
+campaign cannot kill, so each is a live candidate and the obvious move is to test them one at a
+time. That move \emph{is} available, and the argument that said otherwise is worth setting out,
+because its error is a natural one.
+
+\begin{remark}[Why the immune families looked untestable, and why they are not]\label{rem:untestable}
+Deciding whether the tail family $S\cup\{q\}$ contains a Pythagorean pair is, by
+Remark~\textup{\ref{A-rem:lehmer}}, deciding whether $B_Sx^2-A_Sy^2=-4D_S^2$ has an integral solution
+with $q=(x^2-D_S)/A_S$ prime, and two routes to that decision present themselves.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+\item \emph{Global route.} Enumerating \emph{all} integral points on the conic requires the
+fundamental unit, equivalently the class group, of the real quadratic order of discriminant
+$4A_SB_S$. On the first immune base that discriminant has $225$ digits and is a nonsquare, so the
+subexponential index-calculus cost
+$L_\Delta(1/2)=\exp\bigl(\sqrt{\log\Delta\,\log\log\Delta}\bigr)$ evaluates to $10^{24.7}$
+operations. This remains true, and it is what blocks the squarefree--density argument discussed
+above, which genuinely needs the Pell orbit modulo $p^2$.
+\item \emph{Parametric route.} Since $A_S$ is prime and $(D_S\mid A_S)=+1$, a square root
+$x_0^2\equiv D_S\pmod{A_S}$ exists and the solutions are parametrised by $x=x_0+tA_S$ with
+$q(t)=\bigl((x_0+tA_S)^2-D_S\bigr)/A_S$. A solution additionally needs $B_Sq(t)+D_S$ to be a square,
+a quantity of $223$ digits already at $t=0$, so the heuristic hit rate is $10^{-112}$ per trial and
+the parameter $t$ appears to range without bound.
+\end{enumerate}
+It does not. The earlier reading of (ii) overlooked the bound this paper had already proved:
+Proposition~\ref{K-prop:tailbound} forces $q\le tD_S$ and hence $x<A_S$
+(Proposition~\ref{A-prop:lvl60factor}), so $t=0$ and the two square roots $x_0$ and $A_S-x_0$ exhaust
+the parametrisation. The decision is therefore a pair of primality tests, not an unbounded sweep,
+and Proposition~\ref{A-prop:immunedecide} carries it out: all $34$ immune families are empty. The
+global route (i) is not needed because the decision never asks for all integral points on the conic,
+only for those in a box the tail bound has already made small. The error was to treat a
+parametrisation as a search space without asking what the accompanying inequality did to it, and it
+cost the paper a false impossibility claim.
+\end{remark}
+
+One hope survives all of this on its face: a lower bound for \emph{some term of some sequence in a
+family} is formally weaker than one for a single sequence, and Proposition~\ref{K-prop:close59}
+supplies $49{,}961$ of them. It fails, and it fails for a reason no enlargement of the family can
+repair.
+
+\begin{proposition}[Multiplicity cannot help]\label{prop:multiplicityfail}
+Every known lower-bound method for primes in a set requires that set to have counting function at
+least $X^{\theta}$ for some fixed $\theta>0$. The union over all $49{,}961$ bases of the terms of
+their sequences below $X$ has counting function $C\log X$ with $C=49{,}961/\log\varepsilon$, since
+each sequence grows like $\varepsilon^n$ and so contributes only $O(\log X)$ terms. Hence
+\[ \frac{\log(\text{union below }X)}{\log X}=\frac{\log\bigl(C\log X\bigr)}{\log X}\;\longrightarrow\;0, \]
+and the family size $C$ is powerless because it sits inside a logarithm.
+\end{proposition}
+\begin{proof}[Measurement]
+On an immune base $\varepsilon$ has $224$ digits, so at $X=10^{500}$ each sequence contributes
+$2.2$ terms and the whole family contributes $10^{5.05}$, a density exponent of $0.0101$. Reaching
+$\theta=\tfrac12$ at that $X$ would need $10^{249.7}$ bases against the $10^{4.7}$ available, a
+shortfall of $10^{245}$. Even the absolute ceiling on the family at \emph{every} level combined,
+all $2^{139}=10^{41.8}$ subsets of the primes below $800$, falls short by $10^{207.8}$
+\textup{(\texttt{code/a10\_multiplicity.gp})}.
+\end{proof}
+
+Each of the four blocks was then attacked on its own terms. None fell; each is now located more
+precisely, and two further routes are closed.
+
+\begin{proposition}[The number--field barrier transfer is \textsc{false}]\label{prop:fieldoptimal}
+Theorem~\ref{thm:ff} kills the algebraic route by ultrametricity, which suggests replacing $K[t]$ by
+a number ring $\mathcal{O}_K$, where the absolute value is archimedean and the obstruction
+disappears. It does disappear, so it is not the case that for every number field $K$ the least $\prod N(\pi)$ over prime ideals with $\sum1/N(\pi)\ge2$ is
+at least that of $\mathbb{Q}$. That assertion is false. What holds is the following.
+\begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
+\item \emph{The true infimum is $16$.} In the biquadratic field
+$K=\mathbb{Q}(\sqrt{17},\sqrt{33})$, of discriminant $314{,}721$, the prime $2$ splits completely:
+there are four prime ideals of norm $2$. They carry mass $4\cdot\tfrac12=2$ exactly, and their
+product of norms is $2^4=16$. Conversely $2$ is the least possible ideal norm, so mass $2$ needs at
+least four ideals of norm $2$ and any admissible family has product at least $16$; a field can carry
+at most $[K:\mathbb{Q}]$ ideals of norm $2$, so degree $4$ is also minimal. Hence $16$ is the exact
+infimum over all number fields, against $\prod_{i\le59}p_i>8.77\times10^{112}$, a factor $10^{112}$ apart.
+\item \emph{Where the argument broke.} The Chebotarev computation is correct as a statement about
+\emph{density}: in a degree-$d$ Galois field the completely split primes have density $1/d$, so they
+carry mass $d\cdot(1/d)\log\log Y=\log\log Y$, exactly as over $\mathbb{Q}$, while each costs
+$d\log p$, and inert primes contribute $1/p^{d}$, that is, nothing. The error was to read a
+statement about the tail as a statement about the minimum. The barrier consumes only \emph{finitely
+many} primes, and for any finite set of small primes one may choose $K$ in which all of them split;
+Chebotarev constrains how often splitting happens, not which particular primes split.
+\item \emph{What survives, and what closes the route instead.} For a \emph{fixed} field the
+measurement stands: $\mathbb{Q}$ needs $59$ primes and $10^{112.9}$, whereas $\mathbb{Q}(i)$ needs
+$226$ prime ideals and $10^{735.1}$ \textup{(\texttt{code/a10\_fieldbarrier.gp})}. What does not
+survive is the use of this proposition as a \emph{block}. The route is nevertheless closed, and by a
+sounder argument, which is Proposition~\ref{prop:distinct} below: the ideal--theoretic \#307 is
+\emph{trivially soluble}, so it carries no information about the rational problem.
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}[The difficulty of \#307 is distinctness, not mass]\label{prop:distinct}
+Allow $P$ and $Q$ to be finite \emph{multisets} of primes rather than sets. Then the \#307 equation
+is soluble with four primes in total:
+$\bigl(\tfrac12+\tfrac12\bigr)\bigl(\tfrac12+\tfrac12\bigr)=1$. With $P,Q$ genuine sets the same
+equation forces $|P\cup Q|\ge59$ and $\prod>10^{112.9}$ by Theorem~\ref{K-thm:barrier}. The barrier is
+therefore a statement about the injectivity of $p\mapsto1/p$ on the primes, not about the arithmetic
+of the mass condition.
+
+Two consequences, and the second is the operative one.
+
+\textup{(i)} \emph{The ideal--theoretic problem is trivial.} In $K=\mathbb{Q}(\sqrt{17},\sqrt{33})$
+the prime $2$ splits completely into four pairwise coprime prime ideals of norm $2$; taking
+$P=\{\pi_1,\pi_2\}$ and $Q=\{\pi_3,\pi_4\}$ gives $\sigma(P)=\sigma(Q)=1$ and $|P\cup Q|=4$
+\textup{(\texttt{code/ideal307.gp})}. Nor does the derivative transfer: $\pi_1+\pi_2$ is the unit
+ideal, so $a'$ collapses. This is the correct reason the number--field route is closed, and it
+explains why refuting the previous proposition reopened nothing: the transferred problem was never
+the same problem.
+
+\textup{(ii)} \emph{A no--go for transfers generally.} Any setting admitting two distinct objects of
+the same norm $n\ge2$ on each side solves the mass equation at size four, whatever the setting is.
+So a dictionary permitting repeated denominators \emph{dissolves} \#307 rather than relocating its
+difficulty, and can carry no information about it. This prunes a class of attacks in one line, and
+it is the test any future transfer should face first. Corollary~\ref{K-cor:coprime60} passes it only
+because pairwise--coprime integers still have distinct least prime factors, which is distinctness
+re-entering through the back door.
+
+\textup{Formalised.} \texttt{Erdos307.multiset\_solution} is the four--element witness,
+\texttt{distinctness\_carries\_the\_barrier} the contrast against
+\texttt{card\_ge\_59\_of\_recipSum\_ge\_two}, stated as a conjunction so the two halves cannot drift
+apart, and \texttt{transfer\_dissolves} the general no--go
+\textup{(\texttt{lean/Erdos307/Distinctness.lean})}.
+\end{proposition}
+
+\begin{remark}[The three other blocks, attacked]\label{rem:blockattacks}
+\textup{(i) Against Proposition~\ref{prop:nofreeslot}.} The rigidity $\prod Q=a'$ would dissolve if
+disjointness were an assumption one could relax. It is not: $P\cap Q=\varnothing$ is
+\emph{derived} in Theorem~\ref{K-thm:structure} by the Israel mechanism, $r\in P\cap Q$ forcing
+$v_r(st)=-2\neq0$. There is nothing to relax.
+
+\textup{(ii) The block that fell.} A block was claimed here on the ground that deciding an immune
+family needs integral points on the conic $B_Sx^2-A_Sy^2=-4D_S^2$, hence the fundamental unit of a
+$225$--digit discriminant. The objection to it was that conics obey Hasse--Minkowski, so with the
+local solubility of Remark~\ref{A-rem:tier60} rational solubility is unconditional; the reply was that
+what is missing is integrality, not solubility. Both sides of that exchange were beside the point.
+Integral points are not needed either, because Proposition~\ref{K-prop:tailbound} confines the solution
+to a box containing at most two candidates, and Proposition~\ref{A-prop:immunedecide} simply tests
+them. Remark~\ref{rem:untestable} records the error. The lesson is worth more than the block was: an
+obstruction stated in terms of a general algorithmic problem is only as good as the argument that the
+problem instance is general, and here it was not.
+
+\textup{(iii) Against Proposition~\ref{prop:multiplicityfail}.} The template that exploits a family
+without density is Heath-Brown's: Artin's conjecture holds for all but at most two primes, with no
+means of saying which. It does not transfer. That argument needs each failure to impose a
+\emph{detectable} structure, which several failures then cannot share. Here a failing family would
+be one all of whose $q_n$ are composite, and the only known mechanism for that is a covering system,
+which Proposition~\ref{A-prop:localcomplete} proves does not exist. A failure would therefore be
+structureless, and structureless failures cannot be played against one another.
+\end{remark}
+
+All of the above bounds the negative direction. The positive direction admits a quantitative
+shadow that had not been measured: a solution is exactly $r(a):=\sigma(a)\sigma(a')=1$, so one may
+ask how close $r$ actually comes to $1$. The answer is instructive, and it disposes of the usual
+way such heuristics are calibrated.
+
+\begin{proposition}[The near-miss spectrum, and why the heuristic cannot be calibrated]\label{prop:nearmiss}
+Over all $4{,}385{,}727$ integers $a\le10^7$ with $a$ and $a'$ both squarefree, the maximum of
+$r(a)$ is $0.5535$, attained at $a=3{,}972{,}254$; the frontier advances by decade as
+$0.333,\,0.345,\,0.502,\,0.502,\,0.536,\,0.554$, and at $10^{8}$ it reaches $0.586076$ at
+$a=23{,}667{,}105$ \textup{(\texttt{code/sweep1e8.rs}, which reproduces every earlier decade
+independently)}. This last decade was run as a test of Proposition~\ref{prop:frontier}: the bound
+$R(10^{8})\le0.67270$ and the range $[0.55,0.62]$ suggested by the earlier decades were both
+recorded before the computation, and both hold. In particular $r\ge1$ never occurs, the defect
+$|a''-a|$ is of size $a^{0.9}$ or larger in all but three cases, and the smallest relative defect is
+$0.4465$. Consequently the constant in the heuristic count of two-cycles, $f(1)\log X$ with $f$ the
+density of $r$ at $1$, is \emph{not measurable}, and the obstruction is two--sided.
+
+By Theorem~\textup{\ref{K-thm:barrier}} the region $r\ge1$ lies above $10^{112.9}$. The window
+immediately to the \emph{left} of $1$ is barred as well, by AM--GM rather than by the barrier
+hypothesis: $\sigma(a)+\sigma(a')\ge2\sqrt{\sigma(a)\sigma(a')}=2\sqrt r$, and
+$2\sqrt r>T_{58}=1.99874\ldots$ as soon as $r>(T_{58}/2)^2=0.998740\ldots$, whence $|P\cup Q|\ge59$
+and the product again exceeds $\Pi_{59}>8.77\times10^{112}$. So the whole neighbourhood
+$r\in(0.998740,\infty)$ of the value $1$ lies above the barrier, not merely the half--line $r\ge1$,
+and no sweep reaches any of it \textup{(\texttt{code/a10\_nearmiss.rs},
+\texttt{code/a10\_density1.rs})}. Barring only $r\ge1$ would leave the left window formally open and the unmeasurability argument one--sided.
+\end{proposition}
+
+\begin{proposition}[An effective approximation theorem, with a certified witness]\label{prop:effapprox}
+Bado's Theorem~10.2 \cite{Bado2026} asserts that for every $Y$ and every $\varepsilon>0$ there are
+disjoint finite sets of primes $P,Q$, all greater than $Y$, with $0\le\sigma(P)\sigma(Q)-1<
+\varepsilon$. The proof is a greedy accumulation and is ineffective. Made effective it is expensive:
+to land in $[T,T+\eta)$ the accumulation must start above $\approx1/\eta$, and Mertens gives
+$\sum_{Y_1<p\le W}1/p\approx\log\log W-\log\log Y_1=T$, so $W=Y_1^{e^{T}}$; two stages with
+$T\approx1$ put the largest prime and the cardinality both at $\approx\varepsilon^{-e^{2}}=
+\varepsilon^{-7.389\ldots}$.
+
+A Newton ladder does the same work with a handful of primes. Take $Q=\{2,3,5\}$, so
+$\sigma(Q)=31/30$ and $P$ must approach $30/31$; from a pool, repeat $p\leftarrow$ the least prime
+$\ge1/d$ and $d\leftarrow d-1/p$, where $d$ is the running deficit. Each rung squares it,
+$d_{\mathrm{new}}=d-1/p\approx t\,d^{2}$ with $t$ the local prime gap, so the largest prime is
+$\approx\varepsilon^{-1/2}$ and the number of rungs is $O(\log\log(1/\varepsilon))$. Taking the pool
+to be the primes $7\le p\le271$ and eleven rungs gives $|P|=66$, $|Q|=3$, largest prime of $2{,}010$
+digits, and, in exact rational arithmetic,
+\[ \bigl|\sigma(P)\sigma(Q)-1\bigr|\;=\;4.98523\ldots\times10^{-4016}, \]
+a rational whose numerator has $129$ digits and whose denominator has $4{,}145$. Every rung prime is
+\emph{proved} prime by \textup{APR--CL}, not merely a pseudoprime
+\textup{(\texttt{code/nearmiss\_effective.gp})}. The certificate is tiered, and a reader may stop
+where they like:
+\[
+\begin{array}{l|ccc}
+\text{rungs} & 9 & 10 & 11\\\hline
+\text{largest prime (digits)} & 505 & 1{,}007 & 2{,}010\\
+\bigl|\sigma(P)\sigma(Q)-1\bigr| & 9.57\times10^{-1007} & 2\times10^{-2010} &
+  4.99\times10^{-4016}\\
+\text{cumulative certification} & <10\text{ s} & \approx110\text{ s} & \approx27\text{ min}
+\end{array}
+\]
+The statement is machine--checked at the three--rung tier, where the largest prime is
+$2{,}348{,}039{,}453$ and the defect is $2.1111\ldots\times10^{-18}$: the primality of all $58$
+primes, the disjointness of the two sides, the exact value of $\sigma(P)$ as a ratio of a $126$--
+and a $129$--digit integer, and the bound $|\sigma(P)\sigma(Q)-1|<10^{-17}$ are all verified in
+\texttt{Erdos307.Witness.effapprox\_witness}, on the standard axioms and with no appeal to
+kernel--external evaluation. Beyond that tier the primes are certified by APR--CL, which Mathlib
+does not carry; the higher rungs are therefore cited to the \textup{PARI/GP} certificate rather
+than formalised. $0$ \texttt{sorry} \textup{(\texttt{lean/Erdos307/Witness.lean})}.
+\end{proposition}
+
+The gap is not marginal. At $\varepsilon=10^{-13}$ the greedy needs a largest prime near $10^{94}$
+and some $10^{92}$ primes; the ladder needs a largest prime near $10^{7}$ and three rungs. The
+ladder is exponentially better in the size of the largest prime and doubly exponentially better in
+the count, and the reason is visible: greedy convergence is linear in the number of primes, Newton
+convergence is quadratic. Truncating gives certificates of any size, five rungs and a $34$--digit
+largest prime already give $6.07\times10^{-66}$, and seven rungs give $3.22\times10^{-254}$. The witness above approaches $1$ from below; taking
+the last rung's prime just under $1/d$ instead overshoots, so either side is available and the
+statement of Theorem~10.2 as printed is met.
+
+What this is not: progress towards a solution. A free pair of disjoint prime sets carries none of
+the rigidity an exact hit requires ($\sigma(P)\sigma(Q)=1$ forces $\prod P=(\prod Q)'$ and
+$\prod Q=(\prod P)'$, and nothing in the ladder produces that) and by
+Proposition~\ref{prop:nearmiss} the size of $|\sigma(P)\sigma(Q)-1|$ does not measure progress
+towards the integer identity at all. The value of the construction is that it makes an existence
+theorem effective and exhibits a witness anyone can check.
+
+\begin{proposition}[The near--miss frontier obeys a double--logarithmic law]\label{prop:frontier}
+For $X\ge2$ put $R(X)=\max\{r(a):a\le X\ \text{squarefree}\}$, where $r(a)=\sigma(a)\sigma(a')$. Let
+$\omega_{\max}(X)$ be the largest $k$ with $\Pi_k\le X$, let $\sigma_{\max}(X)=T_{\omega_{\max}(X)}$,
+and let $n(X)$ be the largest $n$ with $\Pi_n\le X^{2}\sigma_{\max}(X)$. Then
+\[ R(X)\ \le\ \Bigl(\tfrac12\,T_{n(X)}\Bigr)^{2}. \]
+\end{proposition}
+\begin{proof}
+Rigidity gives $\gcd(a,a')=1$, so $U=\operatorname{supp}(a)\sqcup\operatorname{supp}(a')$ has
+$|U|=\omega(a)+\omega(a')$ distinct primes and $\prod_{p\in U}p\mid aa'$. By AM--GM,
+$\sum_{p\in U}1/p=\sigma(a)+\sigma(a')\ge2\sqrt{\sigma(a)\sigma(a')}=2\sqrt{r}$, while the same sum
+is at most $T_{|U|}$ by the extremality of the smallest primes; hence $r\le(T_{|U|}/2)^{2}$. For the
+size, $\Pi_{|U|}\le\prod_{p\in U}p\le aa'=a^{2}\sigma(a)\le X^{2}\sigma_{\max}(X)$, so
+$|U|\le n(X)$, and $T$ is increasing.
+\end{proof}
+
+The bound is unconditional, needs no squarefreeness of $a'$, and is close: against the measured
+frontier of Proposition~\ref{prop:nearmiss} it reads
+\[
+\begin{array}{l|cccccc}
+X & 10^{2} & 10^{3} & 10^{4} & 10^{5} & 10^{6} & 10^{7}\\\hline
+\text{bound} & 0.4014 & 0.4920 & 0.5296 & 0.5879 & 0.6129 & 0.6342\\
+\max r \text{ observed} & 0.333 & 0.345 & 0.502 & 0.502 & 0.536 & 0.554
+\end{array}
+\]
+\textup{(\texttt{code/frontier\_bound.gp})}. Two consequences. First, since
+$T_{n(X)}=\log\log\bigl(X^{2}\sigma_{\max}\bigr)+M+o(1)$ by Mertens, the frontier can climb only like
+\[ R(X)\ \le\ \tfrac14\bigl(\log\log X^{2}+M+o(1)\bigr)^{2}, \]
+a \emph{doubly logarithmic} law: this is why the measured frontier crawls, and why an extrapolation
+of its per--decade advance is worthless. Second, the bound reaches $1$ exactly when $T_{n}\ge2$, that
+is $n\ge59$, that is $X^{2}\sigma_{\max}\ge\Pi_{59}$, giving $X\ge2.0942\times10^{56}$, the
+constant of Theorem~\ref{K-thm:barrier}, recovered here from the frontier side rather than from the
+cycle equations. The two derivations are independent and agree to all printed digits.
+
+\begin{corollary}[The cost of a near--miss; the barrier as a function of $r$]\label{cor:cost}
+For $r>0$ put $n(r)=\min\{n:T_n\ge2\sqrt r\}$. Every squarefree $a$ with $r(a)\ge r$ has
+$|U|\ge n(r)$, hence $aa'\ge\Pi_{n(r)}$ and
+\[ \min(a,a')\ \ge\ \sqrt{\Pi_{n(r)}/T_{n(r)}}. \]
+\end{corollary}
+\begin{proof}
+The first display of the proof of Proposition~\ref{prop:frontier} gives $2\sqrt r\le\sum_{p\in U}1/p
+\le T_{|U|}$, so $|U|\ge n(r)$; the rest is Theorem~\ref{K-thm:barrier} verbatim with $59$ replaced by
+$n(r)$.
+\end{proof}
+
+At $r=1$ this returns $n=59$ and $2.0929\times10^{56}$, so Theorem~\ref{K-thm:barrier} is the endpoint
+of a one--parameter family rather than an isolated statement. The family is what makes the crawl
+quantitative \textup{(\texttt{code/nearmiss\_cost.gp})}:
+\[
+\begin{array}{l|cccccccc}
+r & 0.5 & 0.554 & 0.6 & 0.7 & 0.8 & 0.9 & 0.99 & 1\\\hline
+n(r) & 8 & 9 & 11 & 16 & 24 & 37 & 56 & 59\\
+\min(a,a')\ge & 2.6\!\cdot\!10^{3} & 1.2\!\cdot\!10^{4} & 3.6\!\cdot\!10^{5} & 4.4\!\cdot\!10^{9} &
+ 1.2\!\cdot\!10^{17} & 4.3\!\cdot\!10^{30} & 4.7\!\cdot\!10^{52} & 2.1\!\cdot\!10^{56}
+\end{array}
+\]
+Each increment in $r$ is paid for exponentially in the product, which is the same double--logarithmic
+law seen from the other side: $r$ enters the bound only through $2\sqrt r$, and $T_n$ grows like
+$\log\log p_n$. It also explains the shape of the swept data. The record $r=0.5535$ needs
+$\min(a,a')\ge1.2\times10^{4}$ and was found at $a=3{,}972{,}254$; the next decade of $r$ costs four
+decades of $a$, and by $r=0.7$ the requirement has passed $10^{9}$, beyond any sweep that has been
+run.
+
+The restriction $r\le1$ is not used in the proof, and above $1$ the corollary says how expensive it
+is for the second derivative to \emph{exceed} its argument:
+\[
+\begin{array}{l|cccccc}
+r & 1 & 1.03944 & 1.25 & 1.5 & 2 & 9/4\\\hline
+n(r) & 59 & 71 & 212 & 940 & 37{,}963 & 361{,}139\\
+\min(a,a')\ge & 10^{56.3} & 10^{71.3} & 10^{274.8} & 10^{1579.7} & 10^{98275.7} & 10^{1127769.3}
+\end{array}
+\]
+So $a''\ge2a$ forces a union support of $37{,}963$ primes and $\min(a,a')>10^{98275}$: the second
+derivative cannot double its argument except at wholly inaccessible size. The witness of
+Theorem~\ref{thm:lyapfalse}, with $r=1.03944$, needs $|U|\ge71$ and $\min\ge10^{71.3}$, and its $142$
+digits supply both.
+
+\begin{remark}[One inequality, six barriers]\label{rem:dictionary}
+Corollary~\ref{cor:cost} and Propositions~\ref{K-prop:kuniform} and~\ref{K-prop:twoparam} are the same
+statement read at different constants. Every barrier in this note is an instance of
+\[ \sum_{p\in U}\frac1p\ \ge\ c \quad\Longrightarrow\quad |U|\ \ge\ n(c),\qquad \prod_{p\in U}p\ \ge\
+\Pi_{n(c)}, \]
+with $n(c)=\min\{n:T_n\ge c\}$, and the arithmetic enters only in producing $c$:
+\[
+\begin{array}{l|c|c|l}
+\text{configuration} & c & n(c) & \text{recorded as}\\\hline
+\text{near--miss ratio }r & 2\sqrt r & \text{varies} & \text{Corollary~\ref{cor:cost}}\\
+r=1,\ \text{i.e.\ a two--cycle} & 2 & 59 & \text{Theorem~\ref{K-thm:barrier}}\\
+k\text{--cycle} & k/\lfloor k/2\rfloor & 59\ (k\text{ even}) & \text{Proposition~\ref{K-prop:kuniform}}\\
+\text{three--cycle} & 3 & 361{,}139 & \text{Proposition~\ref{K-prop:kcycles}}\\
+\text{all--odd, }\min U\ge3 & 2\ \text{on }p\ge3 & 1{,}412 & \text{Theorem~\ref{K-thm:parity}}\\
+a''\ge2a & 2\sqrt2 & 37{,}963 & \text{above}\\
+\text{orbit of growth }G\text{ in }L\text{ steps} & \tfrac{L}{\lceil L/2\rceil}G^{1/L} &
+ \text{varies} & \text{Proposition~\ref{prop:growth}}
+\end{array}
+\]
+The coincidence $2\sqrt{9/4}=3=c(3)$ is why $r=9/4$ and the three--cycle carry the identical bound
+$361{,}139$: they are the same value of $c$. What looked like six separate barriers is one
+mass--to--size dictionary, and the only mathematics specific to each row is the derivation of its
+$c$.
+\end{remark}
+
+\begin{proposition}[The mass window, and the forced core]\label{prop:window}
+Let $(a,b)$ be a two--cycle with $|U|=n$ and let $t_n>1$ solve $t+1/t=T_n$. Then
+\[ \frac1{t_n}\ \le\ \sigma(a),\,\sigma(b)\ \le\ t_n, \]
+and every prime $p$ with $1/p\ge T_{n+1}-2$ lies in $U$.
+\end{proposition}
+\begin{proof}
+The masses are positive with product $1$ and sum at most $T_n$, so each is between the roots of
+$z^2-T_nz+1$. If $p\notin U$ then the $n$ primes of $U$ carry at most $T_{n+1}-1/p$, and
+$\sigma(U)>2$ forces $1/p<T_{n+1}-2$.
+\end{proof}
+
+Both halves are sharp and both are informative at $n=59$. The window is
+$[0.952682,\,1.049668]$: \emph{each member's mass is pinned within five per cent of $1$}. And the
+forcing puts every prime up to $167$ in $U$, $39$ of the $59$, so two thirds of the support is
+determined before any search begins. The window also recovers
+Proposition~\ref{prop:split}: the smaller member needs $T_k\ge1/t_n$, which gives $k\ge3$ for
+$n\le68$, $k\ge2$ from $n=69$ and $k\ge1$ at $n=1413$, reproducing that proposition's three
+thresholds exactly. The forcing decays with the level:
+\[
+\begin{array}{l|cccccccc}
+n & 59 & 60 & 61 & 62 & 63 & 65 & 68 & 72\\\hline
+\text{all }p\le & 167 & 103 & 73 & 61 & 47 & 37 & 23 & 19\\
+\text{forced} & 39 & 27 & 21 & 18 & 15 & 12 & 9 & 8
+\end{array}
+\]
+\textup{(\texttt{code/forced\_core.gp})}. This accounts for the size of the level--$59$ enumeration.
+The $39$ forced primes carry mass $1.91162\ldots$, so the remaining $20$ must supply more than
+$0.08838$ from primes above $167$; the twenty smallest such primes reach exactly that, at $277$. The
+free part is therefore a choice of $20$ primes from a narrow band, which is why the admissible count
+is $49{,}961$ and not astronomical. At level $60$ the forced core has fallen to $27$ and the free
+part to $33$, and by level $68$, the top of the window Proposition~\ref{prop:split} says a level
+search must cross, only $9$ primes remain forced.
+
+\begin{proposition}[The free band; why exactly one level is finite]\label{prop:band}
+Let $U$ be an admissible support with $|U|=n$ and let $q=\max U$. If $T_{n-1}<2$ then
+\[ q\ <\ \frac1{2-T_{n-1}}. \]
+For $n\le58$ no admissible support exists, since $T_n<2$. For $n=59$ the hypothesis holds,
+$T_{58}=1.99874\ldots$, and $q<793.68$, so $q\le787$. For $n\ge60$ it fails, since
+$T_{59}=2.00235\ldots>2$, and no bound on $q$ is available.
+\end{proposition}
+\begin{proof}
+The $n-1$ primes of $U$ other than $q$ carry at most $T_{n-1}$, so $\sigma(U)>2$ forces
+$1/q>2-T_{n-1}$.
+\end{proof}
+
+This is the mechanism of Proposition~\ref{K-prop:levelbarrier} in its sharpest form. Level--by--level
+enumeration is finite at $59$ and infinite from $60$, and the switch is the single fact
+\[ T_{58}\ <\ 2\ <\ T_{59}. \]
+Below $59$ there is not enough mass to reach $2$ at all; at $59$ every prime is capped at $787$; at
+$60$ the first $59$ primes already carry mass $2.00235>2$, so appending \emph{any} prime leaves an
+admissible support and the count is infinite at once. There is nothing gradual about the transition,
+and it happens at one level.
+
+Together with Proposition~\ref{prop:window} this closes level $59$ from both sides. The support
+contains every one of the $39$ primes $\le167$ and is contained in the $138$ primes $\le787$, so the
+free part is a choice of $20$ primes from the $99$ candidates in $(167,787]$. Unconstrained that is
+$\binom{99}{20}=4.288\times10^{20}$ choices; the mass condition $\sigma(U)>2$ cuts it to $49{,}961$,
+a reduction by a factor $8.6\times10^{15}$ \textup{(\texttt{code/free\_band.gp})}. The level--$59$
+computation of Proposition~\ref{K-prop:close59} is therefore not a brute force over an unbounded space
+but an exact traversal of a set whose two ends are both pinned by the same inequality.
+
+\begin{corollary}[The level--$59$ count, from the two pins]\label{cor:count59}
+The admissible supports at level $59$ are exactly the sets
+\[ \{p:p\le167\}\ \cup\ S, \qquad S\subset\{p:167<p\le787\},\quad |S|=20,\quad
+   \sum_{p\in S}\frac1p\ >\ 2-T_{39}\,=\,0.0883759429\ldots, \]
+and there are $49{,}961$ of them.
+\end{corollary}
+\begin{proof}
+Membership of the core is Proposition~\ref{prop:window}, the ceiling is Proposition~\ref{prop:band},
+and the displayed inequality is $\sigma(U)>2$ after subtracting the forced mass
+$T_{39}=1.9116240570\ldots$. The count is a $20$--from--$99$ knapsack, evaluated in
+\texttt{code/level59\_count.rs}.
+\end{proof}
+
+This is not a closed formula, subset--sum counts do not have one, but it is a closed
+\emph{characterisation}, and it reduces the level to a search of $119{,}509$ nodes in place of the
+original enumeration. That the two independent routes agree on $49{,}961$ is the point: the pins are
+not merely necessary conditions that happen to hold, they cut out the level exactly, and nothing
+outside them is doing any work. The evaluation also reports no subset sum within $10^{-12}$ of the
+threshold, so the floating comparison is measured to be safe rather than assumed. For orientation,
+the baseline $20$ smallest candidates carry $0.0907260944\ldots$, exceeding the threshold by
+$T_{59}-2=0.0023501514\ldots$, and every admissible $S$ is a perturbation of that baseline within
+this budget.
+
+\begin{proposition}[How many rungs the ladder has]\label{prop:rungcount}
+Let $(a,b)$ be a Pythagorean pair with $a<b$, $t=b/a$ and $|U|=n$. Positivity of the two masses gives
+$-t<k\le0$, so $k$ takes at most $\lceil t\rceil$ values, and $t\le t_n$ where $t_n+1/t_n=T_n$. Hence
+the number of rungs available at level $n$ is at most $\lceil t_n\rceil$, and
+\[ t_n>m\iff T_n>m+\tfrac1m . \]
+In particular the ladder has exactly the two rungs $k\in\{0,-1\}$ at every level $n\le1412$, and the
+third rung $k=-2$ opens only at $n=1413$.
+\end{proposition}
+
+Two readings. First, the hypothesis $\sigma(ab)<5/2$ under which
+Proposition~\ref{C-cor:kdetermined} confines $k$ to $\{0,-1\}$ is not a restriction anywhere a search
+operates: it is equivalent to $t<2$, hence to $n\le1412$, and at level $59$ one has $t=1.049668$ with
+$\lceil t\rceil=2$. The confinement is unconditional throughout the range the rest of this note
+inhabits, and the hypothesis only becomes real past level $1412$.
+
+Second, $1413$ is not a new constant. It is the level at which $T_n$ reaches $5/2$, and that is the
+same threshold as the all--odd case of Theorem~\ref{K-thm:parity}: an all--odd cycle needs mass $2$ on
+primes $\ge3$, hence $T_n\ge2+\tfrac12$. The level at which the ladder acquires a third rung and the
+level at which an all--odd cycle becomes possible are the same level, for the same reason
+\textup{(\texttt{code/level\_structure.rs})}. The fourth rung would need $T_n>10/3$, beyond
+$\pi(4\times10^{7})$.
+
+\begin{proposition}[The admissible supports are not a tree]\label{prop:nottree}
+There are admissible supports at level $60$ with no admissible subset at level $59$. Explicitly,
+\[ U\;=\;\{p:p\le271\}\ \cup\ \{809,\,811\} \]
+has $|U|=60$ and $\sigma(U)=2.0012091\ldots>2$, while every $59$--element subset has mass below $2$.
+\end{proposition}
+\begin{proof}
+Deleting the largest prime loses the least mass, so if that deletion is inadmissible every deletion
+is. Here $\sigma(U)-1/811=1.9999761\ldots<2$.
+\end{proof}
+
+Such supports are exactly those of the form $V\cup\{q\}$ with $|V|=59$, $\sigma(V)\le2$,
+$q>\max V$ and $q<1/(2-\sigma(V))$, and they are not exceptional. Taking $V=\{p\le271\}\cup\{r\}$
+with $r>794$, so that $\sigma(V)<2$, each $r$ admits every prime $q$ in
+$\bigl(r,\ 1/(2-\sigma(V))\bigr)$: at $r=797$ that interval reaches $190{,}414$ and contains
+$17{,}061$ primes, and summing over $r<4000$ gives $60{,}831$ such supports from this one shape alone
+\textup{(\texttt{code/level\_structure.rs})}.
+
+The consequence is for the organisation of a level search, and it is independent of
+Proposition~\ref{K-prop:levelbarrier}. That proposition says level $60$ has infinitely many admissible
+supports; this one says that even the part reachable with bounded primes is not exhausted by the
+base--plus--tail organisation, because the admissible supports do not form a tree under adjunction.
+Closing every one--new--prime family at level $60$, which is question~(i) of
+Section~\ref{K-sec:status} of the core note, would therefore still not close level $60$. The searches of
+Propositions~\ref{A-prop:tailkill} and~\ref{K-prop:close59} are stated over one--new--prime families
+throughout and are unaffected; what changes is the reading of what completing them would buy.
+
+\begin{proposition}[The level--minimal structure at any $c$]\label{prop:levelstructure}
+Let $U$ satisfy $\sum_{p\in U}1/p\ge c$ with $|U|=n(c)=\min\{n:T_n\ge c\}$. Then every prime $p$ with
+$1/p\ge T_{n(c)+1}-c$ lies in $U$, and $\max U<1/\bigl(c-T_{n(c)-1}\bigr)$, the denominator being
+positive by minimality of $n(c)$.
+\end{proposition}
+\begin{proof}
+Both are Propositions~\ref{prop:window} and~\ref{prop:band} with $2$ replaced by $c$; neither
+argument uses the value.
+\end{proof}
+
+The slack $T_{n(c)}-c$ is the total mass a support may waste, and it collapses as $c$ grows, so the
+support becomes more forced, not less \textup{(\texttt{code/level\_structure.rs})}:
+\[
+\begin{array}{l|ccccc}
+c & 2 & 9/4 & 7/3 & 5/2 & 3\\\hline
+n(c) & 59 & 231 & 400 & 1{,}413 & 361{,}139\\
+T_{n(c)}-c & 2.35\!\cdot\!10^{-3} & 2.33\!\cdot\!10^{-4} & 2.44\!\cdot\!10^{-4} &
+  2.07\!\cdot\!10^{-5} & 3.09\!\cdot\!10^{-8}\\
+\text{forced primes} & 39 & 181 & 259 & 1{,}175 & 314{,}407\\
+\text{forced fraction} & 66\% & 78\% & 65\% & 83\% & 87\%\\
+\max U< & 793.7 & 2{,}194 & 8{,}284 & 15{,}592 & 6.19\!\cdot\!10^{6}
+\end{array}
+\]
+The row $c=2$ is Propositions~\ref{prop:window} and~\ref{prop:band}, recovered. The row $c=3$ is the
+three--cycle of Proposition~\ref{K-prop:kcycles}: at its minimal level a three--cycle contains
+\emph{every} prime up to $4{,}476{,}608$, that is $314{,}407$ of its $361{,}139$, and no prime beyond
+$6.19\times10^{6}$. Its support is almost completely determined, with a slack of $3.09\times10^{-8}$
+to distribute among the remaining $46{,}732$ places.
+
+The same reading applies with the mass restricted to primes $\ge P$, which is the setting of
+Proposition~\ref{K-prop:twoparam}. At $P=3$, the all--odd case of Theorem~\ref{K-thm:parity}, the
+minimal level is $n=1412$ with slack $2.069\times10^{-5}$; every odd prime up to $9{,}484$ is forced,
+$1{,}174$ of the $1{,}412$ or $83\%$, no prime exceeds $15{,}592$, and the product is $10^{5040.1}$.
+At $P=5$ the figures are $n=40{,}259$, $24{,}770$ forced, $\max U<1.61\times10^{6}$ and $10^{209582}$,
+reproducing Proposition~\ref{K-prop:twoparam} from the structural side.
+
+That the all--odd case is $83\%$ forced does not make it a feasible search, and it is worth
+recording why, since the shape invites the comparison with level $59$. There the free part was $20$
+primes from $99$ candidates and the count was $49{,}961$. Here it is $238$ from $643$: the forced
+mass is $1.97751561\ldots$, so the free primes must carry more than $0.02248438\ldots$ against a
+baseline of $0.02250507\ldots$, an excess of $2.069\times10^{-5}$. A traversal capped at
+$4\times10^{8}$ nodes reaches $1.977\times10^{8}$ admissible supports without exhausting the space
+\textup{(\texttt{code/level\_structure.rs})}. The slack per free place, not the forced fraction, is
+what decides enumerability, and here it is $87$ times larger per place than at level $59$. Question
+(ii) of this section does not close this way.
+
+\begin{proposition}[The barrier stratified by the smaller support]\label{prop:split}
+Let $(a,b)$ be a two--cycle and put $k=\min(\omega(a),\omega(b))$. Then
+\[ k=1\ \Rightarrow\ |U|\ge1413, \qquad k=2\ \Rightarrow\ |U|\ge69, \qquad
+   k\ge3\ \Rightarrow\ |U|\ge59, \]
+and the last is attained. Consequently every two--cycle with $|U|\le68$ has
+$\min(\omega(a),\omega(b))\ge3$.
+\end{proposition}
+\begin{proof}
+Write $T=T_{|U|}$. The supports are disjoint, so $\sigma(a)+\sigma(b)\le T$, and
+$\sigma(a)\le T_k$ for the member with $k$ primes. The product $x(T-x)$ is increasing for
+$x\le T/2$, so $\sigma(a)\sigma(b)\le m(T-m)$ with $m=\min(T_k,T/2)$, and $\sigma(a)\sigma(b)=1$
+forces $m(T-m)\ge1$. For $k\ge3$ one has $T_k\ge T_3=31/30>T/2$ in the relevant range, so $m=T/2$
+and the condition is $T\ge2$, i.e.\ $|U|\ge59$. For $k\le2$ one has $T_k<T/2$, so $m=T_k$ and the
+condition is $T\ge T_k+1/T_k$: at $k=1$, $T\ge2.5$ and $|U|\ge1413$; at $k=2$, $T\ge2.0333\ldots$ and
+$|U|\ge69$.
+\end{proof}
+
+The stratification is sharp at each end. At $k=1$ the member is a prime $p$, so $\sigma(b)=p\ge2$ and
+$b$ must carry mass $2$ on primes other than $p$, which needs $1412$ of them; at $k=2$ the best case
+is $a=6$, whence $\sigma(b)\ge6/5$ on primes $\ge5$, which needs $67$. This contains and extends
+Proposition~16 of \cite{Kovic2012}, that no two--cycle has both members a product of two primes: the
+present statement rules out \emph{either} member having two prime factors unless $|U|\ge69$, and
+either having one unless $|U|\ge1413$. Since Proposition~\ref{K-prop:close59} gives $|U|\ge60$, the
+window $60\le|U|\le68$ that any level--by--level search must cross admits only splits with both
+$\omega(a)\ge3$ and $\omega(b)\ge3$ \textup{(\texttt{code/split\_bound.gp})}.
+
+\begin{proposition}[The derivative cannot outgrow its own support]\label{prop:growth}
+Let $a_0\to a_1\to\dots\to a_L$ be an orbit segment of the arithmetic derivative with every $a_i$
+squarefree, put $G=a_L/a_0$ and let $U=\bigcup_{i<L}\operatorname{supp}(a_i)$. Then
+\[ \sum_{p\in U}\frac1p\ \ge\ \frac{L}{\lceil L/2\rceil}\,G^{1/L},
+\qquad\text{equivalently}\qquad
+G\ \le\ \Bigl(\frac{\lceil L/2\rceil}{L}\,T_{|U|}\Bigr)^{\!L}, \]
+and for even $L$ the geometric growth rate satisfies $G^{1/L}\le T_{|U|}/2$.
+\end{proposition}
+\begin{proof}
+Squarefreeness gives $\gcd(a_i,a_i')=1$, so consecutive members are coprime and
+$S_p=\{i<L:p\mid a_i\}$ has no two consecutive elements: it is independent in the path on $L$
+vertices, whence $|S_p|\le\lceil L/2\rceil$. Then $\sum_{i<L}\sigma(a_i)=\sum_{p\in U}|S_p|/p\le
+\lceil L/2\rceil\sum_{p\in U}1/p$, while $\prod_{i<L}\sigma(a_i)=a_L/a_0=G$ gives
+$\sum_{i<L}\sigma(a_i)\ge LG^{1/L}$ by AM--GM. The second form inverts the first using
+$\sum_{p\in U}1/p\le T_{|U|}$.
+\end{proof}
+
+This is the general shape of which the rest of the dictionary is a specialisation: at $L=2$ it reads
+$\sum_{p\in U}1/p\ge2\sqrt G$, which is Corollary~\ref{cor:cost} with $G=r$; at $G=1$ it returns
+$c=L/\lceil L/2\rceil\to2$, which is Proposition~\ref{K-prop:kuniform} on the path in place of the
+cycle. The statement it adds is dynamical rather than Diophantine, and it bounds the growth branch
+of Ufnarovski--\AA hlander's Conjecture~2: an orbit may tend to infinity, but only slowly unless it
+accumulates an enormous support \textup{(\texttt{code/growth\_bound.gp})}:
+\[
+\begin{array}{l|cccccc}
+\text{rate }g & 1.05 & 1.10 & 1.25 & 1.50 & 1.75 & 2\\\hline
+|U|\ \ge & 97 & 170 & 1{,}413 & 361{,}139 & 4.6\times10^{9} & 4.3\times10^{16}\\
+\text{largest prime}\ \ge & 5.4\!\cdot\!10^{2} & 1.0\!\cdot\!10^{3} & 1.2\!\cdot\!10^{4} &
+ 5.2\!\cdot\!10^{6} & 1.2\!\cdot\!10^{11} & 1.8\!\cdot\!10^{18}
+\end{array}
+\]
+A squarefree orbit that doubles at every step needs some $4.3\times10^{16}$ distinct primes in its
+supports and a prime past $1.8\times10^{18}$: sustained rapid growth is not merely unobserved but
+impossible on a small support. The hypothesis that every $a_i$ is squarefree is essential and is not
+generic along orbits; it is automatic on cycles, by Ufnarovski--\AA hlander, which is why the cycle
+rows of the dictionary carry no such caveat.
+
+\begin{corollary}[Sustained growth needs scale, and the scale is enormous]\label{cor:growthscale}
+Let $a_0\to\dots\to a_L$ be a squarefree orbit segment with every member at most $X$ and geometric
+growth rate at least $g>1$. Then
+\[ \log_2X\ \ge\ \sqrt{\,n(2g)\,\log_2 g\,},\qquad n(c)=\min\{n:T_n\ge c\}. \]
+\end{corollary}
+\begin{proof}
+Proposition~\ref{prop:growth} gives $\sum_{p\in U}1/p\ge2g$, so $|U|\ge n(2g)$. Every member is at
+most $X$, so $\omega(a_i)\le\log_2X$ and $|U|\le\sum_{i<L}\omega(a_i)\le L\log_2X$; growth at rate
+$g$ from $a_0\ge2$ gives $a_L\ge g^{L}$, so $L\le\log_gX=\log_2X/\log_2g$. Combining,
+$(\log_2X)^2/\log_2g\ge n(2g)$.
+\end{proof}
+
+The threshold is explosive \textup{(\texttt{code/growth\_bound.gp})}:
+\[
+\begin{array}{l|ccccc}
+g & 1.10 & 1.25 & 1.50 & 1.75 & 2\\\hline
+\text{members must exceed} & 10^{1.5} & 10^{6.4} & 10^{138} & 10^{18420} &
+ 10^{6.23\times10^{7}}
+\end{array}
+\]
+The arithmetic derivative can therefore grow slowly at any scale and quickly only at scales no
+computation reaches. Rate $1.25$ needs members past $2.6\times10^{6}$, so it is visible inside the
+sweep of Proposition~\ref{prop:nearmiss}; rate $1.5$ needs $10^{138}$; and a squarefree orbit cannot
+double at every step unless its members exceed $10^{6.2\times10^{7}}$.
+
+Inverting the corollary bounds the rate itself. The largest $g$ a squarefree orbit can sustain up to
+$X$ solves $n(2g)\log_2g=(\log_2X)^2$, and since $n(c)$ grows like
+$\operatorname{Li}\bigl(e^{e^{c-M}}\bigr)$ this gives $e^{e^{2g}}\asymp(\log_2X)^2$, that is
+\[ g\ \sim\ \tfrac12\log\log\log X . \]
+\[
+\begin{array}{l|cccccc}
+X & 10^{8} & 10^{20} & 10^{100} & 10^{1000} & 10^{10^{5}} & 10^{10^{7}}\\\hline
+\text{max sustainable }g & 1.2768 & 1.3590 & 1.4808 & 1.6174 & 1.8134 & 1.9537
+\end{array}
+\]
+The ceiling is a triple logarithm, so it is effectively a constant: even at $X=10^{10^{7}}$ the rate
+stays below $2$, and for any range a computation can address it is below $1.5$. The reading for the
+escape branch of Ufnarovski--\AA hlander's Conjecture~2 is that an orbit tending to infinity while
+remaining squarefree must do so sub--geometrically in every bounded window, its rate decaying like
+the triple logarithm of that window. Escape is possible; escape at a fixed geometric rate is not.
+
+The mass window transfers to the normal form as well. In Proposition~\ref{K-prop:oneprime} a solution
+is $a=Mp$, so $\sigma(a)=\sigma(M)+1/p$, and Proposition~\ref{prop:window} places $\sigma(a)$ in
+$[1/t_n,t_n]$. Hence
+\[ \sigma(M)\ \in\ \bigl[\,1/t_n-1/p,\ t_n\,\bigr], \]
+which at level $59$ is $[0.9527-1/p,\ 1.0497]$: the base of the one--prime normal form carries mass
+within five per cent of $1$, just as each member does, and $\omega(M)\ge2$ by
+Proposition~\ref{prop:split}.
+
+The region is not unreachable, only unsweepable. The witness $n_0$ of
+Theorem~\ref{thm:lyapfalse} has $n_0$ and $n_0'$ both squarefree and
+$r(n_0)=\sigma(n_0)\sigma(n_0')=1.03944\ldots$, so $n_0''>n_0$: the value $1$ that a solution must
+hit is interior to the range of $r$, not extremal, and no inequality on $r$ alone can settle \#307.
+The same construction approaches $1$ from below. Tuning $\sigma(a)$ against the forced
+$\sigma(a')=\tfrac{31}{30}+\varepsilon$ gives
+\[ a=3359\!\!\prod_{\substack{7\le p\le269\\p\notin\{229,271\}}}\!\!p,\qquad
+   a'=2\cdot3\cdot5\cdot383\cdot113717\cdot P_{99}, \]
+with $P_{99}$ prime, both $a$ and $a'$ squarefree, $108$ digits, and
+\[ r(a)=0.99207796\ldots,\qquad |r(a)-1|=7.9220\times10^{-3}, \]
+against the smallest relative defect $0.4465$ over the swept range
+\textup{(\texttt{code/nearmiss\_tune.gp})}.
+
+The same tuning with its acceptance window mirrored, $\sigma(a)$ just \emph{above} $30/31$ rather than
+just below, reaches $1$ from the other side and closer. With
+\[ a=3301\!\!\prod_{\substack{7\le p\le293\\ p\notin\{137,263\}}}\!\!p, \qquad
+   a'=2\cdot3\cdot5\cdot P_{117}, \]
+where $P_{117}$ is a $117$--digit prime, one has $a$ of $118$ digits and, exactly,
+\[ r(a)=1.001014244\ldots,\qquad |r(a)-1|=1.0142\times10^{-3},\qquad a''>a. \]
+This is exact rather than a lower bound, since $a'$ factors completely: the cofactor after trial
+division is prime, so $\sigma(a')$ is known and not merely bounded below. It improves the record on
+both sides at once, against $7.9220\times10^{-3}$ from below and $3.944\times10^{-2}$ from above,
+the latter being $r(n_0)$ of Theorem~\ref{thm:lyapfalse}
+\textup{(\texttt{code/nearmiss\_above.gp}, re--checked independently in
+\texttt{code/nearmiss\_above\_verify.gp})}.
+
+That record is not the natural limit, and seeing why identifies what the near--miss problem actually
+is. In every witness of this shape $a'=2\cdot3\cdot5\cdot P$ with $P$ prime, so
+$\sigma(a')=\tfrac{31}{30}+P^{-1}$ with $P^{-1}$ of size $10^{-118}$, and therefore
+\[ |r(a)-1|=\tfrac{31}{30}\,\bigl|\sigma(a)-\tfrac{30}{31}\bigr| \]
+to any precision that matters. The quantity $a'$ has dropped out. What remains is the Diophantine
+question of how closely a sum of \emph{distinct prime reciprocals} approaches $30/31$ from above, and
+the $10^{-3}$ above is only the granularity of adjusting by a single prime below $4000$.
+
+Closing the deficit in stages removes that ceiling. With $d=\tfrac{30}{31}-\sigma(S)$ for
+$S$ the primes in $[7,271]$, take $p_1$ the least prime exceeding $1/d$, then $p_2$ the least
+exceeding $1/(d-p_1^{-1})$, and finally $p_3$ the greatest prime below the reciprocal of what
+remains; the overshoot is then of order $\mathrm{gap}(p_3)/p_3^{2}$. Each rung squares the precision.
+Sweeping the choice at the first two rungs and retaining those that satisfy the forcing congruence
+and have $a'=2\cdot3\cdot5\cdot P$ gives, with
+$(p_1,p_2,p_3)=(569,1949,15461)$,
+\[ a=569\cdot1949\cdot15461\!\!\prod_{7\le p\le271}\!\!p \quad(58\text{ primes},\ 120\text{ digits}),
+   \qquad a'=2\cdot3\cdot5\cdot P_{118}, \]
+and, exactly,
+\[ r(a)=1+6.278713\times10^{-9},\qquad a''>a. \]
+This is $1.6\times10^{5}$ times closer to $1$ than the preceding record.
+
+That record is on the wrong side of $1$, and identifying the family says why. Every witness here has
+$a'=2\cdot3\cdot5\cdot P$ with $P$ prime, which is exactly the stratum $M=30$ of
+Proposition~\textup{\ref{K-prop:oneprime}}: with $M'=31$ the equation $MN-M'N'=M^2$ reads
+$30N-31N'=900$, and the proposition's $N=M+M'p$, $N'=Mp$ become $a=31P+30$, $a'=30P$. Two identities
+follow, both exact: $a''=(30P)'=31P+30$, so $r=a''/a=(31P+30)/a$, and a solution of the stratum is
+precisely $30a-31a'=900$. Hence
+\[ \sigma(a)=\frac{30P}{31P+30}=\frac{30}{31}-\frac{900}{31a}\;<\;\frac{30}{31} \]
+for every solution of this stratum, strictly. Approaches to $1$ from \emph{above}, which is what the
+$6.28\times10^{-9}$ above and the $3.76\times10^{-9}$ of a wider sweep are, therefore lie on a side
+the stratum cannot populate. They stand as records for the spectrum of $r$ and cannot converge on a
+solution.
+
+Aimed below instead, where the stratum's solutions must lie, the same ladder gives
+\[ a=431\cdot68111\cdot2792213\!\!\prod_{7\le p\le271}\!\!p \quad(58\text{ primes},\ 123\text{ digits}),
+   \qquad a'=2\cdot3\cdot5\cdot P_{122}, \]
+and, exactly,
+\[ r(a)=1-1.654663\times10^{-13},\qquad \sigma(a)<\tfrac{30}{31},\qquad a''<a, \]
+which is $4.8\times10^{10}$ times closer to $1$ than the previous record from below. For this witness
+$30a-31a'$ is a $112$--digit number where a solution needs $900$, which is the honest measure of the
+distance remaining: the ratio is close, the integer is not.
+
+Neither construction is exhausted. Over the same sweeps the smallest \emph{available} deficit was
+$2.043\times10^{-18}$ from below and $1.209\times10^{-14}$ from above; what limits the reported values
+is the rate at which $a'$ takes the form $2\cdot3\cdot5\cdot P$, not the tuning
+\textup{(\texttt{code/nearmiss\_ladder.gp}, \texttt{code/nearmiss\_below.gp}, re--checked in
+\texttt{code/nearmiss\_ladder\_verify.gp} and \texttt{code/nearmiss\_below\_verify.gp})}.
+
+We stop here, and the reason is a measurement rather than a budget. Between the two from--below
+witnesses the ratio improved by three orders of magnitude while $30a-31a'$ fell from $114$ digits to
+$112$, against the $3$ a solution requires. Exhausting the available deficit would gain perhaps five
+more digits of the $112$. The near--miss frontier measures $|r-1|$, a ratio; membership of the
+stratum is the integer identity $30a-31a'=900$, and the two are not commensurable at this scale.
+Driving the ratio further is therefore not evidence about the integer, and the line is closed as a
+line of attack. What survives it is structural and is stated above: the family is the $M=30$ stratum
+of Proposition~\ref{K-prop:oneprime}, its solutions satisfy $\sigma(a)<30/31$ strictly, and approaches
+from above cannot reach one. Those three facts are machine--checked in
+\texttt{lean/Erdos307/StratumM30.lean}.
+
+The constant $30/31$ is not special. In the normal form of Proposition~\ref{K-prop:oneprime} a solution
+of the $M$--stratum is $a=Mp$, $b=N=M+M'p$, so $\sigma(a)=\sigma(M)+1/p$ and, by the identity
+$(\sigma(M)+1/p)\sigma(N)=1$ of part~(b), $\sigma(b)=1/\sigma(a)<1/\sigma(M)=M/M'$, with defect
+exactly $M^2/(M'(M+M'p))$. Hence \emph{every} stratum is one--sided: for no squarefree $M$ does the
+half--space $\sigma(b)\ge M/M'$ contain a solution, and $M=30$ recovers $30/31$. This is a corollary
+of Proposition~\ref{K-prop:oneprime}(b) rather than a new result, but it is the constraint that governs
+search direction, so it is machine--checked in \texttt{lean/Erdos307/StratumGeneral.lean}. The
+consequence for the near--miss programme is that the mirrored tuning of the previous paragraph is not
+merely unlucky at $M=30$; the corresponding tuning is empty in every stratum. Consistently with the two--sided statement above, $a$
+lies past the barrier: $118>113$ digits, and $r$ sits inside the barred neighbourhood
+$(0.998740,\infty)$.
+
+What remains unmeasurable is the density of $r$ at $1$,
+since constructed points do not estimate a density, and that is what the heuristic constant needs.
+The frontier reported above is therefore superseded as a record and unchanged as an argument.
+
+The situation is not the usual one. Heuristics of Bateman--Horn or Hardy--Littlewood
+type are normally checked against data, and the agreement is what justifies confidence in them. Here
+the prediction that solutions exist rests on a constant that cannot be estimated by sampling,
+because the barrier and the sampleable range are disjoint. The expected-count heuristic for \#307 is
+therefore unverifiable in the usual way.
+
+It is not, however, beyond computation, and the reason is that the constant is the barrier.
+
+\begin{proposition}[The heuristic constant is the barrier's own probability]\label{prop:f1}
+Model a random squarefree $a$ by $\mathbb{P}(p\mid a)=1/(p+1)$, and $a'$ by the coprimality model
+that Proposition~\textup{\ref{prop:anticorr}} validates, so that $\mathbb{P}(q\mid a')=1/q$ for
+$q\nmid a$. Then each prime independently lies in $a$, in $a'$, or in neither, with probabilities
+$\tfrac1{p+1},\tfrac1{p+1},1-\tfrac2{p+1}$, and
+\[ \sigma(a)+\sigma(a')=\sum_{p\,\mid\,aa'}\frac1p,\qquad \mathbb{P}(p\mid aa')=\frac2{p+1}. \]
+Since a two-cycle forces $\sigma(a)\sigma(a')=1$ and hence $\sigma(a)+\sigma(a')\ge2$ by
+\textup{AM--GM}, the density $f$ of $r=\sigma(a)\sigma(a')$ is supported in the event
+$B:\sigma(a)+\sigma(a')\ge2$, so $f(1)\le C\,\mathbb{P}(B)$ with $C$ the conditional density of $r$
+at $1$ given $B$. Numerically
+\[ \mathbb{P}(B)=2.74\times10^{-90}. \]
+\end{proposition}
+
+The point is the order and not the digits. $\mathbb{P}(B)$ is a \emph{tail} probability of a
+one-dimensional sum, not a density, which is what makes it stable: it moves from $4.09$ to $3.01$ to
+$2.74\times10^{-90}$ as the grid is refined from $2\times10^4$ to $8\times10^4$ bins and the prime
+range from $10^4$ to $10^6$, while a direct attempt at $f(1)$ on a two-dimensional grid moves by four
+orders of magnitude per refinement and converges to nothing. Two checks support it. The same
+computation with $\mathbb{P}(p\mid n)=1/p$ returns $\mathbb{P}(\sigma(n)\ge1)=0.0420$, reproducing
+the measured density of prime-abundant integers to four places; and the single configuration in which
+$aa'$ absorbs exactly the first $59$ primes has probability $\prod_{p\le277}2/(p+1)=10^{-96.0}$,
+below $\mathbb{P}(B)$ by the factor one expects from the many other prime sets of mass $2$
+\textup{(\texttt{code/barrier\_probability.rs})}.
+
+One more thing follows, and it disarms the near-miss spectrum entirely.
+
+\begin{proposition}[The near-miss infimum is zero, so closeness is not evidence]\label{prop:infzero}
+\[ \inf\Bigl\{\,\bigl|\sigma(P)\sigma(Q)-1\bigr|\ :\ P,Q\ \text{finite disjoint prime sets}\,\Bigr\}=0, \]
+and \#307 asks exactly whether the infimum is attained.
+\end{proposition}
+\begin{proof}
+Split the primes into two infinite classes, say by parity of index. Each class has terms tending to
+$0$ and divergent reciprocal sum, so by the classical subseries theorem each carries a subseries
+summing to exactly $1$. This produces disjoint \emph{infinite} $P_\infty,Q_\infty$ with
+$\sigma(P_\infty)=\sigma(Q_\infty)=1$. Truncating both at height $y$ gives finite disjoint sets with
+$\sigma(P_y)\sigma(Q_y)\to1$.
+\end{proof}
+
+The analytic content is formalised, and in a slightly stronger form than the proof above uses. For
+the infimum one does not need the subseries theorem, only that each mass can be placed in
+$(1-\delta,1)$: \texttt{Erdos307.exists\_block\_sum\_near} takes the first consecutive block whose
+sum exceeds $T-\varepsilon$ and observes that it overshoots by less than one term, and
+\texttt{infimum\_zero} assembles two such blocks into a product within $\varepsilon$ of $1$. Both
+carry $0$ \texttt{sorry} and the three standard axioms
+\textup{(\texttt{lean/Erdos307/InfZero.lean})}. The arithmetic input, that the primes split into
+two infinite classes each with reciprocal terms tending to $0$ and unbounded partial sums, is cited
+rather than reproved, as in Theorem~\ref{thm:halflyap}.
+
+The greedy form of that argument reaches $|\sigma(P)\sigma(Q)-1|=6.50\times10^{-9}$ with $144$
+primes, against $0.4465$ for the swept frontier of Proposition~\ref{prop:nearmiss}
+\textup{(\texttt{code/infimum\_zero.gp})}. So the analytic half of \#307 is empty: the mass equation
+can be approximated as closely as one likes, and no near-miss, however good, is evidence that a
+solution exists.
+
+What the near-misses do measure is a trade-off, and it is the honest picture of the obstruction. A
+solution must kill two defects at once, the mass defect $|\sigma(P)\sigma(Q)-1|$ and the size defect
+$\log_{10}\bigl(\prod Q\big/\sigma(P)\prod P\bigr)$, the latter vanishing exactly when
+$\prod Q=N_P$, which is Theorem~\ref{K-thm:structure}. Each is reachable alone and neither
+construction moves the other:
+\[
+\begin{array}{lcc}
+\text{construction} & \text{mass defect} & \text{size defect}\\[2pt]
+\text{greedy, } Q \text{ free} & 6.50\times10^{-9} & 10^{341.3}\\
+Q=\text{primes}(a'),\ \text{\texttt{nearmiss\_tune.gp}} & 7.92\times10^{-3} & 0
+\end{array}
+\]
+Fixing $Q$ as the prime set of $a'$ makes the size defect vanish identically and leaves the mass
+defect at $10^{-3}$; choosing $Q$ freely drives the mass defect to $10^{-9}$ and costs $341$ orders
+of magnitude in size. \#307 is the demand that both columns read zero simultaneously, and nothing in
+this paper moves them together.
+
+\begin{remark}[What the calibrated heuristic says, and it is not encouraging]\label{rem:calibrated}
+With $\mathbb{E}(X)\sim f(1)\,\delta\log X$ and $\delta=0.3721$, Proposition~\ref{prop:f1} gives an
+expected number of two-cycles below the proved barrier of about $10^{-88}$, and $\mathbb{E}(X)$ does
+not reach $1$ until $X$ is of order $10^{4\times10^{89}}$. So the heuristic favours \textsc{yes} only
+in the limiting sense that $\log X$ diverges; at every scale that any search or any barrier argument
+will reach, it predicts nothing. Two consequences, both negative and both worth stating. A proof of
+the negative direction would have to contradict a divergence, and a search for a solution is
+hopeless not merely at present but at any scale expressible in the notation of this paper. The
+constant is small for a reason that is not incidental: it \emph{is} the barrier, seen as a
+probability rather than as a counting bound, which is the third independent appearance of the same
+Mertens threshold in this work.
+
+The label is \textup{HEURISTIC} and the model is doing the work. What is claimed is only that the
+constant, said above to be unavailable to sampling, is available to computation once the coprimality
+model of Proposition~\ref{prop:anticorr} is granted.
+\end{remark}
+
+\begin{remark}[What is left, on both sides]\label{rem:whatisleft}
+The two directions can now be specified rather than merely called open.
+
+\emph{Negative.} Theorem~\ref{thm:noinvariant} closes the certificate route on both branches, so a
+proof must count rather than certify; and by Remark~\ref{rem:whatcounting} the count it must defeat
+diverges. A proof of the negative direction would therefore have to contradict a divergent expected
+count, which is to say that the direction is not merely unproved but probably false.
+
+\emph{Positive.} Three routes are available in principle, and two are closed quantitatively.
+\begin{enumerate}[label=\textup{(\alph*)},leftmargin=2.2em]
+\item \emph{Exhibit a witness.} Excluded by Remark~\ref{rem:calibrated}: the first is expected near
+$10^{4\times10^{89}}$.
+\item \emph{Bound the count below by analytic means.} Excluded by size. At the proved barrier the
+main term $f(1)\delta\log X$ lies $10^{200.6}$ below the trivial count $X$, and the saving a method
+would need in order to keep the main term above its own error grows like $X$ itself. Sieve and
+circle-method errors save a power of $X$ or a power of $\log X$. So an analytic proof here would
+have to be \emph{exact}, with error identically zero, rather than sharp.
+\item \emph{Construct exactly.} This is the only branch alive, and it exists: the Pell orbit of
+Remark~\ref{A-rem:lehmer}. It is alive but narrower than it was, and the narrowing should not be
+mistaken for proximity. Two cautions, both quantitative. The searches of
+Remark~\ref{A-rem:notlehmer} came back empty over $3.99\times10^{11}$ candidates, but empty was the
+\emph{predicted} outcome: the expected count was $2.4\times10^{-56}$, so the computation confirms the
+heuristic model rather than deciding anything, and a confirmed model is not a decided problem. And by
+Proposition~\ref{K-prop:levelbarrier} those searches cannot be continued upward at all, since the
+admissible supports are infinite at every level past $59$. The unconditional exclusions of this note
+stop where enumeration stops, which is now.
+Proposition~\ref{K-prop:tailbound} bounds the tail prime by $4N$, so the orbit contributes nothing past
+a bounded initial segment and the construction is a finite search over the divisors of $4D$ rather
+than a Lehmer primality question; Remark~\ref{A-rem:notlehmer} then makes that finite search
+heuristically empty on all $34$ immune families, by two independent estimates. What survives is the
+branch itself, not its expectation: the construction must now either come from a base outside the
+immune list or exploit the parametrisation $q=2(N\pm k)/m^2$ directly.
+\end{enumerate}
+
+The two exclusions interlock, and the interlock is the real statement. Exactness is what algebra
+supplies, and Theorem~\ref{thm:ff} excludes every argument that survives the passage to $K[t]$,
+where the conclusion is false. The Pell construction escapes that exclusion for one reason only:
+its final input is the primality of a determined term, and primality does not survive to $K[t]$. So a
+successful method must be \emph{archimedean and exact at the same time}, a combination which is
+unusual but not unprecedented, continued fractions solving Pell being the standard instance, and
+Remark~\ref{A-rem:lehmer} is exactly the analogue here.
+
+The labels differ across the three branches and the difference matters. The exclusions of (a) and
+(b) are \textup{HEURISTIC}: both rest on the value of $f(1)$ from Proposition~\ref{prop:f1}, hence on
+the coprimality model, and a reader who rejects that model recovers both branches. The interlock
+itself is not heuristic: Theorem~\ref{thm:ff} and Proposition~\ref{K-prop:nopoly} are
+\textup{PROVED}, and so is the reduction of branch (c) to a primality question. So what follows is
+stated at the strength of its weakest link, which is the model.
+
+What remains of \#307 is therefore one question and not a programme: whether some base admits a
+Pythagorean tail prime, together with the sign selection $k=0$, which Remark~\ref{A-rem:lehmer} shows
+is a choice between $\{0,-1\}$ rather than a coincidence of measure zero. By
+Proposition~\ref{K-prop:nopoly} the orbit parametrising the Pythagorean locus is forced to be
+exponential rather than polynomial. That was previously read as placing the question in the Lehmer
+class rather than the Schinzel class, hence open for every non-degenerate sequence; but by
+Proposition~\ref{K-prop:tailbound} a prime tail satisfies $q\le4N$, so the exponential orbit supplies
+no candidate past a bounded initial segment and the question is neither Lehmer nor Schinzel. It is a
+finite search over the divisors $m\mid4D$ with $AB+Dm^2$ a square, which
+Remark~\ref{A-rem:notlehmer} makes heuristically empty on all $34$ immune families. The residue is
+thus smaller and better located than it was, and still undecided: the bound is proved, the
+emptiness is not, and no base outside the immune list has been examined at all. That is why nothing
+in this paper decides the problem.
+\end{remark}
+
+The measurement does expose a sharp structural fact, which turns out to be exactly the barrier seen
+statistically.
+
+\begin{proposition}[The barrier is statistically complete]\label{prop:anticorr}
+$\mathbb{E}[\sigma(a')]$ falls by an order of magnitude as $\sigma(a)$ grows, from $0.2035$
+unconditionally to $0.0207$ on $\sigma(a)\ge1.3$. The whole of this suppression is coprimality.
+Writing the prediction for an integer chosen at random subject to $\gcd(n,a)=1$, namely
+$\sum_{p\nmid a}p^{-2}$, the ratio of measured to predicted is
+\[ 0.65,\quad 0.82,\quad 0.91,\quad 0.92,\quad 0.95,\quad 1.01 \]
+at $\sigma(a)\ge0,\,0.5,\,0.9,\,1.0,\,1.2,\,1.3$: it converges to $1$ precisely in the regime a
+solution would inhabit \textup{(\texttt{code/a10\_anticorr.rs})}.
+\end{proposition}
+
+The mean is not the moment that $f(1)$ depends on. Since $f(1)$ is an integral of the joint density
+of $(\sigma(a),\sigma(a'))$ along $\sigma(a)\sigma(a')=1$, a model could match the conditional mean
+and still misstate the density; the next moment is therefore the sharper test. The model makes a
+prediction for it too, and a per--$a$ one: given $\operatorname{supp}(a)$, each $q\nmid a$ lands in
+$a'$ independently with probability $1/q$, so
+\[ \mathbb{E}[\sigma(a')]=\sum_{q\nmid a}\frac1{q^{2}},\qquad
+   \operatorname{Var}[\sigma(a')]=\sum_{q\nmid a}\frac1{q^{3}}\Bigl(1-\frac1q\Bigr). \]
+Measured against these over all $a\le10^{7}$ with $a,a'$ squarefree
+\textup{(\texttt{code/f1\_variance.rs})}, the ratio of measured to predicted variance is
+\[ 1.111,\ 0.968,\ 0.894,\ 0.956,\ 0.938,\ 0.860,\ 0.948,\ 1.030 \]
+at $\sigma(a)\ge0,\,0.5,\,0.7,\,0.9,\,1.0,\,1.1,\,1.2,\,1.3$, against $0.648,\dots,1.010$ for the
+mean. The variance is predicted as well as the mean, it shows no systematic drift, and the two
+converge together. The top band rests on $438$ values and is correspondingly noisy, so we claim only
+the absence of a trend, not the precise value. What the test was designed to detect (a model
+matching the first moment while its tail degrades, which would inflate $f(1)$ and could in principle
+send the true value to $0$) does not occur.
+
+So on the sampled range $a'$ is mass-poor for one reason only, that it is coprime to $a$ and $a$ has
+absorbed the small primes, and there is no further effect to exploit. This is an independent
+confirmation of Proposition~\ref{C-prop:nogain}: the barrier is not merely near-optimal as a bound, it
+already contains the entire statistical structure of the obstruction, and no refinement by
+correlation is available.
+
+The range matters, and the statement is about averages. Every $a\le4\times10^8$ with $\sigma(a)>1$
+is even, so the measurement never sees an $a$ that omits the small primes. Such $a$ exist, since the
+prime reciprocals diverge, and for them $a'$ is free to absorb $2$, $3$ and $5$ and is not mass-poor
+at all: Theorem~\ref{thm:lyapfalse} exhibits one with $\sigma(a')=\tfrac{31}{30}$. Proposition~\ref{prop:anticorr}
+bounds an expectation on a range, and nothing here bounds a supremum off it.
+
+\subsection*{A Lyapunov candidate for the negative direction}
+
+Theorem~\ref{thm:ff} rules out cycles over $\mathbb{F}_q[t]$ by exhibiting a function that provably
+decreases, namely the degree. Proposition~\ref{C-prop:noplace} shows no \emph{absolute value} on
+$\mathbb{Q}$ plays that role. It does not exclude functions that are not absolute values, and the
+following is the outcome of a search among such functions. It is a conjecture, not a theorem, and it
+is recorded because it is falsifiable and because the mechanism protecting it is one of the paper's
+own results.
+
+\begin{definition}\label{def:lyap}
+For $\lambda>0$ and squarefree $n$ set $\delta_\lambda(n)=\log n+\lambda\,\sigma(n)$.
+\end{definition}
+
+\begin{proposition}[A decreasing $\delta_\lambda$ would settle \#307 negatively]\label{prop:lyapworks}
+If for some $\lambda>0$ one has $\delta_\lambda(n')<\delta_\lambda(n)$ for every squarefree $n$ with
+$n'$ squarefree, then the arithmetic derivative has no cycle of any length among such $n$, and in
+particular \#307 has answer \textsc{no}.
+\end{proposition}
+\begin{proof}
+A cycle would give $\delta_\lambda(n)<\delta_\lambda(n)$.
+\end{proof}
+
+Since $n'=n\sigma(n)$, the requirement is the pointwise inequality
+\[ \log\sigma(n)\;<\;\lambda\bigl(\sigma(n)-\sigma(n')\bigr). \tag{$\ast$} \]
+Around a two-cycle the two instances of $(\ast)$ have increments summing to
+$\log(\sigma(a)\sigma(b))=0$, so they cannot both hold: the admissible range of $\lambda$ closes
+exactly at a cycle. The content is therefore whether that range is non-empty.
+
+Below the barrier the criterion is not conjectural: it holds with the explicit value
+$\lambda=\tfrac12$, by an elementary inequality.
+
+\begin{remark}[The obstruction is to the shape of $\delta_\lambda$, not to $\lambda$]\label{rem:lyapshape}
+The closing of the admissible range of $\lambda$ is not special to a linear dependence on $\sigma$.
+Let $F(n)=\log n+G(\sigma(n))$ for an arbitrary $G$. Since $n'=n\,\sigma(n)$, one step gives
+\[ F(n')-F(n)\;=\;\log\sigma(n)+G\bigl(\sigma(n')\bigr)-G\bigl(\sigma(n)\bigr), \]
+so around a two--cycle $(a,b)$ the two $G$--terms telescope and the increments sum to
+$\log\bigl(\sigma(a)\sigma(b)\bigr)=0$ for \emph{every} $G$. A strictly decreasing $F$ of this shape
+would settle \#307, and none can be exhibited without already excluding cycles: the $G$--part
+cancels identically and only the mass identity survives. The relevant identity is
+$\sigma(n)\sigma(n')=n''/n$, so $\sigma(n)\sigma(n')=1$ holds exactly when $n''=n$: the configuration
+that defeats the class occurs at a cycle and nowhere else. Any Lyapunov argument must therefore use a
+potential that sees more of $n$ than $\sigma(n)$ alone.
+\end{remark}
+
+\begin{theorem}[The half-mass Lyapunov function]\label{thm:halflyap}
+Put $\delta(n)=\log n+\tfrac12\sigma(n)$. Let $n$ be squarefree with $n'$ squarefree. If
+$\sigma(n\,n')<2$ then $\delta(n')<\delta(n)$.
+\end{theorem}
+\begin{proof}
+By Theorem~\ref{K-thm:structure} $n$ and $n'$ are coprime, and both are squarefree, so
+$\sigma(n\,n')=\sigma(n)+\sigma(n')$. The hypothesis therefore gives $\sigma(n')<2-\sigma(n)$, hence
+\[ \tfrac12\bigl(\sigma(n)-\sigma(n')\bigr)\;>\;\sigma(n)-1\;\ge\;\log\sigma(n), \]
+the last step by $\log x\le x-1$. If $\sigma(n)=1$ the two ends read $0$ and the first inequality is
+still strict, since $\sigma(n)+\sigma(n')<2$ forces $\sigma(n')<1$. Now $n'=n\sigma(n)$ gives
+$\delta(n')-\delta(n)=\log\sigma(n)-\tfrac12(\sigma(n)-\sigma(n'))<0$.
+\end{proof}
+Verified over all $7{,}480{,}605$ squarefree $n\le2\times10^7$ with $n'$ squarefree lying in the
+region: $0$ violations, least slack $0.242$ \textup{(\texttt{code/invent\_lyapunov.rs})}. The analytic content is formalised:
+\texttt{Erdos307.log\_lt\_half\_sub} proves $\log s<(s-t)/2$ for $s>0$ and $s+t<2$,
+\texttt{delta\_decreasing} gives the increment form, and
+\texttt{two\_le\_add\_of\_mul\_eq\_one} is the \textup{AM--GM} step of
+Corollary~\ref{cor:lyapbarrier}; all three carry $0$ \texttt{sorry} and only the three standard
+axioms \textup{(\texttt{lean/Erdos307/HalfLyap.lean})}. The arithmetic inputs, that $n$ and $n'$ are
+coprime and that $n'=n\sigma(n)$, are Theorem~\ref{K-thm:structure} and the definition, so the
+statement is \textup{VERIFIED} modulo those.
+
+\begin{corollary}[A Lyapunov proof of the barrier]\label{cor:lyapbarrier}
+The arithmetic derivative has no cycle, of any length, all of whose consecutive pairs satisfy
+$\sigma(n\,n')<2$. In particular a two-cycle $a'=b$, $b'=a$ with $a\neq b$ has
+$\sigma(ab)=\sigma(a)+\sigma(b)\ge2\sqrt{\sigma(a)\sigma(b)}=2$, with equality only if
+$\sigma(a)=\sigma(b)=1$ and hence $a=b$; so $\sigma(ab)>2$ and therefore $ab\ge\Pi_{59}$.
+\end{corollary}
+\begin{proof}
+A cycle would give $\delta(n)<\delta(n)$ by Theorem~\ref{thm:halflyap}. The second statement is
+AM--GM together with the mass estimate of Theorem~\ref{K-thm:barrier}.
+\end{proof}
+
+There are exactly two ways to exploit the fact that increments cancel around a cycle, and the
+second is foreclosed. Around a two-cycle the two increments of any function sum to zero, so an
+obstruction must pin down either their \emph{sign}, which is the Lyapunov route above, or their
+\emph{value in a finite group}: if some $\varphi$ satisfied
+$\varphi(n')-\varphi(n)\equiv c\pmod m$ for all $n$ with $2c\not\equiv0$, a two-cycle would give
+$0\equiv2c$. No such $\varphi$ exists, and not for want of searching:
+Proposition~\ref{A-prop:localcomplete} proves the cycle system soluble modulo every $m$, so any
+obstruction expressible as a congruence is empty a priori. Measured, the increments of
+$\omega(n)$, of $\#\{p\mid n:p\equiv3\ (4)\}$, of $n$, and of $n+\omega(n)$ each hit every residue
+class modulo $2$, $3$ and $4$ \textup{(\texttt{code/invent\_lyapunov.rs})}. The sign route is
+therefore the only one of the two available, which is another form of the thesis that the
+obstruction is ordered--archimedean rather than congruential (Remark~\ref{rem:ordered}).
+
+The sign route is available but not weaker than the problem. Both branches of the
+dichotomy can now be closed at once.
+
+\begin{theorem}[Both branches are closed]\label{thm:noinvariant}
+Let $S$ be the set of squarefree $n\ge2$ with $n'$ squarefree.
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
+\item \textup{(Finite-group branch.)} \textsc{Conjecture}, downgraded. The claim that there is no
+$\varphi$ on $S$ and modulus $m$ with $\varphi(n')-\varphi(n)\equiv c\pmod m$ for all $n$ and
+$2c\not\equiv0\pmod m$ is \emph{not} established. Proposition~\ref{A-prop:localcomplete} settles only
+the moduli it covers, $m\le210$, and the general statement is equivalent to the target rather than
+independent of it: on a functional graph with no periodic orbit one may build a constant-increment
+$\varphi$ for any $(m,c)$ by assigning $\varphi$ along depth, so nonexistence for all $m$ is
+equivalent to the existence of a periodic orbit. Branch (1) therefore has exactly the status of
+branch (2), which Proposition~\ref{prop:lyapuniversal} already proves for the sign side. What is
+proved is the mechanism recorded after the proof.
+\item \textup{(Sign branch, not weaker than the target.)} A $\delta$ on $S$ with
+$\delta(n')<\delta(n)$ throughout exists if and only if $n\mapsto n'$ has no periodic orbit in $S$;
+that condition implies a negative answer to \#307 and is not implied by it.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(1) is not proved; see the statement. Proposition~\ref{A-prop:localcomplete} makes the cycle system
+soluble modulo every $m\le210$, which does not reach the quantifier the branch needs.
+(2) is Proposition~\ref{prop:lyapuniversal}; a two-cycle is a periodic orbit, and periodic orbits of
+length other than two are not excluded by a negative answer to \#307.
+\end{proof}
+
+The mechanism of branch (1) is formalised. \texttt{Erdos307.two\_nsmul\_eq\_zero\_of\_period\_two}
+proves that a constant increment $c$ in any abelian group forces $2c=0$ at a point of period two,
+\texttt{const\_increment\_iterate} gives the general $\varphi(D^{[k]}n)=\varphi(n)+kc$,
+\texttt{no\_period\_two\_of\_two\_nsmul\_ne\_zero} is the certificate such a $\varphi$ would supply,
+and \texttt{zmod\_two\_mul\_eq\_zero\_of\_period\_two} states it over $\mathbb{Z}/m$; all with $0$
+\texttt{sorry} and on \texttt{propext} alone
+\textup{(\texttt{lean/Erdos307/Congruential.lean})}. What is cited rather than formalised is the
+\emph{emptiness} of the class, that no such $\varphi$ with $2c\neq0$ exists for the arithmetic
+derivative, which is Proposition~\ref{A-prop:localcomplete} and is arithmetic. Branch (1) is therefore
+\textup{VERIFIED} in its mechanism and \textup{PROVED} in its emptiness, and the two should not be
+conflated.
+
+The taxonomy that makes this a closure rather than two isolated facts is the displayed thesis above,
+that an invariant whose increments cancel around a cycle can be exploited only through their sign or
+their value in a finite group. That thesis is not a theorem, and an argument outside it is not
+excluded by anything here.
+
+This is a statement about methods, not about \#307, and it is the natural endpoint of the structural
+programme: Proposition~\ref{C-prop:noplace} removes the absolute values, Theorem~\ref{thm:ff} removes
+the arguments that survive to $K[t]$, Proposition~\ref{A-prop:localcomplete} removes the congruences,
+and Theorem~\ref{thm:noinvariant} removes what is left of the pointwise route. A proof of the
+negative direction, if there is one, must be global: it must count, and not certify.
+
+\begin{remark}[What a counting proof would have to defeat]\label{rem:whatcounting}
+The count it would have to defeat diverges. A two-cycle is exactly $r(a)=1$ for
+$r(a)=\sigma(a)\sigma(a')=a''/a$, so if $r$ has a limiting density $f$ on the class of squarefree $a$
+with $a'$ squarefree, then $\mathbb{P}(a''=a)=\mathbb{P}\bigl(r\in[1,1+\tfrac1a)\bigr)\sim f(1)/a$ and
+\[ \mathbb{E}\bigl(\#\{a\le X:a''=a\}\bigr)\ \sim\ f(1)\,\delta\log X,\qquad \delta=0.3721\ldots, \]
+$\delta$ being the measured density of the admissible class \textup{(\texttt{code/region\_shape.rs},
+$3{,}721{,}148$ admissible $a\le10^7$)}. This diverges, so the heuristic predicts infinitely many
+two-cycles, and any proof of the negative direction must account for a divergent expected count
+producing no solutions at all.
+
+The same formula locates them, and shows why the location is not knowable. Setting the expectation to
+$1$ gives a first solution near $\exp\bigl(1/(\delta f(1))\bigr)$, which is exponential in $1/f(1)$:
+at $f(1)=10^{-2}$ it is $10^{116.7}$, at $f(1)=5\times10^{-3}$ it is $10^{233.4}$, at $f(1)=10^{-3}$
+it is $10^{1167}$. Halving the constant squares the answer. Consistency with
+Theorem~\ref{K-thm:barrier} needs $f(1)<0.01034$, which is evidence of the softest kind, since an
+expectation near $1$ with no solution observed is an ordinary event and not a contradiction. What
+Proposition~\ref{prop:nearmiss} shows is that $f(1)$ is the one quantity here that cannot be sampled
+\textup{(\texttt{code/heuristic\_location.gp})}. That $f(1)>0$ is not established either; the
+constructed witnesses of Theorem~\ref{thm:lyapfalse} and of the near-miss frontier show only that $r$
+takes values on both sides of $1$ and within $8\times10^{-3}$ of it.
+\end{remark}
+
+Corollary~\ref{cor:lyapbarrier} recovers the barrier by a route independent of the minimisation
+used in Theorem~\ref{K-thm:barrier}: no extremality argument, no enumeration, only $\log x\le x-1$ and
+the coprimality of Theorem~\ref{K-thm:structure}. It is also stronger in one direction, since it
+excludes cycles of every length rather than two-cycles alone. What it does not do is decide
+\#307: the region it covers is exactly the region where the barrier already says nothing can
+happen, and above $\Pi_{59}$ the hypothesis $\sigma(n\,n')<2$ fails, which is where any solution
+must live. The general conjecture is what remains.
+
+Over all $153{,}397{,}754$ such $n\le4\times10^8$, $(\ast)$ holds for every
+$\lambda\in(0.275438,\,1.250828)$ and fails for no step
+\textup{(\texttt{code/lyap\_battery.rs})}. The interval narrows with the range, of width
+$1.654$, $1.267$, $1.237$, $1.116$, $1.092$, $1.004$, $0.975$ at cutoffs $10^4$ through
+$4\times10^8$;
+the binding lower constraint is at $n=\Pi_9=223{,}092{,}870$. Six
+candidate functions were tested and five died, among them the control $\delta=\log n$, which fails
+first at $n=30$ where $\sigma=1.0333$; a battery that did not kill it would not be testing anything
+\textup{(\texttt{code/invent\_lyapunov.rs})}.
+
+That interval is an artefact of the range swept. No $\lambda$ works.
+
+\begin{theorem}[The criterion fails, for every $\lambda$]\label{thm:lyapfalse}
+There is no real $\lambda$ for which $(\ast)$ holds at every squarefree $n$ with $n'$ squarefree.
+Two witnesses suffice. Let
+\[ n_0=\!\!\!\prod_{\substack{7\le p\le373\\ p\notin\{307,\,317,\,359\}}}\!\!\!p, \]
+a squarefree integer with $68$ prime factors and $142$ decimal digits. Then $n_0'=2\cdot3\cdot5\cdot C$
+with $C$ a prime of $141$ digits, so $n_0'$ is squarefree and $\sigma(n_0')=\tfrac{31}{30}$ exactly,
+while $\sigma(n_0)=1.0059067\ldots$. Since $\sigma(n_0)>1$ and $\sigma(n_0')>\sigma(n_0)$,
+\[ \log\sigma(n_0)\;>\;0\;>\;\lambda\bigl(\sigma(n_0)-\sigma(n_0')\bigr)\qquad(\lambda>0), \]
+so $(\ast)$ fails at $n_0$ for every positive $\lambda$. At $n=30$, with $30'=31$ prime,
+$\sigma(30)=\tfrac{31}{30}>1$ and $\sigma(30)-\sigma(31)=\tfrac{931}{930}>0$, so $\log\sigma(30)>0\ge
+\lambda(\sigma(30)-\sigma(31))$ for every $\lambda\le0$. Together the two exclude every real
+$\lambda$.
+\end{theorem}
+\begin{proof}
+Both statements are finite verifications in exact rational arithmetic. For $n_0$: $\sigma(n_0)$ and
+$\sigma(n_0')$ are computed as rationals, $\gcd(n_0,n_0')=1$ and $\sigma(n_0)=n_0'/n_0$ confirm
+Theorem~\ref{K-thm:structure}, the factorisation $n_0'=2\cdot3\cdot5\cdot C$ multiplies back to $n_0'$
+and has all exponents $1$, and $C$ carries an Atkin--Morain certificate, generated and validated
+\textup{(\texttt{data/certs/lyap\_refute\_cofactor\_ecpp.txt})}. The comparisons $\sigma(n_0)>1$ and
+$\sigma(n_0')>\sigma(n_0)$ are exact, and $\sigma(n_0')=\sigma(n_0)$ is impossible in any case by
+Lemma~\ref{C-lem:sigmainj}. The case $n=30$ is arithmetic
+\textup{(\texttt{code/lyap\_refute\_verify.gp})}.
+\end{proof}
+
+The argument is formalised. \texttt{Erdos307.criterion\_fails\_of\_pos} and
+\texttt{criterion\_fails\_of\_nonpos} give the two sign clashes,
+\texttt{no\_lambda\_works} combines them, and \texttt{lyapunov\_criterion\_false} instantiates the
+combination at $\sigma(n_0)$, carried as the exact quotient $n_0'/n_0$, and at the pair
+$(\tfrac{31}{30},\tfrac1{31})$ of $n=30$; the two numeric comparisons $1<\sigma(n_0)$ and
+$\sigma(n_0)<\tfrac{31}{30}$ are checked on the $142$-digit numerals themselves. All six
+declarations carry $0$ \texttt{sorry} and only \texttt{propext}, \texttt{Classical.choice},
+\texttt{Quot.sound}, with no \texttt{native\_decide}
+\textup{(\texttt{lean/Erdos307/LyapFalse.lean})}. What Lean does not see is the factorisation
+$n_0'=2\cdot3\cdot5\cdot C$ and the primality of $C$, which is the Atkin--Morain certificate; the
+status is therefore \textup{VERIFIED} modulo that certificate, in the same sense that
+Theorem~\ref{thm:halflyap} is \textup{VERIFIED} modulo Theorem~\ref{K-thm:structure}.
+
+The witness is built, not found. For squarefree $n$ and a prime $w\nmid n$ one has
+$n'\equiv n\sum_{p\mid n}p^{-1}\pmod w$, hence
+\[ w\mid n'\quad\Longleftrightarrow\quad \sum_{p\mid n}p^{-1}\equiv0 \pmod w. \tag{F} \]
+Imposing (F) for $w\in\{2,3,5\}$ forces $\sigma(n')\ge\tfrac{31}{30}$, and building $n$ from primes
+$\ge7$ with $\sigma(n)$ just above $1$ gives $\sigma(n')>\sigma(n)$. Reaching mass $1$ without
+$2,3,5$ needs primes only to about $360$, which is what keeps $n_0'$ small enough to factor
+completely; the squarefreeness of $n_0'$ is therefore verified rather than assumed. Three of the
+larger pool primes are dropped to satisfy (F), at negligible cost in mass
+\textup{(\texttt{code/lyap\_refute.gp})}.
+
+The sweep could not have seen this. Every $n\le4\times10^8$ with $\sigma(n)>1$ is even, so the
+battery measured only $n$ containing $2$, whereas the failure needs $n$ to omit $2$, $3$ and $5$ so
+that $n'$ may absorb them. By Theorem~\ref{thm:rhobarrier} below, any failure must have
+$n\,n'\ge\Pi_{59}$, and $n_0n_0'$ has $284$ digits: the region was out of reach of any sweep, and
+only a construction enters it.
+
+One route to the criterion had looked provable rather than measured, and it fails for the same
+reason. Write $\rho=\sup\{\sigma(n')/\sigma(n):\sigma(n)>1\}$, the supremum being over the same
+class of $n$. If $\rho\le c<1$ then $\sigma(n)-\sigma(n')\ge(1-c)\sigma(n)$, and since
+$\log x/x\le1/e$,
+\[ L:=\sup_{\sigma(n)>1}\frac{\log\sigma(n)}{\sigma(n)-\sigma(n')}\;\le\;\frac1{e(1-c)} . \]
+Measured over $n\le4\times10^8$, $\rho=0.519746$, which would give $L\le0.766$ against a measured
+upper demand of $1.274$; a proof of $\rho<1-1/(eU)$, for $U$ a lower bound on the upper demand,
+would then have given $(\ast)$. The measurement is not the truth. Already
+\[ a_0=\!\!\prod_{5\le p\le163}\!\!p,\qquad
+   a_0'=2\cdot3\cdot173\cdot227\cdot1973\cdot82890547\cdot68126695363\cdot P_{36}, \]
+with $P_{36}$ prime, is squarefree with squarefree derivative, $\sigma(a_0)=1.0723027\ldots>1$ and
+$\sigma(a_0')=0.8440258\ldots$, so $\rho\ge0.7871152\ldots$; the bound the route would yield is
+$1/(e(1-\rho))\ge1.7280$, already above the measured upper demand, so it constrains nothing. The
+witness $n_0$ of Theorem~\ref{thm:lyapfalse} gives $\rho\ge1.02726$, so $\rho<1$ is false outright
+\textup{(\texttt{code/rho\_verify.gp})}.
+
+The mechanism advanced for $\rho<1$ was that $\sigma(n)>1$ forces $n$ to absorb the small primes
+while $n'$ stays coprime to $n$. It does not: the reciprocals of the primes diverge, so $\sigma(n)>1$
+is reachable from primes $\ge7$ alone, and then $n'$ is free to take $2$, $3$ and $5$. Both $a_0$ and
+$n_0$ are of that shape. The earlier probe of this regime evaluated $\sigma(n')/\sigma(n)$ at the
+least odd $n$ with $\sigma(n)>1$, obtaining $0.0312$, and read the regime off that single point;
+the quantity to be bounded is a supremum, and the least member of a family does not report it. This
+is the error recorded in Remark~\ref{C-rem:sectorsquared}, in a second instance.
+
+What survives is the location of the failure, and it is exactly where the barrier puts it.
+
+\begin{theorem}[$\rho<1$ below the barrier]\label{thm:rhobarrier}
+Let $n$ be squarefree with $n'$ squarefree and $\sigma(n)>1$. If $\sigma(n')\ge\sigma(n)$ then
+$n\,n'\ge\Pi_{59}>8.77\times10^{112}$. Consequently $\rho<1$ for every $n$ with
+$n\,n'<\Pi_{59}$, and since $\sigma(n)>1$ gives $n'>n$, for every $n<\sqrt{\Pi_{59}}$, that is for
+every $n<10^{56.5}$.
+\end{theorem}
+\begin{proof}
+$\sigma(n')\ge\sigma(n)>1$ gives $\sigma(n)+\sigma(n')>2$. By Theorem~\ref{K-thm:structure} $n$ and
+$n'$ are coprime, and both are squarefree, so $\sigma(n\,n')=\sigma(n)+\sigma(n')>2$. A squarefree
+integer of mass at least $2$ has at least $59$ prime factors and is therefore at least $\Pi_{59}$,
+since $\sigma(\Pi_{58})=1.998740<2\le2.002350=\sigma(\Pi_{59})$; this is the mass estimate
+underlying Theorem~\ref{K-thm:barrier}. Finally $\sigma(n)>1$ gives $n'=n\sigma(n)>n$, so
+$n^2<n\,n'$.
+\end{proof}
+
+The counting step is formalised. \texttt{Erdos307.card\_ge\_59\_of\_recipSum\_ge\_two} isolates the
+mass estimate, that a set of primes of reciprocal sum at least $2$ has at least $59$ elements, and
+\texttt{Erdos307.card\_union\_ge\_59\_of\_masses} applies it to two disjoint sets each of mass
+exceeding $1$; both carry $0$ \texttt{sorry}
+\textup{(\texttt{lean/Erdos307/RhoBarrier.lean})}. Their axiom lists are those of
+Theorem~\ref{K-thm:barrier} itself, the three standard axioms together with the
+\texttt{native\_decide} evaluation of the first $58$ primes. The same core proves
+\texttt{card\_ge\_59} of the barrier, which assumes $\sigma(P)\sigma(Q)=1$ instead; the two
+hypotheses differ and the shared step has been extracted rather than duplicated.
+
+Theorem~\ref{thm:rhobarrier} therefore locates the failure before exhibiting it: $\rho\ge1$ forces
+$n\,n'\ge\Pi_{59}$, so no sweep can meet a counterexample, and any counterexample must have $n$ of
+at least $57$ digits. The witness $n_0$ has $142$, and $n_0n_0'$ has $284$. The regime in which
+$\rho\ge1$ is possible is the regime in which a two-cycle is possible, since both need two coprime
+squarefree integers of total mass at least $2$; what Theorem~\ref{thm:lyapfalse} shows is that the
+first of those is genuinely non-empty, which says nothing about the second.
+
+\begin{corollary}[The half-mass hypothesis cannot be relaxed]\label{cor:halfsharp}
+For every $\lambda>0$ and every $c>2.03925$, the implication
+``$\sigma(n\,n')<c$ implies $\delta_\lambda(n')<\delta_\lambda(n)$'' is false. Indeed
+$\sigma(n_0\,n_0')=2.039240\ldots$ while
+$\delta_\lambda(n_0')-\delta_\lambda(n_0)=\log\sigma(n_0)+\lambda(\sigma(n_0')-\sigma(n_0))>0$ for
+every $\lambda>0$.
+\end{corollary}
+
+Two is also the exact threshold for the argument of Theorem~\ref{thm:halflyap}, in the following
+sense, which concerns the inequality alone and not the arithmetic of $\sigma$.
+
+\begin{proposition}[The mass-sum relaxation stops at $2$]\label{prop:masssumthreshold}
+Let $c>0$. There is $f:(0,\infty)\to\mathbb{R}$ with $f(x)-f(y)>\log x$ for all $x,y>0$ satisfying
+$x+y<c$ if and only if $c\le2$. For $c=2$ the linear solutions are exactly $f(x)=\tfrac12x+\text{const}$.
+\end{proposition}
+\begin{proof}
+The region $x+y<c$ is symmetric, so a solution gives both $f(x)-f(y)>\log x$ and $f(y)-f(x)>\log y$;
+adding, $0>\log(xy)$. Taking $x=y\uparrow c/2$ forces $c^2/4\le1$, that is $c\le2$. For $c\le2$ take
+$f(x)=\tfrac12x$: if $x+y<2$ then $\tfrac12(x-y)>x-1\ge\log x$. If $f=\lambda x$ then letting
+$y\uparrow2-x$ gives $2\lambda(x-1)\ge\log x$ for all $x\in(0,2)$, and dividing by $x-1$ and letting
+$x\to1$ from each side gives $2\lambda\ge1$ and $2\lambda\le1$.
+\end{proof}
+
+Both halves are formalised: \texttt{Erdos307.half\_works} for $c\le2$ and
+\texttt{no\_f\_above\_two} for $c>2$, the latter by the diagonal point $x=y$ with $1<x<c/2$, where
+the right side vanishes and the left is positive; \texttt{mass\_sum\_threshold} states the two
+together. The uniqueness of the constant is formalised as well: \texttt{lambda\_eq\_half} shows that a linear solution at $c=2$ forces $\lambda=\tfrac12$, by the local-minimum route rather than a two-sided limit, since $g(x)=2\lambda(x-1)-\log x$ is nonnegative on $(0,2)$ and vanishes at $1$, so its derivative $2\lambda-1$ vanishes there \textup{(\texttt{lean/Erdos307/NoInvariant.lean})}.
+
+Any strengthening must therefore use an input about $n$ beyond the pair
+$(\sigma(n),\sigma(n'))$, and by the next proposition there is no room in the choice of function
+either.
+
+\begin{proposition}[The ansatz is universal, so the search was the problem]\label{prop:lyapuniversal}
+Let $S$ be the set of squarefree $n\ge2$ with $n'$ squarefree. The following are equivalent:
+\begin{enumerate}[label=\textup{(\arabic*)},leftmargin=2.2em]
+\item $n\mapsto n'$ has no periodic orbit inside $S$;
+\item there is $\delta:S\to\mathbb{R}$ with $\delta(n')<\delta(n)$ whenever $n,n'\in S$;
+\item there is $f$ on $\sigma(S)$ with $f(\sigma(n))-f(\sigma(n'))>\log\sigma(n)$ for all such $n$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(2) implies (1), since a periodic orbit would give $\delta(n)<\delta(n)$. For (1) implies (2), the
+transitive closure of $n\mapsto n'$ is irreflexive by (1) and transitive by construction, hence a
+strict partial order on the countable set $S$; it has a linear extension, and a countable linear
+order embeds order-preservingly in $\mathbb{Q}$, which supplies $\delta$. For (2) and (3), $\sigma$
+is injective on squarefree integers by Lemma~\ref{C-lem:sigmainj}, so every $\delta$ on $S$ is
+$\log n+f(\sigma(n))$ for exactly one $f$, namely $f(\sigma(n))=\delta(n)-\log n$; and $n'=n\sigma(n)$
+turns $\delta(n')<\delta(n)$ into the inequality of (3).
+\end{proof}
+
+The collapse of the ansatz is formalised. \texttt{Erdos307.exists\_f\_of\_injective} proves that
+injectivity of $\sigma$ forces \emph{every} $\delta$ into the shape $\log n+f(\sigma(n))$,
+\texttt{increment\_iff} converts $\delta(n')<\delta(n)$ into $(\ast)$ verbatim, and
+\texttt{no\_two\_cycle\_of\_decreasing} is the implication of
+Proposition~\ref{prop:lyapworks}; all with $0$ \texttt{sorry} and the three standard axioms
+\textup{(\texttt{lean/Erdos307/NoInvariant.lean})}.
+
+So Definition~\ref{def:lyap} restricts nothing. The tournament that produced $\delta_\lambda$ was
+searching the space of all functions on $S$, and by Proposition~\ref{prop:lyapuniversal} the
+existence of any member of that space is equivalent to the absence of cycles, which is strictly
+stronger than a negative answer to \#307. The criterion was never a weakening of the problem, and
+Theorem~\ref{thm:lyapfalse} settles the one form of it that had been left open. What remains true,
+and is the residue of the whole construction, is Theorem~\ref{thm:halflyap} together with
+Corollary~\ref{cor:lyapbarrier}: an elementary Lyapunov proof of the barrier, valid exactly up to
+mass $2$ and, by Corollary~\ref{cor:halfsharp}, not one step further.
+
+\begin{remark}[Three independent blocks on $\mathrm{A}10$]\label{rem:threeblocks}
+The existence route is therefore obstructed at three separate levels, and no two of them are the
+same obstruction. Proposition~\ref{prop:nofreeslot} removes the freedom: the construction carries
+one parameter and cannot be relaxed into a denser family. Theorem~\ref{thm:ff} removes the
+method: no argument that survives the passage to $K[t]$ can prove existence, because there the
+statement is false. Proposition~\ref{prop:multiplicityfail} removes the last refuge, the hope that a
+large family of sequences is easier than one: the union stays logarithmically thin however many
+sequences it has. A fourth block was claimed here and does not stand: it held that the $34$ immune
+families could not be examined, and Proposition~\ref{A-prop:immunedecide} examines them and finds them
+empty (Remark~\ref{rem:untestable}). Removing it strengthens nothing and is recorded because the
+count of independent obstructions is exactly the kind of claim that should not drift.
+What is left is a lower bound for primes in a sparse exponential sequence, which exists for no
+non-degenerate linear recurrence at all. We state plainly that the present work does not decide the
+existence direction and does not contain a route to deciding it.
+\end{remark}
+
+
+\begin{thebibliography}{9}
+\bibitem{Barbeau1961} E.~J.~Barbeau, \emph{Remarks on an arithmetic derivative}, Canad.\ Math.\
+Bull.\ \textbf{4} (1961), 117--122.
+\bibitem{Barbeau1976} E.~J.~Barbeau, \emph{Computer challenge corner: Problem 477}, J.\ Recreational
+Math.\ \textbf{9} (1976/77), 30.
+\bibitem{ErdosGraham1980} P.~Erd\H{o}s and R.~L.~Graham, \emph{Old and New Problems and Results in
+Combinatorial Number Theory}, Monogr.\ Enseign.\ Math.\ \textbf{28}, Geneva, 1980, p.~38.
+\bibitem{GrahamEgyptian} R.~L.~Graham, \emph{Paul Erd\H{o}s and Egyptian fractions}, in \emph{Erd\H{o}s
+Centennial}, Bolyai Soc.\ Math.\ Stud.\ \textbf{25}, Springer, 2013, pp.~289--309.
+\bibitem{Watanabe2020} T.~Watanabe, \emph{New examples of the representation of $1$ by the sum of
+reciprocals of semiprime numbers}, arXiv:2009.03275 (2020).
+\bibitem{Bado2026b} I.-O.~Bado, \emph{Primary-pseudoperfect sectors in two-cycles of the
+arithmetic derivative}, preprint (2026), communicated to the author.
+\bibitem{BloomShifted} T.~F.~Bloom, \emph{Unit fractions with shifted prime denominators}, Proc.\
+Roy.\ Soc.\ Edinburgh Sect.\ A (2024); arXiv:2305.02689.
+\bibitem{UfnarovskiAhlander2003} V.~Ufnarovski and B.~\AA hlander, \emph{How to differentiate a
+number}, J.\ Integer Seq.\ \textbf{6} (2003), Article 03.3.4.
+\bibitem{Kovic2012} J.~Kovi\v{c}, \emph{The arithmetic derivative and antiderivative}, J.\ Integer
+Seq.\ \textbf{15} (2012), Article 12.3.8.
+\bibitem{MO320838} MathOverflow, \emph{Can the product of two sums of prime reciprocals be $1$?},
+question 320838 (comments by R.~Israel and J.~Rosen, answer by ``Woett''), 2019.
+\url{https://mathoverflow.net/questions/320838}.
+\bibitem{ErdosProblems307} T.~F.~Bloom, \emph{Erd\H{o}s problem \#307},
+\url{https://www.erdosproblems.com/307}.
+\bibitem{OEIS_A003415} OEIS Foundation, \emph{Sequence A003415 (arithmetic derivative)},
+\url{https://oeis.org/A003415}.
+\bibitem{Pollack2018} P.~Pollack, \emph{On amicable tuples}, Illinois J. Math. \textbf{62} (2018),
+  no.~1--4, 225--240; arXiv:1711.06847. (Explicit bounds for relatively prime amicable pairs,
+  refining the finiteness of Artjuhov and Borho.)
+
+\bibitem{teRiele1984} H.~J.~J.~te~Riele, \emph{Computation of all the amicable pairs below
+$10^{10}$}, Math.\ Comp.\ \textbf{47} (1986), 361--368.
+\bibitem{BHP2001} R.~C.~Baker, G.~Harman, and J.~Pintz, \emph{The difference between consecutive
+primes, II}, Proc.\ London Math.\ Soc.\ (3) \textbf{83} (2001), 532--562.
+\bibitem{Iwaniec1978} H.~Iwaniec, \emph{Almost-primes represented by quadratic polynomials},
+Invent.\ Math.\ \textbf{47} (1978), 171--188.
+\bibitem{LemkeOliver2012} R.~J.~Lemke Oliver, \emph{Almost-primes represented by quadratic
+polynomials}, Acta Arith.\ \textbf{151} (2012), 241--261.
+\bibitem{HardyWright} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of Numbers},
+6th ed., Oxford Univ.\ Press, 2008.
+\bibitem{Tenenbaum} G.~Tenenbaum, \emph{Introduction to Analytic and Probabilistic Number Theory},
+3rd ed., Grad.\ Stud.\ Math.\ \textbf{163}, Amer.\ Math.\ Soc., 2015 (Erd\H{o}s--Wintner theorem).
+\bibitem{Stothers} W.~W.~Stothers, \emph{Polynomial identities and Hauptmoduln}, Quart.\ J.\ Math.\
+Oxford (2) \textbf{32} (1981), 349--370; R.~C.~Mason, \emph{Diophantine Equations over Function
+Fields}, Cambridge Univ.\ Press, 1984.
+\bibitem{Seva323194} Seva (\texttt{mathoverflow.net} user), \emph{A recursion with a number--theoretic
+function}, MathOverflow question 323194 (2019). \url{https://mathoverflow.net/questions/323194}.
+\bibitem{FewPrimes2025} \emph{Egyptian fractions for few primes}, arXiv:2507.03727 (July 2025).
+\bibitem{Steinerberger2025} S.~Steinerberger, \emph{On an iterated arithmetic function problem of
+Erd\H{o}s and Graham}, arXiv:2504.08023 (April 2025).
+\bibitem{StretchedEG2026} \emph{A stretched--exponential bound for an Erd\H{o}s--Graham
+unit--fraction problem}, arXiv:2607.04157 (July 2026).
+\bibitem{PortFillings2026} \emph{Port fillings for primary pseudoperfect numbers}, arXiv:2605.21518
+(May 2026).
+\bibitem{Semiprime2026} \emph{Every natural number is a sum of distinct semiprime unit fractions},
+arXiv:2606.15159 (June 2026).
+\bibitem{ButskeJajeMayernik} W.~Butske, L.~M.~Jaje and D.~R.~Mayernik, \emph{On the equation
+$\sum_{p\mid N}1/p+1/N=1$, pseudoperfect numbers, and perfectly weighted graphs}, Math.\ Comp.\
+\textbf{69} (2000), 407--420.
+\bibitem{Bado2026} I.~O.~Bado, \emph{Structural constraints for an Erd\H{o}s unit--fraction problem
+over primes}, preprint, Aix--Marseille University (May 2026).
+\url{https://doi.org/10.13140/RG.2.2.32245.54245}.
+\bibitem{Giuga1950} G.~Giuga, \emph{Su una presumibile propriet\`a caratteristica dei numeri primi},
+Ist.\ Lombardo Sci.\ Lett.\ Rend.\ Cl.\ Sci.\ Mat.\ Nat.\ (3) \textbf{14} (1950), 511--528.
+\bibitem{BBBG1996} D.~Borwein, J.~M.~Borwein, P.~B.~Borwein, and R.~Girgensohn, \emph{Giuga's conjecture
+on primality}, Amer.\ Math.\ Monthly \textbf{103} (1996), no.~1, 40--50.
+\bibitem{BorweinWong1997} J.~M.~Borwein and E.~Wong, \emph{A survey of results relating to Giuga's
+conjecture on primality}, CRM Proc.\ Lecture Notes \textbf{11} (1997), 13--27.
+\bibitem{BJM2000} W.~Butske, L.~M.~Jaje, and D.~R.~Mayernik, \emph{On the equation
+$\sum_{p\mid N}1/p+1/N=1$, pseudoperfect numbers, and perfectly weighted graphs}, Math.\ Comp.\
+\textbf{69} (2000), no.~229, 407--420.
+\bibitem{GrauOllerMarcen2012} J.~M.~Grau and A.~M.~Oller-Marc\'en, \emph{Giuga numbers and the
+arithmetic derivative}, J.\ Integer Seq.\ \textbf{15} (2012), Article 12.4.1; arXiv:1103.2298.
+\bibitem{SondowMacMillan2017} J.~Sondow and K.~MacMillan, \emph{Primary pseudoperfect numbers,
+arithmetic progressions, and the Erd\H{o}s--Moser equation}, Amer.\ Math.\ Monthly \textbf{124} (2017),
+no.~3, 232--240; arXiv:1812.06566.
+\bibitem{GrauOllerMarcenSadornil2021} J.~M.~Grau, A.~M.~Oller-Marc\'en, and D.~Sadornil,
+\emph{On $\mu$-Sondow numbers}, arXiv:2111.14211 (2021); Acta Math.\ Hungar.\ (2022).
+\bibitem{Cox} D.~A.~Cox, \emph{Primes of the Form $x^2+ny^2$: Fermat, Class Field Theory, and Complex
+Multiplication}, 2nd ed., Wiley, 2013.
+\bibitem{OEIS_A054377} OEIS Foundation, \emph{Sequence A054377 (primary pseudoperfect numbers)},
+\url{https://oeis.org/A054377}.
+\bibitem{OEIS_A007850} OEIS Foundation, \emph{Sequence A007850 (Giuga numbers)},
+\url{https://oeis.org/A007850}.
+\bibitem{OEIS_A396915} OEIS Foundation, \emph{Sequence A396915 (composite squarefree $k$ with
+$k'+2k$ a perfect square)}, \url{https://oeis.org/A396915}.
+\bibitem{Evertse1984} J.-H.~Evertse, \emph{On sums of $S$-units and linear recurrences}, Compositio
+Math.\ \textbf{53} (1984), 225--244.
+\bibitem{FI1998} J.~Friedlander and H.~Iwaniec, \emph{The polynomial $X^2+Y^4$ captures its
+primes}, Ann. of Math. \textbf{148} (1998), 945--1040.
+\bibitem{HB2001} D.~R.~Heath-Brown, \emph{Primes represented by $x^3+2y^3$}, Acta Math.
+\textbf{186} (2001), 1--84.
+\bibitem{Stewart2013} C.~L.~Stewart, \emph{On divisors of Lucas and Lehmer numbers}, Acta Math.
+\textbf{211} (2013), 291--314.
+\bibitem{BCZ2003} Y.~Bugeaud, P.~Corvaja, and U.~Zannier, \emph{An upper bound for the G.C.D. of
+$a^n-1$ and $b^n-1$}, Math. Z. \textbf{243} (2003), 79--84.
+\bibitem{Merikoski2019} J.~Merikoski, \emph{On the largest prime factor of $n^2+1$}, J. Eur. Math.
+Soc. \textbf{25} (2023), 1253--1284.
+\bibitem{BGS2010} J.~Bourgain, A.~Gamburd, and P.~Sarnak, \emph{Affine linear sieve, expanders,
+and sundry applications}, Invent. Math. \textbf{179} (2010), 559--644.
+\bibitem{ESS2002} J.-H.~Evertse, H.~P.~Schlickewei, and W.~M.~Schmidt, \emph{Linear equations in
+variables which lie in a multiplicative group}, Ann.\ of Math.\ (2) \textbf{155} (2002), 807--836.
+\bibitem{Erdos1952} P.~Erd\H{o}s, \emph{On the sum $\sum_{k=1}^x d(f(k))$}, J.\ London Math.\ Soc.\
+\textbf{27} (1952), 7--15.
+\bibitem{BHV2001} Y.~Bilu, G.~Hanrot, and P.~M.~Voutier, \emph{Existence of primitive divisors of
+Lucas and Lehmer numbers} (with an appendix by M.~Mignotte), J.\ Reine Angew.\ Math.\ \textbf{539}
+(2001), 75--122.
+\end{thebibliography}
+\end{document}

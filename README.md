@@ -167,7 +167,9 @@ LICENSE        licence for the repository
 .gitignore     excludes private/, which never ships
 
 paper/   erdos307-core.pdf       — the paper (32 pp; the results)
-         erdos307-companion.pdf  — the companion (107 pp; explorations, closures, the square sieve and the density theorem)
+         erdos307-computational.pdf — the computational companion (31 pp; certificate, split sieve, pair sector)
+         erdos307-obstructions.pdf  — the obstructions companion (35 pp; places, potentials, two closures)
+         erdos307-analytic.pdf      — the analytic companion (49 pp; density theorem, square sieve)
          erdos307.tex            — the single source both are generated from
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md
@@ -179,9 +181,11 @@ data/certs/   independently checkable ECPP primality certificates: the immune fa
 
 ## Building
 
-- **Paper:** `cd paper && python3 ../code/split_paper.py` then build companion, core, companion,
-  core with `pdflatex` (twice each, for the `xr` cross-references). No BibTeX run needed. The two
-  documents are derived from `erdos307.tex`, never hand-edited, so they cannot drift.
+- **Paper:** `cd paper && python3 ../code/split_paper.py`, then build the four documents twice each
+  (`erdos307-core`, `erdos307-computational`, `erdos307-obstructions`, `erdos307-analytic`), so that
+  `xr` resolves the cross-document references in every direction. No BibTeX run needed. All four are
+  derived from `erdos307.tex`, never hand-edited, so they cannot drift; `code/check_consistency.sh`
+  compares the label sets to enforce that.
 - **Lean:** `cd lean && lake exe cache get && lake build` (Lean / mathlib `v4.30.0`). Then
   `lake env lean Check.lean` prints the axiom dependencies of 439 declarations across all 66 modules
   — everything depends only on `propext, Classical.choice, Quot.sound` (no `sorryAx`), with exactly

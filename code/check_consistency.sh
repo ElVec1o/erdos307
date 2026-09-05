@@ -15,11 +15,17 @@ chk() { # name  expected  actual
 }
 
 core_pdf=$(pdfinfo paper/erdos307-core.pdf 2>/dev/null | awk '/Pages/{print $2}')
-comp_pdf=$(pdfinfo paper/erdos307-companion.pdf 2>/dev/null | awk '/Pages/{print $2}')
+compA_pdf=$(pdfinfo paper/erdos307-computational.pdf 2>/dev/null | awk '/Pages/{print $2}')
+compB_pdf=$(pdfinfo paper/erdos307-obstructions.pdf 2>/dev/null | awk '/Pages/{print $2}')
+compC_pdf=$(pdfinfo paper/erdos307-analytic.pdf 2>/dev/null | awk '/Pages/{print $2}')
 readme_core=$(grep -o 'the paper ([0-9]* pp' README.md | grep -o '[0-9]*')
-readme_comp=$(grep -o 'the companion ([0-9]* pp' README.md | grep -o '[0-9]*')
+readme_A=$(grep -o 'the computational companion ([0-9]* pp' README.md | grep -o '[0-9]*')
+readme_B=$(grep -o 'the obstructions companion ([0-9]* pp' README.md | grep -o '[0-9]*')
+readme_C=$(grep -o 'the analytic companion ([0-9]* pp' README.md | grep -o '[0-9]*')
 chk "core page count" "$readme_core" "$core_pdf"
-chk "companion page count" "$readme_comp" "$comp_pdf"
+chk "computational pages" "$readme_A" "$compA_pdf"
+chk "obstructions pages" "$readme_B" "$compB_pdf"
+chk "analytic pages" "$readme_C" "$compC_pdf"
 
 # The derived documents are generated from erdos307.tex by code/split_paper.py. A result added to
 # the source and not re-split is invisible to the page counts above, so the label sets are compared
@@ -29,7 +35,9 @@ import re
 def labs(f):
     return set(re.findall(r'\\\\label\{((?:thm|prop|lem|cor|rem):[^}]+)\}', open(f).read()))
 m = labs('paper/erdos307.tex')
-d = labs('paper/erdos307-core.tex') | labs('paper/erdos307-companion.tex')
+d = set()
+for k in ('core','computational','obstructions','analytic'):
+    d |= labs('paper/erdos307-%s.tex' % k)
 bad = sorted(m ^ d)
 print(','.join(bad) if bad else 'none')
 ")
@@ -66,7 +74,7 @@ chk "full pdf freshness" "0" "$stale"
 codeN=$(git ls-files code | wc -l | tr -d ' ')
 chk "code/README file count" "$codeN" "$(grep -oE 'holds [0-9]+ tracked files' code/README.md | grep -oE '[0-9]+')"
 
-err=$(grep -c '^! ' paper/erdos307-core.log paper/erdos307-companion.log 2>/dev/null | awk -F: '{s+=$2} END{print s+0}')
+err=$(grep -c '^! ' paper/erdos307-core.log paper/erdos307-computational.log paper/erdos307-obstructions.log paper/erdos307-analytic.log 2>/dev/null | awk -F: '{s+=$2} END{print s+0}')
 chk "latex errors" "0" "$err"
 
 dup=$(grep -o '\\label{[^}]*}' paper/erdos307.tex | sort | uniq -d | wc -l | tr -d ' ')
