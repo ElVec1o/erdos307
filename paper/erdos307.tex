@@ -43,17 +43,17 @@ has a two--cycle $a'=b,\ b'=a$ with $a\neq b$; equivalently iff $n''=n$ has a so
 fixed point $p^{p}$. That reformulation, and the equivalence with the derivative, are due to
 Ufnarovski--\AA hlander \cite{UfnarovskiAhlander2003}, whose Conjecture~4 asserts in exactly these
 terms that $\bigl(\sum1/p_i\bigr)\bigl(\sum1/q_j\bigr)=1$ has no solution in distinct primes. Our
-starting point is that \#307 \emph{is} that conjecture --- an identification neither literature
-records --- which ties the problem to the Ufnarovski--\AA hlander dynamics: their conjecture that
+starting point is that \#307 \emph{is} that conjecture, an identification neither literature
+records, which ties the problem to the Ufnarovski--\AA hlander dynamics: their conjecture that
 every $n''=n$--cycle has period one would force \#307 to have answer \textsc{no}, while a
 \textsc{yes} would refute it. Exploiting the equivalence we prove a \emph{rigidity lemma} (each prime--reciprocal
 sum is automatically in lowest terms, so $N_P=D_Q$, $N_Q=D_P$, and $P\cap Q=\varnothing$) and a
 quantitative \emph{barrier}: building on Rosen's bound $|P\cup Q|\ge 59$, any solution has
 $\min(\prod P,\prod Q)\ge 2.09\times10^{56}$, for \emph{both} members. This is the first valid
 unconditional bound of its kind. The prior claims are Kovi\v{c}'s: his Proposition~17 is sound but
-conditional on the smaller member being odd, while Proposition~18 --- the only unconditional
+conditional on the smaller member being odd, while Proposition~18 (the only unconditional
 cardinality and size bound in the literature, giving $r+s\ge34$ and
-$\max\{m,n\}\ge\prod_{i\le17}p_i$ --- rests on an invalid step, deriving $p_1q_s<rs$ by multiplying
+$\max\{m,n\}\ge\prod_{i\le17}p_i$) rests on an invalid step, deriving $p_1q_s<rs$ by multiplying
 an upper bound against a lower one, where the available products give only $p_1q_1<rs<p_rq_s$ and no
 cardinality bound at all; we give an explicit model and machine--check both points. Against the
 strongest surviving unconditional bound, that paper's computer search $x>10^4$, the gain is $52$
@@ -159,7 +159,7 @@ derivative literature, in 2003. It was restated ``in disguise'' by Seva \cite{Se
 (via $Q\mapsto Q\sum_{p\mid Q}1/p$, which agrees with the arithmetic derivative on squarefree
 integers, where the question lives), who is the first to name it as \#307, and obtained
 independently by Bado \cite{Bado2026}; see Section~\ref{sec:prior}. What is new here is the
-identification of the two problems --- \#307 is Ufnarovski--\AA hlander's Conjecture~4 --- and the
+identification of the two problems, \#307 is Ufnarovski--\AA hlander's Conjecture~4, and the
 resulting two--way bridge, importing their period--one conjecture and exporting our bounds.
 Remarkably, Barbeau authored foundational papers on both sides (1961 and 1976
 \cite{Barbeau1961,Barbeau1976}).
@@ -840,7 +840,7 @@ period needs $1{,}412$ primes and a product past $10^{5040}$, and of period $9$ 
 $15{,}473$. And the family supplies, in valid form, the conditional statements that
 Proposition~18 of \cite{Kovic2012} asserts but does not establish: for $\min U\ge3$ that proposition
 claims $r+s\ge57$ where the true bound is $M(2,3)=1{,}412$, and for $\min U\ge5$ it claims
-$r+s\ge110$ where the true bound is $M(2,5)=40{,}259$ --- larger by factors of $24.8$ and $366$.
+$r+s\ge110$ where the true bound is $M(2,5)=40{,}259$, larger by factors of $24.8$ and $366$.
 
 \section{The certificate programme and its anatomy}\label{sec:certificate}
 
@@ -916,8 +916,8 @@ core, \texttt{code/hunt/survivor\_kill.rs}; the found factors are kept as a pair
 a kill certificate (an odd--multiplicity basis piece $P$ with $(D_S\mid P)=-1$) needs no
 primality testing at all), pushed to $\rho$--budget $10^6$ with a Pollard $p-1$ stage, closes a
 further $15{,}264$: in total $46{,}483$ of the $49{,}961$ one--new--prime families at level $60$
-are proven empty ($93.0\%$). The $3{,}478$ still open --- $3{,}444$ of them once
-Proposition~\ref{prop:immunedecide} has emptied the $34$ immune ones --- resist all of this for a
+are proven empty ($93.0\%$). The $3{,}478$ still open ($3{,}444$ of them once
+Proposition~\ref{prop:immunedecide} has emptied the $34$ immune ones) resist all of this for a
 structural reason,
 not a want of effort: each is Baillie--PSW \emph{composite} yet has no prime factor below ${\sim}
 10^{12}$, so its $A_S$ (or $B_S$) is a \emph{balanced} semiprime of two ${\sim}57$--digit primes,
@@ -948,8 +948,7 @@ emits Atkin--Morain \textup{ECPP} certificates for all $68$ integers, archived a
 \texttt{data/certs/immune\_ecpp.txt} ($512$\,KB) so a third
 party can check them without trusting the prover. That file is a \texttt{primecertexport} dump and
 is not machine--readable: PARI's \texttt{read} parses its header as a polynomial, so
-\texttt{primecertisvalid} cannot consume it, and earlier versions of this paper and of the
-repository documented that command in error. The working check is
+\texttt{primecertisvalid} cannot consume it. The working check is
 \texttt{code/immune\_cert\_verify.gp}, which extracts the $68$ asserted subjects and re--proves each
 by \textup{ECPP} in $1.3$ seconds: $68/68$ prime, $0$ failures. The structural half of the campaign is now
 formal: the identity $(D_S\mid A_S)=(D_S\mid B_S)$, which is what makes one binary test decide a
@@ -1098,8 +1097,8 @@ half of the split families, since for $A=pq$ with $(D_S\mid A)=+1$ the two Legen
 both $+1$, when no kill exists, or both $-1$, when one does, whereas the root enumeration decides every
 family whose $A_S$ is factored. One cheap idea deserves to be recorded as closed, because the level--$60$ bases are far from random:
 all $49{,}961$ share the $39$ forced primes below $167$, so one may hope that two of the $A_S$ share a
-prime factor and split each other for free. A batch \textsc{gcd} in the sense of Bernstein --- one
-product tree over the hard cofactors, then a remainder tree --- tests this for every pair at once in
+prime factor and split each other for free. A batch \textsc{gcd} in the sense of Bernstein (one
+product tree over the hard cofactors, then a remainder tree) tests this for every pair at once in
 seconds. Over the $7{,}713$ families that survive the Jacobi certificate and trial division to $10^6$,
 a superset of the $3{,}478$, exactly two of the $6{,}972$ composite cofactors of $A_S$ share a factor,
 and both shared factors have seven digits, so they lie barely past the trial--division bound and are
@@ -1116,8 +1115,8 @@ reduction by six orders of magnitude. It should be said plainly that this does n
 $|P\cup Q|\ge61$. The single--tail sector is only one of the two cases of
 Proposition~\ref{prop:sectors}, and the pair sector contributes a further $3{,}013{,}379$ surviving
 bases, each an arity--one tail family to which Proposition~\ref{prop:lvl60factor} applies equally.
-Factoring those as well is a computation some three orders of magnitude larger --- tens of thousands of
-core--years --- which is beyond what has been carried out here and is quoted as the honest price, not
+Factoring those as well is a computation some three orders of magnitude larger, tens of thousands of
+core--years, which is beyond what has been carried out here and is quoted as the honest price, not
 as a claim of feasibility. What has changed is the character of the obstruction: level $60$ is no
 longer exponential in $|S|$, but linear in the number of families, each at the cost of one
 factorisation.
@@ -1220,7 +1219,7 @@ most $2(\ell-1)$ pairs with $fg=0$,
 For fixed $\alpha$ each target is \emph{linear} in $\beta$, so the inner sums of $S_f$ and $S_g$
 vanish by the linear evaluation above, leaving $|S_f|,|S_g|\le2\ell$. And $fg$ is a \emph{product of
 two linear forms} in $\beta$, so its inner sum is the quadratic evaluation, whose side condition
-$ad\ne bc$ is here $D\alpha(A-B)\alpha=4D^2\alpha^2\ne0$ --- exactly the hypotheses
+$ad\ne bc$ is here $D\alpha(A-B)\alpha=4D^2\alpha^2\ne0$, exactly the hypotheses
 $\ell\nmid2D$ and $\alpha\ne0$; summing the resulting $-\chi\bigl((A\alpha+D)(B\alpha+D)\bigr)$ over
 $\alpha$ is that same evaluation again, so $|S_{fg}|\le3\ell$. Hence the count is positive as soon as
 $(\ell-1)^2-7\ell-8(\ell-1)>0$, i.e.\ from $\ell\ge17$, far below the $\ell\ge107$ in play. The point
@@ -1329,7 +1328,7 @@ Remark~\ref{rem:killcount} originally located as the entire ``weakly favours \te
 level $60$ is now zero there. What remains is the pair sector, and there the picture does not simplify
 the same way: the object Proposition~\ref{prop:pairlocal} proves permanently immune to any finite
 congruence condition is the one with \emph{both} new tail primes free, which the campaign never
-enumerates as such --- fixing one of the two, as Remark~\ref{rem:campaign} does to get a finite, countable
+enumerates as such, fixing one of the two, as Remark~\ref{rem:campaign} does to get a finite, countable
 search, buys the congruence weapon back for the resulting $18{,}234{,}653$ bases, and their $83.5\%$
 elimination is a plain factoring--budget shortfall, the same story as the single--tail sector's, not an
 instance of Proposition~\ref{prop:pairlocal}'s theorem. Proposition~\ref{prop:lvl60factor} applies to
@@ -1368,7 +1367,7 @@ elements to reach $\sum_{t\ne0}\chi(1+t)=0-\chi(1)=-1$. Both hold over any finit
 characteristic. $0$ \texttt{sorry}
 \textup{(\texttt{lean/Erdos307/CompleteSums.lean})}. Checked against direct evaluation for all odd
 primes $\ell\le59$: the linear sum over every $(a,b)$ with $a\ne0$, and the quadratic sum over all
-$33{,}008{,}952$ quadruples with $ad\ne bc$ --- $0$ violations
+$33{,}008{,}952$ quadruples with $ad\ne bc$, $0$ violations
 \textup{(\texttt{code/complete\_sums\_check.gp})}.\textup{)}
 Consequently $Q_\ell\ne\emptyset$ forces $|Q_\ell|\ge2$ at every modulus, the surviving
 local density is positive (e.g.\ $\prod_{\ell\le300}|Q_\ell|/\ell\approx2.2\times10^{-19}>0$ on the
@@ -1405,15 +1404,13 @@ unconditional lower bound on the gap is $\sigma(a)-1=(a'-a)/a\ge1/a$, which is w
 $a>10^{56}$; and $\sigma$ genuinely comes close to $1$ from above on very few primes, the
 Sylvester-type set $\{2,3,7,41\}$ giving $\sigma=1.00058\ldots$ with four. Indeed no bound in
 $\omega(a)$ alone can exist: the greedy Sylvester construction gives, for each $k$, squarefree $a$
-with $\omega(a)=k$ and $0<|\sigma(a)-1|$ doubly exponentially small in $k$ --- from below
+with $\omega(a)=k$ and $0<|\sigma(a)-1|$ doubly exponentially small in $k$, from below
 $1-\sigma=7.8\times10^{-592}$ at $k=12$, and from above $\sigma-1=4.6\times10^{-591}$ at the same
 $k$ \textup{(\texttt{code/sigma\_gap.gp})}. So $|\sigma(a)-1|\ge f(\omega(a))$ is false for every
 positive $f$, and the unconditional $1/a$ is of the right shape. Nothing in the cycle
 equations forbids $a'-a=1$. A barrier past $60$ must therefore come from a mechanism that bounds
-$\sigma(a)$ away from $1$ without appealing to the size of $U$ --- which is what
-Theorem~\ref{thm:barrier} does in the opposite direction --- and we know of none.
-
-
+$\sigma(a)$ away from $1$ without appealing to the size of $U$, which is what
+Theorem~\ref{thm:barrier} does in the opposite direction, and we know of none.
 
 The same reduction locates the extreme case. Writing $c=b-a$, the identity
 $\sigma(U)-2=(t-1)^2/t=c^2/D$ is the minus layer $D'-2D=c^2$, and $\gcd(c,D)=\gcd(b-a,ab)=1$ because
@@ -1429,7 +1426,7 @@ computation that gives $|U|\ge60$ is, in these terms, an exhaustive verification
 $\sigma(a)>t_{59}$, and Proposition~\ref{prop:levelbarrier} says the same verification is unavailable
 one level up.
 
-\begin{remark}[The Lehmer reading of the tail is withdrawn]\label{rem:notlehmer}
+\begin{remark}[The tail is not a Lehmer question]\label{rem:notlehmer}
 Remark~\ref{rem:lehmer} below reads the surviving question as the primality of a term $q_n$ of the
 \emph{exponential} Pell orbit, and Remark~\ref{rem:whatisleft} names that orbit as the only live
 branch. Proposition~\ref{prop:tailbound} withdraws the reading. The orbit is genuinely infinite and
@@ -1440,8 +1437,8 @@ system and never to factor $4Dq$.
 Remark~\ref{rem:tier60} already writes a cycle as $a=qm$ with $q$ the largest prime; Bado
 \cite{Bado2026} makes the same reduction exact and independent of the level. With $q=P^{+}(ab)$,
 $q\mid a$, write $a=qd$, $b=e$: then $e=d+qd'$, $e'=qd$, and $q=(e-d)/d'$. Here
-$\sigma(a)=1/q+\sigma(d)$, so $t$ --- or $1/t$, according to which side carries $q$; $t+1/t$ is
-symmetric and the reading below is unaffected --- is $\sigma(d)$ up to $1/q$, and
+$\sigma(a)=1/q+\sigma(d)$, so $t$ (or $1/t$, according to which side carries $q$; $t+1/t$ is
+symmetric and the reading below is unaffected) is $\sigma(d)$ up to $1/q$, and
 Proposition~\ref{prop:barthreshold} becomes a statement about the \emph{sector} $d$. It is very
 uneven. \textup{(}The rows below take $q$ astronomically large, which
 Proposition~\ref{prop:close59} supplies once $d$ is small: at $q=281$ the first row would read
@@ -1463,11 +1460,11 @@ $3$ & $0.333333$ & $3.333333$ & ${\sim}1.1\times10^{8}$\\
 
 The last row is a Mertens estimate, the exact $K$ being past $\pi(10^6)$. Inverting
 $t+1/t\le T_K$ in the same convention gives the windows: $|U|\le60$ forces
-$\sigma(d)\in[0.9260,1.0799]$ --- the $t_{60}$ of the table above --- and $|U|\le68$ forces
+$\sigma(d)\in[0.9260,1.0799]$, the $t_{60}$ of the table above, and $|U|\le68$ forces
 $\sigma(d)\in[0.8372,1.1945]$ \textup{(\texttt{code/sector\_window.gp})}. So a sector can be cheap
 only if $\sigma(d)$ sits within a few per cent of $1$. The primary pseudoperfect numbers, having
-$\sigma(n)=1-1/n$ exactly, are among those extremal sectors --- they are not the only ones, the
-Sylvester--type $\{2,3,7,41\}$ above being another --- and by
+$\sigma(n)=1-1/n$ exactly, are among those extremal sectors (they are not the only ones, the
+Sylvester--type $\{2,3,7,41\}$ above being another) and by
 Corollary~\ref{cor:threethirteen} they are the $u=1$ solutions of \#307's coprime relaxation, so
 Erd\H{o}s~\#313 sits at the floor of this barrier as well.
 
@@ -1496,16 +1493,16 @@ $\Delta_d(R)=dR-d'R'$ satisfies $\Delta_d(Rr)=r\Delta_d(R)-d'R$ with terminal va
 $\Delta_d(e)=d^2$ \textup{(\texttt{code/sector\_general.gp}, symbolic in $d,d',q,R,R'$)}. When $d$
 is primary pseudoperfect, $d'=d-1$; that is the only reason those sectors look distinguished.
 
-Running the resulting bound sector by sector --- mass $d/d'$ from primes avoiding
+Running the resulting bound sector by sector (mass $d/d'$ from primes avoiding
 $\operatorname{supp}(d)\cup\operatorname{supp}(d')$, together with the parity constraint that $d$
-even forces $e$ odd and $\omega(e)$ even --- gives
+even forces $e$ odd and $\omega(e)$ even) gives
 \[ \min_{d}\ \bigl(1+\omega(d)+\omega(e)\bigr)\ =\ 60, \]
 over all sectors $d$ built from primes up to $47$, attained at $d=15470=2\cdot5\cdot7\cdot13\cdot17$
 and at many others, among them the primary pseudoperfect $47058=2\cdot3\cdot11\cdot23\cdot31$
 \textup{(\texttt{code/sector\_dprime.gp})}. This is Theorem~\ref{thm:barrier}'s constant recovered
 by a route sharing nothing with its proof: that one is an exhaustive computation over the $49{,}961$
 admissible $59$--prime supports, this one a largest--prime descent and a reciprocal--mass count. It
-does not improve the barrier --- it bottoms out at exactly $60$ --- but two independent derivations
+does not improve the barrier, it bottoms out at exactly $60$, but two independent derivations
 of the same constant are worth recording, and the sectors where it is tight are where any
 improvement must act.
 
@@ -1557,8 +1554,8 @@ window, so no set in a window is lost; the integrality test is a double--double 
 conservative band followed by exact integer arithmetic ($7{,}454{,}365$ and $2{,}495$ exact tests
 respectively), the integer layer checked against PARI to the digit
 \textup{(\texttt{code/sector42\_k64.rs}, two runs with independent big--integer implementations)}. The
-non--enumerative half of the argument --- the forced--prime identity and its converse, the sign
-condition, the case--split inequality and the parity step --- is formalised in
+non--enumerative half of the argument (the forced--prime identity and its converse, the sign
+condition, the case--split inequality and the parity step) is formalised in
 \texttt{lean/Erdos307/Sector42.lean}, with the two finite computations appearing as explicit
 hypotheses of the concluding statement.
 So $\omega(e)\ne64$. By \cite{Bado2026b}, $\omega(e)\ge64$ and $\omega(e)$ is even ($e$ is odd and
@@ -1594,7 +1591,7 @@ it.
 Let $d$ be squarefree, $d'=\sum_{p\mid d}d/p$, $t=d/d'$, and let $A_1<A_2<\cdots$ be the primes
 dividing neither $d$ nor $d'$, with $S_m=\sum_{i\le m}1/A_i$. Fix a truncation $N$ and a target
 $\omega(e)=k$. If $j$ of the primes of $e$ exceed $A_N$ then
-\[ \sigma(e)\;\le\;S_{k-j}+\frac{j}{A_{N+1}} , \]
+\[ \sigma(e)\;\le\;S_{k-j}+\frac{j}{A_{N+1}}, \]
 so whenever $S_{k-j}+j/A_{N+1}<t$ no admissible $e$ has exactly $j$ primes beyond the truncation.
 Writing $J=J(k,N)$ for the least such $j$, every admissible $e$ has at most $J-1$ primes beyond
 $A_N$, and the phases $1,\dots,J-1$ exhaust the possibilities: the enumeration is complete.
@@ -1671,8 +1668,7 @@ not move Theorem~\ref{thm:barrier}, whose $60$ is proved by a different route an
 what it does is remove the entire low--$\omega$, small--prime part of the sector decomposition from
 the level--$60$ frontier.
 
-The sectors that could reach $60$ form a \emph{finite} set, which is worth recording because the
-sector decomposition looks at first sight to range over unboundedly many $d$. At level $60$ the
+The sectors that could reach $60$ form a \emph{finite} set, which is worth recording because the sector decomposition appears to range over unboundedly many $d$. At level $60$ the
 support is a $59$--prime base together with one tail prime, and a base element $x$ satisfies
 $T_{58}+1/x\ge2$, so $x\le1/(2-T_{58})=793.6\ldots$; every prime up to $167$ lies in the base, and
 $d$ is a subset of the $138$ primes at most $787$. So the question ``which sectors admit
@@ -1739,8 +1735,7 @@ at $\omega(e)=64$ for $d=42$, so the deficit at the floor is the small number of
 nothing else. The conjecture is recorded because it is what every enumeration performed here
 verifies and because its consequence is sharp, not because the enumerations are evidence for it.
 
-The ladder does not continue cheaply. In every sector the first rung above the mass floor is small
---- the three counts above --- and the next requires the two-phase machinery of
+The ladder does not continue cheaply. In every sector the first rung above the mass floor is small, the three counts above, and the next requires the two-phase machinery of
 Proposition~\ref{prop:sector42}, because the truncation bound no longer excludes primes beyond
 $A_N$: at $d=42$ that step cost $3.7\times10^{10}$ sets, and at $d=47058$ the analogous
 $\omega(e)=56$ is $4.4\times10^{11}$, not run. The cheapness of the first rung and the cost of the
@@ -1756,8 +1751,6 @@ one or two primes are forced by the rest. The two--large--prime case, a factorin
 ($(\Delta\ell_1-41R)(\Delta\ell_2-41R)=1681R^2+1764\Delta$), is finite here only because the smaller
 of the two is trapped in $(1/\delta,2/\delta)$ and $\delta$ is bounded below over a finite list.
 \end{remark}
-
-
 
 Three consequences, in increasing order of what they cost.
 
@@ -2440,7 +2433,7 @@ is now confirmed by explicit counterexample on the soil where it alone fails: dr
 cycles appear (imaginary quadratic rings, norms $10^3$--$10^4$); keep formal reality but drop unit
 finiteness and cycles appear (real quadratic, norm $882$, the smallest in any ring); over $\mathbb{Q}$,
 where both hold, the barrier stands at $10^{112}$ by theorem. The bracketing of $\mathbb{Q}$ is complete
-from both axes. The deep census sharpens it: at norm $\le2\times10^7$ the real--quadratic ring carries
+from both axes. The census sharpens it: at norm $\le2\times10^7$ the real--quadratic ring carries
 $30{,}204$ twisted--cycle instances against $14$, $56$, $278$ for the imaginary rings with $2,4,6$ units
 infinite unit rank dominates by two orders of magnitude, and contains both the \emph{minimal}
 architecture, $a=\sqrt2\,(5-\sqrt2)$ cycling with $b=7$ at norms $(46,49)$, two prime classes per member
@@ -2870,7 +2863,7 @@ Hence $N\mid N'a'$, and $N$ squarefree gives $\gcd(N,N')=1$, so $N\mid a'$ and $
 
 This is worth isolating because the displayed $q=(M_0rp-N)/N'$ is a quotient by a quantity of the
 size of the barrier, and one might expect a candidate to be usable only when $N'$ happens to divide
-$M_0rp-N$ --- a further demand of probability about $1/N'$, which would leave the construction
+$M_0rp-N$, a further demand of probability about $1/N'$, which would leave the construction
 hopeless for reasons having nothing to do with primality. There is no such demand. The expectation
 $\mathbb{E}\approx\bigl(\tau(K)/G\bigr)(\ln r\ln p\ln q)^{-1}$ is therefore the correct count: the
 breeder loses candidates only to primality, never to integrality. A scan of $51{,}132$ frames
@@ -2906,7 +2899,7 @@ family; we know of no named conjecture implying it. That is not an accident of o
 
 \begin{proposition}[No fixed--shape family, of any growth rate]\label{prop:nofamily}
 Let $P(t)=\{p_1(t),\dots,p_k(t)\}$ and $Q(t)=\{q_1(t),\dots,q_l(t)\}$ be families of integers of
-\emph{any} shape --- no polynomial, algebraic or analytic hypothesis is imposed --- indexed by
+\emph{any} shape (no polynomial, algebraic or analytic hypothesis is imposed) indexed by
 $t\in\mathbb{N}$, with $k,l$ fixed. Suppose each member takes positive prime values, each nonconstant
 member tends to $+\infty$, and
 $\bigl(\sum_i1/p_i(t)\bigr)\bigl(\sum_j1/q_j(t)\bigr)=1$ for \emph{infinitely many} $t$. Then every
@@ -2925,8 +2918,8 @@ and some term strictly positive if a nonconstant member exists.
 
 The proof of Proposition~\ref{prop:nopoly} uses polynomiality in exactly one place, to pass from
 ``holding at infinitely many $t$'' to ``holding identically'', and restricting to the subsequence
-removes that need. What the argument actually consumes is three hypotheses --- finitely many members,
-positive values, nonconstant members growing --- and none of them is about shape.
+removes that need. What the argument actually consumes is three hypotheses (finitely many members,
+positive values, nonconstant members growing) and none of them is about shape.
 
 The strengthening is not cosmetic. Excluding polynomial families rules out a reduction of \#307 to
 Bunyakovsky, Schinzel or Bateman--Horn, but it says nothing about \emph{exponential} families, and
@@ -2945,14 +2938,13 @@ support is a growing number of simultaneous primality demands rather than a weak
 positivity is a genuine hypothesis, not a consequence, for the reason recorded in
 Remark~\ref{rem:nopolyerratum}. Formalised as \texttt{Erdos307.no\_family\_of\_any\_shape} on three
 standard axioms, in the same shape as Proposition~\ref{prop:nopoly}: the abstract core is proved, and
-the two facts the family supplies --- that each nonconstant member contributes a strictly positive
-reciprocal and that the remainders tend to $0$ --- enter as hypotheses rather than being derived, so
+the two facts the family supplies, that each nonconstant member contributes a strictly positive
+reciprocal and that the remainders tend to $0$, enter as hypotheses rather than being derived, so
 what is imported stays visible. The theorem's statement quantifies over arbitrary index types and
 arbitrary $f_P:\mathbb{N}\to\iota\to\mathbb{R}$; no polynomial occurs anywhere in it.
 
-\begin{remark}[Erratum: positivity is a hypothesis, not a consequence]\label{rem:nopolyerratum}
-Earlier versions asked only that each polynomial take prime values for infinitely many integers $t$,
-without requiring the values to be positive on a common branch. As printed that statement is
+\begin{remark}[Positivity is a hypothesis, not a consequence]\label{rem:nopolyerratum}
+It is not enough to ask only that each polynomial take prime values for infinitely many integers $t$, without requiring the values to be positive on a common branch. As printed that statement is
 \emph{false}: take $P=(2,2,t,-t)$ and $Q=(2,2)$. Each member takes prime values for infinitely many
 integers, and
 \[ \Bigl(\tfrac12+\tfrac12+\tfrac1t-\tfrac1t\Bigr)\Bigl(\tfrac12+\tfrac12\Bigr)=1 \]
@@ -3172,8 +3164,7 @@ Proposition~\ref{prop:close59}'s product bounds are proved in this paper and not
 
 Corollary~\ref{cor:coprime60} shows the weakened variant is no smaller than \#307 itself: with
 $1\notin P\cup Q$ a solution needs $60$ pairwise coprime elements, and at $59$ every element is
-forced prime. What that leaves unexplained is the shape of the examples that \emph{are} known ---
-$1=(1+\frac15)(\frac12+\frac13)$, and the family generated by primary pseudoperfect numbers such as
+forced prime. What that leaves unexplained is the shape of the examples that \emph{are} known, $1=(1+\frac15)(\frac12+\frac13)$, and the family generated by primary pseudoperfect numbers such as
 $1806=2\cdot3\cdot7\cdot43$ giving $1=(1+\frac1{1805})(\frac12+\frac13+\frac17+\frac1{43})$. Every
 one of them uses the element $1$. That is not an accident of search.
 
@@ -3194,7 +3185,7 @@ $n/(n+1)$, i.e.\ one side is a coprime family whose reciprocal sum is $1-1/(n+1)
 completed to $1$ only by adjoining the element $1$. Proposition~\ref{prop:coprimeone} says the
 adjunction is unavoidable: the element $1$ contributes a full unit to the sum while dividing nothing,
 and it is the only element that can, because for every other element the divisibility above closes.
-So the known examples are not near misses for the open form --- they are on the other side of a
+So the known examples are not near misses for the open form, they are on the other side of a
 divisibility, and no refinement of them approaches $1\notin P\cup Q$.
 
 The rigidity step that Corollary~\ref{cor:coprime60} inherits from the prime case is the same
@@ -3267,7 +3258,7 @@ comes out smooth. Reversing the order removes the obstruction. Choose the small 
 are to divide $\beta$, draw $A$ from primes above $\max B_0$, and \emph{impose}
 $\sum_{a\in A}a^{-1}\equiv0\pmod q$ for each $q\in B_0$. Two points make this work where the earlier
 routes did not. First, the conditions are congruences on $A$ alone, so they can be solved exactly
-rather than sampled --- we use meet--in--the--middle over disjoint swap pairs drawn from adjacent
+rather than sampled, we use meet--in--the--middle over disjoint swap pairs drawn from adjacent
 primes, so the mass moves by less than $10^{-4}$. Second, and decisively, $B$ is no longer the
 complement of a fixed ground set but whatever factors $\beta$; the rigid window $x+y=T(U)$ of
 Section~\ref{ssec:coprimesieve} therefore does not apply, and the only surviving requirement is
@@ -3276,7 +3267,7 @@ $x>1$.
 Two obstructions appear and both are removable. Every pool prime is odd, so $a^{-1}\equiv1\pmod2$ and
 the residue mod $2$ is pinned to $|A|\bmod2$: no swap can move it, and $|A|$ must be even. And
 forcing $q\mid\beta$ does not prevent $q^2\mid\beta$, in which case the block contributes $1/q^2$ in
-place of $1/q$ --- at $B_0=\{2,\dots,41\}$ an unconstrained solution came out with $2^5\,\|\,\beta$ and
+place of $1/q$, at $B_0=\{2,\dots,41\}$ an unconstrained solution came out with $2^5\,\|\,\beta$ and
 $3^3\,\|\,\beta$, which alone costs $0.76$ and fails the sieve. Imposing $q\,\|\,\beta$, tested by the
 same identity taken modulo $q^2$, repairs it.
 
@@ -3296,8 +3287,8 @@ search, the construction passes at every depth from $8$ to $12$; depth $13$ need
 $3.0\times10^{14}$ and more swap pairs than the $2^{24}$ table cap admits.
 
 \begin{remark}\label{rem:coprimeverdict}
-The two routes are worth separating. The \emph{factorisation} obstacle is genuinely gone --- both
-tests run in arithmetic modulo $10^{10}$ and never form $\beta$ --- and
+The two routes are worth separating. The \emph{factorisation} obstacle is genuinely gone, both
+tests run in arithmetic modulo $10^{10}$ and never form $\beta$, and
 Proposition~\ref{prop:coprimesieve} is a sound, essentially free first pass that any future search
 should run. What replaces it is a harder obstacle: inside the mass window the candidates are not
 merely hard to test, they are uniformly far from the target, by a margin of $0.77$ in $y_{\max}$ at
@@ -3385,7 +3376,7 @@ primary pseudoperfect numbers. The family costs nothing because the recursion si
 
 At $u\ge2$ the target is $u^{2}$, and by the proposition \emph{no} value other than $1$ is
 self-sustaining, so there is no orbit to sit on: every step must be steered, and the deficit
-$\Delta$ wanders. This is the structural content of the failed descent recorded earlier --- over
+$\Delta$ wanders. This is the structural content of the failed descent recorded earlier, over
 $399$ seeds the recursion $\Delta\mapsto q\Delta-B$ never reached a divisor of $B+4$, the smallest
 $\Delta$ attained being $2.7\times10^{6}$ \textup{(\texttt{code/two\_side\_descent.gp})}. The search
 was not unlucky. Verified: $23{,}916$ pairs $(B,c)$ with $\gcd(\Delta_c(B),B)=1$ and $0$ failures,
@@ -3402,7 +3393,7 @@ $\Delta\mid q_1+q_2$ \textup{(}$0$ \texttt{sorry}, \texttt{Erdos307.port\_period
 at $c=1$ such orbits occur, for instance $B=33$ with $\Delta:19\mapsto5\mapsto19$ at
 $q_1=2$, $q_2=17$. They are single events rather than families, since returning a second time needs
 a fresh pair: the condition ties the primes to $B$. In the regime that the $1$--free case actually
-requires --- $c=2$ with $B$ and both primes odd --- a sweep of $162{,}110$ states found none
+requires, $c=2$ with $B$ and both primes odd, a sweep of $162{,}110$ states found none
 \textup{(\texttt{code/port\_orbit.gp})}.
 \end{remark}
 
@@ -3476,7 +3467,7 @@ the whole reason \#313 is open rather than settled by Sylvester.
 The comparison is then clean, and it is the honest conclusion of the transfer. \#313 carries one
 obstruction: the primality of a constructed element. The $1$--free case of \#307's relaxation
 carries that same obstruction \emph{and}, by Proposition~\ref{prop:portfixed}, a second one that
-\#313 does not have --- no self--sustaining value to run a chain along in the first place. So the two
+\#313 does not have, no self--sustaining value to run a chain along in the first place. So the two
 problems are not of equal difficulty under this correspondence: \#307's relaxation is strictly harder
 in an identifiable way, and a solution of \#313 would not by itself supply one. This is a negative
 conclusion, but it is a proved one rather than a failed search, and it retires the transfer as a
@@ -3494,8 +3485,8 @@ vanish: \emph{the local conditions imply the global one}.
 \begin{proposition}[$u$ is the mass, so $u=1$ is the only cheap case]\label{prop:umass}
 In the situation of Proposition~\ref{prop:twoside}, $\sum_{b\in B}1/b=u(\beta-u)/\beta=u-u^2/\beta$.
 Hence the reciprocal sum of $B$ is $u$ up to $O(u^2/\beta)$: the parameter $u$ \emph{is} the mass
-$B$ must carry. Consequently the cost is monotone in $u$, and $u=1$ --- the case that contains the
-member $1$ --- is the only value for which $B$ needs mass $\approx1$ and can therefore be short.
+$B$ must carry. Consequently the cost is monotone in $u$, and $u=1$, the case that contains the
+member $1$, is the only value for which $B$ needs mass $\approx1$ and can therefore be short.
 \end{proposition}
 
 This settles what one might hope for from larger $u$. Since $\sum_A1/a=1/u+1/(\beta-u)$ and
@@ -3504,7 +3495,7 @@ for $B$ to carry mass at least $2-4/\beta$; $u=3$ demands $3-9/\beta$, and so on
 cheaper $u$ hiding above $2$, and no analogue of Sylvester's invariant to be had there: the
 invariant $\beta-D(B)=1$ works at $u=1$ precisely because mass $1$ is reachable in four terms.
 Verified exhaustively: over every $\beta\le4\times10^{7}$ and \emph{every} coprime factorisation of
-it --- all set partitions of its prime powers --- the discriminant $\beta^2-4D(B)$ is a square with
+it, all set partitions of its prime powers, the discriminant $\beta^2-4D(B)$ is a square with
 admissible root in exactly $7$ cases, and every one has $u=1$. The largest $u$ attained anywhere in
 that range is $1$ \textup{(\texttt{code/two\_member\_scan.rs})}.
 
@@ -3587,8 +3578,7 @@ squarefree minus layer $\{m:m'-2m=\square\}$ has density zero, with a rate
 squarefree Pythagorean layer has density zero unconditionally. The route is not the square sieve of
 Appendix~\ref{app:sieve}, whose analytic input is foreclosed at its range by
 Remark~\ref{rem:charcancelerratum}; it is a sieve at the far smaller
-$P=\log\log N/(\log\log\log N)^{1+\varepsilon}$, where two uniform estimates \emph{are} available ---
-Lemma~\ref{lem:charcancelunif} for the character sums and Lemma~\ref{lem:deficit} for the local
+$P=\log\log N/(\log\log\log N)^{1+\varepsilon}$, where two uniform estimates \emph{are} available, Lemma~\ref{lem:charcancelunif} for the character sums and Lemma~\ref{lem:deficit} for the local
 deficits. The obstruction the erratum records turned out to be range--dependent rather than
 absolute, and that is the whole of the opening. The rate obtained,
 $N(\log\log\log N)^{2+\varepsilon}/\log\log N$, is very weak; the far stronger
@@ -3713,7 +3703,7 @@ cases $p=2$, $k\in\{2,3\}$ are covered by the latter because $4=p^p$. They then 
 period--two case as \textbf{Conjecture~4}: $\bigl(\sum_{i\le k}1/p_i\bigr)\bigl(\sum_{j\le l}
 1/q_j\bigr)=1$ has no solution in distinct primes. This is \#307, and priority for the two--cycle
 reformulation belongs here rather than to 2019: what \cite{Seva323194} adds is the identification of
-that equation as \#307, which \cite{UfnarovskiAhlander2003} does not make --- they cite
+that equation as \#307, which \cite{UfnarovskiAhlander2003} does not make, they cite
 \cite{Barbeau1961} for the derivative, not \cite{Barbeau1976} for the problem. The consequence is
 that \#307 has been an open conjecture in the arithmetic--derivative literature since 2003 under
 another name, and that the bounds of Section~\ref{sec:barrier} are bounds on Conjecture~4.
@@ -3743,8 +3733,8 @@ $\sigma(n)$ lies in $(r/p_r,\,r/p_1)\cap(q_1/s,\,q_s/s)$; nonemptiness of that i
 equivalent to those two products and to nothing further, whereas $p_1q_s<rs$ reads $q_s/s<r/p_1$, a
 comparison of the two \emph{upper} endpoints. In
 $n=2\cdot5\cdot13\cdot37\cdot53\cdot73\cdot79\cdot89\cdot97\cdot101$,
-$m=3\cdot7\cdot19\cdot31\cdot43\cdot59\cdot67\cdot71\cdot83\cdot103$ --- squarefree, disjoint
-supports, $r=s=10$ --- all four inequalities hold while $p_1q_s=206>100=rs$ and $q_1p_r=303>100$
+$m=3\cdot7\cdot19\cdot31\cdot43\cdot59\cdot67\cdot71\cdot83\cdot103$ (squarefree, disjoint
+supports, $r=s=10$) all four inequalities hold while $p_1q_s=206>100=rs$ and $q_1p_r=303>100$
 (\texttt{code/kovic\_prop18\_audit.gp}; the valid products and the invalidity are machine--checked in
 \texttt{lean/Erdos307/KovicProp18.lean}). Two arithmetic slips sit alongside: Table~2 lists
 $P_{11}=27$, and the ``product of the first $17$ primes'' is printed with $27$ for $29$.
@@ -3826,8 +3816,7 @@ cycle, \texttt{pyth\_discriminant} the resulting square, \texttt{split\_identity
 \texttt{split\_product} the two--layer form of Proposition~\ref{prop:splitdisc}, and
 \texttt{mass\_ge\_two\_of\_pythagorean} with \texttt{card\_ge\_59\_of\_pythagorean} this corollary,
 glued by \texttt{mass\_ge\_two\_of\_pyth\_support} into \texttt{emptytest}, which takes the
-Pythagorean equation itself rather than an assumed mass bound. Earlier editions proved the two ends
-and not the link, so this tag overstated what was present.
+Pythagorean equation itself rather than an assumed mass bound.
 The AM--GM step of Proposition~\ref{prop:kcycles} is \texttt{sum\_ge\_card\_of\_prod\_eq\_one}, valid
 for every $k$ at once and proved from $\log x\le x-1$ rather than a $k$--term AM--GM. Bado's converse
 is cited, not reproved \textup{(\texttt{lean/Erdos307/Pythagorean.lean})}.
@@ -4728,15 +4717,13 @@ prime factors of $a'$, and the existence route carries exactly one parameter, th
 \textup{Formalised.} \texttt{Erdos307.Q\_determined}: given $a'=b$, the set $Q$ is exactly the set of
 prime factors of $a'$. The one--prime normal form of Proposition~\ref{prop:oneprime} is
 \texttt{oneprime\_forced}, \texttt{oneprime\_cycle}, \texttt{oneprime\_converse}
-\textup{(}which closes the equivalence; earlier editions formalised one direction only\textup{)},
+\textup{(}which closes the equivalence\textup{)},
 \texttt{oneprime\_mass\_identity} and \texttt{oneprime\_mass\_bound}, the last two giving
 part~\textup{(b)}: the mass identity holds for
 \emph{every} witness, prime or composite, so the exactness layer alone carries the barrier. The slot
 calculus of Proposition~\ref{prop:slot} is \texttt{slot\_layers} and \texttt{slot\_recovery}, the
 filter of Corollary~\ref{cor:qr} is \texttt{qr\_filter}, resting on \texttt{cofactor\_survival},
-the congruence $N'+2N\equiv N/\ell\pmod\ell$, which is proved rather than assumed (an earlier edition
-stated \texttt{qr\_filter} with that arithmetic as a hypothesis on abstract residues, which left it
-contentless); Lemma~\ref{lem:symbolfact} is \texttt{Frame.csum\_eq\_mul\_recipSum} for its first half
+the congruence $N'+2N\equiv N/\ell\pmod\ell$, which is proved rather than assumed (stating \texttt{qr\_filter} with that arithmetic as a hypothesis on abstract residues would leave it contentless); Lemma~\ref{lem:symbolfact} is \texttt{Frame.csum\_eq\_mul\_recipSum} for its first half
 and \texttt{symbolfact} for the Jacobi factorisation; and the reduction mechanism behind
 Proposition~\ref{prop:noconj}, Rigidity and Lemma~\ref{lem:anatomy} alike is isolated once as
 \texttt{dvd\_sum\_erase\_iff} \textup{(\texttt{lean/Erdos307/NormalForm.lean})}.
@@ -4833,7 +4820,7 @@ Every known lower-bound method for primes in a set requires that set to have cou
 least $X^{\theta}$ for some fixed $\theta>0$. The union over all $49{,}961$ bases of the terms of
 their sequences below $X$ has counting function $C\log X$ with $C=49{,}961/\log\varepsilon$, since
 each sequence grows like $\varepsilon^n$ and so contributes only $O(\log X)$ terms. Hence
-\[ \frac{\log(\text{union below }X)}{\log X}=\frac{\log\bigl(C\log X\bigr)}{\log X}\;\longrightarrow\;0 , \]
+\[ \frac{\log(\text{union below }X)}{\log X}=\frac{\log\bigl(C\log X\bigr)}{\log X}\;\longrightarrow\;0, \]
 and the family size $C$ is powerless because it sits inside a logarithm.
 \end{proposition}
 \begin{proof}[Measurement]
@@ -4851,10 +4838,8 @@ precisely, and two further routes are closed.
 \begin{proposition}[The number--field barrier transfer is \textsc{false}]\label{prop:fieldoptimal}
 Theorem~\ref{thm:ff} kills the algebraic route by ultrametricity, which suggests replacing $K[t]$ by
 a number ring $\mathcal{O}_K$, where the absolute value is archimedean and the obstruction
-disappears. It does disappear. Earlier versions of this paper asserted that nothing is gained, namely
-that for every number field $K$ the least $\prod N(\pi)$ over prime ideals with $\sum1/N(\pi)\ge2$ is
-at least that of $\mathbb{Q}$. \emph{That assertion is false.} It is withdrawn, and what replaces it
-is the following.
+disappears. It does disappear, so it is not the case that for every number field $K$ the least $\prod N(\pi)$ over prime ideals with $\sum1/N(\pi)\ge2$ is
+at least that of $\mathbb{Q}$. That assertion is false. What holds is the following.
 \begin{enumerate}[label=\textup{(\roman*)},leftmargin=2.2em]
 \item \emph{The true infimum is $16$.} In the biquadratic field
 $K=\mathbb{Q}(\sqrt{17},\sqrt{33})$, of discriminant $314{,}721$, the prime $2$ splits completely:
@@ -4862,8 +4847,7 @@ there are four prime ideals of norm $2$. They carry mass $4\cdot\tfrac12=2$ exac
 product of norms is $2^4=16$. Conversely $2$ is the least possible ideal norm, so mass $2$ needs at
 least four ideals of norm $2$ and any admissible family has product at least $16$; a field can carry
 at most $[K:\mathbb{Q}]$ ideals of norm $2$, so degree $4$ is also minimal. Hence $16$ is the exact
-infimum over all number fields, against the claimed $\prod_{i\le59}p_i>8.77\times10^{112}$: the
-withdrawn statement was wrong by a factor $10^{112}$.
+infimum over all number fields, against $\prod_{i\le59}p_i>8.77\times10^{112}$, a factor $10^{112}$ apart.
 \item \emph{Where the argument broke.} The Chebotarev computation is correct as a statement about
 \emph{density}: in a degree-$d$ Galois field the completely split primes have density $1/d$, so they
 carry mass $d\cdot(1/d)\log\log Y=\log\log Y$, exactly as over $\mathbb{Q}$, while each costs
@@ -4963,8 +4947,7 @@ $2\sqrt r>T_{58}=1.99874\ldots$ as soon as $r>(T_{58}/2)^2=0.998740\ldots$, when
 and the product again exceeds $\Pi_{59}>8.77\times10^{112}$. So the whole neighbourhood
 $r\in(0.998740,\infty)$ of the value $1$ lies above the barrier, not merely the half--line $r\ge1$,
 and no sweep reaches any of it \textup{(\texttt{code/a10\_nearmiss.rs},
-\texttt{code/a10\_density1.rs})}. Earlier editions barred only $r\ge1$, which left the left window
-formally open and the unmeasurability argument one--sided.
+\texttt{code/a10\_density1.rs})}. Barring only $r\ge1$ would leave the left window formally open and the unmeasurability argument one--sided.
 \end{proposition}
 
 \begin{proposition}[An effective approximation theorem, with a certified witness]\label{prop:effapprox}
@@ -5011,14 +4994,14 @@ The gap is not marginal. At $\varepsilon=10^{-13}$ the greedy needs a largest pr
 and some $10^{92}$ primes; the ladder needs a largest prime near $10^{7}$ and three rungs. The
 ladder is exponentially better in the size of the largest prime and doubly exponentially better in
 the count, and the reason is visible: greedy convergence is linear in the number of primes, Newton
-convergence is quadratic. Truncating gives certificates of any size --- five rungs and a $34$--digit
+convergence is quadratic. Truncating gives certificates of any size, five rungs and a $34$--digit
 largest prime already give $6.07\times10^{-66}$, and seven rungs give $3.22\times10^{-254}$. The witness above approaches $1$ from below; taking
 the last rung's prime just under $1/d$ instead overshoots, so either side is available and the
 statement of Theorem~10.2 as printed is met.
 
 What this is not: progress towards a solution. A free pair of disjoint prime sets carries none of
-the rigidity an exact hit requires --- $\sigma(P)\sigma(Q)=1$ forces $\prod P=(\prod Q)'$ and
-$\prod Q=(\prod P)'$, and nothing in the ladder produces that --- and by
+the rigidity an exact hit requires ($\sigma(P)\sigma(Q)=1$ forces $\prod P=(\prod Q)'$ and
+$\prod Q=(\prod P)'$, and nothing in the ladder produces that) and by
 Proposition~\ref{prop:nearmiss} the size of $|\sigma(P)\sigma(Q)-1|$ does not measure progress
 towards the integer identity at all. The value of the construction is that it makes an existence
 theorem effective and exhibits a witness anyone can check.
@@ -5052,7 +5035,7 @@ $T_{n(X)}=\log\log\bigl(X^{2}\sigma_{\max}\bigr)+M+o(1)$ by Mertens, the frontie
 \[ R(X)\ \le\ \tfrac14\bigl(\log\log X^{2}+M+o(1)\bigr)^{2}, \]
 a \emph{doubly logarithmic} law: this is why the measured frontier crawls, and why an extrapolation
 of its per--decade advance is worthless. Second, the bound reaches $1$ exactly when $T_{n}\ge2$, that
-is $n\ge59$, that is $X^{2}\sigma_{\max}\ge\Pi_{59}$, giving $X\ge2.0942\times10^{56}$ --- the
+is $n\ge59$, that is $X^{2}\sigma_{\max}\ge\Pi_{59}$, giving $X\ge2.0942\times10^{56}$, the
 constant of Theorem~\ref{thm:barrier}, recovered here from the frontier side rather than from the
 cycle equations. The two derivations are independent and agree to all printed digits.
 
@@ -5137,7 +5120,7 @@ $\sigma(U)>2$ forces $1/p<T_{n+1}-2$.
 
 Both halves are sharp and both are informative at $n=59$. The window is
 $[0.952682,\,1.049668]$: \emph{each member's mass is pinned within five per cent of $1$}. And the
-forcing puts every prime up to $167$ in $U$ --- $39$ of the $59$ --- so two thirds of the support is
+forcing puts every prime up to $167$ in $U$, $39$ of the $59$, so two thirds of the support is
 determined before any search begins. The window also recovers
 Proposition~\ref{prop:split}: the smaller member needs $T_k\ge1/t_n$, which gives $k\ge3$ for
 $n\le68$, $k\ge2$ from $n=69$ and $k\ge1$ at $n=1413$, reproducing that proposition's three
@@ -5154,8 +5137,8 @@ The $39$ forced primes carry mass $1.91162\ldots$, so the remaining $20$ must su
 $0.08838$ from primes above $167$; the twenty smallest such primes reach exactly that, at $277$. The
 free part is therefore a choice of $20$ primes from a narrow band, which is why the admissible count
 is $49{,}961$ and not astronomical. At level $60$ the forced core has fallen to $27$ and the free
-part to $33$, and by level $68$ --- the top of the window Proposition~\ref{prop:split} says a level
-search must cross --- only $9$ primes remain forced.
+part to $33$, and by level $68$, the top of the window Proposition~\ref{prop:split} says a level
+search must cross, only $9$ primes remain forced.
 
 \begin{proposition}[The free band; why exactly one level is finite]\label{prop:band}
 Let $U$ be an admissible support with $|U|=n$ and let $q=\max U$. If $T_{n-1}<2$ then
@@ -5198,7 +5181,7 @@ $T_{39}=1.9116240570\ldots$. The count is a $20$--from--$99$ knapsack, evaluated
 \texttt{code/level59\_count.rs}.
 \end{proof}
 
-This is not a closed formula --- subset--sum counts do not have one --- but it is a closed
+This is not a closed formula, subset--sum counts do not have one, but it is a closed
 \emph{characterisation}, and it reduces the level to a search of $119{,}509$ nodes in place of the
 original enumeration. That the two independent routes agree on $49{,}961$ is the point: the pins are
 not merely necessary conditions that happen to hold, they cut out the level exactly, and nothing
@@ -5701,9 +5684,9 @@ Measured against these over all $a\le10^{7}$ with $a,a'$ squarefree
 at $\sigma(a)\ge0,\,0.5,\,0.7,\,0.9,\,1.0,\,1.1,\,1.2,\,1.3$, against $0.648,\dots,1.010$ for the
 mean. The variance is predicted as well as the mean, it shows no systematic drift, and the two
 converge together. The top band rests on $438$ values and is correspondingly noisy, so we claim only
-the absence of a trend, not the precise value. What the test was designed to detect --- a model
+the absence of a trend, not the precise value. What the test was designed to detect (a model
 matching the first moment while its tail degrades, which would inflate $f(1)$ and could in principle
-send the true value to $0$ --- does not occur.
+send the true value to $0$) does not occur.
 
 So on the sampled range $a'$ is mass-poor for one reason only, that it is coprime to $a$ and $a$ has
 absorbed the small primes, and there is no further effect to exploit. This is an independent
@@ -5761,7 +5744,6 @@ that defeats the class occurs at a cycle and nowhere else. Any Lyapunov argument
 potential that sees more of $n$ than $\sigma(n)$ alone.
 \end{remark}
 
-
 \begin{theorem}[The half-mass Lyapunov function]\label{thm:halflyap}
 Put $\delta(n)=\log n+\tfrac12\sigma(n)$. Let $n$ be squarefree with $n'$ squarefree. If
 $\sigma(n\,n')<2$ then $\delta(n')<\delta(n)$.
@@ -5808,7 +5790,7 @@ class modulo $2$, $3$ and $4$ \textup{(\texttt{code/invent\_lyapunov.rs})}. The 
 therefore the only one of the two available, which is another form of the thesis that the
 obstruction is ordered--archimedean rather than congruential (Remark~\ref{rem:ordered}).
 
-The sign route is available but, as it turns out, not weaker than the problem. Both branches of the
+The sign route is available but not weaker than the problem. Both branches of the
 dichotomy can now be closed at once.
 
 \begin{theorem}[Both branches are closed]\label{thm:noinvariant}
@@ -6188,7 +6170,7 @@ where $b^{\pm}_k=\#\{m\le N:\mu^2(m)=1,\ k_m=k,\ \pm a_m>0\}$ depend on $N$ only
 $r=pq$ with $p,q\asymp N^{1/2}$ one would want the error term to be $O(1)$, and an earlier revision
 cited Lemma~\textup{\ref{lem:localsq}} in the form $\#\{m\le N:p^2\mid a_m\}\ll N/p^2$. That form is
 the one that lemma explicitly disowns, since its implied constant depends on $p$ while $p$ here grows
-with $N$; the citation is withdrawn and the error term is not controlled at this range.
+with $N$; the error term is not controlled at this range.
 
 \emph{Regime caveat, and its retraction.} That $O(1)$ holds only at $p\asymp N^{1/2}$; at
 $P\asymp(\log N)^{1/4}$ the same estimate gives only $N/p^2\asymp N/(\log N)^{1/2}$. Two earlier
@@ -6196,7 +6178,7 @@ revisions read that as a second, independent reason for the \textsc{conjecture} 
 Theorem~\ref{cor:a9rate}. It is not, for two reasons. The comparison there was made against $N$,
 whereas the benchmark is that statement's own target, now
 $N(\log\log N)^{1/2+\delta}(\log N)^{-1/4}$ \textup{(}Theorem~\ref{cor:a9rate}\textup{)}, against which
-$N(\log N)^{-1/2}$ is \emph{smaller} --- an error term below the claimed rate cannot obstruct it.
+$N(\log N)^{-1/2}$ is \emph{smaller}, an error term below the claimed rate cannot obstruct it.
 And Theorem~\ref{cor:a9rate} does not travel this route at all: re--derived as in
 Proposition~\ref{prop:condrate} it needs no kernel reversal, and Proposition~\ref{prop:circular}
 shows the reversal is no reduction in any case. The operative blocker is recorded at the corollary
@@ -6590,8 +6572,8 @@ of this class.
 
 \textup{Formalised.} The deductive content is \texttt{Erdos307.cycle\_bound\_max}: two independent
 lower bounds on $a$ combine through the maximum, and $N=a^2\sigma(a)$ is monotone in both arguments,
-so the constraints give a bound on $N$. The conclusion drawn --- that the gain over
-Theorem~\ref{thm:barrier} is under one order --- is an \emph{upper} bound on a minimum, and an upper
+so the constraints give a bound on $N$. The conclusion drawn, that the gain over
+Theorem~\ref{thm:barrier} is under one order, is an \emph{upper} bound on a minimum, and an upper
 bound on a minimum needs one witness, not the search. Since $\Pi_{\min}(S)$ is itself a minimum,
 bounding the expression at $S$ from above needs a witness for it too: any $T$ disjoint from $S$ with
 $\sigma(T)\ge1/\sigma(S)$ has $\Pi_{\min}(S)\le\prod T$. Taking $S$ to be the odd primes to $151$
@@ -6936,7 +6918,6 @@ $2.09\times10^{56}$, in the density--zero stratum $\sigma(N)\ge2$; is untouched 
 statement, which speaks only to the typical integer, not to existence.
 \end{proposition}
 
-
 \appendix
 
 \section{The minus--layer density theorem, and the square sieve that does not reach its rate}\label{app:sieve}
@@ -6946,11 +6927,10 @@ Theorem~\ref{thm:a9}: a square sieve at $P\asymp(\log N)^{1/4}$ whose analytic i
 supplied, since the uniformity it needs is exactly what Remark~\ref{rem:charcancelerratum}
 forecloses at that range. The theorem is now proved instead by
 Proposition~\ref{prop:condrate}, at the much smaller $P=\log\log N/(\log\log\log N)^{1+\varepsilon}$, where the same
-uniformity \emph{is} available (Lemma~\ref{lem:charcancelunif}) --- at the cost of a far weaker rate.
+uniformity \emph{is} available (Lemma~\ref{lem:charcancelunif}) (at the cost of a far weaker rate.
 The sieve is kept in full because its algebraic layer is correct and reusable, because the located
-gap is what identified the workable range, and because Theorem~\ref{cor:a9rate} --- now proved, via
-Lemma~\ref{lem:swdirect} --- is what this route gives once its input is supplied.
-
+gap is what identified the workable range, and because Theorem~\ref{cor:a9rate}) now proved, via
+Lemma~\ref{lem:swdirect}, is what this route gives once its input is supplied.
 
 \begin{lemma}[Cancellation in the character sums]\label{lem:charcancel}
 Fix an odd squarefree $r>1$. Then
@@ -7106,10 +7086,10 @@ proves Theorem~\ref{thm:a9} with a rate. One caveat on how much this explains: a
 moduli of Theorem~\ref{cor:a9rate} the $L$--function bound does also fail, but it is not what
 binds there. Even an $O(1)$ per--character bound would leave the requirement
 $\sqrt{\varphi(r)}=o(\log\log N)$, from the \emph{coefficient mass} rather than from any
-$L$--function --- a limitation of the character expansion, not of the arithmetic; see the blocker
+$L$--function, a limitation of the character expansion, not of the arithmetic; see the blocker
 recorded at that corollary and the question posed in Remark~\ref{rem:a9ceiling}. What the erratum forecloses is
 uniformity at the far larger $r$ that Theorem~\ref{cor:a9rate} needs, where $\log r$ is comparable
-to the main term --- and that foreclosure binds only the route that expands in characters. The
+to the main term, and that foreclosure binds only the route that expands in characters. The
 rate is proved in Theorem~\ref{cor:a9rate} by a route that does not expand
 \textup{(}Lemma~\ref{lem:swdirect}\textup{)}; two further blockers recorded in earlier revisions,
 this one and the regime mismatch after Lemma~\ref{lem:reversal}, were retracted before that.
@@ -7118,7 +7098,7 @@ this one and the regime mismatch after Lemma~\ref{lem:reversal}, were retracted 
 \begin{lemma}[Cancellation, uniform at polyloglog moduli]\label{lem:charcancelunif}
 \textup{(Label discipline, as for Theorem~\ref{thm:a9}: this statement went through six rounds of
 adversarial review, each by a session that did not write the text under review. Rounds one to five
-each found defects --- twice in a repair made by the round before --- which were repaired; round
+each found defects, twice in a repair made by the round before, which were repaired; round
 six, auditing statement and proof line by line and recomputing every printed constant, found
 nothing, which is what the label records. Proposition~\ref{prop:condrate} passed clean at round
 three.)}
@@ -7136,8 +7116,7 @@ The proof of Lemma~\ref{lem:charcancel} is followed step by step; what is new is
 implied constant is tracked in $r$, and each is absolute in the stated range. Here
 $r\le L^2/(\log L)^{2+\varepsilon}\le L^2$, so $\log r\le2\log L$. The range is exactly the one
 the argument supports: the binding requirement below is $\sqrt r\,\log L=o(L)$, that is
-$r=o\bigl((L/\log L)^2\bigr)$. Every earlier version of this lemma stated the strictly smaller
-$r\le L^{2-\delta}$ --- weaker than its own proof gives.
+$r=o\bigl((L/\log L)^2\bigr)$.
 
 \emph{Expansion.} Unchanged: $|T_r(N)|\le r^{-1/2}\sum_{t}|S_t(N)|\le r^{1/2}\max_t|S_t(N)|$,
 the sum over the $\varphi(r)$ values of $t$ with $\gcd(t,r)=1$, since $\chi(t)=0$ otherwise; the
@@ -7165,8 +7144,8 @@ $|\log L(s,\psi)|\ll\log\log\bigl(r(3+|\tau|)\bigr)\ll\log L$ with an absolute c
 $\psi$ is real with an exceptional zero $\beta$, split the $\tau$--range. For $|\tau|\le1$ the local
 decomposition $\log L(s,\psi)=\log(s-\beta)+O\bigl(\log\log(r(3+|\tau|))\bigr)$ applies, and
 \[ |s-\beta|\;\ge\;\operatorname{Re}(s)-\beta\;>\;1-\beta\;\ge\;c(\eta)\,r^{-\eta} \]
-by Siegel's theorem in zero--location form, applied with any fixed $\eta>0$ --- a parameter
-unrelated to the $\varepsilon$ of the range --- so
+by Siegel's theorem in zero--location form, applied with any fixed $\eta>0$, a parameter
+unrelated to the $\varepsilon$ of the range, so
 $|\log(s-\beta)|\le\log\bigl(1/(1-\beta)\bigr)+O(1)\le\eta\log r+O_\eta(1)
 \ll\eta\log L+O_\eta(1)$; the decomposition is \emph{not} asserted beyond $|\tau|\le1$,
 where $|s-\beta|$ can be as large as $\log N$ and $\log|s-\beta|$ as large as $L$. For $|\tau|>1$
@@ -7282,9 +7261,9 @@ $r\le L^2/(\log L)^{2+\varepsilon}$ because expanding $g$ in multiplicative char
 $\sum_{\psi\ne\psi_0}|c_\psi|\asymp\sqrt r$ against a per--character bound $O(\log L)$. The proof
 above never expands, so never pays it; the price is instead a factor $r$ against
 $\exp(-c\sqrt{\log x})$, which is free at $r\le(\log N)^A$. Remark~\ref{rem:a9ceiling} posed exactly
-this substitution as its open question, and the measurement recorded there --- that
+this substitution as its open question, and the measurement recorded there, that
 $\max_s|\sum_{\ell\le10^6}e_p(s\ell^{-1})/\ell|$ stays near $1.3$ while $\sqrt p$ grows from $3.6$
-to $44.8$ --- is the numerical shadow of the same fact.
+to $44.8$, is the numerical shadow of the same fact.
 
 Two honesty notes. The $o(L)$ is ineffective and of unspecified rate, so nothing here is
 quantitative at any particular $N$; and the error estimate is vacuous at every computable $N$, the
@@ -7293,19 +7272,18 @@ $A=1,\varepsilon=0.2,c=\tfrac12$, \emph{peaking} at $\log N=10^{16.23}$ with val
 $9.29\times10^{24}$, and falling below $1$ only past $\log N=10^{23.58}$
 \textup{(\texttt{code/swdirect\_check.gp})}. An earlier revision of this sentence said ``turning over
 near $10^{18}$'', which its own certificate contradicts in both directions. The uniform Mertens estimate underlying the untwisted
-case is classical --- Norton, \emph{Illinois J. Math.} \textbf{20} (1976), Lemma 6.3, gives
+case is classical (Norton, \emph{Illinois J. Math.} \textbf{20} (1976), Lemma 6.3, gives
 $\sum_{p\le x,\,p\equiv\ell\,(k)}1/p=\log\log x/\varphi(k)+\delta_\ell/\ell+O(\log 3k/\varphi(k))$
-with an absolute but ineffective constant --- but we are not aware of a reference carrying the
+with an absolute but ineffective constant) but we are not aware of a reference carrying the
 $\tau$--uniformity used here, and deduce it from Siegel--Walfisz \textup{(}Montgomery--Vaughan,
 \emph{Multiplicative Number Theory I}, \S11.3\textup{)} by the partial summation above.
 \end{remark}
 
-
 \begin{lemma}[Two uniform deficit bounds]\label{lem:deficit}
 \textup{(Label discipline, as for Lemma~\ref{lem:charcancelunif}: three rounds of adversarial review,
-each by a session that did not write the text. The first two found five defects --- including a
+each by a session that did not write the text. The first two found five defects (including a
 principal--coefficient value false in one of three cases, and a numerical certificate that tested the
-wrong congruence with a silently inoperative coprimality filter --- all repaired; the third found
+wrong congruence with a silently inoperative coprimality filter) all repaired; the third found
 nothing, which is what the label records.)}
 Let $c\in\{2,-2\}$, $L=\log\log N$, and $P=L/(\log L\,w(L))$ with $w(L)\to\infty$. Uniformly
 for primes $p\ne q$ in $(\tfrac12P,P]$, with implied constants that depend only on $w$ and are
@@ -7386,14 +7364,13 @@ coprime to $p$, lies in $[0.988,1.023]$ for $3\le p\le31$, and the two--prime ra
 $N_{\mathrm{sf}}(pq)/(pq)$ lies in $[0.997,1.057]$ for pairs up to $(23,29)$: the densities are not
 merely bounded but asymptotically exact, with no growth in $p$
 \textup{(\texttt{code/deficit\_numeric.gp})}. The condition measured is $\sigma_p(m)\equiv2$, not
-$m'\equiv2$; these differ by the unit $m$, and an earlier version of that script tested the latter
-and silently dropped its coprimality filter.
+$m'\equiv2$; these differ by the unit $m$.
 \end{proof}
 
 \begin{proposition}[A rate on the minus layer]\label{prop:condrate}
 Write $L=\log\log N$. For every function $w$ with $w(L)\to\infty$, however slowly,
 \[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{a positive perfect square}\}
-   \;\ll_w\;N\,\frac{(\log\log\log N)^2\,w(L)}{\log\log N} , \]
+   \;\ll_w\;N\,\frac{(\log\log\log N)^2\,w(L)}{\log\log N}, \]
 which is the ceiling of the method \textup{(}Remark~\textup{\ref{rem:a9ceiling}}\textup{)}; in
 particular the bound $\ll_\varepsilon N(\log\log\log N)^{2+\varepsilon}/\log\log N$ holds for every
 fixed $\varepsilon>0$,
@@ -7417,9 +7394,9 @@ where $|E_{pq}|\le N/p+N/q\le4N/P$ collects the $m$ with $\gcd(m,pq)>1$, dropped
 range exactly as in the argument for Theorem~\ref{thm:a9}. By
 Lemma~\ref{lem:charcancelunif} at $r=pq\le L^2/(\log L\,w(L))^2$, inside its range once
 $w(L)\ge(\log L)^{\varepsilon/2}$ or by enlarging $w$ (each $r$ odd squarefree,
-$r\ge7$), $\sum_{p\ne q}|T_{pq}|\ll\Pi^2N(\log N)^{-2/5}$. By Lemma~\ref{lem:deficit} --- applicable because $p\mid m$ forces
+$r\ge7$), $\sum_{p\ne q}|T_{pq}|\ll\Pi^2N(\log N)^{-2/5}$. By Lemma~\ref{lem:deficit} (applicable because $p\mid m$ forces
 $a_m\equiv m'\equiv m/p\not\equiv0\pmod p$ for squarefree $m$, so the $m$ counted here are
-automatically coprime to $p$, and likewise to $pq$ in the two--prime count ---
+automatically coprime to $p$, and likewise to $pq$ in the two--prime count)
 $\sum_p\#\{m:p\mid a_m\}\ll N\Pi/P\ll N/\log P$ and the two--prime sum is $\ll\Pi^2N/P^2\ll
 N/(\log P)^2$. Dividing by $\Pi^2$: the diagonal $\Pi N$ gives the main term
 $N/\Pi\ll N\log P/P$, and every other term is smaller. Since $\log P\asymp\log\log\log N$, the
@@ -7471,12 +7448,11 @@ while describing it as the second.
 \textup{Label: \textsc{proved}. Two independent routes reach this statement, and the label rests on
 the second. The first is the square sieve at fixed $r$ recorded in
 Remark~\textup{\ref{rem:a9original}} below: it needs no uniformity, since it sends $P\to\infty$ only
-after $N$, and it is why the statement was believed through several releases --- but it yields no
-rate, and its \emph{text} failed three consecutive reviews, a load--bearing display silently shedding
+after $N$, but it yields no rate, and its \emph{text} failed three consecutive reviews, a load--bearing display silently shedding
 a hypothesis each time, so it has never had a clean round and the label does not rest on it. The
 second is Proposition~\textup{\ref{prop:condrate}}, which proves the statement \emph{with a rate}
 from Lemma~\textup{\ref{lem:charcancelunif}} and Lemma~\textup{\ref{lem:deficit}}; each of those, and
-the proposition itself, earned its label under this project's standard --- a review by a session that
+the proposition itself, earned its label under this project's standard, a review by a session that
 did not write it, finding nothing.}
 
 $\#\{m\le N:\ \mu^2(m)=1,\ m'-2m\ \text{is a positive perfect square}\}=o(N)$; indeed, by
@@ -7489,7 +7465,7 @@ Proposition~\textup{\ref{prop:plusthin}}, which is a sharper $O(\sqrt X(\log X)^
 semiprime stratum; the two are incomparable, and that proposition rests on its own elementary
 divisor--sum proof.
 
-The squarefree restriction is not cosmetic and earlier versions of this paper omitted it. Every tool
+The squarefree restriction is not cosmetic. Every tool
 in the proof, Rigidity, the cofactor identity, and Lemma~\ref{lem:charcancel}, is stated for
 squarefree $m$; the non-squarefree stratum, of density $1-6/\pi^2\approx0.392$, is untreated. Since
 a \#307 solution is squarefree by Rigidity, the restriction costs nothing for the application, but
@@ -7528,9 +7504,9 @@ off-diagonal is $\sum_{p\ne q}\bigl(T_{pq}(N)+E_{pq}(N)\bigr)$, where $T_{pq}$ c
 coprimality condition $\gcd(m,pq)=1$ of Lemma~\ref{lem:charcancel} and
 $E_{pq}(N)=\sum_{m\le N,\ \mu^2(m)=1,\ \gcd(m,pq)>1}(a_m/pq)$ collects the terms it omits. That
 correction is harmless but is not empty and must be carried:
-$|E_{pq}(N)|\le\#\{m\le N:p\mid m\text{ or }q\mid m\}\le N(1/p+1/q)\le2N/P$ --- the primes here
+$|E_{pq}(N)|\le\#\{m\le N:p\mid m\text{ or }q\mid m\}\le N(1/p+1/q)\le2N/P$ (the primes here
 lie in $(P,2P]$, whereas Proposition~\ref{prop:condrate} takes them in $(P/2,P]$ and so carries
-$4N/P$ --- so
+$4N/P$) so
 $\Pi^{-2}\sum_{p\ne q}|E_{pq}(N)|\le2N/P$, which is dominated by the diagonal's own $N/\Pi\asymp
 N\log P/P$ and changes nothing below. Each $T_{pq}(N)$ is $o(N)$, for each of the finitely many
 pairs, by Lemma~\ref{lem:charcancel}. A square divisible by $p$ is divisible by $p^2$, so the excluded $m$ are counted by
@@ -7554,8 +7530,7 @@ The proof of Theorem~\ref{thm:a9} sends $P\to\infty$ only after $N$, which costs
 information. Keeping $P$ a function of $N$ would turn it into an explicit rate, and what that
 requires is uniformity in $r$ as $P\to\infty$.
 
-\emph{That uniformity is exactly what is not available}, and earlier editions of this paragraph
-asserted the opposite. Lemma~\ref{lem:charcancel} gives
+\emph{That uniformity is exactly what is not available},  Lemma~\ref{lem:charcancel} gives
 $M\ge\bigl(1-\sqrt r/\varphi(r)\bigr)\log\log N-O_r(\log\log\log N)$, with the error depending on
 $r$ through the non--principal $L$--functions, and its statement and the erratum following it both
 say so. The constant is $\sqrt r/\varphi(r)$, not the $3/\sqrt r$ printed here previously; the two
@@ -7571,19 +7546,16 @@ the same accounting error was made twice in this paper's history.
 
 \emph{The ceiling.} The binding constraint there is again the coefficient mass:
 $\sqrt{pq}\cdot O(\log\log\log N)=o(\log\log N)$, that is $P=o(L/\log L)$ with $L=\log\log N$. The
-proposition takes $P=L/(\log L)^{1+\varepsilon}$, which is short of that ceiling by $(\log L)^{\varepsilon}$
---- exactly as the earlier edition of Lemma~\ref{lem:charcancelunif} was short of \emph{its}
-ceiling by $L^{\delta}$. Taking $P=L/(\log L\,w(L))$ for any $w\to\infty$ gives
+proposition takes $P=L/(\log L)^{1+\varepsilon}$, which is short of that ceiling by $(\log L)^{\varepsilon}$,  Taking $P=L/(\log L\,w(L))$ for any $w\to\infty$ gives
 \[ \#\{m\le N:\ \mu^2(m)=1,\ m'-2m=\square>0\}\;\ll\;N\,\frac{(\log\log\log N)^2\,w(\log\log N)}{\log\log N}, \]
 so the true ceiling of the method is $N(\log\log\log N)^{2+o(1)}/\log\log N$ with the $o(1)$
 positive, unremovable, and arbitrarily slow. We state the proposition with a fixed $\varepsilon$
 because it is the usable form; the sharpening is asymptotic and worth nothing numerically. What
 matters is the shape: no choice of $P$ puts a power of $\log N$ in the denominator \emph{so long as
-the distance is estimated through the character expansion}. That proviso is not decoration --- see
+the distance is estimated through the character expansion}. That proviso is not decoration: see
 the next paragraph, where it is exactly what is in question.
 
-\emph{Where the loss actually is, and what it is not.} Both walls --- this one and the corollary's
---- are the same $\sqrt{\varphi(r)}$ paid when the phase $\ell\mapsto e_r(t\ell^{-1})$ is expanded
+\emph{Where the loss actually is, and what it is not.} Both walls, this one and the corollary's, are the same $\sqrt{\varphi(r)}$ paid when the phase $\ell\mapsto e_r(t\ell^{-1})$ is expanded
 in multiplicative characters. It is tempting to ask for a Weil--type bound for that phase over
 primes, and an earlier draft of this remark did. That framing is \emph{wrong}, and the error is
 worth recording. The phase depends only on $\ell\bmod p$, so
@@ -7591,7 +7563,7 @@ worth recording. The phase depends only on $\ell\bmod p$, so
    \;=\;\sum_{a\not\equiv0}e_p(sa^{-1})\!\!\sum_{\substack{\ell\le X\\ \ell\equiv a\,(p)}}\!\!\ell^{-1-i\tau}, \]
 an exact reorganisation with no loss; its discrete Fourier transform is a Gauss sum, so a ``direct''
 estimate is the character expansion restated rather than an independent route. The Kloosterman
-literature over primes --- Fouvry--Michel, Fouvry--Kowalski--Michel, Garaev, Korolev, Irving --- is
+literature over primes (Fouvry--Michel, Fouvry--Kowalski--Michel, Garaev, Korolev, Irving) is
 \emph{not} the relevant technology: every bound there is nontrivial only for modulus at least a fixed
 power of $X$, and ours is at most a power of $\log X$. Note also that the sum is not $o(\log\log X)$
 at fixed $p$: since $\sum_{a\not\equiv0}e_p(sa^{-1})=-1$, Mertens in progressions gives
@@ -7602,20 +7574,18 @@ harmless, $1/(p-1)$ being itself $o(1)$.
 
 What the same computation does show is that the \emph{accounting} is lossy: measured,
 $\max_s|\sum_{\ell\le10^6}e_p(s\ell^{-1})/\ell|$ is $1.04,1.17,1.35,1.32,1.33$ at
-$p=13,101,503,1009,2003$ --- flat, while $\sqrt p$ grows from $3.6$ to $44.8$. So the triangle
+$p=13,101,503,1009,2003$, flat, while $\sqrt p$ grows from $3.6$ to $44.8$. So the triangle
 inequality over characters discards almost everything, and the wall above is an artefact of that
 step rather than an arithmetic obstruction. It can be avoided, and that is
 Lemma~\ref{lem:swdirect}: applying Siegel--Walfisz to the residue classes directly pays a factor $r$
 against an error $\exp(-c\sqrt{\log x})$ rather than $\sqrt r$ against a bound on $\log L$, which is
 free at $r\le(\log N)^A$. The ceiling computed in this remark is therefore the ceiling of the
 \emph{character--expansion} route only; Theorem~\ref{cor:a9rate} passes it by a quarter--power of
-$\log N$. The measurement above --- $\max_s|\cdot|$ flat near $1.3$ while $\sqrt p$ grows to $44.8$
---- was the numerical shadow of exactly this.
+$\log N$. The measurement above, $\max_s|\cdot|$ flat near $1.3$ while $\sqrt p$ grows to $44.8$, was the numerical shadow of exactly this.
 \end{remark}
 
 \begin{theorem}[A rate for $\mathrm{A}9$]\label{cor:a9rate}
-\textup{(Label: \textsc{proved}. This statement stood at \textsc{conjecture} through many releases,
-with two blockers recorded for it that were both later retracted --- Lemma~\ref{lem:localsq}'s
+\textup{(Label: \textsc{proved}. Two blockers recorded against this statement are both retracted: Lemma~\ref{lem:localsq}'s
 non--uniformity, an artefact of a superseded route that needs a $p^2$ count where
 Proposition~\ref{prop:condrate} needs only first--power divisibility; and the regime mismatch after
 Lemma~\ref{lem:reversal}, which was measured against $N$ rather than against this statement's own
@@ -7646,7 +7616,7 @@ floor binds.
 \emph{The five terms.} The diagonal contributes the main term $N/\Pi\asymp N\log P/P\asymp
 N(\log\log N)^{1/2}(\log N)^{-1/4}$, which is the stated bound. The character term is
 $\Pi^{-2}\sum_{p\ne q}|T_{pq}|\le\max_{p\ne q}\sqrt{pq}\cdot\max_t|S_t|\ll 2P\cdot N(\log N)^{-1/2}
-\asymp N(\log\log N)^{1/2}(\log N)^{-1/4}$, the same order --- this is what fixes $P$, the balance
+\asymp N(\log\log N)^{1/2}(\log N)^{-1/4}$, the same order, this is what fixes $P$, the balance
 $N\log P/P\asymp PN(\log N)^{-1/2}$ giving $P\asymp(\log N)^{1/4}(\log\log N)^{1/2}$. The correction
 $|E_{pq}|\le4N/P$ contributes $\ll N(\log N)^{-1/4}(\log\log N)^{-1/2}$, smaller by $\log\log N$. For
 the two divisibility terms, note first that no $p^2$--count is needed and Lemma~\ref{lem:localsq}
@@ -7654,8 +7624,8 @@ does not enter: what the sieve requires is $\#\{m:p\mid a_m\}\ll N/\Pi$, weaker 
 factor $\log P$, and the two--prime count needs nothing at all, since
 $\#\{m:p\mid a_m,\ q\mid a_m\}\le\#\{m:p\mid a_m\}$ makes
 $\sum_{p\ne q}\#\{\cdots\}\le\Pi\sum_p\#\{\cdots\}$. By the detector identity of
-Lemma~\ref{lem:deficit} --- whose $1/(pq)$ prefactor cancels the $pq-1$ non--principal terms exactly,
-with no $\sqrt r$ amplification --- and the distance bound above,
+Lemma~\ref{lem:deficit} (whose $1/(pq)$ prefactor cancels the $pq-1$ non--principal terms exactly,
+with no $\sqrt r$ amplification) and the distance bound above,
 $\#\{m:p\mid a_m\}\le N/p+\max_{s\ne0}|S_s|\ll N/p+N(\log N)^{-1/2}\ll N/\Pi$, as required. Every
 non--diagonal term is therefore at most the main term, and dividing by $\Pi^2$ gives the bound.
 The proof in fact delivers the sharper exponent $\tfrac12$ on $\log\log N$; the $\delta$ in the
@@ -7840,7 +7810,6 @@ Theorem~\ref{thm:condpower} at $P=N^{1/4}$ gives
 
 The two ingredients that would feed it are themselves unconditional, and are recorded separately
 because they do not depend on the missing step.
-
 
 \begin{thebibliography}{9}
 \bibitem{Barbeau1961} E.~J.~Barbeau, \emph{Remarks on an arithmetic derivative}, Canad.\ Math.\
