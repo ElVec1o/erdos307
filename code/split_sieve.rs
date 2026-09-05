@@ -40,6 +40,15 @@ impl Big {
         for i in 0..L { let t = self.0[i] as u128 + o.0[i] as u128 + c; r.0[i] = t as u64; c = t >> 64; }
         assert!(c == 0, "Big overflow in add"); r
     }
+    /// Full-width subtraction, required once beta and alpha are both Big.
+    fn sub(&self, o: &Big) -> Big {
+        let mut r = [0u64; L]; let mut b: i128 = 0;
+        for i in 0..L {
+            let t = self.0[i] as i128 - o.0[i] as i128 - b;
+            if t < 0 { r[i] = (t + (1i128 << 64)) as u64; b = 1; } else { r[i] = t as u64; b = 0; }
+        }
+        assert!(b == 0, "Big underflow in sub"); Big(r)
+    }
     fn sub_small(&self, m: u64) -> Big {
         let mut r = *self; let mut b: u128 = m as u128;
         for i in 0..L { let t = r.0[i] as u128; if t >= b { r.0[i] = (t - b) as u64; b = 0; break; } else { r.0[i] = ((1u128 << 64) + t - b) as u64; b = 1; } }
@@ -49,6 +58,57 @@ impl Big {
         let mut q = Big([0; L]); let mut rem: u128 = 0;
         for i in (0..L).rev() { let cur = (rem << 64) | self.0[i] as u128; q.0[i] = (cur / d as u128) as u64; rem = cur % d as u128; }
         (q, rem as u64)
+    }
+    /// Schoolbook product. Asserts on overflow rather than wrapping: alpha^2 and d(alpha)*d(beta)
+    /// are both below D here, so 512 bits suffice, and a violated assert means the caller is wrong.
+    fn mul(&self, o: &Big) -> Big {
+        let mut r = [0u64; L];
+        for i in 0..L {
+            if self.0[i] == 0 { continue; }
+            let mut c: u128 = 0;
+            for j in 0..(L - i) {
+                let t = self.0[i] as u128 * o.0[j] as u128 + r[i + j] as u128 + c;
+                r[i + j] = t as u64; c = t >> 64;
+            }
+            assert!(c == 0, "Big overflow in mul");
+            for j in (L - i)..L { assert!(o.0[j] == 0, "Big overflow in mul"); }
+        }
+        Big(r)
+    }
+    fn bits(&self) -> usize {
+        for i in (0..L).rev() { if self.0[i] != 0 { return i * 64 + (64 - self.0[i].leading_zeros() as usize); } }
+        0
+    }
+    fn cmp_big(&self, o: &Big) -> std::cmp::Ordering {
+        for i in (0..L).rev() { if self.0[i] != o.0[i] { return self.0[i].cmp(&o.0[i]); } }
+        std::cmp::Ordering::Equal
+    }
+    fn shl1b(&self) -> Big {
+        let mut r = [0u64; L]; let mut c = 0u64;
+        for i in 0..L { r[i] = (self.0[i] << 1) | c; c = self.0[i] >> 63; }
+        assert!(c == 0, "Big overflow in shl1b"); Big(r)
+    }
+    fn shr1b(&self) -> Big {
+        let mut r = [0u64; L];
+        for i in 0..L { r[i] = self.0[i] >> 1; if i + 1 < L { r[i] |= self.0[i + 1] << 63; } }
+        Big(r)
+    }
+    /// Binary long division: (quotient, remainder) of self by m. Needed once alpha exceeds u64,
+    /// which happens from |T| ~ 10 upward and would silently wrap in the old u64 path.
+    fn divrem(&self, m: &Big) -> (Big, Big) {
+        assert!(!m.is_zero(), "divide by zero");
+        if self.cmp_big(m) == std::cmp::Ordering::Less { return (Big([0; L]), *self); }
+        let sb = self.bits(); let mb = m.bits();
+        let mut sh = *m; let mut k = 0usize;
+        while k + mb < sb { sh = sh.shl1b(); k += 1; }
+        let mut r = *self; let mut q = Big([0; L]);
+        loop {
+            q = q.shl1b();
+            if r.cmp_big(&sh) != std::cmp::Ordering::Less { r = r.sub(&sh); q.0[0] |= 1; }
+            if k == 0 { break; }
+            sh = sh.shr1b(); k -= 1;
+        }
+        (q, r)
     }
     fn to_dec(&self) -> String {
         if self.is_zero() { return "0".into(); }
@@ -100,14 +160,19 @@ fn process(b: &Base, kmax: usize, out: &mut Vec<String>) -> (u64, u64) {
             let mut ok = true;
             for m in 0..t.len() { let r = b.s[t[m]]; if sums[m] % r != s_r[t[m]] { ok = false; break; } }
             if ok {
-                let mut alpha = 1u64; for &i in t.iter() { alpha *= b.s[i]; }
-                let (beta, rem) = d.divrem_small(alpha); assert!(rem == 0);
+                // alpha and beta are built as products, never by division, so nothing here is
+                // limited to u64: at |T| ~ 10 the old u64 alpha would have wrapped silently.
+                let mut alpha = Big::from(1);
+                for &i in t.iter() { alpha = alpha.mul_small(b.s[i]); }
+                let mut beta = Big::from(1);
+                for i in 0..n { if !t.contains(&i) { beta = beta.mul_small(b.s[i]); } }
                 let mut dbeta = Big::from(0);
-                for i in 0..n { if !t.contains(&i) { let (q, r) = beta.divrem_small(b.s[i]); assert!(r == 0); dbeta = dbeta.add(&q); } }
-                let (q, r2) = dbeta.divrem_small(alpha);
-                assert!(r2 == 0, "congruence test and exact divisibility disagree at base {}", b.idx);
-                let mut dalpha = 0u64; for &i in t.iter() { dalpha += alpha / b.s[i]; }
-                let lhs = beta.sub_small(alpha); let rhs = q.mul_small(dalpha);
+                for i in 0..n { if !t.contains(&i) { let (qq, r) = beta.divrem_small(b.s[i]); assert!(r == 0); dbeta = dbeta.add(&qq); } }
+                let (q, r2) = dbeta.divrem(&alpha);
+                assert!(r2.is_zero(), "congruence test and exact divisibility disagree at base {}", b.idx);
+                let mut dalpha = Big::from(0);
+                for &i in t.iter() { let (qq, r) = alpha.divrem_small(b.s[i]); assert!(r == 0); dalpha = dalpha.add(&qq); }
+                let lhs = beta.sub(&alpha); let rhs = q.mul(&dalpha);
                 let iok = lhs == rhs;
                 *nsurv += 1; if iok { *nhit += 1; }
                 let tp: Vec<String> = t.iter().map(|&i| b.s[i].to_string()).collect();
