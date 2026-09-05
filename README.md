@@ -168,7 +168,7 @@ LICENSE        licence for the repository
 
 paper/   erdos307-core.pdf       — the paper (32 pp; the results)
          erdos307-computational.pdf — the computational companion (31 pp; certificate, split sieve, pair sector)
-         erdos307-obstructions.pdf  — the obstructions companion (35 pp; places, potentials, two closures)
+         erdos307-obstructions.pdf  — the obstructions companion (34 pp; places, potentials, two closures)
          erdos307-analytic.pdf      — the analytic companion (49 pp; density theorem, square sieve)
          erdos307.tex            — the single source both are generated from
 lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results

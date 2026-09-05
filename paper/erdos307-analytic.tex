@@ -252,8 +252,7 @@ the last step of an integer lattice walk, paid because the diagonal index is a m
 the mass thresholds $1$ and $2$ sit at $3$ and $59$ primes.
 \end{corollary}
 
-\begin{remark}[The populated strata calibrate the heuristic model]\label{rem:calibration}
-The unprotected strata are the first family of \#307--type exact coincidences where the
+\emph{The populated strata calibrate the heuristic model.} The unprotected strata are the first family of \#307--type exact coincidences where the
 average--case model can be tested against exhaustive truth. Pricing the second exactness condition
 of a candidate pair at $1/b$ and re--running the census enumeration with identical filters gives
 expected counts $11.4,\,18.3,\,26.1,\,34.2$ at $ab\le10^4,\dots,10^7$ against observed
@@ -267,7 +266,7 @@ inferred). The reliability of averaging thus degrades measurably with each compo
 condition, and the two--cycle at the origin composes many. This is the quantitative face of the
 average--to--instance gap: the model earns trust stratum by stratum, and loses it condition by
 condition (\texttt{code/strata\_calibration.py}).
-\end{remark}
+
 
 The Pythagorean layer behaves very differently over function fields, and refines into two arithmetic
 sub--layers over $\mathbb{Z}$.
@@ -507,8 +506,7 @@ $\sum_{s\le Y}\tau(2s^2+1)/(Y\log Y)$ stable near $1.05$--$1.09$ for $Y=500$--$2
 \texttt{code/mod8\_plusthin.py}). The $\omega\ge3$ stratum remains empirical.
 \end{proof}
 
-\begin{remark}[What of the last argument is formal]\label{rem:plusthinformal}
-The proof splits into an elementary skeleton and an analytic tail, and the split is worth making
+\emph{What of the last argument is formal.} The proof splits into an elementary skeleton and an analytic tail, and the split is worth making
 explicit because the two have different status. The skeleton is formalised:
 \texttt{Erdos307.plus\_semiprime\_identity} is the factorisation $2s^2+1=(2p+1)(2q+1)$,
 \texttt{plus\_range} the bound $s^2\le3N+1$ that confines $s$ to $Y$, \texttt{plus\_recover} the
@@ -543,7 +541,7 @@ none. $0$ \texttt{sorry} \textup{(\texttt{lean/Erdos307/RootCount.lean})}.
 What remains outside Lean is the \emph{instantiation}, not a lemma: ``plus--hit'' is not defined in
 Lean, so tying the abstract reduction to this layer is done in the prose above. Erd\H{o}s's
 sharpening and Bunyakovsky's lower bound stay cited, and neither is used by the upper bound.
-\end{remark}
+
 
 The semiprime argument generalises: the slot calculus of Proposition~\ref{prop:slot} counts.
 
@@ -568,8 +566,7 @@ logarithms.) The injection, the identity, $\gcd(M,M')=1$ and $P^+(N)\ge N^{1/r}$
 all $251$ plus--hits below $10^6$: zero exceptions (\texttt{code/strata\_count.py}).
 \end{proof}
 
-\begin{remark}[What separates the strata from the full layer]\label{rem:strata}
-The bound is honest but far from the truth: at $X=10^6$ the strata $\omega=2,\dots,5$ hold
+\emph{What separates the strata from the full layer.} The bound is honest but far from the truth: at $X=10^6$ the strata $\omega=2,\dots,5$ hold
 $124$, $69$, $50$, $8$ hits (every one below $\sqrt X$) because the congruence
 $s^2\equiv M\pmod{E_0(M)}$ is usually \emph{insoluble}: over random odd semiprime bases the average
 number of roots is $0.34$, the no--residue branch of the trichotomy of Proposition~\ref{prop:slot}
@@ -579,7 +576,7 @@ $\tau(M'+2M)$ (a Titchmarsh--divisor--type sub--problem) remains the route to th
 ($\sqrt X$--order) count. Density zero itself, however, needs less: a smooth/rough dichotomy
 bypasses the average entirely, because roughness buys a factor $X^{-1/\log\log X}$ against which
 the divisor bound costs only $X^{\log2/\log\log X}$, and $\log2<1$.
-\end{remark}
+
 
 \begin{proposition}[The plus--layer has density zero]\label{prop:pluszero}
 Unconditionally, with $\log_3=\log\log\log$,
@@ -819,8 +816,7 @@ $P^+(n)\ge269$, and $n\ge\Pi_{57}>10^{108.07}$; with $p>P>P^+(n)$ the two furthe
 $N>\Pi_{57}\cdot271\cdot277>10^{112.94}$.
 \end{proof}
 
-\begin{remark}[Two mechanisms, one constant]\label{rem:twomechanisms}
-Corollary~\ref{cor:secondbarrier} reaches $10^{112.94}$, and $\Pi_{59}>8.77\times10^{112}$ is
+\emph{Two mechanisms, one constant.} Corollary~\ref{cor:secondbarrier} reaches $10^{112.94}$, and $\Pi_{59}>8.77\times10^{112}$ is
 $10^{112.94}$: the two derivations agree to two decimal places. They share no step.
 Theorem~\ref{K-thm:barrier} divides the defining equation by $ab$ and applies AM--GM to
 $a/b+b/a$; the present route never forms that quotient, using instead the determined slot of
@@ -831,7 +827,7 @@ comparable. The barrier is thus not an artefact of the mass inequality one happe
 the same Mertens threshold seen through two independent structures, and the critical set
 $S_2=\{n:2-\sigma(n)<2/P^+(n)\}$ of the second structure is empty below $10^{108}$ (verified empty
 for $n\le5\times10^6$, \texttt{code/critical\_set.rs}).
-\end{remark}
+
 
 \begin{remark}[The minus side: coercive versus degenerate moduli]\label{rem:minusslot}
 Proposition~\ref{prop:pluszero} rests on the plus modulus being \emph{coercive}:
@@ -883,8 +879,7 @@ unconditional companion, from Proposition~\ref{prop:mod8}: an odd member of $N'=
 $S(N)\equiv cN+2\pmod8$.)
 \end{remark}
 
-\begin{remark}[The primality can be dropped: the missing bound is a divisibility count]\label{rem:integrality}
-The formulation above asks for a bound on how often a determined value is \emph{prime}, which is
+\emph{The primality can be dropped: the missing bound is a divisibility count.} The formulation above asks for a bound on how often a determined value is \emph{prime}, which is
 what places it beyond Bombieri--Vinogradov. That requirement can be removed. The slot
 $(c-m)/(m'-em)$ is an integer at all only when
 \[ (m'-em)\ \big|\ (c-m), \]
@@ -904,7 +899,7 @@ as Proposition~\ref{prop:groupoid} but with the primality stripped out, and with
 of slack against the target at the ranges where the count can be observed. We record the
 substitution because it changes which literature the problem faces: divisibility counts for
 $m'-em$ rather than primes in determined classes.
-\end{remark}
+
 
 \section{The square sieve at the mass-two wall}\label{sec:sqsieve}
 
@@ -1037,8 +1032,7 @@ the minus layer, and $(b^{+}_1)^2\le\sum_k|b^{+}_k|^2$, so
 Hypothesis~\textup{\ref{hyp:kernel}} forces $b^{+}_1\ll N^{1/2+o(1)}$, which is the conclusion.
 \end{proposition}
 
-\begin{remark}[Why computation cannot detect this]\label{rem:invisiblecirc}
-The circularity is invisible to measurement. Below the barrier $\sigma(m)>2$ is impossible, so
+\emph{Why computation cannot detect this.} The circularity is invisible to measurement. Below the barrier $\sigma(m)>2$ is impossible, so
 $a_m>0$ never occurs and $b^{+}_1=0$ identically: at $N=5\times10^6$ one finds $b^{+}_1=0$ while
 $b^{-}_1=1213$, the latter contributing $12.5\%$ of $\sum_k|b_k|^2$
 \textup{(\texttt{code/sqsieve\_kernel.rs})}. Every computed check of
@@ -1051,10 +1045,9 @@ statement is a \emph{reformulation}: $\mathrm{CRUX}\text{-}\mathrm{A}9$ is equiv
 bound, with the equivalence carried by the $k=1$ term. The new attack surface is genuine, since the
 reformulated statement is unsigned and about products, but it is not a reduction and is not counted
 as progress on the crux. The unconditional record is Proposition~\ref{prop:condrate}.
-\end{remark}
 
-\begin{remark}[The hypothesis measures, and its constant identifies itself]\label{rem:pairmeasured}
-$P(D,r)$ against $D^2/r+D$ has ratio $0.3688$, $0.3688$, $0.3689$ at $r=1009$;
+
+\emph{The hypothesis measures, and its constant identifies itself.} $P(D,r)$ against $D^2/r+D$ has ratio $0.3688$, $0.3688$, $0.3689$ at $r=1009$;
 $0.3705$, $0.3696$, $0.3695$ at $r=10007$; and $0.3867$, $0.3727$, $0.3702$ at $r=100003$, for
 $D=10^6,5\times10^6,2\times10^7$ \textup{(\texttt{code/sqsieve\_bilinear.rs})}. The ratio is not
 merely bounded but constant, and the constant is $(6/\pi^2)^2=0.3696$, the square of the squarefree
@@ -1066,10 +1059,9 @@ cancellation, and Proposition~\ref{prop:routeclosed} showed the only available r
 Theorem~\ref{thm:pairavg} instead bounds an \emph{unsigned} second moment, and does so
 unconditionally; what it does not do is bound $T_r$, since the passage from bilinear forms to $T_r$
 is exactly the gap recorded in Remark~\ref{rem:missingdecomp}.
-\end{remark}
 
-\begin{remark}[What made this work]\label{rem:sqsievewhy}
-Every previous attack on $\mathrm{A}9$ counted members of the minus layer directly, and each ran
+
+\emph{What made this work.} Every previous attack on $\mathrm{A}9$ counted members of the minus layer directly, and each ran
 into the same obstruction: the layer is a union of lines $m'=2m-k$, each thin by
 Proposition~\ref{prop:lines} but not summably so, and the peeling reorganisations that would combine
 them are all conjugate under the groupoid of Proposition~\ref{prop:groupoid}. The square sieve never
@@ -1082,7 +1074,7 @@ $|\tau(\chi)|=\sqrt r$, the classical zero--free region, the $\log L$ bound for 
 characters, and Siegel--Walfisz. No Sali\'e or Weil bound is used: the sum in question is a Gauss
 sum, as Lemma~\ref{lem:charcancel} records. Note also that the theorem does not decide \#307, and cannot: it is a statement about
 density, and a single two-cycle is a density-zero event.
-\end{remark}
+
 
 \begin{proposition}[Slot stratification of the divisibility set]\label{prop:slotstrat}
 Fix $c$ and let $D(c)=\{m \text{ squarefree}: (2m-m')\mid(m-c),\ m\neq c\}$. For $m\in D(c)$ put
@@ -1162,15 +1154,14 @@ squarefree $m\le2\times10^7$ and all $|c|\le400$ at $e=1,2,3$, where the nontriv
 $2{,}197{,}230$, $28$ and $8$ respectively (\texttt{code/a9prime\_falsify.rs}).
 \end{proof}
 
-\begin{remark}[Consequence for the residual question]\label{rem:a9repair}
-Proposition~\ref{prop:divset} settles the shape of the residual bound. A uniform statement over all
+\emph{Consequence for the residual question.} Proposition~\ref{prop:divset} settles the shape of the residual bound. A uniform statement over all
 slopes is false, and false for a trivial reason: at $e=1$ the primes sit on the set by an identity.
 The correct target is confined to $e\ge2$, where a genuine mass condition appears, and there
 Proposition~\ref{prop:divset}(ii) gives the first unconditional bound, $\delta Z$ with
 $\delta<0.043$. The gap to the $Z^{1/2}$ needed for Remark~\ref{rem:minusslot} is therefore now a
 gap between two \emph{proved} quantities rather than between a proof and a wish, and the observed
 counts at $e=2$ ($28$ over the whole range $|c|\le400$, against $Z^{1/2}=4472$) sit far below both.
-\end{remark}
+
 
 \begin{remark}[The two open routes are one question, asked in opposite directions]\label{rem:onequestion}
 The existence route of Remark~\ref{A-rem:lehmer} and the counting route of
@@ -1289,8 +1280,7 @@ $(2N_0-1)^2+(4N_0-1)=4N_0^2$, and $(s^2-N_0)/E_0=(4N_0^2-5N_0+1)/(4N_0-1)=N_0-1$
 $k=(a'-b)/a=(1-N_0)/(N_0-1)=-1$.
 \end{proof}
 
-\begin{remark}[What the family shows]\label{rem:familyshows}
-This is the first explicit construction of Pythagorean pairs in this note: everything earlier
+\emph{What the family shows.} This is the first explicit construction of Pythagorean pairs in this note: everything earlier
 established that they are rare \textup{(}Corollary~\ref{K-cor:emptytest}: none below $10^{112}$\textup{)}
 without exhibiting a mechanism. The mechanism is a clean reduction (the pair exists as soon as the
 line $n'=2n-1$ carries a member whose predecessor is prime) and it is Bunyakovsky--shaped, matching
@@ -1306,7 +1296,7 @@ limitation, the construction is \emph{permanently} off the cycle rung: primality
 what makes it work and exactly what forces $a'=1\ne b$. A $k=0$ analogue would need $a$ composite with
 $a'=b$, which is the original problem. So the family exhibits the Pythagorean locus without
 approaching \#307; useful as the first worked mechanism, not as a route.
-\end{remark}
+
 
 \begin{proposition}[The composite mechanism: $|P|=2$ is one line and one primality]\label{prop:compositea}
 Write $a=2m$ with $m$ odd squarefree, so that $b=a'=m+2m'$ \textup{(}Theorem~\ref{K-thm:parity}\textup{)}.
@@ -1323,8 +1313,7 @@ $(2m)'=m+2m'$ by Leibniz, so $a'=b$ by definition of $b$, and the cycle needs on
 $m=q$ prime, $b=q+2$ and $b'=2q=2(b-2)=2b-4$; the mass identity is the displayed product.
 \end{proof}
 
-\begin{remark}[Two lines, two rungs]\label{rem:twolines}
-Comparing with Proposition~\ref{prop:family} isolates exactly what separates the cycle from its
+\emph{Two lines, two rungs.} Comparing with Proposition~\ref{prop:family} isolates exactly what separates the cycle from its
 neighbour. Both are ``a member of a slope--two line whose shifted predecessor is prime'':
 \[
 \begin{array}{lll}
@@ -1341,7 +1330,7 @@ the reduction over odd squarefree $m\le2\times10^6$ ($810{,}590$ admissible $m$,
 prime) finds none, with nearest miss $|b'-2m|=5$ at $m=3$ (\texttt{code/composite\_a.rs}); exactly
 as Corollary~\ref{K-cor:emptytest} demands. This is the composite mechanism the rung--$0$ case requires;
 what it does not do is evade the barrier, which reappears as the mass of the line.
-\end{remark}
+
 
 \begin{proposition}[The barrier is a function of the split]\label{prop:sectorbarrier}
 For a solution with $|P|=j$ write $a=\prod P$, $b=\prod Q$. Since $\sigma(a)\sigma(b)=1$ and
@@ -1370,8 +1359,7 @@ $\sigma(a)$, raises $\sigma(b)$ and hence $|Q|$, so the displayed configuration 
 $j$.
 \end{proof}
 
-\begin{remark}[Why the composite mechanism is out of reach]\label{rem:sectorcost}
-Proposition~\ref{prop:sectorbarrier} settles the standing of the clean reduction of
+\emph{Why the composite mechanism is out of reach.} Proposition~\ref{prop:sectorbarrier} settles the standing of the clean reduction of
 Proposition~\ref{prop:compositea}. There $|P|=2$, and the mechanism is forced through the dearest
 small sector: $b$ is odd, so $Q$ must assemble mass $\sigma(b)=2q/(q+2)$ from odd primes alone, and
 the sector cannot begin below $10^{137.9}$; some twenty--five orders of magnitude \emph{above} the
@@ -1386,7 +1374,7 @@ $59$--prime barrier is thus not merely a statement about $|P\cup Q|$ but the \em
 convex profile over splits}, and Theorem~\ref{K-thm:barrier}'s constant is the value at that minimum.
 (Rows with $|P|+|Q|<60$ are further excluded by Proposition~\ref{K-prop:close59}, which sharpens the
 $|P|=3$ entry without moving the minimum's location.)
-\end{remark}
+
 \begin{proposition}[The cycle condition does not improve the barrier]\label{prop:nogain}
 A two--cycle satisfies more than the mass inequality: it forces $b=a'$, that is $b=a\,\sigma(a)$
 exactly. Since $\sigma(b)=1/\sigma(a)$ and $P\cap Q=\varnothing$, writing $S$ for the small primes of
@@ -2068,8 +2056,7 @@ The ineffectivity is exactly Siegel's, entering through Siegel--Walfisz; no exce
 split is needed, because no $L$--function is bounded anywhere above.
 \end{proof}
 
-\begin{remark}[What this changes, and what it does not]\label{rem:swdirectscope}
-The constant is \emph{not} an improvement: at $g_t(a)=\chi(a)e_r(ta^{-1})$ one has
+\emph{What this changes, and what it does not.} The constant is \emph{not} an improvement: at $g_t(a)=\chi(a)e_r(ta^{-1})$ one has
 $\widehat g_0=\chi(t)\tau(\chi)/\varphi(r)$, so $|\widehat g_0|=\sqrt r/\varphi(r)$ and
 Lemma~\ref{lem:swdirect} returns the same $1-\sqrt r/\varphi(r)$ that
 Lemma~\ref{lem:charcancelunif} already gives; and in the error term it is worse, an $o(L)$ of
@@ -2096,7 +2083,7 @@ $\sum_{p\le x,\,p\equiv\ell\,(k)}1/p=\log\log x/\varphi(k)+\delta_\ell/\ell+O(\l
 with an absolute but ineffective constant) but we are not aware of a reference carrying the
 $\tau$--uniformity used here, and deduce it from Siegel--Walfisz \textup{(}Montgomery--Vaughan,
 \emph{Multiplicative Number Theory I}, \S11.3\textup{)} by the partial summation above.
-\end{remark}
+
 
 \begin{lemma}[Two uniform deficit bounds]\label{lem:deficit}
 \textup{(Label discipline, as for Lemma~\ref{lem:charcancelunif}: three rounds of adversarial review,
@@ -2446,14 +2433,13 @@ statement is a deliberate weakening, so that no reader has to track which consta
 The plus case is identical with $c=-2$.
 \end{proof}
 
-\begin{remark}[Why the exponent is $-1/2$ and not $-1/4$]\label{rem:a9rateimproved}
-A rate of $\ll N\log\log N(\log N)^{-1/4}$, balancing at $P\asymp(\log N)^{1/4}$. Carrying the balance properly against the Hal\'asz floor gives
+\emph{Why the exponent is $-1/2$ and not $-1/4$.} A rate of $\ll N\log\log N(\log N)^{-1/4}$, balancing at $P\asymp(\log N)^{1/4}$. Carrying the balance properly against the Hal\'asz floor gives
 $P\asymp(\log N)^{1/4}(\log\log N)^{1/2}$ and a bound better by $(\log\log N)^{1/2}$. Compared with
 Proposition~\ref{prop:condrate}, which remains the statement proved without
 Lemma~\ref{lem:swdirect}, the gain is a full quarter--power of $\log N$: that proposition's ceiling
 is $N(\log\log\log N)^{2+o(1)}/\log\log N$, and no choice of $P$ improves it while the distance is
 estimated through the character expansion.
-\end{remark}
+
 \begin{proof}[Sketch, conditional on a uniform-in-$r$ form of Lemma~\ref{lem:charcancel}]
 Take $\mathcal{P}$ to be the primes in $(P,2P]$ with $P=P(N)$ to be chosen, so
 $\Pi\sim P/\log P$. The three terms of Theorem~\ref{thm:a9} are then

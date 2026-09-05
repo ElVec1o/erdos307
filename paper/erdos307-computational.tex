@@ -267,8 +267,7 @@ and $D$ vanish, so $\alpha\mid\partial(\alpha)\partial(\beta)$, and
 $\gcd(\alpha,\partial(\alpha))=1$ by Theorem~\ref{K-thm:structure}.
 \end{proof}
 
-\begin{remark}[What the sieve decides]\label{rem:splitsieverun}
-The criterion was applied to every level--$60$ single--tail base surviving the certificate of
+\emph{What the sieve decides.} The criterion was applied to every level--$60$ single--tail base surviving the certificate of
 Proposition~\ref{prop:tailkill}, $18{,}742$ of them, a superset of the $3{,}444$ open families, over
 all $T$ with $|T|\le6$: about $9\times10^{11}$ splits, no factorisation, and no two--cycle. The
 observed survivor count is $5.20$ per base against the predicted $5.17$
@@ -276,7 +275,7 @@ observed survivor count is $5.20$ per base against the predicted $5.17$
 decided. Its expected survivor count over $7\le|T|\le34$ is about $28$, and deciding it by
 enumeration costs at least $7\times10^{2}$ core--years, so the sieve reduces the level--$60$
 single--tail question without closing it.
-\end{remark}
+
 
 \begin{proposition}[Single--tail families are decided by factoring]\label{prop:lvl60factor}
 Let $S$ be a set of primes containing $2$, with $D_S=\prod S$ squarefree, and let $q$ be a prime
@@ -640,8 +639,7 @@ one level up.
 \begin{remark}[The tail is not a Lehmer question]\label{rem:notlehmer}
 Remark~\ref{B-rem:whatisleft} names the exponential Pell orbit of Remark~\ref{rem:lehmer} as the only live branch, and it is natural to read the surviving question as the primality of a term $q_n$ along it. That reading does not hold. The orbit is genuinely infinite and both square conditions do hold along all of it; what fails is that no term past $N$ can be prime, by Proposition~\ref{K-prop:tailbound}. The single identity responsible is $A-B=4D$, used elsewhere only to form the Pell
 system and never to factor $4Dq$.
-\begin{remark}[The threshold in largest--prime coordinates, and which sectors it leaves alive]\label{rem:sectorlive}
-Remark~\ref{rem:tier60} already writes a cycle as $a=qm$ with $q$ the largest prime; Bado
+\emph{The threshold in largest--prime coordinates, and which sectors it leaves alive.} Remark~\ref{rem:tier60} already writes a cycle as $a=qm$ with $q$ the largest prime; Bado
 \cite{Bado2026} makes the same reduction exact and independent of the level. With $q=P^{+}(ab)$,
 $q\mid a$, write $a=qd$, $b=e$: then $e=d+qd'$, $e'=qd$, and $q=(e-d)/d'$. Here
 $\sigma(a)=1/q+\sigma(d)$, so $t$ (or $1/t$, according to which side carries $q$; $t+1/t$ is
@@ -685,7 +683,7 @@ factoring wall behind the families it leaves open. And the sector $d=2$ is $\alp
 table puts at $|U|\ge1413$, so the level--$60$ programme never meets it. Negatively, the reduction
 does not shorten that residual: the unknown is the divisor $\alpha\mid D$, of which there are
 $2^{59}$, and the only $\alpha$--independent certificate is the Jacobi one already used.
-\end{remark}
+
 
 \begin{remark}[The sector barrier sharpened by $d'$, and a second derivation of $60$]\label{rem:sectordprime}
 The sector reading above uses only the mass. It can be sharpened, and the sharpening is what
@@ -1332,8 +1330,7 @@ divergence of the refined expected count, that the answer to \#307 is plausibly 
 (and hence that the period--one form of the Ufnarovski--\AA hlander conjecture is plausibly false).
 \end{remark}
 
-\begin{remark}[A cautionary refinement]\label{rem:refined}
-One can try to sharpen this into a quantitative rate using a Kubilius/Erd\H{o}s--Wintner model,
+\emph{A cautionary refinement.} One can try to sharpen this into a quantitative rate using a Kubilius/Erd\H{o}s--Wintner model,
 stratified over which small primes lie in the support of $a$ versus remain available to $b$. Two
 lessons emerge, both methodological. First, a plain Monte--Carlo estimate \emph{undercounts} the rate
 by some $10^{61}$: the expectation is dominated by rare, balanced splits of the small primes that
@@ -1345,7 +1342,7 @@ occurrence from $\sim10^{10^{38}}$ out past $\sim10^{10^{55}}$, with no sign of 
 robust conclusion is negative: every version places a hypothetical first solution \emph{doubly
 exponentially} beyond any conceivable search, consistent with the constructive deficit of
 Section~\ref{sec:breeder}; the model does not reliably decide existence in either direction.
-\end{remark}
+
 
 \begin{proposition}[The abundance density is a theorem]\label{prop:density}
 The additive function $f(n)=\sum_{p\mid n}1/p$ satisfies the Erd\H{o}s--Wintner three--series
@@ -1370,8 +1367,7 @@ conservative, carried almost entirely by the $a$--window. As for the density of 
 no closed form is expected.
 \end{proposition}
 
-\begin{remark}[Two dynamical probes: no second obstruction]\label{rem:dynamical}
-Two measurements sharpen the picture beyond the first--order mass count, and both cut towards rather
+\emph{Two dynamical probes: no second obstruction.} Two measurements sharpen the picture beyond the first--order mass count, and both cut towards rather
 than against a solution. \emph{(i) Image density.} A two--cycle needs \emph{both} members in the image
 $D(\mathbb{N})$ (each is the other's derivative), so one might fear a second obstruction; that the
 high--mass numbers a cycle requires are seldom derivatives. The opposite holds: of the integers below
@@ -1386,10 +1382,9 @@ balanced split $r\approx(S(k)/2)^2$, $S(k)=\sum_{i\le k}1/p_i$, which reaches $1
 $S(k)=2$, i.e.\ $k\approx59$. The dynamical trajectory thus reproduces the $|U|\ge59$ barrier from the
 opposite direction. Neither probe decides existence; both \emph{remove} hypothetical obstructions,
 leaving the exact archimedean closure as the sole gate.
-\end{remark}
 
-\begin{remark}[Why the analytic method is starved: $N(r)\le1$]\label{rem:nostructure}
-The rank--one rigidity (Section~\ref{K-sec:status} of the core note) has a sharp consequence for the circle--method
+
+\emph{Why the analytic method is starved: $N(r)\le1$.} The rank--one rigidity (Section~\ref{K-sec:status} of the core note) has a sharp consequence for the circle--method
 machinery that resolves the \emph{unrestricted} Egyptian--fraction problem. For a rational $r$ let
 $N(r)=\#\{\,P:\sum_{p\in P}1/p=r\,\}$ count the finite prime sets with reciprocal sum $r$. Then
 \[N(r)\le1:\]
@@ -1404,7 +1399,7 @@ reaches $3$ and grows), whence \cite{BloomShifted} represents every positive rat
 primes themselves $N(r)\le1$ leaves nothing to average: the analytic engine that reaches $\{p-h\}$ is
 provably starved on $\{p\}$, and this is the method--level reason \#307 (the rank--one, exact--prime
 case) lies beyond it.
-\end{remark}
+
 
 \section{A breeder form and the feasibility of certificate search}\label{sec:breeder}
 

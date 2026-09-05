@@ -118,8 +118,7 @@ function--field collapse rests on an inequality genuinely \emph{absent} over $\m
 unproven, and the size mismatch is by a factor of two in the exponent. \#307 lives in the
 $abc$--comfortable zone.
 
-\begin{remark}[The free grading, and what evaluation destroys]\label{rem:grading}
-Theorem~\ref{thm:ff} has a structural reading. In the free Leibniz world (the polynomial ring
+\emph{The free grading, and what evaluation destroys.} Theorem~\ref{thm:ff} has a structural reading. In the free Leibniz world (the polynomial ring
 $\mathbb{Z}[x_p]$ with $x_p'=1$) the derivative of a squarefree monomial of degree $n$ is the
 elementary symmetric form $e_{n-1}$, homogeneous of degree $n-1$: the formal derivative strictly lowers
 the grading, cycles are impossible, and over $\mathbb{F}_q[t]$ the degree realises this grading
@@ -134,7 +133,7 @@ Section~\ref{A-sec:anatomy} of the computational companion. The deeper additive-
 the $S$--unit form of Proposition~\ref{prop:sunit}: dividing the cycle equation by $D_Q$ exhibits it as
 an $n$--term unit equation; one more coordinate system in which the same exactness reappears
 unchanged.
-\end{remark}
+
 
 \begin{remark}[The obstruction is \emph{ordered}--archimedean]\label{rem:ordered}
 The barrier is finer than ``archimedean'': its engine is AM--GM on real, \emph{positive} masses, i.e.\
@@ -559,8 +558,7 @@ $8192$ squarefree monics over $\mathbb{F}_2$ to degree $13$ and $6561$ over $\ma
 degree $8$, $0$ violations and $0$ two--cycles: \texttt{code/ff\_nocycle.rs}.)} What is added here
 is not that statement but its consequence for \emph{method}, recorded next.
 
-\begin{remark}[Why the existence route cannot be algebraic]\label{rem:archimedean}
-The mechanism of Theorem~\ref{thm:ff} is the ultrametric inequality. The cycle equation is
+\emph{Why the existence route cannot be algebraic.} The mechanism of Theorem~\ref{thm:ff} is the ultrametric inequality. The cycle equation is
 $\sigma(a)\sigma(b)=1$, so one of the two masses must reach $1$; over $K[t]$ the mass satisfies
 $|\sigma(f)|=\max_i|1/\pi_i|<1$ by ultrametricity and can never do so, whereas over $\mathbb{Z}$ the
 archimedean absolute value permits $\sum_{p\mid n}1/p>1$. So \#307 is possible at all only because
@@ -576,7 +574,7 @@ place to construct at. What remains for $\mathrm{A}10$ is archimedean and analyt
 precisely the regime in which lower bounds for primes in sparse sequences are unavailable. That is
 a sharper statement of the obstruction than Remark~\ref{A-rem:lehmer} gives, and it is the reason the
 present work does not resolve the existence direction.
-\end{remark}
+
 
 A third closure was claimed here in place of what follows, and it was wrong. The $34$ immune
 families of Remark~\textup{\ref{A-rem:campaign}} are precisely the tail families the congruence
@@ -700,8 +698,7 @@ apart, and \texttt{transfer\_dissolves} the general no--go
 \textup{(\texttt{lean/Erdos307/Distinctness.lean})}.
 \end{proposition}
 
-\begin{remark}[The three other blocks, attacked]\label{rem:blockattacks}
-\textup{(i) Against Proposition~\ref{prop:nofreeslot}.} The rigidity $\prod Q=a'$ would dissolve if
+\emph{The three other blocks, attacked.} \textup{(i) Against Proposition~\ref{prop:nofreeslot}.} The rigidity $\prod Q=a'$ would dissolve if
 disjointness were an assumption one could relax. It is not: $P\cap Q=\varnothing$ is
 \emph{derived} in Theorem~\ref{K-thm:structure} by the Israel mechanism, $r\in P\cap Q$ forcing
 $v_r(st)=-2\neq0$. There is nothing to relax.
@@ -724,7 +721,7 @@ means of saying which. It does not transfer. That argument needs each failure to
 be one all of whose $q_n$ are composite, and the only known mechanism for that is a covering system,
 which Proposition~\ref{A-prop:localcomplete} proves does not exist. A failure would therefore be
 structureless, and structureless failures cannot be played against one another.
-\end{remark}
+
 
 All of the above bounds the negative direction. The positive direction admits a quantitative
 shadow that had not been measured: a solution is exactly $r(a):=\sigma(a)\sigma(a')=1$, so one may
@@ -1862,8 +1859,7 @@ and is the residue of the whole construction, is Theorem~\ref{thm:halflyap} toge
 Corollary~\ref{cor:lyapbarrier}: an elementary Lyapunov proof of the barrier, valid exactly up to
 mass $2$ and, by Corollary~\ref{cor:halfsharp}, not one step further.
 
-\begin{remark}[Three independent blocks on $\mathrm{A}10$]\label{rem:threeblocks}
-The existence route is therefore obstructed at three separate levels, and no two of them are the
+\emph{Three independent blocks on $\mathrm{A}10$.} The existence route is therefore obstructed at three separate levels, and no two of them are the
 same obstruction. Proposition~\ref{prop:nofreeslot} removes the freedom: the construction carries
 one parameter and cannot be relaxed into a denser family. Theorem~\ref{thm:ff} removes the
 method: no argument that survives the passage to $K[t]$ can prove existence, because there the
@@ -1876,7 +1872,7 @@ count of independent obstructions is exactly the kind of claim that should not d
 What is left is a lower bound for primes in a sparse exponential sequence, which exists for no
 non-degenerate linear recurrence at all. We state plainly that the present work does not decide the
 existence direction and does not contain a route to deciding it.
-\end{remark}
+
 
 
 \begin{thebibliography}{9}
