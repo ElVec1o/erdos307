@@ -9,19 +9,19 @@ Improving the barrier past `60` is equivalent to a bound `|σ(a) - 1| > c` with 
 Two classes of argument are excluded from producing such a `c`, and both exclusions are elementary.
 They are formalised here because they are the standing constraints on any future attempt.
 
-* `lyap_increments_sum`, `lyap_not_both_neg` — `rem:lyapshape`. For a potential
+* `lyap_increments_sum`, `lyap_not_both_neg` — `prop:lyapshape`. For a potential
   `F(n) = log n + G(σ(n))` with *any* `G`, one step gives increment `log σ(n) + G(σ(n')) - G(σ(n))`.
   Around a two-cycle the `G`-terms telescope and the two increments sum to `log(σ(a)σ(b)) = 0`, so
   they cannot both be negative. A strictly decreasing `F` of this shape would settle the problem, and
   none can be exhibited without already excluding cycles. Nothing about `G` is used beyond its being
   a function, which is the point: the obstruction is to the shape, not to a choice of `G`.
-* `ppn_gap`, `ppn_gap_lt` — `rem:twosided`. A primary pseudoperfect `n` satisfies
+* `ppn_gap`, `ppn_gap_lt` — `prop:twosided`. A primary pseudoperfect `n` satisfies
   `σ(n) + 1/n = 1`, so `|σ(n) - 1| = 1/n`, which is below any prescribed `c` once `n > 1/c`. Such `n`
   solve the coprime relaxation of the problem, so no argument using only the one-sided equation
   `a' = b` can bound `|σ(a) - 1|` below by an absolute constant: it would prove the relaxed statement
   too, and these `n` refute it.
 
-Paper: Remark `rem:lyapshape`, Remark `rem:twosided`, Proposition `prop:barthreshold`.
+Paper: Remark `prop:lyapshape`, Remark `prop:twosided`, Proposition `prop:barthreshold`.
 -/
 
 namespace Erdos307

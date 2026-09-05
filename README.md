@@ -243,7 +243,7 @@ against the build by `code/check_consistency.sh` at every push. Summary:
 | reciprocity certificate soundness | `Erdos307.Certificate` | VERIFIED |
 | pair-sector finiteness, `T(R) ≠ 2` | `Erdos307.PairSector` | VERIFIED |
 | `prop:tailbound` (quadratic, discriminant, bounds; and the `α = 1` maximum) | `Erdos307.TailBound`, `Erdos307.TailQuadratic` | VERIFIED |
-| `rem:twosided`, `rem:lyapshape` (exclusion of one-sided and `σ`-only arguments) | `Erdos307.Exclusions` | VERIFIED |
+| `prop:twosided`, `prop:lyapshape` (exclusion of one-sided and `σ`-only arguments) | `Erdos307.Exclusions` | VERIFIED |
 | `prop:oddsector` (odd sectors keep 2 only when `ω(d)` is odd) | `Erdos307.OddSector` | VERIFIED |
 | `prop:splitsieve` (split sieve for single-tail families; the `q`-free criterion and the parity law) | `Erdos307.SplitSieve` | VERIFIED |
 | `prop:sector42` (algebraic half) | `Erdos307.Sector42` | PROVED ⭐ (enumeration not formalizable at 3.7×10¹⁰ leaves) |

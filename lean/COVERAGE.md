@@ -1,6 +1,6 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**86 of 151** labelled results are named by a Lean file in `Erdos307/` (66 files, **0 `sorry`**).
+**88 of 153** labelled results are named by a Lean file in `Erdos307/` (66 files, **0 `sorry`**).
 
 `lake env lean Check.lean` probes **439 declarations across all 66 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
@@ -112,7 +112,7 @@ formalised as it is identified. What is machine-checked so far, per starred atom
 | `lem:charcancelunif` ⭐ | `CharCancel.lean` (6 declarations): the constant analysis. `√r/φ(r) = ∏ √p/(p-1)`; the factor `u ↦ u/(u²-1)` is antitone and below `1`, so only `ω(r) = 1` and `ω(r) = 2` need bounding; `√7/6 < 1/2` and `√15/8 < 1/2` settle them, and `√5/4 > 2/5`, `√3/2 > 1/2` show `r = 3, 5` are genuinely excluded. This is where the hypothesis `r ≥ 7` and the constant `1 - √15/8 = 0.515…` come from. | Halász and the zero-free region |
 | `prop:phasecount` | When the sector enumeration is complete: at most `J-1` primes beyond the truncation |
 | `prop:oddsector` | `OddSector.lean` (3 declarations): a sum of `k` odd integers has the parity of `k`, so the cofactor sum of an odd squarefree `d` has the parity of `ω(d)`, and `ω(d)` even gives `2 ∣ d'` | VERIFIED, nothing outstanding |
-| `rem:twosided`, `rem:lyapshape` (the two exclusion results) | `Exclusions.lean` (4 declarations): the Lyapunov increments telescope and cannot both be negative for any `G`; the primary pseudoperfect gap is `1/n` and falls below any constant | VERIFIED, nothing outstanding |
+| `prop:twosided`, `prop:lyapshape` (the two exclusion results) | `Exclusions.lean` (4 declarations): the Lyapunov increments telescope and cannot both be negative for any `G`; the primary pseudoperfect gap is `1/n` and falls below any constant | VERIFIED, nothing outstanding |
 | `prop:condrate` / `thm:a9` ⭐ | `CondRate.lean` (3 declarations): the detector steps. That `a_m = m' - 2m` never vanishes on squarefree `m > 1` (it would force `m ∣ m'` against `gcd(m',m) = 1`); that a nonzero square has Legendre symbol `1` at every prime not dividing it; and the resulting lower bound `∑_p (a ∣ p) ≥ \|P\| - #{p ∣ a}` that the second moment is built on. | the two analytic lemmas above |
 | `cor:a9rate` ⭐ | `SieveBalance.lean` (3 declarations): that `P = (log N)^{1/4}(log log N)^{1/2}` is the exact balance point of the diagonal and character terms, and is optimal — so the exponent `1/4` is the true optimum of this sieve, not an artefact. | `lem:swdirect` plus Halász |
 
