@@ -396,8 +396,7 @@ observation that the two square conditions are one, \texttt{regime\_one\_first} 
 \texttt{targets\_agree\_mod\_eight} is the mod--$8$ collapse of regime~\textup{(3)}. The lift from
 $\ell$ to $\ell^j$ that regime~\textup{(1)} needs is \texttt{square\_lifts\_to\_prime\_powers},
 proved from \texttt{hensel\_all\_powers}: if $\ell$ is an odd prime not dividing $c$ and $c$ is a
-square modulo $\ell$, it is a square modulo every power of $\ell$. Regime~\textup{(2)} carried a citation to Weil's
-bound in earlier revisions; it does not need one. Its two steps are
+square modulo $\ell$, it is a square modulo every power of $\ell$. Regime~\textup{(2)} needs no citation to Weil's bound. Its two steps are
 \texttt{Erdos307.pairlocal\_inner\_sum}, the evaluation of the inner sum of $S_{fg}$ as
 $-\chi\bigl((A\alpha+D)(B\alpha+D)\bigr)$ by the quadratic complete sum of
 Proposition~\ref{prop:localcomplete}, with its side condition discharged as $4D^2\alpha^2\ne0$; and
@@ -639,11 +638,7 @@ $\sigma(a)>t_{59}$, and Proposition~\ref{K-prop:levelbarrier} says the same veri
 one level up.
 
 \begin{remark}[The tail is not a Lehmer question]\label{rem:notlehmer}
-Remark~\ref{rem:lehmer} below reads the surviving question as the primality of a term $q_n$ of the
-\emph{exponential} Pell orbit, and Remark~\ref{B-rem:whatisleft} names that orbit as the only live
-branch. Proposition~\ref{K-prop:tailbound} withdraws the reading. The orbit is genuinely infinite and
-both square conditions do hold along all of it; what fails is that no term past $N$ can be prime.
-The single identity responsible is $A-B=4D$, which the earlier treatment used only to form the Pell
+Remark~\ref{B-rem:whatisleft} names the exponential Pell orbit of Remark~\ref{rem:lehmer} as the only live branch, and it is natural to read the surviving question as the primality of a term $q_n$ along it. That reading does not hold. The orbit is genuinely infinite and both square conditions do hold along all of it; what fails is that no term past $N$ can be prime, by Proposition~\ref{K-prop:tailbound}. The single identity responsible is $A-B=4D$, used elsewhere only to form the Pell
 system and never to factor $4Dq$.
 \begin{remark}[The threshold in largest--prime coordinates, and which sectors it leaves alive]\label{rem:sectorlive}
 Remark~\ref{rem:tier60} already writes a cycle as $a=qm$ with $q$ the largest prime; Bado
@@ -1529,8 +1524,7 @@ what is imported stays visible. The theorem's statement quantifies over arbitrar
 arbitrary $f_P:\mathbb{N}\to\iota\to\mathbb{R}$; no polynomial occurs anywhere in it.
 
 \begin{remark}[Positivity is a hypothesis, not a consequence]\label{rem:nopolyerratum}
-It is not enough to ask only that each polynomial take prime values for infinitely many integers $t$, without requiring the values to be positive on a common branch. As printed that statement is
-\emph{false}: take $P=(2,2,t,-t)$ and $Q=(2,2)$. Each member takes prime values for infinitely many
+It is not enough to ask only that each polynomial take prime values for infinitely many integers $t$, without requiring the values to be positive on a common branch. Without positivity the statement is \emph{false}: take $P=(2,2,t,-t)$ and $Q=(2,2)$. Each member takes prime values for infinitely many
 integers, and
 \[ \Bigl(\tfrac12+\tfrac12+\tfrac1t-\tfrac1t\Bigr)\Bigl(\tfrac12+\tfrac12\Bigr)=1 \]
 identically, with two nonconstant members present. The proof's step ``every term on the left is
