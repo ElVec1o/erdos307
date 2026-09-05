@@ -132,10 +132,23 @@ struct Shared { done: Vec<usize>, results: Vec<String>, surv: u64, ihits: u64 }
 
 fn checkpoint(sh: &Mutex<Shared>) {
     let g = sh.lock().unwrap();
+    // A checkpoint write must never take the run down with it. The first version unwrapped here,
+    // so a full disk poisoned the shared mutex and every worker died with it, discarding hours of
+    // completed work that was already safely on disk. On failure this reports and returns: the
+    // committed file is untouched, because the write goes to a temporary and is renamed only on
+    // success, and the next checkpoint can succeed once space is free.
     let w = |name: &str, lines: &[String]| {
         let tmp = format!("{}.tmp", name);
-        { let mut f = std::fs::File::create(&tmp).unwrap(); for l in lines { writeln!(f, "{}", l).unwrap(); } f.sync_all().unwrap(); }
-        std::fs::rename(&tmp, name).unwrap();
+        let attempt = (|| -> std::io::Result<()> {
+            let mut f = std::fs::File::create(&tmp)?;
+            for l in lines { writeln!(f, "{}", l)?; }
+            f.sync_all()?;
+            std::fs::rename(&tmp, name)
+        })();
+        if let Err(e) = attempt {
+            eprintln!("  WARNING: checkpoint to {} failed ({}); run continues, will retry", name, e);
+            let _ = std::fs::remove_file(&tmp);
+        }
     };
     w("done.txt", &g.done.iter().map(|d| d.to_string()).collect::<Vec<_>>());
     w("results.txt", &g.results);
