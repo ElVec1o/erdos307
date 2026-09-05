@@ -21,6 +21,20 @@ readme_comp=$(grep -o 'the companion ([0-9]* pp' README.md | grep -o '[0-9]*')
 chk "core page count" "$readme_core" "$core_pdf"
 chk "companion page count" "$readme_comp" "$comp_pdf"
 
+# The derived documents are generated from erdos307.tex by code/split_paper.py. A result added to
+# the source and not re-split is invisible to the page counts above, so the label sets are compared
+# directly: every numbered result in the monolith must appear in exactly one derived document.
+read split_drift < <(python3 -c "
+import re
+def labs(f):
+    return set(re.findall(r'\\\\label\{((?:thm|prop|lem|cor|rem):[^}]+)\}', open(f).read()))
+m = labs('paper/erdos307.tex')
+d = labs('paper/erdos307-core.tex') | labs('paper/erdos307-companion.tex')
+bad = sorted(m ^ d)
+print(','.join(bad) if bad else 'none')
+")
+chk "split label parity" "none" "$split_drift"
+
 read cov tot < <(python3 -c "
 import re, glob
 tex = open('paper/erdos307.tex').read()

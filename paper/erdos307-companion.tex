@@ -30,7 +30,7 @@
 \title{Companion to \emph{On the equation $n''=n$ and a problem of Erd\H{o}s and Barbeau}:\\ explorations, closures and the square sieve}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.74.0\quad 2 September 2026}
+\date{Version 1.75.0\quad 2 September 2026}
 
 \externaldocument[K-]{erdos307-core}
 \begin{document}
@@ -226,6 +226,52 @@ Jacobi kills and the $34$ immune families from scratch before deciding them.
 
 Primality of $A_S$ plays no role in the bound $x<A_S$, only in the ease of extracting the roots, so
 the argument is general.
+
+\begin{proposition}[The split sieve]\label{prop:splitsieve}
+Let $S$ be a finite set of primes, $D=\prod S$, and let $M$ be a finite set of primes disjoint from
+$S$. Suppose the pair $a=\prod(T\cup M)$, $b=\prod(S\setminus T)$ with $T\subseteq S$ is a
+derivative two--cycle. Then
+\[ \prod T\ \Bigm|\ \partial\bigl(\textstyle\prod(S\setminus T)\bigr),
+   \qquad
+   \Bigl(\textstyle\prod T\Bigr)^{2}\partial(\textstyle\prod M)
+   +\partial\bigl(\textstyle\prod T\bigr)\,\partial\bigl(\textstyle\prod(S\setminus T)\bigr)=D . \]
+The second identity carries no reference to the tail; the first is its reduction modulo $\prod T$,
+Theorem~\ref{K-thm:structure} removing the factor $\partial(\prod T)$, and is therefore a consequence
+of it rather than an additional hypothesis. Writing $\alpha=\prod T$ and $\beta=\prod(S\setminus T)$,
+the divisibility is by Lemma~\ref{lem:anatomy} the system of congruences
+$\sum_{p\in S\setminus T}p^{-1}\equiv0\pmod r$, one for each $r\in T$, so the expected number of
+surviving $T$ is $\prod_{p\in S}(1+1/p)$ out of $2^{|S|}$. Neither statement involves $A_S$, so the
+criterion applies to the families whose $A_S$ is composite, which
+Proposition~\ref{prop:immunedecide} cannot reach, and to the pair sector of
+Proposition~\ref{prop:sectors}(ii), where $|M|=2$ and $\partial(\prod M)=p+q$. Two consequences are
+recorded. Since $\partial(\alpha)\partial(\beta)>0$ for $T$ and $S\setminus T$ both nonempty, the
+identity forces $\alpha^{2}<D$. And for $X$ a set of odd primes $\partial(\prod X)\equiv|X|\pmod2$,
+so $2\in T$ forces $|T|$ odd. $0$ \texttt{sorry}
+\textup{(\texttt{Erdos307.split\_criterion\_gen}, \texttt{split\_snd\_gen},
+\texttt{split\_snd\_of\_criterion}, \texttt{csum\_odd\_card};
+\texttt{lean/Erdos307/SplitSieve.lean})}.
+\end{proposition}
+\begin{proof}
+Leibniz on the disjoint union gives $\partial(\prod(T\cup M))=\prod M\cdot\partial(\prod T)
++\prod T\cdot\partial(\prod M)$. The equation $\partial(b)=a$ reads
+$\partial(\beta)=\alpha\prod M$, which is the divisibility. The equation $\partial(a)=b$ reads
+$\beta=\prod M\cdot\partial(\alpha)+\alpha\,\partial(\prod M)$; multiplying by $\alpha$, replacing
+$\alpha\prod M$ by $\partial(\beta)$ and using $\alpha\beta=D$ gives the identity. For the converse
+direction of the first claim, reduce the identity modulo $\alpha$: both $\alpha^{2}\partial(\prod M)$
+and $D$ vanish, so $\alpha\mid\partial(\alpha)\partial(\beta)$, and
+$\gcd(\alpha,\partial(\alpha))=1$ by Theorem~\ref{K-thm:structure}.
+\end{proof}
+
+\begin{remark}[What the sieve decides]\label{rem:splitsieverun}
+The criterion was applied to every level--$60$ single--tail base surviving the certificate of
+Proposition~\ref{prop:tailkill}, $18{,}742$ of them, a superset of the $3{,}444$ open families, over
+all $T$ with $|T|\le6$: about $9\times10^{11}$ splits, no factorisation, and no two--cycle. The
+observed survivor count is $5.20$ per base against the predicted $5.17$
+\textup{(\texttt{code/split\_sieve.rs}, \texttt{code/gen\_bases.rs})}. The range $|T|\ge7$ is not
+decided. Its expected survivor count over $7\le|T|\le34$ is about $28$, and deciding it by
+enumeration costs at least $7\times10^{2}$ core--years, so the sieve reduces the level--$60$
+single--tail question without closing it.
+\end{remark}
 
 \begin{proposition}[Single--tail families are decided by factoring]\label{prop:lvl60factor}
 Let $S$ be a set of primes containing $2$, with $D_S=\prod S$ squarefree, and let $q$ be a prime
@@ -475,16 +521,31 @@ $\kappa_S=\prod_\ell(\text{local solubility density at }\ell)$ is exactly the re
 A reciprocity--killed base carries an inert $\ell\mid A_S$ with $(D_S\mid\ell)=-1$, so
 $N_S+2D_S\equiv D_S\pmod\ell$ is a non--residue for \emph{every} $q$, forcing $\kappa_S=0$; the
 family drops from the count entirely. An immune base ($A_S,B_S$ both prime, both residues) has no
-inert prime, so $\kappa_S>0$ and its summand is a divergent $\sum_q q^{-1}$ (verified on an explicit
-$114$--digit immune base: local density $1$ at every tested prime, partial sums growing without
-bound). Hence the campaign of Remark~\ref{rem:campaign} is a Selberg--sieve evaluation of the
-singular series: the kills remove ${\sim}93\%$ of the count's mass, and the residual
-$\log$--divergence (the entire ``weakly favours \textsc{yes}'' signal) is carried by the $34$
-conditionally immune families together with the pair sector. (Conditionally, because their immunity
-rests on the Baillie--PSW primality of $A_S,B_S$; the pair sector's contribution, by contrast, is
-unconditional, being a theorem, Proposition~\ref{prop:pairlocal}.) This does not touch the reliability of the
-count (which ignores the $N(r)\le1$ rigidity), but it pins down \emph{where} the heuristic's
-\textsc{yes} lives.
+inert prime, so $\kappa_S>0$ and, treating $q$ as ranging freely with density $1/q$, the summand
+\emph{looks} like a divergent $\sum_q q^{-1}$ (verified on an explicit $114$--digit immune base: local
+density $1$ at every tested prime, partial sums growing without bound). That model overstates the
+space: Proposition~\ref{K-prop:tailbound} bounds $q$ itself, so the true sum is finite, and
+Proposition~\ref{prop:lvl60factor} identifies it exactly with the roots of $D_S$ modulo $A_S$, of which
+there are only two once $A_S$ is prime. The immune part of the divergence was therefore never genuine,
+only an artifact of summing a local density over an unbounded range that
+Proposition~\ref{K-prop:tailbound} had already closed; the kills remove ${\sim}93\%$ of the count's mass,
+and Proposition~\ref{prop:immunedecide} removes the rest of the $34$ conditionally immune families'
+contribution unconditionally, both candidate values of $q$ failing outright. What
+Remark~\ref{rem:killcount} originally located as the entire ``weakly favours \textsc{yes}'' signal at
+level $60$ is now zero there. What remains is the pair sector, and there the picture does not simplify
+the same way: the object Proposition~\ref{prop:pairlocal} proves permanently immune to any finite
+congruence condition is the one with \emph{both} new tail primes free, which the campaign never
+enumerates as such --- fixing one of the two, as Remark~\ref{rem:campaign} does to get a finite, countable
+search, buys the congruence weapon back for the resulting $18{,}234{,}653$ bases, and their $83.5\%$
+elimination is a plain factoring--budget shortfall, the same story as the single--tail sector's, not an
+instance of Proposition~\ref{prop:pairlocal}'s theorem. Proposition~\ref{prop:lvl60factor} applies to
+that computed population exactly as it does to the single--tail residual (its proof addresses the
+$\sigma\le2$ case via Corollary~\ref{K-cor:maxbound}), so the residual open question there is, again, the
+single task of factoring a $\sim\!114$--digit integer per family. Proposition~\ref{prop:pairlocal}'s
+genuinely uncomputed object is a separate matter: it is why the campaign stops at fixing one tail prime
+rather than a limitation discovered by trying and failing to go further. This does not touch the
+reliability of the count (which ignores the $N(r)\le1$ rigidity), but it retires the level--$60$
+half of what it once pinned down as the heuristic's \textsc{yes}.
 \end{remark}
 
 \begin{proposition}[Local completeness of the reciprocity sieve]\label{prop:localcomplete}
