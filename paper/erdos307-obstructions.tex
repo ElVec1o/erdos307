@@ -1377,6 +1377,27 @@ defect at $10^{-3}$; choosing $Q$ freely drives the mass defect to $10^{-9}$ and
 of magnitude in size. \#307 is the demand that both columns read zero simultaneously, and nothing in
 this paper moves them together.
 
+\emph{The conditional shape of the near--miss law.} Proposition~\ref{prop:nearmiss} records the
+maximum of $r(a)=\sigma(a)\sigma(a')$ by decade. The conditional maximum, given the value of
+$\sigma(a)$, is more informative, because it is where the two--sided obstruction becomes visible.
+Over the squarefree $a\le8\times10^{6}$ with $a'$ squarefree and $\sigma(a)\in[0.90,1.12]$, the
+largest $\sigma(a')$ in each bucket of width $0.01$ decreases through the critical region, from
+$0.5481$ at $\sigma(a)=0.90$ to $0.3110$ at $\sigma(a)=1.12$, and equals $0.4436$ at
+$\sigma(a)=1.00$, where a solution requires $1$. Quadrupling the range from $2\times10^{6}$ leaves
+the bucket maxima at $\sigma(a)=1.00$ and $1.05$ unchanged, at $0.4436$ and $0.3786$, and moves the
+window maximum of $r$ only from $0.5016$ to $0.4955$, attained at $a=5{,}767{,}190$
+\textup{(\texttt{code/twoside\_conditional.rs})}.
+
+The mechanism is the barrier seen from the other side. A mass $\sigma(a)$ near $1$ requires $a$ to
+carry the small primes; $\gcd(a,a')=1$ then denies them to $a'$, whose primes are larger and whose
+mass is correspondingly smaller. This is why the primary pseudoperfect numbers, which satisfy the
+one--sided equation with $|\sigma(n)-1|=1/n$ and so refute any one--sided route to an absolute
+constant, never come near a cycle: for them $a'=a-1$ is prime or nearly prime and $\sigma(a')$
+collapses, at $a=47{,}058$ to about $2\times10^{-5}$. The suppression is not special to that family
+but holds across the window. The label is \textup{HEURISTIC}: by Proposition~\ref{prop:nearmiss} the
+region $r\in(0.998740,\infty)$ lies above the barrier, so no sweep tests the claim where it would
+matter, and the measurement bounds nothing.
+
 \begin{remark}[What the calibrated heuristic says, and it is not encouraging]\label{rem:calibrated}
 With $\mathbb{E}(X)\sim f(1)\,\delta\log X$ and $\delta=0.3721$, Proposition~\ref{prop:f1} gives an
 expected number of two-cycles below the proved barrier of about $10^{-88}$, and $\mathbb{E}(X)$ does

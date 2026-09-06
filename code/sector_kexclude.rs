@@ -81,15 +81,15 @@ fn leaf_test(ctx: &Ctx, s: &[u64], sigma: DD, tag: &str) {
         writeln!(f, "{} S={:?} l={} l_prime_if_u64={:?}", tag, s, l.to_string(), prime_by_trial_mod(&l)).unwrap();
     }
 }
-fn dfs(ctx: &Ctx, i: usize, need: usize, mass: f64, sig: DD, s: &mut Vec<u64>, lo: f64, hi: f64, n: usize, phase2: bool) {
-    if need == 0 { ctx.leaves.fetch_add(1, Ordering::Relaxed); if mass >= lo - 1e-9 && mass < hi + 1e-9 { ctx.in_window.fetch_add(1, Ordering::Relaxed); if phase2 { phase2_leaf(ctx, s, sig) } else { leaf_test(ctx, s, sig, "P1") } } return; }
+fn dfs(ctx: &Ctx, i: usize, need: usize, mass: f64, sig: DD, s: &mut Vec<u64>, lo: f64, hi: f64, n: usize, phase2: u32, lv: &mut u64, iw: &mut u64) {
+    if need == 0 { *lv += 1; if mass >= lo - 1e-9 && mass < hi + 1e-9 { *iw += 1; match phase2 { 1 => phase2_leaf(ctx, s, sig), 2 => phase3_leaf(ctx, s, sig), _ => leaf_test(ctx, s, sig, "P1") } } return; }
     if i + need > n { return; }
     let maxm = mass + ctx.pre_max[i][need]; let minm = mass + ctx.suf_min[i][need];
     if maxm < lo - 1e-9 || minm >= hi + 1e-9 { return; }
     let p = ctx.allowed[i]; s.push(p);
-    dfs(ctx, i + 1, need - 1, mass + ctx.invf[i], dd_add(sig, ctx.inv[i]), s, lo, hi, n, phase2);
+    dfs(ctx, i + 1, need - 1, mass + ctx.invf[i], dd_add(sig, ctx.inv[i]), s, lo, hi, n, phase2, lv, iw);
     s.pop();
-    dfs(ctx, i + 1, need, mass, sig, s, lo, hi, n, phase2);
+    dfs(ctx, i + 1, need, mass, sig, s, lo, hi, n, phase2, lv, iw);
 }
 fn phase2_leaf(ctx: &Ctx, s: &mut Vec<u64>, sig: DD) {
     let allowed_max = ctx.a_max;
@@ -110,6 +110,43 @@ fn phase2_leaf(ctx: &Ctx, s: &mut Vec<u64>, sig: DD) {
         // No sign test here: a true l_1 may be so large that delta - 1/l_2 is below double-double resolution.
         // leaf_test routes any delta.hi <= 1e-11 (including <= 0) to the exact integer test, which rejects Delta <= 0.
         s.push(l2); leaf_test(ctx, s, dd_add(sig, dd_recip(l2)), "P2"); s.pop(); }
+}
+fn phase3_leaf(ctx: &Ctx, s: &mut Vec<u64>, sig: DD) {
+    // Three primes lie beyond the truncation.  Order them l_3 <= l_2 <= l_1; the first two are
+    // enumerated here and the last is forced by the sector identity in leaf_test, exactly as phase 2
+    // enumerates one and forces one.  From 1/l_3 + 1/l_2 + 1/l_1 = delta with l_3 smallest:
+    // 1/l_3 >= delta/3 and 1/l_3 < delta, so 1/delta < l_3 <= 3/delta; then with
+    // delta_2 = delta - 1/l_3 shared between two primes, 1/delta_2 < l_2 <= 2/delta_2.
+    const RANGE_CAP: u64 = 200_000_000; // beyond this a single leaf cannot be enumerated; report it
+    let allowed_max = ctx.a_max;
+    let delta = dd_add(ctx.t, dd_neg(sig));
+    if delta.hi <= 1e-11 {
+        let mut r = Big::from_u64(1); let mut rp = Big::from_u64(0); for &p in s.iter() { rp = rp.mul_small(p).add(&r); r = r.mul_small(p); }
+        let pos = r.mul_small(ctx.d).cmp(&rp.mul_small(ctx.dp)) == std::cmp::Ordering::Greater;
+        let mut f = ctx.results.lock().unwrap(); writeln!(f, "P3-TINY-DELTA S={:?} delta.hi={:e} Delta_positive={} {}", s, delta.hi, pos, if pos { "UNRESOLVED" } else { "infeasible" }).unwrap();
+        if pos { ctx.found.fetch_add(1, Ordering::Relaxed); } return; }
+    let bits = delta.hi.to_bits(); ctx.min_delta.fetch_min(bits, Ordering::Relaxed);
+    let lo3 = ((1.0 / delta.hi).floor() as u64).max(allowed_max + 1);
+    let hi3 = (3.0 / delta.hi).floor() as u64 + 2;
+    ctx.max_hi2.fetch_max(hi3, Ordering::Relaxed);
+    if hi3.saturating_sub(lo3) > RANGE_CAP {
+        let mut f = ctx.results.lock().unwrap();
+        writeln!(f, "P3-RANGE S={:?} l3 in ({},{}] too wide UNRESOLVED", s, lo3, hi3).unwrap();
+        ctx.found.fetch_add(1, Ordering::Relaxed); return; }
+    for l3 in lo3..=hi3 { if !is_prime(l3) { continue; }
+        let d2 = dd_add(delta, dd_neg(dd_recip(l3)));
+        if d2.hi <= 1e-11 { // the remaining two primes carry almost nothing; hand to the exact test
+            s.push(l3); leaf_test(ctx, s, dd_add(sig, dd_recip(l3)), "P3"); s.pop(); continue; }
+        let lo2 = ((1.0 / d2.hi).floor() as u64).max(l3);
+        let hi2 = (2.0 / d2.hi).floor() as u64 + 2;
+        if hi2.saturating_sub(lo2) > RANGE_CAP {
+            let mut f = ctx.results.lock().unwrap();
+            writeln!(f, "P3-RANGE2 S={:?} l3={} l2 in ({},{}] too wide UNRESOLVED", s, l3, lo2, hi2).unwrap();
+            ctx.found.fetch_add(1, Ordering::Relaxed); continue; }
+        s.push(l3);
+        for l2 in lo2..=hi2 { if !is_prime(l2) { continue; }
+            s.push(l2); leaf_test(ctx, s, dd_add(dd_add(sig, dd_recip(l3)), dd_recip(l2)), "P3"); s.pop(); }
+        s.pop(); }
 }
 fn main() {
     let args: Vec<String> = std::env::args().collect();
@@ -142,7 +179,12 @@ fn main() {
     for i in 0..n { let mut rem: Vec<f64> = invf[i..].to_vec(); rem.sort_by(|a, b| b.partial_cmp(a).unwrap());
         for c in 1..kmax { if c <= rem.len() { pre_max[i][c] = rem[..c].iter().sum(); suf_min[i][c] = rem[rem.len() - c..].iter().sum(); } else { pre_max[i][c] = f64::INFINITY; suf_min[i][c] = f64::INFINITY; } } }
     let t = dd_ratio(d as f64, dp as f64);
-    let (k, lo, hi, phase2) = if phase == 1 { (kk - 1, t.hi - 1.0 / a_kk as f64, t.hi, false) } else { (kk - 2, t.hi - 2.0 / a_next as f64, t.hi, true) };
+    let (k, lo, hi, phase2) = match phase {
+        1 => (kk - 1, t.hi - 1.0 / a_kk as f64, t.hi, 0u32),
+        2 => (kk - 2, t.hi - 2.0 / a_next as f64, t.hi, 1u32),
+        3 => (kk - 3, t.hi - 3.0 / a_next as f64, t.hi, 2u32),
+        _ => panic!("phase must be 1, 2 or 3"),
+    };
     let fname = format!("k64_phase{}_results.txt", phase); let ckname = format!("k64_phase{}_done.txt", phase);
     let done: std::collections::HashSet<usize> = std::fs::read_to_string(&ckname).unwrap_or_default().lines().filter_map(|l| l.parse().ok()).collect();
     let mut d2 = Big::from_u64(d); d2 = d2.mul_small(d);
@@ -152,15 +194,34 @@ fn main() {
     let items = 1usize << d_dyn; let done_ct = AtomicUsize::new(0); let next = AtomicUsize::new(0); let ck = Mutex::new(std::fs::OpenOptions::new().create(true).append(true).open(&ckname).unwrap());
     let t0 = std::time::Instant::now();
     std::thread::scope(|sc| {
-        for _ in 0..nthreads { sc.spawn(|| { let mut s = Vec::with_capacity(64); loop {
+        for _ in 0..nthreads { sc.spawn(|| { let mut s = Vec::with_capacity(64); let mut ckbuf: Vec<usize> = Vec::with_capacity(256); let mut lv = 0u64; let mut iw = 0u64; loop {
             let it = next.fetch_add(1, Ordering::Relaxed); if it >= items { break; } if done.contains(&it) { continue; }
             s.clear(); let mut mass = 0.0; let mut sig = DD { hi: 0.0, lo: 0.0 };
             for j in 0..d_dyn { if it >> j & 1 == 1 { s.push(ctx.allowed[j]); mass += ctx.invf[j]; sig = dd_add(sig, ctx.inv[j]); } }
-            if s.len() <= k { dfs(&ctx, d_dyn, k - s.len(), mass, sig, &mut s, lo, hi, n, phase2); }
-            writeln!(ck.lock().unwrap(), "{}", it).unwrap(); let dc = done_ct.fetch_add(1, Ordering::Relaxed) + 1;
+            if s.len() <= k { dfs(&ctx, d_dyn, k - s.len(), mass, sig, &mut s, lo, hi, n, phase2, &mut lv, &mut iw); }
+            // Checkpoint lines are buffered per thread and flushed in batches.  Taking the lock once
+            // per item throttled the whole run at large split depths, where most items are pruned
+            // immediately: nine threads spent their time contending on this mutex rather than in the
+            // search (~320% CPU of a possible 900%).  A crash now costs at most CKBATCH redone items
+            // per thread, which is harmless because resuming an item is idempotent.
+            const CKBATCH: usize = 256;
+            ckbuf.push(it);
+            if ckbuf.len() >= CKBATCH {
+                let mut f = ck.lock().unwrap();
+                for &i in &ckbuf { writeln!(f, "{}", i).unwrap(); }
+                drop(f); ckbuf.clear();
+                // Counters are batched with the checkpoint: a per-leaf atomic on 1e12 leaves saturates
+                // at ~31M ops/s across nine threads and was the binding constraint on the whole search.
+                ctx.leaves.fetch_add(lv, Ordering::Relaxed); lv = 0; ctx.in_window.fetch_add(iw, Ordering::Relaxed); iw = 0;
+            }
+            let dc = done_ct.fetch_add(1, Ordering::Relaxed) + 1;
             if dc % 512 == 0 { let el = t0.elapsed().as_secs_f64(); eprintln!("  done {}/{}  leaves {:.3e}  exact {}  found {}  {:.0}s  ETA {:.0}s", dc, items - done.len(), ctx.leaves.load(Ordering::Relaxed) as f64, ctx.exact.load(Ordering::Relaxed), ctx.found.load(Ordering::Relaxed), el, el * (items - done.len() - dc) as f64 / dc as f64); }
-        } }); }
+        }
+        // flush this thread's tail before exiting, or resume would redo those items
+        if !ckbuf.is_empty() { let mut f = ck.lock().unwrap(); for &i in &ckbuf { writeln!(f, "{}", i).unwrap(); } }
+        ctx.leaves.fetch_add(lv, Ordering::Relaxed); ctx.in_window.fetch_add(iw, Ordering::Relaxed);
+        }); }
     });
-    if phase == 2 { println!("phase 2: min delta over window sets = {:e}   max l_2 upper bound = {}", f64::from_bits(ctx.min_delta.load(Ordering::Relaxed)), ctx.max_hi2.load(Ordering::Relaxed)); }
+    if phase >= 2 { println!("phase {}: min delta over window sets = {:e}   max l_2 upper bound = {}", phase, f64::from_bits(ctx.min_delta.load(Ordering::Relaxed)), ctx.max_hi2.load(Ordering::Relaxed)); }
     println!("phase {} complete: leaves {}  in_window {}  exact_checks {}  integer_forced_primes_found_or_unresolved {}  ({:.0}s)", phase, ctx.leaves.load(Ordering::Relaxed), ctx.in_window.load(Ordering::Relaxed), ctx.exact.load(Ordering::Relaxed), ctx.found.load(Ordering::Relaxed), t0.elapsed().as_secs_f64());
 }
