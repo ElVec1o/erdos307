@@ -5,7 +5,7 @@ standalone. All *verdicts* use exact integer/rational arithmetic; floating point
 pre-screening, and where a float appears in a printed constant the exact form is given beside it.
 Runtimes are approximate (a laptop).
 
-This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 269 tracked files in total;
+This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 271 tracked files in total;
 the remainder are supporting Rust and GP sources reachable from those, or superseded working
 scripts, and are not individually documented here.
 
@@ -76,6 +76,8 @@ danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
 | `port_dfs2.gp` | Same with defect cap `20 sqrt(A)`, the scale the N_10 prefix defects follow. Stalled: the tree grows about twentyfold per level. Kept as the record of that failure. |
 | `port_dfs3.gp` | Width-capped version: at most 20 primes per node, completion only when the defect is at most `10^6`, depth 11. Output in `runs/port_dfs3/`. |
 | `nearmiss_cycle.gp` | For 289 near-miss sets `A` (even, squarefree, `sigma(A) < 1`, below `10^40`) tests whether `b = A'` can be the other half of a two-cycle. In every case `b` is non-squarefree (34) or `b' < A` (255); none reach `A` (`data/port313/nearmiss.txt`). Seconds. |
+| `weighted_cycles.gp` | Two-cycles of the weighted derivative `D_w(n) = sum w_p n/p`, `w_p in {1,2}`, squarefree `a <= 2e5`, as test data for divisibility relations between `a` and `b`. One cycle: `(130910, 154209)`. Output `data/twisted/weighted_cycles.txt`. |
+| `weighted_cycles_signed.gp` | Same with `w_p in {-2,-1,1,2}`, `a <= 1e5`: no cycles. |
 | `sector_at60.gp` | The sectors whose mass floor is exactly `\|P∪Q\| = 60`, with run parameters. | `250` at primes `≤ 47`/`ω ≤ 8`, all phase-1 decidable. | ~4 min |
 | `sector_at60_list.rs` | Emits the at-60 sectors with run parameters at any prime and `ω` cap; the `47`/`8` family is a proper subset of the `59`/`10` one. | `250` and `1,533`; sweep clears all `1,533`, `0` survivors. | ~2 min + ~40 min sweep |
 | `sector_floorlist.rs` | Emits sectors of a prescribed mass floor, with run parameters; used for the out-of-sample test of `conj:floorgap`. | target `60` at `47`/`8` gives `250` (regression); floors `61`–`68` give `271,132,168,120,140,118,123,86`. | ~1 min |
