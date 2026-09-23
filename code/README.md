@@ -5,7 +5,7 @@ standalone. All *verdicts* use exact integer/rational arithmetic; floating point
 pre-screening, and where a float appears in a printed constant the exact form is given beside it.
 Runtimes are approximate (a laptop).
 
-This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 265 tracked files in total;
+This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 269 tracked files in total;
 the remainder are supporting Rust and GP sources reachable from those, or superseded working
 scripts, and are not individually documented here.
 
@@ -72,6 +72,10 @@ danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
 | `twoside_conditional.rs` | The conditional near-miss law: for squarefree `a` with `a'` squarefree, the maximum of `sigma(a')` given `sigma(a)`, bucketed. Shows `sigma(a')` suppressed through the critical region, `0.5481` at `sigma(a)=0.90` down to `0.3110` at `1.12`, and `0.4436` at `1.00` where a solution needs `1`. Window maximum of `r = sigma(a)sigma(a')` is `0.4955` at `a = 5,767,190`, stable under a fourfold increase in range. 1 s at `N = 8e6`. |
 | `ppn_inherit.py` | One- and two-prime inheritance for primary pseudoperfect numbers (Erdos #313), following Wang arXiv:2605.21518 Cor. 5.2 and 5.3. Both criteria are equivalences, so a complete factorisation of `K^2+1` decides the two-prime case outright rather than searching it. Recovers 42, 1806 and the eight-factor `2214502422 x 2217342227 x 1729101023519` from smaller PPNs, and returns empty at the frontier: `N_10 + 1` is composite and `N_10^2 + 1 = 21807157 x 480382349 x P_60` yields no admissible pair, so `N_10` extends by neither one nor two primes. Seconds. |
 | `pratt_n10.gp` | Pratt certificate data for `lean/Erdos307/PrattN10.lean`: each prime at least `10^9` needed by `prop:ppninherit` (the sixty-digit factor of `N_10^2 + 1` and `N_9 + 1`), bottom-up, with a Lucas witness and the full factorisation of `p - 1`. Leaves below `10^9` are left to `norm_num`. |
+| `port_dfs.gp` | Defect-tree search for primary pseudoperfect numbers from arbitrary prime prefixes: append primes keeping the defect `A - A'` at most 2000, and at each node solve the two-prime completion `(a q1 - A)(a q2 - A) = A^2 + a` by factoring. Complete run recovers exactly the eight PPNs with at most eight factors, nothing new (`data/port313/port_dfs_hits.txt`). Minutes. |
+| `port_dfs2.gp` | Same with defect cap `20 sqrt(A)`, the scale the N_10 prefix defects follow. Stalled: the tree grows about twentyfold per level. Kept as the record of that failure. |
+| `port_dfs3.gp` | Width-capped version: at most 20 primes per node, completion only when the defect is at most `10^6`, depth 11. Output in `runs/port_dfs3/`. |
+| `nearmiss_cycle.gp` | For 289 near-miss sets `A` (even, squarefree, `sigma(A) < 1`, below `10^40`) tests whether `b = A'` can be the other half of a two-cycle. In every case `b` is non-squarefree (34) or `b' < A` (255); none reach `A` (`data/port313/nearmiss.txt`). Seconds. |
 | `sector_at60.gp` | The sectors whose mass floor is exactly `\|P∪Q\| = 60`, with run parameters. | `250` at primes `≤ 47`/`ω ≤ 8`, all phase-1 decidable. | ~4 min |
 | `sector_at60_list.rs` | Emits the at-60 sectors with run parameters at any prime and `ω` cap; the `47`/`8` family is a proper subset of the `59`/`10` one. | `250` and `1,533`; sweep clears all `1,533`, `0` survivors. | ~2 min + ~40 min sweep |
 | `sector_floorlist.rs` | Emits sectors of a prescribed mass floor, with run parameters; used for the out-of-sample test of `conj:floorgap`. | target `60` at `47`/`8` gives `250` (regression); floors `61`–`68` give `271,132,168,120,140,118,123,86`. | ~1 min |
