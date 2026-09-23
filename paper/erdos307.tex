@@ -1055,10 +1055,11 @@ $\gcd(\alpha,\partial(\alpha))=1$ by Theorem~\ref{thm:structure}.
 Proposition~\ref{prop:tailkill}, $18{,}742$ of them, a superset of the $3{,}444$ open families, over
 all $T$ with $|T|\le6$: about $9\times10^{11}$ splits, no factorisation, and no two--cycle. The
 observed survivor count is $5.20$ per base against the predicted $5.17$
-\textup{(\texttt{code/split\_sieve.rs}, \texttt{code/gen\_bases.rs})}. The range $|T|\ge7$ is not
-decided. Its expected survivor count over $7\le|T|\le34$ is about $28$, and deciding it by
-enumeration costs at least $7\times10^{2}$ core--years, so the sieve reduces the level--$60$
-single--tail question without closing it.
+\textup{(\texttt{code/split\_sieve.rs}, \texttt{code/gen\_bases.rs})}. On the $7{,}713$ bases that also
+survive trial division to $10^{6}$, the pass was extended to $|T|\le8$: $2.0\times10^{13}$ splits,
+with $37$ survivors at $|T|=7$, none at $|T|=8$, and again no two--cycle. The range
+$9\le|T|\le34$ is not decided, since $\alpha^{2}<D$ bounds $|T|$ by $34$, so the sieve reduces the
+level--$60$ single--tail question without closing it.
 
 
 \begin{proposition}[Single--tail families are decided by factoring]\label{prop:lvl60factor}
