@@ -5,7 +5,7 @@ standalone. All *verdicts* use exact integer/rational arithmetic; floating point
 pre-screening, and where a float appears in a printed constant the exact form is given beside it.
 Runtimes are approximate (a laptop).
 
-This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 276 tracked files in total;
+This table documents the scripts the paper cites by name. `code/` (including the `hunt/` subdirectory, moved there from the repository root so that the layout matches the canonical one) holds 277 tracked files in total;
 the remainder are supporting Rust and GP sources reachable from those, or superseded working
 scripts, and are not individually documented here.
 
@@ -98,6 +98,7 @@ danger-window maxima `0.548`, `0.484` of the near-miss and Lyapunov sections.
 | `pairsector_factor.rs` | Trial-division stage over the pair-sector survivors: an odd-multiplicity `ℓ \| A` or `B` with `(D\|ℓ) = −1`. | to `10^6`: `4,580,243` of `7,777,504` killed; `3,197,261` open. | ~10 min |
 | `pairsector_basefreq.rs` | Per-prime frequency over all pair-sector bases (the null), to test the survivor profile against. | `18,234,653` bases; profile monotonic in `p`. | ~1 min |
 | `pairsector_verify.rs` | Integrity check on a survivor file: duplicate-free subset of its input, so a resume overlap can never drop an unkilled family. | rho output `3,013,379` open, clean subset of `3,197,261`. | ~10 s |
+| `pairsector_close.rs` | `prop:pairclosed`: every pair-sector base `R` (exact `u128` interval arithmetic on `T(R)`, 0 ambiguous) and every odd tail `m` in `(max R, 1/(2 - T(R)))` against `(m\|p) = ((D/p)\|p)` at the 58 odd `p` in `R`. `18,234,653` bases, `2,143,165,628` pairs, `0` survivors; `control` mode: `R0` tails, planted `m0` recovered, `{2,3,5}` known answer, toy negative control. | ~4 CPU-min |
 | `immune_decide.gp` | Decides the `34` level-60 immune families outright (`prop:immunedecide`): `A_S` prime gives two candidate tail primes by Tonelli–Shanks. Self-contained. | all `34` EMPTY [P]. | ~20 min |
 | `lvl60check.gp` | Verifies every arithmetic claim of `prop:lvl60factor` over all `49,961` admissible level-60 bases, enumerated from scratch. | `A` odd, `gcd(A,D)=1`, `114` digits, `sigma` in `(2, 2.00235]`, `max x/A = 0.569815 < 1`. | ~6 min |
 | `batchgcd.gp` | Bernstein batch GCD over the hard cofactors of `A_S` across the level-60 residual: do any two share a factor? | `2` of `6,972`, both 7-digit. The residual is pairwise coprime at the wall. | ~7 min |

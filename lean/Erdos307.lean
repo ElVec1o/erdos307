@@ -65,3 +65,4 @@ import Erdos307.SplitSieve
 import Erdos307.Pratt
 import Erdos307.PrattN10
 import Erdos307.PPNInherit
+import Erdos307.PairClosed

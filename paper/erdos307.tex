@@ -1109,11 +1109,8 @@ A $114$--digit general number field sieve is routine, costing core--days apiece 
 $3.2\times10^7$ core--years the divisor search of Proposition~\ref{prop:tailbound} would demand, a
 reduction by six orders of magnitude. It should be said plainly that this does not by itself deliver
 $|P\cup Q|\ge61$. The single--tail sector is only one of the two cases of
-Proposition~\ref{prop:sectors}, and the pair sector contributes a further $3{,}013{,}379$ surviving
-bases, each an arity--one tail family to which Proposition~\ref{prop:lvl60factor} applies equally.
-Factoring those as well is a computation some three orders of magnitude larger, tens of thousands of
-core--years, which is beyond what has been carried out here and is quoted as the honest price, not
-as a claim of feasibility. What has changed is the character of the obstruction: level $60$ is no
+Proposition~\ref{prop:sectors}; the other, the pair sector, is empty by Proposition~\ref{prop:pairclosed}, without
+factoring. What has changed is the character of the obstruction: level $60$ is no
 longer exponential in $|S|$, but linear in the number of families, each at the cost of one
 factorisation.
 
@@ -1161,8 +1158,8 @@ code in campaign mode reproduces the $49{,}961$, $31{,}219$ and $18{,}742$ of th
 exactly)}. A Pollard rho pass with a budget of $5\times10^4$ iterations per base then kills a further
 $183{,}882$, leaving $3{,}013{,}379$ open ($83.5\%$ of the sector eliminated); the marginal return has
 fallen to $5.7\%$, which is what one expects once the small factors are gone and what remains is a
-balanced semiprime. The pair sector is therefore not a barrier of a different kind from the one--new--prime
-families: it is the same computation at $365$ times the scale, and it responds to the same weapon.
+balanced semiprime. None of this is needed: in the pair sector the tail is bounded by $1/(2-T(R))$, and
+Proposition~\ref{prop:pairclosed} decides every base by testing its tails individually.
 \end{remark}
 
 \begin{proposition}[The pair sector admits no congruence kill]\label{prop:pairlocal}
@@ -1232,6 +1229,31 @@ layer were verified computationally on three bases and every $\ell\le600$
 (\texttt{code/pairlocal.py}; the measured density of admissible $(x,y)$ in regime~(2) is
 $0.497$--$0.503$ against the predicted $\tfrac12$).
 \end{proof}
+
+\begin{proposition}[The pair sector of level $60$ is empty]\label{prop:pairclosed}
+No $60$--element support in the pair sector of Proposition~\ref{prop:sectors} carries a two--cycle.
+\end{proposition}
+\begin{proof}
+Write the support as $U=R\cup\{m\}$ with $m=\max U$ and $D=\prod R$, and let $N=ab=Dm$ with $a'=b$, $b'=a$, where $a,b$
+are coprime and squarefree (Theorem~\ref{thm:structure}). By Proposition~\ref{prop:sectors}\textup{(ii)},
+$T(R)<2<T(R)+1/m$, that is
+\[ \max R<m<\frac{1}{2-T(R)}. \]
+Now $N'=a'b+ab'=a^2+b^2$. Let $p\in R$ be odd. It divides exactly one of $a,b$, so $N'$ is a nonzero square modulo $p$.
+Since $p\mid D$ and $p\nmid m$, $N'=D'm+D\equiv(D/p)\,m\pmod p$, hence
+\[ \Bigl(\frac{m}{p}\Bigr)=\Bigl(\frac{D/p}{p}\Bigr). \]
+Every base contains $2$, since $59$ odd primes have reciprocal sum below $1.51$, so these are $58$ conditions. For none
+of the $18{,}234{,}653$ bases $R$ of Remark~\ref{rem:campaign} does an odd $m$ in the displayed range satisfy all $58$:
+the ranges are short, $1/(2-T(R))<1.14\times10^{8}$, and the $2{,}143{,}165{,}628$ pairs $(R,m)$ are checked by table
+lookup with no survivor.
+\end{proof}
+
+The check is \texttt{code/pairsector\_close.rs} (one thread, about four CPU--minutes). It decides sector membership and
+the range of $m$ in exact integer arithmetic, with $0$ ambiguous cases, recovers a planted tail and the count
+$18{,}234{,}653$, and agrees with an independent implementation on every count. The algebraic core is formalised
+(\texttt{Erdos307.pair\_squares}, \texttt{pair\_tail\_bound}, \texttt{pair\_char\_square}, \texttt{pair\_legendre};
+\texttt{lean/Erdos307/PairClosed.lean}). Proposition~\ref{prop:pairlocal} is not contradicted: it concerns the family
+with both new primes free, and here the sector's own mass condition bounds the one tail that remains. Level $60$ is
+thereby reduced to the $3{,}444$ open single--tail families.
 
 \begin{remark}[Anatomy of the certificate; the empirical $5/8$ law]\label{rem:fiveeighths}
 Writing $D=2D_1$, the reciprocity signs in the certificate cancel
@@ -1320,19 +1342,8 @@ Proposition~\ref{prop:tailbound} had already closed; the kills remove ${\sim}93\
 and Proposition~\ref{prop:immunedecide} removes the rest of the $34$ conditionally immune families'
 contribution unconditionally, both candidate values of $q$ failing outright. What
 Remark~\ref{rem:killcount} originally located as the entire ``weakly favours \textsc{yes}'' signal at
-level $60$ is now zero there. What remains is the pair sector, and there the picture does not simplify
-the same way: the object Proposition~\ref{prop:pairlocal} proves permanently immune to any finite
-congruence condition is the one with \emph{both} new tail primes free, which the campaign never
-enumerates as such, fixing one of the two, as Remark~\ref{rem:campaign} does to get a finite, countable
-search, buys the congruence weapon back for the resulting $18{,}234{,}653$ bases, and their $83.5\%$
-elimination is a plain factoring--budget shortfall, the same story as the single--tail sector's, not an
-instance of Proposition~\ref{prop:pairlocal}'s theorem. Proposition~\ref{prop:lvl60factor} applies to
-that computed population exactly as it does to the single--tail residual (its proof addresses the
-$\sigma\le2$ case via Corollary~\ref{cor:maxbound}), so the residual open question there is, again, the
-single task of factoring a $\sim\!114$--digit integer per family. Proposition~\ref{prop:pairlocal}'s
-genuinely uncomputed object is a separate matter: it is why the campaign stops at fixing one tail prime
-rather than a limitation discovered by trying and failing to go further. This does not touch the
-reliability of the count (which ignores the $N(r)\le1$ rigidity), but it retires the level--$60$
+level $60$ is now zero there, and the pair sector is empty by Proposition~\ref{prop:pairclosed}. This does not touch
+the reliability of the count (which ignores the $N(r)\le1$ rigidity), but it retires the level--$60$
 half of what it once pinned down as the heuristic's \textsc{yes}.
 \end{remark}
 
@@ -3609,12 +3620,9 @@ function--field theorem localising the obstruction to the archimedean place. The
 \textsc{yes}, and the model behind them survives a second--moment test
 (Proposition~\ref{prop:anticorr}); we claim no proof in either direction.
 
-Open problems: (i) close the residual $3{,}478$ single--tail families at level $60$, and close the
-pair sector of Proposition~\ref{prop:sectors}. What this buys should be read with
-Proposition~\ref{prop:nottree}: the admissible supports do not form a tree under adjunction, so
-completing every one--new--prime family at level $60$ would still not close level $60$; for which Proposition~\ref{prop:pairlocal} rules
-out every congruence kill, so only global, per--family input (factorisation or direct search) can
-serve (the canonical tail family
+Open problems: (i) close the residual $3{,}444$ single--tail families at level $60$; the pair sector of
+Proposition~\ref{prop:sectors} is empty (Proposition~\ref{prop:pairclosed}), so these families are all that stands
+between the barrier and $|P\cup Q|\ge61$ (the canonical tail family
 is closed, Proposition~\ref{prop:tailkill}; the finite verification of
 Proposition~\ref{prop:close59} is Lean--checked, \texttt{erdos307\_sixty}; the conditional $3/4$
 law is explained; it is the reciprocity switch of Remark~\ref{rem:fiveeighths}, made exact by

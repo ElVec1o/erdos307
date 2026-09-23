@@ -1,4 +1,5 @@
 import Erdos307.Barrier
+import Erdos307.PairClosed
 import Erdos307.Deficit
 import Erdos307.Breeder
 import Erdos307.Bridge
@@ -535,3 +536,7 @@ open Erdos307
 #print axioms Erdos307.prime_c10
 #print axioms Erdos307.N10_no_one_prime
 #print axioms Erdos307.N10_no_two_prime
+#print axioms Erdos307.pair_squares
+#print axioms Erdos307.pair_tail_bound
+#print axioms Erdos307.pair_char_square
+#print axioms Erdos307.pair_legendre

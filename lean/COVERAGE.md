@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**89 of 154** labelled results are named by a Lean file in `Erdos307/` (69 files, **0 `sorry`**).
+**90 of 155** labelled results are named by a Lean file in `Erdos307/` (70 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **449 declarations across all 69 modules**. Everything is on the
+`lake env lean Check.lean` probes **453 declarations across all 70 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
 closes level 60, was the last site off that footing; it and the `erdos307_sixty` that consumes it are
 now kernel-`decide`, as is the numeral bridge behind `card_ge_59` and `erdos307_barrier_closed`.
@@ -297,3 +297,13 @@ axioms [propext, Classical.choice, Quot.sound].
 - `divisor_side_composite`: `K^2 + 1 = 21807157 * 480382349 * P60`, and for every divisor `d` one of
   `K + d`, `K + (K^2+1)/d` is divisible by 7, 5 or 2141.
 - `N10_no_two_prime`: the assembly, by sign analysis on the factorisation.
+
+## prop:pairclosed (the level-60 pair sector is empty)
+
+`Erdos307.PairClosed` -- VERIFIED (algebraic core), 0 sorry, axioms [propext, Classical.choice, Quot.sound].
+The finite check over 2,143,165,628 pairs `(R, m)` is computational (`code/pairsector_close.rs`).
+
+- `pair_squares`: from `ab = Dm` and `a² + b² = D'm + D`, both `(D' ± 2D) m + D` are squares, `(a ± b)²`.
+- `pair_tail_bound`: the minus square gives `m (2D - D') ≤ D`, i.e. `m ≤ 1/(2 - T(R))`.
+- `pair_char_square`: with `D = p e` and `D' ≡ e (mod p)`, the plus square makes `e m` a square mod `p`.
+- `pair_legendre`: hence `(m|p) = (e|p)` when `p ∤ e m`.
