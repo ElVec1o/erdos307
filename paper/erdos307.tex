@@ -3695,6 +3695,33 @@ not a claim that none exists; it is a statement of what the four results jointly
 that the search is not repeated inside the region they cover.
 
 
+\begin{remark}[What the single equation leaves to work with]\label{rem:closedroutes}
+A two--cycle carries exactly one relation. If $\sigma(P)\sigma(Q)=1$ then $a'b'=ab$, and
+$\gcd(a,a')=\gcd(b,b')=1$ gives $a\mid b'$ and $b'\mid a$, so $b'=a$ and $a'=b$; the converse is
+immediate. Four consequences follow.
+\begin{enumerate}
+\item No congruence between $a$ and $b$ beyond the equation is available from the primes of the support:
+for $r\mid a$, reduction modulo $r$ and modulo $r^{2}$ returns $b\equiv a'$, which holds for every $a$.
+A counting bound in the style of Pomerance's for Lehmer's totient problem therefore has no divisibility to
+start from, and the fibres of $n\mapsto n'$ contain the Goldbach sets $\{pq:p+q=v\}$, so no uniform fibre
+bound replaces it.
+\item No second identity exists: $\sum1/p^{2}$ enters no consequence of the equation, and any
+second--moment statement is an inequality about which supports have $\sigma$ near a given value.
+\item Near misses fail on the far side. For the $289$ even squarefree $A$ reached from $2$ by steps
+keeping the defect $A-A'\le200$ and stopped past $10^{40}$, the candidate partner $b=A'$ is never squarefree with $b'=A$: $34$
+are not squarefree and in the other $255$, $b'<A$, by more than $0.63A$. The primary pseudoperfect numbers
+$6,42,47058,2214502422$ give $\sigma(b)=0.2,\ 0.024,\ 2.1\times10^{-5},\ 0.053$
+\textup{(\texttt{code/nearmiss\_cycle.gp})}.
+\item The populated model shows no hidden divisibility. Over the $10{,}292$ distinct coprime norm pairs
+$(A,B)$ of the twisted two--cycles of $\mathbb{Z}[\sqrt2]$ (Proposition~\ref{prop:sunit}), and conditional on
+$\ell\nmid AB$, the frequency of $\ell\mid A\pm B$ equals that of random norms of the same size for
+$\ell=3,5,7,17,23,31$; every raw bias is explained by which primes the support contains
+\textup{(\texttt{code/sqrt2\_auxmod.gp})}.
+\end{enumerate}
+The only arithmetic a proof can use is therefore the prime content of the support, and its first moment
+is exhausted at $|U|\ge60$.
+\end{remark}
+
 \section{Prior and concurrent work}\label{sec:prior}
 
 We record the overlaps with four items, each examined directly.
