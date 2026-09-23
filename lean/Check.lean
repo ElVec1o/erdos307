@@ -1,4 +1,5 @@
 import Erdos307.Barrier
+import Erdos307.SplitExact
 import Erdos307.PairClosed
 import Erdos307.Deficit
 import Erdos307.Breeder
@@ -540,3 +541,5 @@ open Erdos307
 #print axioms Erdos307.pair_tail_bound
 #print axioms Erdos307.pair_char_square
 #print axioms Erdos307.pair_legendre
+#print axioms Erdos307.split_cycle_of_identity
+#print axioms Erdos307.split_card_odd

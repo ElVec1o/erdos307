@@ -1028,14 +1028,16 @@ The second identity carries no reference to the tail; the first is its reduction
 Theorem~\ref{thm:structure} removing the factor $\partial(\prod T)$, and is therefore a consequence
 of it rather than an additional hypothesis. Writing $\alpha=\prod T$ and $\beta=\prod(S\setminus T)$,
 the divisibility is by Lemma~\ref{lem:anatomy} the system of congruences
-$\sum_{p\in S\setminus T}p^{-1}\equiv0\pmod r$, one for each $r\in T$, so the expected number of
-surviving $T$ is $\prod_{p\in S}(1+1/p)$ out of $2^{|S|}$. Neither statement involves $A_S$, so the
+$\sum_{p\in S\setminus T}p^{-1}\equiv0\pmod r$, one for each $r\in T$. Each odd $r$ costs $1/r$, while the
+congruence at $2$ holds exactly when $|T|\equiv|S|\pmod 2$, so the expected number of surviving $T$ of size $j$ is
+$m_j=e_j+[\,j\equiv|S|\ (2)\,]\,e_{j-1}$, where $e_j$ is the $j$-th elementary symmetric function of the $1/p$,
+$p\in S$ odd. Neither statement involves $A_S$, so the
 criterion applies to the families whose $A_S$ is composite, which
 Proposition~\ref{prop:immunedecide} cannot reach, and to the pair sector of
 Proposition~\ref{prop:sectors}(ii), where $|M|=2$ and $\partial(\prod M)=p+q$. Two consequences are
 recorded. Since $\partial(\alpha)\partial(\beta)>0$ for $T$ and $S\setminus T$ both nonempty, the
 identity forces $\alpha^{2}<D$. And for $X$ a set of odd primes $\partial(\prod X)\equiv|X|\pmod2$,
-so $2\in T$ forces $|T|$ odd. $0$ \texttt{sorry}
+so $2\in T$ forces $|T|\equiv|S|\pmod2$. $0$ \texttt{sorry}
 \textup{(\texttt{Erdos307.split\_criterion\_gen}, \texttt{split\_snd\_gen},
 \texttt{split\_snd\_of\_criterion}, \texttt{csum\_odd\_card};
 \texttt{lean/Erdos307/SplitSieve.lean})}.
@@ -1051,15 +1053,40 @@ and $D$ vanish, so $\alpha\mid\partial(\alpha)\partial(\beta)$, and
 $\gcd(\alpha,\partial(\alpha))=1$ by Theorem~\ref{thm:structure}.
 \end{proof}
 
+\begin{corollary}[The single--tail criterion is exact]\label{cor:splitexact}
+Let $M=\{q\}$ with $q\ge3$ a prime not in $S$, and $\alpha^{2}<D$. Then $a=q\alpha$, $b=\beta$ is a two--cycle if and only if
+$\alpha^{2}+\partial(\alpha)\partial(\beta)=D$ and $q=\partial(\beta)/\alpha$. If $|S|$ is odd, $2\in S$ and
+$\Sigma=\sum_{p\in S}1/p<2.01$, the identity holds if and only if $D\mid\alpha^{2}+\partial(\alpha)\partial(\beta)$, that is, if
+and only if $\sum_{p\in S\setminus T}p^{-1}\equiv0\pmod r$ for every $r\in T$ and
+$\alpha^{2}+\partial(\alpha)\,\beta/r\equiv0\pmod r$ for every $r\in S\setminus T$; and every two--cycle has $|T|$ odd.
+$0$ \texttt{sorry} for the algebraic core \textup{(\texttt{Erdos307.split\_cycle\_of\_identity},
+\texttt{split\_card\_odd}; \texttt{lean/Erdos307/SplitExact.lean})}.
+\end{corollary}
+\begin{proof}
+The forward direction is Proposition~\ref{prop:splitsieve}. Conversely, the identity reduced modulo $\alpha$ gives
+$\alpha\mid\partial(\beta)$ as in its proof; with $q=\partial(\beta)/\alpha$ this is $\partial(b)=a$, and substituting
+$\partial(\beta)=q\alpha$ into $\alpha\beta-\alpha^{2}=\partial(\alpha)\partial(\beta)$ and cancelling $\alpha$ gives
+$\beta=\alpha+q\,\partial(\alpha)=\partial(q\alpha)$, which is $\partial(a)=b$. For the divisibility, put
+$N=\alpha^{2}+\partial(\alpha)\partial(\beta)$; then $N/D=\alpha^{2}/D+\sigma(T)\sigma(S\setminus T)<1+\Sigma^{2}/4<2.02$, and
+$N=2D$ would give $\alpha^2/D\ge2-\Sigma^2/4$, hence $q=\sigma(S\setminus T)D/\alpha^{2}\le\Sigma/(2-\Sigma^{2}/4)<3$. The local
+form reduces $N$ modulo each prime of $S$, using $\partial(\beta)\equiv\beta/r\pmod r$ for $r\in S\setminus T$. For the parity:
+if $2\in T$ this is Proposition~\ref{prop:splitsieve}; if $2\notin T$, then $\alpha$ and $q$ are odd and
+$\partial(\alpha)\equiv|T|\pmod2$, so $\beta=\alpha+q\,\partial(\alpha)\equiv1+|T|$ is even only for $|T|$ odd.
+\end{proof}
+
+The $58$ character conditions of the tail at the odd primes of $S$ add nothing to the square of
+Proposition~\ref{prop:lvl60factor}: $\partial(D)\equiv D/p\pmod p$ turns $x^{2}=A_Sq+D_S$ into $x^{2}\equiv q\,D_S/p$, a nonzero
+square modulo $p$, which is the condition $(q\mid p)=((D_S/p)\mid p)$.
+
 \emph{What the sieve decides.} The criterion was applied to every level--$60$ single--tail base surviving the certificate of
 Proposition~\ref{prop:tailkill}, $18{,}742$ of them, a superset of the $3{,}444$ open families, over
 all $T$ with $|T|\le6$: about $9\times10^{11}$ splits, no factorisation, and no two--cycle. The
-observed survivor count is $5.20$ per base against the predicted $5.17$
+observed survivor count is $5.20$ per base against the $5.26$ of the model $m_j$, which matches size by size
 \textup{(\texttt{code/split\_sieve.rs}, \texttt{code/gen\_bases.rs})}. On the $7{,}713$ bases that also
 survive trial division to $10^{6}$, the pass was extended to $|T|\le8$: $2.0\times10^{13}$ splits,
-with $37$ survivors at $|T|=7$, none at $|T|=8$, and again no two--cycle. The range
-$9\le|T|\le34$ is not decided, since $\alpha^{2}<D$ bounds $|T|$ by $34$, so the sieve reduces the
-level--$60$ single--tail question without closing it.
+with $37$ survivors at $|T|=7$ against $39.1$ predicted, none at $|T|=8$ against $0.51$, and again no two--cycle. The range
+$9\le|T|\le34$, where the model expects $0.57$ survivors over all $7{,}713$ bases, is not decided by enumeration, since
+$\alpha^{2}<D$ bounds $|T|$ by $34$, so the sieve reduces the level--$60$ single--tail question without closing it.
 
 
 \begin{proposition}[Single--tail families are decided by factoring]\label{prop:lvl60factor}

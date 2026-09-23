@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**90 of 155** labelled results are named by a Lean file in `Erdos307/` (70 files, **0 `sorry`**).
+**91 of 156** labelled results are named by a Lean file in `Erdos307/` (71 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **453 declarations across all 70 modules**. Everything is on the
+`lake env lean Check.lean` probes **455 declarations across all 71 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
 closes level 60, was the last site off that footing; it and the `erdos307_sixty` that consumes it are
 now kernel-`decide`, as is the numeral bridge behind `card_ge_59` and `erdos307_barrier_closed`.
@@ -307,3 +307,10 @@ The finite check over 2,143,165,628 pairs `(R, m)` is computational (`code/pairs
 - `pair_tail_bound`: the minus square gives `m (2D - D') ≤ D`, i.e. `m ≤ 1/(2 - T(R))`.
 - `pair_char_square`: with `D = p e` and `D' ≡ e (mod p)`, the plus square makes `e m` a square mod `p`.
 - `pair_legendre`: hence `(m|p) = (e|p)` when `p ∤ e m`.
+
+## cor:splitexact (the single-tail criterion is exact)
+
+`Erdos307.SplitExact` -- VERIFIED (algebraic core), 0 sorry, axioms [propext, Classical.choice, Quot.sound].
+
+- `split_cycle_of_identity`: `α β = D`, `α² + α' β' = D`, `β' = q α`, `α ≠ 0` give `β = α + q α'`.
+- `split_card_odd`: `α`, `q` odd, `α' ≡ t (mod 2)`, `β = α + q α'` even force `t` odd.
