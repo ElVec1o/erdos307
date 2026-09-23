@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**88 of 153** labelled results are named by a Lean file in `Erdos307/` (66 files, **0 `sorry`**).
+**89 of 154** labelled results are named by a Lean file in `Erdos307/` (69 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **439 declarations across all 66 modules**. Everything is on the
+`lake env lean Check.lean` probes **449 declarations across all 69 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
 closes level 60, was the last site off that footing; it and the `erdos307_sixty` that consumes it are
 now kernel-`decide`, as is the numeral bridge behind `card_ge_59` and `erdos307_barrier_closed`.
@@ -282,3 +282,18 @@ analytic number theory that has not been formalised by anyone.
   arity assumption, so it reaches the pair families the arity-one weapon of prop:immunedecide cannot.
 - `recip_sum_bound`, `pair_tail_deficit`: the mixed pair-sector case admits no sieve, but 58 primes
   never reach mass 2, so the smaller tail prime is confined to a finite range.
+
+## prop:ppninherit (Erdős #313: no one- or two-prime inheritance from N_10)
+
+`Erdos307.PPNInherit`, `Erdos307.PrattN10`, `Erdos307.Pratt` -- VERIFIED, 0 sorry,
+axioms [propext, Classical.choice, Quot.sound].
+
+- `pratt`: Lucas primality from an explicit factor list of `p - 1`, power conditions in `ZMod p`
+  so that `reduce_mod_char` evaluates them by binary exponentiation.
+- `prime_c1` .. `prime_c10`: Pratt trees for the 60-digit prime factor of `N_10^2 + 1` and for `N_9 + 1`;
+  every leaf is below `10^9` and closed by `norm_num`. Data from `code/pratt_n10.gp`.
+- `N10_no_one_prime`: appending one prime forces `p = N_10 + 1`, divisible by 7.
+- `two_prime_factor`: appending two forces `(p - K)(q - K) = K^2 + 1`.
+- `divisor_side_composite`: `K^2 + 1 = 21807157 * 480382349 * P60`, and for every divisor `d` one of
+  `K + d`, `K + (K^2+1)/d` is divisible by 7, 5 or 2141.
+- `N10_no_two_prime`: the assembly, by sign analysis on the factorisation.

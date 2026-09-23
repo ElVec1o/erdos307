@@ -63,6 +63,10 @@ import Erdos307.TailQuadratic
 import Erdos307.Sector42
 import Erdos307.SectorGeneral
 import Erdos307.TailBound
+import Erdos307.SplitSieve
+import Erdos307.Pratt
+import Erdos307.PrattN10
+import Erdos307.PPNInherit
 
 /-! # Axiom audit for the whole development
 
@@ -521,3 +525,13 @@ open Erdos307
 #print axioms Erdos307.terminal_prime_general'
 #print axioms Erdos307.terminal_denom_pos_general
 #print axioms Erdos307.terminal_prime_fortytwo
+#print axioms Erdos307.split_criterion_gen
+#print axioms Erdos307.split_snd_gen
+#print axioms Erdos307.split_snd_of_criterion
+#print axioms Erdos307.csum_odd_card
+#print axioms Erdos307.pair_tail_deficit
+#print axioms Erdos307.pratt
+#print axioms Erdos307.prime_c9
+#print axioms Erdos307.prime_c10
+#print axioms Erdos307.N10_no_one_prime
+#print axioms Erdos307.N10_no_two_prime

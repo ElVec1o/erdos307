@@ -61,3 +61,7 @@ import Erdos307.PairLocalCount
 import Erdos307.LevelFinite
 import Erdos307.Port
 import Erdos307.Divisibility
+import Erdos307.SplitSieve
+import Erdos307.Pratt
+import Erdos307.PrattN10
+import Erdos307.PPNInherit

@@ -3350,6 +3350,37 @@ $\partial(qB)=B+q\,\partial(B)$. Fixing the value gives $\Delta_c(B)(q-1)=B$, so
 and coprimality forces $\Delta_c(B)=1$.
 \end{proof}
 
+\begin{proposition}[The ten--factor primary pseudoperfect number does not extend by one or two primes]\label{prop:ppninherit}
+Let $N_{10}=N_9(N_9+1)=35979351189199316534587473905773572006$ be the primary pseudoperfect number with
+ten prime factors of \cite{PortFillings2026}. There is no prime $p\nmid N_{10}$ with $N_{10}p$ primary
+pseudoperfect, and no pair of distinct primes $p,q\nmid N_{10}$ with $N_{10}pq$ primary pseudoperfect.
+$0$ \texttt{sorry} \textup{(\texttt{Erdos307.N10\_no\_one\_prime}, \texttt{N10\_no\_two\_prime};
+\texttt{lean/Erdos307/PPNInherit.lean})}.
+\end{proposition}
+\begin{proof}
+The idea is that inheritance is a factorisation problem rather than a search: the new primes are
+pinned to a divisor pair of one fixed integer, so exhausting that integer's divisors decides the
+question. Write $K=N_{10}$, so $K'=K-1$. By Leibniz, $(Kp)'=K+p(K-1)$, and $(Kp)'=Kp-1$ forces
+$p=K+1$, which is divisible by $7$. For two primes, $(Kpq)'=Kpq-1$ is equivalent to
+$(p-K)(q-K)=K^{2}+1$. Both factors have the same sign; if both are negative then
+$(K-p)(K-q)\le(K-2)^{2}<K^{2}+1$, so both are positive and $d=\min(p,q)-K$ is a divisor of
+\[ K^{2}+1=21807157\cdot480382349\cdot P_{60},\qquad
+   P_{60}=123572138719194583969192220095883252267503088389616114960309, \]
+all three factors prime. Hence $d\in\{1,\,21807157,\,480382349,\,21807157\cdot480382349\}$, and
+$K+d$ is divisible by $7,7,5,2141$ respectively, so it is not prime. The primality of $P_{60}$ and of
+$N_9+1$ is certified by Pratt trees whose leaves lie below $10^{9}$
+\textup{(\texttt{lean/Erdos307/PrattN10.lean}, \texttt{code/pratt\_n10.gp})}.
+\end{proof}
+
+The proposition is the frontier case of a routine that is validated on known values before it is
+used there: the same criterion, run on every primary pseudoperfect number with at most ten prime
+factors, recovers $42$ from $2$, $1806$ from $6$, and the eight--factor
+$2214502422\cdot2217342227\cdot1729101023519$ from $2214502422$, and returns nothing at $N_9$ or $N_{10}$
+\textup{(\texttt{code/ppn\_inherit.py})}. It bears on the conditional infinitude theorem of
+\cite{PortFillings2026}, whose hypothesis splits a terminal prime into five: at the current frontier
+the one-- and two--prime steps are exhausted rather than unsearched. Three primes would require
+factoring $K^{2}x^{2}+x-K$, about $150$ digits, for each candidate prime $x>K$.
+
 \emph{Why \#313 has a family and the $1$--free case has none.} Proposition~\ref{prop:portfixed} explains the asymmetry between
 Corollary~\ref{cor:threethirteen}'s two sides. At $u=1$ the target value is $1$, which is a fixed
 point of the port step: from $\Delta=1$ the choice $q=B+1$ returns $\Delta=1$, and iterating from
