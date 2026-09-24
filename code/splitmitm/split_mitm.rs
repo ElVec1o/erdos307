@@ -17,6 +17,9 @@
 // Build: rustc -O -C target-cpu=native -o split_mitm split_mitm.rs
 // Run:   ./split_mitm bases.txt <threads> <log2 inverse tau>      e.g. 30 for tau = 2^-30
 //        ./split_mitm --selftest
+//        ./split_mitm --audit bases.txt <idx,idx,...> <plants per base> <log2 inverse tau>
+//          (on real 59-prime bases: plant a random split T0, centre a window of the production width on its fixed-point
+//           reciprocal sum, and require window() to return T0; reports found/planted and candidates per pass)
 // Checkpoint: done.txt and results.txt, atomic (tmp + rename) every 30 s and at exit; resumes from them.
 use std::collections::HashSet;
 use std::io::{BufRead, Write};
@@ -283,6 +286,7 @@ fn selftest() {
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     if args.len() > 1 && args[1] == "--selftest" { selftest(); return; }
+    if args.len() > 1 && args[1] == "--audit" { audit(&args[2], &args[3], args[4].parse().unwrap(), args[5].parse().unwrap()); return; }
     let path = &args[1]; let nthreads: usize = args[2].parse().unwrap(); let tl: u32 = args[3].parse().unwrap();
     let mut bases = Vec::new();
     for line in std::io::BufReader::new(std::fs::File::open(path).unwrap()).lines() {
@@ -331,4 +335,33 @@ fn checkpoint(sh: &Mutex<Shared>) {
     };
     w("done.txt", &g.done.iter().map(|d| d.to_string()).collect::<Vec<_>>());
     w("results.txt", &g.results);
+}
+
+fn audit(path: &str, ids: &str, plants: usize, tl: u32) {
+    let want: Vec<usize> = ids.split(',').map(|x| x.parse().unwrap()).collect();
+    let mut seed = 0x9E3779B97F4A7C15u64; let mut rnd = || { seed ^= seed << 13; seed ^= seed >> 7; seed ^= seed << 17; seed };
+    let (mut found, mut total) = (0usize, 0usize);
+    for line in std::io::BufReader::new(std::fs::File::open(path).unwrap()).lines() {
+        let line = line.unwrap(); let v: Vec<u64> = line.split_whitespace().map(|x| x.parse::<i64>().unwrap() as u64).collect();
+        if !want.contains(&(v[0] as usize)) { continue; }
+        let s: Vec<u64> = v[4..].to_vec(); let n = s.len();
+        let r: Vec<u64> = s.iter().map(|&p| (1u64 << SH) / p).collect();
+        let (lo, hi) = bounds(&r, tl).expect("empty window on a level-60 base");
+        let half = (hi - lo) / 2;
+        let cuts = [0, n / 4, n / 2, 3 * n / 4, n];
+        let q: [Vec<(u64, u32)>; 4] = std::array::from_fn(|k| subset_sums(&r[cuts[k]..cuts[k + 1]]));
+        for _ in 0..plants {
+            let m0: u64 = rnd() & ((1u64 << n) - 1);
+            let x0: u64 = (0..n).filter(|&i| m0 >> i & 1 == 1).map(|i| r[i]).sum();
+            let (wlo, whi) = (x0.saturating_sub(half), x0 + half);
+            let t0 = Instant::now(); let (mut hit, mut cand) = (false, 0u64);
+            window(&q, wlo, whi, |ma, mb, mc, md| { cand += 1;
+                let m = (ma as u64) << cuts[0] | (mb as u64) << cuts[1] | (mc as u64) << cuts[2] | (md as u64) << cuts[3];
+                if m == m0 { hit = true; } });
+            total += 1; if hit { found += 1; }
+            println!("audit base={} plant |T0|={} found={} candidates={} secs={:.1}", v[0], m0.count_ones(), hit, cand, t0.elapsed().as_secs_f64());
+        }
+    }
+    println!("AUDIT: found {} of {} planted splits", found, total);
+    assert!(found == total, "Stage A audit FAILED: a planted split was not enumerated");
 }
