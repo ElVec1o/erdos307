@@ -1,4 +1,5 @@
 import Erdos307.Barrier
+import Erdos307.Sixtyone
 import Erdos307.SplitExact
 import Erdos307.PairClosed
 import Erdos307.Deficit
@@ -543,3 +544,4 @@ open Erdos307
 #print axioms Erdos307.pair_legendre
 #print axioms Erdos307.split_cycle_of_identity
 #print axioms Erdos307.split_card_odd
+#print axioms Erdos307.erdos307_sixtyone_of_level60

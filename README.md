@@ -187,7 +187,7 @@ data/certs/   independently checkable ECPP primality certificates: the immune fa
   derived from `erdos307.tex`, never hand-edited, so they cannot drift; `code/check_consistency.sh`
   compares the label sets to enforce that.
 - **Lean:** `cd lean && lake exe cache get && lake build` (Lean / mathlib `v4.30.0`). Then
-  `lake env lean Check.lean` prints the axiom dependencies of 455 declarations across all 71 modules
+  `lake env lean Check.lean` prints the axiom dependencies of 456 declarations across all 72 modules
   — everything depends only on `propext, Classical.choice, Quot.sound` (no `sorryAx`), with exactly
   no exceptions: there is no `native_decide` anywhere in the development.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)
@@ -248,6 +248,8 @@ against the build by `code/check_consistency.sh` at every push. Summary:
 | `prop:ppninherit` (the ten-factor primary pseudoperfect number extends by neither one nor two primes; Erdős #313) | `Erdos307.PPNInherit`, `Erdos307.PrattN10`, `Erdos307.Pratt` | VERIFIED |
 | `prop:pairclosed` (the level-60 pair sector is empty; algebraic core, finite check in `code/pairsector_close.rs`) | `Erdos307.PairClosed` | VERIFIED |
 | `cor:splitexact` (the single-tail criterion is exact; every split has `|T|` odd) | `Erdos307.SplitExact` | VERIFIED |
+| `prop:level60closed` (level 60 is empty: pair sector by mass, single-tail sector by identity, no factorisation) | `code/splitmitm/split_mitm.rs`, `code/qsieve/q_sieve.rs`, `q_sieve2.rs` | VERIFIED (computational) |
+| `cor:level61bound` (barrier sharpened to `\|P\cup Q\| >= 61`, `min(prod P, prod Q) > 5.89e58`; assembly `Erdos307.Sixtyone`) | `Erdos307.Sixtyone` | VERIFIED (assembly) |
 | `prop:splitsieve` (split sieve for single-tail families; the `q`-free criterion and the parity law) | `Erdos307.SplitSieve` | VERIFIED |
 | `prop:sector42` (algebraic half) | `Erdos307.Sector42` | PROVED ⭐ (enumeration not formalizable at 3.7×10¹⁰ leaves) |
 | `lem:swdirect` (diagonalisation core) | `Erdos307.SWDirect` | PROVED ⭐ (Siegel–Walfisz absent from Mathlib) |
@@ -256,7 +258,7 @@ against the build by `code/check_consistency.sh` at every push. Summary:
 | `lem:deficit` (algebraic core) | `Erdos307.Deficit` | PROVED ⭐ (four analytic inputs) |
 | `prop:condrate` / `thm:a9` (detector steps) | `Erdos307.CondRate` | PROVED ⭐ (Halász, Siegel–Walfisz) |
 
-`lake env lean Check.lean` probes 455 declarations across 71 modules; all depend only on
+`lake env lean Check.lean` probes 456 declarations across 72 modules; all depend only on
 `propext, Classical.choice, Quot.sound`, with zero `sorry`. Six atoms carry formalization debt (⭐);
 five of the six have their non-analytic core machine-checked, and what remains under all of them is
 four classical theorems (Siegel–Walfisz, Siegel, the zero-free region for Dirichlet `L`-functions,

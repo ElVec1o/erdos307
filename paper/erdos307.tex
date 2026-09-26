@@ -59,10 +59,9 @@ cardinality bound at all; we give an explicit model and machine--check both poin
 strongest surviving unconditional bound, that paper's computer search $x>10^4$, the gain is $52$
 orders of magnitude. A finite verification over the complete list of
 $49{,}961$ admissible $59$--prime supports then closes the $59$--prime level: any solution in fact
-has $|P\cup Q|\ge 60$ and $\min(\prod P,\prod Q)>3.50\times10^{57}$; a quadratic--reciprocity
-certificate, requiring no factorisation, then proves the canonical tail family (the first $59$
-primes plus any $q$) empty, and together with a factoring pass $46{,}483$ of the $49{,}961$
-one--new--prime families at level $60$ ($93\%$; the residual is factoring--hard). We add a parity dichotomy (a hypothetical all--odd
+has $|P\cup Q|\ge 61$ and $\min(\prod P,\prod Q)>5.89\times10^{58}$: level $60$ is empty, closing both its
+sectors, the pair sector by a mass bound on the free tail with no factorisation, and the single--tail sector by an
+exact identity decided over $7{,}713$ admissible bases with no factorisation either. We add a parity dichotomy (a hypothetical all--odd
 cycle would need $\ge 1412$ primes and have $\min(\prod P,\prod Q)>10^{2519}$), a proof that longer
 cycles are strictly harder ($k=3$ already forces $361{,}139$ primes), and a function--field theorem:
 over $\mathbb{F}_q[t]$ the derivative has \emph{no} cycles, so the obstruction over $\mathbb{Z}$ is
@@ -1177,6 +1176,41 @@ is odd and the other $58$ cofactors are even, so $N$ is again odd. Since $2D$ is
 Every base is decided by Proposition~\ref{prop:pairclosed}, which tests its tails one by one and needs no certificate
 (\texttt{code/pairsector\_kill.rs} in campaign mode reproduces the $49{,}961$, $31{,}219$ and $18{,}742$ above).
 \end{remark}
+
+\begin{proposition}[Level $60$ is empty]\label{prop:level60closed}
+No solution of \#307 has $|P\cup Q|=60$. Consequently every solution has $|P\cup Q|\ge61$.
+\end{proposition}
+\begin{proof}
+By Proposition~\ref{prop:sectors} a $60$--element support of mass above $2$ lies in the single--tail sector or the pair
+sector, and the latter is empty by Proposition~\ref{prop:pairclosed}. In the single--tail sector write
+$a=q\alpha$, $b=\beta$, $\alpha\beta=D=\prod S$, $\rho=\alpha^{2}/D<1$. For $\rho\le2^{-40}$ the identity of
+Proposition~\ref{prop:splitsieve} gives $\sigma(T)\bigl(\Sigma-\sigma(T)\bigr)=1-\rho$, which confines $\sigma(T)$ to a window of
+width about $\rho/\sqrt{\Sigma^{2}-4}$ around a root of $X(\Sigma-X)=1$; every $T$ in the window, at every $|T|$, is enumerated by
+a meet--in--the--middle over four quarters of $S$ and decided exactly. For $\rho>2^{-40}$ the tail is bounded,
+$q=\sigma(S\setminus T)/\rho<\Sigma\,2^{40}$, and the square of Proposition~\ref{prop:lvl60factor} fixes $(q\mid p)=((D/p)\mid p)$
+at the $58$ odd $p\in S$; every $q$ in range is sieved by these conditions and each survivor decided by the two squares.
+Over the $7{,}713$ bases, a superset of the $3{,}444$ open families, the first search examines $4.50\times10^{11}$
+candidates and finds no $T$ satisfying the identity, and the second examines $2.27\times10^{13}$ candidates and leaves no
+$q$ making both squares perfect. The last claim is Proposition~\ref{prop:sectors} with the barrier of
+Theorem~\ref{thm:barrier}.
+\end{proof}
+The computations are \texttt{code/splitmitm/split\_mitm.rs} and \texttt{code/qsieve/q\_sieve.rs}, the latter reproduced base
+by base by the independent \texttt{code/qsieve/q\_sieve2.rs}, with identical survivor lists (all empty) on every base.
+Both are audited: \texttt{code/splitmitm/stageA\_exact.gp} re-decides every reported split by the identity directly and
+confirms exactly one completed pass per base with no candidate misreported; \texttt{code/qsieve/q\_exact.gp} does the same
+for the tail sieve; and \texttt{split\_mitm --audit} plants $100$ genuine two--cycle--shaped splits across $5$ open bases and
+recovers all $100$. The assembly from level $60$ to the bound $61$ is formalised
+(\texttt{Erdos307.erdos307\_sixtyone\_of\_level60}).
+
+\begin{corollary}[Sharpened bound]\label{cor:level61bound}
+Every solution has $\prod_{p\in U}p\ge\Pi_{61}>6.98\times10^{117}$ and
+$\min(\prod P,\prod Q)\ge\sqrt{\Pi_{61}/T_{61}}=5.8918\ldots\times10^{58}$.
+\end{corollary}
+\begin{proof}
+Repeats Proposition~\ref{prop:close59}'s bound on the minimal side with the minimum of $R/T$ now over $|U|\ge61$,
+attained at the first $61$ primes.
+\end{proof}
+
 
 \begin{proposition}[The pair sector admits no congruence kill]\label{prop:pairlocal}
 Let $W$ be any pair--sector base and $A=A_W$, $B=B_W$, $D=D_W$, so that a pair--sector solution
@@ -3588,7 +3622,9 @@ the arithmetic derivative and has been open in that literature since $2003$ unde
 establish rigidity and a barrier, $|P\cup Q|\ge60$ with $\min(\prod P,\prod Q)>3.50\times10^{57}$,
 which voids all direct search; it appears to be the first valid unconditional bound of its kind,
 the only prior candidate resting on an invalid step (Section~\ref{sec:prior}). The rigidity result
-and the barrier are Lean--verified, extremality proved rather than assumed.
+and the barrier are Lean--verified, extremality proved rather than assumed. Level $60$ is then shown empty
+(Proposition~\ref{prop:level60closed}), both its sectors closing without factorisation, which sharpens the barrier to
+$|P\cup Q|\ge61$ and $\min(\prod P,\prod Q)>5.89\times10^{58}$ (Corollary~\ref{cor:level61bound}).
 
 The barrier is one instance of a single inequality. Writing $n(c)=\min\{n:T_n\ge c\}$,
 \[ \sum_{p\in U}1/p\ \ge\ c\ \Longrightarrow\ |U|\ge n(c),\qquad \prod_{p\in U}p\ \ge\ \Pi_{n(c)}, \]
@@ -3634,10 +3670,9 @@ function--field theorem localising the obstruction to the archimedean place. The
 \textsc{yes}, and the model behind them survives a second--moment test
 (Proposition~\ref{prop:anticorr}); we claim no proof in either direction.
 
-Open problems: (i) close the residual $3{,}444$ single--tail families at level $60$; the pair sector of
-Proposition~\ref{prop:sectors} is empty (Proposition~\ref{prop:pairclosed}), so these families are all that stands
-between the barrier and $|P\cup Q|\ge61$ (the canonical tail family
-is closed, Proposition~\ref{prop:tailkill}; the finite verification of
+Open problems: (i) close level $61$ as level $60$ was closed (Proposition~\ref{prop:level60closed}: the
+pair sector by a mass bound with no factorisation, the single--tail sector by an exact identity decided over every
+admissible base with no factorisation either; the finite verification of
 Proposition~\ref{prop:close59} is Lean--checked, \texttt{erdos307\_sixty}; the conditional $3/4$
 law is explained; it is the reciprocity switch of Remark~\ref{rem:fiveeighths}, made exact by
 the class--vector functional there); (ii) decide

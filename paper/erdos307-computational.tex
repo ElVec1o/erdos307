@@ -394,6 +394,41 @@ Every base is decided by Proposition~\ref{prop:pairclosed}, which tests its tail
 (\texttt{code/pairsector\_kill.rs} in campaign mode reproduces the $49{,}961$, $31{,}219$ and $18{,}742$ above).
 \end{remark}
 
+\begin{proposition}[Level $60$ is empty]\label{prop:level60closed}
+No solution of \#307 has $|P\cup Q|=60$. Consequently every solution has $|P\cup Q|\ge61$.
+\end{proposition}
+\begin{proof}
+By Proposition~\ref{prop:sectors} a $60$--element support of mass above $2$ lies in the single--tail sector or the pair
+sector, and the latter is empty by Proposition~\ref{prop:pairclosed}. In the single--tail sector write
+$a=q\alpha$, $b=\beta$, $\alpha\beta=D=\prod S$, $\rho=\alpha^{2}/D<1$. For $\rho\le2^{-40}$ the identity of
+Proposition~\ref{prop:splitsieve} gives $\sigma(T)\bigl(\Sigma-\sigma(T)\bigr)=1-\rho$, which confines $\sigma(T)$ to a window of
+width about $\rho/\sqrt{\Sigma^{2}-4}$ around a root of $X(\Sigma-X)=1$; every $T$ in the window, at every $|T|$, is enumerated by
+a meet--in--the--middle over four quarters of $S$ and decided exactly. For $\rho>2^{-40}$ the tail is bounded,
+$q=\sigma(S\setminus T)/\rho<\Sigma\,2^{40}$, and the square of Proposition~\ref{prop:lvl60factor} fixes $(q\mid p)=((D/p)\mid p)$
+at the $58$ odd $p\in S$; every $q$ in range is sieved by these conditions and each survivor decided by the two squares.
+Over the $7{,}713$ bases, a superset of the $3{,}444$ open families, the first search examines $4.50\times10^{11}$
+candidates and finds no $T$ satisfying the identity, and the second examines $2.27\times10^{13}$ candidates and leaves no
+$q$ making both squares perfect. The last claim is Proposition~\ref{prop:sectors} with the barrier of
+Theorem~\ref{K-thm:barrier}.
+\end{proof}
+The computations are \texttt{code/splitmitm/split\_mitm.rs} and \texttt{code/qsieve/q\_sieve.rs}, the latter reproduced base
+by base by the independent \texttt{code/qsieve/q\_sieve2.rs}, with identical survivor lists (all empty) on every base.
+Both are audited: \texttt{code/splitmitm/stageA\_exact.gp} re-decides every reported split by the identity directly and
+confirms exactly one completed pass per base with no candidate misreported; \texttt{code/qsieve/q\_exact.gp} does the same
+for the tail sieve; and \texttt{split\_mitm --audit} plants $100$ genuine two--cycle--shaped splits across $5$ open bases and
+recovers all $100$. The assembly from level $60$ to the bound $61$ is formalised
+(\texttt{Erdos307.erdos307\_sixtyone\_of\_level60}).
+
+\begin{corollary}[Sharpened bound]\label{cor:level61bound}
+Every solution has $\prod_{p\in U}p\ge\Pi_{61}>6.98\times10^{117}$ and
+$\min(\prod P,\prod Q)\ge\sqrt{\Pi_{61}/T_{61}}=5.8918\ldots\times10^{58}$.
+\end{corollary}
+\begin{proof}
+Repeats Proposition~\ref{K-prop:close59}'s bound on the minimal side with the minimum of $R/T$ now over $|U|\ge61$,
+attained at the first $61$ primes.
+\end{proof}
+
+
 \begin{proposition}[The pair sector admits no congruence kill]\label{prop:pairlocal}
 Let $W$ be any pair--sector base and $A=A_W$, $B=B_W$, $D=D_W$, so that a pair--sector solution
 requires $x^2=A\,\alpha\beta+D(\alpha+\beta)$ and $y^2=B\,\alpha\beta+D(\alpha+\beta)$ with

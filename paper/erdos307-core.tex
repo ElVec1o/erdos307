@@ -1497,7 +1497,9 @@ the arithmetic derivative and has been open in that literature since $2003$ unde
 establish rigidity and a barrier, $|P\cup Q|\ge60$ with $\min(\prod P,\prod Q)>3.50\times10^{57}$,
 which voids all direct search; it appears to be the first valid unconditional bound of its kind,
 the only prior candidate resting on an invalid step (Section~\ref{sec:prior}). The rigidity result
-and the barrier are Lean--verified, extremality proved rather than assumed.
+and the barrier are Lean--verified, extremality proved rather than assumed. Level $60$ is then shown empty
+(Proposition~\ref{A-prop:level60closed}), both its sectors closing without factorisation, which sharpens the barrier to
+$|P\cup Q|\ge61$ and $\min(\prod P,\prod Q)>5.89\times10^{58}$ (Corollary~\ref{A-cor:level61bound}).
 
 The barrier is one instance of a single inequality. Writing $n(c)=\min\{n:T_n\ge c\}$,
 \[ \sum_{p\in U}1/p\ \ge\ c\ \Longrightarrow\ |U|\ge n(c),\qquad \prod_{p\in U}p\ \ge\ \Pi_{n(c)}, \]
@@ -1543,10 +1545,9 @@ function--field theorem localising the obstruction to the archimedean place. The
 \textsc{yes}, and the model behind them survives a second--moment test
 (Proposition~\ref{B-prop:anticorr}); we claim no proof in either direction.
 
-Open problems: (i) close the residual $3{,}444$ single--tail families at level $60$; the pair sector of
-Proposition~\ref{A-prop:sectors} is empty (Proposition~\ref{A-prop:pairclosed}), so these families are all that stands
-between the barrier and $|P\cup Q|\ge61$ (the canonical tail family
-is closed, Proposition~\ref{A-prop:tailkill}; the finite verification of
+Open problems: (i) close level $61$ as level $60$ was closed (Proposition~\ref{A-prop:level60closed}: the
+pair sector by a mass bound with no factorisation, the single--tail sector by an exact identity decided over every
+admissible base with no factorisation either; the finite verification of
 Proposition~\ref{prop:close59} is Lean--checked, \texttt{erdos307\_sixty}; the conditional $3/4$
 law is explained; it is the reciprocity switch of Remark~\ref{A-rem:fiveeighths}, made exact by
 the class--vector functional there); (ii) decide

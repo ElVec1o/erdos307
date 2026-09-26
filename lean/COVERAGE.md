@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**91 of 156** labelled results are named by a Lean file in `Erdos307/` (71 files, **0 `sorry`**).
+**92 of 158** labelled results are named by a Lean file in `Erdos307/` (72 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **455 declarations across all 71 modules**. Everything is on the
+`lake env lean Check.lean` probes **456 declarations across all 72 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
 closes level 60, was the last site off that footing; it and the `erdos307_sixty` that consumes it are
 now kernel-`decide`, as is the numeral bridge behind `card_ge_59` and `erdos307_barrier_closed`.
@@ -314,3 +314,13 @@ The finite check over 2,143,165,628 pairs `(R, m)` is computational (`code/pairs
 
 - `split_cycle_of_identity`: `α β = D`, `α² + α' β' = D`, `β' = q α`, `α ≠ 0` give `β = α + q α'`.
 - `split_card_odd`: `α`, `q` odd, `α' ≡ t (mod 2)`, `β = α + q α'` even force `t` odd.
+
+## prop:level60closed (level 60 is empty) / cor:level61bound
+
+`Erdos307.Sixtyone` -- VERIFIED (assembly step), 0 sorry, axioms [propext, Classical.choice, Quot.sound].
+The hypothesis that level 60 is empty is established computationally (`code/splitmitm/split_mitm.rs`,
+`code/qsieve/q_sieve.rs`, `code/qsieve/q_sieve2.rs`, audited by `stageA_exact.gp`, `q_exact.gp` and
+`split_mitm --audit`), not by kernel execution as at level 59; this file formalises only the assembly
+from "no solution has |P ∪ Q| = 60" to "|P ∪ Q| ≥ 61", which is independent of how level 60 is decided.
+
+- `erdos307_sixtyone_of_level60`: `erdos307_sixty` (|P ∪ Q| ≥ 60) plus card ≠ 60 gives |P ∪ Q| ≥ 61.
