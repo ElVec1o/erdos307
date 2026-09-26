@@ -72,3 +72,4 @@ code/tailsearch_all.log
 
 # scratch left by code/sector_kexclude.rs if run from the repo root
 k64_phase*
+runs/
