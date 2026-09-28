@@ -11,6 +11,14 @@ default(parisizemax, 4*10^9);
 \\ actually popped; on failure within budget the node is written to unresolved.txt and dropped from further
 \\ automatic expansion (never silently discarded -- it is on disk, re-checkable by hand).
 \\
+\\ HONEST SCOPE (added after a first run degraded to O(frontier) per pop and per checkpoint at 600k+ nodes,
+\\ 22h, round 28,400 -- see private/RESEARCH_LOG.md): this is a BOUNDED BEAM search, not an unbounded
+\\ best-first search. Each expand() keeps only the MAXKIDS best-scoring children per node, and the whole
+\\ frontier is capped at FRONTCAP by dropping the lowest-scored tail every ROUND pops. This keeps both the
+\\ pop cost and the checkpoint I/O bounded, at the real cost of permanently discarding lower-scored
+\\ branches rather than eventually reaching them. A null result from this search is NOT a proof that the
+\\ discarded region is empty -- it is UNRESOLVED there, exactly as for the cofactor-too-hard-to-factor case.
+\\
 \\ Literature: infinitude of PPNs is open (erdosproblems.com); no PPN beyond N_10 (10 factors) is known
 \\ published anywhere (checked 2026-09-27: Wang's paper, OEIS A054377, erdosproblems.com forum); Alekseyev
 \\ confirmed no other PPN below 10^24 (OEIS, Aug 2026), which N_10 already exceeds by 13 orders of magnitude,
@@ -22,6 +30,7 @@ default(parisizemax, 4*10^9);
 
 BUDGET = getenv("PPN_BUDGET"); if(BUDGET == "" || BUDGET == 0, BUDGET = 3600, BUDGET = eval(BUDGET));
 MAXDIG = getenv("PPN_MAXDIG"); if(MAXDIG == "" || MAXDIG == 0, MAXDIG = 45, MAXDIG = eval(MAXDIG));
+FRONTCAP = getenv("PPN_FRONTCAP"); if(FRONTCAP == "" || FRONTCAP == 0, FRONTCAP = 20000, FRONTCAP = eval(FRONTCAP));
 ROUND = 100; TRIALBOUND = 100000;
 
 score(A, a) = {
@@ -82,19 +91,33 @@ if(system("test -f frontier.gp") == 0,
   frontier = List(eval(read("frontier.gp"))),
   forprime(p = 2, 200, listput(frontier, [p, p - 1, p, 1, score(p, p - 1)])));
 print("PPN313 best-first search: frontier=", #frontier, " budget=", BUDGET, "s maxdig=", MAXDIG);
-while(getabstime() - t0 < BUDGET * 1000 && #frontier > 0,
-  bi = 1; bs = frontier[1][5];
-  for(k = 2, #frontier, if(frontier[k][5] > bs, bs = frontier[k][5]; bi = k));
-  node = frontier[bi]; listpop(frontier, bi);
+\\ frontier kept as a Vec, sorted DESCENDING by score (v[i][5]); popping the front is O(1) amortised
+\\ (real cost is the periodic re-sort after a batch of insertions, done once per ROUND pops, not per pop).
+my(fv = Vec(frontier), fpos = 1, pending = List());
+fv = vecsort(fv, (x,y) -> -sign(x[5] - y[5]));
+while(getabstime() - t0 < BUDGET * 1000 && (fpos <= #fv || #pending > 0),
+  if(fpos > #fv,
+    \\ frontier exhausted: merge pending insertions, re-sort, cap, restart from the front
+    fv = concat(fv[fpos..#fv], Vec(pending)); pending = List(); fpos = 1;
+    if(#fv > 0, fv = vecsort(fv, (x,y) -> -sign(x[5] - y[5])));
+    if(#fv > FRONTCAP, fv = fv[1..FRONTCAP]));
+  if(#fv == 0, break());
+  node = fv[fpos]; fpos++;
   A = node[1]; a = node[2]; pmax = node[3]; depth = node[4];
   tryComplete(A, a, pmax, depth);
   if(depth < 15,
     kids = expand(A, a, pmax);
-    for(k = 1, #kids, listput(frontier, [kids[k][1], kids[k][2], kids[k][3], depth + 1, kids[k][4]])));
+    for(k = 1, #kids, listput(pending, [kids[k][1], kids[k][2], kids[k][3], depth + 1, kids[k][4]])));
   rounds++;
   if(rounds % ROUND == 0,
-    tmp = "frontier.gp.tmp"; write(tmp, Vec(frontier)); system("mv frontier.gp.tmp frontier.gp");
-    print("round ", rounds, " frontier=", #frontier, " elapsed=", (getabstime()-t0)\1000, "s")));
+    \\ fold pending into fv, re-sort, cap to FRONTCAP (drops the lowest-scored tail, never the ones
+    \\ already popped) -- this is what keeps both the scan cost and the checkpoint size bounded
+    fv = concat(fv[fpos..#fv], Vec(pending)); pending = List(); fpos = 1;
+    if(#fv > 0, fv = vecsort(fv, (x,y) -> -sign(x[5] - y[5])));
+    if(#fv > FRONTCAP, fv = fv[1..FRONTCAP]);
+    tmp = "frontier.gp.tmp"; write(tmp, fv); system("mv frontier.gp.tmp frontier.gp");
+    print("round ", rounds, " frontier=", #fv, " elapsed=", (getabstime()-t0)\1000, "s")));
+frontier = List(concat(fv[min(fpos,#fv+1)..#fv], Vec(pending)));
 tmp = "frontier.gp.tmp"; write(tmp, Vec(frontier)); system("mv frontier.gp.tmp frontier.gp");
 print("STOPPED (UNRESOLVED beyond this point): rounds=", rounds, " frontier=", #frontier,
   " elapsed=", (getabstime()-t0)\1000, "s");
