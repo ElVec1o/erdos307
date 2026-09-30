@@ -31,7 +31,7 @@ default(parisizemax, 4*10^9);
 BUDGET = getenv("PPN_BUDGET"); if(BUDGET == "" || BUDGET == 0, BUDGET = 3600, BUDGET = eval(BUDGET));
 MAXDIG = getenv("PPN_MAXDIG"); if(MAXDIG == "" || MAXDIG == 0, MAXDIG = 45, MAXDIG = eval(MAXDIG));
 FRONTCAP = getenv("PPN_FRONTCAP"); if(FRONTCAP == "" || FRONTCAP == 0, FRONTCAP = 20000, FRONTCAP = eval(FRONTCAP));
-ROUND = 100; TRIALBOUND = 100000;
+ROUND = 100; TRIALBOUND = 100000; FACTOR_BUDGET = 45; DIVCAP = 200000; SCAN_BUDGET = 45;
 
 score(A, a) = {
   my(C = A^2 + a, e = 0, p);
@@ -42,9 +42,17 @@ score(A, a) = {
 
 MAXKIDS = 25;
 expand(A, a, pmax) = {
-  my(lo = max(pmax + 1, A\a + 1), width = max(500, a \ 20 + 100), hi = lo + width, out = List(), p);
-  forprime(p = lo, hi, my(na = a*p - A, nA = A*p);
-    if(na > 0 && #Str(nA) <= MAXDIG, listput(out, [nA, na, p, score(nA, na)])));
+  \\ WIDTH BUG (found 2026-09-30, after two alarm-guard fixes to tryComplete that did not touch this
+  \\ function): width used to scale as a/20, so an 11-digit defect a gave a ~5e8-prime scan range here,
+  \\ with a full score() (itself a trial division to 1e5) computed for every candidate found -- this,
+  \\ not anything in tryComplete, was the real cause of every stall seen on 2026-09-29/30. width is now a
+  \\ small constant range, plus an early exit once WANTED candidates are collected, regardless of a's size.
+  my(lo = max(pmax + 1, A\a + 1), width = 3000, hi = lo + width, out = List(), p, WANTED = 4 * MAXKIDS, nchecked = 0);
+  forprime(p = lo, hi,
+    nchecked++; if(nchecked > width, break());
+    my(na = a*p - A, nA = A*p);
+    if(na > 0 && #Str(nA) <= MAXDIG, listput(out, [nA, na, p, score(nA, na)]));
+    if(#out >= WANTED, break()));
   \\ cap branching: keep only the MAXKIDS best-scoring children, so the frontier does not blow up
   if(#out > MAXKIDS,
     my(v = Vec(out)); v = vecsort(v, (x,y) -> -sign(x[4] - y[4]));
@@ -70,19 +78,40 @@ tryComplete(A, a, pmax, depth) = {
   my(psv = Vec(ps), esv = Vec(es));
   if(C > 1,
     if(ispseudoprime(C), psv = concat(psv, [C]); esv = concat(esv, [1]),
-      my(cf = factor(C)); psv = concat(psv, cf[,1]~); esv = concat(esv, cf[,2]~)));
+      \\ factor(C) has no internal time bound and can run for hours on a hard cofactor with no small
+      \\ factors (this hung the search for ~18h on 2026-09-29 before this fix): alarm() caps it and, on
+      \\ this GP version, RETURNS a t_ERROR value on timeout rather than raising a catchable exception --
+      \\ checked directly with type(), not with iferr/trap, which did not intercept it in testing.
+      my(cf = alarm(FACTOR_BUDGET, factor(C)));
+      if(type(cf) == "t_ERROR",
+        write("unresolved.txt", [A, a, "factor(C) timed out after", FACTOR_BUDGET, "s, C digits", #Str(C)]);
+        return);
+      psv = concat(psv, cf[,1]~); esv = concat(esv, cf[,2]~)));
   my(full = matrix(#psv, 2, i, j, if(j == 1, psv[i], esv[i])));
   \\ integrity check: the reconstructed factorization must multiply back to N exactly (Rule 25)
   if(factorback(full) != N, write("unresolved.txt", [A, a, "factorback mismatch, bug"]); return);
-  my(divs = divisors(full));
-  my(i2, d, ee, q1, q2);
-  for(i2 = 1, #divs,
-    d = divs[i2]; ee = N/d;
-    if((d + A) % a == 0 && (ee + A) % a == 0,
-      q1 = (d + A)/a; q2 = (ee + A)/a;
-      if(q1 != q2 && q1 > pmax && q2 > pmax && isprime(q1) && isprime(q2),
-        write("hits.txt", [depth+2, A*q1*q2, q1, q2, "two-prime completion"]);
-        print("TWO-PRIME COMPLETION FOUND: A=", A, " q1=", q1, " q2=", q2))));
+  \\ tau(N) is cheap from the exponents alone (no materialisation needed); our own priority heuristic
+  \\ favours SMOOTH N (many small factors), which is exactly what makes tau(N) explode -- a highly
+  \\ smooth 90+ digit N can have well over a million divisors, and both divisors() itself and the scan
+  \\ loop below are then unbounded in time and memory. This, not factor(C), is the more likely real
+  \\ cause of the 2026-09-29 ~18h hang, given the priority function's own bias; guarded here directly.
+  my(tau = vecprod(full[,2] + 1));
+  if(tau > DIVCAP, write("unresolved.txt", [A, a, "tau(N)", tau, "exceeds cap", DIVCAP]); return);
+  \\ belt and suspenders after DIVCAP failed to prevent one node from stalling >10 min on 2026-09-30
+  \\ (materialising divisors() and/or the scan itself was slower than tau(N) alone predicted): bound the
+  \\ whole remaining block with its own alarm, same t_ERROR-return convention as the factor(C) guard.
+  my(res = alarm(SCAN_BUDGET, my(divs = divisors(full), i2, d, ee, q1, q2, hitcount = 0);
+    for(i2 = 1, #divs,
+      d = divs[i2]; ee = N/d;
+      if((d + A) % a == 0 && (ee + A) % a == 0,
+        q1 = (d + A)/a; q2 = (ee + A)/a;
+        if(q1 != q2 && q1 > pmax && q2 > pmax && isprime(q1) && isprime(q2),
+          write("hits.txt", [depth+2, A*q1*q2, q1, q2, "two-prime completion"]);
+          print("TWO-PRIME COMPLETION FOUND: A=", A, " q1=", q1, " q2=", q2);
+          hitcount++)));
+    hitcount));
+  if(type(res) == "t_ERROR",
+    write("unresolved.txt", [A, a, "divisor scan timed out after", SCAN_BUDGET, "s, tau", tau]));
 }
 
 {
@@ -104,7 +133,12 @@ while(getabstime() - t0 < BUDGET * 1000 && (fpos <= #fv || #pending > 0),
   if(#fv == 0, break());
   node = fv[fpos]; fpos++;
   A = node[1]; a = node[2]; pmax = node[3]; depth = node[4];
+  \\ diagnostic instrumentation (2026-09-30, after two silent stalls that neither alarm guard caught):
+  \\ log every popped node BEFORE any work, so a third stall is locatable instead of another blind patch.
+  my(tpop = getabstime());
+  print("POP depth=", depth, " A digits=", #Str(A), " a digits=", #Str(a), " score=", node[5]);
   tryComplete(A, a, pmax, depth);
+  print("  done in ", getabstime() - tpop, "ms");
   if(depth < 15,
     kids = expand(A, a, pmax);
     for(k = 1, #kids, listput(pending, [kids[k][1], kids[k][2], kids[k][3], depth + 1, kids[k][4]])));
