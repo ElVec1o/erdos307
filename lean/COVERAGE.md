@@ -1,6 +1,6 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**97 of 158** labelled results are named by a Lean file in `Erdos307/` (77 files, **0 `sorry`**).
+**97 of 158** labelled results are named by a Lean file in `Erdos307/` (*named*, not necessarily fully proved: an anchor can cover the whole statement, one component, or a statement conditional on explicit hypotheses; see `private/anchor_audit_2026-10.md`) (77 files, **0 `sorry`**).
 
 `lake env lean Check.lean` probes **467 declarations across all 77 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
@@ -143,8 +143,8 @@ is *indicative only*, derived from keywords in surrounding prose, and the `Paper
 Lean file is the sole guarantee of coverage. Anyone auditing this repository should read the
 uncovered list and judge each entry directly rather than trusting the bucket it landed in.
 
-All three counterexamples are now formalised (`FunctionField.lean`, `NormalForm.symbolfact`,
-`Coprime60.lean`).
+All three counterexamples are now formalised (`FunctionField.lean`, `NormalForm.symbolfact`);
+`Coprime60.lean` supplies only the two inequalities used by `cor:coprime60`, not the slack computation.
 
 ## How to re-run this audit
 
@@ -324,3 +324,10 @@ The hypothesis that level 60 is empty is established computationally (`code/spli
 from "no solution has |P ∪ Q| = 60" to "|P ∪ Q| ≥ 61", which is independent of how level 60 is decided.
 
 - `erdos307_sixtyone_of_level60`: `erdos307_sixty` (|P ∪ Q| ≥ 60) plus card ≠ 60 gives |P ∪ Q| ≥ 61.
+- `Erdos307.Level60Sectors` -- `PairSectorEmpty` and `TailSectorEmpty` are the two explicit *unproved*
+  statements the computations must establish; `level60_empty_of_sectors` and `erdos307_sixtyone_of_sectors`
+  derive `hL` and the barrier 61 from them (via `Sectors`, `Lvl60Factor`, `PairForm`).
+- `Erdos307.Level61Bound.level61_bound` (`cor:level61bound`), conditional on `hL`: `∏U > 6.97·10^117`
+  and `∏P, ∏Q ≥ 589·10^56` (the paper's sharp 5.8918·10^58 is not stated).
+- Track A anchors, in the audit's terms: `prop:pairform`, `prop:sectors` full for the logic;
+  `prop:splitdisc` full for the algebra (counts not covered); `prop:lvl60factor` partial (no 2^ω root count).

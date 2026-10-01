@@ -32,7 +32,8 @@ and cofactor sum are carried down the recursion instead of rebuilt at each leaf.
 `ofReduceBool`: `erdos307_sixty`, like everything else here, carries only the three standard
 axioms.
 
-Paper: Proposition `prop:close59`, Theorem `thm:barrier` at level 60.
+Paper: Proposition `prop:close59` (the clause `|U| ≥ 60` only; the numeric bounds `Π₆₀`, `3.5053·10^57`
+and the counts are not formalised here).
 -/
 
 set_option maxRecDepth 100000

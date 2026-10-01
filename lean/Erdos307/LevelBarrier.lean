@@ -23,8 +23,7 @@ This is a **no-go**, and it is the reason the tail search of `prop:tailbound`, h
 pushed, bears on level 60 alone. Any further progress on #307 must be non-enumerative: it cannot
 proceed by exhausting supports one level at a time.
 
-Paper: Proposition `prop:levelbarrier`, Proposition `prop:close59`, Proposition `prop:tailkill`,
-Proposition `prop:tailbound`, Remark `rem:whatisleft`.
+Paper: Proposition `prop:levelbarrier`.
 -/
 
 namespace Erdos307

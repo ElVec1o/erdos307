@@ -19,7 +19,8 @@ Leibniz, `(ab)' = csum (P ∪ Q)`.
   support `U` of primes, then `N` is the product of a pair, namely `a, b = (s ± d)/2`. This is the
   statement that the single-integer test `N'² - 4N² = □` loses nothing.
 * `card_ge_59_of_minus_square`: the minus layer `N' - 2N = (a - b)² ≥ 0` forces `σ(N) ≥ 2`, hence
-  `59` primes; the paper's "`0` of `103,596` squarefree `N < 2·10⁵`" is this statement.
+  `59` primes; the paper's "`0` of `103,596` squarefree `N < 2·10⁵`" follows (via `N ≥ Π₅₉`, not
+  stated here as a theorem).
 
 What is *not* here: the counts `103,596` and `114` of the paper are computations; the first follows
 from `card_ge_59_of_minus_square`, the second is not formalised. The characteristic-`2` remark is a
@@ -148,8 +149,8 @@ theorem pair_of_two_squares {U : Finset ℕ} (hU : ∀ p ∈ U, p.Prime) {s d : 
     linear_combination (-1 : ℤ) * h1
 
 /-- **The minus layer carries the barrier.** If `N' - 2N` is a square then `σ(N) ≥ 2`, so the
-support has at least `59` primes; in particular no squarefree `N < 10^112` with `N' - 2N = □`
-exists, which contains the paper's empirical "`0` of `103,596`". -/
+support has at least `59` primes (the consequence for squarefree `N < 10^112` uses `N ≥ Π₅₉`,
+not stated here). -/
 theorem card_ge_59_of_minus_square {U : Finset ℕ} (hU : ∀ p ∈ U, p.Prime) {d : ℤ}
     (h : (csum U : ℤ) - 2 * dprod U = d ^ 2) : 59 ≤ U.card := by
   refine card_ge_59_of_pythagorean hU ?_

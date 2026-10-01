@@ -30,7 +30,8 @@ cheap: one Jacobi symbol per base, no factorisation.
 The search over bases is a computation and is not formalised; what is formalised is that a base the
 computation reports as killed really is empty.
 
-Paper: Proposition `prop:close59`, Remark `rem:campaign`.
+Paper: Proposition `prop:tailkill`, Remark `rem:campaign` (a component: soundness of one Legendre
+kill, given the Legendre hypothesis as input; not completeness or the counts).
 -/
 
 namespace Erdos307

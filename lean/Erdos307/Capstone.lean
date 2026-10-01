@@ -15,7 +15,7 @@ The only classical ingredient still imported as an explicit hypothesis is the
 smallest-primes extremality `hRatio` (target **T4′**); everything else — including the
 disjointness of `P` and `Q` and the rigidity identity `R = s·D_P²` — is discharged here.
 
-Status: **machine-checked**.  Compiles under `lake build` (Lean / mathlib v4.30.0); `#print axioms
+Status: **machine-checked** (conditional on `hRatio`; the unconditional form is `Closed.erdos307_barrier_closed`).  Compiles under `lake build` (Lean / mathlib v4.30.0); `#print axioms
 erdos307_barrier` shows only `propext, Classical.choice, Quot.sound` — no `sorryAx`.  Confirmed green Jun 14 2026.
 
 Paper: Theorem `thm:barrier` over genuine prime sets.

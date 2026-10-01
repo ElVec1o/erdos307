@@ -11,7 +11,7 @@ import Mathlib.Analysis.SpecialFunctions.Log.Basic
 A two-cycle `a' = b`, `b' = a` makes `N = ab` squarefree with `N' = a² + b²`, so
 `N'² - 4N² = (a² - b²)²` is a perfect square. That is a *one-integer* necessary test, strictly
 weaker than the cycle condition, and the point of `cor:emptytest` is that the barrier survives the
-weakening: the test is provably empty below `10^112`, so the empirical "0 of 103,596" is a theorem.
+weakening: the Lean statement `card_ge_59_of_pythagorean` is the `59`-prime clause; the step to `N ≥ Π₅₉ > 10^112` and the empirical "0 of 103,596" are consequences not stated in Lean.
 
 Everything here rests on Leibniz, which the project already has as `csum_union_eq`: for disjoint
 prime supports, `(PQ)' = Q·P' + P·Q'`. The rest is algebra.
@@ -102,8 +102,8 @@ theorem mass_ge_two_of_pyth_support {U : Finset ℕ} {a b : ℕ} (ha : 0 < a) (h
 
 /-- **`cor:emptytest`.** A Pythagorean pair carries at least `59` primes in its support, so
 `N = ab ≥ Π₅₉ > 7.9 × 10^112` and no squarefree `N < 10^112` with `ω(N) ≥ 2` passes the
-single-integer test. The empirical "`0` of `103,596`" is a theorem, and the barrier extends from
-two-cycles to the strictly weaker one-equation problem. -/
+single-integer test. Lean proves the `59`-prime clause (`59 ≤ U.card`); the product bound `N ≥ Π₅₉` and the
+empirical "`0` of `103,596`" follow from it but are not stated as Lean theorems. -/
 theorem card_ge_59_of_pythagorean {U : Finset ℕ} (hU : ∀ p ∈ U, p.Prime)
     (h : (2 : ℚ) ≤ (csum U : ℚ) / (dprod U : ℚ)) : 59 ≤ U.card := by
   refine card_ge_59_of_recipSum_ge_two hU ?_
