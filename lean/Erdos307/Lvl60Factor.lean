@@ -81,7 +81,8 @@ lemma lvl60_core {S P Q : Finset ℕ} {q : ℕ} (hS : ∀ p ∈ S, p.Prime) (hq 
     (hdisj : Disjoint P Q) (hU : P ∪ Q = S ∪ {q}) (hqP : q ∈ P)
     (h1 : csum P = dprod Q) (h2 : csum Q = dprod P) :
     (dprod P + dprod Q) ^ 2 = (csum S + 2 * dprod S) * q + dprod S ∧
-      0 < dprod P + dprod Q ∧ dprod P + dprod Q < csum S + 2 * dprod S := by
+      0 < dprod P + dprod Q ∧ dprod P + dprod Q < csum S + 2 * dprod S ∧
+      dprod P * dprod Q = dprod S * q := by
   have hU' : ∀ p ∈ P ∪ Q, p.Prime := by
     rw [hU]; intro p hp
     rcases Finset.mem_union.1 hp with h | h
@@ -103,7 +104,7 @@ lemma lvl60_core {S P Q : Finset ℕ} {q : ℕ} (hS : ∀ p ∈ S, p.Prime) (hq 
   have hpair' : dprod P ^ 2 + dprod Q ^ 2 = q * csum S + dprod S := by exact_mod_cast hpair
   have hx : (dprod P + dprod Q) ^ 2 = (csum S + 2 * dprod S) * q + dprod S := by
     nlinarith [hpair', hab]
-  refine ⟨hx, ?_, ?_⟩
+  refine ⟨hx, ?_, ?_, hab⟩
   · have := dprod_pos hP; omega
   · -- q ≤ N
     have hQS : Q ⊆ S := by
@@ -145,8 +146,24 @@ theorem lvl60_factor {S P Q : Finset ℕ} {q : ℕ} (hS : ∀ p ∈ S, p.Prime) 
   · exact (csum_odd_of_two_mem hS h2).add_even ⟨dprod S, by ring⟩
   · have hqU : q ∈ P ∪ Q := hU ▸ Finset.mem_union_right _ (Finset.mem_singleton_self q)
     rcases Finset.mem_union.1 hqU with hqP | hqQ
-    · exact ⟨_, lvl60_core hS hq hqS hdisj hU hqP h1 h2'⟩
-    · obtain ⟨hx, hp, hl⟩ := lvl60_core hS hq hqS hdisj.symm (by rwa [Finset.union_comm]) hqQ h2' h1
+    · obtain ⟨hx, hp, hl, -⟩ := lvl60_core hS hq hqS hdisj hU hqP h1 h2'
+      exact ⟨_, hx, hp, hl⟩
+    · obtain ⟨hx, hp, hl, -⟩ := lvl60_core hS hq hqS hdisj.symm (by rwa [Finset.union_comm]) hqQ h2' h1
       exact ⟨_, by rwa [add_comm] at hx, by omega, by omega⟩
+
+/-- `prop:lvl60factor`, with the two factors exposed: `∏P · ∏Q = D q`, `x = ∏P + ∏Q`, so
+`y = ∏P - ∏Q` satisfies `y² = B q + D` with `B = N - 2D` (the minus layer). -/
+theorem lvl60_factor_ab {S P Q : Finset ℕ} {q : ℕ} (hS : ∀ p ∈ S, p.Prime)
+    (hq : q.Prime) (hqS : q ∉ S) (hdisj : Disjoint P Q) (hU : P ∪ Q = S ∪ {q})
+    (h1 : csum P = dprod Q) (h2' : csum Q = dprod P) :
+    ∃ a b : ℕ, a * b = dprod S * q ∧ 0 < a + b ∧ a + b < csum S + 2 * dprod S ∧
+      (a + b) ^ 2 = (csum S + 2 * dprod S) * q + dprod S := by
+  have hqU : q ∈ P ∪ Q := hU ▸ Finset.mem_union_right _ (Finset.mem_singleton_self q)
+  rcases Finset.mem_union.1 hqU with hqP | hqQ
+  · obtain ⟨hx, hp, hl, hab⟩ := lvl60_core hS hq hqS hdisj hU hqP h1 h2'
+    exact ⟨_, _, hab, hp, hl, hx⟩
+  · obtain ⟨hx, hp, hl, hab⟩ :=
+      lvl60_core hS hq hqS hdisj.symm (by rwa [Finset.union_comm]) hqQ h2' h1
+    exact ⟨_, _, hab, hp, hl, hx⟩
 
 end Erdos307
