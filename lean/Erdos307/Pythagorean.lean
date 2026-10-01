@@ -6,7 +6,7 @@ import Mathlib.Analysis.SpecialFunctions.Log.Basic
 /-!
 # The Pythagorean layer: the single-integer test, and why it is empty
 
-`prop:pyth`, `cor:emptytest`, `prop:split`, `prop:kcycles`.
+`prop:pyth`, `cor:emptytest`, `prop:splitdisc`, `prop:kcycles`.
 
 A two-cycle `a' = b`, `b' = a` makes `N = ab` squarefree with `N' = a² + b²`, so
 `N'² - 4N² = (a² - b²)²` is a perfect square. That is a *one-integer* necessary test, strictly
@@ -18,7 +18,7 @@ prime supports, `(PQ)' = Q·P' + P·Q'`. The rest is algebra.
 
 * `pyth_sum_of_squares`: `N' = a² + b²` for a two-cycle. One rewrite of Leibniz.
 * `pyth_discriminant`: hence `N'² - 4N² = (a² - b²)²`, a perfect square. A ring identity over `ℤ`.
-* `split_identity`: `prop:split`, the two-sided form
+* `split_identity`: `prop:splitdisc`, the two-sided form
   `N' + 2N - (a+b)² = N' - 2N - (a-b)² = (ab)' - a² - b²`. Also a ring identity, and it is what
   isolates the obstructing factor: the minus side is a square only when `σ(N) ≥ 2`, while the plus
   side is satisfiable at small scale. In characteristic `2` the obstructing factor vanishes, which
@@ -36,7 +36,7 @@ determines the factorisation) is Bado's, cited; and the values `m₂ = 59`, `m�
 computations, the first of which is `card_ge_59_of_recipSum_ge_two` and the second of which is not
 formalised.
 
-Paper: Proposition `prop:pyth`, Corollary `cor:emptytest`, Proposition `prop:split`,
+Paper: Proposition `prop:pyth`, Corollary `cor:emptytest`, Proposition `prop:splitdisc`,
 Proposition `prop:kcycles`, Proposition `prop:kdev`.
 -/
 
@@ -60,7 +60,7 @@ theorem pyth_discriminant (a b : ℤ) :
 
 /-! ### The split discriminant -/
 
-/-- **`prop:split`.** The two layers differ by the same amount from the two squares:
+/-- **`prop:splitdisc`.** The two layers differ by the same amount from the two squares:
 `N' + 2N - (a+b)² = N' - 2N - (a-b)² = N' - a² - b²`. So `N` is the product of a Pythagorean pair
 iff `N' - 2N` and `N' + 2N` are *both* perfect squares, and their product is Bado's discriminant
 `N'² - 4N²`.
