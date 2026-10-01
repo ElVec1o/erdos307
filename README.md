@@ -167,7 +167,7 @@ LICENSE        licence for the repository
 .gitignore     excludes private/, which never ships
 
 paper/   erdos307-core.pdf       — the paper (32 pp; the results)
-         erdos307-computational.pdf — the computational companion (31 pp; certificate, split sieve, pair sector)
+         erdos307-computational.pdf — the computational companion (32 pp; certificate, split sieve, pair sector)
          erdos307-obstructions.pdf  — the obstructions companion (35 pp; places, potentials, two closures)
          erdos307-analytic.pdf      — the analytic companion (49 pp; density theorem, square sieve)
          erdos307.tex            — the single source both are generated from
@@ -187,7 +187,7 @@ data/certs/   independently checkable ECPP primality certificates: the immune fa
   derived from `erdos307.tex`, never hand-edited, so they cannot drift; `code/check_consistency.sh`
   compares the label sets to enforce that.
 - **Lean:** `cd lean && lake exe cache get && lake build` (Lean / mathlib `v4.30.0`). Then
-  `lake env lean Check.lean` prints the axiom dependencies of 463 declarations across all 75 modules
+  `lake env lean Check.lean` prints the axiom dependencies of 464 declarations across all 76 modules
   — everything depends only on `propext, Classical.choice, Quot.sound` (no `sorryAx`), with exactly
   no exceptions: there is no `native_decide` anywhere in the development.
 - **Code:** Rust (`rustc -O -o NAME NAME.rs`) for the heavy computations, PARI/GP (`gp -q -f NAME.gp`)
@@ -258,7 +258,7 @@ against the build by `code/check_consistency.sh` at every push. Summary:
 | `lem:deficit` (algebraic core) | `Erdos307.Deficit` | PROVED ⭐ (four analytic inputs) |
 | `prop:condrate` / `thm:a9` (detector steps) | `Erdos307.CondRate` | PROVED ⭐ (Halász, Siegel–Walfisz) |
 
-`lake env lean Check.lean` probes 463 declarations across 75 modules; all depend only on
+`lake env lean Check.lean` probes 464 declarations across 76 modules; all depend only on
 `propext, Classical.choice, Quot.sound`, with zero `sorry`. Six atoms carry formalization debt (⭐);
 five of the six have their non-analytic core machine-checked, and what remains under all of them is
 four classical theorems (Siegel–Walfisz, Siegel, the zero-free region for Dirichlet `L`-functions,
