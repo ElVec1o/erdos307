@@ -70,5 +70,6 @@ import Erdos307.PairForm
 import Erdos307.Sectors
 import Erdos307.Lvl60Factor
 import Erdos307.Level61Bound
+import Erdos307.Level60Sectors
 import Erdos307.SplitExact
 import Erdos307.Sixtyone
