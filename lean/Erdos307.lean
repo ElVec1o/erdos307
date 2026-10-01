@@ -66,5 +66,6 @@ import Erdos307.Pratt
 import Erdos307.PrattN10
 import Erdos307.PPNInherit
 import Erdos307.PairClosed
+import Erdos307.PairForm
 import Erdos307.SplitExact
 import Erdos307.Sixtyone

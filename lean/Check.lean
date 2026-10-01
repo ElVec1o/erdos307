@@ -2,6 +2,7 @@ import Erdos307.Barrier
 import Erdos307.Sixtyone
 import Erdos307.SplitExact
 import Erdos307.PairClosed
+import Erdos307.PairForm
 import Erdos307.Deficit
 import Erdos307.Breeder
 import Erdos307.Bridge
@@ -545,3 +546,8 @@ open Erdos307
 #print axioms Erdos307.split_cycle_of_identity
 #print axioms Erdos307.split_card_odd
 #print axioms Erdos307.erdos307_sixtyone_of_level60
+
+#print axioms Erdos307.pair_form_iff
+#print axioms Erdos307.pair_iff_two_squares
+#print axioms Erdos307.pair_of_two_squares
+#print axioms Erdos307.card_ge_59_of_minus_square
