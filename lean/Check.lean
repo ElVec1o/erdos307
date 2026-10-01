@@ -4,6 +4,7 @@ import Erdos307.SplitExact
 import Erdos307.PairClosed
 import Erdos307.PairForm
 import Erdos307.Sectors
+import Erdos307.Lvl60Factor
 import Erdos307.Deficit
 import Erdos307.Breeder
 import Erdos307.Bridge
@@ -554,3 +555,4 @@ open Erdos307
 #print axioms Erdos307.card_ge_59_of_minus_square
 #print axioms Erdos307.sectors
 #print axioms Erdos307.sector_single_strict
+#print axioms Erdos307.lvl60_factor

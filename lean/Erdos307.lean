@@ -68,5 +68,6 @@ import Erdos307.PPNInherit
 import Erdos307.PairClosed
 import Erdos307.PairForm
 import Erdos307.Sectors
+import Erdos307.Lvl60Factor
 import Erdos307.SplitExact
 import Erdos307.Sixtyone
