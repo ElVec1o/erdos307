@@ -8,3 +8,7 @@ rev = "v4.30.0"
 
 [[lean_lib]]
 name = "Erdos307"
+
+[[lean_exe]]
+name = "pairenum"
+root = "Erdos307.Computational.PairEnumRun"
