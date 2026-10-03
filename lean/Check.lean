@@ -7,6 +7,7 @@ import Erdos307.Sectors
 import Erdos307.Lvl60Factor
 import Erdos307.Level61Bound
 import Erdos307.Level60Sectors
+import Erdos307.PairNecessary
 import Erdos307.Deficit
 import Erdos307.Breeder
 import Erdos307.Bridge
@@ -562,3 +563,4 @@ open Erdos307
 #print axioms Erdos307.level60_empty_of_sectors
 #print axioms Erdos307.erdos307_sixtyone_of_sectors
 #print axioms Erdos307.lvl60_factor_ab
+#print axioms Erdos307.pair_necessary
