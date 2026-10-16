@@ -10,6 +10,7 @@ import Erdos307.Level60Sectors
 import Erdos307.PairNecessary
 import Erdos307.JacobiAlg
 import Erdos307.KillSearch
+import Erdos307.QSieveLemmas
 import Erdos307.Deficit
 import Erdos307.Breeder
 import Erdos307.Bridge
@@ -572,3 +573,6 @@ open Erdos307
 #print axioms Erdos307.window_pool
 #print axioms Erdos307.tail_of_survivors
 #print axioms Erdos307.level60_empty_of_sectors
+#print axioms Erdos307.two_adic_class
+#print axioms Erdos307.tail_legendre
+#print axioms Erdos307.tail_of_survivors
