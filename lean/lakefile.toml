@@ -12,3 +12,7 @@ name = "Erdos307"
 [[lean_exe]]
 name = "pairenum"
 root = "Erdos307.Computational.PairEnumRun"
+
+[[lean_exe]]
+name = "qprobe"
+root = "Erdos307.Computational.QSieveProbe"
