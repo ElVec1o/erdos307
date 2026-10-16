@@ -11,11 +11,12 @@ is *proved* are separated precisely.
 
 * `PairSectorEmpty`: no two-cycle is supported on a `60`-set `U` whose largest element `p` has
   `T(U ∖ {p}) < 2` (the pair sector). Computed by `prop:pairclosed`.
-* `TailSectorEmpty`: for every base `S` of `59` primes containing `2`, with `T(S) ≥ 2`, and every
-  prime `q` larger than all of `S`, there are no integers `x, y` with `0 < x < A`, `x² = A q + D`,
-  `y² = B q + D` (where `D = ∏S`, `N = csum S`, `A = N + 2D`, `B = N - 2D`). This is the
-  arithmetic content of a two-cycle on `S ∪ {q}` by `lvl60_factor_ab`; it is what the Stage A and
-  q-sieve computations decide.
+* `TailSectorEmpty`: for every base `S` of `59` primes containing `2` with `T(S) ≥ 2`, either the two
+  squares `x² = A q + D`, `y² = B q + D` (`A = N + 2D`, `B = N - 2D`, `0 < x < A`) are unsolvable for every
+  tail prime `q` (a Jacobi kill, `KillSearch`), or both computations hold: no cycle with `α² 2^40 ≤ D`
+  (`CycleLow`, Stage A) and no solution of the two squares with `q D ≤ N 2^40` (the q-sieve). A tail cycle
+  falls in one of the last two cases (`tail_split_core`: `q α² ≤ N`). The squares alone do not decide the
+  small-`ρ` regime, which is why Stage A works with the split `T`, not with `x, y`.
 
 `level60_empty_of_sectors` proves `hL` from the two, and `erdos307_sixtyone_of_sectors` the barrier
 `61`. Everything the computations must establish is therefore the two `Prop`s above; nothing else
@@ -43,10 +44,21 @@ def TailArith (S : Finset ℕ) (q : ℕ) : Prop :=
     x ^ 2 = ((csum S : ℤ) + 2 * dprod S) * q + dprod S ∧
     y ^ 2 = ((csum S : ℤ) - 2 * dprod S) * q + dprod S
 
-/-- The single-tail sector at level `60` is empty. -/
+/-- A tail cycle in the small-`ρ` regime: `T ⊆ S`, `α = ∏T`, `β = ∏(S∖T)` with
+`β' = qα`, `β = α + qα'` and `α² 2^40 ≤ D`. This is what Stage A decides. -/
+def CycleLow (S : Finset ℕ) : Prop :=
+  ∃ T ⊆ S, ∃ q : ℕ, q.Prime ∧ q ∉ S ∧ csum (S \ T) = q * dprod T ∧
+    dprod (S \ T) = dprod T + q * csum T ∧ dprod T ^ 2 * 2 ^ 40 ≤ dprod S
+
+/-- The single-tail sector at level `60` is empty. For each base `S`: either the two squares
+`x² = A q + D`, `y² = B q + D` are unsolvable for every tail prime `q` (a Jacobi kill), or both
+computations hold: Stage A (no cycle with `α² 2^40 ≤ D`) and the `q`-sieve (no solution of the two
+squares with `q D ≤ N 2^40`). -/
 def TailSectorEmpty : Prop :=
   ∀ S : Finset ℕ, (∀ r ∈ S, r.Prime) → 2 ∈ S → S.card = 59 → 2 ≤ mass S →
-    ∀ q : ℕ, q.Prime → (∀ s ∈ S, s < q) → ¬ TailArith S q
+    (∀ q : ℕ, q.Prime → (∀ s ∈ S, s < q) → ¬ TailArith S q) ∨
+    (¬ CycleLow S ∧ ∀ q : ℕ, q.Prime → (∀ s ∈ S, s < q) →
+      ¬ (q * dprod S ≤ csum S * 2 ^ 40 ∧ TailArith S q))
 
 lemma cycle_of_solution {P Q : Finset ℕ} (hP : ∀ p ∈ P, p.Prime) (hQ : ∀ q ∈ Q, q.Prime)
     (heq : (∑ p ∈ P, (p : ℚ)⁻¹) * (∑ q ∈ Q, (q : ℚ)⁻¹) = 1) : IsCycle (P ∪ Q) := by
@@ -99,6 +111,69 @@ lemma two_mem_of_solution {P Q : Finset ℕ} (hP : ∀ p ∈ P, p.Prime) (hQ : �
   norm_num at h1
   linarith
 
+/-- The split of a tail cycle: `T = P ∖ {q}`, `S ∖ T = Q`, and the size bound `q α² ≤ N`. -/
+theorem tail_split_core {S P Q : Finset ℕ} {q : ℕ} (hS : ∀ p ∈ S, p.Prime) (hq : q.Prime)
+    (hqS : q ∉ S) (hdisj : Disjoint P Q) (hU : P ∪ Q = S ∪ {q}) (hqP : q ∈ P)
+    (h1 : csum P = dprod Q) (h2 : csum Q = dprod P) :
+    ∃ T ⊆ S, csum (S \ T) = q * dprod T ∧ dprod (S \ T) = dprod T + q * csum T ∧
+      q * dprod T ^ 2 ≤ csum S := by
+  set T := P.erase q with hT
+  have hPeq : P = T ∪ {q} := by
+    ext x; simp only [hT, Finset.mem_union, Finset.mem_erase, Finset.mem_singleton]
+    constructor
+    · intro hx; by_cases h : x = q <;> simp [h, hx]
+    · rintro (⟨-, hx⟩ | rfl) <;> assumption
+  have hTP : T ⊆ P := Finset.erase_subset q P
+  have hTS : T ⊆ S := by
+    intro x hx
+    have hxP : x ∈ P := hTP hx
+    have hxq : x ≠ q := Finset.ne_of_mem_erase hx
+    have : x ∈ S ∪ {q} := hU ▸ Finset.mem_union_left _ hxP
+    rcases Finset.mem_union.1 this with h | h
+    · exact h
+    · exact absurd (Finset.mem_singleton.1 h) hxq
+  have hQS : Q ⊆ S := by
+    intro y hy
+    have : y ∈ S ∪ {q} := hU ▸ Finset.mem_union_right _ hy
+    rcases Finset.mem_union.1 this with h | h
+    · exact h
+    · exfalso; rw [Finset.mem_singleton.1 h] at hy
+      exact Finset.disjoint_left.1 hdisj hqP hy
+  have hSQ : S \ T = Q := by
+    ext x; simp only [Finset.mem_sdiff]
+    constructor
+    · rintro ⟨hxS, hxT⟩
+      have : x ∈ P ∪ Q := hU ▸ Finset.mem_union_left _ hxS
+      rcases Finset.mem_union.1 this with hxP | hxQ
+      · exfalso
+        by_cases h : x = q
+        · exact hqS (h ▸ hxS)
+        · exact hxT (Finset.mem_erase.2 ⟨h, hxP⟩)
+      · exact hxQ
+    · intro hx
+      refine ⟨hQS hx, fun hxT => ?_⟩
+      exact Finset.disjoint_left.1 hdisj (hTP hxT) hx
+  have hqT : q ∉ T := Finset.notMem_erase q P
+  have hTq : Disjoint T {q} := by simpa [Finset.disjoint_singleton_right] using hqT
+  have hdP : dprod P = dprod T * q := by
+    rw [hPeq, dprod_union_disjoint hTq]; simp [dprod]
+  have hcP : csum P = q * csum T + dprod T := by
+    rw [hPeq]; exact csum_insert_prime hqT hq.pos
+  have hdisjTQ : Disjoint T Q := Finset.disjoint_left.2 fun x hxT hxQ =>
+    Finset.disjoint_left.1 hdisj (hTP hxT) hxQ
+  have hSTQ : S = T ∪ Q := by
+    rw [← hSQ]; exact (Finset.union_sdiff_of_subset hTS).symm
+  have hcS : csum S = dprod Q * csum T + dprod T * csum Q := by
+    rw [hSTQ]; exact csum_union_eq hdisjTQ
+  refine ⟨T, hTS, ?_, ?_, ?_⟩
+  · rw [hSQ, h2, hdP]; ring
+  · rw [hSQ, ← h1, hcP]; ring
+  have hc2 : csum Q = q * dprod T := by rw [h2, hdP]; ring
+  rw [hcS]
+  calc q * dprod T ^ 2 = dprod T * csum Q := by rw [hc2]; ring
+    _ ≤ _ := Nat.le_add_left _ _
+
+
 /-- **`hL` from the two sector statements.** -/
 theorem level60_empty_of_sectors (hpair : PairSectorEmpty) (htail : TailSectorEmpty) :
     ∀ P Q : Finset ℕ, (∀ p ∈ P, p.Prime) → (∀ q ∈ Q, q.Prime) →
@@ -147,14 +222,31 @@ theorem level60_empty_of_sectors (hpair : PairSectorEmpty) (htail : TailSectorEm
       lvl60_factor_ab hSp hpprime hpS hdisj hUS h1 h2'
     have hlt' : ∀ s ∈ S, s < p := fun s hs =>
       lt_of_le_of_ne (hmax s (Finset.mem_of_mem_erase hs)) (Finset.ne_of_mem_erase hs)
-    refine htail S hSp h2S hcardS hm p hpprime hlt' ⟨(a : ℤ) + b, (a : ℤ) - b, ?_, ?_, ?_, ?_⟩
-    · exact_mod_cast hpos
-    · exact_mod_cast hlt
-    · exact_mod_cast hsq
-    · have hab' : (a : ℤ) * b = dprod S * p := by exact_mod_cast hab
-      have hsq' : ((a : ℤ) + b) ^ 2 = ((csum S : ℤ) + 2 * dprod S) * p + dprod S := by
-        exact_mod_cast hsq
-      nlinarith [hab', hsq']
+    have hTA : TailArith S p := by
+      refine ⟨(a : ℤ) + b, (a : ℤ) - b, ?_, ?_, ?_, ?_⟩
+      · exact_mod_cast hpos
+      · exact_mod_cast hlt
+      · exact_mod_cast hsq
+      · have hab' : (a : ℤ) * b = dprod S * p := by exact_mod_cast hab
+        have hsq' : ((a : ℤ) + b) ^ 2 = ((csum S : ℤ) + 2 * dprod S) * p + dprod S := by
+          exact_mod_cast hsq
+        nlinarith [hab', hsq']
+    rcases htail S hSp h2S hcardS hm with hkill | ⟨hlow, hhigh⟩
+    · exact hkill p hpprime hlt' hTA
+    · have hpU' : p ∈ P' ∪ Q' := by rw [hUS]; exact Finset.mem_union_right _ (Finset.mem_singleton_self p)
+      obtain ⟨T, hTS, hc2, hb, hbound⟩ : ∃ T ⊆ S, csum (S \ T) = p * dprod T ∧
+          dprod (S \ T) = dprod T + p * csum T ∧ p * dprod T ^ 2 ≤ csum S := by
+        rcases Finset.mem_union.1 hpU' with hpP | hpQ
+        · exact tail_split_core hSp hpprime hpS hdisj hUS hpP h1 h2'
+        · exact tail_split_core hSp hpprime hpS hdisj.symm (by rwa [Finset.union_comm]) hpQ h2' h1
+      by_cases hα : dprod T ^ 2 * 2 ^ 40 ≤ dprod S
+      · exact hlow ⟨T, hTS, p, hpprime, hpS, hc2, hb, hα⟩
+      · have hα' := (not_le.1 hα).le
+        have hhi : p * dprod S ≤ csum S * 2 ^ 40 :=
+          calc p * dprod S ≤ p * (dprod T ^ 2 * 2 ^ 40) := Nat.mul_le_mul_left _ hα'
+            _ = (p * dprod T ^ 2) * 2 ^ 40 := by ring
+            _ ≤ csum S * 2 ^ 40 := Nat.mul_le_mul_right _ hbound
+        exact hhigh p hpprime hlt' ⟨hhi, hTA⟩
 
 /-- **The barrier `61` from the two sector statements.** -/
 theorem erdos307_sixtyone_of_sectors (hpair : PairSectorEmpty) (htail : TailSectorEmpty)

@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**97 of 158** labelled results are named by a Lean file in `Erdos307/` (*named*, not necessarily fully proved: an anchor can cover the whole statement, one component, or a statement conditional on explicit hypotheses; see `private/anchor_audit_2026-10.md`) (78 files, **0 `sorry`**).
+**97 of 158** labelled results are named by a Lean file in `Erdos307/` (*named*, not necessarily fully proved: an anchor can cover the whole statement, one component, or a statement conditional on explicit hypotheses; see `private/anchor_audit_2026-10.md`) (80 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **468 declarations across all 78 modules**. Everything is on the
+`lake env lean Check.lean` probes **474 declarations across all 80 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
 closes level 60, was the last site off that footing; it and the `erdos307_sixty` that consumes it are
 now kernel-`decide`, as is the numeral bridge behind `card_ge_59` and `erdos307_barrier_closed`.
@@ -333,3 +333,12 @@ from "no solution has |P ∪ Q| = 60" to "|P ∪ Q| ≥ 61", which is independen
   and `∏P, ∏Q ≥ 589·10^56` (the paper's sharp 5.8918·10^58 is not stated).
 - Track A anchors, in the audit's terms: `prop:pairform`, `prop:sectors` full for the logic;
   `prop:splitdisc` full for the algebra (counts not covered); `prop:lvl60factor` partial (no 2^ω root count).
+
+## Level 60 tail sector: correction (2026-10-17)
+The first formulation of `TailSectorEmpty` (commit 0a7f760 and later, until this change) asked for no solution of the two
+squares for every tail prime `q`. That is the factoring-hard statement; the Stage A and q-sieve computations do not prove
+it (they use the split `T` for `α² 2^40 ≤ D` and bound `q` otherwise). It is replaced by the disjunction in
+`Level60Sectors.lean` (kill, or `¬CycleLow ∧ q-sieve`). `Erdos307.KillSearch`: `enumA_complete` (every 59-prime base with
+`T ≥ 2` is an enumerated pool), `checkAll_sound` (each pool is killed by a Jacobi symbol or listed), `tail_of_survivors`.
+The kernel evaluation `(enumA pool99 20 0 []).length = 49961` was run once (`decide +kernel`, about 2 minutes).
+`Erdos307.JacobiAlg`: the Jacobi algorithm `jacF` with `jacF_sound`, and `kill_of_divisor`.
