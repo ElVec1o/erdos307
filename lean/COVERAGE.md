@@ -303,6 +303,8 @@ axioms [propext, Classical.choice, Quot.sound].
 `Erdos307.PairClosed` -- VERIFIED (algebraic core), 0 sorry, axioms [propext, Classical.choice, Quot.sound].
 The finite check over 2,143,165,628 pairs `(R, m)` is computational (`code/pairsector_close.rs`).
 
+**V2 (isolated, not imported by `Erdos307.lean`):** `lean/Erdos307/Computational/` proves `pair_sector_empty : PairSectorEmpty` end to end. The kernel part is `pair_necessary` (cycle => tail bound + character conditions), `pdfs_sound` (the enumeration visits every window base), `leaf_sound` and `legendreSym_eq_eulerSym` (the leaf refutes every `p`), `pair_sector_empty_of_check`. One `native_decide` (`pairCheck`) evaluates the Boolean; the extra axiom is `Erdos307.pairCheck._native.native_decide.ax_1_1`. Checked with `lake env lean Erdos307/Computational/Check.lean`; the same Boolean was also evaluated by a compiled executable (11,745 s).
+
 - `pair_squares`: from `ab = Dm` and `a² + b² = D'm + D`, both `(D' ± 2D) m + D` are squares, `(a ± b)²`.
 - `pair_tail_bound`: the minus square gives `m (2D - D') ≤ D`, i.e. `m ≤ 1/(2 - T(R))`.
 - `pair_char_square`: with `D = p e` and `D' ≡ e (mod p)`, the plus square makes `e m` a square mod `p`.

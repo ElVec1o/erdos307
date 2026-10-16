@@ -246,7 +246,7 @@ against the build by `code/check_consistency.sh` at every push. Summary:
 | `prop:twosided`, `prop:lyapshape` (exclusion of one-sided and `σ`-only arguments) | `Erdos307.Exclusions` | VERIFIED |
 | `prop:oddsector` (odd sectors keep 2 only when `ω(d)` is odd) | `Erdos307.OddSector` | VERIFIED |
 | `prop:ppninherit` (the ten-factor primary pseudoperfect number extends by neither one nor two primes; Erdős #313) | `Erdos307.PPNInherit`, `Erdos307.PrattN10`, `Erdos307.Pratt` | VERIFIED |
-| `prop:pairclosed` (the level-60 pair sector is empty; algebraic core, finite check in `code/pairsector_close.rs`) | `Erdos307.PairClosed` | VERIFIED |
+| `prop:pairclosed` (the level-60 pair sector is empty; algebraic core, finite check in `code/pairsector_close.rs`) | `Erdos307.PairClosed`; V2 end to end: `Erdos307.Computational.PairNative.pair_sector_empty` (one `native_decide`) | VERIFIED (core), V2 (finite check) |
 | `cor:splitexact` (the single-tail criterion is exact; every split has `|T|` odd) | `Erdos307.SplitExact` | VERIFIED |
 | `prop:level60closed` (level 60 is empty: pair sector by mass, single-tail sector by identity, no factorisation) | `code/splitmitm/split_mitm.rs`, `code/qsieve/q_sieve.rs`, `q_sieve2.rs` | VERIFIED (computational) |
 | `cor:level61bound` (barrier sharpened to `\|P\cup Q\| >= 61`, `min(prod P, prod Q) > 5.89e58`; assembly `Erdos307.Sixtyone`) | `Erdos307.Sixtyone` | VERIFIED (assembly) |

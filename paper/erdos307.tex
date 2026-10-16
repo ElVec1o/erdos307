@@ -1301,7 +1301,7 @@ The check is \texttt{code/pairsector\_close.rs} (one thread, about four CPU--min
 the range of $m$ in exact integer arithmetic, with $0$ ambiguous cases, recovers a planted tail and the count
 $18{,}234{,}653$, and agrees with an independent implementation on every count. The algebraic core is formalised
 (\texttt{Erdos307.pair\_squares}, \texttt{pair\_tail\_bound}, \texttt{pair\_char\_square}, \texttt{pair\_legendre};
-\texttt{lean/Erdos307/PairClosed.lean}). Proposition~\ref{prop:pairlocal} is not contradicted: it concerns the family
+\texttt{lean/Erdos307/PairClosed.lean}). The finite check itself is also formalised, at a tier that adds one compiled evaluation (\texttt{native\_decide}): \texttt{Erdos307.pair\_sector\_empty} in \texttt{lean/Erdos307/Computational/}, which is not imported by the main library. Proposition~\ref{prop:pairlocal} is not contradicted: it concerns the family
 with both new primes free, and here the sector's own mass condition bounds the one tail that remains. Level $60$ is
 thereby reduced to the $3{,}444$ open single--tail families.
 
