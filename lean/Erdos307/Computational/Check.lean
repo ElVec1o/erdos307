@@ -1,2 +1,2 @@
-import Erdos307.Computational.PairEnum
-#print axioms Erdos307.pdfs_sound
+import Erdos307.Computational.PairNative
+#print axioms Erdos307.pair_sector_empty
