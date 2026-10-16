@@ -1,2 +1,4 @@
 import Erdos307.Computational.PairNative
+import Erdos307.Computational.KillNative
 #print axioms Erdos307.pair_sector_empty
+#print axioms Erdos307.tail_empty_of_survivors
