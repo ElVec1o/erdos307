@@ -21,7 +21,9 @@ theorem killCheck_run : checkAll (enumA pool99 20 0 []) killCerts survivorPools 
 /-- Level 60 tail sector, reduced to the listed survivor pools: if no survivor pool carries a low-`ρ` cycle or a
 q-sieve solution, `TailSectorEmpty` holds. Everything else is killed by a Jacobi symbol (V2: one `native_decide`). -/
 theorem tail_empty_of_survivors
-    (hL : ∀ V ∈ survivorPools, ¬ CycleLow (forced39 ++ V).toFinset ∧ ∀ q : ℕ, q.Prime →
+    (hL : ∀ V ∈ survivorPools, (forced39 ++ V).Nodup → (∀ p ∈ forced39 ++ V, p.Prime) → 2 ∈ forced39 ++ V →
+      2 * dprod (forced39 ++ V).toFinset ≤ csum (forced39 ++ V).toFinset →
+      ¬ CycleLow (forced39 ++ V).toFinset ∧ ∀ q : ℕ, q.Prime →
       (∀ s ∈ forced39 ++ V, s < q) →
       ¬ (q * dprod (forced39 ++ V).toFinset ≤ csum (forced39 ++ V).toFinset * 2 ^ 40 ∧
         TailArith (forced39 ++ V).toFinset q)) : TailSectorEmpty :=

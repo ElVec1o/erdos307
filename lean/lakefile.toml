@@ -16,3 +16,11 @@ root = "Erdos307.Computational.PairEnumRun"
 [[lean_exe]]
 name = "qprobe"
 root = "Erdos307.Computational.QSieveProbe"
+
+[[lean_exe]]
+name = "qrun"
+root = "Erdos307.Computational.QSieveRun"
+
+[[lean_lib]]
+name = "QNative"
+precompileModules = true

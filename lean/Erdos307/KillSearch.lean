@@ -249,11 +249,13 @@ If `checkAll` accepts the pools of `enumA` with the certificates `certs` and the
 as soon as it is empty over the listed pools. -/
 theorem tail_of_survivors {certs : List ℕ} {L : List (List ℕ)}
     (hcheck : checkAll (enumA pool99 20 0 []) certs L = true)
-    (hL : ∀ V ∈ L, ¬ CycleLow (forced39 ++ V).toFinset ∧ ∀ q : ℕ, q.Prime →
+    (hL : ∀ V ∈ L, (forced39 ++ V).Nodup → (∀ p ∈ forced39 ++ V, p.Prime) → 2 ∈ forced39 ++ V →
+      2 * dprod (forced39 ++ V).toFinset ≤ csum (forced39 ++ V).toFinset →
+      ¬ CycleLow (forced39 ++ V).toFinset ∧ ∀ q : ℕ, q.Prime →
       (∀ s ∈ forced39 ++ V, s < q) →
       ¬ (q * dprod (forced39 ++ V).toFinset ≤ csum (forced39 ++ V).toFinset * 2 ^ 40 ∧
         TailArith (forced39 ++ V).toFinset q)) : TailSectorEmpty := by
-  intro S hSp _ hcard hmass
+  intro S hSp h2S hcard hmass
   obtain ⟨V, hV, hSV, hnd⟩ := window_pool hSp hcard hmass
   have hD : (0 : ℚ) < dprod S := by exact_mod_cast dprod_pos hSp
   have hT : 2 * dprod S ≤ csum S := by
@@ -264,7 +266,7 @@ theorem tail_of_survivors {certs : List ℕ} {L : List (List ℕ)}
   rcases checkAll_sound _ _ _ hcheck V hV with ⟨c, hk⟩ | hmem
   · exact Or.inl fun q _ _ => leafKilled_notTail hSV hnd hT hk q
   · subst hSV
-    exact Or.inr ⟨(hL V hmem).1, fun q hq hlt => (hL V hmem).2 q hq fun s hs =>
-      hlt s (List.mem_toFinset.2 hs)⟩
+    have hH := hL V hmem hnd (fun p hp => hSp p (List.mem_toFinset.2 hp)) (List.mem_toFinset.1 h2S) hT
+    exact Or.inr ⟨hH.1, fun q hq hlt => hH.2 q hq fun s hs => hlt s (List.mem_toFinset.2 hs)⟩
   
 end Erdos307
