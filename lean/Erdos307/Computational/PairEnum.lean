@@ -1,3 +1,4 @@
+import QNative.PairCore
 import Erdos307.Sixty
 
 /-!
@@ -15,18 +16,11 @@ Paper: Proposition `prop:pairclosed`.
 
 namespace Erdos307
 
+theorem rsumN_eq : rsumN = rsum := rfl
+
 /-- The window: mass below `2`, and above `2` once the reciprocal of the largest element is added. -/
 def Win (L : List ℕ) : Prop :=
   rsum L < 2 ∧ ∃ r, L.getLast? = some r ∧ 2 < rsum L + (r : ℚ)⁻¹
-
-/-- The pruned DFS. `chosen` is descending (newest first); `cur = rsum chosen`. -/
-def pdfs (leaf : List ℕ → Bool) : List ℕ → ℕ → ℚ → List ℕ → Bool
-  | _, 0, cur, chosen =>
-    if cur < 2 ∧ (∃ r, chosen.head? = some r ∧ 2 < cur + (r : ℚ)⁻¹) then leaf chosen.reverse else true
-  | [], _ + 1, _, _ => true
-  | x :: xs, need + 1, cur, chosen =>
-    if 2 ≤ cur ∨ cur + rsum ((x :: xs).take (need + 1)) + (x : ℚ)⁻¹ ≤ 2 then true
-    else pdfs leaf xs need (cur + (x : ℚ)⁻¹) (x :: chosen) && pdfs leaf xs (need + 1) cur chosen
 
 theorem pdfs_sound (leaf : List ℕ → Bool) : ∀ (l : List ℕ), l.Pairwise (· < ·) → (∀ x ∈ l, 0 < x) →
     ∀ (need : ℕ) (cur : ℚ) (chosen : List ℕ), cur = rsum chosen →
@@ -73,6 +67,7 @@ theorem pdfs_sound (leaf : List ℕ → Bool) : ∀ (l : List ℕ), l.Pairwise (
       simpa using hd
     | succ n =>
       rw [pdfs] at hd
+      simp only [rsumN_eq] at hd
       by_cases hprune : 2 ≤ cur ∨ cur + rsum ((x :: xs).take (n + 1)) + (x : ℚ)⁻¹ ≤ 2
       · exfalso
         obtain ⟨hw1, r, hr, hw2⟩ := hw

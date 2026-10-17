@@ -1,3 +1,4 @@
+import QNative.PairCore
 import Erdos307.Computational.PairEnum
 import Erdos307.Computational.Euler
 import Erdos307.PairNecessary
@@ -15,25 +16,11 @@ Paper: Proposition `prop:pairclosed`.
 
 namespace Erdos307
 
-/-- `tabs[ℓ][x] = eulerSym ℓ x` for `ℓ ≤ B`, `x < ℓ`. -/
-def mkTabs (B : ℕ) : Array (Array ℤ) :=
-  (Array.range (B + 1)).map fun ℓ => (Array.range ℓ).map fun x => eulerSym ℓ x
-
 theorem mkTabs_get {B ℓ x : ℕ} (hℓ : ℓ ≤ B) (hx : x < ℓ) : ((mkTabs B)[ℓ]!)[x]! = eulerSym ℓ x := by
   have h1 : ℓ < (mkTabs B).size := by simp [mkTabs]; omega
   have h2 : x < ((mkTabs B)[ℓ]'h1).size := by simp [mkTabs]; omega
   rw [getElem!_pos (mkTabs B) ℓ h1, getElem!_pos _ x h2]
-  simp [mkTabs]
-
-/-- `csum` of a list. -/
-def nsum (L : List ℕ) : ℕ := (L.map fun p => L.prod / p).sum
-
-def mism (tabs : Array (Array ℤ)) (tg : List (ℕ × ℤ)) (m : ℕ) : Bool :=
-  tg.any fun e => decide ((tabs[e.1]!)[m % e.1]! ≠ e.2)
-
-def loop (tabs : Array (Array ℤ)) (tg : List (ℕ × ℤ)) : ℕ → ℕ → Bool
-  | _, 0 => true
-  | m, f + 1 => mism tabs tg m && loop tabs tg (m + 2) f
+  simp [mkTabs, eulerN, eulerSym]
 
 theorem loop_sound (tabs : Array (Array ℤ)) (tg : List (ℕ × ℤ)) :
     ∀ (f m : ℕ), loop tabs tg m f = true → ∀ k < f, mism tabs tg (m + 2 * k) = true := by
@@ -49,18 +36,6 @@ theorem loop_sound (tabs : Array (Array ℤ)) (tg : List (ℕ × ℤ)) :
       have := ih (m + 2) h.2 k (by omega)
       have e : m + 2 + 2 * k = m + 2 * (k + 1) := by ring
       rwa [e] at this
-
-def leaf (tabs : Array (Array ℤ)) (L : List ℕ) : Bool :=
-  let D := L.prod
-  let N := nsum L
-  match L.getLast? with
-  | none => true
-  | some r =>
-    if 2 * D ≤ N then false
-    else
-      let M := D / (2 * D - N)
-      let tg := (L.filter (· ≠ 2)).map fun ℓ => (ℓ, (tabs[ℓ]!)[(D / ℓ) % ℓ]!)
-      loop tabs tg (r + 2) ((M - r) / 2)
 
 lemma nsum_sort (U : Finset ℕ) : nsum (U.sort (· ≤ ·)) = csum U := by
   unfold nsum csum
