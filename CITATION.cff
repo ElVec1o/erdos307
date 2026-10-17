@@ -5,10 +5,11 @@ abstract: >-
   A structural study of Erdos Problem #307: do finite sets of distinct primes P, Q exist with
   (sum 1/p)(sum 1/q) = 1? The problem is identified with Conjecture 4 of Ufnarovski and Ahlander
   (2003), which states it in the arithmetic-derivative literature, so #307 and the two-cycle
-  question n'' = n are the same problem. A barrier is proved and machine-checked in Lean 4: any
-  solution has |P u Q| >= 60 and min(prod P, prod Q) >= 2.09e56, for both members and without
-  hypotheses. This appears to be the first valid unconditional bound of its kind, the only prior
-  candidate resting on an invalid step. The constructive route is closed for families of any growth
+  question n'' = n are the same problem. A barrier is proved: any solution has |P u Q| >= 61 and
+  min(prod P, prod Q) > 5.89e58. The bound |P u Q| >= 60 and min(prod P, prod Q) >= 2e56 is machine-checked in Lean 4
+  without hypotheses; the level-60 closure behind 61 is established by computation and formalised at a second tier, as
+  one theorem modulo a single named statement (Stage A), which is computed twice by independent programs. This appears to
+  be the first valid unconditional bound of its kind, the only prior candidate resting on an invalid step. The constructive route is closed for families of any growth
   rate, not merely polynomial ones, which rules out the Thabit/Euler programme that is the classical
   technique for problems of this kind. The known approximation theorem is made effective and given a
   certified witness: disjoint prime sets with |(sum 1/p)(sum 1/q) - 1| = 4.98e-4016, all 69 primes
@@ -24,16 +25,16 @@ abstract: >-
   solutions, so the infinitude of admissible supports above level 59 bounds the search space and not
   the solution set, and the problem reduces to the halting of one explicit search. The largest
   element of a support is bounded by an explicit function of the others, and the 59 smallest are
-  bounded at every level, which gives the first open level a stated size. The formalisation carries
-  no non-standard axioms: there is no native_decide anywhere, and every one of the 381 probed
-  declarations depends only on propext, Classical.choice and Quot.sound. The problem itself remains
-  open.
+  bounded at every level, which gives the first open level a stated size. The core formalisation carries
+  no non-standard axioms: all 477 probed declarations depend only on propext, Classical.choice and Quot.sound. A separate
+  tier (lean/Erdos307/Computational, lean/QNative) adds one native_decide axiom per compiled evaluation, 39 in all, for the
+  level-60 closure. The problem itself remains open.
 authors:
   - family-names: Bonfioli
     given-names: Vico
     email: vicobonfioli@gmail.com
-version: 1.75.0
-date-released: '2026-09-02'
+version: 1.76.0
+date-released: '2026-10-18'
 type: software
 license: MIT
 repository-code: "https://github.com/ElVec1o/erdos307"

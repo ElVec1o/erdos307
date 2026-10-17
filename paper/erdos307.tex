@@ -29,7 +29,7 @@
        on products of prime--reciprocal sums}
 \author{Vico Bonfioli\thanks{\texttt{vicobonfioli@gmail.com}.
   See the acknowledgments for a candid note on the use of AI assistance in this work.}}
-\date{Version 1.75.0\quad 2 September 2026}
+\date{Version 1.76.0\quad 18 October 2026}
 
 \begin{document}
 \maketitle
@@ -1201,6 +1201,24 @@ confirms exactly one completed pass per base with no candidate misreported; \tex
 for the tail sieve; and \texttt{split\_mitm --audit} plants $100$ genuine two--cycle--shaped splits across $5$ open bases and
 recovers all $100$. The assembly from level $60$ to the bound $61$ is formalised
 (\texttt{Erdos307.erdos307\_sixtyone\_of\_level60}).
+The level--$60$ closure is formalised at a second tier, in directories that the main library does not import
+(\texttt{lean/Erdos307/Computational}, \texttt{lean/QNative}), where each compiled evaluation adds one
+\texttt{native\_decide} axiom beside the three standard ones. The reduction is proved in the kernel: a tail cycle falls in the
+regime $\alpha^2 2^{40}\le D$ or satisfies $q\,\alpha^2\le N$ (\texttt{tail\_split\_core}), the two squares force
+$q\equiv A(1-D)\pmod 8$ and $(q\mid\ell)=((D/\ell)\mid\ell)$ at every odd $\ell\in S$ (\texttt{two\_adic\_class},
+\texttt{tail\_legendre}), and a divisor $d\mid A$ with Jacobi symbol $(D\mid d)=-1$ kills a base with no factoring
+(\texttt{kill\_of\_divisor}). The compiled evaluations are: the pair sector is empty (\texttt{pair\_sector\_empty}); every one of
+the $49{,}961$ window bases is killed by a Jacobi symbol or is one of $3{,}698$ listed survivors (\texttt{killCheck\_run});
+the $q$--sieve returns \texttt{true} on all $3{,}698$ (chunk theorems \texttt{chunk\_0}--\texttt{chunk\_36}). The barrier
+$|P\cup Q|\ge61$ is then a theorem (\texttt{Erdos307.erdos307\_sixtyone\_of\_stageA}) modulo one named statement,
+\texttt{StageAList}: no survivor base carries a cycle with $\alpha^2 2^{40}\le D$. Stage A is not formalised; it was recomputed
+by \texttt{code/splitmitm/stageA2.rs}, an independent program (interleaved halves, a bucketed hash join, the identity tested
+modulo two $31$--bit primes with the restriction $|T|$ odd), on the $3{,}698$ survivors: $1.05\times10^{11}$ candidates in the
+lower window, no identity hit, and a candidate count at least that of the original run on every base. A rerun of the
+factoring search found $15{,}044$ kills and $3{,}698$ survivors (the search is not deterministic across runs; the figures
+above, $15{,}264$ and $3{,}478$, came from an earlier run); all $3{,}698$ lie among the $7{,}713$ bases on which Stage A and
+the sieve ran.
+
 
 \begin{corollary}[Sharpened bound]\label{cor:level61bound}
 Every solution has $\prod_{p\in U}p\ge\Pi_{61}>6.97\times10^{117}$ and

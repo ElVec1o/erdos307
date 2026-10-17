@@ -1,6 +1,6 @@
 # On the equation n″ = n and Erdős Problem #307
 
-**Version 1.75.0 · 26 September 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
+**Version 1.76.0 · 18 October 2026** · Erdős #307 is **open**; this repository holds the paper, its Lean formalization, and every program behind its numbers.
 
 **Author:** Vico Bonfioli — <vicobonfioli@gmail.com>
 
@@ -166,12 +166,12 @@ CITATION.cff   citation metadata; its version field is the released version
 LICENSE        licence for the repository
 .gitignore     excludes private/, which never ships
 
-paper/   erdos307-core.pdf       — the paper (32 pp; the results)
+paper/   erdos307-core.pdf       — the paper (33 pp; the results)
          erdos307-computational.pdf — the computational companion (32 pp; certificate, split sieve, pair sector)
          erdos307-obstructions.pdf  — the obstructions companion (35 pp; places, potentials, two closures)
          erdos307-analytic.pdf      — the analytic companion (49 pp; density theorem, square sieve)
          erdos307.tex            — the single source both are generated from
-lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results
+lean/    Lean 4 (mathlib v4.30.0) formalization of the rigidity and barrier results (core: `lean/Erdos307`; tier V2: `lean/Erdos307/Computational`, `lean/QNative`)
 code/    Rust and PARI/GP programs behind every numerical claim (a few legacy Python) — see code/README.md
 code/hunt/    Rust enumerators for derivative cycles over ℤ and the number rings — see code/hunt/README.md
 data/    small final data the paper cites
@@ -248,7 +248,7 @@ against the build by `code/check_consistency.sh` at every push. Summary:
 | `prop:ppninherit` (the ten-factor primary pseudoperfect number extends by neither one nor two primes; Erdős #313) | `Erdos307.PPNInherit`, `Erdos307.PrattN10`, `Erdos307.Pratt` | VERIFIED |
 | `prop:pairclosed` (the level-60 pair sector is empty; algebraic core, finite check in `code/pairsector_close.rs`) | `Erdos307.PairClosed`; V2 end to end: `Erdos307.Computational.PairNative.pair_sector_empty` (one `native_decide`) | VERIFIED (core), V2 (finite check) |
 | `cor:splitexact` (the single-tail criterion is exact; every split has `|T|` odd) | `Erdos307.SplitExact` | VERIFIED |
-| `prop:level60closed` (level 60 is empty: pair sector by mass, single-tail sector by identity, no factorisation) | `code/splitmitm/split_mitm.rs`, `code/qsieve/q_sieve.rs`, `q_sieve2.rs` | VERIFIED (computational) |
+| `prop:level60closed` (level 60 is empty: pair sector by mass, single-tail sector by identity, no factorisation) | computations `code/splitmitm/split_mitm.rs` (re-run by `stageA2.rs`), `code/qsieve/q_sieve.rs`, `q_sieve2.rs`; Lean reduction `Erdos307.Level60Sectors`, `KillSearch`, `JacobiAlg`, `QSieveLemmas`; V2 tier `Computational/PairNative`, `KillNative`, `QSieveBase`, `QSChunk/C00`-`C36`, `QSieveFinal` (`erdos307_sixtyone_of_stageA`) | VERIFIED at tier V2 modulo one named statement, Stage A (`StageAList`, computed twice, not in Lean) |
 | `cor:level61bound` (barrier sharpened to `\|P\cup Q\| >= 61`, `min(prod P, prod Q) > 5.89e58`; assembly `Erdos307.Sixtyone`) | `Erdos307.Sixtyone` | VERIFIED (assembly) |
 | `prop:splitsieve` (split sieve for single-tail families; the `q`-free criterion and the parity law) | `Erdos307.SplitSieve` | VERIFIED |
 | `prop:sector42` (algebraic half) | `Erdos307.Sector42` | PROVED ⭐ (enumeration not formalizable at 3.7×10¹⁰ leaves) |
@@ -263,6 +263,8 @@ against the build by `code/check_consistency.sh` at every push. Summary:
 five of the six have their non-analytic core machine-checked, and what remains under all of them is
 four classical theorems (Siegel–Walfisz, Siegel, the zero-free region for Dirichlet `L`-functions,
 Halász) which are formalized neither in Mathlib nor in `PrimeNumberTheoremAnd`.
+
+**Tier V2.** `lean/Erdos307/Computational/` and `lean/QNative/` are not imported by the main library and are not probed by `Check.lean`. They hold the compiled evaluations of the level-60 closure; each `native_decide` adds one axiom (`Erdos307.<name>._native.native_decide.ax_1_1`), 39 in all (the pair sector, the kill stage, 37 q-sieve chunks), listed by `lake env lean Erdos307/Computational/Check.lean`. `QNative` is built with `precompileModules` so that these evaluations run as native code. The q-sieve and pair-sector programs in the V2 tier are independent Lean implementations of the Rust ones.
 
 ## Reproduction
 
