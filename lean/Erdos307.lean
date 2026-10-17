@@ -75,5 +75,6 @@ import Erdos307.PairNecessary
 import Erdos307.JacobiAlg
 import Erdos307.KillSearch
 import Erdos307.QSieveLemmas
+import Erdos307.SameSide
 import Erdos307.SplitExact
 import Erdos307.Sixtyone

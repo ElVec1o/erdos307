@@ -1,8 +1,8 @@
 # Formal coverage of `paper/erdos307.tex`
 
-**97 of 158** labelled results are named by a Lean file in `Erdos307/` (*named*, not necessarily fully proved: an anchor can cover the whole statement, one component, or a statement conditional on explicit hypotheses; see `private/anchor_audit_2026-10.md`) (82 files, **0 `sorry`**).
+**99 of 158** labelled results are named by a Lean file in `Erdos307/` (*named*, not necessarily fully proved: an anchor can cover the whole statement, one component, or a statement conditional on explicit hypotheses; see `private/anchor_audit_2026-10.md`) (83 files, **0 `sorry`**).
 
-`lake env lean Check.lean` probes **477 declarations across all 82 modules**. Everything is on the
+`lake env lean Check.lean` probes **478 declarations across all 83 modules**. Everything is on the
 three standard axioms or fewer, with no exceptions. `dfs_run`, the pruned-search execution that
 closes level 60, was the last site off that footing; it and the `erdos307_sixty` that consumes it are
 now kernel-`decide`, as is the numeral bridge behind `card_ge_59` and `erdos307_barrier_closed`.
@@ -352,3 +352,9 @@ and the q-sieve already ran on. The kernel evaluation of `enumA` was tried and a
 cache (the earlier 2-minute run was unguarded and its peak was not measured).
 The paper's 15,264 factor kills are 15,044 in this rerun (the Brent-Pollard search is not deterministic across runs);
 the survivor count is 3,698, not 3,478.
+
+### Same-side case (2026-10-18)
+`Erdos307.SameSide` (`same_side_delta`, `same_side_delta_pos`, `same_side_prod`): when both new primes of a level-61 support lie
+on the same side, `M^2 (u+v) = M N - M' N' = Delta > 0` and `u v = N'/M`. The proofs of `cor:level61height` and `cor:splitbalance`
+treated only the opposite-side (Frame Rule) case; both statements stand, the proofs now cover the same-side case. Found by a
+read-only review (2026-10-18); the released v1.76.0 text lacks it.

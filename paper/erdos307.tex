@@ -642,6 +642,10 @@ $\sigma(P_0)\sigma(Q_0)<\sigma(P)\sigma(Q)=1$, so $\Delta\ge1$; and $MN=D$ exact
 $MN'=D\,\sigma(Q_0)\le tD$ with $t=1.10200\ldots$ the window root at $T_{61}$. Hence
 $u,v\le D^2+tD$, giving $\log_{10}u,\log_{10}v\le226.79$ and
 $\log_{10}\prod U\le113.397+2(226.79)=566.98$.
+If instead the two new primes lie on the same side, say $a=Muv$ and $b=N$ with $M=\prod P_0$ and $N=\prod Q_0$ (the other
+orientation is the same with the sides exchanged), then $a'=b$ and $b'=a$ read $M'uv+M(u+v)=N$ and $N'=Muv$, so
+$M^2(u+v)=MN-M'N'=\Delta$, which is again positive, and $uv=N'/M\le N'\le\sigma(S)\,D<2.0024\,D$, whence
+$\log_{10}\prod U\le2(113.397)+0.31<567$ \textup{(}\texttt{Erdos307.same\_side\_delta}\textup{)}.
 
 If $\sigma(S)<2$ then Proposition~\ref{prop:massladder} bounds every element of $S$ and a
 branch--and--bound over the admissible chains gives $\log_{10}D\le113.526$
@@ -3526,6 +3530,8 @@ mass--balanced splits, $\sigma(P_0)\approx\sigma(S)/2$, are precisely excluded. 
 \end{corollary}
 \begin{proof}
 Theorem~\ref{thm:frame} gives $\alpha=(MN'+N^2)/\Delta$ with $\Delta=D(1-\sigma(P_0)\sigma(Q_0))$, and
+If the two new primes lie on the same side, then $a=Muv$, $b=N$ and the equations $a'=b$, $b'=a$ give
+$M^2(u+v)=MN-M'N'=\Delta$ \textup{(}\texttt{Erdos307.same\_side\_delta\_pos}\textup{)}, so $\Delta>0$ again.
 $\alpha>0$ forces $\Delta>0$. With $\sigma(P_0)+\sigma(Q_0)=\sigma(S)$ fixed, the product is the
 downward parabola $z\mapsto z(\sigma(S)-z)$, which exceeds $1$ exactly between the roots of
 $z^2-\sigma(S)z+1$ and is maximal at the midpoint.

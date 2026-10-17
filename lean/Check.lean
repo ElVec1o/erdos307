@@ -11,6 +11,7 @@ import Erdos307.PairNecessary
 import Erdos307.JacobiAlg
 import Erdos307.KillSearch
 import Erdos307.QSieveLemmas
+import Erdos307.SameSide
 import Erdos307.Deficit
 import Erdos307.Breeder
 import Erdos307.Bridge
@@ -576,3 +577,4 @@ open Erdos307
 #print axioms Erdos307.two_adic_class
 #print axioms Erdos307.tail_legendre
 #print axioms Erdos307.tail_of_survivors
+#print axioms Erdos307.same_side_delta_pos
