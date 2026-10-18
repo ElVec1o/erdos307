@@ -2755,6 +2755,21 @@ $p=(MN'+N^2)/\Delta$ and $q=(M'N+M^2)/\Delta$; substituting back verifies both e
 identically. (Both identities were checked symbolically.)
 \end{proof}
 
+\begin{remark}[Linear relations and a factorised form of $\Delta$]\label{rem:framerelations}
+For integers $p,q$ satisfying the two displayed quotients one has, by direct substitution,
+\[
+Mp-N'q=N,\qquad Nq-M'p=M,\qquad (\Delta p-N^2)(\Delta q-M^2)=MN\,M'N'.
+\]
+(Proved by hand; the first two are the cycle equations themselves, the third is the product of
+$\Delta p-N^2=MN'$ and $\Delta q-M^2=M'N$.) Two consequences. A prime dividing both $p$ and $q$
+divides $M$ and $N$, so $\gcd(p,q)=1$; and $\gcd(p,N)\mid M$, $\gcd(q,M)\mid N$, so
+$\gcd(p,N)=\gcd(q,M)=1$ without further hypothesis. Of the clause ``each coprime to $MN$'' in
+Theorem~\ref{thm:frame}, only $p\nmid M$ and $q\nmid N$ are therefore independent conditions. In a
+census of all coprime squarefree $M,N\le 400$ (GP, observed) the value $\Delta=1$ occurs only for
+$M=N=1$, the smallest other value is $\Delta=5$ (at $\{2\},\{3\}$), and each of the ten integral
+frames found has $\min(p,q)=1$. This is a finite census and settles nothing for larger bases.
+\end{remark}
+
 A two--primes--per--side variant (``Rule~2'') is obtained identically: with $a=Mp_1p_2$, $b=Nq_1q_2$
 and elementary symmetric functions $e_1,e_2,f_1,f_2$, the cycle equations are linear in the $f_i$,
 \[
